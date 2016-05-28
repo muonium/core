@@ -30,7 +30,7 @@ var sendRegisterRequest = function()
             switch(xhr.responseText)
             {
                 case "ok":
-                    generateKeys(field_mail, field_passphrase);
+                    generateKeys(field_passphrase);
                     break;
 
                 case "mailExists":
@@ -72,7 +72,7 @@ var generateKeys = function(passphrase)
     if(passphrase.length != 0)
     {
       var worker = new Worker("js/aeJs.worker.js");
-      worker.postMessage({
+        worker.postMessage({
         action: "encrypt",
         file: document.querySelector("#file").file[0],
         password: passphrase,
@@ -105,8 +105,8 @@ var openSession = function(passphrase)
             if(xhr.responseText.length == 10) // Longueur du token
             {
                 sessionStorage.setItem("t", xhr.responseText);
-                sessionStorage.setItem("pp", CryptoJS.AES.encrypt(passphrase, xhr.responseText));
-
+                sessionStorage.setItem("pp", sha512(passphrase,xhr.responseText));
+                //sessionStorage.setItem("pp", CryptoJS.AES.encrypt(passphrase, xhr.responseText));
                 returnArea.innerHTML = "End. Redirecting...";
 
                 setTimeout(function(){document.location.href = "Accueil";}, 1000);
