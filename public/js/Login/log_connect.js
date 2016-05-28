@@ -14,40 +14,40 @@ var sendConnectionRequest = function()
     var field_mail = document.querySelector("#field_mail").value;
     var field_password = document.querySelector("#field_password").value;
     var field_passphrase = document.querySelector("#field_passphrase").value;
-    
+
     var returnArea = document.querySelector("#return");
-    
+
     returnArea.innerHTML = "<img src='./public/pictures/index/loader.gif' style='height: 3vh;' />";
-    
+
     var xhr = new XMLHttpRequest();
     xhr.open("POST", "Connexion/Login", true);
     xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    
+
     xhr.onreadystatechange = function()
     {
         if(xhr.status == 200 && xhr.readyState == 4)
         {
-            
+
             console.log(xhr.responseText);
-            
+
             switch(xhr.responseText)
             {
-                case "ok":                                
-                        getKeys(field_passphrase);
+                case "ok":
+                        getKey(field_passphrase);
                     break;
-                
+
                 case "errorForm":
                     returnArea.innerHTML = "<p class='warning'>Tous les champs doivent être remplis</p>";
                     break;
-                    
+
                 case "errorID":
                     returnArea.innerHTML = "<p class='error'>Le couple identifiant/mot de passe n'est pas reconnu</p>";
                     break;
-                    
+
                 case "errorSession":
                     returnArea.innerHTML = "<p class='error'>Impossible d'ouvrir cette session, celle-ci est déjà ouverte par quelqu'un d'autre</p>";
                     break;
-                    
+
                 default:
                     returnArea.innerHTML = "<p class='error'>Erreur inconnue</p>";
                     break;
@@ -60,60 +60,34 @@ var sendConnectionRequest = function()
 * @name         : getKeys(string passphrase)
 * @description  : Permet la récupération des clés privée et publique
 */
-var getKeys = function(passphrase)
+var getKey = function(passphrase)
 {
     var returnArea = document.querySelector("#return");
-    
-    var statusPublicKey = 0;
-    var statusPrivateKey = 0;
-                        
-    var xhr_public = new XMLHttpRequest();
-    xhr_public.open("POST", "Connexion/getPublicKey", true);
+    var status_key;
+    var xhr_private_key = new XMLHttpRequest();
+    xhr_public.open("POST", "Connexion/getPrivateKey", true);
     //xhr_public.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    
+
     xhr_public.onreadystatechange = function()
     {
-        if(xhr_public.status == 200 && xhr_public.readyState == 4)
+        if(xhr_private_key.status == 200 && xhr_public.readyState == 4)
         {
-        	
-            if(xhr_public.responseText.substr(0, 36) == "-----BEGIN PGP PUBLIC KEY BLOCK-----")
-            {
-                sessionStorage.setItem("publicKey", xhr_public.responseText);
 
-                statusPublicKey = 1;
-                
+            if(xhr_private_key.responseText == "")
+            {
+              alert("Private key cannot be recieved");
+                status_key = 0;
             }
             else
             {
-                alert("Impossible de récupérer la clé publique");
+                sessionStorage.setItem("privateKey", xhr_private_key.responseText);
+
+                status_key = 1;
             }
         }
     }
 
-    xhr_public.send(null);
-
-    var xhr_private = new XMLHttpRequest();
-    xhr_private.open("POST", "Connexion/getPrivateKey", true);
-   // xhr_private.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    
-    xhr_private.onreadystatechange = function()
-    {
-        if(xhr_private.status == 200 && xhr_private.readyState == 4)
-        {
-            if(xhr_private.responseText.substr(0, 37) == "-----BEGIN PGP PRIVATE KEY BLOCK-----")
-            {
-                sessionStorage.setItem("privateKey", xhr_private.responseText);
-
-                statusPrivateKey = 1;
-            }
-            else
-            {
-                alert("Impossible de récupérer la clé privée");
-            }
-        }
-    }
-
-    xhr_private.send(null);
+    xhr_private_key.send(null);
 
     var checkKeysStatus = setInterval(function(){
         if(statusPublicKey == 1 && statusPrivateKey == 1)
@@ -131,7 +105,7 @@ var getKeys = function(passphrase)
 var encryptPassphrase = function(passphrase)
 {
     var returnArea = document.querySelector("#return");
-    
+
     var xhr = new XMLHttpRequest();
     xhr.open("POST", "Connexion/getToken", true);
 
@@ -142,9 +116,9 @@ var encryptPassphrase = function(passphrase)
             if((xhr.responseText).length == 128)
             {
                 sessionStorage.setItem("token", CryptoJS.AES.encrypt(passphrase, xhr.responseText));
-                
+
                 returnArea.innerHTML = "<p class='success'>Authentification terminée. Redirection en cours...</p>";
-                
+
                 setTimeout(function(){
                     openSession();
                 }, 1000);
@@ -152,7 +126,7 @@ var encryptPassphrase = function(passphrase)
             else
             {
                 returnArea.innerHTML = "<p class='error'>Erreur lors de l'authentification. Veuillez réessayer ultérieurement</p>";
-                
+
                 setTimeout(function(){
                     destroySession();
                 }, 1000);
@@ -180,7 +154,7 @@ var destroySession = function()
 {
     var xhr = new XMLHttpRequest();
     xhr.open("POST", "Connexion/destroySession", true);
-    
+
     xhr.onreadystatechange = function()
     {
         if(xhr.status == 200 && xhr.readyState == 4)
@@ -188,6 +162,6 @@ var destroySession = function()
             document.location.href = "Accueil";
         }
     }
-    
+
     xhr.send(null);
 }

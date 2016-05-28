@@ -5,7 +5,7 @@
 * @copyright    : (c) QC 2015
 */
 
-var qC = 
+var qC =
 {
     /*
     * @description : Initilisation globale de l'interface
@@ -20,7 +20,7 @@ var qC =
         * Suppression des données locales
         */
         sessionStorage.clear();
-        
+
         /*
         * Récupération de l'arborescence des dossiers du panneau de gauche
         */
@@ -30,11 +30,11 @@ var qC =
         {
             if(xhr.status == 200 && xhr.readyState == 4)
             {
-            
+
             }
         }
         xhr.send(null);
-        
+
         /*
         * Récupération des informations sur le quota
         */
@@ -44,11 +44,11 @@ var qC =
         {
             if(xhr.status == 200 && xhr.readyState == 4)
             {
-            
+              
             }
         }
         xhr.send(null);
-        
+
         /*
         * Récupération de l'arborescence courante
         */
@@ -58,11 +58,11 @@ var qC =
         {
             if(xhr.status == 200 && xhr.readyState == 4)
             {
-            
+
             }
         }
         xhr.send(null);
-        
+
         /*
         * Chargement des fichiers et dossiers appartenant à l'utilisateur
         */
@@ -76,10 +76,10 @@ var qC =
             }
         }
         xhr.send(null);
-        
+
         sessionStorage.setItem("listage", "atomic");
     },
-    
+
     /*
     * @description : Permet de sélectionner ou désélectionner un élément
     */
@@ -93,10 +93,10 @@ var qC =
         {
             element.className = element.className.replace(" selected", "");
         }
-        
+
         qC.checkActions();
     },
-    
+
     /*
     * @description : Permet de charger les actions relatives aux éléments sélectionnés
     *   - Un fichier sélectionné : Ouvrir, Renommer, Supprimer, Copier, Couper, Télécharger, Propriétés, Favoris
@@ -111,18 +111,18 @@ var qC =
         */
         var elements = document.querySelectorAll("#panel_right_listingElements .selected");
         var container = document.querySelector("#panel_right_listingElements .actions_parentFolder");
-        
+
         /*
         * MàZ des actions
         */
         container.innerHTML = "";
-        
+
         /*
         * Traitement cas par cas, voir @description
         */
         if(elements.length == 0) // Pas d'élément
         {
-            container.innerHTML = 
+            container.innerHTML =
                 "<div class='actions_atom element_root_folder_pos1' onclick='qC.actions.openPopUp(\"createFile\")'>" +
                     "<p><img src='images/actions/create_file.svg' /></p>" +
                 "</div>" +
@@ -140,7 +140,7 @@ var qC =
         {
             if(elements[0].getAttribute("data-type") == "folder") // 1 dossier
             {
-                container.innerHTML = 
+                container.innerHTML =
                     "<div class='actions_atom element_root_folder_pos1' onclick='qC.actions.open();'>" +
                         "<p><img src='images/actions/view.svg' /></p>" +
                     "</div>" +
@@ -168,7 +168,7 @@ var qC =
             }
             else // 1 fichier
             {
-                container.innerHTML = 
+                container.innerHTML =
                     "<div class='actions_atom element_root_folder_pos1' onclick='qC.actions.open();'>" +
                         "<p><img src='images/actions/view.svg' /></p>" +
                     "</div>" +
@@ -197,7 +197,7 @@ var qC =
         }
         else // Plusieurs éléments
         {
-            container.innerHTML = 
+            container.innerHTML =
                 "<div class='actions_atom element_root_folder_pos1' onclick='qC.actions.trash();'>" +
                     "<p><img src='images/actions/trash.svg' /></p>" +
                 "</div>" +
