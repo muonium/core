@@ -1,0 +1,15 @@
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 48 48" enable-background="new 0 0 48 48" xml:space="preserve">
+    <polygon fill="#0d6a86" points="30,3 8,3 8,45 40,45 40,13 "></polygon>
+    <polygon fill="white" points="38.5,14 29,14 29,4.5 "></polygon>
+    <g>
+        <rect x="22" y="21" fill="white" width="4" height="2"></rect>
+        <rect x="22" y="15" fill="white" width="4" height="2"></rect>
+        <rect x="22" y="18" fill="white" width="4" height="2"></rect>
+        <rect x="22" y="24" fill="white" width="4" height="2"></rect>
+        <rect x="22" y="9" fill="white" width="4" height="2"></rect>
+        <rect x="22" y="3" fill="white" width="4" height="2"></rect>
+        <rect x="22" y="6" fill="white" width="4" height="2"></rect>
+        <rect x="22" y="12" fill="white" width="4" height="2"></rect>
+    </g>
+    <path fill="white" d="M26,27h-4c0,3-2,6-2,8c0,2.209,1.791,4,4,4s4-1.791,4-4C28,33,26,30,26,27z M24,37c-1.104,0-2-0.896-2-2s0.896-2,2-2s2,0.896,2,2S25.104,37,24,37z"></path>
+</svg>

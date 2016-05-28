@@ -1,0 +1,375 @@
+/*
+* @nom             : home_features.css
+* @description     : Feuille de style pour l'index du site de features
+* @authors         : Romain Claveau <romain.claveau@protonmail.ch>
+*/
+
+
+/**********/
+/* Global */
+/**********/
+*
+{
+    padding: 0;
+    margin: 0;
+    
+    color: inherit;
+    text-decoration: none;
+}
+
+html
+{
+    font-family: Tahoma;
+    font-size: 14px;
+}
+
+body
+{
+    background: url("../images/background.jpg");
+}
+
+
+/**********************************/
+/* Zone de selection de la langue */
+/**********************************/
+section#language
+{
+    display: table;
+    
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 5%;
+    width: 100%;
+    
+    color: white;
+}
+
+section#language div
+{
+    display: table-cell;
+    vertical-align: middle;
+    text-align: right;
+    padding-right: 5px;
+}
+
+section#language div select
+{
+    transition: all .3s ease;
+    -webkit-transition: all .3s ease;
+    -ms-transition: all .3s ease;
+    -o-transition: all .3s ease;
+    
+    background-color: transparent;
+    
+    border: none;
+    outline: none;
+    
+    height: 3vh;
+}
+
+section#language div select:hover
+{
+    transition: all .3s ease;
+    -webkit-transition: all .3s ease;
+    -ms-transition: all .3s ease;
+    -o-transition: all .3s ease;
+    
+    color: #00a7ff;
+    
+    cursor: pointer;
+}
+
+
+/**************************/
+/* Zone du logo avec menu */
+/**************************/
+section#header
+{
+    position: absolute;
+    top: calc(5% - 1px);
+    left: 0;
+    height: calc(10% + 1px);
+    width: 100%;
+}
+
+section#header div#logo
+{
+    display: table;
+    
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 50%;
+    padding-left: 5vw;
+    
+    font-size: 3vh;
+    
+    text-shadow: 0 0 1px rgba(144, 208, 255, 0.85);
+    
+    color: transparent;
+}
+
+section#header div#logo div
+{
+    display: table-cell;
+    vertical-align: middle;
+    text-align: left;
+}
+
+section#header div#logo div:first-child
+{
+    width: 10vh;
+}
+
+section#header div#logo div img
+{
+    height: 8vh;
+}
+
+section#header div#list
+{
+    display: table;
+    
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+    
+    color: white;
+}
+
+section#header div#list ul
+{
+    display: table-cell;
+    vertical-align: middle;
+    
+    padding-right: 5vw;
+    
+    background-color: rgba(0, 167, 255, 0.08);
+    
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+
+section#header div#list ul li
+{
+    transition: all .3s ease;
+    -webkit-transition: all .3s ease;
+    -ms-transition: all .3s ease;
+    -o-transition: all .3s ease;
+    
+    display: inline;
+    padding-left: 3vw;
+}
+
+section#header div#list ul li:hover
+{
+    transition: all .3s ease;
+    -webkit-transition: all .3s ease;
+    -ms-transition: all .3s ease;
+    -o-transition: all .3s ease;
+    
+    color: #00a7ff;
+    
+    cursor: pointer;
+}
+
+
+/*******************/
+/* Zone d'accroche */
+/*******************/
+section#background
+{
+    position: absolute;
+    top: 15%;
+    left: 0;
+    height: 30%;
+    width: 100%;
+    
+    text-align: center;
+}
+
+section#background div#box
+{
+    display: table;
+    
+    position: absolute;
+    top: 10%;
+    left: 17%;
+    width: 60%;
+    height: 80%;
+    
+    background-color: white;
+    
+    opacity: 0.9;
+    
+    border-radius: 5px;
+    
+    padding-left: 3vw;
+    padding-right: 3vw;
+}
+
+section#background div#box div
+{
+    display: table-row;
+}
+
+section#background div#box div#slogan
+{
+    height: 40%;
+}
+
+section#background div#box div#slogan p
+{
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+    
+    font-size: 5vh;
+    
+    text-shadow: 0 0 1px rgba(0, 98, 255, 0.5);
+    
+    color: transparent;
+}
+
+section#background div#box div#catch
+{
+    height: 40%;
+    
+    font-size: 20px;
+}
+
+section#background div#box div#button
+{
+    height: 20%;
+}
+
+section#background div#box div#button input
+{
+    transition: all .3s ease;
+    -webkit-transition: all .3s ease;
+    -ms-transition: all .3s ease;
+    -o-transition: all .3s ease;
+    
+    width: 20vw;
+    height: 3vh;
+    
+    border-radius: 3px;
+    border: 1px solid rgba(0, 98, 255, 0.5);
+    
+    color: rgba(0, 98, 255, 0.5);
+    background-color: transparent;
+    
+    outline: none;
+    
+    cursor: pointer;
+}
+section#background div#box div#button input:hover
+{
+    transition: all .3s ease;
+    -webkit-transition: all .3s ease;
+    -ms-transition: all .3s ease;
+    -o-transition: all .3s ease;
+    
+    background-color: rgba(0, 98, 255, 0.5);
+    color: white;
+}
+
+section#background div#box div p
+{
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+}
+
+
+/*******************/
+/* Fonctionnalités */
+/*******************/
+section#features
+{
+    position: absolute;
+    top: 45%;
+    left: 0;
+    height: 50%;
+    width: 100%;
+    
+    background-color: rgb(240, 240, 240);
+}
+
+section#features table
+{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+section#features table tr
+{
+    text-align: center;
+    
+    height: 50%;
+}
+
+section#features table tr td
+{
+    width: 25%;
+    
+    padding: 3vh;
+}
+
+section#features table tr td p
+{
+    text-align: center;
+}
+
+section#features table tr td img
+{
+    height: 5vh;
+}
+
+
+/**********/
+/* Footer */
+/**********/
+section#footer
+{
+    display: table;
+    
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: calc(5% + 1px);
+    width: 100%;
+    
+    background-color: rgb(230, 230, 230);
+}
+
+section#footer div
+{
+    display: table-cell;
+    vertical-align: middle;
+}
+
+section#footer div#copyright
+{
+    text-align: left;
+    padding: 5px;
+    
+    color: black;
+}
+
+section#footer div#rs
+{
+    text-align: right;
+    padding-right: 5px;
+}
+
+section#footer div#rs img
+{
+    height: 3vh;
+}

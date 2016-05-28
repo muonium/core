@@ -1,0 +1,73 @@
+/*******************************
+** listing type css for EC's desktop
+** (c) EC 2015
+*******************************/
+
+
+/***
+*** Listage liste
+***/
+
+
+/*
+* Affichage des éléments
+*/
+
+/* Général */
+#panel_right_listingElements table
+{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    
+    border-collapse: collapse;
+}
+
+#panel_right_listingElements table tr
+{
+    height: 5vh;
+    
+    text-align: center;
+    
+    cursor: pointer;
+}
+#panel_right_listingElements table tr:hover
+{
+    background-color: #A9C0C4;
+}
+
+#panel_right_listingElements table tr td.favorite
+{
+    width: 3vh;
+}
+
+#panel_right_listingElements table tr td.favorite img
+{
+    height: 2vh;
+    width: 2vh;
+}
+
+#panel_right_listingElements table tr td.icon
+{
+    width: 5vh;
+}
+
+#panel_right_listingElements table tr td.icon img
+{
+    height: 3vh;
+    width: 3vh;
+}
+
+#panel_right_listingElements table tr td.name
+{
+    text-align: left;
+    padding-left: 1vh;
+    
+    width: 30%;
+}
+
+td.type, td.size, td.modified
+{
+    width: calc(23.33% - 2.66vh);
+}

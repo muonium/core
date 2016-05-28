@@ -1,0 +1,233 @@
+*
+{
+    margin: 0;
+    padding: 0;
+    
+    font-family: Tahoma;
+    
+    font-size: 14px;
+}
+
+a
+{
+    text-decoration: none;
+    color: inherit;
+}
+
+body
+{
+    background: rgba(40, 68, 92, 0.9);
+}
+
+section#header
+{
+    display: table;
+    
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 15%;
+}
+
+section#header div#logo
+{
+    display: table-cell;
+    vertical-align: middle;
+    
+    text-align: center;
+}
+
+section#header div#logo img
+{
+    height: 13vh;
+}
+
+section#content
+{
+    position: absolute;
+    top: 15%;
+    left: 0;
+    height: 85%;
+    width: 100%;
+    
+    background-color: rgb(240, 240, 240);
+}
+
+section#content div#back
+{
+    display: table;
+    
+    position: absolute;
+    top: 1%;
+    left: 1%;
+    width: 20%;
+    height: 5%;
+}
+
+section#content div#back p
+{
+    transition: all .3s ease;
+    -webkit-transition: all .3s ease;
+    -ms-transition: all .3s ease;
+    -o-transition: all .3s ease;
+    
+    display: table-cell;
+    vertical-align: middle;
+    
+    text-align: left;
+    
+    cursor: pointer;
+}
+section#content div#back p:hover
+{
+    transition: all .3s ease;
+    -webkit-transition: all .3s ease;
+    -ms-transition: all .3s ease;
+    -o-transition: all .3s ease;
+    
+    color: rgba(40, 68, 92, 0.9);
+}
+
+section#content div#avatar
+{
+    display: table;
+    
+    position: absolute;
+    top: 10%;
+    left: calc(50% - 5vh);
+    width: 10vh;
+    height: 10vh;
+    
+    border-radius: 10vh;
+    
+    border: 5px solid #28535c;
+}
+
+section#content div#avatar p
+{
+    display: table-cell;
+    vertical-align: middle;
+    
+    text-align: center;
+}
+
+section#content div#avatar p img
+{    
+    height: 8vh;
+    width: 8vh;
+}
+
+section#content div#text
+{
+    display: table;
+    
+    position: absolute;
+    top: calc(10% + 12vh);
+    left: 25%;
+    width: 50%;
+    height: 5vh;
+}
+
+section#content div#text p
+{
+    display: table-cell;
+    vertical-align: middle;
+    
+    text-align: center;
+    
+    color: #28535c;
+    
+    font-size: 3vh;
+}
+
+section#content div#form
+{
+    position: absolute;
+    top: 32%;
+    left: 30%;
+    height: 30%;
+    width: 40%;
+    
+    text-align: center;
+}
+
+section#content div#form input[type="text"], section#content div#form input[type="password"]
+{
+    transition: all .3s ease;
+    -webkit-transition: all .3s ease;
+    -ms-transition: all .3s ease;
+    -o-transition: all .3s ease;
+    
+    border: 1px solid rgba(40, 83, 92, 0.44);
+    border-radius: 3px;
+    
+    margin-top: 10px;
+    
+    height: 4vh;
+    width: 20vw;
+    
+    outline: none;
+    
+    padding-left: 10px;
+    
+    color: #28535c;
+}
+
+section#content div#form input[type="submit"]
+{
+    transition: all .3s ease;
+    -webkit-transition: all .3s ease;
+    -ms-transition: all .3s ease;
+    -o-transition: all .3s ease;
+    
+    margin-top: 20px;
+    
+    outline: none;
+    
+    border: 3px solid #28535c;
+    border-radius: 3px;
+    
+    height: 4vh;
+    width: 10vw;
+    
+    cursor: pointer;
+    
+    background-color: transparent;
+}
+section#content div#form input[type="submit"]:hover
+{
+    transition: all .3s ease;
+    -webkit-transition: all .3s ease;
+    -ms-transition: all .3s ease;
+    -o-transition: all .3s ease;
+    
+    background-color: #28535c;
+    color: white;
+}
+
+section#content div#return
+{
+    position: absolute;
+    top: 90%;
+    left: 20%;
+    height: 10%;
+    width: 60%;
+    
+    text-align: center;
+}
+
+section#content div#return p.error
+{
+    color: red;
+}
+
+section#content div#return p.warning
+{
+    color: orange;
+}
+
+section#content div#return p.success
+{
+    color: green;
+}

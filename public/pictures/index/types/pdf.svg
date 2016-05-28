@@ -1,0 +1,5 @@
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 48 48" enable-background="new 0 0 48 48" xml:space="preserve">
+    <polygon fill="#0d6a86" points="40,45 8,45 8,3 30,3 40,13 "></polygon>
+    <polygon fill="white" points="38.5,14 29,14 29,4.5 "></polygon>
+    <path fill="none" stroke="white" stroke-width="2" stroke-miterlimit="10" d="M34,31.5c0-4.2-22.8,4.1-18.5,6.4C19,39.8,27.4,19,23.2,19c-4.1,0,2.6,13.6,8.8,13.6C33.5,32.6,34,32.3,34,31.5z"></path>
+</svg>

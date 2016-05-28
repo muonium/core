@@ -1,0 +1,10 @@
+<svg version="1.0" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 48 48" enable-background="new 0 0 48 48" xml:space="preserve">
+    <g>
+        <polygon fill="#f8eaff" points="40,45 8,45 8,3 30,3 40,13" stroke="#8a00d3" stroke-width=".5"></polygon>
+    </g>
+    
+    <polygon fill="#8a00d3" points="21,23 14,33 28,33 "></polygon>
+    <polygon fill="#8a00d3" points="28,26.4 23,33 33,33 "></polygon>
+    
+    <circle fill="#8a00d3" cx="31.5" cy="24.5" r="1.5"></circle>
+</svg>
