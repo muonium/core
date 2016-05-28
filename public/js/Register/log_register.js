@@ -71,7 +71,6 @@ var generateKeys = function(passphrase)
 
     if(passphrase.length != 0)
     {
-
       var worker = new Worker("js/aeJs.worker.js");
       worker.postMessage({
         action: "encrypt",
@@ -79,7 +78,7 @@ var generateKeys = function(passphrase)
         password: passphrase,
         bits: 256
       });
-
+      sessionStorage.setItem("passphrase", passphrase);
     else
     {
         returnArea.innerHTML = "Key gen impossible.";
