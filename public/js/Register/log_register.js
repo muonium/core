@@ -71,12 +71,7 @@ var generateKeys = function(passphrase)
 
     if(passphrase.length != 0)
     {
-      var worker = new Worker("js/aeJs.worker.js");
-        worker.postMessage({
-        action: "encrypt",
-        file: document.querySelector("#file").file[0],
-        password: passphrase,
-        bits: 256
+      aeJs.actions.encrypt("pp", passphrase);
       });
       sessionStorage.setItem("passphrase", passphrase);
     else
