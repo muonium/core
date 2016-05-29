@@ -76,12 +76,11 @@ var getKey = function(passphrase)
             if(xhr_private_key.responseText == "")
             {
               alert("Private key cannot be recieved");
-                status_key = 0;
+              status_key = 0;
             }
             else
             {
-                sessionStorage.setItem("privateKey", xhr_private_key.responseText);
-
+                sessionStorage.setItem("pp",aeJs.actions.encrypt(xhr_private_key.responseText));
                 status_key = 1;
             }
         }
@@ -90,10 +89,10 @@ var getKey = function(passphrase)
     xhr_private_key.send(null);
 
     var checkKeysStatus = setInterval(function(){
-        if(statusPublicKey == 1 && statusPrivateKey == 1)
+        if(status_key == 1)
         {
             clearInterval(checkKeysStatus);
-            encryptPassphrase(passphrase);
+            aeJs.actions.encrypt(passphrase);
         }
     }, 500);
 }

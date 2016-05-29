@@ -100,7 +100,7 @@ var openSession = function(passphrase)
             if(xhr.responseText.length == 10) // Longueur du token
             {
                 sessionStorage.setItem("t", xhr.responseText);
-                sessionStorage.setItem("pp", sha512(passphrase,xhr.responseText));
+                aeJs.actions.encrypt("pp", passphrase); //encrypt passphrase in sessionStorage
                 //sessionStorage.setItem("pp", CryptoJS.AES.encrypt(passphrase, xhr.responseText));
                 returnArea.innerHTML = "End. Redirecting...";
 
