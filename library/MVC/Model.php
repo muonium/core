@@ -1,4 +1,5 @@
 <?php
+// This class is called by all models (with "extends")
     class Model {
         
         protected $_InstancePDO;
@@ -6,7 +7,7 @@
         protected $_RequeteSql;
         
         function __construct() {
-                       $_InstancePDO = new                       PDO('mysql:host='.confBDD::hostDefaut.';dbname='.confBDD::bddDefaut,confBDD::userDefaut,confBDD::passDefaut);
+            $_InstancePDO = new PDO('mysql:host='.confBDD::hostDefaut.';dbname='.confBDD::bddDefaut,confBDD::userDefaut,confBDD::passDefaut);
         }
 	
 	   public static function getInstance() {

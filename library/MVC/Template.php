@@ -16,12 +16,12 @@ class Template
 	 * Variable contenant le nom du fichier js 
 	 * @var string
 	 * */
-	private $_PathCss = "./public/css/";
+	private $_PathCss = "/public/css/";
 	/*
 	 * Chemin des fichiers javascript
 	* @var string
 	* */
-	private $_PathJs = "./public/js/";
+	private $_PathJs = "/public/js/";
 	/*
 	 * chemin des fichiers CSS
 	* @var string
@@ -35,11 +35,11 @@ class Template
 	}
     
     function addCss($tabCss) {
-        $this->_tabCss[$tabCss]['Fichier'] = $this->_PathCss.$tabCss.".css";
+        $this->_tabCss[$tabCss]['Fichier'] = MVC_ROOT.$this->_PathCss.$tabCss.".css";
     }
     
     function addJs($tabJs) {
-        $this->_tabJs[$tabJs]['Fichier'] = $this->_PathJs.$tabJs.".js";
+        $this->_tabJs[$tabJs]['Fichier'] = MVC_ROOT.$this->_PathJs.$tabJs.".js";
     }
     
     function addScript($type,$contenu) {
@@ -60,7 +60,7 @@ class Template
 			<head>
 				<meta charset="utf-8">
 				<title>'.$this->_title.'</title>
-                <link rel="icon" type="image/png" href="./public/pictures/favicon.png" />  
+                <link rel="icon" type="image/png" href="'.MVC_ROOT.'/public/pictures/favicon.png" />  
 		';
 
 		if(!empty($this->_tabCss)) {

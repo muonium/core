@@ -1,5 +1,5 @@
 <?php
-class Recent extends Controleur {
+class Recent extends Languages {
     
     function DefaultAction() {
         require_once('./application/views/vRecent.php');

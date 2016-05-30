@@ -1,0 +1,6 @@
+{
+    "Error": {
+		"e404": "Erreur : Page non trouvée",
+        "default": "Une erreur est survenue"
+	}
+}

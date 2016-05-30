@@ -5,10 +5,4 @@ RewriteEngine On
 RewriteCond %{REQUEST_URI} !(\.css|\.js|\.png|\.jpg|\.gif|robots\.txt)$ [NC]
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^ /neutron/index.php [QSA,L]
-
-#Auth
-AuthType Basic
-AuthName "Restricted Files"
-AuthUserFile "/srv/app.access"
-Require user prod
+RewriteRule ^ /core-master/index.php [QSA,L]

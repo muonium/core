@@ -5,6 +5,6 @@ class confBDD {
 	const hostDefaut = "localhost";
 	const userDefaut = "root";
 	const passDefaut = "";
-	const bddDefaut = "quantacloud";
+	const bddDefaut = "cloud";
 }
 ?>
