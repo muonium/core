@@ -1,12 +1,18 @@
 <?php
-    $_t = new Template("Erreur");
+    /*
+	* @name            : vError.php
+	* @description     : Error view
+	* @authors         : Romain Claveau <romain.claveau@protonmail.ch>, Dylan Clement <dylanclement7@protonmail.ch>
+	*/
+
+    $_t = new Template("Error");
     $_t->addCss("home_login");
     $_t->getHeader();
 ?>
 
     <body>
         <section id="header">
-            <div id="logo"><img src="./public/pictures/login/logo_anime.svg" /></div>
+            <div id="logo"><img src="<?php echo MVC_ROOT; ?>/public/pictures/login/logo_anime.svg" /></div>
         </section>
     
         <section id="content">

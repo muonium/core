@@ -1,11 +1,18 @@
-<?php    
-    $_template = new Template("Desktop");
-    $_template->addCss("Interface/new_design");
-    $_template->addJs("Interface/global");
-    $_template->addJs("Interface/Request");
-    $_template->addScript("text/javascript","window.onload = function() {QC.init();}");
-    $_template->getHeader();
-    $_user = new Utilisateur();
+<?php
+    /*
+	* @name            : vUser.php
+	* @description     : User view (files management)
+	* @authors         : Romain Claveau <romain.claveau@protonmail.ch>, Dylan Clement <dylanclement7@protonmail.ch>
+	*/
+
+    $_t = new Template("Desktop");
+    $_t->addCss("Interface/new_design");
+    $_t->addJs("Interface/global");
+    $_t->addJs("Interface/Request");
+    $_t->addScript("text/javascript","window.onload = function() {QC.init();}");
+    $_t->getHeader();
+
+    /*$_user = new Utilisateur();
     $chemin = '../nova/'.$_SESSION['Utilisateur']['idUtilisateur'];
     $_user->setChemin($chemin);
     $taille = $_user->getTaille();
@@ -26,34 +33,38 @@
     foreach($stockage as $key => $s) {
         $stock = $s->getTaille();
         $type = $s->getType();
-    }
-    
-	/*
-	* @nom             : Desktop.php
-	* @description     : Interface de gestion des fichiers et dossiers
-	* @authors         : Romain Claveau <romain.claveau@protonmail.ch>, ...
-	*/
+    }*/
 ?>
         <header>
             <div id="logo"></div>
             <div id="user">
-                <p><img src="./public/pictures/header/bug.svg" /><br />Bug</p>
-                <p><img src="./public/pictures/header/help.svg" /><br />Aide</p>
-                <p><img src="./public/pictures/header/settings.svg" /><br />Options</p>
-                <p><img src="./public/pictures/header/user.svg" /><br />Profil</p>
+                <p><img src="<?php echo MVC_ROOT; ?>/public/pictures/header/bug.svg" /><br />Bug</p>
+                <p><img src="<?php echo MVC_ROOT; ?>/public/pictures/header/help.svg" /><br />Aide</p>
+                <p><img src="<?php echo MVC_ROOT; ?>/public/pictures/header/settings.svg" /><br />Options</p>
+                <p><img src="<?php echo MVC_ROOT; ?>/public/pictures/header/user.svg" /><br />Profil</p>
             </div>
         </header>
         
         <section id="toolbar">
-            <div onclick="QuantaCloud.clickEvent(this,'DefaultAction','Recent')" id="toolbar_button_recents"><img src="./public/pictures/toolbar/recent.svg" /><br />Récents</div>
-            <div onclick="QuantaCloud.clickEvent(this,'DefaultAction','Favoris')" id="toolbar_button_favorite"> <img src="./public/pictures/toolbar/favorite.svg" /><br />Favoris</div>
-            <div class="selected" onclick="QuantaCloud.clickEvent(this,'DefaultAction','Accueil')" id="toolbar_button_general"><img src="./public/pictures/toolbar/folder.svg" /><br />Général</div>
-            <div onclick="QuantaCloud.clickEvent(this,'DefaultAction','Partage')" id="toolbar_button_share"><img src="./public/pictures/toolbar/share.svg" /><br />Partagés</div>
-            <div onclick="QuantaCloud.clickEvent(this,'DefaultAction','Transfert')" id="toolbar_button_transfers"><img src="./public/pictures/toolbar/transfer.svg" /><br />Transferts</div>
+            <div onclick="QuantaCloud.clickEvent(this,'DefaultAction','Recent')" id="toolbar_button_recents">
+                <img src="<?php echo MVC_ROOT; ?>/public/pictures/toolbar/recent.svg" /><br />Récents
+            </div>
+            <div onclick="QuantaCloud.clickEvent(this,'DefaultAction','Favoris')" id="toolbar_button_favorite">
+                <img src="<?php echo MVC_ROOT; ?>/public/pictures/toolbar/favorite.svg" /><br />Favoris
+            </div>
+            <div onclick="QuantaCloud.clickEvent(this,'DefaultAction','Accueil')" id="toolbar_button_general">
+                <img src="<?php echo MVC_ROOT; ?>/public/pictures/toolbar/folder.svg" /><br />Général
+            </div>
+            <div class="selected" onclick="QuantaCloud.clickEvent(this,'DefaultAction','Partage')" id="toolbar_button_share">
+                <img src="<?php echo MVC_ROOT; ?>/public/pictures/toolbar/share.svg" /><br />Partagés
+            </div>
+            <div onclick="QuantaCloud.clickEvent(this,'DefaultAction','Transfert')" id="toolbar_button_transfers">
+                <img src="<?php echo MVC_ROOT; ?>/public/pictures/toolbar/transfer.svg" /><br />Transferts
+            </div>
         </section>
         
         <section id="desktop">
-            <img src="./public/pictures/desktop/arrow.svg" class="arrow general" />
+            <img src="<?php echo MVC_ROOT; ?>/public/pictures/desktop/arrow.svg" class="arrow general" />
             
             <div id="desktop_general" class="content">
                 <div id="nav">
@@ -64,20 +75,20 @@
                 </div>
                 <div id="leftPanel">
                     <div id="listTypes">
-                        <p><img src="./public/pictures/desktop/list/list.svg" /></p>
-                        <p><img src="./public/pictures/desktop/list/grid.svg" /></p>
-                        <p><img src="./public/pictures/desktop/list/atomic.svg" /></p>
+                        <p><img src="<?php echo MVC_ROOT; ?>/public/pictures/desktop/list/list.svg" /></p>
+                        <p><img src="<?php echo MVC_ROOT; ?>/public/pictures/desktop/list/grid.svg" /></p>
+                        <p><img src="<?php echo MVC_ROOT; ?>/public/pictures/desktop/list/atomic.svg" /></p>
                     </div>
                     <div id="actions">
-                        <div class="action"><p><img src="./public/pictures/desktop/actions/create_file.svg" /></p></div>
-                        <div class="action"><p><img src="./public/pictures/desktop/actions/create_folder.svg" /></p></div>
-                        <div class="action"><p><img src="./public/pictures/desktop/actions/upload.svg" /></p></div>
+                        <div class="action"><p><img src="<?php echo MVC_ROOT; ?>/public/pictures/desktop/actions/create_file.svg" /></p></div>
+                        <div class="action"><p><img src="<?php echo MVC_ROOT; ?>/public/pictures/desktop/actions/create_folder.svg" /></p></div>
+                        <div class="action"><p><img src="<?php echo MVC_ROOT; ?>/public/pictures/desktop/actions/upload.svg" /></p></div>
                     </div>
                 </div>
                 <div id="rightPanel">
                     <table>
                         	<?php 
-                        		foreach($arbo as $key => $Arborescence) {
+                        		/*foreach($arbo as $key => $Arborescence) {
                         			
                         			if($compteur == 4) {
                         				echo "</tr>";
@@ -106,7 +117,7 @@
                         				<?php
 									}
                         			$compteur ++;
-                        		}
+                        		}*/
                             /*<td><img src="./public/pictures/desktop/extensions/folder.svg" /><br />test</td>
                             <td><img src="./public/pictures/desktop/extensions/folder.svg" /><br />test2</td>
                             <td><img src="./public/pictures/desktop/extensions/code.svg" /><br />source.cpp</td>
@@ -125,5 +136,5 @@
             </div>
         </section>
 <?php
-$_template->getFooter();
+    $_t->getFooter();
 ?>

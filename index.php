@@ -6,7 +6,7 @@ include_once("./config/autoload.php");
 define('DS', DIRECTORY_SEPARATOR);
 define('ROOT', dirname(dirname(__FILE__)).DS."\\");
 
-define('MVC_ROOT', '/core-master');
+define('MVC_ROOT', '/core');
 
 // Default controller
 define ('DEFAULT_CONTROLLER', 'Accueil');

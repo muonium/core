@@ -1,23 +1,24 @@
 <?php
 	/*
-	* @nom             : register.php
-	* @description     : Structure pour la page d'inscription
-	* @authors         : Romain Claveau <romain.claveau@protonmail.ch>
+	* @name            : vRegister.php
+	* @description     : Register view
+	* @authors         : Romain Claveau <romain.claveau@protonmail.ch>, Dylan Clement <dylanclement7@protonmail.ch>
 	*/
-	$_template = new Template("Inscription");
-    $_template->addCss("Register/home_register");
-    $_template->addJs("Register/sha512");
-		$_template->addJs("Register/log_register")
-   	$_template->getHeader();
+
+	$_t = new Template("Inscription");
+    $_t->addCss("Register/home_register");
+    $_t->addJs("Register/sha512");
+    $_t->addJs("Register/log_register")
+   	$_t->getHeader();
 ?>
         <section id="header">
-            <div id="logo"><img src="./public/pictures/register/logo_anime.svg" /></div>
+            <div id="logo"><img src="<?php echo MVC_ROOT; ?>/public/pictures/register/logo_anime.svg" /></div>
         </section>
 
         <section id="content">
             <div id="back"><p><a href="../photon/">RETOUR &Agrave; QUANTACLOUD</a></p></div>
 
-            <div id="avatar"><p><img src="./public/pictures/register/user.svg" /></p></div>
+            <div id="avatar"><p><img src="<?php echo MVC_ROOT; ?>/public/pictures/register/user.svg" /></p></div>
             <div id="text"><p>Inscription</p></div>
 
             <div id="form">
@@ -36,5 +37,5 @@
             </div>
         </section>
 <?php
-   $_template->getFooter();
+   $_t->getFooter();
 ?>

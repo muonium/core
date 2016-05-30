@@ -1,83 +1,60 @@
 <?php
-    class mUtilisateur extends Model {
-        private $id;
-        private $idUtilisateur;
-        private $Email;
-        private $pseudo;
-        private $password;
-        private $passPhrase;
+    class mUsers extends Model {
         
-
+        /*
+            1   id              int(11)         AUTO_INCREMENT
+            2   login           varchar(20)
+            3   password        varchar(40)
+            4   email           varchar(254)
+            5   passphrase      varchar(64)
+        */
+        
+        private $id;
+        private $login;
+        private $password;
+        private $email;
+        private $passphrase;
         
         /* ******************** SETTER ******************** */
-        function setId($id) {
-            $this->id = $id;
-        }
             
-        function setidUtilisateur($id) {
-            $this->idUtilisateur = $id;
+        function setLogin($login) {
+            $this->login = $login;
         }
         
-        function setEmail($m) {
-            $this->Email = $m;
+        function setEmail($email) {
+            $this->email = $email;
         }
             
-        function setPassPhrase($pp){
-            $this->passPhrase = $pp;
+        function setPassphrase($pp){
+            $this->passphrase = $pp;
         }
         
         function setPassword($p) {
             $this->password = $p;
         }
-            
-        function setPseudo($p) {
-            $this->pseudo = $p;
-        }
         
-        function setRequete($sqlRequete) {
-            $this->_RequeteSql = $sqlRequete;
-        }
         /* ******************** GETTER ******************** */
         function getId() {
             return $this->id;
         }
-
-        function getidUtilisateur() {
-            return $this->idUtilisateur;
-        }
         
         function getEmail() {
-            return $this->Email;
+            return $this->email;
         }
         
-        function getPassPhrase() {
-             return $this->passPhrase;
-         }
+        function getPassphrase() {
+             return $this->passphrase;
+        }
         
         function getPassword() {
              return $this->password;
-         }
+        }
             
-        function getPseudo() {
-             return $this->pseudo;
-         }
-        
-        function getIdByIdUtilisateur() {
-        	
+        function getLogin() {
+             return $this->login;
         }
         
-        function getStockage() {
-        	
-           $idUtilisateur = $this->getidUtilisateur();
-            
-           $pdo = $this->_InstancePDO->prepare($this->_RequeteSql);
-            $pdo->bindValue(':idUtilisateur',$idUtilisateur);
-            $pdo->execute();
-            $stockage  = $pdo->fetchAll(PDO::FETCH_CLASS,'mStockage');
-            return $stockage;
-        }
-        
-        function GenerateId() {
+        /*function GenerateId() {
             $base  = 'AZERTYUIOPQSDFGHJKLMWXCVBNazertyuiopqsdfghjklmwxcvbn0123456789';
             $id = "";
             $sqlUser = "SELECT idUtilisateur FROM utilisateur";
@@ -106,9 +83,9 @@
                 }
             }
             return $id;
-        }
+        }*/
         
-        function Insertion() {
+        /*function Insertion() {
             
             $pdo = $this->_InstancePDO->prepare($this->_RequeteSql);
             $id = $this->getId();
@@ -128,17 +105,17 @@
             $retour = $pdo->execute();
                 
             return $retour;
-        }
+        }*/
         
-        function Update() {
+        /*function Update() {
             
-        }
+        }*/
         
-        function Delete($idUser) {
+        /*function Delete($idUser) {
             
-        }
+        }*/
         
-		function Connection() {
+		/*function Connection() {
 			$pdo = $this->_InstancePDO->prepare($this->_RequeteSql);
 			
 			$username = $this->getPseudo();
@@ -152,10 +129,10 @@
 			$pdo->execute();
 			$user = $pdo->fetchAll(PDO::FETCH_CLASS,'mUtilisateur');
 			return $user;
-		}
+		}*/
 
         
-        function getPassPhraseByIdUtilisateur() {
+        /*function getPassPhraseByIdUtilisateur() {
         	$pdo = $this->_InstancePDO->prepare($this->_RequeteSql);
         	
         	$idUtilisateur = $this->getidUtilisateur();
@@ -168,6 +145,6 @@
         	}
         	
         	return $pp;
-        }
+        }*/
     }
 ?>

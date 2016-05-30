@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  127.0.0.1
--- Généré le :  Lun 30 Mai 2016 à 20:50
+-- Généré le :  Lun 30 Mai 2016 à 22:08
 -- Version du serveur :  5.6.15-log
 -- Version de PHP :  5.4.24
 
@@ -73,7 +73,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `login` varchar(20) NOT NULL,
   `password` varchar(40) NOT NULL,
-  `mail` varchar(254) NOT NULL,
+  `email` varchar(254) NOT NULL,
   `passphrase` varchar(64) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
