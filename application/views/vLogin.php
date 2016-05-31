@@ -6,12 +6,19 @@
 	*/
 
     $_t = new Template("Connexion");
+    $_t->addCss("home_global");
     $_t->addCss("Login/home_login");
     $_t->addJs("Login/log_connect");
     $_t->addJs("Login/sha512");
     $_t->getHeader();
 ?>
-
+<body>
+        <section id="language">
+            <div>
+                <?php $this->getLanguageSelector(); ?>
+            </div>
+        </section>
+    
         <section id="header">
             <div id="logo"><img src="<?php echo MVC_ROOT; ?>/public/pictures/login/logo_anime.svg" /></div>
         </section>
@@ -34,6 +41,7 @@
                 <p class="error">L'interface n'est pas encore prête :)</p>
             </div>
         </section>
+</body>
 <?php
 	$_t->getFooter();
 ?>

@@ -6,6 +6,7 @@
 	*/
 
     $_t = new Template("Desktop");
+    $_t->addCss("home_global");
     $_t->addCss("Interface/new_design");
     $_t->addJs("Interface/global");
     $_t->addJs("Interface/Request");
@@ -35,6 +36,7 @@
         $type = $s->getType();
     }*/
 ?>
+<body>
         <header>
             <div id="logo"></div>
             <div id="user">
@@ -44,6 +46,12 @@
                 <p><img src="<?php echo MVC_ROOT; ?>/public/pictures/header/user.svg" /><br />Profil</p>
             </div>
         </header>
+    
+        <section id="language">
+            <div>
+                <?php $this->getLanguageSelector(); ?>
+            </div>
+        </section>
         
         <section id="toolbar">
             <div onclick="QuantaCloud.clickEvent(this,'DefaultAction','Recent')" id="toolbar_button_recents">
@@ -135,6 +143,7 @@
                 </div>
             </div>
         </section>
+</body>
 <?php
     $_t->getFooter();
 ?>

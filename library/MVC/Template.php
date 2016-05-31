@@ -61,17 +61,17 @@ class Template
 				<meta charset="utf-8">
 				<title>'.$this->_title.'</title>
                 <link rel="icon" type="image/png" href="'.MVC_ROOT.'/public/pictures/favicon.png" />  
-		';
+		'."\n";
 
 		if(!empty($this->_tabCss)) {
             foreach($this->_tabCss as $id => $fichier)
                 echo "\t".'<link rel="stylesheet" type="text/css" href="'.$fichier['Fichier'].'" />'."\n";
 		}
 		
-		
+		echo '<script type="text/javascript" src="'.MVC_ROOT.$this->_PathJs.'language.js"></script>'."\n";
 		if(!empty($this->_tabJs)) {
             foreach($this->_tabJs as $id => $fichier)
-                echo '<script type="text/javascript" src="'.$fichier['Fichier'].'"></script>';
+                echo '<script type="text/javascript" src="'.$fichier['Fichier'].'"></script>'."\n";
 		}
         
         if(!empty($this->_Script)) {
@@ -87,7 +87,7 @@ class Template
 		<noscript><div class="pasDeJs"><div class="txtPasDeJs">
 		Vous devez activer les scripts Javascript pour visualiser le contenu de l\'application.</div></div></noscript>'."\n";
 		
-		echo '</head>';
+		echo '</head>'."\n";
 	}
 
 	function getFooter()

@@ -1,6 +1,22 @@
 {
+    "Global": {
+        "home": "Home",
+        "register": "Register",
+        "back": "Back to QuantaCloud"
+    },
+    
     "Error": {
 		"e404": "Error : Page not found",
         "default": "An error occured"
+    },
+    
+    "Register": {
+        "mail": "Mail",
+        "login": "Login",
+        "password": "Password",
+        "confirm": "Confirm",
+        "passphrase": "PassPhrase",
+        "alreadyregistered": "Already registered ?",
+        "impossible": "Registration impossible for now"
     }
 }

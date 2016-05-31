@@ -19,15 +19,64 @@ body
     background: #28535c;
 }
 
-section#header
+/**********************************/
+/* Language selection box         */
+/**********************************/
+section#language
 {
     display: table;
     
     position: absolute;
     top: 0;
     left: 0;
+    height: 5%;
     width: 100%;
-    height: 15%;
+    
+    color: white;
+}
+
+section#language div
+{
+    display: table-cell;
+    vertical-align: middle;
+    text-align: right;
+    padding-right: 5px;
+}
+
+section#language div select
+{
+    transition: all .3s ease;
+    -webkit-transition: all .3s ease;
+    -ms-transition: all .3s ease;
+    -o-transition: all .3s ease;
+    
+    background-color: transparent;
+    
+    border: none;
+    outline: none;
+    
+    height: 3vh;
+}
+
+section#language div select:hover
+{
+    transition: all .3s ease;
+    -webkit-transition: all .3s ease;
+    -ms-transition: all .3s ease;
+    -o-transition: all .3s ease;
+    
+    color: #00a7ff;
+    
+    cursor: pointer;
+}
+
+section#header
+{
+    position: absolute;
+    top: calc(5% - 1px);
+    left: 0;
+    height: calc(10% + 1px);
+    width: 100%;
 }
 
 section#header div#logo

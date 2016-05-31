@@ -51,7 +51,7 @@ class Register extends Languages {
     function uploadKeys() {
 
         $ErrorKey = array();
-         if(!empty($_POST['privateKey'])) ) {
+         if(!empty($_POST['privateKey']) ) {
              if(!mkdir('../proton/'. $_SESSION['Utilisateur']['idUtilisateur'],0600,true ))
                  echo "<p id='ErrDossierkey'> Erreur lors de la création du dossier des clés </p>";
 

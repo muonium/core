@@ -6,11 +6,16 @@
 	*/
 
     $_t = new Template("Error");
-    $_t->addCss("home_login");
+    $_t->addCss("home_global");
     $_t->getHeader();
 ?>
-
-    <body>
+<body>
+        <section id="language">
+            <div>
+                <?php $this->getLanguageSelector(); ?>
+            </div>
+        </section>
+    
         <section id="header">
             <div id="logo"><img src="<?php echo MVC_ROOT; ?>/public/pictures/login/logo_anime.svg" /></div>
         </section>
@@ -22,7 +27,7 @@
                 <p class="error"><?php echo $this->_error; ?></p>
             </div>
         </section>
-    </body>
+</body>
 <?php 
 	$_t->getFooter();
 ?>

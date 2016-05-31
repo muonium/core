@@ -7,9 +7,10 @@
 	*/
 
     $_t = new Template("Recent");
-    $_t->addCss("home_login");
+    $_t->addCss("home_global");
     $_t->getHeader();
 ?>
+<body>
         <header>
             <div id="logo"></div>
             <div id="user">
@@ -19,6 +20,12 @@
                 <p><img src="<?php echo MVC_ROOT; ?>/public/pictures/header/user.svg" /><br />Profil</p>
             </div>
         </header>
+    
+        <section id="language">
+            <div>
+                <?php $this->getLanguageSelector(); ?>
+            </div>
+        </section>
         
         <section id="toolbar">
             <div class="selected" onclick='QuantaCloud.clickEvent(this,"DefaultAction","Recent")' id="toolbar_button_recents">
@@ -75,6 +82,7 @@
         <script type="text/javascript">
             QC.init();
         </script>
+</body>
 <?php
     $_t->getFooter();
 ?>

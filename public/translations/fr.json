@@ -1,6 +1,22 @@
 {
+    "Global": {
+        "home": "Accueil",
+        "register": "Inscription",
+        "back": "Retour à QuantaCloud"
+    },
+    
     "Error": {
 		"e404": "Erreur : Page non trouvée",
         "default": "Une erreur est survenue"
-	}
+	},
+    
+    "Register": {
+        "mail": "Adresse mail",
+        "login": "Pseudo",
+        "password": "Mot de passe",
+        "confirm": "Confirmez",
+        "passphrase": "PassPhrase",
+        "alreadyregistered": "Déjà inscrit ?",
+        "impossible": "Inscriptions impossibles pour le moment"
+    }
 }
