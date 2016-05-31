@@ -2,10 +2,10 @@
 -- version 4.1.4
 -- http://www.phpmyadmin.net
 --
--- Client :  127.0.0.1
--- Généré le :  Lun 30 Mai 2016 à 22:08
--- Version du serveur :  5.6.15-log
--- Version de PHP :  5.4.24
+-- Host: 127.0.0.1
+-- Generation Time: May 31, 2016 at 04:11 PM
+-- Server version: 5.6.15-log
+-- PHP Version: 5.4.24
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -17,13 +17,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Base de données :  `cloud`
+-- Database: `cloud`
 --
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `ban`
+-- Table structure for table `ban`
 --
 
 CREATE TABLE IF NOT EXISTS `ban` (
@@ -37,7 +37,7 @@ CREATE TABLE IF NOT EXISTS `ban` (
 -- --------------------------------------------------------
 
 --
--- Structure de la table `files`
+-- Table structure for table `files`
 --
 
 CREATE TABLE IF NOT EXISTS `files` (
@@ -52,7 +52,7 @@ CREATE TABLE IF NOT EXISTS `files` (
 -- --------------------------------------------------------
 
 --
--- Structure de la table `storage`
+-- Table structure for table `storage`
 --
 
 CREATE TABLE IF NOT EXISTS `storage` (
@@ -66,7 +66,7 @@ CREATE TABLE IF NOT EXISTS `storage` (
 -- --------------------------------------------------------
 
 --
--- Structure de la table `users`
+-- Table structure for table `users`
 --
 
 CREATE TABLE IF NOT EXISTS `users` (
@@ -74,6 +74,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `login` varchar(20) NOT NULL,
   `password` varchar(40) NOT NULL,
   `email` varchar(254) NOT NULL,
+  `last_connection` int(11) NOT NULL,
   `passphrase` varchar(64) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
