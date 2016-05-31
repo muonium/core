@@ -24,7 +24,9 @@ class Routing {
         //}
         
         $appel_url = str_replace(MVC_ROOT, "", $appel_url);
-               
+        if($appel_url[0] == "/")
+            $appel_url = substr($appel_url, 1);
+        
 		$arguments = explode('/', $appel_url);
 		//var_dump($arguments);
 		// We remove useless "/"
@@ -62,7 +64,7 @@ class Routing {
 		if (!file_exists(DIR_CLASS.'/'.$_controller.'.php'))
 		{
             // Error : Controller doesn't exists
-			header('Location: '.ROOT.'/Error/Error/404');
+			header('Location: '.MVC_ROOT.'/Error/Error/404');
 		}		
 		else
 			require_once(DIR_CLASS.'/'.$_controller.'.php');
@@ -70,7 +72,7 @@ class Routing {
 		if (!class_exists($_controller))
 		{
             // Error : Class doesn't exists
-			header('Location: '.ROOT.'/Error/Error/404');
+			header('Location: '.MVC_ROOT.'/Error/Error/404');
 		}
 		else
 		{
@@ -83,7 +85,7 @@ class Routing {
 				if(!method_exists($_class, $_method))
 				{
                     // Error : Method doesn't exists
-					header('Location: '.ROOT.'/Error/Error/404');
+					header('Location: '.MVC_ROOT.'/Error/Error/404');
 				}
 				else
 				{
@@ -97,7 +99,7 @@ class Routing {
 						if($r->getNumberOfRequiredParameters() > $nbParams)
 						{
                             // Error : Not enough parameters for calling this method
-							header('Location: '.ROOT.'/Error/Error/404');
+							header('Location: '.MVC_ROOT.'/Error/Error/404');
 						}
 						else
                         {
@@ -128,7 +130,7 @@ class Routing {
                                     break;
                                 default:
                                     // Error : Routing doesn't support more than 8 parameters
-                                    header('Location: '.ROOT.'/Error/Error/404');
+                                    header('Location: '.MVC_ROOT.'/Error/Error/404');
                             }
                         }
 					}
@@ -138,7 +140,7 @@ class Routing {
 						if($r->getNumberOfRequiredParameters() > 0)
 						{
                             // Error : Not enough parameters for calling this method
-							header('Location: '.ROOT.'/Error/Error/404');
+							header('Location: '.MVC_ROOT.'/Error/Error/404');
 						}
 						else
 							$_class->$_method();

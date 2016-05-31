@@ -9,7 +9,7 @@ define('ROOT', dirname(dirname(__FILE__)).DS."\\");
 define('MVC_ROOT', '/core');
 
 // Default controller
-define ('DEFAULT_CONTROLLER', 'Accueil');
+define ('DEFAULT_CONTROLLER', 'Home');
 define ('DEFAULT_FUNCTION', 'DefaultAction');
 
 // Error controller
