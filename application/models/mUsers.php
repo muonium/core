@@ -2,11 +2,13 @@
     class mUsers extends Model {
         
         /*
-            1   id              int(11)         AUTO_INCREMENT
-            2   login           varchar(20)
-            3   password        varchar(40)
-            4   email           varchar(254)
-            5   passphrase      varchar(64)
+            1   id                  int(11)         AUTO_INCREMENT
+            2   login               varchar(20)
+            3   password            varchar(40)
+            4   email               varchar(254)
+            5   registration_date   int(11)
+            5   last_connection     int(11)
+            6   passphrase          varchar(64)
         */
         
         private $id;
@@ -54,6 +56,24 @@
              return $this->login;
         }
         
+        /* **************************************** */
+        
+        function EmailExists() {
+            $req = $this->_sql->prepare("SELECT id FROM users WHERE email = ?");
+            $req->execute(array($this->email));
+            if($req->rowCount())
+                return true;
+            return false;
+        }
+        
+        function LoginExists() {
+            $req = $this->_sql->prepare("SELECT id FROM users WHERE login = ?");
+            $req->execute(array($this->login));
+            if($req->rowCount())
+                return true;
+            return false;
+        }
+        
         /*function GenerateId() {
             $base  = 'AZERTYUIOPQSDFGHJKLMWXCVBNazertyuiopqsdfghjklmwxcvbn0123456789';
             $id = "";
@@ -85,27 +105,11 @@
             return $id;
         }*/
         
-        /*function Insertion() {
-            
-            $pdo = $this->_InstancePDO->prepare($this->_RequeteSql);
-            $id = $this->getId();
-            $idUser =  $this->getidUtilisateur();
-            $email = $this->getEmail();
-            $username = $this->getPseudo();
-            $pass = $this->getPassword();
-            $phrase = $this->getPassPhrase();
-            
-            $pdo->bindValue(":id", $id);
-            $pdo->bindValue(":idUtilisateur", $idUser);
-            $pdo->bindValue(":Email",$email);
-            $pdo->bindValue(":pseudo", $username);
-            $pdo->bindValue(":password", $pass);
-            $pdo->bindValue(":passPhrase",$phrase);
-            
-            $retour = $pdo->execute();
-                
-            return $retour;
-        }*/
+        function Insertion() {
+            $req = $this->_sql->prepare("INSERT INTO users VALUES ('', ?, ?, ?, ?, ?, ?)");
+            $ret = $req->execute(array($this->login, $this->password, $this->email, time(), time(), $this->passphrase));   
+            return $ret;
+        }
         
         /*function Update() {
             
