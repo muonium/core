@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: May 31, 2016 at 04:11 PM
+-- Generation Time: Jun 01, 2016 at 02:07 PM
 -- Server version: 5.6.15-log
 -- PHP Version: 5.4.24
 
@@ -74,6 +74,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `login` varchar(20) NOT NULL,
   `password` varchar(40) NOT NULL,
   `email` varchar(254) NOT NULL,
+  `registration_date` int(11) NOT NULL,
   `last_connection` int(11) NOT NULL,
   `passphrase` varchar(64) NOT NULL,
   PRIMARY KEY (`id`)

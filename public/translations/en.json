@@ -39,7 +39,18 @@
         "confirm": "Confirm",
         "passphrase": "PassPhrase",
         "alreadyregistered": "Already registered ?",
-        "impossible": "Registration impossible for now"
+        "impossible": "Registration impossible for now",
+        "ok": "Registration done !",
+        "mailExists": "Your mail is already saved in our database. Impossible to create an account again.",
+        "loginExists": "Your login is already saved in our database. Impossible to create an account again.",
+        "badPassConfirm": "The both passwords are different.",
+        "badPassphraseConfirm": "The both passphrase are different.",
+        "passEqualPassphrase": "The password and the passphrase must be different.",
+        "form": "All fields should be filled.",
+        "passLength": "The password or the passphrase must be at least 6 chars.",
+        "loginFormat": "Login format is incorrect (between 2 and 20 alphanumeric characters, -_. allowed).",
+        "mailFormat": "Mail format is incorrect.",
+        "error": "An error occured when creating the account."
     },
     
     "Login": {
