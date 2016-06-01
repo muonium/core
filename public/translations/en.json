@@ -2,7 +2,29 @@
     "Global": {
         "home": "Home",
         "register": "Register",
-        "back": "Back to QuantaCloud"
+        "back": "Back to QuantaCloud",
+        "favorites": "Favorites",
+        "login": "Login",
+        "notready": "The interface is not ready yet",
+        "recents": "Recents",
+        "sharing": "Sharing",
+        "transfer": "Transfer",
+        "user": "Desktop"
+    },
+    
+    "UserMenu": {
+        "bug": "Bug",
+        "help": "Help",
+        "settings": "Settings",
+        "profile": "Profile"
+    },
+    
+    "Toolbar": {
+        "recents": "Recents",
+        "favorites": "Favorites",
+        "general": "General",
+        "shared": "Shared",
+        "transfers": "Transfers"
     },
     
     "Error": {
@@ -11,12 +33,16 @@
     },
     
     "Register": {
-        "mail": "Mail",
+        "email": "Mail",
         "login": "Login",
         "password": "Password",
         "confirm": "Confirm",
         "passphrase": "PassPhrase",
         "alreadyregistered": "Already registered ?",
         "impossible": "Registration impossible for now"
+    },
+    
+    "Login": {
+        "forgot": "Forgot your password ?"
     }
 }

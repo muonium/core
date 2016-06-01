@@ -5,7 +5,7 @@
 	* @authors         : Romain Claveau <romain.claveau@protonmail.ch>, Dylan Clement <dylanclement7@protonmail.ch>
 	*/
 
-    $_t = new Template("Desktop");
+    $_t = new Template($this->txt->Global->user);
     $_t->addCss("home_global");
     $_t->addCss("Interface/new_design");
     $_t->addJs("Interface/global");
@@ -40,10 +40,10 @@
         <header>
             <div id="logo"></div>
             <div id="user">
-                <p><img src="<?php echo MVC_ROOT; ?>/public/pictures/header/bug.svg" /><br />Bug</p>
-                <p><img src="<?php echo MVC_ROOT; ?>/public/pictures/header/help.svg" /><br />Aide</p>
-                <p><img src="<?php echo MVC_ROOT; ?>/public/pictures/header/settings.svg" /><br />Options</p>
-                <p><img src="<?php echo MVC_ROOT; ?>/public/pictures/header/user.svg" /><br />Profil</p>
+                <p><img src="<?php echo MVC_ROOT; ?>/public/pictures/header/bug.svg" /><br /><?php echo $this->txt->UserMenu->bug; ?></p>
+                <p><img src="<?php echo MVC_ROOT; ?>/public/pictures/header/help.svg" /><br /><?php echo $this->txt->UserMenu->help; ?></p>
+                <p><img src="<?php echo MVC_ROOT; ?>/public/pictures/header/settings.svg" /><br /><?php echo $this->txt->UserMenu->settings; ?></p>
+                <p><img src="<?php echo MVC_ROOT; ?>/public/pictures/header/user.svg" /><br /><?php echo $this->txt->UserMenu->profile; ?></p>
             </div>
         </header>
     
@@ -55,19 +55,19 @@
         
         <section id="toolbar">
             <div onclick="QuantaCloud.clickEvent(this,'DefaultAction','Recent')" id="toolbar_button_recents">
-                <img src="<?php echo MVC_ROOT; ?>/public/pictures/toolbar/recent.svg" /><br />Récents
+                <img src="<?php echo MVC_ROOT; ?>/public/pictures/toolbar/recent.svg" /><br /><?php echo $this->txt->Toolbar->recents; ?>
             </div>
-            <div onclick="QuantaCloud.clickEvent(this,'DefaultAction','Favoris')" id="toolbar_button_favorite">
-                <img src="<?php echo MVC_ROOT; ?>/public/pictures/toolbar/favorite.svg" /><br />Favoris
+            <div class="selected" onclick="QuantaCloud.clickEvent(this,'DefaultAction','Favorites')" id="toolbar_button_favorite">
+                <img src="<?php echo MVC_ROOT; ?>/public/pictures/toolbar/favorite.svg" /><br /><?php echo $this->txt->Toolbar->favorites; ?>
             </div>
-            <div onclick="QuantaCloud.clickEvent(this,'DefaultAction','Accueil')" id="toolbar_button_general">
-                <img src="<?php echo MVC_ROOT; ?>/public/pictures/toolbar/folder.svg" /><br />Général
+            <div onclick="QuantaCloud.clickEvent(this,'DefaultAction','Home')" id="toolbar_button_general">
+                <img src="<?php echo MVC_ROOT; ?>/public/pictures/toolbar/folder.svg" /><br /><?php echo $this->txt->Toolbar->general; ?>
             </div>
-            <div class="selected" onclick="QuantaCloud.clickEvent(this,'DefaultAction','Partage')" id="toolbar_button_share">
-                <img src="<?php echo MVC_ROOT; ?>/public/pictures/toolbar/share.svg" /><br />Partagés
+            <div onclick="QuantaCloud.clickEvent(this,'DefaultAction','Sharing')" id="toolbar_button_share">
+                <img src="<?php echo MVC_ROOT; ?>/public/pictures/toolbar/share.svg" /><br /><?php echo $this->txt->Toolbar->shared; ?>
             </div>
-            <div onclick="QuantaCloud.clickEvent(this,'DefaultAction','Transfert')" id="toolbar_button_transfers">
-                <img src="<?php echo MVC_ROOT; ?>/public/pictures/toolbar/transfer.svg" /><br />Transferts
+            <div onclick="QuantaCloud.clickEvent(this,'DefaultAction','Transfer')" id="toolbar_button_transfers">
+                <img src="<?php echo MVC_ROOT; ?>/public/pictures/toolbar/transfer.svg" /><br /><?php echo $this->txt->Toolbar->transfers; ?>
             </div>
         </section>
         

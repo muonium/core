@@ -2,7 +2,29 @@
     "Global": {
         "home": "Accueil",
         "register": "Inscription",
-        "back": "Retour à QuantaCloud"
+        "back": "Retour à QuantaCloud",
+        "favorites": "Favoris",
+        "login": "Connexion",
+        "notready": "L'interface n'est pas encore prête",
+        "recents": "Récents",
+        "sharing": "Partage",
+        "transfer": "Transfert",
+        "user": "Desktop"
+    },
+    
+    "UserMenu": {
+        "bug": "Bug",
+        "help": "Aide",
+        "settings": "Options",
+        "profile": "Profil"
+    },
+    
+    "Toolbar": {
+        "recents": "Récents",
+        "favorites": "Favoris",
+        "general": "Général",
+        "shared": "Partagés",
+        "transfers": "Transferts"
     },
     
     "Error": {
@@ -11,12 +33,16 @@
 	},
     
     "Register": {
-        "mail": "Adresse mail",
+        "email": "Adresse mail",
         "login": "Pseudo",
         "password": "Mot de passe",
         "confirm": "Confirmez",
         "passphrase": "PassPhrase",
         "alreadyregistered": "Déjà inscrit ?",
         "impossible": "Inscriptions impossibles pour le moment"
+    },
+    
+    "Login": {
+        "forgot": "Mot de passe oublié ?"
     }
 }
