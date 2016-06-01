@@ -30,7 +30,7 @@
             <div id="text"><p><?php echo $this->txt->Global->register; ?></p></div>
 
             <div id="form">
-                <input type="text" id="field_mail" placeholder="<?php echo $this->txt->Register->mail; ?>..." /><br />
+                <input type="text" id="field_mail" placeholder="<?php echo $this->txt->Register->email; ?>..." /><br />
                 <input type="text" id="field_pseudo" placeholder="<?php echo $this->txt->Register->login; ?>..." /><br />
                 <input type="password" id="field_pass" placeholder="<?php echo $this->txt->Register->password; ?>..." /><br />
                 <input type="password" id="field_pass_confirm" placeholder="<?php echo $this->txt->Register->confirm; ?>..." /><br />

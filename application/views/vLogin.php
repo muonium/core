@@ -5,7 +5,7 @@
 	* @authors         : Romain Claveau <romain.claveau@protonmail.ch>, Dylan Clement <dylanclement7@protonmail.ch>
 	*/
 
-    $_t = new Template("Connexion");
+    $_t = new Template($this->txt->Global->login);
     $_t->addCss("home_global");
     $_t->addCss("Login/home_login");
     $_t->addJs("Login/log_connect");
@@ -24,21 +24,21 @@
         </section>
 
         <section id="content">
-            <div id="back"><p><a href="../photon">RETOUR &Agrave; QUANTACLOUD</a></p></div>
+            <div id="back"><p><a href="../photon"><?php echo $this->txt->Global->back; ?></a></p></div>
 
             <div id="avatar"><p><img src="<?php echo MVC_ROOT; ?>/public/pictures/login/user.svg" /></p></div>
-            <div id="text"><p>Connexion</p></div>
+            <div id="text"><p><?php echo $this->txt->Global->login; ?></p></div>
 
             <div id="form">
-                <input type="text" id="field_mail" placeholder="Adresse mail..."  /><br />
-                <input type="password" id="field_password" placeholder="Mot de passe..." /><br />
-                <input type="password" id="field_passphrase" placeholder="PassPhrase..." /><br /><br />
-                <a href="#">Mot de passe oublié ?</a>&nbsp;<a href="#">Déjà inscrit ?</a><br />
-                <input type="submit" value="Se connecter" onclick="sendConnectionRequest()"/>
+                <input type="text" id="field_mail" placeholder="<?php echo $this->txt->Register->email; ?>..."  /><br />
+                <input type="password" id="field_password" placeholder="<?php echo $this->txt->Register->password; ?>..." /><br />
+                <input type="password" id="field_passphrase" placeholder="<?php echo $this->txt->Register->passphrase; ?>..." /><br /><br />
+                <a href="#"><?php echo $this->txt->Login->forgot; ?></a>&nbsp;<a href="#"><?php echo $this->txt->Register->alreadyregistered; ?></a><br />
+                <input type="submit" value="<?php echo $this->txt->Global->login; ?>" onclick="sendConnectionRequest()"/>
             </div>
 
             <div id="return">
-                <p class="error">L'interface n'est pas encore prête :)</p>
+                <p class="error"><?php echo $this->txt->Global->notready; ?> :)</p>
             </div>
         </section>
 </body>
