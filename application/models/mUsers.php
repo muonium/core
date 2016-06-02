@@ -111,14 +111,6 @@
             return $ret;
         }
         
-        /*function Update() {
-            
-        }*/
-        
-        /*function Delete($idUser) {
-            
-        }*/
-        
 		/*function Connection() {
 			$pdo = $this->_InstancePDO->prepare($this->_RequeteSql);
 			

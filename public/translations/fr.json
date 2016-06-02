@@ -2,7 +2,7 @@
     "Global": {
         "home": "Accueil",
         "register": "Inscription",
-        "back": "Retour à QuantaCloud",
+        "back": "Retour à Quanta Cloud",
         "favorites": "Favoris",
         "login": "Connexion",
         "notready": "L'interface n'est pas encore prête",
@@ -50,7 +50,9 @@
         "passLength": "Le mot de passe ou la passphrase doit faire au minimum 6 caractères.",
         "loginFormat": "Le format du login est incorrect (entre 2 et 20 caractères alphanumérique, -_. autorisés).",
         "mailFormat": "Le format du mail est incorrect.",
-        "error": "Une erreur est survenue lors de la création du compte."
+        "error": "Une erreur est survenue lors de la création du compte.",
+        "bruteforceErr1": "Attention : Suite à un grand nombre de requêtes de votre part, il ne vous reste plus que 3 tentatives",
+        "bruteforceErr2": "Vous avez atteint le nombre maximal de requêtes autorisées."
     },
     
     "Login": {
