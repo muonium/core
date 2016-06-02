@@ -3,6 +3,7 @@
 class Register extends Languages {
 
     private $_modelUser;
+    private $_modelUserVal;
     private $_Bruteforce;
 
     function __construct() {
@@ -51,6 +52,7 @@ class Register extends Languages {
                                             {
                                                 if($this->_modelUser->Insertion())
                                                 {
+                                                    $this->_modelUserVal = new mUserValidation();
                                                     echo "ok@".htmlentities($this->txt->Register->ok);
                                                 }
                                                 else {

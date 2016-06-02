@@ -4,11 +4,11 @@
         /*
             1   id                  int(11)         AUTO_INCREMENT
             2   login               varchar(20)
-            3   password            varchar(40)
+            3   password            varchar(128)
             4   email               varchar(254)
             5   registration_date   int(11)
             5   last_connection     int(11)
-            6   passphrase          varchar(64)
+            6   passphrase          varchar(128)
         */
         
         private $id;
