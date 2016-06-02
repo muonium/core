@@ -2,7 +2,7 @@
     "Global": {
         "home": "Home",
         "register": "Register",
-        "back": "Back to QuantaCloud",
+        "back": "Back to Quanta Cloud",
         "favorites": "Favorites",
         "login": "Login",
         "notready": "The interface is not ready yet",
@@ -50,7 +50,9 @@
         "passLength": "The password or the passphrase must be at least 6 chars.",
         "loginFormat": "Login format is incorrect (between 2 and 20 alphanumeric characters, -_. allowed).",
         "mailFormat": "Mail format is incorrect.",
-        "error": "An error occured when creating the account."
+        "error": "An error occured when creating the account.",
+        "bruteforceErr1": "Warning: following a large number of requests from you, you have only 3 attempts still",
+        "bruteforceErr2": "You reached the maximum allowed number of requests."
     },
     
     "Login": {
