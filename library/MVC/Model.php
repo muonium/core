@@ -17,5 +17,9 @@
            }
            return self::$instance;
        }
+        
+        function getLastInsertedId() {
+            return $this->_sql->lastInsertId();
+        }
     }
 ?>

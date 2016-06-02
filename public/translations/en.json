@@ -9,7 +9,9 @@
         "recents": "Recents",
         "sharing": "Sharing",
         "transfer": "Transfer",
-        "user": "Desktop"
+        "user": "Desktop",
+        "validate": "Validate email",
+        "refresh": "Refresh"
     },
     
     "UserMenu": {
@@ -52,10 +54,17 @@
         "mailFormat": "Mail format is incorrect.",
         "error": "An error occured when creating the account.",
         "bruteforceErr1": "Warning: following a large number of requests from you, you have only 3 attempts still",
-        "bruteforceErr2": "You reached the maximum allowed number of requests."
+        "bruteforceErr2": "You reached the maximum allowed number of requests.",
+        "subject": "Quanta Cloud - Account validation",
+        "message": "Welcome to Quanta Cloud and thank you for your registration.<br />To validate your account, follow this link : <a href='http://127.0.0.1/core/Validate/Key/[id_user]/[key]'>http://127.0.0.1/core/Validate/Key/[id_user]/[key]</a><br />Best regards,<br />Quanta Cloud Team<br /><br />This email was automatically generated, please do not answer."
     },
     
     "Login": {
         "forgot": "Forgot your password ?"
+    },
+    
+    "Validate": {
+        "message": "Error : The key is wrong, please login to send a new validation mail",
+        "wait": "Please wait minute before send again a validation mail"
     }
 }

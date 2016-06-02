@@ -5,23 +5,27 @@ class Register extends Languages {
     private $_modelUser;
     private $_modelUserVal;
     private $_Bruteforce;
+    private $_mail;
 
     function __construct() {
         parent::__construct();
         // Initialize the anti-bruteforce class
         $this->_Bruteforce = new AntiBruteforce();
         $this->_Bruteforce->setFolder(ROOT.DS."tmp");
-        $this->_Bruteforce->setIP();
+        $this->_Bruteforce->setSID();
         $this->_Bruteforce->setNbMaxAttemptsPerHour(50);
     }
 
     function DefaultAction() {
-        
+        if(!empty($_SESSION['id']))
+            header('Location: '.MVC_ROOT.'/Error/Error/404');
         include_once(DIR_VIEW.'vRegister.php');
     }
 
     function addUserAction() {
 
+        // Sleep during 3s to avoid a big number of requests (bruteforce)
+        sleep(3);
         $this->_Bruteforce->Control();
         if($this->_Bruteforce->getError() == 0)
         { 
@@ -52,7 +56,22 @@ class Register extends Languages {
                                             {
                                                 if($this->_modelUser->Insertion())
                                                 {
+                                                    // Send registration mail with validation key
+                                                    $id_user = $this->_modelUser->getLastInsertedId();
+                                                    $_SESSION['id'] = $id_user;
+                                                    $key = hash('sha512', uniqid(rand(), true));
+
                                                     $this->_modelUserVal = new mUserValidation();
+                                                    $this->_modelUserVal->setIdUser($id_user);
+                                                    $this->_modelUserVal->setKey($key);
+                                                    $this->_modelUserVal->Insert();
+
+                                                    $this->_mail = new Mail();
+                                                    $this->_mail->setTo($_POST['mail']);
+                                                    $this->_mail->setSubject($this->txt->Register->subject);
+                                                    $this->_mail->setMessage(str_replace("[id_user]", $id_user, str_replace("[key]", $key, $this->txt->Register->message)));
+                                                    $this->_mail->send();
+
                                                     echo "ok@".htmlentities($this->txt->Register->ok);
                                                 }
                                                 else {

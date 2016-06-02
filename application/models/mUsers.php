@@ -19,6 +19,10 @@
         
         /* ******************** SETTER ******************** */
             
+        function setId($id) {
+            $this->id = $id;
+        }
+        
         function setLogin($login) {
             $this->login = $login;
         }
@@ -41,7 +45,12 @@
         }
         
         function getEmail() {
-            return $this->email;
+            $req = $this->_sql->prepare("SELECT email FROM users WHERE id = ?");
+            $req->execute(array($this->id));
+            if($req->rowCount() == 0)
+                return false;
+            $res = $req->fetch();
+            return $res['email'];
         }
         
         function getPassphrase() {

@@ -9,7 +9,7 @@
         
         private $id;
         private $id_user;
-        private $key;
+        private $val_key;
         
         /* ******************** SETTER ******************** */
             
@@ -18,7 +18,7 @@
         }
         
         function setKey($key) {
-            $this->{"key"} = $key;
+            $this->val_key = $key;
         }
         
         /* ******************** GETTER ******************** */
@@ -27,24 +27,29 @@
         }
         
         function getKey() {
-            $req = $this->_sql->prepare("SELECT key FROM user_validation WHERE id_user = ?");
+            $req = $this->_sql->prepare("SELECT val_key FROM user_validation WHERE id_user = ?");
             $req->execute(array($this->id_user));
             if($req->rowCount() == 0)
                 return false;
             $res = $req->fetch();
-            return $res['key'];
+            return $res['val_key'];
         }
         
         /* **************************************** */
         
         function Delete() {
-            $req = $this->_sql->prepare("DELETE * FROM user_validation WHERE id_user = ?");
+            $req = $this->_sql->prepare("DELETE FROM user_validation WHERE id_user = ?");
             return $req->execute(array($this->id_user));
         }
         
         function Insert() {
             $req = $this->_sql->prepare("INSERT INTO user_validation VALUES ('', ?, ?)");
-            return $req->execute(array($this->id_user, $this->{'key'}));
+            return $req->execute(array($this->id_user, $this->val_key));
+        }
+        
+        function Update() {
+            $req = $this->_sql->prepare("UPDATE user_validation SET key = ? WHERE id_user = ?");
+            return $req->execute(array($this->val_key, $this->id_user));
         }
     }
 ?>
