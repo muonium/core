@@ -2,7 +2,7 @@
 class AntiBruteforce
 {
     private $_username;
-    private $_ip;
+    private $_sid;
     
     private $_tmpFile;
     private $_error = 0;
@@ -18,10 +18,10 @@ class AntiBruteforce
         $this->_tmpFile = $this->_folder.'/'.sha1($username.'c4$AZ_').'.tmp';
     }
     
-    function setIP() {
-        $this->_ip = $_SERVER['REMOTE_ADDR'];
+    function setSID() {
+        $this->_sid = session_id();
         // Temporary file with the number of connections/requests for the ip, ip is encrypted with sha1 and a salt for more security.
-        $this->_tmpFile = $this->_folder.'/'.sha1($this->_ip.'c4$AZ_').'.tmp';
+        $this->_tmpFile = $this->_folder.'/'.sha1(session_id().'c4$AZ_').'.tmp';
     }
     
     function setFolder($folder) {
@@ -40,11 +40,9 @@ class AntiBruteforce
         return $this->_NbMaxAttemptsPerHour;
     }
     
-    function banIP() {
-        /*$ip = $_SERVER['REMOTE_ADDR'];
-        $file = fopen("banned_ip.txt", "a");
-        fwrite($file, $ip.';');
-        fclose($file);*/
+    function banSID() {
+        unlink($this->_folder.'/'.sha1(session_id().'c4$AZ_').'.tmp');
+        $_SESSION['banSID'] = 1;
     }
     
     function Control() {
@@ -72,7 +70,7 @@ class AntiBruteforce
                 // Less than one hour
                 
                 if($NbAttempts > $this->_NbMaxAttemptsPerHour) {
-                    $this->banIP();
+                    $this->banSID();
                     $this->_error = 2;
                 }
                 elseif($NbAttempts > ($this->_NbMaxAttemptsPerHour-3)) {

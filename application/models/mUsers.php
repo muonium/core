@@ -4,11 +4,11 @@
         /*
             1   id                  int(11)         AUTO_INCREMENT
             2   login               varchar(20)
-            3   password            varchar(40)
+            3   password            varchar(128)
             4   email               varchar(254)
             5   registration_date   int(11)
             5   last_connection     int(11)
-            6   passphrase          varchar(64)
+            6   passphrase          varchar(128)
         */
         
         private $id;
@@ -19,6 +19,10 @@
         
         /* ******************** SETTER ******************** */
             
+        function setId($id) {
+            $this->id = $id;
+        }
+        
         function setLogin($login) {
             $this->login = $login;
         }
@@ -41,7 +45,12 @@
         }
         
         function getEmail() {
-            return $this->email;
+            $req = $this->_sql->prepare("SELECT email FROM users WHERE id = ?");
+            $req->execute(array($this->id));
+            if($req->rowCount() == 0)
+                return false;
+            $res = $req->fetch();
+            return $res['email'];
         }
         
         function getPassphrase() {

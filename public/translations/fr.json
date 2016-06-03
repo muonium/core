@@ -9,7 +9,9 @@
         "recents": "Récents",
         "sharing": "Partage",
         "transfer": "Transfert",
-        "user": "Desktop"
+        "user": "Desktop",
+        "validate": "Valider adresse mail",
+        "refresh": "Actualiser"
     },
     
     "UserMenu": {
@@ -52,10 +54,17 @@
         "mailFormat": "Le format du mail est incorrect.",
         "error": "Une erreur est survenue lors de la création du compte.",
         "bruteforceErr1": "Attention : Suite à un grand nombre de requêtes de votre part, il ne vous reste plus que 3 tentatives",
-        "bruteforceErr2": "Vous avez atteint le nombre maximal de requêtes autorisées."
+        "bruteforceErr2": "Vous avez atteint le nombre maximal de requêtes autorisées.",
+        "subject": "Quanta Cloud - Validez votre compte",
+        "message": "Bienvenue sur Quanta Cloud et merci pour votre inscription.<br />Afin de valider votre compte, suivez ce lien : <a href='http://127.0.0.1/core/Validate/Key/[id_user]/[key]'>http://127.0.0.1/core/Validate/Key/[id_user]/[key]</a><br />Cordialement,<br />L'équipe Quanta Cloud<br /><br />Ce mail a été généré automatiquement, merci de ne pas y répondre."
     },
     
     "Login": {
         "forgot": "Mot de passe oublié ?"
+    },
+    
+    "Validate": {
+        "message": "Erreur : La clé est incorrecte, connectez vous pour envoyer un nouveau mail de validation",
+        "wait": "Veuillez patienter une minute avant d'envoyer un nouveau mail de validation"
     }
 }

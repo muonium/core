@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 01, 2016 at 02:07 PM
+-- Generation Time: Jun 02, 2016 at 03:29 PM
 -- Server version: 5.6.15-log
 -- PHP Version: 5.4.24
 
@@ -72,11 +72,24 @@ CREATE TABLE IF NOT EXISTS `storage` (
 CREATE TABLE IF NOT EXISTS `users` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `login` varchar(20) NOT NULL,
-  `password` varchar(40) NOT NULL,
+  `password` varchar(128) NOT NULL,
   `email` varchar(254) NOT NULL,
   `registration_date` int(11) NOT NULL,
   `last_connection` int(11) NOT NULL,
-  `passphrase` varchar(64) NOT NULL,
+  `passphrase` varchar(128) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user_validation`
+--
+
+CREATE TABLE IF NOT EXISTS `user_validation` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_user` int(11) NOT NULL,
+  `val_key` varchar(128) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 

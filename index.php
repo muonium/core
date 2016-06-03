@@ -3,6 +3,12 @@
 session_start();
 include_once("./config/autoload.php");
 
+// Banned session (anti-bruteforce)
+if(!empty($_SESSION['banSID'])) {
+    echo 'You reached the maximum allowed number of requests';
+    exit;
+}
+
 define('DS', DIRECTORY_SEPARATOR);
 define('ROOT', __DIR__);
 
