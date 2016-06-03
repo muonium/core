@@ -1,49 +1,48 @@
 <?php
 	class Login extends Languages {
 
-		function Login() {
+		function DefaultAction() {
 
 			if(!empty($_POST['mail']) && !empty($_POST['pass']) && !empty($_POST['passphrase'])) {
-				$sql = "SELECT * FROM utilisateur WHERE pseudo = :pseudo AND password = :password AND passPhrase = :passPhrase";
-				$newUser = new mUtilisateur();
-                $newUser->setPseudo($_POST['mail']);
-                $newUser->setPassword($_POST['pass']);
-                $newUser->setPassPhrase($_POST['passphrase']);
-                $newUser->setRequete($sql);
-
-                $user = $newUser->Connection();
-              	if(!empty($user)) {
-
-              		foreach($user as $key => $s)
-              		{
-              			$_SESSION['Utilisateur']['idUtilisateur'] = $s->getidUtilisateur();
-              			$_SESSION['Utilisateur']['passPhrase'] = $s->getPassPhrase();
-              			$_SESSION['Utilisateur']['Pseudo'] = $s->getPseudo();
-              		}
-
-              		echo "ok";
-              	}else {
-
-				}
+                sleep(3);
+				$newUser = new mUsers();
+                $newUser->setEmail($_POST['mail']);
+                $newUser->setPassword(hash('sha512', $_POST['pass']));
+                $newUser->setPassphrase(hash('sha512', $_POST['passphrase']));
+                
+                $brute = new AntiBruteforce();
+                $brute->setFolder(ROOT.DS."tmp");
+                $brute->setNbMaxAttemptsPerHour(50);
+                
+                if(!($id = $newUser->getId())) {
+                    // User doesn't exists - Anti bruteforce with session id
+                    $brute->setSID();
+                    $brute->Control();
+                    echo $this->txt->Login->{"bruteforceErr".$brute->getError()};
+                }
+                else {
+                    if(!($newUser->Connection())) {
+                        // User exists - Anti bruteforce with user id
+                        $brute->setId($id);
+                        $brute->Control();
+                        echo $this->txt->Login->{"bruteforceErr".$brute->getError()};
+                    }
+                    else {
+                        // Connection
+                        $_SESSION['id'] = $id;
+                        
+                        $mUserVal = new mUserValidation();
+                        $mUserVal->setIdUser($id);
+                        
+                        if(!($this->_modelUserVal->getKey())) // Unable to find key
+                            header('Location: '.MVC_ROOT);
+                        $_SESSION['validate'] = 1;
+                        header('Location: '.MVC_ROOT.'/Validate');
+                    }
+                }
 			}
+            
+            include_once(DIR_VIEW."vLogin.php");
 		}
-		}
-
-		function getPrivateKey() {
-
-			$filePrivate = "../proton/".$_SESSION['Utilisateur']['idUtilisateur']."/privateKey.key";
-			$contenuPrivate = file_get_contents($filePrivate,FILE_USE_INCLUDE_PATH);
-			echo $contenuPrivate;
-		}
-
-		function getToken() {
-			echo $_SESSION['Utilisateur']['passPhrase'];
-		}
-
-		function DestroySession() {
-			unset($_SESSION['Utilisateur']['idUtilisateur']);
-			unset($_SESSION['Utilisateur']['passPhrase']);
-			unset($_SESSION['Utilisateur']);
-		}
-	}
+	};
 ?>

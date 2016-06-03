@@ -60,11 +60,16 @@
     },
     
     "Login": {
-        "forgot": "Mot de passe oublié ?"
+        "forgot": "Mot de passe oublié ?",
+        "bruteforceErr0": "Email ou mot de passe invalide",
+        "bruteforceErr1": "Attention : Suite à un grand nombre de requêtes de votre part, il ne vous reste plus que 3 tentatives",
+        "bruteforceErr2": "Vous avez atteint le nombre maximal de requêtes autorisées."
     },
     
     "Validate": {
         "message": "Erreur : La clé est incorrecte, connectez vous pour envoyer un nouveau mail de validation",
-        "wait": "Veuillez patienter une minute avant d'envoyer un nouveau mail de validation"
+        "wait": "Veuillez patienter une minute avant d'envoyer un nouveau mail de validation",
+        "sendmess": "Suivez le lien donné dans l'email pour activer votre compte",
+        "sendmail": "Envoyer un nouveau mail"
     }
 }
