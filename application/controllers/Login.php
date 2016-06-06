@@ -1,5 +1,7 @@
 <?php
 	class Login extends Languages {
+        
+        private $_error = '';
 
 		function DefaultAction() {
 
@@ -18,14 +20,14 @@
                     // User doesn't exists - Anti bruteforce with session id
                     $brute->setSID();
                     $brute->Control();
-                    echo $this->txt->Login->{"bruteforceErr".$brute->getError()};
+                    $this->_error = $this->txt->Login->{"bruteforceErr".$brute->getError()};
                 }
                 else {
                     if(!($newUser->Connection())) {
                         // User exists - Anti bruteforce with user id
                         $brute->setId($id);
                         $brute->Control();
-                        echo $this->txt->Login->{"bruteforceErr".$brute->getError()};
+                        $this->_error = $this->txt->Login->{"bruteforceErr".$brute->getError()};
                     }
                     else {
                         // Connection
@@ -33,11 +35,13 @@
                         
                         $mUserVal = new mUserValidation();
                         $mUserVal->setIdUser($id);
-                        
-                        if(!($this->_modelUserVal->getKey())) // Unable to find key
+
+                        if(!($mUserVal->getKey())) // Unable to find key - Validation is done
                             header('Location: '.MVC_ROOT);
-                        $_SESSION['validate'] = 1;
-                        header('Location: '.MVC_ROOT.'/Validate');
+                        else {
+                            $_SESSION['validate'] = 1;
+                            header('Location: '.MVC_ROOT.'/Validate');
+                        }
                     }
                 }
 			}

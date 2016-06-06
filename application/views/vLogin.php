@@ -8,8 +8,8 @@
     $_t = new Template($this->txt->Global->login);
     $_t->addCss("home_global");
     $_t->addCss("Login/home_login");
-    $_t->addJs("Login/log_connect");
-    $_t->addJs("Login/sha512");
+    //$_t->addJs("Login/log_connect");
+    //$_t->addJs("Login/sha512");
     $_t->getHeader();
 ?>
 <body>
@@ -30,11 +30,14 @@
             <div id="text"><p><?php echo $this->txt->Global->login; ?></p></div>
 
             <div id="form">
-                <input type="text" id="field_mail" placeholder="<?php echo $this->txt->Register->email; ?>..."  /><br />
-                <input type="password" id="field_password" placeholder="<?php echo $this->txt->Register->password; ?>..." /><br />
-                <input type="password" id="field_passphrase" placeholder="<?php echo $this->txt->Register->passphrase; ?>..." /><br /><br />
-                <a href="#"><?php echo $this->txt->Login->forgot; ?></a>&nbsp;<a href="#"><?php echo $this->txt->Register->alreadyregistered; ?></a><br />
-                <input type="submit" value="<?php echo $this->txt->Global->login; ?>" onclick="sendConnectionRequest()"/>
+                <form method="post" action="<?php echo MVC_ROOT; ?>/Login">
+                    <p><?php echo $this->_error; ?></p>
+                    <input type="text" name="mail" id="field_mail" placeholder="<?php echo $this->txt->Register->email; ?>..." required="required" /><br />
+                    <input type="password" name="pass" id="field_password" placeholder="<?php echo $this->txt->Register->password; ?>..." required="required" /><br />
+                    <input type="password" name="passphrase" id="field_passphrase" placeholder="<?php echo $this->txt->Register->passphrase; ?>..." required="required" /><br /><br />
+                    <a href="#"><?php echo $this->txt->Login->forgot; ?></a>&nbsp;<a href="#"><?php echo $this->txt->Register->alreadyregistered; ?></a><br />
+                    <input type="submit" value="<?php echo $this->txt->Global->login; ?>">
+                </form>
             </div>
 
             <div id="return">

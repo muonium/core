@@ -95,7 +95,7 @@
         }
         
 		function Connection() {
-			$req = $this->_sql->prepare("SELECT id FROM users WHERE mail = ? AND password = ? AND passphrase = ?");
+			$req = $this->_sql->prepare("SELECT id FROM users WHERE email = ? AND password = ? AND passphrase = ?");
             $req->execute(array($this->email, $this->password, $this->passphrase));
             if($req->rowCount())
                 return true;
