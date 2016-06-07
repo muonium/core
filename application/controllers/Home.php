@@ -3,11 +3,13 @@
 class Home extends Languages {
 
 	function DefaultAction() {
-			if(isset($_SESSION['Utilisateur'])) {
-				include_once(DIR_VIEW.'/vUser.php');
-			} else {
-				include_once(DIR_VIEW.'/vLogin.php');
-			}
+			if(!empty($_SESSION['id']))
+                if(!empty($_SESSION['validate']))
+                    header('Location: '.MVC_ROOT.'/Validate');
+                else
+				    header('Location: '.MVC_ROOT.'/User');
+			else
+				header('Location: '.MVC_ROOT.'/Login');
 	}
 }
 ?>

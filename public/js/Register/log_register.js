@@ -42,12 +42,14 @@ var sendRegisterRequest = function()
         if(xhr.status == 200 && xhr.readyState == 4)
         {
             console.log(xhr.responseText);
-            if(xhr.responseText.length > 3)
+            if(xhr.responseText.length > 2)
             {
                 // success message
                 if(xhr.responseText.substr(0, 3) == "ok@") {
                     //generateKeys(field_passphrase);
                     returnArea.innerHTML = xhr.responseText.substr(3);
+                    window.location.href="Home";
+                    return false;
                 }
                 else {
                     // error

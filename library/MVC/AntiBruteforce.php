@@ -1,7 +1,7 @@
 <?php
 class AntiBruteforce
 {
-    private $_username;
+    private $_id;
     private $_sid;
     
     private $_tmpFile;
@@ -12,10 +12,10 @@ class AntiBruteforce
     
     private $_NbMaxAttemptsPerHour = 15; 
     
-    function setUsername($username) {
-        $this->_username = $username;
+    function setId($id) {
+        $this->_id = $id;
         // Temporary file with the number of connections/requests for the user, username is encrypted with sha1 and a salt for more security.
-        $this->_tmpFile = $this->_folder.'/'.sha1($username.'c4$AZ_').'.tmp';
+        $this->_tmpFile = $this->_folder.'/'.sha1($id.'c4$AZ_').'.tmp';
     }
     
     function setSID() {

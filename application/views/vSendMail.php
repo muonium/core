@@ -1,7 +1,7 @@
 <?php
 	/*
-	* @name            : vValidate.php
-	* @description     : Validate view
+	* @name            : vSendMail.php
+	* @description     : Sendmail view (just a link to sendMail method)
 	* @authors         : Dylan Clement <dylanclement7@protonmail.ch>
 	*/
 
@@ -28,9 +28,8 @@
             <div id="text"><p><?php echo $this->txt->Global->validate; ?></p></div>
 
             <p>
-                <?php echo $this->err_msg; ?><br />
-                <a href="<?php echo MVC_ROOT; ?>/Login"><?php echo $this->txt->Global->login; ?></a> || 
-                <a href="<?php echo $_SERVER['REQUEST_URI']; ?>"><?php echo $this->txt->Global->refresh; ?></a>
+                <?php echo $this->txt->Validate->sendmess; ?><br />
+                <a href="<?php echo $_SERVER['REQUEST_URI']; ?>/sendMail"><?php echo $this->txt->Validate->sendmail; ?></a>
             </p>
         </section>
 </body>

@@ -60,11 +60,16 @@
     },
     
     "Login": {
-        "forgot": "Forgot your password ?"
+        "forgot": "Forgot your password ?",
+        "bruteforceErr0": "Invalid email or password",
+        "bruteforceErr1": "Warning: following a large number of requests from you, you have only 3 attempts still",
+        "bruteforceErr2": "You reached the maximum allowed number of requests."
     },
     
     "Validate": {
         "message": "Error : The key is wrong, please login to send a new validation mail",
-        "wait": "Please wait minute before send again a validation mail"
+        "wait": "Please wait minute before send again a validation mail",
+        "sendmess": "Please follow the link given by email to activate your account",
+        "sendmail": "Send a new mail"
     }
 }

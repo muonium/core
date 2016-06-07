@@ -41,7 +41,12 @@
         
         /* ******************** GETTER ******************** */
         function getId() {
-            return $this->id;
+            $req = $this->_sql->prepare("SELECT id FROM users WHERE email = ?");
+            $req->execute(array($this->email));
+            if($req->rowCount() == 0)
+                return false;
+            $res = $req->fetch();
+            return $res['id'];
         }
         
         function getEmail() {
@@ -83,58 +88,19 @@
             return false;
         }
         
-        /*function GenerateId() {
-            $base  = 'AZERTYUIOPQSDFGHJKLMWXCVBNazertyuiopqsdfghjklmwxcvbn0123456789';
-            $id = "";
-            $sqlUser = "SELECT idUtilisateur FROM utilisateur";
-            $_instancePDO = new                       PDO('mysql:host='.confBDD::hostDefaut.';dbname='.confBDD::bddDefaut,confBDD::userDefaut,confBDD::passDefaut);
-            $pdo = $_instancePDO->prepare($sqlUser);
-            $pdo->execute();
-            $user  = $pdo->fetchAll(PDO::FETCH_CLASS,'mUtilisateur');
-
-            foreach($user as $key => $utilisateur)  {
-                for($i=0;$i<10;$i++) {
-                    $id .= $base[rand(0,61)];
-                }
-                $userId = $utilisateur->getidUtilisateur();
-                if($id != $userId) {
-                    break;
-                } else {
-                    for($i=0;$i<10;$i++) {
-                        $id .= $base[rand(0,61)];
-                    }
-                }
-                
-            }
-            if(empty($id)) {
-                for($i=0;$i<10;$i++) {
-                    $id .= $base[rand(0,61)];
-                }
-            }
-            return $id;
-        }*/
-        
         function Insertion() {
             $req = $this->_sql->prepare("INSERT INTO users VALUES ('', ?, ?, ?, ?, ?, ?)");
             $ret = $req->execute(array($this->login, $this->password, $this->email, time(), time(), $this->passphrase));   
             return $ret;
         }
         
-		/*function Connection() {
-			$pdo = $this->_InstancePDO->prepare($this->_RequeteSql);
-			
-			$username = $this->getPseudo();
-			$pass = $this->getPassword();
-			$phrase = $this->getPassPhrase();
-			
-			$pdo->bindValue(":pseudo", $username);
-			$pdo->bindValue(":password", $pass);
-			$pdo->bindValue(":passPhrase",$phrase);
-			
-			$pdo->execute();
-			$user = $pdo->fetchAll(PDO::FETCH_CLASS,'mUtilisateur');
-			return $user;
-		}*/
+		function Connection() {
+			$req = $this->_sql->prepare("SELECT id FROM users WHERE email = ? AND password = ? AND passphrase = ?");
+            $req->execute(array($this->email, $this->password, $this->passphrase));
+            if($req->rowCount())
+                return true;
+            return false;
+		}
 
         
         /*function getPassPhraseByIdUtilisateur() {

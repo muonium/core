@@ -14,13 +14,19 @@ var sendConnectionRequest = function()
     var field_mail = document.querySelector("#field_mail").value;
     var field_password = document.querySelector("#field_password").value;
     var field_passphrase = document.querySelector("#field_passphrase").value;
+    
+    var passLength = 1;
 
     var returnArea = document.querySelector("#return");
 
     returnArea.innerHTML = "<img src='./public/pictures/index/loader.gif' style='height: 3vh;' />";
+    
+    if(field_password.length < 6) {
+        passLength = 0;
+    }
 
     var xhr = new XMLHttpRequest();
-    xhr.open("POST", "Connexion/Login", true);
+    xhr.open("POST", "Login/connection", true);
     xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
     xhr.onreadystatechange = function()
@@ -29,38 +35,31 @@ var sendConnectionRequest = function()
         {
 
             console.log(xhr.responseText);
-
-            switch(xhr.responseText)
+            if(xhr.responseText.length > 2)
             {
-                case "ok":
-                        getKey(field_passphrase);
-                    break;
-
-                case "errorForm":
-                    returnArea.innerHTML = "<p class='warning'>Tous les champs doivent être remplis</p>";
-                    break;
-
-                case "errorID":
-                    returnArea.innerHTML = "<p class='error'>Le couple identifiant/mot de passe n'est pas reconnu</p>";
-                    break;
-
-                case "errorSession":
-                    returnArea.innerHTML = "<p class='error'>Impossible d'ouvrir cette session, celle-ci est déjà ouverte par quelqu'un d'autre</p>";
-                    break;
-
-                default:
-                    returnArea.innerHTML = "<p class='error'>Erreur inconnue</p>";
-                    break;
+                // success message
+                if(xhr.responseText.substr(0, 3) == "ok@") {
+                    window.location.href="Home";
+                    return false;
+                }
+                else if(xhr.responseText.substr(0, 3) == "va@") {
+                    window.location.href="Validate";
+                    return false;
+                }
+                else {
+                    // error
+                    returnArea.innerHTML = xhr.responseText;
+                }
             }
         }
     }
-    xhr.send("mail="+encodeURIComponent(field_mail)+"&pass="+sha512(field_password)+"&passphrase="+sha512(field_passphrase));
+    xhr.send("mail="+encodeURIComponent(field_mail)+"&pass="+sha512(field_password)+"&passphrase="+sha512(field_passphrase)+"&passlength="+passLength);
 }
 /*
 * @name         : getKeys(string passphrase)
 * @description  : Permet la récupération des clés privée et publique
 */
-var getKey = function(passphrase)
+/*var getKey = function(passphrase)
 {
     var returnArea = document.querySelector("#return");
     var status_key;
@@ -95,13 +94,13 @@ var getKey = function(passphrase)
             aeJs.actions.encrypt(passphrase);
         }
     }, 500);
-}
+}*/
 
 /*
 * @name         : encryptPassphrase(string passphrase)
 * @description  : Permet de chiffrer le mot de passe de la clé privée et de le stocker en local
 */
-var encryptPassphrase = function(passphrase)
+/*var encryptPassphrase = function(passphrase)
 {
     var returnArea = document.querySelector("#return");
 
@@ -134,22 +133,22 @@ var encryptPassphrase = function(passphrase)
     }
 
     xhr.send(null);
-}
+}*/
 
 /*
 * @name         : openSession()
 * @description  : Ouverture de la session
 */
-var openSession = function()
+/*var openSession = function()
 {
     document.location.href = "Accueil";
-}
+}*/
 
 /*
 * @name         : destroySession()
 * @description  : Destruction de la session
 */
-var destroySession = function()
+/*var destroySession = function()
 {
     var xhr = new XMLHttpRequest();
     xhr.open("POST", "Connexion/destroySession", true);
@@ -163,4 +162,4 @@ var destroySession = function()
     }
 
     xhr.send(null);
-}
+}*/

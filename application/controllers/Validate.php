@@ -10,8 +10,7 @@
         private $_mail;
         
         function DefaultAction() {
-            // Do nothing
-            header('Location: '.MVC_ROOT.'/Error/Error/404');
+            include_once(DIR_VIEW."vSendMail.php");
         }
         
         function KeyAction($id_user, $key) {
@@ -83,7 +82,7 @@
             else {
                 // If not logged
                 // Redirect to login page and after to this method again
-                header('Location: '.MVC_ROOT.'/Login/UserValidation');
+                header('Location: '.MVC_ROOT.'/Login');
             }
         }
     };
