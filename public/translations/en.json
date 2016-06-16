@@ -18,7 +18,8 @@
         "bug": "Bug",
         "help": "Help",
         "settings": "Settings",
-        "profile": "Profile"
+        "profile": "Profile",
+        "logout": "Logout"
     },
     
     "Toolbar": {

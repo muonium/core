@@ -18,7 +18,8 @@
         "bug": "Bug",
         "help": "Aide",
         "settings": "Options",
-        "profile": "Profil"
+        "profile": "Profil",
+        "logout": "Déconnexion"
     },
     
     "Toolbar": {

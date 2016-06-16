@@ -34,6 +34,8 @@
                 // Same keys, validate account
                 $this->_modelUserVal->Delete();
                 $_SESSION['id'] = $this->id_user;
+                if(!empty($_SESSION['validate']))
+                    unset($_SESSION['validate']);
                 header('Location: '.MVC_ROOT);
             }
         }

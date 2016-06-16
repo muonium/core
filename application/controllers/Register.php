@@ -9,6 +9,8 @@ class Register extends Languages {
 
     function __construct() {
         parent::__construct();
+        if(!empty($_SESSION['id']))
+            header('Location: '.MVC_ROOT.'/Error/Error/404');
         // Initialize the anti-bruteforce class
         $this->_Bruteforce = new AntiBruteforce();
         $this->_Bruteforce->setFolder(ROOT.DS."tmp");
@@ -17,8 +19,6 @@ class Register extends Languages {
     }
 
     function DefaultAction() {
-        if(!empty($_SESSION['id']))
-            header('Location: '.MVC_ROOT.'/Error/Error/404');
         include_once(DIR_VIEW.'vRegister.php');
     }
 
