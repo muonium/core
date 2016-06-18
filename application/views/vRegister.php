@@ -24,7 +24,7 @@
         </section>
 
         <section id="content">
-            <div id="back"><p><a href="../photon/"><?php echo $this->txt->Global->back; ?></a></p></div>
+            <div id="back"><p><a href="https://quantacloud.ch/photon/"><?php echo $this->txt->Global->back; ?></a></p></div>
 
             <div id="avatar"><p><img src="<?php echo MVC_ROOT; ?>/public/pictures/register/user.svg" /></p></div>
             <div id="text"><p><?php echo $this->txt->Global->register; ?></p></div>
