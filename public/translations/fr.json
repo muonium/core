@@ -11,7 +11,8 @@
         "transfer": "Transfert",
         "user": "Desktop",
         "validate": "Valider adresse mail",
-        "refresh": "Actualiser"
+        "refresh": "Actualiser",
+        "profile": "Profil"
     },
     
     "UserMenu": {
@@ -72,5 +73,16 @@
         "wait": "Veuillez patienter une minute avant d'envoyer un nouveau mail de validation",
         "sendmess": "Suivez le lien donné dans l'email pour activer votre compte",
         "sendmail": "Envoyer un nouveau mail"
+    },
+    
+    "Profile": {
+        "changelogin": "Modifier votre login",
+        "changepwd": "Modifier votre mot de passe",
+        "changepp": "Modifier votre passPhrase",
+        "newlogin": "Nouveau login",
+        "oldpwd": "Ancien mot de passe",
+        "newpwd": "Nouveau mot de passe",
+        "oldpp": "Ancienne passPhrase",
+        "newpp": "Nouvelle passPhrase"
     }
 }

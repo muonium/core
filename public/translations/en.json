@@ -11,7 +11,8 @@
         "transfer": "Transfer",
         "user": "Desktop",
         "validate": "Validate email",
-        "refresh": "Refresh"
+        "refresh": "Refresh",
+        "profile": "Profile"
     },
     
     "UserMenu": {
@@ -72,5 +73,16 @@
         "wait": "Please wait minute before send again a validation mail",
         "sendmess": "Please follow the link given by email to activate your account",
         "sendmail": "Send a new mail"
+    },
+    
+    "Profile": {
+        "changelogin": "Change login",
+        "changepwd": "Change password",
+        "changepp": "Change passPhrase",
+        "newlogin": "New login",
+        "oldpwd": "Old password",
+        "newpwd": "New password",
+        "oldpp": "Old passPhrase",
+        "newpp": "New passPhrase"
     }
 }
