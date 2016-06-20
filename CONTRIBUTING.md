@@ -22,6 +22,13 @@ Examples of unacceptable behavior by participants include:
     Publishing others' private information, such as a physical or electronic address, without explicit permission
     Other conduct which could reasonably be considered inappropriate in a professional setting
 
+# Our utilization of Git
+
+- If you're coding a new feature, then create a new branch
+- When the feature is coded, you can merge and delete the feature branch
+ 
+In fact : a feature <=> a branch
+
 # Coding style
 
 ## Global - Variables
