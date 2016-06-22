@@ -37,7 +37,7 @@ In fact : a feature <=> a branch
 - The name of a function/class/variable must be understandable without any comment.
 - All functions, classes, variables names must be in English.
 
-## Global - Variables
+## Global - Names
 
 Use mixedCase.
 
