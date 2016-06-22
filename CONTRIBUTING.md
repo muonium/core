@@ -41,9 +41,14 @@ In fact : a feature <=> a branch
 
 Use mixedCase.
 
-Example : **int johnDoe(0);**
-
-Wrong : **int JohnDoe(0);** or **int john_doe(0);**
+Right : 
+```PHP
+ function connectionAction()
+```
+Wrong : 
+```PHP
+ function connection_action()
+```
 
 ## Comments
 
