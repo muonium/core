@@ -52,7 +52,7 @@
         "passEqualPassphrase": "Le mot de passe et la passphrase doivent être différents.",
         "form": "Tous les champs doivent être remplis.",
         "passLength": "Le mot de passe ou la passphrase doit faire au minimum 6 caractères.",
-        "loginFormat": "Le format du login est incorrect (entre 2 et 20 caractères alphanumérique, -_. autorisés).",
+        "loginFormat": "Le format du pseudo est incorrect (entre 2 et 20 caractères alphanumérique, -_. autorisés).",
         "mailFormat": "Le format du mail est incorrect.",
         "error": "Une erreur est survenue lors de la création du compte.",
         "bruteforceErr1": "Attention : Suite à un grand nombre de requêtes de votre part, il ne vous reste plus que 3 tentatives",
@@ -76,10 +76,10 @@
     },
     
     "Profile": {
-        "changelogin": "Modifier votre identifiant",
+        "changelogin": "Modifier votre pseudo",
         "changepwd": "Modifier votre mot de passe",
         "changepp": "Modifier votre passphrase",
-        "newlogin": "Nouvel identifiant",
+        "newlogin": "Nouvel pseudo",
         "oldpwd": "Ancien mot de passe",
         "newpwd": "Nouveau mot de passe",
         "oldpp": "Ancienne passphrase",
