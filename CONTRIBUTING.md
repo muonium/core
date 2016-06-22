@@ -52,4 +52,4 @@ Wrong :
 
 ## Comments
 
-Please, take this code as a reference](https://github.com/quantacloud/core/blob/master/application/controllers/Login.php)
+[Please, take this code as a reference](https://github.com/quantacloud/core/blob/master/application/controllers/Login.php)
