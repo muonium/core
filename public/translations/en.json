@@ -41,7 +41,7 @@
         "login": "Login",
         "password": "Password",
         "confirm": "Confirm",
-        "passphrase": "PassPhrase",
+        "passphrase": "Passphrase",
         "alreadyregistered": "Already registered ?",
         "impossible": "Registration impossible for now",
         "ok": "Registration done !",
@@ -58,7 +58,7 @@
         "bruteforceErr1": "Warning: following a large number of requests from you, you have only 3 attempts still",
         "bruteforceErr2": "You reached the maximum allowed number of requests.",
         "subject": "Quanta Cloud - Account validation",
-        "message": "Welcome to Quanta Cloud and thank you for your registration.<br />To validate your account, follow this link : <a href='http://127.0.0.1/core/Validate/Key/[id_user]/[key]'>http://127.0.0.1/core/Validate/Key/[id_user]/[key]</a><br />Best regards,<br />Quanta Cloud Team<br /><br />This email was automatically generated, please do not answer."
+        "message": "Welcome to Quanta Cloud !<br />To validate your account, follow this link : <a href='http://127.0.0.1/core/Validate/Key/[id_user]/[key]'>http://127.0.0.1/core/Validate/Key/[id_user]/[key]</a><br />Best regards,<br />Quanta Cloud Team<br /><br />This email was automatically generated, please do not answer."
     },
     
     "Login": {
