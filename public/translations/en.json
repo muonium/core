@@ -78,11 +78,11 @@
     "Profile": {
         "changelogin": "Change login",
         "changepwd": "Change password",
-        "changepp": "Change passPhrase",
+        "changepp": "Change passphrase",
         "newlogin": "New login",
         "oldpwd": "Old password",
         "newpwd": "New password",
-        "oldpp": "Old passPhrase",
-        "newpp": "New passPhrase"
+        "oldpp": "Old passphrase",
+        "newpp": "New passphrase"
     }
 }

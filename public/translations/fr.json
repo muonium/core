@@ -10,7 +10,7 @@
         "sharing": "Partage",
         "transfer": "Transfert",
         "user": "Desktop",
-        "validate": "Valider adresse mail",
+        "validate": "Valider l'adresse email",
         "refresh": "Actualiser",
         "profile": "Profil"
     },
@@ -32,7 +32,7 @@
     },
     
     "Error": {
-		"e404": "Erreur : Page non trouvée",
+	"e404": "Erreur : Page non trouvée",
         "default": "Une erreur est survenue"
 	},
     
@@ -44,11 +44,11 @@
         "passphrase": "PassPhrase",
         "alreadyregistered": "Déjà inscrit ?",
         "impossible": "Inscriptions impossibles pour le moment",
-        "ok": "Inscription faite avec succès !",
-        "mailExists": "Votre mail est déjà enregistré dans la base de données. Impossible de recréer un compte à partir de celle-ci.",
-        "loginExists": "Votre login est déjà enregistré dans la base de données. Impossible de recréer un compte à partir de celui-ci.",
+        "ok": "Inscription effectuée avec succès !",
+        "mailExists": "Votre email est déjà enregistré dans la base de données. Impossible de recréer un compte à partir de celle-ci.",
+        "loginExists": "Votre identifiant est déjà enregistré dans la base de données. Impossible de recréer un compte à partir de celui-ci.",
         "badPassConfirm": "Les deux mots de passe sont différents.",
-        "badPassphraseConfirm": "Les deux passphrase sont différentes.",
+        "badPassphraseConfirm": "Les deux passphrases sont différentes.",
         "passEqualPassphrase": "Le mot de passe et la passphrase doivent être différents.",
         "form": "Tous les champs doivent être remplis.",
         "passLength": "Le mot de passe ou la passphrase doit faire au minimum 6 caractères.",
@@ -57,8 +57,8 @@
         "error": "Une erreur est survenue lors de la création du compte.",
         "bruteforceErr1": "Attention : Suite à un grand nombre de requêtes de votre part, il ne vous reste plus que 3 tentatives",
         "bruteforceErr2": "Vous avez atteint le nombre maximal de requêtes autorisées.",
-        "subject": "Quanta Cloud - Validez votre compte",
-        "message": "Bienvenue sur Quanta Cloud et merci pour votre inscription.<br />Afin de valider votre compte, suivez ce lien : <a href='http://127.0.0.1/core/Validate/Key/[id_user]/[key]'>http://127.0.0.1/core/Validate/Key/[id_user]/[key]</a><br />Cordialement,<br />L'équipe Quanta Cloud<br /><br />Ce mail a été généré automatiquement, merci de ne pas y répondre."
+        "subject": "Quanta Cloud - Validation de votre compte",
+        "message": "Bienvenue sur Quanta Cloud !<br />Afin de valider votre compte, suivez ce lien : <a href='http://127.0.0.1/core/Validate/Key/[id_user]/[key]'>http://127.0.0.1/core/Validate/Key/[id_user]/[key]</a><br />Cordialement,<br />L'équipe Quanta Cloud<br /><br />Ce mail a été généré automatiquement, merci de ne pas y répondre."
     },
     
     "Login": {
@@ -76,13 +76,13 @@
     },
     
     "Profile": {
-        "changelogin": "Modifier votre login",
+        "changelogin": "Modifier votre identifiant",
         "changepwd": "Modifier votre mot de passe",
-        "changepp": "Modifier votre passPhrase",
-        "newlogin": "Nouveau login",
+        "changepp": "Modifier votre passphrase",
+        "newlogin": "Nouvel identifiant",
         "oldpwd": "Ancien mot de passe",
         "newpwd": "Nouveau mot de passe",
-        "oldpp": "Ancienne passPhrase",
-        "newpp": "Nouvelle passPhrase"
+        "oldpp": "Ancienne passphrase",
+        "newpp": "Nouvelle passphrase"
     }
 }
