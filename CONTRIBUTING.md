@@ -31,6 +31,12 @@ In fact : a feature <=> a branch
 
 # Coding style
 
+## Global
+
+- The syntax must be flexible and simple. If someone needs, the code have to be easy to be modified.
+- The name of a function/class/variable must be understandable without any comment.
+- All functions, classes, variables names must be in English.
+
 ## Global - Variables
 
 Use mixedCase.
@@ -39,7 +45,6 @@ Example : **int johnDoe(0);**
 
 Wrong : **int JohnDoe(0);** or **int john_doe(0);**
 
-## PHP
+## Comments
 
-We're using PHP version 5.
-//@TODO write the PHP coding style.
+Please, take this code as a reference](https://github.com/quantacloud/core/blob/master/application/controllers/Login.php)
