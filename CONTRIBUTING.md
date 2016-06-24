@@ -26,6 +26,8 @@ Examples of unacceptable behavior by participants include:
 
 - If you're coding a new feature, then create a new branch
 - When the feature is coded, you can merge and delete the feature branch
+
+If something is wrong, we discuss in the pull request comments.
  
 In fact : a feature <=> a branch
 
