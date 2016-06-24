@@ -55,3 +55,7 @@ Wrong :
 ## Comments
 
 [Please, take this code as a reference](https://github.com/quantacloud/core/blob/master/application/controllers/Login.php)
+
+# PHP
+##Version
+We're using PHP version 5.6
