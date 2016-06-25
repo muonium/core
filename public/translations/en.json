@@ -32,7 +32,7 @@
     },
     
     "Error": {
-		"e404": "Error : Page not found",
+        "e404": "Error : Page not found",
         "default": "An error occurred"
     },
     
