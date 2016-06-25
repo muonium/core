@@ -28,7 +28,7 @@ Examples of unacceptable behavior by participants include:
 - When the feature is coded, you can merge and delete the feature branch
 
 If something is wrong, we discuss in the pull request comments.
- 
+
 In fact : a feature <=> a branch
 
 # Coding style
@@ -43,11 +43,11 @@ In fact : a feature <=> a branch
 
 Use mixedCase.
 
-Right : 
+Right :
 ```PHP
  function connectionAction()
 ```
-Wrong : 
+Wrong :
 ```PHP
  function connection_action()
 ```

@@ -16,3 +16,8 @@ Read the license please : https://github.com/quantacloud/quantacloud/blob/master
 If you are a security expert, you can help us to build more securely Quanta Cloud.
 Or, if you see a security issue or several in the code, do not hesitate to contribute.
 
+# Contributing
+
+We are very open to bug reports via Issues as well as Pull Requests.
+
+Check our rules [here](https://github.com/quantacloud/core/blob/master/CONTRIBUTING.md) !
