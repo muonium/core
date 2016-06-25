@@ -41,7 +41,7 @@
         "login": "Логин",
         "password": "Пароль",
         "confirm": "Confirm",
-        "passphrase": "PassPhrase",
+        "passphrase": "Passphrase",
         "alreadyregistered": "Уже зарегистрирован ?",
         "impossible": "Регистрация невозможна сейчас",
         "ok": "Registration done !",
@@ -79,7 +79,7 @@
     "Profile": {
         "changelogin": "Change login",
         "changepwd": "Change password",
-        "changepp": "Change passPhrase",
+        "changepp": "Change passphrase",
         "newlogin": "New login",
         "oldpwd": "Old password",
         "newpwd": "New password",

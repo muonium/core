@@ -41,7 +41,7 @@
         "login": "Login",
         "password": "Password",
         "confirm": "Confirm",
-        "passphrase": "PassPhrase",
+        "passphrase": "Passphrase",
         "alreadyregistered": "Already registered ?",
         "impossible": "Registration impossible for now",
         "ok": "Registration done !",
@@ -79,11 +79,11 @@
     "Profile": {
         "changelogin": "Change login",
         "changepwd": "Change password",
-        "changepp": "Change passPhrase",
+        "changepp": "Change passphrase",
         "newlogin": "New login",
         "oldpwd": "Old password",
         "newpwd": "New password",
-        "oldpp": "Old passPhrase",
-        "newpp": "New passPhrase"
+        "oldpp": "Old passphrase",
+        "newpp": "New passphrase"
     }
 }
