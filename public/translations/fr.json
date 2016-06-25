@@ -58,11 +58,12 @@
         "bruteforceErr1": "Attention : Suite à un grand nombre de requêtes de votre part, il ne vous reste plus que 3 tentatives",
         "bruteforceErr2": "Vous avez atteint le nombre maximal de requêtes autorisées.",
         "subject": "Quanta Cloud - Validez votre compte",
-        "message": "Bienvenue sur Quanta Cloud et merci pour votre inscription.<br />Afin de valider votre compte, suivez ce lien : <a href='http://127.0.0.1/core/Validate/Key/[id_user]/[key]'>http://127.0.0.1/core/Validate/Key/[id_user]/[key]</a><br />Cordialement,<br />L'équipe Quanta Cloud<br /><br />Ce mail a été généré automatiquement, merci de ne pas y répondre."
+        "message": "Bienvenue sur Quanta Cloud et merci pour votre inscription.<br />Afin de valider votre compte, suivez ce lien : <a href='https://quantacloud.ch/core/Validate/Key/[id_user]/[key]'>https://quantacloud.ch/core/Validate/Key/[id_user]/[key]</a><br />Cordialement,<br />L'équipe Quanta Cloud<br /><br />Ce mail a été généré automatiquement, merci de ne pas y répondre."
     },
     
     "Login": {
         "forgot": "Mot de passe oublié ?",
+        "register": "Pas encore inscrit ?",
         "bruteforceErr0": "Email ou mot de passe invalide",
         "bruteforceErr1": "Attention : Suite à un grand nombre de requêtes de votre part, il ne vous reste plus que 3 tentatives",
         "bruteforceErr2": "Vous avez atteint le nombre maximal de requêtes autorisées."

@@ -36,7 +36,7 @@
                 <input type="password" id="field_pass_confirm" placeholder="<?php echo $this->txt->Register->confirm; ?>..." /><br />
                 <input type="password" id="field_passphrase" placeholder="<?php echo $this->txt->Register->passphrase; ?>..."/><br />
                 <input type="password" id="field_passphrase_confirm" placeholder="<?php echo $this->txt->Register->confirm; ?>..."/><br /><br />
-                <a href="Connexion"><?php echo $this->txt->Register->alreadyregistered; ?></a><br />
+                <a href="<?php echo MVC_ROOT; ?>/Login"><?php echo $this->txt->Register->alreadyregistered; ?></a><br />
                 <input type="submit" value="<?php echo $this->txt->Global->register; ?>" onclick="sendRegisterRequest()"/>
             </div>
 

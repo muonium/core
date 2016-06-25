@@ -11,7 +11,8 @@ class Languages {
     // Available languages
     protected $languages = array(
         array('en', 'English'),
-        array('fr', 'Français')
+        array('fr', 'Français'),
+        array('ru', 'Русский')
     );
 
     // Constructor loads user language json

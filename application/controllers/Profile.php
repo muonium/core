@@ -12,5 +12,17 @@ class Profile extends Languages
     function DefaultAction() {
         include(DIR_VIEW."vProfile.php");
     }
+    
+    function changeLoginAction() {
+        // Called by profile.js
+    }
+    
+    function changePasswordAction() {
+        // Called by profile.js
+    }
+    
+    function changePassPhraseAction() {
+        // Called by profile.js
+    }
 };
 ?>

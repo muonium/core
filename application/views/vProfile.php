@@ -10,6 +10,8 @@
     $_t->addCss("Interface/new_design");
     $_t->addJs("Interface/global");
     $_t->addJs("Interface/Request");
+    $_t->addJs("Profile/profile");
+    $_t->addJs("Login/sha512");
     $_t->addScript("text/javascript","window.onload = function() {QC.init();}");
     $_t->getHeader();
 ?>
@@ -35,11 +37,11 @@
             <p>
                 <fieldset>
                     <legend><?php echo $this->txt->Profile->changelogin; ?></legend>
-                    
                     <p>
                         <input type="text" name="login" id="login" placeholder="<?php echo $this->txt->Profile->newlogin; ?>">
                     </p>
                     <input type="submit">
+                    <div id="changeLoginReturn"></div>
                 </fieldset>
                 <br />
             </p>
@@ -58,6 +60,7 @@
                         <input type="text" name="pwdconfirm" id="pwdconfirm" placeholder="<?php echo $this->txt->Register->confirm; ?>">
                     </p>
                     <input type="submit">
+                    <div id="changePasswordReturn"></div>
                 </fieldset>
                 <br />
             </p>
@@ -76,6 +79,7 @@
                         <input type="text" name="ppconfirm" id="ppconfirm" placeholder="<?php echo $this->txt->Register->confirm; ?>">
                     </p>
                     <input type="submit">
+                    <div id="changePassPhraseReturn"></div>
                 </fieldset>
             </p>
         </section>

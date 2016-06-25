@@ -1,25 +1,25 @@
 {
     "Global": {
-        "home": "Home",
-        "register": "Register",
-        "back": "Back to Quanta Cloud",
-        "favorites": "Favorites",
-        "login": "Login",
-        "notready": "The interface is not ready yet",
+        "home": "Главная",
+        "register": "Регистрация",
+        "back": "Назад на Quanta Cloud",
+        "favorites": "Закладки",
+        "login": "Логин",
+        "notready": "Интерфейс еще не готов",
         "recents": "Recents",
         "sharing": "Sharing",
         "transfer": "Transfer",
         "user": "Desktop",
         "validate": "Validate email",
-        "refresh": "Refresh",
-        "profile": "Profile"
+        "refresh": "Обновление",
+        "profile": "Аккаунт"
     },
     
     "UserMenu": {
-        "bug": "Bug",
-        "help": "Help",
-        "settings": "Settings",
-        "profile": "Profile",
+        "bug": "Ошибка",
+        "help": "Помощь",
+        "settings": "Настройки",
+        "profile": "Аккаунт",
         "logout": "Logout"
     },
     
@@ -32,18 +32,18 @@
     },
     
     "Error": {
-		"e404": "Error : Page not found",
-        "default": "An error occurred"
+		"e404": "Ошибка 404 : Страница не найдена",
+        "default": "Произошла ошибка"
     },
     
     "Register": {
         "email": "Mail",
-        "login": "Login",
-        "password": "Password",
+        "login": "Логин",
+        "password": "Пароль",
         "confirm": "Confirm",
         "passphrase": "PassPhrase",
-        "alreadyregistered": "Already registered ?",
-        "impossible": "Registration impossible for now",
+        "alreadyregistered": "Уже зарегистрирован ?",
+        "impossible": "Регистрация невозможна сейчас",
         "ok": "Registration done !",
         "mailExists": "Your mail is already saved in our database. Impossible to create an account again.",
         "loginExists": "Your login is already saved in our database. Impossible to create an account again.",
@@ -62,8 +62,8 @@
     },
     
     "Login": {
-        "forgot": "Forgot your password ?",
-        "register": "Not already registered ?",
+        "forgot": "Забыли пароль?",
+        "register": "Не уже зарегистрированы?",
         "bruteforceErr0": "Invalid email or password",
         "bruteforceErr1": "Warning: following a large number of requests from you, you have only 3 attempts still",
         "bruteforceErr2": "You reached the maximum allowed number of requests."
