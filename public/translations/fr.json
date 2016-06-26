@@ -14,7 +14,7 @@
         "refresh": "Actualiser",
         "profile": "Profil"
     },
-    
+
     "UserMenu": {
         "bug": "Bug",
         "help": "Aide",
@@ -22,7 +22,7 @@
         "profile": "Profil",
         "logout": "Déconnexion"
     },
-    
+
     "Toolbar": {
         "recents": "Récents",
         "favorites": "Favoris",
@@ -30,12 +30,12 @@
         "shared": "Partagés",
         "transfers": "Transferts"
     },
-    
+
     "Error": {
 	"e404": "Erreur : Page non trouvée",
         "default": "Une erreur est survenue"
 	},
-    
+
     "Register": {
         "email": "Adresse mail",
         "login": "Pseudo",
@@ -60,7 +60,7 @@
         "subject": "Quanta Cloud - Validez votre compte",
         "message": "Bienvenue sur Quanta Cloud et merci pour votre inscription.<br />Afin de valider votre compte, suivez ce lien : <a href='https://quantacloud.ch/core/Validate/Key/[id_user]/[key]'>https://quantacloud.ch/core/Validate/Key/[id_user]/[key]</a><br />Cordialement,<br />L'équipe Quanta Cloud<br /><br />Ce mail a été généré automatiquement, merci de ne pas y répondre."
     },
-    
+
     "Login": {
         "forgot": "Mot de passe oublié ?",
         "register": "Pas encore inscrit ?",
@@ -68,14 +68,14 @@
         "bruteforceErr1": "Attention : Suite à un grand nombre de requêtes de votre part, il ne vous reste plus que 3 tentatives",
         "bruteforceErr2": "Vous avez atteint le nombre maximal de requêtes autorisées."
     },
-    
+
     "Validate": {
-        "message": "Erreur : La clé est incorrecte, connectez vous pour envoyer un nouveau mail de validation",
+        "message": "Erreur : La clé de validation est incorrecte, connectez vous pour envoyer un nouveau mail de validation",
         "wait": "Veuillez patienter une minute avant d'envoyer un nouveau mail de validation",
         "sendmess": "Suivez le lien donné dans l'email pour activer votre compte",
         "sendmail": "Envoyer un nouveau mail"
     },
-    
+
     "Profile": {
         "changelogin": "Modifier votre pseudo",
         "changepwd": "Modifier votre mot de passe",

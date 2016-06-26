@@ -70,7 +70,7 @@
     },
 
     "Validate": {
-        "message": "Error : The key is wrong, please username to send a new validation mail",
+        "message": "Error : The validation key is wrong, please username to send a new validation mail",
         "wait": "Please wait a minute before send again a validation mail",
         "sendmess": "Please follow the link given by email to activate your account",
         "sendmail": "Send a new mail"
