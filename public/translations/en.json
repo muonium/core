@@ -14,7 +14,7 @@
         "refresh": "Refresh",
         "profile": "Profile"
     },
-    
+
     "UserMenu": {
         "bug": "Bug",
         "help": "Help",
@@ -22,7 +22,7 @@
         "profile": "Profile",
         "logout": "Logout"
     },
-    
+
     "Toolbar": {
         "recents": "Recents",
         "favorites": "Favorites",
@@ -30,12 +30,12 @@
         "shared": "Shared",
         "transfers": "Transfers"
     },
-    
+
     "Error": {
         "e404": "Error : Page not found",
         "default": "An error occurred"
     },
-    
+
     "Register": {
         "email": "Mail",
         "login": "Login",
@@ -46,13 +46,13 @@
         "impossible": "Registration impossible for now",
         "ok": "Registration done !",
         "mailExists": "Your mail is already saved in our database. Impossible to create an account again.",
-        "loginExists": "Your login is already saved in our database. Impossible to create an account again.",
+        "loginExists": "Your username is already saved in our database. Impossible to create an account again.",
         "badPassConfirm": "The both passwords are different.",
         "badPassphraseConfirm": "The both passphrase are different.",
         "passEqualPassphrase": "The password and the passphrase must be different.",
         "form": "All fields should be filled.",
         "passLength": "The password or the passphrase must be at least 6 chars.",
-        "loginFormat": "Login format is incorrect (between 2 and 20 alphanumeric characters, -_. allowed).",
+        "loginFormat": "Username format is incorrect (between 2 and 20 alphanumeric characters, -_. allowed).",
         "mailFormat": "Mail format is incorrect.",
         "error": "An error occured when creating the account.",
         "bruteforceErr1": "Warning: following a large number of requests from you, you have only 3 attempts still",
@@ -60,7 +60,7 @@
         "subject": "Quanta Cloud - Account validation",
         "message": "Welcome to Quanta Cloud and thank you for your registration.<br />To validate your account, follow this link : <a href='https://quantacloud.ch/core/Validate/Key/[id_user]/[key]'>https://quantacloud.ch/core/Validate/Key/[id_user]/[key]</a><br />Best regards,<br />Quanta Cloud Team<br /><br />This email was automatically generated, please do not answer."
     },
-    
+
     "Login": {
         "forgot": "Forgot your password ?",
         "register": "Not already registered ?",
@@ -68,19 +68,19 @@
         "bruteforceErr1": "Warning: following a large number of requests from you, you have only 3 attempts still",
         "bruteforceErr2": "You reached the maximum allowed number of requests."
     },
-    
+
     "Validate": {
-        "message": "Error : The key is wrong, please login to send a new validation mail",
+        "message": "Error : The key is wrong, please username to send a new validation mail",
         "wait": "Please wait a minute before send again a validation mail",
         "sendmess": "Please follow the link given by email to activate your account",
         "sendmail": "Send a new mail"
     },
-    
+
     "Profile": {
-        "changelogin": "Change login",
+        "changelogin": "Change username",
         "changepwd": "Change password",
         "changepp": "Change passphrase",
-        "newlogin": "New login",
+        "newlogin": "New username",
         "oldpwd": "Old password",
         "newpwd": "New password",
         "oldpp": "Old passphrase",
