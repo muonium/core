@@ -59,3 +59,8 @@ Wrong :
 # PHP
 ##Version
 We're using PHP version 5.6
+
+
+# AUTHORS file
+
+In you pull request, you can add your name to AUTHORS.md.
