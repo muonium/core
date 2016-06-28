@@ -21,3 +21,6 @@ Or, if you see a security issue or several in the code, do not hesitate to contr
 We are very open to bug reports via Issues as well as Pull Requests.
 
 Check our rules [here](https://github.com/quantacloud/core/blob/master/CONTRIBUTING.md) !
+
+# Release
+Our method is the rolling release.
