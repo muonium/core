@@ -36,6 +36,10 @@ var changePassword = function() {
     var old_pwd = document.querySelector("#oldpwd").value;
     var new_pwd = document.querySelector("#newpwd").value;
     var pwd_confirm = document.querySelector("#pwdconfirm").value;
+    var pwd_length = 1;
+    
+    if(new_pwd.length < 6)
+        pwd_length = 0;
     
     var returnArea = document.querySelector("#changePasswordReturn");
     returnArea.innerHTML = "<img src='./public/pictures/index/loader.gif' style='height: 3vh;' />";
@@ -63,13 +67,17 @@ var changePassword = function() {
             }
         }
     }
-    xhr.send("old_pwd="+encodeURIComponent(old_pwd)+"&new_pwd="+encodeURIComponent(new_pwd)+"&pwd_confirm="+encodeURIComponent(pwd_confirm));
+    xhr.send("old_pwd="+sha512(old_pwd)+"&new_pwd="+sha512(new_pwd)+"&pwd_confirm="+sha512(pwd_confirm)+"&pwd_length="+pwd_length);
 }
 
 var changePassPhrase = function() {
     var old_pp = document.querySelector("#oldpp").value;
     var new_pp = document.querySelector("#newpp").value;
     var pp_confirm = document.querySelector("#ppconfirm").value;
+    var pp_length = 1;
+    
+    if(new_pp.length < 6)
+        pp_length = 0;
     
     var returnArea = document.querySelector("#changePassPhraseReturn");
     returnArea.innerHTML = "<img src='./public/pictures/index/loader.gif' style='height: 3vh;' />";
@@ -97,5 +105,5 @@ var changePassPhrase = function() {
             }
         }
     }
-    xhr.send("old_pp="+encodeURIComponent(old_pp)+"&new_pp="+encodeURIComponent(new_pp)+"&pp_confirm="+encodeURIComponent(pp_confirm));
+    xhr.send("old_pp="+sha512(old_pp)+"&new_pp="+sha512(new_pp)+"&pp_confirm="+sha512(pp_confirm)+"&pp_length="+pp_length);
 }

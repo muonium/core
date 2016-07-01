@@ -59,11 +59,21 @@
         }
         
         function getPassphrase() {
-             return $this->passphrase;
+            $req = $this->_sql->prepare("SELECT passphrase FROM users WHERE id = ?");
+            $req->execute(array($this->id));
+            if($req->rowCount() == 0)
+                return false;
+            $res = $req->fetch();
+            return $res['passphrase'];
         }
         
         function getPassword() {
-             return $this->password;
+            $req = $this->_sql->prepare("SELECT password FROM users WHERE id = ?");
+            $req->execute(array($this->id));
+            if($req->rowCount() == 0)
+                return false;
+            $res = $req->fetch();
+            return $res['password'];
         }
             
         function getLogin() {
@@ -89,6 +99,7 @@
         }
         
         function Insertion() {
+            // $this->password must be encrypted !
             $req = $this->_sql->prepare("INSERT INTO users VALUES ('', ?, ?, ?, ?, ?, ?)");
             $ret = $req->execute(array($this->login, $this->password, $this->email, time(), time(), $this->passphrase));   
             return $ret;
@@ -101,6 +112,38 @@
                 return true;
             return false;
 		}
+        
+        function updateLogin() {
+            if(!empty($this->id)) {
+                if(is_numeric($this->id)) {
+                    $req = $this->_sql->prepare("UPDATE users SET login = ? WHERE id = ?");
+                    return $req->execute(array($this->login, $this->id));
+                }
+            }
+            return false;
+        }
+        
+        function updatePassword() {
+            // $this->password must be encrypted !
+            if(!empty($this->id)) {
+                if(is_numeric($this->id)) {
+                    $req = $this->_sql->prepare("UPDATE users SET password = ? WHERE id = ?");
+                    return $req->execute(array($this->password, $this->id));
+                }
+            }
+            return false;
+        }
+        
+        function updatePassphrase() {
+            // $this->passphrase must be encrypted !
+            if(!empty($this->id)) {
+                if(is_numeric($this->id)) {
+                    $req = $this->_sql->prepare("UPDATE users SET passphrase = ? WHERE id = ?");
+                    return $req->execute(array($this->passphrase, $this->id));
+                }
+            }
+            return false;
+        }
 
         
         /*function getPassPhraseByIdUtilisateur() {
