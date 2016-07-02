@@ -37,16 +37,16 @@
 	},
 
     "Register": {
-        "email": "Adresse mail",
-        "login": "Pseudo",
+        "email": "Adresse email",
+        "login": "Nom d'utilisateur",
         "password": "Mot de passe",
         "confirm": "Confirmez",
-        "passphrase": "PassPhrase",
+        "passphrase": "Passphrase",
         "alreadyregistered": "Déjà inscrit ?",
         "impossible": "Inscriptions impossibles pour le moment",
         "ok": "Inscription effectuée avec succès !",
-        "mailExists": "Votre email est déjà enregistré dans la base de données. Impossible de recréer un compte à partir de celle-ci.",
-        "loginExists": "Votre identifiant est déjà enregistré dans la base de données. Impossible de recréer un compte à partir de celui-ci.",
+        "mailExists": "Votre adresse email est déjà enregistré dans la base de données. Impossible de recréer un compte à partir de celle-ci.",
+        "loginExists": "Votre nom d'utilisateur est déjà enregistré dans la base de données. Impossible de recréer un compte à partir de celui-ci.",
         "badPassConfirm": "Les deux mots de passe sont différents.",
         "badPassphraseConfirm": "Les deux passphrases sont différentes.",
         "passEqualPassphrase": "Le mot de passe et la passphrase doivent être différents.",
@@ -64,7 +64,7 @@
     "Login": {
         "forgot": "Mot de passe oublié ?",
         "register": "Pas encore inscrit ?",
-        "bruteforceErr0": "Email ou mot de passe invalide",
+        "bruteforceErr0": "Adresse email ou mot de passe invalide",
         "bruteforceErr1": "Attention : Suite à un grand nombre de requêtes de votre part, il ne vous reste plus que 3 tentatives",
         "bruteforceErr2": "Vous avez atteint le nombre maximal de requêtes autorisées."
     },
