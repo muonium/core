@@ -40,7 +40,7 @@
                     <p>
                         <input type="text" name="login" id="login" placeholder="<?php echo $this->txt->Profile->newlogin; ?>">
                     </p>
-                    <input type="submit">
+                    <input type="submit" onclick="changeLogin()">
                     <div id="changeLoginReturn"></div>
                 </fieldset>
                 <br />
@@ -51,15 +51,15 @@
                     <legend><?php echo $this->txt->Profile->changepwd; ?></legend>
                     
                     <p>
-                        <input type="text" name="oldpwd" id="oldpwd" placeholder="<?php echo $this->txt->Profile->oldpwd; ?>">
+                        <input type="password" name="oldpwd" id="oldpwd" placeholder="<?php echo $this->txt->Profile->oldpwd; ?>">
                     </p>
                     <p>
-                        <input type="text" name="newpwd" id="newpwd" placeholder="<?php echo $this->txt->Profile->newpwd; ?>">
+                        <input type="password" name="newpwd" id="newpwd" placeholder="<?php echo $this->txt->Profile->newpwd; ?>">
                     </p>
                     <p>
-                        <input type="text" name="pwdconfirm" id="pwdconfirm" placeholder="<?php echo $this->txt->Register->confirm; ?>">
+                        <input type="password" name="pwdconfirm" id="pwdconfirm" placeholder="<?php echo $this->txt->Register->confirm; ?>">
                     </p>
-                    <input type="submit">
+                    <input type="submit" onclick="changePassword()">
                     <div id="changePasswordReturn"></div>
                 </fieldset>
                 <br />
@@ -70,15 +70,15 @@
                     <legend><?php echo $this->txt->Profile->changepp; ?></legend>
                     
                     <p>
-                        <input type="text" name="oldpp" id="oldpp" placeholder="<?php echo $this->txt->Profile->oldpp; ?>">
+                        <input type="password" name="oldpp" id="oldpp" placeholder="<?php echo $this->txt->Profile->oldpp; ?>">
                     </p>
                     <p>
-                        <input type="text" name="newpp" id="newpp" placeholder="<?php echo $this->txt->Profile->newpp; ?>">
+                        <input type="password" name="newpp" id="newpp" placeholder="<?php echo $this->txt->Profile->newpp; ?>">
                     </p>
                     <p>
-                        <input type="text" name="ppconfirm" id="ppconfirm" placeholder="<?php echo $this->txt->Register->confirm; ?>">
+                        <input type="password" name="ppconfirm" id="ppconfirm" placeholder="<?php echo $this->txt->Register->confirm; ?>">
                     </p>
-                    <input type="submit">
+                    <input type="submit" onclick="changePassPhrase()">
                     <div id="changePassPhraseReturn"></div>
                 </fieldset>
             </p>

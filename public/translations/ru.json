@@ -33,7 +33,8 @@
     
     "Error": {
         "e404": "Ошибка 404 : Страница не найдена",
-        "default": "Произошла ошибка"
+        "default": "Произошла ошибка",
+        "form": "Error in the form"
     },
     
     "Register": {
@@ -84,6 +85,13 @@
         "oldpwd": "Old password",
         "newpwd": "New password",
         "oldpp": "Old passPhrase",
-        "newpp": "New passPhrase"
+        "newpp": "New passPhrase",
+        "updateErr": "Unable to update your profile",
+        "updateOk": "Your profile has been successfully updated",
+        "loginExists": "This login is already used",
+        "badOldPass": "Your old password does not match",
+        "badOldPassphrase": "Your old passphrase does not match",
+        "getpwd": "Unable to get your password",
+        "getpp": "Unable to get your passphrase"
     }
 }

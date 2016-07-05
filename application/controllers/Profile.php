@@ -25,33 +25,33 @@ class Profile extends Languages
                 $this->_modelUser = new mUsers();
 
                 $this->_modelUser->setId($_SESSION['id']);
-                $this->_modelUser->setLogin($_POST['pseudo']);
+                $this->_modelUser->setLogin($_POST['login']);
                 
                 if(!($this->_modelUser->LoginExists())) {
                     if($this->_modelUser->updateLogin()) {
-                        echo 'ok@';
+                        echo 'ok@'.$this->txt->Profile->updateOk;
                     }
                     else {
-                        echo;
+                        echo $this->txt->Profile->updateErr;
                     }
                 }
                 else {
-                    echo;
+                    echo $this->txt->Profile->loginExists;
                 }
             }
             else {
-                echo;
+                echo $this->txt->Register->loginFormat;
             }
         }
         else {
-            echo;
+            echo $this->txt->Register->form;
         }
     }
     
     function changePasswordAction() {
         // Called by profile.js
         
-        if(!empty($_POST['old_pwd']) && !empty($_POST['new_pwd']) && !empty($_POST['pwd_confirm']) && !empty($_POST['pwd_length'])) {
+        if(!empty($_POST['old_pwd']) && !empty($_POST['new_pwd']) && !empty($_POST['pwd_confirm'])) {
             if($_POST['new_pwd'] == $_POST['pwd_confirm']) {
                 if(is_numeric($_POST['pwd_length'])) {
                     if($_POST['pwd_length']) {
@@ -62,41 +62,41 @@ class Profile extends Languages
                             if($user_pwd == $_POST['old_pwd']) {
                                 $this->_modelUser->setPassword($_POST['new_pwd']);
                                 if($this->_modelUser->updatePassword()) {
-                                    echo 'ok@';
+                                    echo 'ok@'.$this->txt->Profile->updateOk;
                                 }
                                 else {
-                                    echo;
+                                    echo $this->txt->Profile->updateErr;
                                 }
                             }
                             else {
-                                echo;
+                                echo $this->txt->Register->badOldPass;
                             }
                         }
                         else {
-                            echo;
+                            echo $this->txt->Profile->getpwd;
                         }
                     }
                     else {
-                        echo;
+                        echo $this->txt->Register->passLength;
                     }
                 }
                 else {
-                    echo;
+                    echo $this->txt->Error->form;
                 }
             }
             else {
-                echo;
+                echo $this->txt->Register->badPassConfirm;
             }
         }
         else {
-            echo;
+            echo $this->txt->Register->form;
         }
     }
     
     function changePassPhraseAction() {
         // Called by profile.js
         
-        if(!empty($_POST['old_pp']) && !empty($_POST['new_pp']) && !empty($_POST['pp_confirm']) && !empty($_POST['pp_length'])) {
+        if(!empty($_POST['old_pp']) && !empty($_POST['new_pp']) && !empty($_POST['pp_confirm'])) {
             if($_POST['new_pp'] == $_POST['pp_confirm']) {
                 if(is_numeric($_POST['pp_length'])) {
                     if($_POST['pp_length']) {
@@ -107,34 +107,34 @@ class Profile extends Languages
                             if($user_pp == $_POST['old_pp']) {
                                 $this->_modelUser->setPassphrase($_POST['new_pp']);
                                 if($this->_modelUser->updatePassphrase()) {
-                                    echo 'ok@';
+                                    echo 'ok@'.$this->txt->Profile->updateOk;
                                 }
                                 else {
-                                    echo;
+                                    echo $this->txt->Profile->updateErr;
                                 }
                             }
                             else {
-                                echo;
+                                echo $this->txt->Register->badOldPassphrase;
                             }
                         }
                         else {
-                            echo;
+                            echo $this->txt->Profile->getpp;
                         }
                     }
                     else {
-                        echo;
+                        echo $this->txt->Register->passLength;
                     }
                 }
                 else {
-                    echo;
+                    echo $this->txt->Error->form;
                 }
             }
             else {
-                echo;
+                echo $this->txt->Register->badPassphraseConfirm;
             }
         }
         else {
-            echo;
+            echo $this->txt->Register->form;
         }
     }
 };

@@ -32,8 +32,9 @@
     },
 
     "Error": {
-	"e404": "Erreur : Page non trouvée",
-        "default": "Une erreur est survenue"
+        "e404": "Erreur : Page non trouvée",
+        "default": "Une erreur est survenue",
+        "form": "Erreur dans le formulaire"
 	},
 
     "Register": {
@@ -84,6 +85,13 @@
         "oldpwd": "Ancien mot de passe",
         "newpwd": "Nouveau mot de passe",
         "oldpp": "Ancienne passphrase",
-        "newpp": "Nouvelle passphrase"
+        "newpp": "Nouvelle passphrase",
+        "updateErr": "Impossible de mettre à jour vos informations",
+        "updateOk": "Vos informations ont bien été mises à jour",
+        "loginExists": "Cet identifiant est déjà utilisé",
+        "badOldPass": "Votre ancien mot de passe ne correspond pas",
+        "badOldPassphrase": "Votre ancienne passphrase ne correspond pas",
+        "getpwd": "Impossible de récupérer le mot de passe",
+        "getpp": "Impossible de récupérer la passphrase"
     }
 }
