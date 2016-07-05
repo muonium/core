@@ -96,7 +96,8 @@ class Profile extends Languages
     function changePassPhraseAction() {
         // Called by profile.js
         
-        if(!empty($_POST['old_pp']) && !empty($_POST['new_pp']) && !empty($_POST['pp_confirm'])) {
+        echo $this->txt->Error->pp;
+        /*if(!empty($_POST['old_pp']) && !empty($_POST['new_pp']) && !empty($_POST['pp_confirm'])) {
             if($_POST['new_pp'] == $_POST['pp_confirm']) {
                 if(is_numeric($_POST['pp_length'])) {
                     if($_POST['pp_length']) {
@@ -135,7 +136,7 @@ class Profile extends Languages
         }
         else {
             echo $this->txt->Register->form;
-        }
+        }*/
     }
 };
 ?>
