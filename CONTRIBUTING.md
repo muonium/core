@@ -64,6 +64,8 @@ Wrong :
 ##Version
 We're using PHP version 5.6
 
+# Release
+Our method is the rolling release.
 
 # AUTHORS file
 
