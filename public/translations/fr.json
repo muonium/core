@@ -10,10 +10,11 @@
         "sharing": "Partage",
         "transfer": "Transfert",
         "user": "Desktop",
-        "validate": "Valider adresse mail",
-        "refresh": "Actualiser"
+        "validate": "Valider l'adresse email",
+        "refresh": "Actualiser",
+        "profile": "Profil"
     },
-    
+
     "UserMenu": {
         "bug": "Bug",
         "help": "Aide",
@@ -21,7 +22,7 @@
         "profile": "Profil",
         "logout": "Déconnexion"
     },
-    
+
     "Toolbar": {
         "recents": "Récents",
         "favorites": "Favoris",
@@ -29,48 +30,68 @@
         "shared": "Partagés",
         "transfers": "Transferts"
     },
-    
+
     "Error": {
-		"e404": "Erreur : Page non trouvée",
-        "default": "Une erreur est survenue"
+        "e404": "Erreur : Page non trouvée",
+        "default": "Une erreur est survenue",
+        "form": "Erreur dans le formulaire"
 	},
-    
+
     "Register": {
-        "email": "Adresse mail",
-        "login": "Pseudo",
+        "email": "Adresse email",
+        "login": "Nom d'utilisateur",
         "password": "Mot de passe",
         "confirm": "Confirmez",
-        "passphrase": "PassPhrase",
+        "passphrase": "Passphrase",
         "alreadyregistered": "Déjà inscrit ?",
         "impossible": "Inscriptions impossibles pour le moment",
-        "ok": "Inscription faite avec succès !",
-        "mailExists": "Votre mail est déjà enregistré dans la base de données. Impossible de recréer un compte à partir de celle-ci.",
-        "loginExists": "Votre login est déjà enregistré dans la base de données. Impossible de recréer un compte à partir de celui-ci.",
+        "ok": "Inscription effectuée avec succès !",
+        "mailExists": "Votre adresse email est déjà enregistré dans la base de données. Impossible de recréer un compte à partir de celle-ci.",
+        "loginExists": "Votre nom d'utilisateur est déjà enregistré dans la base de données. Impossible de recréer un compte à partir de celui-ci.",
         "badPassConfirm": "Les deux mots de passe sont différents.",
-        "badPassphraseConfirm": "Les deux passphrase sont différentes.",
+        "badPassphraseConfirm": "Les deux passphrases sont différentes.",
         "passEqualPassphrase": "Le mot de passe et la passphrase doivent être différents.",
         "form": "Tous les champs doivent être remplis.",
         "passLength": "Le mot de passe ou la passphrase doit faire au minimum 6 caractères.",
-        "loginFormat": "Le format du login est incorrect (entre 2 et 20 caractères alphanumérique, -_. autorisés).",
+        "loginFormat": "Le format du pseudo est incorrect (entre 2 et 20 caractères alphanumérique, -_. autorisés).",
         "mailFormat": "Le format du mail est incorrect.",
         "error": "Une erreur est survenue lors de la création du compte.",
         "bruteforceErr1": "Attention : Suite à un grand nombre de requêtes de votre part, il ne vous reste plus que 3 tentatives",
         "bruteforceErr2": "Vous avez atteint le nombre maximal de requêtes autorisées.",
         "subject": "Quanta Cloud - Validez votre compte",
-        "message": "Bienvenue sur Quanta Cloud et merci pour votre inscription.<br />Afin de valider votre compte, suivez ce lien : <a href='http://127.0.0.1/core/Validate/Key/[id_user]/[key]'>http://127.0.0.1/core/Validate/Key/[id_user]/[key]</a><br />Cordialement,<br />L'équipe Quanta Cloud<br /><br />Ce mail a été généré automatiquement, merci de ne pas y répondre."
+        "message": "Bienvenue sur Quanta Cloud et merci pour votre inscription.<br />Afin de valider votre compte, suivez ce lien : <a href='https://quantacloud.ch/core/Validate/Key/[id_user]/[key]'>https://quantacloud.ch/core/Validate/Key/[id_user]/[key]</a><br />Cordialement,<br />L'équipe Quanta Cloud<br /><br />Ce mail a été généré automatiquement, merci de ne pas y répondre."
     },
-    
+
     "Login": {
         "forgot": "Mot de passe oublié ?",
-        "bruteforceErr0": "Email ou mot de passe invalide",
+        "register": "Pas encore inscrit ?",
+        "bruteforceErr0": "Adresse email ou mot de passe invalide",
         "bruteforceErr1": "Attention : Suite à un grand nombre de requêtes de votre part, il ne vous reste plus que 3 tentatives",
         "bruteforceErr2": "Vous avez atteint le nombre maximal de requêtes autorisées."
     },
-    
+
     "Validate": {
-        "message": "Erreur : La clé est incorrecte, connectez vous pour envoyer un nouveau mail de validation",
+        "message": "Erreur : La clé de validation est incorrecte, connectez vous pour envoyer un nouveau mail de validation",
         "wait": "Veuillez patienter une minute avant d'envoyer un nouveau mail de validation",
         "sendmess": "Suivez le lien donné dans l'email pour activer votre compte",
         "sendmail": "Envoyer un nouveau mail"
+    },
+
+    "Profile": {
+        "changelogin": "Modifier votre pseudo",
+        "changepwd": "Modifier votre mot de passe",
+        "changepp": "Modifier votre passphrase",
+        "newlogin": "Nouveau pseudo",
+        "oldpwd": "Ancien mot de passe",
+        "newpwd": "Nouveau mot de passe",
+        "oldpp": "Ancienne passphrase",
+        "newpp": "Nouvelle passphrase",
+        "updateErr": "Impossible de mettre à jour vos informations",
+        "updateOk": "Vos informations ont bien été mises à jour",
+        "loginExists": "Cet identifiant est déjà utilisé",
+        "badOldPass": "Votre ancien mot de passe ne correspond pas",
+        "badOldPassphrase": "Votre ancienne passphrase ne correspond pas",
+        "getpwd": "Impossible de récupérer le mot de passe",
+        "getpp": "Impossible de récupérer la passphrase"
     }
 }

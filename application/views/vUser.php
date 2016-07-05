@@ -5,7 +5,7 @@
 	* @authors         : Romain Claveau <romain.claveau@protonmail.ch>, Dylan Clement <dylanclement7@protonmail.ch>
 	*/
 
-    $_t = new Template($this->txt->Global->user);
+    $_t = new Template($this->txt->Global->profile);
     $_t->addCss("home_global");
     $_t->addCss("Interface/new_design");
     $_t->addJs("Interface/global");
@@ -43,8 +43,8 @@
                 <p><img src="<?php echo MVC_ROOT; ?>/public/pictures/header/bug.svg" /><br /><?php echo $this->txt->UserMenu->bug; ?></p>
                 <p><img src="<?php echo MVC_ROOT; ?>/public/pictures/header/help.svg" /><br /><?php echo $this->txt->UserMenu->help; ?></p>
                 <p><img src="<?php echo MVC_ROOT; ?>/public/pictures/header/settings.svg" /><br /><?php echo $this->txt->UserMenu->settings; ?></p>
-                <p><img src="<?php echo MVC_ROOT; ?>/public/pictures/header/user.svg" /><br /><?php echo $this->txt->UserMenu->profile; ?></p>
-                <p><a href="<?php echo MVC_ROOT; ?>/Logout"><?php echo $this->txt->UserMenu->logout; ?></a></p>
+                <p><a href="<?php echo MVC_ROOT; ?>/Profile"><img src="<?php echo MVC_ROOT; ?>/public/pictures/header/user.svg" /><br /><?php echo $this->txt->UserMenu->profile; ?></a></p>
+                <p><a href="<?php echo MVC_ROOT; ?>/Logout"><img src="<?php echo MVC_ROOT; ?>/public/pictures/header/user.svg" /><br /><?php echo $this->txt->UserMenu->logout; ?></a></p>
             </div>
         </header>
     

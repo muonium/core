@@ -41,7 +41,7 @@ class Register extends Languages {
                             {
                                 if(filter_var($_POST['mail'], FILTER_VALIDATE_EMAIL))
                                 {
-                                    if(preg_match("/^[A-Za-z0-9_.-]{1,19}$/", $_POST['pseudo']))
+                                    if(preg_match("/^[A-Za-z0-9_.-]{2,19}$/", $_POST['pseudo']))
                                     {
                                         $this->_modelUser = new mUsers();
 

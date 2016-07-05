@@ -33,7 +33,7 @@ $_t->getHeader();
             <input type="text" name="mail" id="field_mail" placeholder="<?php echo $this->txt->Register->email; ?>..." required="required" /><br />
             <input type="password" name="pass" id="field_password" placeholder="<?php echo $this->txt->Register->password; ?>..." required="required" /><br />
             <input type="password" name="passphrase" id="field_passphrase" placeholder="<?php echo $this->txt->Register->passphrase; ?>..." required="required" /><br /><br />
-            <a href="#"><?php echo $this->txt->Login->forgot; ?></a>&nbsp;<a href="#"><?php echo $this->txt->Register->alreadyregistered; ?></a><br />
+            <a href="#"><?php echo $this->txt->Login->forgot; ?></a> &nbsp;&nbsp; <a href="<?php echo MVC_ROOT; ?>/Register"><?php echo $this->txt->Login->register; ?></a><br />
             <input type="submit" value="<?php echo $this->txt->Global->login; ?>" onclick="sendConnectionRequest()"/>
         </div>
 
