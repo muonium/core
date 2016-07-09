@@ -18,9 +18,17 @@ Or, if you see a security issue or several in the code, do not hesitate to contr
 
 # Contributing
 
+### Core
+
 We are very open to bug reports via Issues as well as Pull Requests.
 
 Check our rules [here](https://github.com/quantacloud/core/blob/master/CONTRIBUTING.md) !
+
+### AEjS
+
+Like you know, we use AEjS, which is a JavaScript implementation of AES.
+
+If you are a scientist, you can help us [here](https://github.com/quantacloud/aejs) !
 
 # Release
 Our method is the rolling release.
