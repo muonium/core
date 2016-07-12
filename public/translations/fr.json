@@ -34,8 +34,7 @@
     "Error": {
         "e404": "Erreur : Page non trouvée",
         "default": "Une erreur est survenue",
-        "form": "Erreur dans le formulaire",
-        "pp": "Impossible de modifier votre passphrase pour le moment"
+        "form": "Erreur dans le formulaire"
 	},
 
     "Register": {

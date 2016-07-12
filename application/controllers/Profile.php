@@ -2,7 +2,7 @@
 class Profile extends Languages
 {
     private $_modelUser;
-    
+
     function __construct() {
         parent::__construct();
         if(empty($_SESSION['id']))
@@ -10,23 +10,23 @@ class Profile extends Languages
         if(!empty($_SESSION['validate']))
             header('Location: '.MVC_ROOT.'/Validate');
     }
-    
+
     function DefaultAction() {
         include(DIR_VIEW."vProfile.php");
     }
-    
+
     function changeLoginAction() {
         // Called by profile.js
-        
+
         if(!empty($_POST['login'])) {
             $login = urldecode($_POST['login']);
-            
+
             if(preg_match("/^[A-Za-z0-9_.-]{2,19}$/", $login)) {
                 $this->_modelUser = new mUsers();
 
                 $this->_modelUser->setId($_SESSION['id']);
                 $this->_modelUser->setLogin($_POST['login']);
-                
+
                 if(!($this->_modelUser->LoginExists())) {
                     if($this->_modelUser->updateLogin()) {
                         echo 'ok@'.$this->txt->Profile->updateOk;
@@ -47,10 +47,10 @@ class Profile extends Languages
             echo $this->txt->Register->form;
         }
     }
-    
+
     function changePasswordAction() {
         // Called by profile.js
-        
+
         if(!empty($_POST['old_pwd']) && !empty($_POST['new_pwd']) && !empty($_POST['pwd_confirm'])) {
             if($_POST['new_pwd'] == $_POST['pwd_confirm']) {
                 if(is_numeric($_POST['pwd_length'])) {
@@ -92,12 +92,10 @@ class Profile extends Languages
             echo $this->txt->Register->form;
         }
     }
-    
+
     function changePassPhraseAction() {
         // Called by profile.js
-        
-        echo $this->txt->Error->pp;
-        /*if(!empty($_POST['old_pp']) && !empty($_POST['new_pp']) && !empty($_POST['pp_confirm'])) {
+        if(!empty($_POST['old_pp']) && !empty($_POST['new_pp']) && !empty($_POST['pp_confirm'])) {
             if($_POST['new_pp'] == $_POST['pp_confirm']) {
                 if(is_numeric($_POST['pp_length'])) {
                     if($_POST['pp_length']) {
@@ -136,7 +134,7 @@ class Profile extends Languages
         }
         else {
             echo $this->txt->Register->form;
-        }*/
+        }
     }
 };
 ?>
