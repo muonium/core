@@ -34,8 +34,7 @@
     "Error": {
         "e404": "Error : Page not found",
         "default": "An error occurred",
-        "form": "Error in the form",
-        "pp": "Edit the passphrase is not available for now"
+        "form": "Error in the form"
     },
 
     "Register": {
