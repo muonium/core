@@ -11,7 +11,8 @@
                     $newUser = new mUsers();
                     $newUser->setEmail(urldecode($_POST['mail']));
                     $newUser->setPassword($_POST['pass']);
-                    $newUser->setPassphrase($_POST['passphrase']);
+                    $newUser->setPassphrase(urldecode($_POST['passphrase']));
+                    //$newUser->setPassphrase($_POST['passphrase']);
 
                     //echo $_POST['pass'].'<br />'.$_POST['passphrase'].'<br />';
                     
@@ -59,7 +60,7 @@
 
 		function DefaultAction() {
             if(!empty($_SESSION['id']))
-                header('Location: '.MVC_ROOT.'/Error/Error/404');
+                exit(header('Location: '.MVC_ROOT.'/Error/Error/404'));
             include_once(DIR_VIEW."vLogin.php");
 		}
 	};

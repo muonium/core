@@ -94,5 +94,14 @@
         "badOldPassphrase": "Votre ancienne passphrase ne correspond pas",
         "getpwd": "Impossible de récupérer le mot de passe",
         "getpp": "Impossible de récupérer la passphrase"
+    },
+    
+    "LostPass": {
+        "updateErr": "Impossible de mettre à jour vos informations",
+        "updateOk": "Vos informations ont bien été mises à jour",
+        "errmessage": "Erreur : La clé de validation est incorrecte ou a expirée, veuillez retaper votre nom d'utilisateur ou votre email.",
+        "user": "Votre adresse email ou nom d'utilisateur",
+        "subject": "Quanta Cloud - Mot de passe oublié",
+        "message": "Bonjour, pour modifier votre mot de passe ou votre passphrase, veuillez suivre ce lien : <a href='https://quantacloud.ch/core/LostPass/Key/[id_user]/[key]'>https://quantacloud.ch/core/LostPass/Key/[id_user]/[key]</a><br />Cordialement,<br />L'équipe Quanta Cloud<br /><br />Ce mail a été généré automatiquement, merci de ne pas y répondre."
     }
 }

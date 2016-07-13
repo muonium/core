@@ -61,5 +61,10 @@
             $req = $this->_sql->prepare("INSERT INTO user_lostpass VALUES ('', ?, ?, ?)");
             return $req->execute(array($this->id_user, $this->val_key, $this->expire));
         }
+        
+        function Update() {
+            $req = $this->_sql->prepare("UPDATE user_lostpass SET val_key = ? WHERE id_user = ?");
+            return $req->execute(array($this->val_key, $this->id_user));
+        }
     }
 ?>

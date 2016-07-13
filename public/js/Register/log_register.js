@@ -58,7 +58,8 @@ var sendRegisterRequest = function()
             }
         }
     }
-    xhr.send("mail="+field_mail+"&pseudo="+field_pseudo+"&pass="+sha512(field_password)+"&pass_confirm="+sha512(field_password_confirm)+"&passphrase="+sha512(field_passphrase)+"&passphrase_confirm="+sha512(field_passphrase_confirm)+"&passlength="+passLength);
+   
+   xhr.send("mail="+field_mail+"&pseudo="+field_pseudo+"&pass="+sha512(field_password)+"&pass_confirm="+sha512(field_password_confirm)+"&passphrase="+encodeURIComponent(field_passphrase)+"&passphrase_confirm="+encodeURIComponent(field_passphrase_confirm)+"&passlength="+passLength); //xhr.send("mail="+field_mail+"&pseudo="+field_pseudo+"&pass="+sha512(field_password)+"&pass_confirm="+sha512(field_password_confirm)+"&passphrase="+sha512(field_passphrase)+"&passphrase_confirm="+sha512(field_passphrase_confirm)+"&passlength="+passLength);
 
 }
 

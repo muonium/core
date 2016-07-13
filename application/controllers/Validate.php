@@ -15,7 +15,7 @@
         
         function KeyAction($id_user, $key) {
             if(!is_numeric($id_user) || strlen($key) < 128)
-                header('Location: '.MVC_ROOT.'/Error/Error/404');
+                exit(header('Location: '.MVC_ROOT.'/Error/Error/404'));
             $this->id_user = $id_user;
             $this->val_key = $key;
             
@@ -23,7 +23,7 @@
             $this->_modelUserVal->setIdUser($this->id_user);
             
             if(!($this->_modelUserVal->getKey())) // Unable to find key
-                header('Location: '.MVC_ROOT.'/Error/Error/404');
+                exit(header('Location: '.MVC_ROOT.'/Error/Error/404'));
             
             if($this->_modelUserVal->getKey() != $this->val_key) {
                 // Different key, send a new mail ?
@@ -61,12 +61,12 @@
                     $this->_modelUserVal = new mUserValidation();
                     $this->_modelUserVal->setIdUser($_SESSION['id']);
                     if(!($this->_modelUserVal->getKey()))
-                        header('Location: '.MVC_ROOT.'/Error/Error/404');
+                        exit(header('Location: '.MVC_ROOT.'/Error/Error/404'));
 
                     $this->_modelUser = new mUsers();
                     $this->_modelUser->setId($_SESSION['id']);
                     if(!($user_mail = $this->_modelUser->getEmail()))
-                       header('Location: '.MVC_ROOT.'/Error/Error/404');
+                       exit(header('Location: '.MVC_ROOT.'/Error/Error/404'));
 
                     $key = hash('sha512', uniqid(rand(), true));
 

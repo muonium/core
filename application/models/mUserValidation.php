@@ -48,7 +48,7 @@
         }
         
         function Update() {
-            $req = $this->_sql->prepare("UPDATE user_validation SET key = ? WHERE id_user = ?");
+            $req = $this->_sql->prepare("UPDATE user_validation SET val_key = ? WHERE id_user = ?");
             return $req->execute(array($this->val_key, $this->id_user));
         }
     }
