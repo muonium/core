@@ -45,11 +45,12 @@ In fact : a feature <=> a branch
 
 ## Global - Names
 
-Use mixedCase.
+Use mixedCase or CamelCase
 
 Right :
 ```PHP
  function connectionAction()
+ function ConnectionAction()
 ```
 Wrong :
 ```PHP
