@@ -35,7 +35,7 @@
         "e404": "Error : Page not found",
         "default": "An error occurred",
         "form": "Error in the form",
-        "pp": "Edit the passphrase is not available for now"
+        "pp": "Editing the passphrase is not currently available"
     },
 
     "Register": {
@@ -56,7 +56,7 @@
         "passLength": "The password or the passphrase must be at least 6 chars.",
         "loginFormat": "Username format is incorrect (between 2 and 20 alphanumeric characters, -_. allowed).",
         "mailFormat": "Mail format is incorrect.",
-        "error": "An error occured when creating the account.",
+        "error": "An error occurred when creating the account.",
         "bruteforceErr1": "Warning: following a large number of requests from you, you have only 3 attempts still",
         "bruteforceErr2": "You reached the maximum allowed number of requests.",
         "subject": "Quanta Cloud - Account validation",
@@ -72,16 +72,16 @@
     },
 
     "Validate": {
-        "message": "Error : The validation key is wrong, please username to send a new validation mail",
+        "message": "Error : The validation key is wrong, please log in to send a new validation mail",
         "wait": "Please wait a minute before send again a validation mail",
-        "sendmess": "Please follow the link given by email to activate your account",
+        "sendmess": "Please follow the link in the email to activate your account",
         "sendmail": "Send a new mail"
     },
 
     "Profile": {
-        "changelogin": "Change username",
-        "changepwd": "Change password",
-        "changepp": "Change passphrase",
+        "changelogin": "Change my username",
+        "changepwd": "Change my password",
+        "changepp": "Change my passphrase",
         "newlogin": "New username",
         "oldpwd": "Old password",
         "newpwd": "New password",
@@ -89,17 +89,19 @@
         "newpp": "New passphrase",
         "updateErr": "Unable to update your profile",
         "updateOk": "Your profile has been successfully updated",
-        "loginExists": "This login is already used",
+        "loginExists": "This username is already used",
         "badOldPass": "Your old password does not match",
         "badOldPassphrase": "Your old passphrase does not match",
         "getpwd": "Unable to get your password",
         "getpp": "Unable to get your passphrase"
     },
-    
+
     "LostPass": {
+        "updateErr": "Unable to update your account information",
+        "updateOk": "Your account information have been successfully updated",
         "errmessage": "Error : The validation key is wrong or it expired, please retype your username or email.",
         "user": "Your email or your username",
         "subject": "Quanta Cloud - Forgot your password",
-        "message": "Hi, for updating your Quanta Cloud's password or passphrase, please follow this link : <a href='https://quantacloud.ch/core/LostPass/Key/[id_user]/[key]'>https://quantacloud.ch/core/LostPass/Key/[id_user]/[key]</a><br />Best regards,<br />Quanta Cloud Team<br /><br />This email was automatically generated, please do not answer."
+        "message": "Hi,<br />To update your Quanta Cloud's password or passphrase, please follow this link : <a href='https://quantacloud.ch/core/LostPass/Key/[id_user]/[key]'>https://quantacloud.ch/core/LostPass/Key/[id_user]/[key]</a><br />Best regards,<br />Quanta Cloud Team<br /><br />This email was automatically generated, please do not answer."
     }
 }
