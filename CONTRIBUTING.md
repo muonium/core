@@ -35,6 +35,8 @@ If something is wrong, we discuss in the pull request comments.
 
 In fact : a feature <=> a branch
 
+Only the team @quantacloud/core_commiters  can merge to master.
+
 # Coding style
 
 ## Global
