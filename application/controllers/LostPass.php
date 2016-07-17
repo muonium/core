@@ -93,11 +93,11 @@ class LostPass extends Languages {
                 }
             }
             else {
-                echo $this->txt->Error->'default';
+                echo $this->txt->Error->{'default'};
             }
         }
         else {
-            echo $this->txt->Error->'default';
+            echo $this->txt->Error->{'default'};
         }
     }
 
@@ -129,7 +129,7 @@ class LostPass extends Languages {
 
     function sendMailAction() {
         // Send AGAIN lost pass mail with validation key
-        sleep(1000);
+        sleep(1);
 
         if(!isset($_POST['user']))
             include_once(DIR_VIEW."vLostPass.php");
@@ -141,7 +141,7 @@ class LostPass extends Languages {
             $new = 0;
 
             if(!empty($_SESSION['sendMail'])) {
-                if($_SESSION['sendMail']+60 < time()) {
+                if($_SESSION['sendMail']+60 > time()) {
                     $w = 1;
                     $this->err_msg = $this->txt->Validate->wait;
                     include_once(DIR_VIEW."vLostPass.php");
@@ -150,24 +150,28 @@ class LostPass extends Languages {
 
             if($w == 0) {
                 // Allowed to send a new mail
-                $this->_modelUserLostPass = new mUserLostPass();
-                $this->_modelUserLostPass->setIdUser($_SESSION['id']);
-                if(!($this->_modelUserLostPass->getKey()))
-                    $new = 1;
-
                 $this->_modelUser = new mUsers();
 
                 if(strpos($user, '@'))
                     $this->_modelUser->setEmail($user);
                 else
                     $this->_modelUser->setLogin($user);
-
+                
                 if(!($user_mail = $this->_modelUser->getEmail()))
                     exit(header('Location: '.MVC_ROOT.'/Error/Error/404'));
+                
+                if(!($id_user = $this->_modelUser->getId()))
+                    exit(header('Location: '.MVC_ROOT.'/Error/Error/404'));
+                
+                $this->_modelUserLostPass = new mUserLostPass();
+                $this->_modelUserLostPass->setIdUser($id_user);
+                if(!($this->_modelUserLostPass->getKey()))
+                    $new = 1;
 
                 $key = hash('sha512', uniqid(rand(), true));
 
                 $this->_modelUserLostPass->setKey($key);
+                $this->_modelUserLostPass->setExpire(time()+3600);
 
                 if($new == 0)
                     $this->_modelUserLostPass->Update();
@@ -177,9 +181,12 @@ class LostPass extends Languages {
                 $this->_mail = new Mail();
                 $this->_mail->setTo($user_mail);
                 $this->_mail->setSubject($this->txt->LostPass->subject);
-                $this->_mail->setMessage(str_replace("[id_user]", $_SESSION['id'], str_replace("[key]", $key, $this->txt->LostPass->message)));
+                $this->_mail->setMessage(str_replace("[id_user]", $id_user, str_replace("[key]", $key, $this->txt->LostPass->message)));
                 $this->_mail->send();
                 $_SESSION['sendMail'] = time();
+                
+                $this->err_msg = $this->txt->Global->mail_sent;
+                include_once(DIR_VIEW."vLostPass.php");
             }
         }
     }

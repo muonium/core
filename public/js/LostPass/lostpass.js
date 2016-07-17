@@ -13,10 +13,10 @@ var changePass = function() {
             pass_length = 0;
 
         var returnArea = document.querySelector("#returnArea");
-        returnArea.innerHTML = "<img src='./public/pictures/index/loader.gif' style='height: 3vh;' />";
+        returnArea.innerHTML = "<img src='/core/public/pictures/index/loader.gif' style='height: 3vh;' />";
 
         var xhr = new XMLHttpRequest();
-        xhr.open("POST", "LostPass/resetPass", true);
+        xhr.open("POST", "/core/LostPass/resetPass", true);
         xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
         xhr.onreadystatechange = function()

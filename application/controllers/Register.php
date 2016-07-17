@@ -72,6 +72,7 @@ class Register extends Languages {
                                                     $this->_mail->setSubject($this->txt->Register->subject);
                                                     $this->_mail->setMessage(str_replace("[id_user]", $id_user, str_replace("[key]", $key, $this->txt->Register->message)));
                                                     $this->_mail->send();
+                                                    $_SESSION['validate'] = 1;
 
                                                     echo "ok@".htmlentities($this->txt->Register->ok);
                                                 }

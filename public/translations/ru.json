@@ -12,7 +12,9 @@
         "user": "Desktop",
         "validate": "Validate email",
         "refresh": "Обновление",
-        "profile": "Аккаунт"
+        "profile": "Аккаунт",
+        "mail_sent": "An email was sent to you, please check your mailbox and your spams. If you received nothing after 5mn, try again :",
+        "submit": "Submit"
     },
 
     "UserMenu": {

@@ -5,7 +5,7 @@
 	* @authors         : Dylan Clement <dylanclement7@protonmail.ch>
 	*/
 
-	$_t = new Template($this->txt->Global->validate);
+	$_t = new Template($this->txt->Login->forgot);
     $_t->addCss("home_global");
     $_t->addCss("Register/home_register");
     $_t->addJs("LostPass/lostpass");
@@ -35,23 +35,23 @@
                     <legend><?php echo $this->txt->Profile->changepwd; ?></legend>
                     
                     <p><label for="pwd"><?php echo $this->txt->Profile->newpwd; ?></label>
-                    <input type="text" name="pwd" id="pwd"></p>
+                    <input type="password" name="pwd" id="pwd"></p>
                 
                     <p><label for="pwd_confirm"><?php echo $this->txt->Register->confirm; ?></label>
-                    <input type="text" name="pwd_confirm" id="pwd_confirm"></p>
+                    <input type="password" name="pwd_confirm" id="pwd_confirm"></p>
                 </fieldset>
                 
                 <fieldset>
                     <legend><?php echo $this->txt->Profile->changepp; ?></legend>
                     
                     <p><label for="pp"><?php echo $this->txt->Profile->newpp; ?></label>
-                    <input type="text" name="pp" id="pp"></p>
+                    <input type="password" name="pp" id="pp"></p>
                     
                     <p><label for="pp_confirm"><?php echo $this->txt->Register->confirm; ?></label>
-                    <input type="text" name="pp_confirm" id="pp_confirm"></p>
+                    <input type="password" name="pp_confirm" id="pp_confirm"></p>
                 </fieldset>
                 
-                <input type="button" onclick="changePass()">
+                <input type="button" onclick="changePass()" value="<?php echo $this->txt->Global->submit; ?>">
             </div>
         </section>
 </body>

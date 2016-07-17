@@ -79,6 +79,9 @@
                     $this->_mail->setMessage(str_replace("[id_user]", $_SESSION['id'], str_replace("[key]", $key, $this->txt->Register->message)));
                     $this->_mail->send();
                     $_SESSION['sendMail'] = time();
+                    
+                    $this->err_msg = $this->txt->Global->mail_sent;
+                    include_once(DIR_VIEW."vValidate.php");
                 }
             }
             else {

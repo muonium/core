@@ -1,0 +1,7 @@
+#box {
+    background : white;
+    padding : 10px;
+    position:absolute;
+    z-index:9999;
+    border: 1px solid #DDDDDD;
+}

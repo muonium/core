@@ -12,7 +12,9 @@
         "user": "Desktop",
         "validate": "Valider l'adresse email",
         "refresh": "Actualiser",
-        "profile": "Profil"
+        "profile": "Profil",
+        "mail_sent": "Un email vous a été envoyé, veuillez vérifier votre boîte de réception et vos spams. Si vous n'avez rien reçu au bout de 5mn, tentez à nouveau :",
+        "submit": "Valider"
     },
 
     "UserMenu": {
