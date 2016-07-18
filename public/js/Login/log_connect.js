@@ -53,7 +53,8 @@ var sendConnectionRequest = function()
             }
         }
     }
-    xhr.send("mail="+encodeURIComponent(field_mail)+"&pass="+sha512(field_password)+"&passphrase="+sha512(field_passphrase)+"&passlength="+passLength);
+   
+   xhr.send("mail="+encodeURIComponent(field_mail)+"&pass="+sha512(field_password)+"&passphrase="+encodeURIComponent(field_passphrase)+"&passlength="+passLength); //xhr.send("mail="+encodeURIComponent(field_mail)+"&pass="+sha512(field_password)+"&passphrase="+sha512(field_passphrase)+"&passlength="+passLength);
 }
 /*
 * @name         : getKeys(string passphrase)

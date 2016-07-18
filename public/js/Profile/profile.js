@@ -105,5 +105,6 @@ var changePassPhrase = function() {
             }
         }
     }
-    xhr.send("old_pp="+sha512(old_pp)+"&new_pp="+sha512(new_pp)+"&pp_confirm="+sha512(pp_confirm)+"&pp_length="+pp_length);
+    xhr.send("old_pp="+encodeURIComponent(old_pp)+"&new_pp="+encodeURIComponent(new_pp)+"&pp_confirm="+encodeURIComponent(pp_confirm)+"&pp_length="+pp_length);
+    //xhr.send("old_pp="+sha512(old_pp)+"&new_pp="+sha512(new_pp)+"&pp_confirm="+sha512(pp_confirm)+"&pp_length="+pp_length);
 }

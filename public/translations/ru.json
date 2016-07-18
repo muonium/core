@@ -12,9 +12,11 @@
         "user": "Desktop",
         "validate": "Validate email",
         "refresh": "Обновление",
-        "profile": "Аккаунт"
+        "profile": "Аккаунт",
+        "mail_sent": "An email was sent to you, please check your mailbox and your spams. If you received nothing after 5mn, try again :",
+        "submit": "Submit"
     },
-    
+
     "UserMenu": {
         "bug": "Ошибка",
         "help": "Помощь",
@@ -22,7 +24,7 @@
         "profile": "Аккаунт",
         "logout": "Logout"
     },
-    
+
     "Toolbar": {
         "recents": "Recents",
         "favorites": "Favorites",
@@ -30,14 +32,14 @@
         "shared": "Shared",
         "transfers": "Transfers"
     },
-    
+
     "Error": {
         "e404": "Ошибка 404 : Страница не найдена",
         "default": "Произошла ошибка",
         "form": "Error in the form",
         "pp": "Edit the passphrase is not available for now"
     },
-    
+
     "Register": {
         "email": "Mail",
         "login": "Логин",
@@ -62,7 +64,7 @@
         "subject": "Quanta Cloud - Account validation",
         "message": "Welcome to Quanta Cloud and thank you for your registration.<br />To validate your account, follow this link : <a href='https://quantacloud.ch/core/Validate/Key/[id_user]/[key]'>https://quantacloud.ch/core/Validate/Key/[id_user]/[key]</a><br />Best regards,<br />Quanta Cloud Team<br /><br />This email was automatically generated, please do not answer."
     },
-    
+
     "Login": {
         "forgot": "Забыли пароль?",
         "register": "Не уже зарегистрированы?",
@@ -70,14 +72,14 @@
         "bruteforceErr1": "Warning: following a large number of requests from you, you have only 3 attempts still",
         "bruteforceErr2": "You reached the maximum allowed number of requests."
     },
-    
+
     "Validate": {
         "message": "Error : The key is wrong, please login to send a new validation mail",
         "wait": "Please wait minute before send again a validation mail",
         "sendmess": "Please follow the link given by email to activate your account",
         "sendmail": "Send a new mail"
     },
-    
+
     "Profile": {
         "changelogin": "Change login",
         "changepwd": "Change password",
@@ -94,5 +96,14 @@
         "badOldPassphrase": "Your old passphrase does not match",
         "getpwd": "Unable to get your password",
         "getpp": "Unable to get your passphrase"
+    },
+
+    "LostPass": {
+        "updateErr": "Unable to update your account information",
+        "updateOk": "Your account information have been successfully updated",
+        "errmessage": "Error : The validation key is wrong or it expired, <a href='LostPass'>please make a new request</a> and retype your username or email.",
+        "user": "Your email or your username",
+        "subject": "Quanta Cloud - Forgot your password",
+        "message": "Hi, for updating your Quanta Cloud's password or passphrase, please follow this link : <a href='https://quantacloud.ch/core/LostPass/Key/[id_user]/[key]'>https://quantacloud.ch/core/LostPass/Key/[id_user]/[key]</a><br />Best regards,<br />Quanta Cloud Team<br /><br />This email was automatically generated, please do not answer."
     }
 }

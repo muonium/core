@@ -10,7 +10,7 @@ class Register extends Languages {
     function __construct() {
         parent::__construct();
         if(!empty($_SESSION['id']))
-            header('Location: '.MVC_ROOT.'/Error/Error/404');
+            exit(header('Location: '.MVC_ROOT.'/Error/Error/404'));
         // Initialize the anti-bruteforce class
         $this->_Bruteforce = new AntiBruteforce();
         $this->_Bruteforce->setFolder(ROOT.DS."tmp");
@@ -46,7 +46,8 @@ class Register extends Languages {
                                         $this->_modelUser = new mUsers();
 
                                         $this->_modelUser->setEmail($_POST['mail']);
-                                        $this->_modelUser->setPassphrase($_POST['passphrase']);
+                                        $this->_modelUser->setPassphrase(urldecode($_POST['passphrase']));
+                                        //$this->_modelUser->setPassphrase($_POST['passphrase']);
                                         $this->_modelUser->setPassword($_POST['pass']);
                                         $this->_modelUser->setLogin($_POST['pseudo']);
 
@@ -71,6 +72,7 @@ class Register extends Languages {
                                                     $this->_mail->setSubject($this->txt->Register->subject);
                                                     $this->_mail->setMessage(str_replace("[id_user]", $id_user, str_replace("[key]", $key, $this->txt->Register->message)));
                                                     $this->_mail->send();
+                                                    $_SESSION['validate'] = 1;
 
                                                     echo "ok@".htmlentities($this->txt->Register->ok);
                                                 }

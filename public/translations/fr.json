@@ -12,7 +12,9 @@
         "user": "Desktop",
         "validate": "Valider l'adresse email",
         "refresh": "Actualiser",
-        "profile": "Profil"
+        "profile": "Profil",
+        "mail_sent": "Un email vous a été envoyé, veuillez vérifier votre boîte de réception et vos spams. Si vous n'avez rien reçu au bout de 5mn, tentez à nouveau :",
+        "submit": "Valider"
     },
 
     "UserMenu": {
@@ -72,14 +74,19 @@
     },
 
     "Validate": {
-        "message": "Erreur : La clé de validation est incorrecte, connectez vous pour envoyer un nouveau mail de validation",
+        "message": "Erreur : La clé de validation est incorrecte, connectez-vous pour envoyer un nouveau mail de validation",
         "wait": "Veuillez patienter une minute avant d'envoyer un nouveau mail de validation",
+<<<<<<< HEAD
         "sendmess": "Suivez le lien donné dans l'email pour activer votre compte",
         "sendmail": "Envoyer un nouvel email"
+=======
+        "sendmess": "Suivez le lien présent dans l'email pour activer votre compte",
+        "sendmail": "Envoyer un nouvel mail"
+>>>>>>> origin/lostpass
     },
 
     "Profile": {
-        "changelogin": "Modifier votre pseudo",
+        "changelogin": "Modifier votre nom d'utilisateur",
         "changepwd": "Modifier votre mot de passe",
         "changepp": "Modifier votre passphrase",
         "newlogin": "Nouveau nom d'utilisateur",
@@ -94,5 +101,14 @@
         "badOldPassphrase": "Votre ancienne passphrase ne correspond pas",
         "getpwd": "Impossible de récupérer le mot de passe",
         "getpp": "Impossible de récupérer la passphrase"
+    },
+
+    "LostPass": {
+        "updateErr": "Impossible de mettre à jour vos informations",
+        "updateOk": "Vos informations ont bien été mises à jour",
+        "errmessage": "Erreur : La clé de validation est incorrecte ou est expirée, veuillez <a href='LostPass'>refaire une demande de mot de passe perdu</a> et saisir votre nom d'utilisateur ou votre email.",
+        "user": "Votre adresse email ou nom d'utilisateur",
+        "subject": "Quanta Cloud - Mot de passe oublié",
+        "message": "Bonjour,<br />Afin de modifier votre mot de passe ou votre passphrase, veuillez suivre ce lien : <a href='https://quantacloud.ch/core/LostPass/Key/[id_user]/[key]'>https://quantacloud.ch/core/LostPass/Key/[id_user]/[key]</a><br />Cordialement,<br />L'équipe Quanta Cloud<br /><br />Ce mail a été généré automatiquement, merci de ne pas y répondre."
     }
 }

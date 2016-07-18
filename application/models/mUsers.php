@@ -39,10 +39,20 @@
             $this->password = $p;
         }
         
-        /* ******************** GETTER ******************** */
+        /* ******************** GETTER ******************** */   
         function getId() {
-            $req = $this->_sql->prepare("SELECT id FROM users WHERE email = ?");
-            $req->execute(array($this->email));
+            // Get id with login or email
+            if(!empty($this->login)) {
+                $req = $this->_sql->prepare("SELECT id FROM users WHERE login = ?");
+                $req->execute(array($this->login));
+            }
+            elseif(!empty($this->email)) {
+                $req = $this->_sql->prepare("SELECT id FROM users WHERE email = ?");
+                $req->execute(array($this->email));
+            }
+            else
+                return false;
+            
             if($req->rowCount() == 0)
                 return false;
             $res = $req->fetch();
@@ -50,8 +60,22 @@
         }
         
         function getEmail() {
-            $req = $this->_sql->prepare("SELECT email FROM users WHERE id = ?");
-            $req->execute(array($this->id));
+            // Get email with user id or login or email
+            if(!empty($this->id)) {
+                $req = $this->_sql->prepare("SELECT email FROM users WHERE id = ?");
+                $req->execute(array($this->id));
+            }
+            elseif(!empty($this->login)) {
+                $req = $this->_sql->prepare("SELECT email FROM users WHERE login = ?");
+                $req->execute(array($this->login));
+            }
+            elseif(!empty($this->email)) {
+                $req = $this->_sql->prepare("SELECT email FROM users WHERE email = ?");
+                $req->execute(array($this->email));
+            }
+            else
+                return false;
+            
             if($req->rowCount() == 0)
                 return false;
             $res = $req->fetch();

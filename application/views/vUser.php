@@ -8,9 +8,10 @@
     $_t = new Template($this->txt->Global->profile);
     $_t->addCss("home_global");
     $_t->addCss("Interface/new_design");
+    $_t->addCss("Interface/box");
     $_t->addJs("Interface/global");
     $_t->addJs("Interface/Request");
-    $_t->addScript("text/javascript","window.onload = function() {QC.init();}");
+    //$_t->addScript("text/javascript","window.onload = function() {QC.init();}");
     $_t->getHeader();
 
     /*$_user = new Utilisateur();
@@ -71,8 +72,11 @@
                 <img src="<?php echo MVC_ROOT; ?>/public/pictures/toolbar/transfer.svg" /><br /><?php echo $this->txt->Toolbar->transfers; ?>
             </div>
         </section>
-        
+    
         <section id="desktop">
+            <!-- <div class="file" width="50" height="50" style="border:1px solid black">A file</div>
+            <div class="file" width="50" height="50" style="border:1px solid black">A second file</div>
+        <div class="folder">A folder</div>-->
             <img src="<?php echo MVC_ROOT; ?>/public/pictures/desktop/arrow.svg" class="arrow general" />
             
             <div id="desktop_general" class="content">
@@ -142,8 +146,10 @@
                         </tr>
                     </table>
                 </div>
+                
             </div>
         </section>
+    <div id="box" style="display:none"></div>
 </body>
 <?php
     $_t->getFooter();

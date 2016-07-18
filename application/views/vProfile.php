@@ -35,6 +35,7 @@
         
         <section id="desktop">
             <p>
+                ID : <?php echo $_SESSION['id']; ?>
                 <fieldset>
                     <legend><?php echo $this->txt->Profile->changelogin; ?></legend>
                     <p>
