@@ -29,7 +29,7 @@ Examples of unacceptable behavior by participants include:
 
 ## Pull requests
 
-We do not care about the number of commits. So, squashing is not useful.
+We do not care about the number of commits. **So, squashing is not useful.**
 
 If something is wrong, we discuss in the pull request comments.
 
