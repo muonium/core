@@ -101,7 +101,7 @@
     "LostPass": {
         "updateErr": "Unable to update your account information",
         "updateOk": "Your account information have been successfully updated",
-        "errmessage": "Error : The validation key is wrong or it expired, please retype your username or email.",
+        "errmessage": "Error : The validation key is wrong or it expired, please <a href='LostPass'>make a new request</a> and retype your username or email.",
         "user": "Your email or your username",
         "subject": "Quanta Cloud - Forgot your password",
         "message": "Hi,<br />To update your Quanta Cloud's password or passphrase, please follow this link : <a href='https://quantacloud.ch/core/LostPass/Key/[id_user]/[key]'>https://quantacloud.ch/core/LostPass/Key/[id_user]/[key]</a><br />Best regards,<br />Quanta Cloud Team<br /><br />This email was automatically generated, please do not answer."

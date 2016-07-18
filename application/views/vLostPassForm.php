@@ -8,6 +8,7 @@
 	$_t = new Template($this->txt->Login->forgot);
     $_t->addCss("home_global");
     $_t->addCss("Register/home_register");
+    $_t->addJs("Login/sha512");
     $_t->addJs("LostPass/lostpass");
     $_t->getHeader();
 ?>

@@ -16,12 +16,14 @@ class LostPass extends Languages {
     }
 
     function DefaultAction() {
-        include_once(DIR_VIEW."vLostPass.php");
+        if(!empty($_SESSION['changePassId']) && !empty($_SESSION['changePassKey']))
+            include_once(DIR_VIEW."vLostPassForm.php");
+        else
+            include_once(DIR_VIEW."vLostPass.php");
     }
 
     function resetPassAction() {
         // Called by lostPass.js
-        
         if(!empty($_SESSION['changePassId']) && !empty($_SESSION['changePassKey'])) {
             if(is_numeric($_SESSION['changePassId']) && strlen($_SESSION['changePassKey']) == 128) {
                 if((!empty($_POST['pwd']) && !empty($_POST['pwd_confirm'])) || (!empty($_POST['pp']) && !empty($_POST['pp_confirm']))) {
@@ -32,11 +34,11 @@ class LostPass extends Languages {
                     if($this->_modelUserLostPass->getKey()) {
 
                         if($this->_modelUserLostPass->getKey() == $_SESSION['changePassKey'] && $this->_modelUserLostPass->getExpire() >= time()) {
-                            if($_POST['passlength']) {
+                            if($_POST['pwd_length'] || $_POST['pp_length']) {
                                 $this->_modelUser = new mUsers();
-                                $this->_modelUser->setId($_SESSION['id']);
+                                $this->_modelUser->setId($_SESSION['changePassId']);
 
-                                if(!empty($_POST['pwd']) && !empty($_POST['pwd_confirm'])) {
+                                if(!empty($_POST['pwd']) && !empty($_POST['pwd_confirm']) && $_POST['pwd_length']) {
                                     // change password
 
                                     if($_POST['pwd'] == $_POST['pwd_confirm']) {
@@ -46,6 +48,7 @@ class LostPass extends Languages {
                                             unset($_SESSION['changePassId']);
                                             unset($_SESSION['changePassKey']);
                                             unset($_SESSION['sendMail']);
+                                            $this->_modelUserLostPass->Delete();
                                             echo 'ok@'.$this->txt->LostPass->updateOk;
                                         }
                                         else
@@ -55,7 +58,7 @@ class LostPass extends Languages {
                                         echo $this->txt->Register->badPassConfirm;
                                     }
                                 }
-                                if(!empty($_POST['pp']) && !empty($_POST['pp_confirm'])) {
+                                if(!empty($_POST['pp']) && !empty($_POST['pp_confirm']) && $_POST['pp_length']) {
                                     // change passphrase
 
                                     if($_POST['pp'] == $_POST['pp_confirm']) {
@@ -66,6 +69,7 @@ class LostPass extends Languages {
                                             unset($_SESSION['changePassId']);
                                             unset($_SESSION['changePassKey']);
                                             unset($_SESSION['sendMail']);
+                                            $this->_modelUserLostPass->Delete();
                                             echo 'ok@'.$this->txt->LostPass->updateOk;
                                         }
                                         else
@@ -81,10 +85,16 @@ class LostPass extends Languages {
                             }
                         }
                         else {
+                            unset($_SESSION['changePassId']);
+                            unset($_SESSION['changePassKey']);
+                            unset($_SESSION['sendMail']);
                             echo $this->txt->LostPass->errmessage;
                         }
                     }
                     else {
+                        unset($_SESSION['changePassId']);
+                        unset($_SESSION['changePassKey']);
+                        unset($_SESSION['sendMail']);
                         echo $this->txt->LostPass->errmessage;
                     }
                 }
@@ -119,11 +129,10 @@ class LostPass extends Languages {
             include_once(DIR_VIEW."vLostPass.php");
         }
         else {
-            // Same keys, show form to change password or passphrase
-            $this->_modelUserLostPass->Delete();
+            // Same keys, redirect and show form to change password or passphrase
             $_SESSION['changePassId'] = $id_user;
             $_SESSION['changePassKey'] = $key;
-            include_once(DIR_VIEW."vLostPassForm.php");
+            header('Location: '.MVC_ROOT.'/LostPass');
         }
     }
 
