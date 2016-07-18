@@ -91,11 +91,8 @@
         "newpp": "New passphrase",
         "updateErr": "Unable to update your profile",
         "updateOk": "Your profile has been successfully updated",
-<<<<<<< HEAD
         "loginExists": "This username is already taken",
-=======
         "loginExists": "This username is already used",
->>>>>>> origin/lostpass
         "badOldPass": "Your old password does not match",
         "badOldPassphrase": "Your old passphrase does not match",
         "getpwd": "Unable to get your password",
