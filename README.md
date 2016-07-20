@@ -24,11 +24,11 @@ We are very open to bug reports via Issues as well as Pull Requests.
 
 Check our rules [here](https://github.com/quantacloud/core/blob/master/CONTRIBUTING.md) !
 
-### AEjS
+### SJCL
 
-Like you know, we use AEjS, which is a JavaScript implementation of AES.
+Like you know, we use SJCL, which is a JavaScript implementation of AES.
 
-If you are a scientist, you can help us [here](https://github.com/quantacloud/aejs) !
+If you are a scientist, you can contribute [here](https://github.com/bitwiseshiftleft/sjcl) !
 
 # Release
 Our method is the rolling release.
