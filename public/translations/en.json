@@ -2,7 +2,7 @@
     "Global": {
         "home": "Home",
         "register": "Register",
-        "back": "Back to Quanta Cloud",
+        "back": "Back to Muonium Cloud",
         "favorites": "Favorites",
         "login": "Login",
         "notready": "The interface is not ready yet",
@@ -61,8 +61,8 @@
         "error": "An error occurred when creating the account.",
         "bruteforceErr1": "Warning: following a large number of requests from you, you have only 3 attempts still",
         "bruteforceErr2": "You reached the maximum allowed number of requests.",
-        "subject": "Quanta Cloud - Account validation",
-        "message": "Welcome to Quanta Cloud and thank you for your registration.<br />To validate your account, follow this link : <a href='https://quantacloud.ch/core/Validate/Key/[id_user]/[key]'>https://quantacloud.ch/core/Validate/Key/[id_user]/[key]</a><br />Best regards,<br />Quanta Cloud Team<br /><br />This email was automatically generated, please do not answer."
+        "subject": "Muoium Cloud - Account validation",
+        "message": "Welcome to Muoium Cloud and thank you for your registration.<br />To validate your account, follow this link : <a href='https://quantacloud.ch/core/Validate/Key/[id_user]/[key]'>https://quantacloud.ch/core/Validate/Key/[id_user]/[key]</a><br />Best regards,<br />Muonium Cloud Team<br /><br />This email was automatically generated, please do not answer."
     },
 
     "Login": {
@@ -104,7 +104,7 @@
         "updateOk": "Your account information have been successfully updated",
         "errmessage": "Error : The validation key is wrong or it expired, please <a href='LostPass'>make a new request</a> and retype your username or email.",
         "user": "Your email or your username",
-        "subject": "Quanta Cloud - Forgot your password",
-        "message": "Hi,<br />To update your Quanta Cloud's password or passphrase, please follow this link : <a href='https://quantacloud.ch/core/LostPass/Key/[id_user]/[key]'>https://quantacloud.ch/core/LostPass/Key/[id_user]/[key]</a><br />Best regards,<br />Quanta Cloud Team<br /><br />This email was automatically generated, please do not answer."
+        "subject": "Muoium Cloud - Forgot your password",
+        "message": "Hi,<br />To update your Muoium Cloud's password or passphrase, please follow this link : <a href='https://quantacloud.ch/core/LostPass/Key/[id_user]/[key]'>https://quantacloud.ch/core/LostPass/Key/[id_user]/[key]</a><br />Best regards,<br />Muonium Cloud Team<br /><br />This email was automatically generated, please do not answer."
     }
 }
