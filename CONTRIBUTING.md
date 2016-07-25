@@ -35,7 +35,7 @@ If something is wrong, we discuss in the pull request comments.
 
 In fact : a feature <=> a branch
 
-Only the team @muoniumcloud/core_commiters  can merge to master.
+Only the team @muonium/core_commiters  can merge to master.
 
 ### master branch
 
@@ -65,7 +65,7 @@ Wrong :
 
 ## Comments
 
-[Please, take this code as a reference](https://github.com/muoniumcloud/core/blob/master/application/controllers/Login.php)
+[Please, take this code as a reference](https://github.com/muonium/core/blob/master/application/controllers/Login.php)
 
 # PHP
 ##Version

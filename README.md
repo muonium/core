@@ -1,19 +1,19 @@
 
-# Muonium Cloud
+# Muonium
 
-wiki : [here](https://github.com/muoniumcloud/core/wiki)
+wiki : [here](https://github.com/muonium/core/wiki)
 
-Muonium Cloud is a project of Kantum Technologies (this is our future company).
+Muonium is a project of Kantum Technologies (this is our future company).
 
 # License
 
-Read the license please : [here](https://raw.githubusercontent.com/muoniumcloud/core/master/LICENSE)
+Read the license please : [here](https://raw.githubusercontent.com/muonium/core/master/LICENSE)
 
 **Feel free to contribute :)**
 
 # Security
 
-If you are a security expert, you can help us to build more securely Muonium Cloud.
+If you are a security expert, you can help us to build more securely Muonium.
 Or, if you see a security issue or several in the code, do not hesitate to contribute.
 
 # Contributing
@@ -22,7 +22,7 @@ Or, if you see a security issue or several in the code, do not hesitate to contr
 
 We are very open to bug reports via Issues as well as Pull Requests.
 
-Check our rules [here](https://github.com/muoniumcloud/core/blob/master/CONTRIBUTING.md) !
+Check our rules [here](https://github.com/muonium/core/blob/master/CONTRIBUTING.md) !
 
 ### SJCL
 
