@@ -37,6 +37,10 @@ In fact : a feature <=> a branch
 
 Only the team @muoniumcloud/core_commiters  can merge to master.
 
+### master branch
+
+Your code must be tested before to be merged in the master branch.
+
 # Coding style
 
 ## Global
