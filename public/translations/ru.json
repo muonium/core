@@ -103,7 +103,7 @@
         "updateOk": "Your account information have been successfully updated",
         "errmessage": "Error : The validation key is wrong or it expired, <a href='LostPass'>please make a new request</a> and retype your username or email.",
         "user": "Your email or your username",
-        "subject": "Quanta Cloud - Forgot your password",
-        "message": "Hi, for updating your Quanta Cloud's password or passphrase, please follow this link : <a href='https://quantacloud.ch/core/LostPass/Key/[id_user]/[key]'>https://quantacloud.ch/core/LostPass/Key/[id_user]/[key]</a><br />Best regards,<br />Quanta Cloud Team<br /><br />This email was automatically generated, please do not answer."
+        "subject": "Muonium - Forgot your password",
+        "message": "Hi, for updating your Muonium's password or passphrase, please follow this link : <a href='https://quantacloud.ch/core/LostPass/Key/[id_user]/[key]'>https://quantacloud.ch/core/LostPass/Key/[id_user]/[key]</a><br />Best regards,<br />Muonium Team<br /><br />This email was automatically generated, please do not answer."
     }
 }
