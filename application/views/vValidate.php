@@ -22,14 +22,14 @@
         </section>
 
         <section id="content">
-            <div id="back"><p><a href="../photon/"><?php echo_h($this->txt->Global->back); ?></a></p></div>
+            <div id="back"><p><a href="http://muonium.ch/photon/"><?php echo_h($this->txt->Global->back); ?></a></p></div>
 
             <div id="avatar"><p><img src="<?php echo MVC_ROOT; ?>/public/pictures/register/user.svg" /></p></div>
             <div id="text"><p><?php echo_h($this->txt->Global->validate); ?></p></div>
 
             <p>
                 <?php echo_h($this->err_msg); ?><br />
-                <a href="<?php echo MVC_ROOT; ?>/Login"><?php echo_h($this->txt->Global->login); ?></a> || 
+                <a href="<?php echo MVC_ROOT; ?>/Login"><?php echo_h($this->txt->Global->login); ?></a> ||
                 <a href="<?php echo $_SERVER['REQUEST_URI']; ?>"><?php echo_h($this->txt->Global->refresh); ?></a>
             </p>
         </section>
