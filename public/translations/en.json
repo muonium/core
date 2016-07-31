@@ -106,5 +106,18 @@
         "user": "Your email or your username",
         "subject": "Muoium - Forgot your password",
         "message": "Hi,<br />To update your Muoium's password or passphrase, please follow this link : <a href='https://quantacloud.ch/core/LostPass/Key/[id_user]/[key]'>https://quantacloud.ch/core/LostPass/Key/[id_user]/[key]</a><br />Best regards,<br />Muonium Team<br /><br />This email was automatically generated, please do not answer."
+    },
+    
+    "Interface": {
+        "upfile": "Upload a file",
+        "updir": "Upload a dir",
+        "rnmfile": "Rename the file",
+        "rnmdir": "Rename the dir",
+        "rmfile": "Remove the file",
+        "rmdir": "Remove the dir",
+        "fileinfo": "File info",
+        "dirinfo": "Dir info",
+        "rdfile": "Read file",
+        "rddir": "Read dir"
     }
 }

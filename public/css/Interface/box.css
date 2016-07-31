@@ -1,7 +1,18 @@
 #box {
     background : white;
-    padding : 10px;
+    padding : 0px;
     position:absolute;
     z-index:9999;
     border: 1px solid #DDDDDD;
+}
+
+#box p {
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+#box p:hover {
+    background: #E0F0FA;
 }

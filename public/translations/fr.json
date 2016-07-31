@@ -107,5 +107,18 @@
         "user": "Votre adresse email ou nom d'utilisateur",
         "subject": "Muonium - Mot de passe oublié",
         "message": "Bonjour,<br />Afin de modifier votre mot de passe ou votre passphrase, veuillez suivre ce lien : <a href='https://quantacloud.ch/core/LostPass/Key/[id_user]/[key]'>https://quantacloud.ch/core/LostPass/Key/[id_user]/[key]</a><br />Cordialement,<br />L'équipe Muonium<br /><br />Ce mail a été généré automatiquement, merci de ne pas y répondre."
+    },
+    
+    "Interface": {
+        "upfile": "Upload un fichier",
+        "updir": "Upload un dossier",
+        "rnmfile": "Renommer le fichier",
+        "rnmdir": "Renommer le dossier",
+        "rmfile": "Supprimer le fichier",
+        "rmdir": "Supprimer le dossier",
+        "fileinfo": "Info du fichier",
+        "dirinfo": "Info du dossier",
+        "rdfile": "Lire le fichier",
+        "rddir": "Lire le dossier"
     }
 }
