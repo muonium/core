@@ -62,7 +62,7 @@
         "bruteforceErr1": "Warning: following a large number of requests from you, you have only 3 attempts still",
         "bruteforceErr2": "You reached the maximum allowed number of requests.",
         "subject": "Muoium - Account validation",
-        "message": "Welcome to Muoium !<br />To validate your account, follow this link : <a href='https://quantacloud.ch/core/Validate/Key/[id_user]/[key]'>https://quantacloud.ch/core/Validate/Key/[id_user]/[key]</a><br />Best regards,<br />Muonium Team<br /><br />This email was automatically generated, please do not answer."
+        "message": "Welcome to Muoium !<br />To validate your account, follow this link : <a href='https://muonium.ch/core/Validate/Key/[id_user]/[key]'>https://muonium.ch/core/Validate/Key/[id_user]/[key]</a><br />Best regards,<br />Muonium Team<br /><br />This email was automatically generated, please do not answer."
     },
 
     "Login": {
@@ -105,7 +105,7 @@
         "errmessage": "Error : The validation key is wrong or it expired, please <a href='LostPass'>make a new request</a> and retype your username or email.",
         "user": "Your email or your username",
         "subject": "Muoium - Forgot your password",
-        "message": "Hi,<br />To update your Muoium's password or passphrase, please follow this link : <a href='https://quantacloud.ch/core/LostPass/Key/[id_user]/[key]'>https://quantacloud.ch/core/LostPass/Key/[id_user]/[key]</a><br />Best regards,<br />Muonium Team<br /><br />This email was automatically generated, please do not answer."
+        "message": "Hi,<br />To update your Muoium's password or passphrase, please follow this link : <a href='https://muonium.ch/core/LostPass/Key/[id_user]/[key]'>https://muonium.ch/core/LostPass/Key/[id_user]/[key]</a><br />Best regards,<br />Muonium Team<br /><br />This email was automatically generated, please do not answer."
     },
     
     "Interface": {
