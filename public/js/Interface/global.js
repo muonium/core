@@ -1,4 +1,4 @@
-/*var QC = 
+/*var QC =
 {
     // Initialisation de l'interface
     //
@@ -16,11 +16,11 @@ var Area = 0; // 0 : desktop div, 1 : file, 2 : folder
 // Box class. Show a div 'box' when user uses right click inside desktop div, close the box when user uses left click
 
 var box = class {
-    
+
     constructor() {
         this.box_div = document.querySelector("#box");
     }
-    
+
     left_click(x, y) {
         // If the user uses left click inside the 'box'
         if((x > this.x && x < this.x + this.box_div.clientWidth) && (y > this.y && y < this.y + this.box_div.clientHeight)) {
@@ -32,29 +32,37 @@ var box = class {
             Area = 0;
         }
     }
-    
+
     right_click(x, y, id) {
         // Show box at position x, y
         this.x = x;
         this.y = y;
-        
+
         this.box_div.style.left = x+'px';
         this.box_div.style.top = y+'px';
-        
+
         if(id === undefined) {
+            //when there isn't anything
+            //under the mouse
             Area = 0;
         }
-        
+
         // Content according to area
+        //@TODO : code the separators (here : https://github.com/muonium/core/issues/24)
         switch(Area) {
+            //over nothing
             case 0:
-                this.box_div.innerHTML = '<p>'+txt.Interface.upfile+'</p><p>'+txt.Interface.updir+'</p>';
+                this.box_div.innerHTML = '<p>'+txt.RightClick.nFolder+'</p><p>'+txt.RightClick.upFiles+'</p><p>'+txt.RightClick.logOut'</p>';
                 break;
+            //mouse over a file
             case 1:
-                this.box_div.innerHTML = '<p>'+txt.Interface.rdfile+'</p><p>'+txt.Interface.rnmfile+'</p><p>'+txt.Interface.rmfile+'</p><p>'+txt.Interface.fileinfo+'</p>';
+                this.box_div.innerHTML = '<p>'+txt.RightClick.dl+'</p><p>'+txt.RightClick.star+'</p><p>'+txt.RightClick.cut+'</p><p>'+txt.RightClick.copy+'</p><p>'+txt.RightClick.paste+
+                '</p><p>'+txt.RightClick.rm+'</p><p>'+txt.RightClick.mvItem+'</p><p>'+txt.RightClick.mvLocate+'</p><p>'+txt.RightClick.vDetails+'</p>';
                 break;
+            //mouse over a folder
             case 2:
-                this.box_div.innerHTML = '<p>'+txt.Interface.rddir+'</p><p>'+txt.Interface.rnmdir+'</p><p>'+txt.Interface.rmdir+'</p><p>'+txt.Interface.dirinfo+'</p>';
+                this.box_div.innerHTML = '<p>'+txt.RightClick.open+'</p><p>'+txt.RightClick.cut+'</p><p>'+txt.RightClick.copy+'</p><p>'+txt.RightClick.paste+'</p><p>'+
+                txt.RightClick.rm+'</p><p>'+txt.RightClick.mvItem+'</p><p>'+txt.RightClick.mvLocate+'</p><p>'+txt.RightClick.vDetails+'</p>';
         }
         this.box_div.style.display = 'block';
     }
@@ -71,15 +79,15 @@ window.onclick = function(event) {
 }
 
 window.onload = function() {
-    
+
     // Get txt from user's language json (language.js)
     getJSON();
-    
+
     /*
     */
-    
+
     Box = new box();
-    
+
     // Right click inside desktop div
     document.querySelector("#desktop").addEventListener("contextmenu", function(event) {
         if(Area == 0) {
@@ -88,14 +96,16 @@ window.onload = function() {
         }
         else {
             // If we are inside its children, set Area to 0 because this function is always called when user call file's actions or folder's actions
-            // Next, we will be able to use right click inside desktop div (area = 0) and when we call file's actions or folder's actions, 'box' for 'desktop' area will not be displayed
+            // Next, we will be able to use right click inside desktop div (area = 0) and when we
+            // call file's actions or folder's actions, 'box' for 'desktop' area will not be displayed
             Area = 0;
         }
         return false;
     });
-    
+
     // Right click inside divs with file's class (these divs are children of 'desktop')
-    // After the execution of the function below, the function for 'desktop' above will be called automatically (because we are inside desktop) and will set Area to 0 without displaying a new 'box'
+    // After the execution of the function below, the function for 'desktop' above will be
+    //called automatically (because we are inside desktop) and will set Area to 0 without displaying a new 'box'
     // Files actions
     var files = document.querySelectorAll(".file");
     for (var i = 0; i < files.length; i++) {
@@ -108,9 +118,10 @@ window.onload = function() {
             return false;
         });
     }
-    
+
     // Right click inside divs with folder's class (these divs are children of 'desktop')
-    // After the execution of the function below, the function for 'desktop' above will be called automatically (because we are inside desktop) and will set Area to 0 without displaying a new 'box'
+    // After the execution of the function below, the function for 'desktop'
+    //above will be called automatically (because we are inside desktop) and will set Area to 0 without displaying a new 'box'
     // Folders actions
     var folders = document.querySelectorAll(".folder");
     for (var i = 0; i < folders.length; i++) {

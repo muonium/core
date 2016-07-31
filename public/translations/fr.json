@@ -108,17 +108,20 @@
         "subject": "Muonium - Mot de passe oublié",
         "message": "Bonjour,<br />Afin de modifier votre mot de passe ou votre passphrase, veuillez suivre ce lien : <a href='https://muonium.ch/core/LostPass/Key/[id_user]/[key]'>https://muonium.ch/core/LostPass/Key/[id_user]/[key]</a><br />Cordialement,<br />L'équipe Muonium<br /><br />Ce mail a été généré automatiquement, merci de ne pas y répondre."
     },
-    
-    "Interface": {
-        "upfile": "Upload un fichier",
-        "updir": "Upload un dossier",
-        "rnmfile": "Renommer le fichier",
-        "rnmdir": "Renommer le dossier",
-        "rmfile": "Supprimer le fichier",
-        "rmdir": "Supprimer le dossier",
-        "fileinfo": "Info du fichier",
-        "dirinfo": "Info du dossier",
-        "rdfile": "Lire le fichier",
-        "rddir": "Lire le dossier"
+
+    "RightClick": {
+        "dl": "Télécharger",
+        "rm": "Supprimer",
+        "star": "Favori",
+        "cut": "Couper",
+        "copy": "Copier",
+        "paste": "Coller",
+        "mvLocate": "Déplacer vers...",
+        "mvItem": "Renommer",
+        "vDetails": "Voir les détails",
+        "open": "Ouvrir",
+        "nFolder": "Nouveau dossier...",
+        "upFiles": "Charger des fichiers...",
+        "logOut": "Se déconnecter"
     }
 }
