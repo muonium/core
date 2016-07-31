@@ -13,25 +13,6 @@
 var Box;
 var Area = 0; // 0 : desktop div, 1 : file, 2 : folder
 
-function setJSON(arr) {
-    txt = arr;
-}
-
-function getCookie(cname) {
-    var name = cname + "=";
-    var ca = document.cookie.split(';');
-    for(var i = 0; i <ca.length; i++) {
-        var c = ca[i];
-        while (c.charAt(0)==' ') {
-            c = c.substring(1);
-        }
-        if (c.indexOf(name) == 0) {
-            return c.substring(name.length,c.length);
-        }
-    }
-    return "";
-}
-
 // Box class. Show a div 'box' when user uses right click inside desktop div, close the box when user uses left click
 
 var box = class {
