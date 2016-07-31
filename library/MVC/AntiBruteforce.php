@@ -18,10 +18,10 @@ class AntiBruteforce
         $this->_tmpFile = $this->_folder.'/'.sha1($id.'c4$AZ_').'.tmp';
     }
     
-    function setSID() {
+    function setSID($prefixe = '') {
         $this->_sid = session_id();
-        // Temporary file with the number of connections/requests for the ip, ip is encrypted with sha1 and a salt for more security.
-        $this->_tmpFile = $this->_folder.'/'.sha1(session_id().'c4$AZ_').'.tmp';
+        // Temporary file with the number of connections/requests for the session id, session id is encrypted with sha1 and a salt for more security.
+        $this->_tmpFile = $this->_folder.'/'.$prefixe.sha1(session_id().'c4$AZ_').'.tmp';
     }
     
     function setFolder($folder) {

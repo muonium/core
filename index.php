@@ -29,6 +29,12 @@ define ('DIR_VIEW',  __DIR__.'/application/views/');
 define ('DEFAULT_LANGUAGE', 'en');
 define ('DIR_LANGUAGE', __DIR__.'/public/translations/');
 
+// Functions
+
+function echo_h($str) {
+    echo htmlentities($str);
+}
+
 /* ROUTING */
 $_routing = Routing::getInstance();
 $_routing->route();

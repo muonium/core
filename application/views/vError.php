@@ -21,7 +21,7 @@
         </section>
     
         <section id="content">
-            <div id="back"><p><a href="javascript:history.go(-1);"><?php echo $this->txt->Global->back; ?></a></p></div>
+            <div id="back"><p><a href="javascript:history.go(-1);"><?php echo_h($this->txt->Global->back); ?></a></p></div>
             
             <div id="return">
                 <p class="error"><?php echo $this->_error; ?></p>

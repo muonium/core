@@ -22,13 +22,13 @@
         </section>
 
         <section id="content">
-            <div id="back"><p><a href="../photon/"><?php echo $this->txt->Global->back; ?></a></p></div>
+            <div id="back"><p><a href="../photon/"><?php echo_h($this->txt->Global->back); ?></a></p></div>
 
             <div id="avatar"><p><img src="<?php echo MVC_ROOT; ?>/public/pictures/register/user.svg" /></p></div>
 
             <p>
                 <?php 
-                if(!empty($this->_message)) { echo $this->_message; }
+                if(!empty($this->_message)) { echo_h($this->_message); }
                 ?>
                 <br />
             </p>

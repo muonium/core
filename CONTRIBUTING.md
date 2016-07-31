@@ -48,6 +48,7 @@ Your code must be tested before to be merged in the master branch.
 - The syntax must be flexible and simple. If someone needs, the code have to be easy to be modified.
 - The name of a function/class/variable must be understandable without any comment.
 - All functions, classes, variables names must be in English.
+- The "echo_h" function is defined in index.php, it can be used everywhere and this is the equivalent of "echo htmlentities("
 
 ## Global - Names
 

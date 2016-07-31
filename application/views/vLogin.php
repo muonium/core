@@ -27,18 +27,18 @@ $_t->getHeader();
         <div id="back"><p><a href="https://quantacloud.ch/photon/"><?php echo $this->txt->Global->back; ?></a></p></div>
 
         <div id="avatar"><p><img src="<?php echo MVC_ROOT; ?>/public/pictures/login/user.svg" /></p></div>
-        <div id="text"><p><?php echo $this->txt->Global->login; ?></p></div>
+        <div id="text"><p><?php echo_h($this->txt->Global->login); ?></p></div>
 
         <div id="form">
-            <input type="text" name="mail" id="field_mail" placeholder="<?php echo $this->txt->Register->email; ?>..." required="required" /><br />
-            <input type="password" name="pass" id="field_password" placeholder="<?php echo $this->txt->Register->password; ?>..." required="required" /><br />
-            <input type="password" name="passphrase" id="field_passphrase" placeholder="<?php echo $this->txt->Register->passphrase; ?>..." required="required" /><br /><br />
-            <a href="<?php echo MVC_ROOT; ?>/LostPass"><?php echo $this->txt->Login->forgot; ?></a> &nbsp;&nbsp; <a href="<?php echo MVC_ROOT; ?>/Register"><?php echo $this->txt->Login->register; ?></a><br />
-            <input type="submit" value="<?php echo $this->txt->Global->login; ?>" onclick="sendConnectionRequest()"/>
+            <input type="text" name="mail" id="field_mail" placeholder="<?php echo_h($this->txt->Register->email); ?>..." required="required" /><br />
+            <input type="password" name="pass" id="field_password" placeholder="<?php echo_h($this->txt->Register->password); ?>..." required="required" /><br />
+            <input type="password" name="passphrase" id="field_passphrase" placeholder="<?php echo_h($this->txt->Register->passphrase); ?>..." required="required" /><br /><br />
+            <a href="<?php echo MVC_ROOT; ?>/LostPass"><?php echo_h($this->txt->Login->forgot); ?></a> &nbsp;&nbsp; <a href="<?php echo MVC_ROOT; ?>/Register"><?php echo_h($this->txt->Login->register); ?></a><br />
+            <input type="submit" value="<?php echo_h($this->txt->Global->login); ?>" onclick="sendConnectionRequest()"/>
         </div>
 
         <div id="return">
-            <p class="error"><?php echo $this->txt->Global->notready; ?> :)</p>
+            <p class="error"><?php echo_h($this->txt->Global->notready); ?> :)</p>
         </div>
     </section>
 </body>

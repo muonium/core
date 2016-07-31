@@ -22,15 +22,15 @@
         </section>
 
         <section id="content">
-            <div id="back"><p><a href="../photon/"><?php echo $this->txt->Global->back; ?></a></p></div>
+            <div id="back"><p><a href="../photon/"><?php echo_h($this->txt->Global->back); ?></a></p></div>
 
             <div id="avatar"><p><img src="<?php echo MVC_ROOT; ?>/public/pictures/register/user.svg" /></p></div>
-            <div id="text"><p><?php echo $this->txt->Login->forgot; ?></p></div>
+            <div id="text"><p><?php echo_h($this->txt->Login->forgot); ?></p></div>
 
             <form method="post" action="<?php echo MVC_ROOT; ?>/LostPass/sendMail">
                 <?php echo $this->err_msg; ?><br />
-                <label for="user"><?php echo $this->txt->LostPass->user; ?></label>
-                <input type="text" name="user" id="user" required="required" value="<?php if(!empty($_POST['user'])) { echo htmlspecialchars($_POST['user']); } ?>">
+                <label for="user"><?php echo_h($this->txt->LostPass->user); ?></label>
+                <input type="text" name="user" id="user" required="required" value="<?php if(!empty($_POST['user'])) { echo_h($_POST['user']); } ?>">
                 <input type="submit">
             </form>
         </section>

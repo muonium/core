@@ -22,14 +22,14 @@
         </section>
 
         <section id="content">
-            <div id="back"><p><a href="../photon/"><?php echo $this->txt->Global->back; ?></a></p></div>
+            <div id="back"><p><a href="../photon/"><?php echo_h($this->txt->Global->back); ?></a></p></div>
 
             <div id="avatar"><p><img src="<?php echo MVC_ROOT; ?>/public/pictures/register/user.svg" /></p></div>
-            <div id="text"><p><?php echo $this->txt->Global->validate; ?></p></div>
+            <div id="text"><p><?php echo_h($this->txt->Global->validate); ?></p></div>
 
             <p>
-                <?php echo $this->txt->Validate->sendmess; ?><br />
-                <a href="<?php echo $_SERVER['REQUEST_URI']; ?>/sendMail"><?php echo $this->txt->Validate->sendmail; ?></a>
+                <?php echo_h($this->txt->Validate->sendmess); ?><br />
+                <a href="<?php echo $_SERVER['REQUEST_URI']; ?>/sendMail"><?php echo_h($this->txt->Validate->sendmail); ?></a>
             </p>
         </section>
 </body>
