@@ -14,7 +14,8 @@
         "refresh": "Refresh",
         "profile": "Profile",
         "mail_sent": "An email was sent to you, please check your mailbox and your spams. If you received nothing after 5mn, try again :",
-        "submit": "Submit"
+        "submit": "Submit",
+        "bug": "Send a bug report"
     },
 
     "UserMenu": {
@@ -61,8 +62,8 @@
         "error": "An error occurred when creating the account.",
         "bruteforceErr1": "Warning: following a large number of requests from you, you have only 3 attempts still",
         "bruteforceErr2": "You reached the maximum allowed number of requests.",
-        "subject": "Muoium - Account validation",
-        "message": "Welcome to Muoium !<br />To validate your account, follow this link : <a href='https://muonium.ch/core/Validate/Key/[id_user]/[key]'>https://muonium.ch/core/Validate/Key/[id_user]/[key]</a><br />Best regards,<br />Muonium Team<br /><br />This email was automatically generated, please do not answer."
+        "subject": "Muonium - Account validation",
+        "message": "Welcome to Muonium !<br />To validate your account, follow this link : <a href='https://muonium.ch/core/Validate/Key/[id_user]/[key]'>https://muonium.ch/core/Validate/Key/[id_user]/[key]</a><br />Best regards,<br />Muonium Team<br /><br />This email was automatically generated, please do not answer."
     },
 
     "Login": {
@@ -104,8 +105,8 @@
         "updateOk": "Your account information have been successfully updated",
         "errmessage": "Error : The validation key is wrong or it expired, please <a href='LostPass'>make a new request</a> and retype your username or email.",
         "user": "Your email or your username",
-        "subject": "Muoium - Forgot your password",
-        "message": "Hi,<br />To update your Muoium's password or passphrase, please follow this link : <a href='https://muonium.ch/core/LostPass/Key/[id_user]/[key]'>https://muonium.ch/core/LostPass/Key/[id_user]/[key]</a><br />Best regards,<br />Muonium Team<br /><br />This email was automatically generated, please do not answer."
+        "subject": "Muonium - Forgot your password",
+        "message": "Hi,<br />To update your Muonium's password or passphrase, please follow this link : <a href='https://muonium.ch/core/LostPass/Key/[id_user]/[key]'>https://muonium.ch/core/LostPass/Key/[id_user]/[key]</a><br />Best regards,<br />Muonium Team<br /><br />This email was automatically generated, please do not answer."
     },
 
     "RightClick": {
@@ -122,5 +123,16 @@
         "nFolder": "New folder...",
         "upFiles": "Upload files...",
         "logOut": "Log out"
+    },
+    
+    "Bug": {
+        "os": "Operating system",
+        "other": "Other (specify in the message)",
+        "browser": "Web browser",
+        "browserVersion": "Browser version",
+        "message": "Message",
+        "messageLength": "The message must be at least 50 characters",
+        "form": "Error in the form",
+        "sent": "Your message has been sent successfully. We will respond as soon as possible by email"
     }
 }

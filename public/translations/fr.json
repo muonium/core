@@ -14,7 +14,8 @@
         "refresh": "Actualiser",
         "profile": "Profil",
         "mail_sent": "Un email vous a été envoyé, veuillez vérifier votre boîte de réception et vos spams. Si vous n'avez rien reçu au bout de 5mn, tentez à nouveau :",
-        "submit": "Valider"
+        "submit": "Valider",
+        "bug": "Send a bug report"
     },
 
     "UserMenu": {
@@ -123,5 +124,16 @@
         "nFolder": "Nouveau dossier...",
         "upFiles": "Charger des fichiers...",
         "logOut": "Se déconnecter"
+    },
+    
+    "Bug": {
+        "os": "Système d'exploitation",
+        "other": "Autre (spécifier dans le message)",
+        "browser": "Navigateur Web",
+        "browserVersion": "Version du navigateur",
+        "message": "Message",
+        "messageLength": "Le message doit être d'au moins 50 caractères",
+        "form": "Erreur dans le formulaire",
+        "sent": "Votre message a été envoyé avec succès. Nous vous répondrons dès que possible par e-mail"
     }
 }
