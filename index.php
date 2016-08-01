@@ -32,7 +32,7 @@ define ('DIR_LANGUAGE', __DIR__.'/public/translations/');
 // Functions
 
 function echo_h($str) {
-    echo htmlentities($str);
+    echo htmlentities($str, ENT_QUOTES);
 }
 
 /* ROUTING */

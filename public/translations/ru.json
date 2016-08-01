@@ -14,7 +14,8 @@
         "refresh": "Обновление",
         "profile": "Аккаунт",
         "mail_sent": "An email was sent to you, please check your mailbox and your spams. If you received nothing after 5mn, try again :",
-        "submit": "Submit"
+        "submit": "Submit",
+        "bug": "Send a bug report"
     },
 
     "UserMenu": {
@@ -121,5 +122,16 @@
         "nFolder": "New folder...",
         "upFiles": "Upload files...",
         "logOut": "Log out"
+    },
+    
+    "Bug": {
+        "os": "Operating system",
+        "other": "Other (specify in the message)",
+        "browser": "Web browser",
+        "browserVersion": "Browser version",
+        "message": "Message",
+        "messageLength": "The message must be at least 50 characters",
+        "form": "Error in the form",
+        "sent": "Your message has been sent successfully. We will respond as soon as possible by email"
     }
 }
