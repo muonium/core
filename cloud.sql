@@ -2,10 +2,10 @@
 -- version 4.1.4
 -- http://www.phpmyadmin.net
 --
--- Client :  127.0.0.1
--- Généré le :  Jeu 07 Juillet 2016 à 13:37
--- Version du serveur :  5.6.15-log
--- Version de PHP :  5.4.24
+-- Host: 127.0.0.1
+-- Generation Time: Aug 04, 2016 at 11:29 PM
+-- Server version: 5.6.15-log
+-- PHP Version: 5.4.24
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -17,13 +17,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Base de données :  `cloud`
+-- Database: `cloud`
 --
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `ban`
+-- Table structure for table `ban`
 --
 
 CREATE TABLE IF NOT EXISTS `ban` (
@@ -37,7 +37,7 @@ CREATE TABLE IF NOT EXISTS `ban` (
 -- --------------------------------------------------------
 
 --
--- Structure de la table `files`
+-- Table structure for table `files`
 --
 
 CREATE TABLE IF NOT EXISTS `files` (
@@ -52,7 +52,7 @@ CREATE TABLE IF NOT EXISTS `files` (
 -- --------------------------------------------------------
 
 --
--- Structure de la table `storage`
+-- Table structure for table `storage`
 --
 
 CREATE TABLE IF NOT EXISTS `storage` (
@@ -66,7 +66,7 @@ CREATE TABLE IF NOT EXISTS `storage` (
 -- --------------------------------------------------------
 
 --
--- Structure de la table `users`
+-- Table structure for table `users`
 --
 
 CREATE TABLE IF NOT EXISTS `users` (
@@ -77,13 +77,15 @@ CREATE TABLE IF NOT EXISTS `users` (
   `registration_date` int(11) NOT NULL,
   `last_connection` int(11) NOT NULL,
   `passphrase` varchar(128) NOT NULL,
+  `double_auth` tinyint(1) NOT NULL,
+  `auth_code` varchar(8) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `user_lostpass`
+-- Table structure for table `user_lostpass`
 --
 
 CREATE TABLE IF NOT EXISTS `user_lostpass` (
@@ -92,12 +94,12 @@ CREATE TABLE IF NOT EXISTS `user_lostpass` (
   `val_key` varchar(128) NOT NULL,
   `expire` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=20 ;
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `user_validation`
+-- Table structure for table `user_validation`
 --
 
 CREATE TABLE IF NOT EXISTS `user_validation` (
@@ -105,7 +107,7 @@ CREATE TABLE IF NOT EXISTS `user_validation` (
   `id_user` int(11) NOT NULL,
   `val_key` varchar(128) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

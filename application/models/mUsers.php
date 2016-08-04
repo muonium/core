@@ -9,6 +9,8 @@
             5   registration_date   int(11)
             5   last_connection     int(11)
             6   passphrase          varchar(128)
+            7   double_auth         tinyint(1)      => 0 : Double auth not available for this user
+            8   auth_code           varchar(8)      => 1 : Double auth available for this user
         */
         
         private $id;
@@ -124,7 +126,7 @@
         
         function Insertion() {
             // $this->password must be encrypted !
-            $req = $this->_sql->prepare("INSERT INTO users VALUES ('', ?, ?, ?, ?, ?, ?)");
+            $req = $this->_sql->prepare("INSERT INTO users VALUES ('', ?, ?, ?, ?, ?, ?, '0', '')");
             $ret = $req->execute(array($this->login, $this->password, $this->email, time(), time(), $this->passphrase));   
             return $ret;
         }

@@ -23,7 +23,7 @@
         "help": "Помощь",
         "settings": "Настройки",
         "profile": "Аккаунт",
-        "logout": "Logout"
+        "logout": "Выйти"
     },
 
     "Toolbar": {
@@ -42,10 +42,10 @@
     },
 
     "Register": {
-        "email": "Mail",
+        "email": "Адрес эл. почты",
         "login": "Логин",
         "password": "Пароль",
-        "confirm": "Confirm",
+        "confirm": "Пароль еще раз",
         "passphrase": "Passphrase",
         "alreadyregistered": "Уже зарегистрирован ?",
         "impossible": "Регистрация невозможна сейчас",
