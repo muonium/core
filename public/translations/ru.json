@@ -47,6 +47,7 @@
         "password": "Пароль",
         "confirm": "Пароль еще раз",
         "passphrase": "Passphrase",
+        "doubleAuth": "Do you want to active the double authentication ?",
         "alreadyregistered": "Уже зарегистрирован ?",
         "impossible": "Регистрация невозможна сейчас",
         "ok": "Registration done !",
@@ -96,7 +97,8 @@
         "badOldPass": "Your old password does not match",
         "badOldPassphrase": "Your old passphrase does not match",
         "getpwd": "Unable to get your password",
-        "getpp": "Unable to get your passphrase"
+        "getpp": "Unable to get your passphrase",
+        "doubleAuth": "Double authentification"
     },
 
     "LostPass": {

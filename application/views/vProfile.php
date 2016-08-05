@@ -82,6 +82,20 @@
                     <input type="submit" onclick="changePassPhrase()">
                     <div id="changePassPhraseReturn"></div>
                 </fieldset>
+                <br />
+            </p>
+
+            <p>
+                <fieldset>
+                    <legend><?php echo_h($this->txt->Profile->doubleAuth); ?></legend>
+                    
+                    <p>
+                        <?php echo_h($this->txt->Register->doubleAuth); ?>
+                        <input type="checkbox" name="doubleAuth" id="doubleAuth"<?php if($this->_modelUser->getDoubleAuth()) { echo ' checked'; } ?>>
+                    </p>
+                    <input type="submit" onclick="changeAuth()">
+                    <div id="changeAuthReturn"></div>
+                </fieldset>
             </p>
         </section>
 </body>

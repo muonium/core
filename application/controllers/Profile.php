@@ -12,6 +12,8 @@ class Profile extends Languages
     }
     
     function DefaultAction() {
+        $this->_modelUser = new mUsers();
+        $this->_modelUser->setId($_SESSION['id']);
         include(DIR_VIEW."vProfile.php");
     }
     

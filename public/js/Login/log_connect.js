@@ -1,6 +1,6 @@
 /**
-** @name        : connect.js
-** @authors     : Romain Claveau <romain.claveau@protonmail.ch>, ...
+** @name        : log_connect.js
+** @authors     : Romain Claveau <romain.claveau@protonmail.ch>, Dylan CLEMENT <dylanclement7@protonmail.ch>
 ** @description : Méthode permettant la connexion à l'application
 **/
 
@@ -9,52 +9,58 @@
 * @name         : sendConnectionRequest()
 * @description  : Permet l'envoi de la requête de connexion avec les identifiants
 */
+
+window.onload = function() {
+
+    // Get txt from user's language json (language.js)
+    getJSON();
+}
+
 var sendConnectionRequest = function()
 {
     var field_mail = document.querySelector("#field_mail").value;
     var field_password = document.querySelector("#field_password").value;
     var field_passphrase = document.querySelector("#field_passphrase").value;
-    
-    var passLength = 1;
 
     var returnArea = document.querySelector("#return");
 
     returnArea.innerHTML = "<img src='./public/pictures/index/loader.gif' style='height: 3vh;' />";
     
-    if(field_password.length < 6) {
-        passLength = 0;
-    }
+    if(field_password.length < 6 || field_passphrase.length < 1 || field_mail.length < 6)
+        returnArea.innerHTML = txt.Register.form;
+    else {
 
-    var xhr = new XMLHttpRequest();
-    xhr.open("POST", "Login/connection", true);
-    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "Login/connection", true);
+        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
-    xhr.onreadystatechange = function()
-    {
-        if(xhr.status == 200 && xhr.readyState == 4)
+        xhr.onreadystatechange = function()
         {
-
-            console.log(xhr.responseText);
-            if(xhr.responseText.length > 2)
+            if(xhr.status == 200 && xhr.readyState == 4)
             {
-                // success message
-                if(xhr.responseText.substr(0, 3) == "ok@") {
-                    window.location.href="Home";
-                    return false;
-                }
-                else if(xhr.responseText.substr(0, 3) == "va@") {
-                    window.location.href="Validate";
-                    return false;
-                }
-                else {
-                    // error
-                    returnArea.innerHTML = xhr.responseText;
+
+                console.log(xhr.responseText);
+                if(xhr.responseText.length > 2)
+                {
+                    // success message
+                    if(xhr.responseText.substr(0, 3) == "ok@") {
+                        window.location.href="Home";
+                        return false;
+                    }
+                    else if(xhr.responseText.substr(0, 3) == "va@") {
+                        window.location.href="Validate";
+                        return false;
+                    }
+                    else {
+                        // error
+                        returnArea.innerHTML = xhr.responseText;
+                    }
                 }
             }
         }
+
+       xhr.send("mail="+encodeURIComponent(field_mail)+"&pass="+sha512(field_password)+"&passphrase="+encodeURIComponent(field_passphrase)); //xhr.send("mail="+encodeURIComponent(field_mail)+"&pass="+sha512(field_password)+"&passphrase="+sha512(field_passphrase));
     }
-   
-   xhr.send("mail="+encodeURIComponent(field_mail)+"&pass="+sha512(field_password)+"&passphrase="+encodeURIComponent(field_passphrase)+"&passlength="+passLength); //xhr.send("mail="+encodeURIComponent(field_mail)+"&pass="+sha512(field_password)+"&passphrase="+sha512(field_passphrase)+"&passlength="+passLength);
 }
 /*
 * @name         : getKeys(string passphrase)

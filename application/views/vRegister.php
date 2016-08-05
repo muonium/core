@@ -31,11 +31,13 @@
 
             <div id="form">
                 <input type="text" id="field_mail" placeholder="<?php echo_h($this->txt->Register->email); ?>..." /><br />
-                <input type="text" id="field_pseudo" placeholder="<?php echo_h($this->txt->Register->login); ?>..." /><br />
+                <input type="text" id="field_login" placeholder="<?php echo_h($this->txt->Register->login); ?>..." /><br />
                 <input type="password" id="field_pass" placeholder="<?php echo_h($this->txt->Register->password); ?>..." /><br />
                 <input type="password" id="field_pass_confirm" placeholder="<?php echo_h($this->txt->Register->confirm); ?>..." /><br />
                 <input type="password" id="field_passphrase" placeholder="<?php echo_h($this->txt->Register->passphrase); ?>..."/><br />
-                <input type="password" id="field_passphrase_confirm" placeholder="<?php echo_h($this->txt->Register->confirm); ?>..."/><br /><br />
+                <input type="password" id="field_passphrase_confirm" placeholder="<?php echo_h($this->txt->Register->confirm); ?>..."/><br />
+                <?php echo_h($this->txt->Register->doubleAuth); ?>
+                <input type="checkbox" id="doubleAuth" name="doubleAuth"><br /><br />
                 <a href="<?php echo MVC_ROOT; ?>/Login"><?php echo_h($this->txt->Register->alreadyregistered); ?></a><br />
                 <input type="submit" value="<?php echo_h($this->txt->Global->register); ?>" onclick="sendRegisterRequest()"/>
             </div>

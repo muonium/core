@@ -18,6 +18,7 @@
         private $password;
         private $email;
         private $passphrase;
+        private $doubleAuth = 0;
         
         /* ******************** SETTER ******************** */
             
@@ -39,6 +40,11 @@
         
         function setPassword($p) {
             $this->password = $p;
+        }
+        
+        function setDoubleAuth($state) {
+            if($state == 0 || $state == 1)
+                $this->doubleAuth = $state;
         }
         
         /* ******************** GETTER ******************** */   
@@ -106,6 +112,14 @@
              return $this->login;
         }
         
+        function getDoubleAuth() {
+            $req = $this->_sql->prepare("SELECT double_auth FROM users WHERE id = ? AND double_auth = '1'");
+            $req->execute(array($this->id));
+            if($req->rowCount() == 0)
+                return false;
+            return true;
+        }
+        
         /* **************************************** */
         
         function EmailExists() {
@@ -126,8 +140,8 @@
         
         function Insertion() {
             // $this->password must be encrypted !
-            $req = $this->_sql->prepare("INSERT INTO users VALUES ('', ?, ?, ?, ?, ?, ?, '0', '')");
-            $ret = $req->execute(array($this->login, $this->password, $this->email, time(), time(), $this->passphrase));   
+            $req = $this->_sql->prepare("INSERT INTO users VALUES ('', ?, ?, ?, ?, ?, ?, ?, '')");
+            $ret = $req->execute(array($this->login, $this->password, $this->email, time(), time(), $this->passphrase, $this->doubleAuth));   
             return $ret;
         }
         

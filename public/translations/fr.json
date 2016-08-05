@@ -47,6 +47,7 @@
         "password": "Mot de passe",
         "confirm": "Confirmez",
         "passphrase": "Passphrase",
+        "doubleAuth": "Voulez vous activer la double authentication ?",
         "alreadyregistered": "Déjà inscrit ?",
         "impossible": "Inscriptions impossibles pour le moment",
         "ok": "Inscription effectuée avec succès !",
@@ -98,7 +99,8 @@
         "badOldPass": "Votre ancien mot de passe ne correspond pas",
         "badOldPassphrase": "Votre ancienne passphrase ne correspond pas",
         "getpwd": "Impossible de récupérer le mot de passe",
-        "getpp": "Impossible de récupérer la passphrase"
+        "getpp": "Impossible de récupérer la passphrase",
+        "doubleAuth": "Double authentification"
     },
 
     "LostPass": {
