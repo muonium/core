@@ -10,15 +10,19 @@ class AntiBruteforce
     // Folder to store temporary files
     private $_folder = 'tmp';
     
+    private $_prefixe = '';
+    
     private $_NbMaxAttemptsPerHour = 15; 
     
-    function setId($id) {
+    function setId($id, $prefixe = '') {
+        $this->_prefixe = $prefixe;
         $this->_id = $id;
         // Temporary file with the number of connections/requests for the user, username is encrypted with sha1 and a salt for more security.
-        $this->_tmpFile = $this->_folder.'/'.sha1($id.'c4$AZ_').'.tmp';
+        $this->_tmpFile = $this->_folder.'/'.$prefixe.sha1($id.'c4$AZ_').'.tmp';
     }
     
     function setSID($prefixe = '') {
+        $this->_prefixe = $prefixe;
         $this->_sid = session_id();
         // Temporary file with the number of connections/requests for the session id, session id is encrypted with sha1 and a salt for more security.
         $this->_tmpFile = $this->_folder.'/'.$prefixe.sha1(session_id().'c4$AZ_').'.tmp';
@@ -41,7 +45,7 @@ class AntiBruteforce
     }
     
     function banSID() {
-        unlink($this->_folder.'/'.sha1(session_id().'c4$AZ_').'.tmp');
+        unlink($this->_folder.'/'.$this->_prefixe.sha1(session_id().'c4$AZ_').'.tmp');
         $_SESSION['banSID'] = 1;
     }
     

@@ -30,6 +30,7 @@ $_t->getHeader();
         <div id="text"><p><?php echo_h($this->txt->Global->login); ?></p></div>
 
         <div id="form">
+            <p style="color:red"><?php if(!empty($this->_message)) { echo $this->_message; } ?></p>
             <input type="text" name="mail" id="field_mail" placeholder="<?php echo_h($this->txt->Register->email); ?>..." required="required" /><br />
             <input type="password" name="pass" id="field_password" placeholder="<?php echo_h($this->txt->Register->password); ?>..." required="required" /><br />
             <input type="password" name="passphrase" id="field_passphrase" placeholder="<?php echo_h($this->txt->Register->passphrase); ?>..." required="required" /><br /><br />

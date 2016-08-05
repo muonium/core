@@ -140,5 +140,21 @@ class Profile extends Languages
             echo $this->txt->Register->form;
         }*/
     }
+    
+    function changeAuthAction() {
+        // Called by profile.js
+        
+        $this->_modelUser = new mUsers();
+        $this->_modelUser->setId($_SESSION['id']);
+        
+        $s = 0;
+        if($_POST['doubleAuth'] == 'true')
+            $s = 1;
+        
+        if($this->_modelUser->updateDoubleAuth($s))
+            echo $this->txt->Profile->updateOk;
+        else
+            echo $this->txt->Profile->updateErr;
+    }
 };
 ?>

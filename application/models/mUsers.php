@@ -19,6 +19,7 @@
         private $email;
         private $passphrase;
         private $doubleAuth = 0;
+        private $code;
         
         /* ******************** SETTER ******************** */
             
@@ -45,6 +46,11 @@
         function setDoubleAuth($state) {
             if($state == 0 || $state == 1)
                 $this->doubleAuth = $state;
+        }
+        
+        function setCode($code) {
+            if(strlen($code) == 8)
+                $this->code = $code;
         }
         
         /* ******************** GETTER ******************** */   
@@ -120,6 +126,15 @@
             return true;
         }
         
+        function getCode() {
+            $req = $this->_sql->prepare("SELECT auth_code FROM users WHERE id = ?");
+            $req->execute(array($this->id));
+            if($req->rowCount() == 0)
+                return false;
+            $res = $req->fetch();
+            return $res['auth_code'];
+        }
+        
         /* **************************************** */
         
         function EmailExists() {
@@ -181,6 +196,22 @@
                     $req = $this->_sql->prepare("UPDATE users SET passphrase = ? WHERE id = ?");
                     return $req->execute(array($this->passphrase, $this->id));
                 }
+            }
+            return false;
+        }
+        
+        function updateDoubleAuth($state) {
+            if($state == 0 || $state == 1) {
+                $req = $this->_sql->prepare("UPDATE users SET double_auth = ? WHERE id = ?");
+                return $req->execute(array($state, $this->id));
+            }
+            return false;
+        }
+        
+        function updateCode($code) {
+            if(strlen($code) == 8) {
+                $req = $this->_sql->prepare("UPDATE users SET auth_code = ? WHERE id = ?");
+                return $req->execute(array($code, $this->id));
             }
             return false;
         }

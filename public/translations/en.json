@@ -61,6 +61,7 @@
         "loginFormat": "Username format is incorrect (between 2 and 20 alphanumeric characters, -_. allowed).",
         "mailFormat": "Mail format is incorrect.",
         "error": "An error occurred when creating the account.",
+        "bruteforceErr0": "",
         "bruteforceErr1": "Warning: following a large number of requests from you, you have only 3 attempts still",
         "bruteforceErr2": "You reached the maximum allowed number of requests.",
         "subject": "Muonium - Account validation",
@@ -72,7 +73,12 @@
         "register": "Not already registered ?",
         "bruteforceErr0": "Invalid email address or password",
         "bruteforceErr1": "Warning: following a large number of requests from you, you have only 3 attempts still",
-        "bruteforceErr2": "You reached the maximum allowed number of requests."
+        "bruteforceErr2": "You reached the maximum allowed number of requests.",
+        "doubleAuthMessage": "Hi, your authentification code is [key]<br />Best regards,<br />Muonium Team<br /><br />This email was automatically generated, please do not answer.",
+        "codeMail": "Code received by email",
+        "expired": "The code is expired, please login again",
+        "invalidCode": "The code entered is invalid",
+        "doubleAuth": "A mail with an authentification code was sent to you. Copy this code in the field above.<br />If you received nothing from now until 5 mn and the mail is not in the Spam folder, please follow this <a href='https://muonium.ch/core/Logout'>link</a> to perform a new connection attempt."
     },
 
     "Validate": {
