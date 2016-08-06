@@ -3,11 +3,7 @@
 session_start();
 include_once("./config/autoload.php");
 
-// Banned session (anti-bruteforce)
-if(!empty($_SESSION['banSID'])) {
-    echo 'You reached the maximum allowed number of requests';
-    exit;
-}
+// Defines
 
 define('DS', DIRECTORY_SEPARATOR);
 define('ROOT', __DIR__);
@@ -33,6 +29,13 @@ define ('DIR_LANGUAGE', __DIR__.'/public/translations/');
 
 function echo_h($str) {
     echo htmlentities($str, ENT_QUOTES);
+}
+
+// Banned session (anti-bruteforce)
+if(!empty($_SESSION['banSID'])) {
+    $err = new Languages();
+    echo_h($err->txt->Error->bannedSession);
+    exit;
 }
 
 /* ROUTING */

@@ -38,7 +38,8 @@
         "e404": "Ошибка 404 : Страница не найдена",
         "default": "Произошла ошибка",
         "form": "Error in the form",
-        "pp": "Edit the passphrase is not available for now"
+        "pp": "Edit the passphrase is not available for now",
+        "bannedSession": "You reached the maximum allowed number of requests"
     },
 
     "Register": {

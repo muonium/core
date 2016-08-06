@@ -38,7 +38,8 @@
         "e404": "Erreur : Page non trouvée",
         "default": "Une erreur est survenue",
         "form": "Erreur dans le formulaire",
-        "pp": "Impossible de modifier votre passphrase pour le moment"
+        "pp": "Impossible de modifier votre passphrase pour le moment",
+        "bannedSession": "Vous avez atteint le nombre maximum autorisé de requêtes"
 	},
 
     "Register": {
