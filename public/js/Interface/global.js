@@ -48,19 +48,18 @@ var box = class {
         }
 
         // Content according to area
-        //@TODO : code the separators (here : https://github.com/muonium/core/issues/24)
         switch(Area) {
             //over nothing
             case 0:
-                this.box_div.innerHTML = '<p>'+txt.RightClick.nFolder+'</p><p>'+txt.RightClick.upFiles+'</p><p>'+txt.RightClick.logOut+'</p>';
+                this.box_div.innerHTML = '<p>'+txt.RightClick.nFolder+'</p><p>'+txt.RightClick.upFiles+'</p><hr><p>'+txt.RightClick.logOut+'</p>';
                 break;
             //mouse over a file
             case 1:
-                this.box_div.innerHTML = '<p>'+txt.RightClick.dl+'</p><p>'+txt.RightClick.star+'</p><p>'+txt.RightClick.cut+'</p><p>'+txt.RightClick.copy+'</p> <p>'+txt.RightClick.paste+'</p><p>'+txt.RightClick.rm+'</p><p>'+txt.RightClick.mvItem+'</p><p>'+txt.RightClick.mvLocate+'</p><p>'+txt.RightClick.vDetails+'</p>';
+                this.box_div.innerHTML = '<p>'+txt.RightClick.dl+'</p><hr><p>'+txt.RightClick.star+'</p><hr><p>'+txt.RightClick.cut+'</p><p>'+txt.RightClick.copy+'</p><p>'+txt.RightClick.paste+'</p><p>'+txt.RightClick.rm+'</p><hr><p>'+txt.RightClick.mvItem+'</p><p>'+txt.RightClick.mvLocate+'</p><hr><p>'+txt.RightClick.vDetails+'</p>';
                 break;
             //mouse over a folder
             case 2:
-                this.box_div.innerHTML = '<p>'+txt.RightClick.open+'</p><p>'+txt.RightClick.cut+'</p><p>'+txt.RightClick.copy+'</p><p>'+txt.RightClick.paste+'</p><p>'+txt.RightClick.rm+'</p><p>'+txt.RightClick.mvItem+'</p><p>'+txt.RightClick.mvLocate+'</p><p>'+txt.RightClick.vDetails+'</p>';
+                this.box_div.innerHTML = '<p>'+txt.RightClick.open+'</p><hr><p>'+txt.RightClick.cut+'</p><p>'+txt.RightClick.copy+'</p><p>'+txt.RightClick.paste+'</p><p>'+txt.RightClick.rm+'</p><hr><p>'+txt.RightClick.mvItem+'</p><p>'+txt.RightClick.mvLocate+'</p><hr><p>'+txt.RightClick.vDetails+'</p>';
         }
         this.box_div.style.display = 'block';
     }
