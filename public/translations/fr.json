@@ -116,7 +116,7 @@
         "errmessage": "Erreur : La clé de validation est incorrecte ou est expirée, veuillez <a href='LostPass'>refaire une demande de mot de passe perdu</a> et saisir votre nom d'utilisateur ou votre email.",
         "user": "Votre adresse email ou nom d'utilisateur",
         "subject": "Muonium - Mot de passe oublié",
-        "message": "Bonjour,<br />Afin de modifier votre mot de passe ou votre passphrase, veuillez suivre ce lien : <a href='https://muonium.ch/core/LostPass/Key/[id_user]/[key]'>https://muonium.ch/core/LostPass/Key/[id_user]/[key]</a><br />Cordialement,<br />L'équipe Muonium<br /><br />Ce mail a été généré automatiquement, merci de ne pas y répondre."
+        "message": "Bonjour,<br />Afin de modifier votre mot de passe ou votre passphrase, veuillez suivre ce lien : <a href='https://muonium.ch/core/LostPass/Key/[id_user]/[key]'>https://muonium.ch/core/LostPass/Key/[id_user]/[key]</a><br />Cordialement,<br />L'équipe Muonium.<br /><br />Ce mail a été généré automatiquement, merci de ne pas y répondre."
     },
 
     "RightClick": {
@@ -134,14 +134,14 @@
         "upFiles": "Charger des fichiers...",
         "logOut": "Se déconnecter"
     },
-    
+
     "Bug": {
         "os": "Système d'exploitation",
         "other": "Autre (spécifier dans le message)",
-        "browser": "Navigateur Web",
+        "browser": "Navigateur Internet",
         "browserVersion": "Version du navigateur",
         "message": "Message",
-        "messageLength": "Le message doit être d'au moins 50 caractères",
+        "messageLength": "Le message doit être composé de 50 caractères minimum",
         "form": "Erreur dans le formulaire",
         "sent": "Votre message a été envoyé avec succès. Nous vous répondrons dès que possible par e-mail"
     }

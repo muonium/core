@@ -114,7 +114,7 @@
         "errmessage": "Error : The validation key is wrong or it expired, <a href='LostPass'>please make a new request</a> and retype your username or email.",
         "user": "Your email or your username",
         "subject": "Muonium - Forgot your password",
-        "message": "Hi, for updating your Muonium's password or passphrase, please follow this link : <a href='https://muonium.ch/core/LostPass/Key/[id_user]/[key]'>https://muonium.ch/core/LostPass/Key/[id_user]/[key]</a><br />Best regards,<br />Muonium Team<br /><br />This email was automatically generated, please do not answer."
+        "message": "Hi,<br />To update your password or passphrase, please follow this link : <a href='https://muonium.ch/core/LostPass/Key/[id_user]/[key]'>https://muonium.ch/core/LostPass/Key/[id_user]/[key]</a><br />Best regards,<br />Muonium Team.<br /><br />This email was automatically generated, please do not answer."
     },
 
     "RightClick": {
@@ -132,7 +132,7 @@
         "upFiles": "Upload files...",
         "logOut": "Log out"
     },
-    
+
     "Bug": {
         "os": "Operating system",
         "other": "Other (specify in the message)",
