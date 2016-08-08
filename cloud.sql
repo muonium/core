@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 08, 2016 at 11:57 AM
+-- Generation Time: Aug 08, 2016 at 07:29 PM
 -- Server version: 5.6.15-log
 -- PHP Version: 5.4.24
 
@@ -46,6 +46,7 @@ CREATE TABLE IF NOT EXISTS `files` (
   `file` varchar(128) NOT NULL,
   `size` int(11) NOT NULL,
   `last_modification` int(11) NOT NULL,
+  `favorite` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
@@ -95,7 +96,7 @@ CREATE TABLE IF NOT EXISTS `user_lostpass` (
   `val_key` varchar(128) NOT NULL,
   `expire` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=21 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=22 ;
 
 -- --------------------------------------------------------
 
