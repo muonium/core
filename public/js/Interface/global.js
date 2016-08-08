@@ -51,7 +51,7 @@ var box = class {
         switch(Area) {
             //over nothing
             case 0:
-                this.box_div.innerHTML = '<p>'+txt.RightClick.nFolder+'</p><p>'+txt.RightClick.upFiles+'</p><hr><p>'+txt.RightClick.logOut+'</p>';
+                this.box_div.innerHTML = '<p onclick="nFolder()">'+txt.RightClick.nFolder+'</p><p onclick="upFilesDialog()"><input type="file" id="upFiles" multiple="multiple" style="display:none" onchange="UpFiles()">'+txt.RightClick.upFiles+'</p><hr><p onclick="logout()">'+txt.RightClick.logOut+'</p>';
                 break;
             //mouse over a file
             case 1:
@@ -131,4 +131,44 @@ window.onload = function() {
             return false;
         });
     }
+}
+
+var logout = function() {
+    window.location.href="Logout";
+    return false;
+}
+
+var nFolder = function() {
+    if(document.querySelector("#nFolder")) {
+        // To do :
+        // Send ajax query to create the folder
+        
+        // Refresh
+        
+        // Hide box
+        document.querySelector("#box").style.display = 'none';
+    }
+    else {
+        document.querySelector("#box").innerHTML = 'Folder name : <input type="text" id="nFolder" onkeypress="return verifFolderName(event);">';
+    }
+}
+
+var verifFolderName = function(evt) {
+    var keyCode = evt.which ? evt.which : evt.keyCode;
+    if(keyCode == 13) { // Submit
+        nFolder();
+        return false;
+    }
+    var interdit = '/\\:*?<>|" ';
+    if (interdit.indexOf(String.fromCharCode(keyCode)) >= 0)
+        return false;
+    return true;
+}
+
+var upFilesDialog = function() {
+    document.querySelector('#upFiles').click();
+}
+
+var upFiles = function() {
+    // Upload files function
 }

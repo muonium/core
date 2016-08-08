@@ -74,9 +74,9 @@
         </section>
     
         <section id="desktop">
-            <!--<div class="file" id="f1" width="50" height="50" style="border:1px solid black">A file</div><br />
+            <div class="file" id="f1" width="50" height="50" style="border:1px solid black">A file</div><br />
             <div class="file" id="f2" width="50" height="50" style="border:1px solid black">A second file</div><br />
-        <div class="folder" id="d1">A folder</div><br />-->
+        <div class="folder" id="d1">A folder</div><br />
             <img src="<?php echo MVC_ROOT; ?>/public/pictures/desktop/arrow.svg" class="arrow general" />
             
             <div id="desktop_general" class="content">

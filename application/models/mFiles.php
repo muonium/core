@@ -7,6 +7,7 @@
             3	file                varchar(128)
             4	size	            int(11)
             5	last_modification	int(11)
+            6   favorite            tinyint(1)
         */
         
         private $id;
@@ -14,6 +15,7 @@
         private $file;
         private $size;
         private $last_modification;
+        private $favorite;
         
         /* ******************** SETTER ******************** */
         function setIdOwner($id_owner) {
@@ -30,6 +32,14 @@
         
         function setLastModification($last_modification) {
             $this->last_modification = $last_modification;
+        }
+        
+        function setFavorite() {
+            $this->favorite = 1;
+        }
+        
+        function unsetFavorite() {
+            $this->favorite = 0;
         }
         
         /* ******************** GETTER ******************** */
@@ -51,6 +61,10 @@
         
         function getLastModification() {
             return $this->last_modification;
+        }
+        
+        function getFavorite() {
+            return $this->favorite;
         }
     }
 ?>
