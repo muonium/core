@@ -69,7 +69,10 @@
             <p>
                 <fieldset>
                     <legend><?php echo_h($this->txt->Profile->changepp); ?></legend>
-                    
+                    <p>
+                        <?php echo str_replace("[count]", $this->ppCounter, $this->txt->Profile->warningpp); ?>
+                    </p>
+                    <?php if($this->ppCounter < 2) { ?>
                     <p>
                         <input type="password" name="oldpp" id="oldpp" placeholder="<?php echo_h($this->txt->Profile->oldpp); ?>">
                     </p>
@@ -81,6 +84,7 @@
                     </p>
                     <input type="submit" onclick="changePassPhrase()">
                     <div id="changePassPhraseReturn"></div>
+                    <?php } ?>
                 </fieldset>
                 <br />
             </p>

@@ -8,6 +8,8 @@ class LostPass extends Languages {
     private $_modelUser;
     private $_modelUserLostPass;
     private $_mail;
+    
+    private $ppCounter = 0;
 
     function __construct() {
         parent::__construct();
@@ -16,8 +18,12 @@ class LostPass extends Languages {
     }
 
     function DefaultAction() {
-        if(!empty($_SESSION['changePassId']) && !empty($_SESSION['changePassKey']))
+        if(!empty($_SESSION['changePassId']) && !empty($_SESSION['changePassKey'])) {
+            $this->_modelUser = new mUsers();
+            $this->_modelUser->setId($_SESSION['changePassId']);
+            $this->ppCounter = $this->_modelUser->getPpCounter();
             include_once(DIR_VIEW."vLostPassForm.php");
+        }
         else
             include_once(DIR_VIEW."vLostPass.php");
     }
@@ -37,6 +43,7 @@ class LostPass extends Languages {
                             if($_POST['pwd_length'] || $_POST['pp_length']) {
                                 $this->_modelUser = new mUsers();
                                 $this->_modelUser->setId($_SESSION['changePassId']);
+                                $this->ppCounter = $this->_modelUser->getPpCounter();
 
                                 if(!empty($_POST['pwd']) && !empty($_POST['pwd_confirm']) && $_POST['pwd_length']) {
                                     // change password
@@ -66,6 +73,11 @@ class LostPass extends Languages {
                                         //$this->_modelUser->setPassphrase($_POST['pp']);
                                         
                                         if($this->_modelUser->updatePassphrase()) {
+                                            if($this->ppCounter >= 2) {
+                                                // To do :
+                                                // Delete all user's data
+                                            }
+                                            $this->_modelUser->incrementPpCounter();
                                             unset($_SESSION['changePassId']);
                                             unset($_SESSION['changePassKey']);
                                             unset($_SESSION['sendMail']);

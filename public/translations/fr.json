@@ -107,7 +107,8 @@
         "badOldPassphrase": "Votre ancienne passphrase ne correspond pas",
         "getpwd": "Impossible de récupérer le mot de passe",
         "getpp": "Impossible de récupérer la passphrase",
-        "doubleAuth": "Double authentification"
+        "doubleAuth": "Double authentification",
+        "warningpp": "Attention ! Vous pouvez changer votre passphrase seulement <strong>2</strong> fois par mois. Vous l'avez déjà changé [count] fois !"
     },
 
     "LostPass": {
@@ -116,7 +117,8 @@
         "errmessage": "Erreur : La clé de validation est incorrecte ou est expirée, veuillez <a href='LostPass'>refaire une demande de mot de passe perdu</a> et saisir votre nom d'utilisateur ou votre email.",
         "user": "Votre adresse email ou nom d'utilisateur",
         "subject": "Muonium - Mot de passe oublié",
-        "message": "Bonjour,<br />Afin de modifier votre mot de passe ou votre passphrase, veuillez suivre ce lien : <a href='https://muonium.ch/core/LostPass/Key/[id_user]/[key]'>https://muonium.ch/core/LostPass/Key/[id_user]/[key]</a><br />Cordialement,<br />L'équipe Muonium.<br /><br />Ce mail a été généré automatiquement, merci de ne pas y répondre."
+        "message": "Bonjour,<br />Afin de modifier votre mot de passe ou votre passphrase, veuillez suivre ce lien : <a href='https://muonium.ch/core/LostPass/Key/[id_user]/[key]'>https://muonium.ch/core/LostPass/Key/[id_user]/[key]</a><br />Cordialement,<br />L'équipe Muonium.<br /><br />Ce mail a été généré automatiquement, merci de ne pas y répondre.",
+        "reset": "Attention ! Si vous changez votre passphrase, votre compte sera remis à zéro et vous perdrez vos données !"
     },
 
     "RightClick": {

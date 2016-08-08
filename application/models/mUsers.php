@@ -11,6 +11,7 @@
             6   passphrase          varchar(128)
             7   double_auth         tinyint(1)      => 0 : Double auth not available for this user
             8   auth_code           varchar(8)      => 1 : Double auth available for this user
+            9   pp_counter          tinyint(1)      => passphrase changes counter, resetted to 0 every month. max value : 3 (delete user's files)
         */
         
         private $id;
@@ -20,6 +21,7 @@
         private $passphrase;
         private $doubleAuth = 0;
         private $code;
+        private $pp_counter = 0;
         
         /* ******************** SETTER ******************** */
             
@@ -51,6 +53,16 @@
         function setCode($code) {
             if(strlen($code) == 8)
                 $this->code = $code;
+        }
+        
+        function incrementPpCounter() {
+            // max value is 3
+            if($this->pp_counter < 2) {
+                $this->pp_counter = ($this->pp_counter)+1;
+                $req = $this->_sql->prepare("UPDATE users SET pp_counter = ? WHERE id = ?");
+                return $req->execute(array($this->pp_counter, $this->id));
+            }
+            return false;
         }
         
         /* ******************** GETTER ******************** */   
@@ -135,6 +147,16 @@
             return $res['auth_code'];
         }
         
+        function getPpCounter() {
+            $req = $this->_sql->prepare("SELECT pp_counter FROM users WHERE id = ?");
+            $req->execute(array($this->id));
+            if($req->rowCount() == 0)
+                return false;
+            $res = $req->fetch();
+            $this->pp_counter = $res['pp_counter'];
+            return $res['pp_counter'];
+        }
+        
         /* **************************************** */
         
         function EmailExists() {
@@ -155,7 +177,7 @@
         
         function Insertion() {
             // $this->password must be encrypted !
-            $req = $this->_sql->prepare("INSERT INTO users VALUES ('', ?, ?, ?, ?, ?, ?, ?, '')");
+            $req = $this->_sql->prepare("INSERT INTO users VALUES ('', ?, ?, ?, ?, ?, ?, ?, '', '0')");
             $ret = $req->execute(array($this->login, $this->password, $this->email, time(), time(), $this->passphrase, $this->doubleAuth));   
             return $ret;
         }
@@ -215,21 +237,5 @@
             }
             return false;
         }
-
-        
-        /*function getPassPhraseByIdUtilisateur() {
-        	$pdo = $this->_InstancePDO->prepare($this->_RequeteSql);
-        	
-        	$idUtilisateur = $this->getidUtilisateur();
-        	$pdo->bindValue("idUtilisateur",$idUtilisateur);
-        	
-        	$pdo->execute();
-        	
-        	if($row = $pdo->fetch(PDO::FETCH_ASSOC)) {
-        		$pp = $row['passPhrase'];
-        	}
-        	
-        	return $pp;
-        }*/
     }
 ?>

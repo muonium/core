@@ -84,7 +84,6 @@ var changePassPhrase = function() {
     var old_pp = document.querySelector("#oldpp").value;
     var new_pp = document.querySelector("#newpp").value;
     var pp_confirm = document.querySelector("#ppconfirm").value;
-    var pp_length = 1;
 
     if(new_pp.length < 6)
         returnArea.innerHTML = txt.Register.form;

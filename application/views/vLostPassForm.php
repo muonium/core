@@ -44,7 +44,10 @@
 
                 <fieldset>
                     <legend><?php echo_h($this->txt->Profile->changepp); ?></legend>
-
+                    <p>
+                        <?php echo str_replace("[count]", $this->ppCounter, $this->txt->Profile->warningpp); ?>
+                         <?php if($this->ppCounter >= 2) { echo '<br /><strong>'.$this->txt->LostPass->reset.'</strong>';  } ?>
+                    </p>
                     <p><label for="pp"><?php echo_h($this->txt->Profile->newpp); ?></label>
                     <input type="password" name="pp" id="pp"></p>
 

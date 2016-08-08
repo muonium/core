@@ -2,6 +2,7 @@
 class Profile extends Languages
 {
     private $_modelUser;
+    private $ppCounter = 0;
     
     function __construct() {
         parent::__construct();
@@ -14,6 +15,7 @@ class Profile extends Languages
     function DefaultAction() {
         $this->_modelUser = new mUsers();
         $this->_modelUser->setId($_SESSION['id']);
+        $this->ppCounter = $this->_modelUser->getPpCounter();
         include(DIR_VIEW."vProfile.php");
     }
     
@@ -55,8 +57,6 @@ class Profile extends Languages
         
         if(!empty($_POST['old_pwd']) && !empty($_POST['new_pwd']) && !empty($_POST['pwd_confirm'])) {
             if($_POST['new_pwd'] == $_POST['pwd_confirm']) {
-                if(is_numeric($_POST['pwd_length'])) {
-                    if($_POST['pwd_length']) {
                         $this->_modelUser = new mUsers();
 
                         $this->_modelUser->setId($_SESSION['id']);
@@ -77,14 +77,6 @@ class Profile extends Languages
                         else {
                             echo $this->txt->Profile->getpwd;
                         }
-                    }
-                    else {
-                        echo $this->txt->Register->passLength;
-                    }
-                }
-                else {
-                    echo $this->txt->Error->form;
-                }
             }
             else {
                 echo $this->txt->Register->badPassConfirm;
@@ -99,46 +91,41 @@ class Profile extends Languages
         // Called by profile.js
         
         echo $this->txt->Error->pp;
-        /*if(!empty($_POST['old_pp']) && !empty($_POST['new_pp']) && !empty($_POST['pp_confirm'])) {
+        /*
+        if(!empty($_POST['old_pp']) && !empty($_POST['new_pp']) && !empty($_POST['pp_confirm'])) {
             if($_POST['new_pp'] == $_POST['pp_confirm']) {
-                if(is_numeric($_POST['pp_length'])) {
-                    if($_POST['pp_length']) {
                         $this->_modelUser = new mUsers();
 
                         $this->_modelUser->setId($_SESSION['id']);
-                        if($user_pp = $this->_modelUser->getPassphrase()) {
-                            if($user_pp == $_POST['old_pp']) {
-                                $this->_modelUser->setPassphrase($_POST['new_pp']);
-                                if($this->_modelUser->updatePassphrase()) {
-                                    echo 'ok@'.$this->txt->Profile->updateOk;
-                                }
-                                else {
-                                    echo $this->txt->Profile->updateErr;
-                                }
+                        if($this->_modelUser->getPpCounter() < 2) {
+                            if($user_pp = $this->_modelUser->getPassphrase()) {
+                                    if($user_pp == $_POST['old_pp']) {
+                                        $this->_modelUser->setPassphrase($_POST['new_pp']);
+                                        if($this->_modelUser->updatePassphrase()) {
+                                            $this->_modelUser->incrementPpCounter();
+                                            echo 'ok@'.$this->txt->Profile->updateOk;
+                                        }
+                                        else {
+                                            echo $this->txt->Profile->updateErr;
+                                        }
+                                    }
+                                    else {
+                                        echo $this->txt->Register->badOldPassphrase;
+                                    }
                             }
                             else {
-                                echo $this->txt->Register->badOldPassphrase;
+                                echo $this->txt->Profile->getpp;
                             }
                         }
-                        else {
-                            echo $this->txt->Profile->getpp;
-                        }
-                    }
-                    else {
-                        echo $this->txt->Register->passLength;
-                    }
                 }
                 else {
-                    echo $this->txt->Error->form;
+                    echo $this->txt->Register->badPassphraseConfirm;
                 }
             }
             else {
-                echo $this->txt->Register->badPassphraseConfirm;
+                echo $this->txt->Register->form;
             }
-        }
-        else {
-            echo $this->txt->Register->form;
-        }*/
+        */
     }
     
     function changeAuthAction() {
