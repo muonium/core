@@ -10,6 +10,6 @@ case $1 in
     echo "$(date) :: reset pp counter. [OK]" >> /var/log/muonium/ppCounter.log
   ;;
   *)
-    echo "$(date) :: executed [Error]"
+    echo "$(date) :: executed [Error]" >> /var/log/muonium/error.log
   ;;
 esac
