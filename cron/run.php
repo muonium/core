@@ -28,6 +28,9 @@ class cron {
 		// Reset passphrase change counter for all users
 		$req = $this->_sql->prepare("UPDATE users SET pp_counter = '0'");
 		$req->execute();
+
+		//call the notifier to log the event.
+		shell_exec("bash notifier.sh reset_counter --force");
 	}
 
 	function deleteInactiveUsers() {
@@ -49,7 +52,8 @@ class cron {
 				$i++;
 		}
 
-		echo '<p>Deleted '.$i.' inactive users</p>';
+		//call the notifier to log the event.
+		shell_exec("bash notifier.sh inactive_users --force");
 
 		//
 
@@ -70,7 +74,7 @@ class cron {
 		// Subject of the mail
 		$this->_mail->setSubject("Muonium - You are inactive");
 
-		$this->_mail->setMessage("Hi ".$row['login'].",<br />This email is sent because you are inactive for 
+		$this->_mail->setMessage("Hi ".$row['login'].",<br />This email is sent because you are inactive for
 		".$this->_inactiveUserMailDelay." days.<br />Your account will be deleted in
 		".$this->_inactiveUserDeleteDelay-$this->_inactiveUserMailDelay." days if you don't log in<br />
 		Muonium Team");
@@ -81,8 +85,6 @@ class cron {
 			if($this->_mail->send())
 				$i++;
 		}
-
-		echo '<p>'.$i.' mails sent for inactive users</p>';
 	}
 };
 ?>
