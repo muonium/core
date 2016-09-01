@@ -1,4 +1,4 @@
-/*var QC =
+/*var Miu =
 {
     // Initialisation de l'interface
     //
@@ -10,8 +10,13 @@
 
 /* global.js : User's interface */
 
+// Vars
+
 var Box;
 var Area = 0; // 0 : desktop div, 1 : file, 2 : folder
+
+var Move = ''; // Var which contains file/folder id cut/copied
+var Copy = 0; // 0 : cut, 1 : copy
 
 // Box class. Show a div 'box' when user uses right click inside desktop div, close the box when user uses left click
 
@@ -55,11 +60,11 @@ var box = class {
                 break;
             //mouse over a file
             case 1:
-                this.box_div.innerHTML = '<p>'+txt.RightClick.dl+'</p><hr><p>'+txt.RightClick.star+'</p><hr><p>'+txt.RightClick.cut+'</p><p>'+txt.RightClick.copy+'</p><p>'+txt.RightClick.paste+'</p><p>'+txt.RightClick.rm+'</p><hr><p>'+txt.RightClick.mvItem+'</p><p>'+txt.RightClick.mvLocate+'</p><hr><p>'+txt.RightClick.vDetails+'</p>';
+                this.box_div.innerHTML = '<p>'+txt.RightClick.dl+'</p><hr><p>'+txt.RightClick.star+'</p><hr><p onclick="cut(\''+id+'\')">'+txt.RightClick.cut+'</p><p onclick="copy(\''+id+'\')">'+txt.RightClick.copy+'</p><p onclick="paste(\''+id+'\')">'+txt.RightClick.paste+'</p><p onclick="delete(\''+id+'\')">'+txt.RightClick.rm+'</p><hr><p>'+txt.RightClick.mvItem+'</p><p>'+txt.RightClick.mvLocate+'</p><hr><p>'+txt.RightClick.vDetails+'</p>';
                 break;
             //mouse over a folder
             case 2:
-                this.box_div.innerHTML = '<p>'+txt.RightClick.open+'</p><hr><p>'+txt.RightClick.cut+'</p><p>'+txt.RightClick.copy+'</p><p>'+txt.RightClick.paste+'</p><p>'+txt.RightClick.rm+'</p><hr><p>'+txt.RightClick.mvItem+'</p><p>'+txt.RightClick.mvLocate+'</p><hr><p>'+txt.RightClick.vDetails+'</p>';
+                this.box_div.innerHTML = '<p>'+txt.RightClick.open+'</p><hr><p onclick="cut(\''+id+'\')">'+txt.RightClick.cut+'</p><p onclick="copy(\''+id+'\')">'+txt.RightClick.copy+'</p><p onclick="paste(\''+id+'\')">'+txt.RightClick.paste+'</p><p onclick="delete(\''+id+'\')">'+txt.RightClick.rm+'</p><hr><p>'+txt.RightClick.mvItem+'</p><p>'+txt.RightClick.mvLocate+'</p><hr><p>'+txt.RightClick.vDetails+'</p>';
         }
         this.box_div.style.display = 'block';
     }
@@ -171,4 +176,49 @@ var upFilesDialog = function() {
 
 var upFiles = function() {
     // Upload files function
+}
+
+var cut = function(id) {
+    Move = id;
+    Copy = 0;
+}
+
+var copy = function(id) {
+    Move = id;
+    Copy = 1;
+}
+
+var paste = function() {
+    var id = 0;
+    if(Move.length > 1) {
+        id = Move.substr(1);
+        if(isNumeric(id)) {
+            if(Move.substr(0, 1) == 'f') {
+                // file
+            }
+            else if(Move.substr(0, 1) == 'd') {
+                // folder
+            }
+        }
+    }
+}
+
+var delete = function(del) {
+    if(del.length > 1) {
+        id = del.substr(1);
+        if(isNumeric(id)) {
+            if(del.substr(0, 1) == 'f') {
+                // file
+            }
+            else if(del.substr(0, 1) == 'd') {
+                // folder
+            }
+        }
+    }
+}
+
+var isNumeric = function(n) {
+	if(typeof(n) == "string")
+		n = n.replace(",", ".");
+	return !isNaN(parseFloat(n)) && isFinite(n);
 }

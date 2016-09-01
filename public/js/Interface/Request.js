@@ -1,4 +1,4 @@
-var QuantaCloud = 
+var Muonium = 
 {
     clickEvent: function(element, action, controller)
     {
@@ -103,7 +103,7 @@ var QuantaCloud =
             * Default
             */
                 default :
-                QC.init();
+                Miu.init();
                 break;
         }
     }
