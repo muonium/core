@@ -60,11 +60,11 @@ var box = class {
                 break;
             //mouse over a file
             case 1:
-                this.box_div.innerHTML = '<p>'+txt.RightClick.dl+'</p><hr><p>'+txt.RightClick.star+'</p><hr><p onclick="cut(\''+id+'\')">'+txt.RightClick.cut+'</p><p onclick="copy(\''+id+'\')">'+txt.RightClick.copy+'</p><p onclick="paste(\''+id+'\')">'+txt.RightClick.paste+'</p><p onclick="delete(\''+id+'\')">'+txt.RightClick.rm+'</p><hr><p>'+txt.RightClick.mvItem+'</p><p>'+txt.RightClick.mvLocate+'</p><hr><p>'+txt.RightClick.vDetails+'</p>';
+                this.box_div.innerHTML = '<p>'+txt.RightClick.dl+'</p><hr><p>'+txt.RightClick.star+'</p><hr><p onclick="cut(\''+id+'\')">'+txt.RightClick.cut+'</p><p onclick="copy(\''+id+'\')">'+txt.RightClick.copy+'</p><p onclick="paste(\''+id+'\')">'+txt.RightClick.paste+'</p><p onclick="rm(\''+id+'\')">'+txt.RightClick.rm+'</p><hr><p>'+txt.RightClick.mvItem+'</p><p>'+txt.RightClick.mvLocate+'</p><hr><p>'+txt.RightClick.vDetails+'</p>';
                 break;
             //mouse over a folder
             case 2:
-                this.box_div.innerHTML = '<p>'+txt.RightClick.open+'</p><hr><p onclick="cut(\''+id+'\')">'+txt.RightClick.cut+'</p><p onclick="copy(\''+id+'\')">'+txt.RightClick.copy+'</p><p onclick="paste(\''+id+'\')">'+txt.RightClick.paste+'</p><p onclick="delete(\''+id+'\')">'+txt.RightClick.rm+'</p><hr><p>'+txt.RightClick.mvItem+'</p><p>'+txt.RightClick.mvLocate+'</p><hr><p>'+txt.RightClick.vDetails+'</p>';
+                this.box_div.innerHTML = '<p>'+txt.RightClick.open+'</p><hr><p onclick="cut(\''+id+'\')">'+txt.RightClick.cut+'</p><p onclick="copy(\''+id+'\')">'+txt.RightClick.copy+'</p><p onclick="paste(\''+id+'\')">'+txt.RightClick.paste+'</p><p onclick="rm(\''+id+'\')">'+txt.RightClick.rm+'</p><hr><p>'+txt.RightClick.mvItem+'</p><p>'+txt.RightClick.mvLocate+'</p><hr><p>'+txt.RightClick.vDetails+'</p>';
         }
         this.box_div.style.display = 'block';
     }
@@ -138,6 +138,12 @@ window.onload = function() {
     }
 }
 
+var isNumeric = function(n) {
+	if(typeof(n) == "string")
+		n = n.replace(",", ".");
+	return !isNaN(parseFloat(n)) && isFinite(n);
+}
+
 var logout = function() {
     window.location.href="Logout";
     return false;
@@ -203,7 +209,8 @@ var paste = function() {
     }
 }
 
-var delete = function(del) {
+var rm = function(del) {
+    var id = 0;
     if(del.length > 1) {
         id = del.substr(1);
         if(isNumeric(id)) {
@@ -215,10 +222,4 @@ var delete = function(del) {
             }
         }
     }
-}
-
-var isNumeric = function(n) {
-	if(typeof(n) == "string")
-		n = n.replace(",", ".");
-	return !isNaN(parseFloat(n)) && isFinite(n);
 }

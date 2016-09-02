@@ -9,6 +9,7 @@ define('DS', DIRECTORY_SEPARATOR);
 define('ROOT', __DIR__);
 
 define('MVC_ROOT', '/core');
+define('NOVA', dirname(dirname(__FILE__)).'/nova');
 
 // Default controller
 define ('DEFAULT_CONTROLLER', 'Home');
