@@ -18,6 +18,10 @@ var Area = 0; // 0 : desktop div, 1 : file, 2 : folder
 var Move = ''; // Var which contains file/folder id cut/copied
 var Copy = 0; // 0 : cut, 1 : copy
 
+var path = ''; // Current path
+
+var returnArea;
+
 // Box class. Show a div 'box' when user uses right click inside desktop div, close the box when user uses left click
 
 var box = class {
@@ -56,7 +60,7 @@ var box = class {
         switch(Area) {
             //over nothing
             case 0:
-                this.box_div.innerHTML = '<p onclick="nFolder()">'+txt.RightClick.nFolder+'</p><p onclick="upFilesDialog()"><input type="file" id="upFiles" multiple="multiple" style="display:none" onchange="UpFiles()">'+txt.RightClick.upFiles+'</p><hr><p onclick="logout()">'+txt.RightClick.logOut+'</p>';
+                this.box_div.innerHTML = '<p onclick="nFolder()">'+txt.RightClick.nFolder+'</p><p onclick="upFilesDialog()">'+txt.RightClick.upFiles+'</p><hr><p onclick="logout()">'+txt.RightClick.logOut+'</p>';
                 break;
             //mouse over a file
             case 1:
@@ -87,6 +91,8 @@ window.onload = function() {
 
     /*
     */
+    
+    returnArea = document.querySelector("#returnArea");
 
     Box = new box();
 
@@ -177,11 +183,62 @@ var verifFolderName = function(evt) {
 }
 
 var upFilesDialog = function() {
-    document.querySelector('#upFiles').click();
+    document.querySelector('#upFilesInput').click();
 }
 
-var upFiles = function() {
+function upFiles(files) {
     // Upload files function
+    
+    var progress = document.querySelector("#progress");
+    
+    // Create a new FormData object.
+    var formData = new FormData();
+    formData.append(progress.name, progress.value);
+    formData.append('path', path);
+    
+    // Loop through each of the selected files.
+    for(var i=0;i<files.length;i++) {
+      // Add the file to the request.
+      formData.append('upload[]', files[i], files[i].name);
+    }
+    
+    // Call the function which get the progress bar every second
+    var status = setInterval("getStatus()", 1000);
+    
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "User/upFiles", true);
+    
+    xhr.onreadystatechange = function()
+    {
+        if(xhr.status == 200 && xhr.readyState == 4)
+        {
+            // Files uploaded
+            clearInterval(status);
+            getStatus();
+        }
+    }
+    xhr.send(formData);
+}
+
+var getStatus = function() {
+    // Get and shows the progress bar
+    
+    console.log('get status...');
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "User/getUpFilesStatus", true);
+    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+    xhr.onreadystatechange = function()
+    {
+        if(xhr.status == 200 && xhr.readyState == 4)
+        {              
+            if(xhr.responseText == 'done')
+                returnArea.innerHTML = '';
+            else
+                returnArea.innerHTML = xhr.responseText;
+        }
+    }
+    xhr.send();
 }
 
 var cut = function(id) {

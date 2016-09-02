@@ -1,11 +1,16 @@
 <?php
 class User extends Languages {
 
-    private $_ArborescenceDossier = array();
+    /*private $_ArborescenceDossier = array();
     private $_SizeTotal;
     private $_SizeTotalOctet;
     private $_CheminUser;
-    private $_Size;
+    private $_Size;*/
+    private $_modelFiles;
+    
+    private $_filename = ''; // current file uploaded
+    
+    private $_path = ''; // current path
     
     function __construct() {
         parent::__construct();
@@ -19,9 +24,53 @@ class User extends Languages {
         include(DIR_VIEW."vUser.php");
     }
     
+    function upFilesAction() {
+        if(!isset($_POST['path']))
+            $path = '';
+        else
+            $path = $_POST['path'];
+        
+        if(is_dir(NOVA.'/'.$_SESSION['id'].$path)) {
+            //echo $path.'<br />'.count($_FILES['upload']['name']);
+            for($i=0;$i<count($_FILES['upload']['name']);$i++) {
+                $this->_status = 'Uploading '.$_FILES['upload']['name'][$i];
+                $tmpFilePath = $_FILES['upload']['tmp_name'][$i];
+                if($tmpFilePath != "") {
+                    $newFilePath = "./uploadFiles/" . $_FILES['upload']['name'][$i];
+                    move_uploaded_file($tmpFilePath, NOVA.'/'.$_SESSION['id'].$path.'/'.$_FILES['upload']['name'][$i]);
+                }
+            }
+            $upload_time = time() - $_SERVER['REQUEST_TIME'];
+            echo 'Done. Upload time : '.$upload_time.'s';
+        }
+    }
+    
+    function getUpFilesStatusAction() {
+        // Progress bar shows total percentage, no file by file for now
+        if(!empty($_SESSION["upload_progress_mui"])) {
+            $current = $_SESSION["upload_progress_mui"]["bytes_processed"];
+            $total = $_SESSION["upload_progress_mui"]["content_length"];
+            $this->_filename = $_SESSION["upload_progress_mui"]["files"][0]["name"];
+            echo $this->_filename.' : '.($current < $total ? ceil($current / $total * 100) : 100).'%';
+        }
+        else
+            echo 'done';
+    }
+    
+    function getArborescence() {
+        $this->_modelFiles = new mFiles();
+        $this->_modelFiles->setIdOwner($_SESSION['id']);
+        
+        // Get sub dirs
+        print_r($this->_modelFiles->getSubDirs($this->_path));
+        // Get files
+    }
+     
+    //
     // Functions below could be modified
+    //
 
-    function getLastModification($chemin) {
+    /*function getLastModification($chemin) {
         $lstat = lstat($chemin);
         $mtime = date('d/m/Y H:i', $lstat['mtime']);
         return $mtime;
@@ -83,7 +132,7 @@ class User extends Languages {
                 //$this->ArborescenceDossier($pathfile);
                 /*} else if(filetype($pathfile) == 'file') {
 						$this->_Arborescence[][] = $file;
-					}*/
+					}
             }
         }
         closedir ($folder);  
@@ -170,6 +219,6 @@ class User extends Languages {
         $this->getTailleTotal();
 
         return $this->_SizeTotal;
-    }
+    }*/
 }
 ?>

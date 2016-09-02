@@ -74,9 +74,18 @@
         </section>
     
         <section id="desktop">
+            <!-- Hidden upload form -->
+            <form style="display:none">
+                <input type="hidden" id="progress" name="<?php echo ini_get("session.upload_progress.name"); ?>" value="mui" />
+                <input type="file" id="upFilesInput" name="files[]" multiple="multiple" style="display:none" onchange="upFiles(this.files);" />
+            </form>
+            <!-- End -->
+            
+            <div id="returnArea"></div>
             <div class="file" id="f1" width="50" height="50" style="border:1px solid black">A file</div><br />
             <div class="file" id="f2" width="50" height="50" style="border:1px solid black">A second file</div><br />
         <div class="folder" id="d1">A folder</div><br />
+            <?php $this->getArborescence(); ?>
             <img src="<?php echo MVC_ROOT; ?>/public/pictures/desktop/arrow.svg" class="arrow general" />
             
             <div id="desktop_general" class="content">

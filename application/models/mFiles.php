@@ -4,14 +4,16 @@
         /*
             1   id                  int(11)     AUTO_INCREMENT
             2   id_owner            int(11)
-            3	file                varchar(128)
-            4	size	            int(11)
-            5	last_modification	int(11)
-            6   favorite            tinyint(1)
+            3   dir                 text
+            4	file                varchar(128)
+            5	size	            int(11)
+            6	last_modification	int(11)
+            7   favorite            tinyint(1)
         */
         
         private $id;
         private $id_owner;
+        private $dir;
         private $file;
         private $size;
         private $last_modification;
@@ -65,6 +67,15 @@
         
         function getFavorite() {
             return $this->favorite;
+        }
+        
+        function getSubDirs($path) {
+            /*$req = $this->_sql->prepare("SELECT DISTINCT dir FROM files WHERE id_owner = ? AND dir REGEXP ?");
+            $req->execute(array($this->id_owner, '^'.$path.'(.(?<!\/))*?\/$'));
+            if($req->rowCount() == 0)
+                return '0';
+            $res = $req->fetchAll();
+            return $res;*/
         }
     }
 ?>
