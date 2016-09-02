@@ -22,7 +22,7 @@ $_t->getHeader();
     </section>
 
     <section id="content">
-        <div id="back"><p><a href="https://quantacloud.ch/photon/"><?php echo $this->txt->Global->back; ?></a></p></div>
+        <div id="back"><p><a href="https://muonium.ch/photon/"><?php echo $this->txt->Global->back; ?></a></p></div>
 
         <div id="avatar"><p><img src="<?php echo MVC_ROOT; ?>/public/pictures/login/user.svg" /></p></div>
         <div id="text"><p><?php echo_h($this->txt->Global->login); ?></p></div>
