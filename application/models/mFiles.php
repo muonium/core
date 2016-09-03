@@ -75,23 +75,24 @@
             if($req->rowCount() == 0)
                 return false;
             // \PDO::FETCH_GROUP|\PDO::FETCH_UNIQUE to set first column as key
+            // 0 => id, 1 => size, 2 => last_modification, 3 => favorite
             /*
                 Array
                 (
                   [test.jpg] => Array
                     (
-                      [id] => 1
-                      [size] => 34
-                      [last_modification] => 0
-                      [favorite] => 0
+                      [0] => 1
+                      [1] => 34
+                      [2] => 0
+                      [3] => 0
                     )
 
                   [a.png] => Array
                     (
-                      [id] => 2
-                      [size] => 30
-                      [last_modification] => 0
-                      [favorite] => 0
+                      [0] => 2
+                      [1] => 30
+                      [2] => 0
+                      [3] => 0
                     )
                 )
             */
