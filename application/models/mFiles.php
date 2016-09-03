@@ -14,7 +14,7 @@
         private $id;
         private $id_owner;
         private $dir;
-        private $file;
+        private $name;
         private $size;
         private $last_modification;
         private $favorite;
@@ -25,7 +25,7 @@
         }
         
         function setFile($file) {
-            $this->file = $file;
+            $this->name = $file;
         }
             
         function setSize($size) {
@@ -54,7 +54,7 @@
         }
         
         function getFile() {
-            return $this->file;
+            return $this->name;
         }
             
         function getSize() {
@@ -69,13 +69,41 @@
             return $this->favorite;
         }
         
-        function getSubDirs($path) {
-            /*$req = $this->_sql->prepare("SELECT DISTINCT dir FROM files WHERE id_owner = ? AND dir REGEXP ?");
-            $req->execute(array($this->id_owner, '^'.$path.'(.(?<!\/))*?\/$'));
+        function getFiles($path) {
+            $req = $this->_sql->prepare("SELECT file, id, size, last_modification, favorite FROM files WHERE id_owner = ? AND dir = ?");
+            $req->execute(array($_SESSION['id'], $path));
             if($req->rowCount() == 0)
-                return '0';
-            $res = $req->fetchAll();
-            return $res;*/
+                return false;
+            // \PDO::FETCH_GROUP|\PDO::FETCH_UNIQUE to set first column as key
+            /*
+                Array
+                (
+                  [test.jpg] => Array
+                    (
+                      [id] => 1
+                      [size] => 34
+                      [last_modification] => 0
+                      [favorite] => 0
+                    )
+
+                  [a.png] => Array
+                    (
+                      [id] => 2
+                      [size] => 30
+                      [last_modification] => 0
+                      [favorite] => 0
+                    )
+                )
+            */
+            return $req->fetchAll(\PDO::FETCH_GROUP|\PDO::FETCH_UNIQUE|\PDO::FETCH_NUM);
+        }
+        
+        //
+        
+        function addNewFile($path) {
+            $req = $this->_sql->prepare("INSERT INTO files VALUES ('', ?, ?, ?, ?, ?, '0')");
+            $ret = $req->execute(array($_SESSION['id'], $path, $this->name, $this->size, $this->last_modification));   
+            return $ret;
         }
     }
 ?>

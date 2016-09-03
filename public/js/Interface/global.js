@@ -215,6 +215,7 @@ function upFiles(files) {
             // Files uploaded
             clearInterval(status);
             getStatus();
+            //returnArea.innerHTML = xhr.responseText;
         }
     }
     xhr.send(formData);

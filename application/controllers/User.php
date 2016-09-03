@@ -25,6 +25,8 @@ class User extends Languages {
     }
     
     function upFilesAction() {
+        $this->_modelFiles = new mFiles();
+        $this->_modelFiles->setIdOwner($_SESSION['id']);
         if(!isset($_POST['path']))
             $path = '';
         else
@@ -36,7 +38,12 @@ class User extends Languages {
                 $this->_status = 'Uploading '.$_FILES['upload']['name'][$i];
                 $tmpFilePath = $_FILES['upload']['tmp_name'][$i];
                 if($tmpFilePath != "") {
-                    $newFilePath = "./uploadFiles/" . $_FILES['upload']['name'][$i];
+                    // To do : Increment size_stored in storage table
+                    // If size stored > user_quota => don't upload
+                    $this->_modelFiles->setFile($_FILES['upload']['name'][$i]);
+                    $this->_modelFiles->setSize($_FILES['upload']['size'][$i]);
+                    $this->_modelFiles->setLastModification(time());
+                    $this->_modelFiles->addNewFile($path);
                     move_uploaded_file($tmpFilePath, NOVA.'/'.$_SESSION['id'].$path.'/'.$_FILES['upload']['name'][$i]);
                 }
             }
@@ -58,12 +65,27 @@ class User extends Languages {
     }
     
     function getArborescence() {
+        $i = 0;
         $this->_modelFiles = new mFiles();
         $this->_modelFiles->setIdOwner($_SESSION['id']);
         
-        // Get sub dirs
-        print_r($this->_modelFiles->getSubDirs($this->_path));
-        // Get files
+        $time_start = microtime(true);
+        $files = $this->_modelFiles->getFiles($this->_path);
+        if($handle = opendir(NOVA.'/'.$_SESSION['id'].$this->_path)) {
+            while(false !== ($entry = readdir($handle))) {
+                if($entry != '.' && $entry != '..') {
+                    if(is_dir($entry)) {
+                        echo '<span class="folder" id="d'.$i.'" name="'.$entry.'"><strong>'.$entry.'</strong></span><br />';
+                        $i++;
+                    }
+                    else {
+                        echo '<span class="file" id="f'.$files[$entry]['0'].'">'.$entry.' ['.$files[$entry]['1'].'o] - Last modification : '.date('d/m/Y G:i', $files[$entry]['2']).'</span><br />';
+                    }
+                }
+            }
+        }
+        $time_end = microtime(true);
+        echo '<br />Loaded in '.($time_end-$time_start).' s';
     }
      
     //
