@@ -25,30 +25,34 @@ class User extends Languages {
     }
     
     function upFilesAction() {
-        $this->_modelFiles = new mFiles();
-        $this->_modelFiles->setIdOwner($_SESSION['id']);
-        if(!isset($_POST['path']))
-            $path = '';
-        else
-            $path = $_POST['path'];
-        
-        if(is_dir(NOVA.'/'.$_SESSION['id'].$path)) {
-            //echo $path.'<br />'.count($_FILES['upload']['name']);
-            for($i=0;$i<count($_FILES['upload']['name']);$i++) {
-                $this->_status = 'Uploading '.$_FILES['upload']['name'][$i];
-                $tmpFilePath = $_FILES['upload']['tmp_name'][$i];
-                if($tmpFilePath != "") {
-                    // To do : Increment size_stored in storage table
-                    // If size stored > user_quota => don't upload
-                    $this->_modelFiles->setFile($_FILES['upload']['name'][$i]);
-                    $this->_modelFiles->setSize($_FILES['upload']['size'][$i]);
-                    $this->_modelFiles->setLastModification(time());
-                    $this->_modelFiles->addNewFile($path);
-                    move_uploaded_file($tmpFilePath, NOVA.'/'.$_SESSION['id'].$path.'/'.$_FILES['upload']['name'][$i]);
+        if(!empty($_FILES['upload'])) {
+            $this->_modelFiles = new mFiles();
+            $this->_modelFiles->setIdOwner($_SESSION['id']);
+            if(!isset($_POST['path']))
+                $path = '';
+            else
+                $path = $_POST['path'];
+
+            if(is_dir(NOVA.'/'.$_SESSION['id'].'/'.$path)) {
+                //echo $path.'<br />'.count($_FILES['upload']['name']);
+                for($i=0;$i<count($_FILES['upload']['name']);$i++) {
+                    if(strlen($_FILES['upload']['name'][$i]) > 128) // max length 128 chars
+                        $_FILES['upload']['name'][$i] = substr($_FILES['upload']['name'][$i], 0, 128);
+                    $this->_status = 'Uploading '.$_FILES['upload']['name'][$i];
+                    $tmpFilePath = $_FILES['upload']['tmp_name'][$i];
+                    if($tmpFilePath != "") {
+                        // To do : Increment size_stored in storage table
+                        // If size stored > user_quota => don't upload
+                        $this->_modelFiles->setFile($_FILES['upload']['name'][$i]);
+                        $this->_modelFiles->setSize($_FILES['upload']['size'][$i]);
+                        $this->_modelFiles->setLastModification(time());
+                        $this->_modelFiles->addNewFile($path);
+                        move_uploaded_file($tmpFilePath, NOVA.'/'.$_SESSION['id'].'/'.$path.$_FILES['upload']['name'][$i]);
+                    }
                 }
+                $upload_time = time() - $_SERVER['REQUEST_TIME'];
+                echo 'Done. Upload time : '.$upload_time.'s';
             }
-            $upload_time = time() - $_SERVER['REQUEST_TIME'];
-            echo 'Done. Upload time : '.$upload_time.'s';
         }
     }
     
@@ -64,17 +68,60 @@ class User extends Languages {
             echo 'done';
     }
     
-    function getArborescence() {
+    function addFolderAction() {
+        if(!empty($_POST['folder'])) {
+            $folder = urldecode($_POST['folder']);
+            if(strlen($folder) > 64) // max length 64 chars
+                $folder = substr($folder, 0, 64);
+                
+            if(!isset($_POST['path']))
+                $path = '';
+            else
+                $path = urldecode($_POST['path']);
+            $forbidden = '/\\:*?<>|" ';
+            
+            $f = 0;
+            for($i=0;$i<count($forbidden);$i++) {
+                if(strpos($folder, $forbidden[$i])) {
+                    $f = 1; // Forbidden char found
+                    break;
+                }
+            }
+            
+            //echo 'debug:'.$folder.':'.$path.':'.$f.'<br />';
+            
+            if($f == 0) {
+                if(is_dir(NOVA.'/'.$_SESSION['id'].'/'.$path) && !is_dir(NOVA.'/'.$_SESSION['id'].'/'.$path.$folder))
+                    mkdir(NOVA.'/'.$_SESSION['id'].'/'.$path.$folder, 600);
+            }
+        }
+        echo 'done';
+    }
+    
+    function getTree() {
         $i = 0;
         $this->_modelFiles = new mFiles();
         $this->_modelFiles->setIdOwner($_SESSION['id']);
         
         $time_start = microtime(true);
         $files = $this->_modelFiles->getFiles($this->_path);
-        if($handle = opendir(NOVA.'/'.$_SESSION['id'].$this->_path)) {
+        
+        echo '<p>['.$this->_path.']</p>';
+        
+        // Link to parent folder
+        if($this->_path != '') {
+            if($lastPos = strrpos("/", $this->_path))
+                echo '<p><a onclick="openDir(\''.substr($this->_path, 0, $lastPos).'\'">^</a></p>';
+            else
+                echo '<p><a onclick="openDir(\'\')">ROOT</a></p>';
+        }
+        
+        echo '<hr>';
+        
+        if($handle = opendir(NOVA.'/'.$_SESSION['id'].'/'.$this->_path)) {
             while(false !== ($entry = readdir($handle))) {
                 if($entry != '.' && $entry != '..') {
-                    if(is_dir($entry)) {
+                    if(is_dir(NOVA.'/'.$_SESSION['id'].'/'.$this->_path.$entry)) {
                         echo '<span class="folder" id="d'.$i.'" name="'.$entry.'"><strong>'.$entry.'</strong></span><br />';
                         $i++;
                     }
@@ -86,6 +133,17 @@ class User extends Languages {
         }
         $time_end = microtime(true);
         echo '<br />Loaded in '.($time_end-$time_start).' s';
+    }
+    
+    function changePathAction() {
+        if(!isset($_POST['path']))
+            $path = '';
+        else
+            $path = urldecode($_POST['path']);
+        if(is_dir(NOVA.'/'.$_SESSION['id'].'/'.$path)) {
+            $this->_path = $path;
+            $this->getTree();
+        }
     }
      
     //

@@ -82,7 +82,9 @@
             <!-- End -->
             
             <div id="returnArea"></div>
-            <?php $this->getArborescence(); ?>
+            <div id="tree">
+                <?php $this->getTree(); ?>
+            </div>
             <img src="<?php echo MVC_ROOT; ?>/public/pictures/desktop/arrow.svg" class="arrow general" />
             
             <div id="desktop_general" class="content">

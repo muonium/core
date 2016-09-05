@@ -68,7 +68,7 @@ var box = class {
                 break;
             //mouse over a folder
             case 2:
-                this.box_div.innerHTML = '<p>'+txt.RightClick.open+'</p><hr><p onclick="cut(\''+id+'\')">'+txt.RightClick.cut+'</p><p onclick="copy(\''+id+'\')">'+txt.RightClick.copy+'</p><p onclick="paste(\''+id+'\')">'+txt.RightClick.paste+'</p><p onclick="rm(\''+id+'\')">'+txt.RightClick.rm+'</p><hr><p>'+txt.RightClick.mvItem+'</p><p>'+txt.RightClick.mvLocate+'</p><hr><p>'+txt.RightClick.vDetails+'</p>';
+                this.box_div.innerHTML = '<p onclick="openDirById(\''+id+'\')">'+txt.RightClick.open+'</p><hr><p onclick="cut(\''+id+'\')">'+txt.RightClick.cut+'</p><p onclick="copy(\''+id+'\')">'+txt.RightClick.copy+'</p><p onclick="paste(\''+id+'\')">'+txt.RightClick.paste+'</p><p onclick="rm(\''+id+'\')">'+txt.RightClick.rm+'</p><hr><p>'+txt.RightClick.mvItem+'</p><p>'+txt.RightClick.mvLocate+'</p><hr><p>'+txt.RightClick.vDetails+'</p>';
         }
         this.box_div.style.display = 'block';
     }
@@ -111,6 +111,11 @@ window.onload = function() {
         return false;
     });
 
+    // Set events for all files and folders loaded
+    setEvents();
+}
+
+var setEvents = function() {
     // Right click inside divs with file's class (these divs are children of 'desktop')
     // After the execution of the function below, the function for 'desktop' above will be
     //called automatically (because we are inside desktop) and will set Area to 0 without displaying a new 'box'
@@ -141,6 +146,10 @@ window.onload = function() {
             Box.right_click(event.clientX, event.clientY, this.id);
             return false;
         });
+        
+        folders[i].addEventListener("dblclick", function() {
+            openDirById(this.id);
+        });
     }
 }
 
@@ -148,6 +157,20 @@ var isNumeric = function(n) {
 	if(typeof(n) == "string")
 		n = n.replace(",", ".");
 	return !isNaN(parseFloat(n)) && isFinite(n);
+}
+
+var cleanPath = function(p) {
+    if(p.length > 1) {
+        if(p.substr(0, 1) == '/')
+            p = p.substr(1);
+        var p0 = p.split("/");
+        for(var i=0;i<p0.length;i++)
+            if(p0[i] == '')
+                p0.splice(i, 1);
+        p = p0.join('/');
+    }
+    console.log(p);
+    return p;
 }
 
 var logout = function() {
@@ -160,10 +183,26 @@ var nFolder = function() {
         // To do :
         // Send ajax query to create the folder
         
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "User/addFolder", true);
+        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+        xhr.onreadystatechange = function()
+        {
+            if(xhr.status == 200 && xhr.readyState == 4)
+            {
+                console.log(xhr.response);
+                window.location.href="User";
+                // To do : add folder to the div without reloading
+            }
+        }
+        console.log(path);
+        xhr.send("path="+encodeURIComponent(path)+"&folder="+encodeURIComponent(document.querySelector("#nFolder").value));
+        
         // Refresh
         
         // Hide box
-        document.querySelector("#box").style.display = 'none';
+        //document.querySelector("#box").style.display = 'none';
     }
     else {
         document.querySelector("#box").innerHTML = 'Folder name : <input type="text" id="nFolder" onkeypress="return verifFolderName(event);">';
@@ -215,6 +254,7 @@ function upFiles(files) {
             // Files uploaded
             clearInterval(status);
             getStatus();
+            window.location.href="User";
             //returnArea.innerHTML = xhr.responseText;
         }
     }
@@ -240,6 +280,40 @@ var getStatus = function() {
         }
     }
     xhr.send();
+}
+
+var openDirById = function(dir) {
+    var id = 0;
+    if(dir.length > 1) {
+        id = dir.substr(1);
+        if(isNumeric(id) && dir.substr(0, 1) == 'd')
+            openDir(path+'/'+document.getElementById(dir).getAttribute("name"));
+    }
+}
+
+var openDir = function(dir) {
+    var dirName = cleanPath(dir);
+    console.log(dirName);
+       
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "User/changePath", true);
+    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+    xhr.onreadystatechange = function()
+    {
+        if(xhr.status == 200 && xhr.readyState == 4)
+        {              
+            if(xhr.responseText != '') {
+                document.querySelector("#tree").innerHTML = xhr.responseText;
+                path = dirName+'/';
+                if(path == '/')
+                    path = '';
+                // Set events for all files and folders loaded
+                setEvents();
+            }
+        }
+    }
+    xhr.send("path="+encodeURIComponent(dirName));
 }
 
 var cut = function(id) {
