@@ -53,8 +53,13 @@
             return $this->id_owner;
         }
         
-        function getFile() {
-            return $this->name;
+        function getFilename($id) {
+            $req = $this->_sql->prepare("SELECT file FROM files WHERE id_owner = ? AND id = ?");
+            $req->execute(array($_SESSION['id'], $id));
+            if($req->rowCount() == 0)
+                return false;
+            $res = $req->fetch();
+            return $res['file'];
         }
             
         function getSize() {
@@ -105,6 +110,28 @@
             $req = $this->_sql->prepare("INSERT INTO files VALUES ('', ?, ?, ?, ?, ?, '0')");
             $ret = $req->execute(array($_SESSION['id'], $path, $this->name, $this->size, $this->last_modification));   
             return $ret;
+        }
+        
+        function deleteFile($id) {
+            $req = $this->_sql->prepare("SELECT size FROM files WHERE id_owner = ? AND id = ?");
+            $req->execute(array($_SESSION['id'], $id));
+            $res = $req->fetch();
+            
+            $req = $this->_sql->prepare("DELETE FROM files WHERE id_owner = ? AND id = ?");
+            $req->execute(array($_SESSION['id'], $id));
+            return $res['size'];
+        }
+        
+        function deleteFiles($path) {
+            $path = str_replace("%", "\%", $path);
+            $req = $this->_sql->prepare("SELECT SUM(size) AS total_size FROM files WHERE id_owner = ? AND dir LIKE ?");
+            $req->execute(array($_SESSION['id'], $path.'%'));
+            $res = $req->fetch();
+            $total_size = $res['total_size'];
+            
+            $req = $this->_sql->prepare("DELETE FROM files WHERE id_owner = ? AND dir LIKE ?");
+            $req->execute(array($_SESSION['id'], $path.'%'));
+            return $total_size;
         }
     }
 ?>

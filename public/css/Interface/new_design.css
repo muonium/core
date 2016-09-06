@@ -403,3 +403,14 @@ section#desktop div#desktop_general div#rightPanel table tr td img
 {
     height: 6vh;
 }
+
+#tree span
+{
+    display: block;
+    width: 100%;
+}
+
+#tree span, #tree a
+{
+    cursor: pointer;
+}

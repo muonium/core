@@ -35,14 +35,16 @@ class User extends Languages {
 
             if(is_dir(NOVA.'/'.$_SESSION['id'].'/'.$path)) {
                 //echo $path.'<br />'.count($_FILES['upload']['name']);
+                echo 'n:'.count($_FILES['upload']['name']).'<br />';
                 for($i=0;$i<count($_FILES['upload']['name']);$i++) {
                     if(strlen($_FILES['upload']['name'][$i]) > 128) // max length 128 chars
                         $_FILES['upload']['name'][$i] = substr($_FILES['upload']['name'][$i], 0, 128);
-                    $this->_status = 'Uploading '.$_FILES['upload']['name'][$i];
+                    //$this->_status = 'Uploading '.$_FILES['upload']['name'][$i];
                     $tmpFilePath = $_FILES['upload']['tmp_name'][$i];
                     if($tmpFilePath != "") {
                         // To do : Increment size_stored in storage table
                         // If size stored > user_quota => don't upload
+                        echo 'Uploading '.$_FILES['upload']['name'][$i].'<br />';
                         $this->_modelFiles->setFile($_FILES['upload']['name'][$i]);
                         $this->_modelFiles->setSize($_FILES['upload']['size'][$i]);
                         $this->_modelFiles->setLastModification(time());
@@ -92,7 +94,7 @@ class User extends Languages {
             
             if($f == 0) {
                 if(is_dir(NOVA.'/'.$_SESSION['id'].'/'.$path) && !is_dir(NOVA.'/'.$_SESSION['id'].'/'.$path.$folder))
-                    mkdir(NOVA.'/'.$_SESSION['id'].'/'.$path.$folder, 600);
+                    mkdir(NOVA.'/'.$_SESSION['id'].'/'.$path.$folder, 0600);
             }
         }
         echo 'done';
@@ -110,10 +112,11 @@ class User extends Languages {
         
         // Link to parent folder
         if($this->_path != '') {
-            if($lastPos = strrpos("/", $this->_path))
-                echo '<p><a onclick="openDir(\''.substr($this->_path, 0, $lastPos).'\'">^</a></p>';
+            $lastPos = strrpos(substr($this->_path, 0, -1), "/");
+            if($lastPos === false)
+                echo '<p><a ondblclick="openDir(\'\')">ROOT</a></p>';
             else
-                echo '<p><a onclick="openDir(\'\')">ROOT</a></p>';
+                echo '<p><a ondblclick="openDir(\''.substr($this->_path, 0, $lastPos).'\')">^</a></p>';
         }
         
         echo '<hr>';
@@ -122,11 +125,11 @@ class User extends Languages {
             while(false !== ($entry = readdir($handle))) {
                 if($entry != '.' && $entry != '..') {
                     if(is_dir(NOVA.'/'.$_SESSION['id'].'/'.$this->_path.$entry)) {
-                        echo '<span class="folder" id="d'.$i.'" name="'.$entry.'"><strong>'.$entry.'</strong></span><br />';
+                        echo '<span class="folder" id="d'.$i.'" name="'.$entry.'" onclick="addSelection(this.id)" ondblclick="openDirById(this.id)"><strong>'.$entry.'</strong></span>';
                         $i++;
                     }
                     else {
-                        echo '<span class="file" id="f'.$files[$entry]['0'].'">'.$entry.' ['.$files[$entry]['1'].'o] - Last modification : '.date('d/m/Y G:i', $files[$entry]['2']).'</span><br />';
+                        echo '<span class="file" id="f'.$files[$entry]['0'].'" onclick="addSelection(this.id)">'.$entry.' ['.$files[$entry]['1'].'o] - Last modification : '.date('d/m/Y G:i', $files[$entry]['2']).'</span>';
                     }
                 }
             }
@@ -144,6 +147,71 @@ class User extends Languages {
             $this->_path = $path;
             $this->getTree();
         }
+    }
+    
+    function rmFilesAction() {
+        $this->_modelFiles = new mFiles();
+        $this->_modelFiles->setIdOwner($_SESSION['id']);
+        
+        $total_size = 0;
+        
+        if(!isset($_POST['path']))
+            $path = '';
+        else
+            $path = urldecode($_POST['path']);
+        if(!empty($_POST['files'])) {
+            if(is_dir(NOVA.'/'.$_SESSION['id'].'/'.$path)) {
+                $files = explode("|", $_POST['files']);
+                $nbFiles = count($files);
+                if($nbFiles > 1) {
+                    for($i=0;$i<$nbFiles;$i++) {
+                        if(is_numeric($files[$i])) {
+                            if(file_exists(NOVA.'/'.$_SESSION['id'].'/'.$path.$files[$i])) {
+                                if($filename = $this->_modelFiles->getFilename($files[$i])) {
+                                    unlink(NOVA.'/'.$_SESSION['id'].'/'.$path.$filename);
+                                    $total_size += $this->_modelFiles->deleteFile($files[$i]);
+                                    // To do : decrement storage counter
+                                }
+                            }
+                        }
+                    }
+                }
+                //else
+                    // rmFile()
+            }
+        }
+        echo 'done';
+    }
+    
+    function rmFoldersAction() {
+        $this->_modelFiles = new mFiles();
+        $this->_modelFiles->setIdOwner($_SESSION['id']);
+        
+        $total_size = 0;
+        
+        if(!isset($_POST['path']))
+            $path = '';
+        else
+            $path = urldecode($_POST['path']);
+        if(!empty($_POST['folders'])) {
+            if(is_dir(NOVA.'/'.$_SESSION['id'].'/'.$path)) {
+                $folders = explode("|", $_POST['folders']);
+                $nbFolders = count($folders);
+                if($nbFolders > 1) {
+                    for($i=0;$i<$nbFolders;$i++) {
+                        if(is_dir(NOVA.'/'.$_SESSION['id'].'/'.$path.$folders[$i])) {
+                            rmdir(NOVA.'/'.$_SESSION['id'].'/'.$path.$folders[$i]);
+                            // delete files in database
+                            $total_size += $this->_modelFiles->deleteFiles($path.$folders[$i]);
+                            // To do : decrement storage counter
+                        }
+                    }
+                }
+                //else
+                    // rmFolder()
+            }
+        }
+        echo 'done';
     }
      
     //

@@ -75,7 +75,7 @@ class Register extends Languages {
                                                 $this->_mail->send();
                                                 
                                                 // Create user folder
-                                                mkdir(NOVA.'/'.$id_user, 600);
+                                                mkdir(NOVA.'/'.$id_user, 0600);
                                                 
                                                 $_SESSION['validate'] = 1;
 

@@ -14,9 +14,12 @@
 
 var Box;
 var Area = 0; // 0 : desktop div, 1 : file, 2 : folder
+var addSel = 0; // 1 => add a new selection
 
 var Move = ''; // Var which contains file/folder id cut/copied
 var Copy = 0; // 0 : cut, 1 : copy
+
+var selected = []; // selected files/folders
 
 var path = ''; // Current path
 
@@ -82,6 +85,15 @@ window.oncontextmenu = function(event) {
 window.onclick = function(event) {
     // Left click
     Box.left_click(event.clientX, event.clientY);
+    // reset selected folders/files
+    if(addSel == 0) {
+        for(var i=0;i<selected.length;i++) {
+            document.querySelector("#"+selected[i]).style.backgroundColor="white";
+        }
+        selected = [];
+    }
+    else
+        addSel = 0;
 }
 
 window.onload = function() {
@@ -94,6 +106,20 @@ window.onload = function() {
     
     returnArea = document.querySelector("#returnArea");
 
+    window.addEventListener("keydown", function(event) {
+        if(event.ctrlKey && event.keyCode == 68) {
+            console.log("ctrl+d");
+        }
+        switch(event.keyCode) {
+            case 46:
+                // suppr
+                rmMultiple();
+                break;
+            case 27:
+                // esc
+                break;    
+        }
+    });
     Box = new box();
 
     // Right click inside desktop div
@@ -146,10 +172,6 @@ var setEvents = function() {
             Box.right_click(event.clientX, event.clientY, this.id);
             return false;
         });
-        
-        folders[i].addEventListener("dblclick", function() {
-            openDirById(this.id);
-        });
     }
 }
 
@@ -160,6 +182,9 @@ var isNumeric = function(n) {
 }
 
 var cleanPath = function(p) {
+    // format : dir1/dir2/
+    if(p == '/')
+        return '';
     if(p.length > 1) {
         if(p.substr(0, 1) == '/')
             p = p.substr(1);
@@ -168,6 +193,8 @@ var cleanPath = function(p) {
             if(p0[i] == '')
                 p0.splice(i, 1);
         p = p0.join('/');
+        if(p.substr(-1) != '/')
+            p = p+'/';
     }
     console.log(p);
     return p;
@@ -254,8 +281,8 @@ function upFiles(files) {
             // Files uploaded
             clearInterval(status);
             getStatus();
-            window.location.href="User";
-            //returnArea.innerHTML = xhr.responseText;
+            //window.location.href="User";
+            returnArea.innerHTML = xhr.responseText;
         }
     }
     xhr.send(formData);
@@ -273,13 +300,19 @@ var getStatus = function() {
     {
         if(xhr.status == 200 && xhr.readyState == 4)
         {              
-            if(xhr.responseText == 'done')
+            /*if(xhr.responseText == 'done')
                 returnArea.innerHTML = '';
             else
-                returnArea.innerHTML = xhr.responseText;
+                returnArea.innerHTML = xhr.responseText;*/
         }
     }
     xhr.send();
+}
+
+var getFolderName = function(id) {
+    if(document.getElementById(id))
+        return document.getElementById(id).getAttribute("name");
+    return false;
 }
 
 var openDirById = function(dir) {
@@ -287,13 +320,12 @@ var openDirById = function(dir) {
     if(dir.length > 1) {
         id = dir.substr(1);
         if(isNumeric(id) && dir.substr(0, 1) == 'd')
-            openDir(path+'/'+document.getElementById(dir).getAttribute("name"));
+            openDir(path+'/'+getFolderName(dir));
     }
 }
 
 var openDir = function(dir) {
     var dirName = cleanPath(dir);
-    console.log(dirName);
        
     var xhr = new XMLHttpRequest();
     xhr.open("POST", "User/changePath", true);
@@ -304,16 +336,34 @@ var openDir = function(dir) {
         if(xhr.status == 200 && xhr.readyState == 4)
         {              
             if(xhr.responseText != '') {
+                // Hide box
+                document.querySelector("#box").style.display = 'none';
+                
                 document.querySelector("#tree").innerHTML = xhr.responseText;
-                path = dirName+'/';
-                if(path == '/')
-                    path = '';
+                path = dirName;
+                // reset selected files/folders
+                selected = [];
                 // Set events for all files and folders loaded
                 setEvents();
             }
         }
     }
     xhr.send("path="+encodeURIComponent(dirName));
+}
+
+var addSelection = function(id) {
+    addSel = 1;
+    if(document.querySelector("#"+id)) {
+        var pos = selected.indexOf(id);
+        if(pos != -1) {
+            selected.splice(pos, 1);
+            document.querySelector("#"+id).style.backgroundColor='white';
+        }
+        else {
+            selected.push(id);
+            document.querySelector("#"+id).style.backgroundColor='#E0F0FA';
+        }
+    }
 }
 
 var cut = function(id) {
@@ -352,6 +402,83 @@ var rm = function(del) {
             else if(del.substr(0, 1) == 'd') {
                 // folder
             }
+        }
+    }
+}
+
+var rmMultiple = function() {
+    var id = 0;
+    var folderName;
+    var rmFolders = [];
+    var rmFiles = [];
+    if(selected.length > 0) {
+        if(confirm("Do you want to remove these files/folders ?")) {
+            var xhr = new XMLHttpRequest();
+            
+            for(var i=0;i<selected.length;i++) {
+                if(selected[i].length > 1) {
+                    if(selected[i].substr(0, 1) == 'f') {
+                        // file
+                        id = selected[i].substr(1);
+                        if(isNumeric(id))
+                            rmFiles.push(id);
+                    }
+                    else if(selected[i].substr(0, 1) == 'd') {
+                        // folder
+                        if(folderName = getFolderName(selected[i]))
+                            rmFolders.push(folderName);
+                    }
+                }
+            }
+            
+            var wait = 2;
+            if(rmFolders.length > 0) {
+                xhr.open("POST", "User/rmFolders", true);
+                xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                
+                xhr.onreadystatechange = function()
+                {
+                    if(xhr.status == 200 && xhr.readyState == 4)
+                    {              
+                        if(xhr.responseText != '') {
+                            //
+                            wait--;
+                            console.log("deleted selected folders !");
+                        }
+                    }
+                }
+                xhr.send("path="+path+"&folders="+encodeURIComponent(rmFolders.join("|")));
+            }
+            else
+                wait--;
+            
+            if(rmFiles.length > 0) {
+                xhr.open("POST", "User/rmFiles", true);
+                xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                
+                xhr.onreadystatechange = function()
+                {
+                    if(xhr.status == 200 && xhr.readyState == 4)
+                    {              
+                        if(xhr.responseText != '') {
+                            //
+                            wait--;
+                            console.log("deleted selected files !");
+                        }
+                    }
+                }
+                xhr.send("path="+path+"&files="+encodeURIComponent(rmFiles.join("|")));
+            }
+            else
+                wait--;
+            
+            var timer = setInterval(function() {
+                console.log("waiting...");
+                if(wait == 0) {
+                    clearInterval(timer);
+                    openDir(path);
+                }
+            }, 250);
         }
     }
 }
