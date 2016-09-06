@@ -78,7 +78,7 @@ var box = class {
 };
 
 window.oncontextmenu = function(event) {
-    // Disable right click outside desktop div
+    // Disable right click
     return false;
 }
 
@@ -108,7 +108,8 @@ window.onload = function() {
 
     window.addEventListener("keydown", function(event) {
         if(event.ctrlKey && event.keyCode == 68) {
-            console.log("ctrl+d");
+            event.preventDefault(); // disable the hotkey in web browser
+            logout();
         }
         switch(event.keyCode) {
             case 46:
@@ -117,6 +118,7 @@ window.onload = function() {
                 break;
             case 27:
                 // esc
+                document.querySelector("#box").style.display = 'none';
                 break;    
         }
     });
@@ -124,6 +126,7 @@ window.onload = function() {
 
     // Right click inside desktop div
     document.querySelector("#desktop").addEventListener("contextmenu", function(event) {
+        //event.preventDefault();
         if(Area == 0) {
             // If we are inside desktop but not inside its children
             Box.right_click(event.clientX, event.clientY);
