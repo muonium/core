@@ -7,11 +7,11 @@ class User extends Languages {
     private $_CheminUser;
     private $_Size;*/
     private $_modelFiles;
-    
+
     private $_filename = ''; // current file uploaded
-    
+
     private $_path = ''; // current path
-    
+
     function __construct() {
         parent::__construct();
         if(empty($_SESSION['id']))
@@ -19,11 +19,11 @@ class User extends Languages {
         if(!empty($_SESSION['validate']))
             exit(header('Location: '.MVC_ROOT.'/Validate'));
     }
-    
+
     function DefaultAction() {
         include(DIR_VIEW."vUser.php");
     }
-    
+
     function upFilesAction() {
         if(!empty($_FILES['upload'])) {
             $this->_modelFiles = new mFiles();
@@ -57,7 +57,7 @@ class User extends Languages {
             }
         }
     }
-    
+
     function getUpFilesStatusAction() {
         // Progress bar shows total percentage, no file by file for now
         if(!empty($_SESSION["upload_progress_mui"])) {
@@ -69,19 +69,19 @@ class User extends Languages {
         else
             echo 'done';
     }
-    
+
     function addFolderAction() {
         if(!empty($_POST['folder'])) {
             $folder = urldecode($_POST['folder']);
             if(strlen($folder) > 64) // max length 64 chars
                 $folder = substr($folder, 0, 64);
-                
+
             if(!isset($_POST['path']))
                 $path = '';
             else
                 $path = urldecode($_POST['path']);
             $forbidden = '/\\:*?<>|" ';
-            
+
             $f = 0;
             for($i=0;$i<count($forbidden);$i++) {
                 if(strpos($folder, $forbidden[$i])) {
@@ -89,9 +89,9 @@ class User extends Languages {
                     break;
                 }
             }
-            
+
             //echo 'debug:'.$folder.':'.$path.':'.$f.'<br />';
-            
+
             if($f == 0) {
                 if(is_dir(NOVA.'/'.$_SESSION['id'].'/'.$path) && !is_dir(NOVA.'/'.$_SESSION['id'].'/'.$path.$folder))
                     mkdir(NOVA.'/'.$_SESSION['id'].'/'.$path.$folder, 0600);
@@ -99,17 +99,17 @@ class User extends Languages {
         }
         echo 'done';
     }
-    
+
     function getTree() {
         $i = 0;
         $this->_modelFiles = new mFiles();
         $this->_modelFiles->setIdOwner($_SESSION['id']);
-        
+
         $time_start = microtime(true);
         $files = $this->_modelFiles->getFiles($this->_path);
-        
+
         echo '<p>['.$this->_path.']</p>';
-        
+
         // Link to parent folder
         if($this->_path != '') {
             $lastPos = strrpos(substr($this->_path, 0, -1), "/");
@@ -118,9 +118,9 @@ class User extends Languages {
             else
                 echo '<p><a ondblclick="openDir(\''.substr($this->_path, 0, $lastPos).'\')">^</a></p>';
         }
-        
+
         echo '<hr>';
-        
+
         if($handle = opendir(NOVA.'/'.$_SESSION['id'].'/'.$this->_path)) {
             while(false !== ($entry = readdir($handle))) {
                 if($entry != '.' && $entry != '..') {
@@ -137,7 +137,7 @@ class User extends Languages {
         $time_end = microtime(true);
         echo '<br />Loaded in '.($time_end-$time_start).' s';
     }
-    
+
     function changePathAction() {
         if(!isset($_POST['path']))
             $path = '';
@@ -213,7 +213,7 @@ class User extends Languages {
         }
         echo 'done';
     }
-     
+    
     //
     // Functions below could be modified
     //
@@ -254,14 +254,14 @@ class User extends Languages {
     function getArborescenceDossier() {
         $this->ArborescenceDossier($this->_CheminUser);
         return $this->_ArborescenceDossier;
-    } 
+    }
 
     function AddDossier() {
         $chemin = '../nova/TestN1';
         if(!mkdir($chemin,0600,true)) {
             echo "Echec lors de la création du répertoire";
         }
-        else 
+        else
         {
             echo "Création réussi";
         }
@@ -283,7 +283,7 @@ class User extends Languages {
 					}
             }
         }
-        closedir ($folder);  
+        closedir ($folder);
     }
 
     function Arborescence($chemin) {
@@ -291,7 +291,7 @@ class User extends Languages {
 
         //echo $chemin ."   type : ".$filetype." - size : ".$lstat['size']." - mtime : ".$mtime.'<br/>';
         $this->_SizeTotal += $lstat['size'];
-        $this->_SizeTotalOctet += $lstat['size']; 	
+        $this->_SizeTotalOctet += $lstat['size'];
         if(is_dir($chemin)) {
             $me = opendir($chemin);
             while($child = readdir($me)) {

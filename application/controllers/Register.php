@@ -29,11 +29,11 @@ class Register extends Languages {
         $this->_Bruteforce->Control();
         if($this->_Bruteforce->getError() == 0)
         {
-            if(!empty($_POST['mail']) && !empty($_POST['login']) && !empty($_POST['pass']) && !empty($_POST['pass_confirm']) && !empty($_POST['passphrase']) && !empty($_POST['passphrase_confirm'])) 
-            {         
+            if(!empty($_POST['mail']) && !empty($_POST['login']) && !empty($_POST['pass']) && !empty($_POST['pass_confirm']) && !empty($_POST['passphrase']) && !empty($_POST['passphrase_confirm']))
+            {
                 if($_POST['pass'] == $_POST['pass_confirm'])
                 {
-                    if($_POST['passphrase'] == $_POST['passphrase_confirm']) 
+                    if($_POST['passphrase'] == $_POST['passphrase_confirm'])
                     {
                         if($_POST['pass'] != $_POST['passphrase'])
                         {
@@ -73,10 +73,9 @@ class Register extends Languages {
                                                 $this->_mail->setSubject($this->txt->Register->subject);
                                                 $this->_mail->setMessage(str_replace("[id_user]", $id_user, str_replace("[key]", $key, $this->txt->Register->message)));
                                                 $this->_mail->send();
-                                                
+
                                                 // Create user folder
                                                 mkdir(NOVA.'/'.$id_user, 0600);
-                                                
                                                 $_SESSION['validate'] = 1;
 
                                                 echo "ok@".htmlentities($this->txt->Register->ok);
