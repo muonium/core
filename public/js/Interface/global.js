@@ -210,8 +210,7 @@ var logout = function() {
 
 var nFolder = function() {
     if(document.querySelector("#nFolder")) {
-        // To do :
-        // Send ajax query to create the folder
+        document.querySelector("#box").style.display="none";
         
         var xhr = new XMLHttpRequest();
         xhr.open("POST", "User/addFolder", true);
@@ -283,9 +282,9 @@ function upFiles(files) {
         {
             // Files uploaded
             clearInterval(status);
-            getStatus();
+            //getStatus();
             //window.location.href="User";
-            returnArea.innerHTML = xhr.responseText;
+            //returnArea.innerHTML = xhr.responseText;
         }
     }
     xhr.send(formData);
@@ -303,10 +302,10 @@ var getStatus = function() {
     {
         if(xhr.status == 200 && xhr.readyState == 4)
         {              
-            /*if(xhr.responseText == 'done')
+            if(xhr.responseText == 'done')
                 returnArea.innerHTML = '';
             else
-                returnArea.innerHTML = xhr.responseText;*/
+                returnArea.innerHTML = xhr.responseText;
         }
     }
     xhr.send();
@@ -395,15 +394,45 @@ var paste = function() {
 }
 
 var rm = function(del) {
+    document.querySelector("#box").style.display="none";
     var id = 0;
     if(del.length > 1) {
         id = del.substr(1);
         if(isNumeric(id)) {
+            var xhr = new XMLHttpRequest();
             if(del.substr(0, 1) == 'f') {
                 // file
+                if(confirm("Do you want to remove this file ?")) {
+                    xhr.open("POST", "User/rmFiles", true);
+                    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+                    xhr.onreadystatechange = function()
+                    {
+                        if(xhr.status == 200 && xhr.readyState == 4)
+                        {              
+                            openDir(path);
+                        }
+                    }
+                    xhr.send("path="+path+"&files="+id);
+                }
             }
             else if(del.substr(0, 1) == 'd') {
                 // folder
+                if(confirm("Do you want to remove this folder ?")) {
+                    if(folderName = getFolderName(id)) {
+                        xhr.open("POST", "User/rmFolders", true);
+                        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+                        xhr.onreadystatechange = function()
+                        {
+                            if(xhr.status == 200 && xhr.readyState == 4)
+                            {              
+                                openDir(path);
+                            }
+                        }
+                        xhr.send("path="+path+"&folders="+encodeURIComponent(folderName));
+                    }
+                }
             }
         }
     }
@@ -416,7 +445,6 @@ var rmMultiple = function() {
     var rmFiles = [];
     if(selected.length > 0) {
         if(confirm("Do you want to remove these files/folders ?")) {
-            var xhr = new XMLHttpRequest();
             
             for(var i=0;i<selected.length;i++) {
                 if(selected[i].length > 1) {
@@ -436,6 +464,8 @@ var rmMultiple = function() {
             
             var wait = 2;
             if(rmFolders.length > 0) {
+                var xhr = new XMLHttpRequest();
+                console.log("deleting folders...");
                 xhr.open("POST", "User/rmFolders", true);
                 xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
                 
@@ -446,6 +476,7 @@ var rmMultiple = function() {
                         if(xhr.responseText != '') {
                             //
                             wait--;
+                            console.log(xhr.response);
                             console.log("deleted selected folders !");
                         }
                     }
@@ -456,21 +487,23 @@ var rmMultiple = function() {
                 wait--;
             
             if(rmFiles.length > 0) {
-                xhr.open("POST", "User/rmFiles", true);
-                xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                var xhr2 = new XMLHttpRequest();
+                console.log("deleting files...");
+                xhr2.open("POST", "User/rmFiles", true);
+                xhr2.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
                 
-                xhr.onreadystatechange = function()
+                xhr2.onreadystatechange = function()
                 {
-                    if(xhr.status == 200 && xhr.readyState == 4)
+                    if(xhr2.status == 200 && xhr2.readyState == 4)
                     {              
-                        if(xhr.responseText != '') {
+                        if(xhr2.responseText != '') {
                             //
                             wait--;
                             console.log("deleted selected files !");
                         }
                     }
                 }
-                xhr.send("path="+path+"&files="+encodeURIComponent(rmFiles.join("|")));
+                xhr2.send("path="+path+"&files="+encodeURIComponent(rmFiles.join("|")));
             }
             else
                 wait--;

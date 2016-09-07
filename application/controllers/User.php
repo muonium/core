@@ -37,6 +37,7 @@ class User extends Languages {
                 //echo $path.'<br />'.count($_FILES['upload']['name']);
                 echo 'n:'.count($_FILES['upload']['name']).'<br />';
                 for($i=0;$i<count($_FILES['upload']['name']);$i++) {
+                    $_FILES['upload']['name'][$i] = str_replace("|", "", $_FILES['upload']['name'][$i]); // | is not allowed
                     if(strlen($_FILES['upload']['name'][$i]) > 128) // max length 128 chars
                         $_FILES['upload']['name'][$i] = substr($_FILES['upload']['name'][$i], 0, 128);
                     //$this->_status = 'Uploading '.$_FILES['upload']['name'][$i];
@@ -62,12 +63,16 @@ class User extends Languages {
         // Progress bar shows total percentage, no file by file for now
         if(!empty($_SESSION["upload_progress_mui"])) {
             $current = $_SESSION["upload_progress_mui"]["bytes_processed"];
+            print_r($_SESSION["upload_progress_mui"]);
             $total = $_SESSION["upload_progress_mui"]["content_length"];
             $this->_filename = $_SESSION["upload_progress_mui"]["files"][0]["name"];
-            echo $this->_filename.' : '.($current < $total ? ceil($current / $total * 100) : 100).'%';
+            $p= '<br />'.$this->_filename.' : '.($current < $total ? ceil($current / $total * 100) : 100).'%';
+            echo $p;
         }
-        else
+        else {
+            //echo $p;
             echo 'done';
+        }
     }
 
     function addFolderAction() {
@@ -129,7 +134,7 @@ class User extends Languages {
                         $i++;
                     }
                     else {
-                        echo '<span class="file" id="f'.$files[$entry]['0'].'" onclick="addSelection(this.id)">'.$entry.' ['.$files[$entry]['1'].'o] - Last modification : '.date('d/m/Y G:i', $files[$entry]['2']).'</span>';
+                        echo '<span class="file" id="f'.$files[$entry]['0'].'" onclick="addSelection(this.id)">'.$entry.' ['.$this->showSize($files[$entry]['1']).'] - Last modification : '.date('d/m/Y G:i', $files[$entry]['2']).'</span>';
                     }
                 }
             }
@@ -149,38 +154,62 @@ class User extends Languages {
         }
     }
     
+    function rmFile($path, $id) {
+        if(is_numeric($id)) {
+            if($filename = $this->_modelFiles->getFilename($id)) {
+                if(file_exists(NOVA.'/'.$_SESSION['id'].'/'.$path.$filename)) {
+                    unlink(NOVA.'/'.$_SESSION['id'].'/'.$path.$filename);
+                    // deleteFile() returns file size
+                    return $this->_modelFiles->deleteFile($id);
+                }
+            }
+        }
+        return 0;
+    }
+    
     function rmFilesAction() {
         $this->_modelFiles = new mFiles();
         $this->_modelFiles->setIdOwner($_SESSION['id']);
         
         $total_size = 0;
-        
         if(!isset($_POST['path']))
             $path = '';
         else
             $path = urldecode($_POST['path']);
         if(!empty($_POST['files'])) {
             if(is_dir(NOVA.'/'.$_SESSION['id'].'/'.$path)) {
-                $files = explode("|", $_POST['files']);
+                $files = explode("|", urldecode($_POST['files']));
                 $nbFiles = count($files);
-                if($nbFiles > 1) {
-                    for($i=0;$i<$nbFiles;$i++) {
-                        if(is_numeric($files[$i])) {
-                            if(file_exists(NOVA.'/'.$_SESSION['id'].'/'.$path.$files[$i])) {
-                                if($filename = $this->_modelFiles->getFilename($files[$i])) {
-                                    unlink(NOVA.'/'.$_SESSION['id'].'/'.$path.$filename);
-                                    $total_size += $this->_modelFiles->deleteFile($files[$i]);
-                                    // To do : decrement storage counter
-                                }
-                            }
-                        }
-                    }
+                if($nbFiles > 0) {
+                    for($i=0;$i<$nbFiles;$i++)
+                        $total_size += $this->rmFile($path, $files[$i]);
                 }
-                //else
-                    // rmFile()
+                // To do : decrement storage counter
             }
         }
         echo 'done';
+    }
+    
+    function rmDir($path) {
+        // This function is like rmdir() but it works when there are files and folders inside.
+        foreach(glob("{$path}/*") as $file)
+        {
+            if(is_dir($file))
+                $this->rmDir($file);
+            else 
+                unlink($file);
+        }
+        rmdir($path);
+    }
+    
+    function rmFolder($path, $name) {
+        if(is_dir(NOVA.'/'.$_SESSION['id'].'/'.$path.$name)) {
+            $this->rmDir(NOVA.'/'.$_SESSION['id'].'/'.$path.$name);
+            // delete files in database
+            // deleteFiles() returns total file size
+            return $this->_modelFiles->deleteFiles($path.$name);
+        }
+        return 0;
     }
     
     function rmFoldersAction() {
@@ -195,23 +224,26 @@ class User extends Languages {
             $path = urldecode($_POST['path']);
         if(!empty($_POST['folders'])) {
             if(is_dir(NOVA.'/'.$_SESSION['id'].'/'.$path)) {
-                $folders = explode("|", $_POST['folders']);
+                $folders = explode("|", urldecode($_POST['folders']));
                 $nbFolders = count($folders);
-                if($nbFolders > 1) {
-                    for($i=0;$i<$nbFolders;$i++) {
-                        if(is_dir(NOVA.'/'.$_SESSION['id'].'/'.$path.$folders[$i])) {
-                            rmdir(NOVA.'/'.$_SESSION['id'].'/'.$path.$folders[$i]);
-                            // delete files in database
-                            $total_size += $this->_modelFiles->deleteFiles($path.$folders[$i]);
-                            // To do : decrement storage counter
-                        }
-                    }
+                if($nbFolders > 0) {
+                    for($i=0;$i<$nbFolders;$i++)
+                        $total_size += $this->rmFolder($path, $folders[$i]);
                 }
-                //else
-                    // rmFolder()
+                // To do : decrement storage counter
             }
         }
         echo 'done';
+    }
+    
+    function showSize($size, $precision = 2) {
+        // $size => size in bytes
+        if($size < 0)
+            return 0;
+        $base = log($size, 1024);
+        $suffixes = array('', 'K', 'M', 'G', 'T');
+
+        return round(pow(1024, $base - floor($base)), $precision) .' '. $suffixes[floor($base)];
     }
     
     //
@@ -242,131 +274,6 @@ class User extends Languages {
         closedir($pDossier);
 
     }
-
-    function getSize() {
-        return $this->_Size;
-    }
-
-    function setChemin($c) {
-        $this->_CheminUser = $c;
-    }
-
-    function getArborescenceDossier() {
-        $this->ArborescenceDossier($this->_CheminUser);
-        return $this->_ArborescenceDossier;
-    }
-
-    function AddDossier() {
-        $chemin = '../nova/TestN1';
-        if(!mkdir($chemin,0600,true)) {
-            echo "Echec lors de la création du répertoire";
-        }
-        else
-        {
-            echo "Création réussi";
-        }
-    }
-
-    function ArborescenceDossier($chemin) {
-        $lstat = lstat($chemin);
-        $this->_SizeTotal += $lstat['size'];
-        $folder = opendir ($chemin);
-
-        while ($file = readdir($folder)) {
-            if ($file != "." && $file != "..") {
-                $pathfile = $chemin.'/'.$file;
-                //if(filetype($pathfile) == 'dir'){
-                $this->_ArborescenceDossier[] = $file;
-                //$this->ArborescenceDossier($pathfile);
-                /*} else if(filetype($pathfile) == 'file') {
-						$this->_Arborescence[][] = $file;
-					}
-            }
-        }
-        closedir ($folder);
-    }
-
-    function Arborescence($chemin) {
-        $lstat = lstat($chemin);
-
-        //echo $chemin ."   type : ".$filetype." - size : ".$lstat['size']." - mtime : ".$mtime.'<br/>';
-        $this->_SizeTotal += $lstat['size'];
-        $this->_SizeTotalOctet += $lstat['size'];
-        if(is_dir($chemin)) {
-            $me = opendir($chemin);
-            while($child = readdir($me)) {
-                //echo $child;
-                if($child != '.' && $child != '..') {
-
-                    $this->Arborescence($chemin.DIRECTORY_SEPARATOR.$child);
-                }
-            }
-        }
-    }
-
-    function CalculTaille($nombre) {
-        $Octet = 1;
-        $KiloOctet = 1024 * $Octet;
-        $MegaOctet = 1024 * $KiloOctet;
-        $GigaOctet = 1024 * $MegaOctet;
-
-
-        if($nombre  >= $KiloOctet ) {
-            if($nombre  >= $MegaOctet) {
-                if($nombre >= $GigaOctet) {
-                    $nombre = $this->_SizeTotal / $GigaOctet;
-                    $nombre = round($nombre);
-                    $nombre = $nombre." Go";
-                } else {
-                    $nombre = $nombre / $MegaOctet;
-                    $nombre = round($nombre);
-                    $nombre = $nombre." Mo";
-                }
-            } else {
-                $nombre = $nombre / $KiloOctet;
-                $nombre = round($nombre);
-                $nombre = $nombre." Ko";
-            }
-        } else {
-            $nombre = $nombre." O";
-        }
-        return $nombre;
-    }
-
-    function getTailleTotal() {
-        $Octet = 1;
-        $KiloOctet = 1024 * $Octet;
-        $MegaOctet = 1024 * $KiloOctet;
-        $GigaOctet = 1024 * $MegaOctet;
-
-        $this->Arborescence($this->_CheminUser);
-
-        if($this->_SizeTotal  >= $KiloOctet ) {
-            if($this->_SizeTotal  >= $MegaOctet) {
-                if($this->_SizeTotal >= $GigaOctet) {
-                    $this->_SizeTotal = $this->_SizeTotal / $GigaOctet;
-                    $this->_SizeTotal = round($this->_SizeTotal,2);
-                    $this->_SizeTotal = $this->_SizeTotal." Go";
-                } else {
-                    $this->_SizeTotal = $this->_SizeTotal / $MegaOctet;
-                    $this->_SizeTotal = round($this->_SizeTotal,2);
-                    $this->_SizeTotal = $this->_SizeTotal." Mo";
-                }
-            } else {
-                $this->_SizeTotal = $this->_SizeTotal / $KiloOctet;
-                $this->_SizeTotal = round($this->_SizeTotal,2);
-                $this->_SizeTotal = $this->_SizeTotal." Ko";
-            }
-        } else {
-            $this->_SizeTotal = $this->_SizeTotal." O";
-        }
-    }
-
-    function getTaille() {
-
-        $this->getTailleTotal();
-
-        return $this->_SizeTotal;
-    }*/
+    */
 }
 ?>
