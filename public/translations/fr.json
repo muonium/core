@@ -38,7 +38,7 @@
         "e404": "Erreur : Page non trouvée",
         "default": "Une erreur est survenue",
         "form": "Erreur dans le formulaire",
-        "pp": "Impossible de modifier votre passphrase pour le moment",
+        "pp": "Impossible de modifier votre phrase secrète pour le moment",
         "bannedSession": "Vous avez atteint le nombre maximum autorisé de requêtes"
 	},
 
@@ -47,7 +47,7 @@
         "login": "Nom d'utilisateur",
         "password": "Mot de passe",
         "confirm": "Confirmez",
-        "passphrase": "Passphrase",
+        "passphrase": "Phrase secrète",
         "doubleAuth": "Voulez vous activer la double authentication ?",
         "alreadyregistered": "Déjà inscrit ?",
         "impossible": "Inscriptions impossibles pour le moment",
@@ -55,10 +55,10 @@
         "mailExists": "Votre adresse email est déjà enregistrée dans la base de données. Impossible de recréer un compte à partir de celle-ci.",
         "loginExists": "Votre nom d'utilisateur est déjà enregistré dans la base de données. Impossible de recréer un compte à partir de celui-ci.",
         "badPassConfirm": "Les deux mots de passe sont différents.",
-        "badPassphraseConfirm": "Les deux passphrases sont différentes.",
-        "passEqualPassphrase": "Le mot de passe et la passphrase doivent être différents.",
+        "badPassphraseConfirm": "Les deux phrase secrètes sont différentes.",
+        "passEqualPassphrase": "Le mot de passe et la phrase secrète doivent être différents.",
         "form": "Tous les champs doivent être remplis.",
-        "passLength": "Le mot de passe ou la passphrase doit faire au minimum 6 caractères.",
+        "passLength": "Le mot de passe ou la phrase secrète doit faire au minimum 6 caractères.",
         "loginFormat": "Le format du pseudo est incorrect (entre 2 et 20 caractères alphanumérique, -_. autorisés).",
         "mailFormat": "Le format de l'adresse email est incorrect.",
         "error": "Une erreur est survenue lors de la création du compte.",
@@ -94,21 +94,21 @@
     "Profile": {
         "changelogin": "Modifier votre nom d'utilisateur",
         "changepwd": "Modifier votre mot de passe",
-        "changepp": "Modifier votre passphrase",
+        "changepp": "Modifier votre phrase secrète",
         "newlogin": "Nouveau nom d'utilisateur",
         "oldpwd": "Ancien mot de passe",
         "newpwd": "Nouveau mot de passe",
-        "oldpp": "Ancienne passphrase",
-        "newpp": "Nouvelle passphrase",
+        "oldpp": "Ancienne phrase secrète",
+        "newpp": "Nouvelle phrase secrète",
         "updateErr": "Impossible de mettre à jour vos informations",
         "updateOk": "Vos informations ont bien été mises à jour",
         "loginExists": "Ce nom d'utilisateur est déjà utilisé",
         "badOldPass": "Votre ancien mot de passe ne correspond pas",
-        "badOldPassphrase": "Votre ancienne passphrase ne correspond pas",
+        "badOldPassphrase": "Votre ancienne phrase secrète ne correspond pas",
         "getpwd": "Impossible de récupérer le mot de passe",
-        "getpp": "Impossible de récupérer la passphrase",
+        "getpp": "Impossible de récupérer la phrase secrète",
         "doubleAuth": "Double authentification",
-        "warningpp": "Attention ! Vous pouvez changer votre passphrase seulement <strong>2</strong> fois par mois. Vous l'avez déjà changé [count] fois !"
+        "warningpp": "Attention ! Vous pouvez changer votre phrase secrète seulement <strong>2</strong> fois par mois. Vous l'avez déjà changé [count] fois !"
     },
 
     "LostPass": {
@@ -117,8 +117,8 @@
         "errmessage": "Erreur : La clé de validation est incorrecte ou est expirée, veuillez <a href='LostPass'>refaire une demande de mot de passe perdu</a> et saisir votre nom d'utilisateur ou votre email.",
         "user": "Votre adresse email ou nom d'utilisateur",
         "subject": "Muonium - Mot de passe oublié",
-        "message": "Bonjour,<br />Afin de modifier votre mot de passe ou votre passphrase, veuillez suivre ce lien : <a href='https://muonium.ch/core/LostPass/Key/[id_user]/[key]'>https://muonium.ch/core/LostPass/Key/[id_user]/[key]</a><br />Cordialement,<br />L'équipe Muonium.<br /><br />Ce mail a été généré automatiquement, merci de ne pas y répondre.",
-        "reset": "Attention ! Si vous changez votre passphrase, votre compte sera remis à zéro et vous perdrez vos données !"
+        "message": "Bonjour,<br />Afin de modifier votre mot de passe ou votre phrase secrète, veuillez suivre ce lien : <a href='https://muonium.ch/core/LostPass/Key/[id_user]/[key]'>https://muonium.ch/core/LostPass/Key/[id_user]/[key]</a><br />Cordialement,<br />L'équipe Muonium.<br /><br />Ce mail a été généré automatiquement, merci de ne pas y répondre.",
+        "reset": "Attention ! Si vous changez votre phrase secrète, votre compte sera remis à zéro et vous perdrez vos données !"
     },
 
     "RightClick": {
