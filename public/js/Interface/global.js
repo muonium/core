@@ -23,6 +23,8 @@ var selected = []; // selected files/folders
 
 var path = ''; // Current path
 
+var filesUploaded = 0; // Number of files uploaded
+
 var returnArea;
 
 // Box class. Show a div 'box' when user uses right click inside desktop div, close the box when user uses left click
@@ -254,61 +256,56 @@ var upFilesDialog = function() {
     document.querySelector('#upFilesInput').click();
 }
 
-function upFiles(files) {
-    // Upload files function
+var upFiles = function(files) {
+    // Upload multiple files function
     
     var progress = document.querySelector("#progress");
-    
-    // Create a new FormData object.
-    var formData = new FormData();
-    formData.append(progress.name, progress.value);
-    formData.append('path', path);
+    progress.innerHTML = ' ';
     
     // Loop through each of the selected files.
     for(var i=0;i<files.length;i++) {
-      // Add the file to the request.
-      formData.append('upload[]', files[i], files[i].name);
+        progress.innerHTML += '<div id="upload'+i+'"></div>';
+        upFile(files[i], i);
     }
     
-    // Call the function which get the progress bar every second
-    var status = setInterval("getStatus()", 1000);
-    
-    var xhr = new XMLHttpRequest();
-    xhr.open("POST", "User/upFiles", true);
-    
-    xhr.onreadystatechange = function()
-    {
-        if(xhr.status == 200 && xhr.readyState == 4)
-        {
-            // Files uploaded
-            clearInterval(status);
-            //getStatus();
-            //window.location.href="User";
-            //returnArea.innerHTML = xhr.responseText;
+    // Waiting end of the uploading process
+    var timer = setInterval(function() {
+        console.log("waiting...");
+        if(filesUploaded >= files.length) {
+            progress.innerHTML = ' ';
+            clearInterval(timer);
+            openDir(path);
         }
-    }
-    xhr.send(formData);
+    }, 1000);
 }
 
-var getStatus = function() {
-    // Get and shows the progress bar
+var upFile = function(file, i) {
+    // Upload a file
+    var xhr = new Array();
     
-    console.log('get status...');
-    var xhr = new XMLHttpRequest();
-    xhr.open("POST", "User/getUpFilesStatus", true);
-    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    // Create a new FormData object.
+    var formData = new FormData();
 
-    xhr.onreadystatechange = function()
-    {
-        if(xhr.status == 200 && xhr.readyState == 4)
-        {              
-            if(xhr.responseText == 'done')
-                returnArea.innerHTML = '';
-            else
-                returnArea.innerHTML = xhr.responseText;
+    // Add the file to the request.
+    formData.append('path', path);
+    formData.append('upload[]', file, file.name);
+    xhr[i] = new XMLHttpRequest();
+    xhr[i].open("POST", "User/upFiles", true);
+        
+    // Progress bar
+    xhr[i].upload.addEventListener("progress", function(event, filename) {
+        if(event.lengthComputable)
+            document.querySelector("#upload"+i).innerHTML = file.name+" : "+(event.loaded/event.total*100).toFixed(2)+"%";
+    }, false);
+        
+    xhr[i].onreadystatechange = function() {
+        if(xhr[i].readyState === 4) {
+            if(xhr[i].status === 200) {
+                filesUploaded++;
+            }
         }
-    }
-    xhr.send();
+    };
+    xhr[i].send(formData);
 }
 
 var getFolderName = function(id) {

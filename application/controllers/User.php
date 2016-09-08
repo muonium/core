@@ -34,18 +34,14 @@ class User extends Languages {
                 $path = $_POST['path'];
 
             if(is_dir(NOVA.'/'.$_SESSION['id'].'/'.$path)) {
-                //echo $path.'<br />'.count($_FILES['upload']['name']);
-                echo 'n:'.count($_FILES['upload']['name']).'<br />';
                 for($i=0;$i<count($_FILES['upload']['name']);$i++) {
                     $_FILES['upload']['name'][$i] = str_replace("|", "", $_FILES['upload']['name'][$i]); // | is not allowed
                     if(strlen($_FILES['upload']['name'][$i]) > 128) // max length 128 chars
                         $_FILES['upload']['name'][$i] = substr($_FILES['upload']['name'][$i], 0, 128);
-                    //$this->_status = 'Uploading '.$_FILES['upload']['name'][$i];
                     $tmpFilePath = $_FILES['upload']['tmp_name'][$i];
                     if($tmpFilePath != "") {
                         // To do : Increment size_stored in storage table
                         // If size stored > user_quota => don't upload
-                        echo 'Uploading '.$_FILES['upload']['name'][$i].'<br />';
                         $this->_modelFiles->setFile($_FILES['upload']['name'][$i]);
                         $this->_modelFiles->setSize($_FILES['upload']['size'][$i]);
                         $this->_modelFiles->setLastModification(time());
@@ -53,25 +49,7 @@ class User extends Languages {
                         move_uploaded_file($tmpFilePath, NOVA.'/'.$_SESSION['id'].'/'.$path.$_FILES['upload']['name'][$i]);
                     }
                 }
-                $upload_time = time() - $_SERVER['REQUEST_TIME'];
-                echo 'Done. Upload time : '.$upload_time.'s';
             }
-        }
-    }
-
-    function getUpFilesStatusAction() {
-        // Progress bar shows total percentage, no file by file for now
-        if(!empty($_SESSION["upload_progress_mui"])) {
-            $current = $_SESSION["upload_progress_mui"]["bytes_processed"];
-            print_r($_SESSION["upload_progress_mui"]);
-            $total = $_SESSION["upload_progress_mui"]["content_length"];
-            $this->_filename = $_SESSION["upload_progress_mui"]["files"][0]["name"];
-            $p= '<br />'.$this->_filename.' : '.($current < $total ? ceil($current / $total * 100) : 100).'%';
-            echo $p;
-        }
-        else {
-            //echo $p;
-            echo 'done';
         }
     }
 

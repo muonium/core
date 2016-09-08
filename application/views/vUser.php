@@ -76,12 +76,12 @@
         <section id="desktop">
             <!-- Hidden upload form -->
             <form style="display:none">
-                <input type="hidden" id="progress" name="<?php echo ini_get("session.upload_progress.name"); ?>" value="mui" />
                 <input type="file" id="upFilesInput" name="files[]" multiple="multiple" style="display:none" onchange="upFiles(this.files);" />
             </form>
             <!-- End -->
             
             <div id="returnArea"></div>
+            <div id="progress"></div>
             <div id="tree">
                 <?php $this->getTree(); ?>
             </div>
