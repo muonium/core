@@ -201,7 +201,6 @@ var cleanPath = function(p) {
         if(p.substr(-1) != '/')
             p = p+'/';
     }
-    console.log(p);
     return p;
 }
 
@@ -261,7 +260,6 @@ var upFiles = function(files) {
     
     var progress = document.querySelector("#progress");
     progress.innerHTML = ' ';
-    
     // Loop through each of the selected files.
     for(var i=0;i<files.length;i++) {
         progress.innerHTML += '<div id="upload'+i+'"></div>';
@@ -301,6 +299,7 @@ var upFile = function(file, i) {
     xhr[i].onreadystatechange = function() {
         if(xhr[i].readyState === 4) {
             if(xhr[i].status === 200) {
+                console.log(xhr[i].responseText);
                 filesUploaded++;
             }
         }

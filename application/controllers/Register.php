@@ -4,6 +4,7 @@ class Register extends Languages {
 
     private $_modelUser;
     private $_modelUserVal;
+    private $_modelStorage;
     private $_Bruteforce;
     private $_mail;
 
@@ -62,6 +63,10 @@ class Register extends Languages {
                                                 $id_user = $this->_modelUser->getLastInsertedId();
                                                 $_SESSION['id'] = $id_user;
                                                 $key = hash('sha512', uniqid(rand(), true));
+                                                
+                                                $this->_modelStorage = new mStorage();
+                                                $this->_modelStorage->setIdUser($id_user);
+                                                $this->_modelStorage->Insertion();
 
                                                 $this->_modelUserVal = new mUserValidation();
                                                 $this->_modelUserVal->setIdUser($id_user);

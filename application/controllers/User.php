@@ -1,12 +1,8 @@
 <?php
 class User extends Languages {
 
-    /*private $_ArborescenceDossier = array();
-    private $_SizeTotal;
-    private $_SizeTotalOctet;
-    private $_CheminUser;
-    private $_Size;*/
     private $_modelFiles;
+    private $_modelStorage;
 
     private $_filename = ''; // current file uploaded
 
@@ -34,14 +30,28 @@ class User extends Languages {
                 $path = $_POST['path'];
 
             if(is_dir(NOVA.'/'.$_SESSION['id'].'/'.$path)) {
+                $this->_modelStorage = new mStorage();
+                $this->_modelStorage->setIdUser($_SESSION['id']);
+
+                $quota = $this->_modelStorage->getUserQuota();
+                if($quota === false)
+                    return false;
+                $stored = $this->_modelStorage->getSizeStored();
+                if($stored === false)
+                    return false;
+                
                 for($i=0;$i<count($_FILES['upload']['name']);$i++) {
                     $_FILES['upload']['name'][$i] = str_replace("|", "", $_FILES['upload']['name'][$i]); // | is not allowed
                     if(strlen($_FILES['upload']['name'][$i]) > 128) // max length 128 chars
                         $_FILES['upload']['name'][$i] = substr($_FILES['upload']['name'][$i], 0, 128);
                     $tmpFilePath = $_FILES['upload']['tmp_name'][$i];
                     if($tmpFilePath != "") {
-                        // To do : Increment size_stored in storage table
                         // If size stored > user_quota => don't upload
+                        if(($stored+$_FILES['upload']['size'][$i]) > $quota)
+                            break;
+                        
+                        $stored += $_FILES['upload']['size'][$i];
+                        
                         $this->_modelFiles->setFile($_FILES['upload']['name'][$i]);
                         $this->_modelFiles->setSize($_FILES['upload']['size'][$i]);
                         $this->_modelFiles->setLastModification(time());
@@ -49,6 +59,8 @@ class User extends Languages {
                         move_uploaded_file($tmpFilePath, NOVA.'/'.$_SESSION['id'].'/'.$path.$_FILES['upload']['name'][$i]);
                     }
                 }
+
+                $this->_modelStorage->updateSizeStored($stored);
             }
         }
     }
@@ -87,6 +99,11 @@ class User extends Languages {
         $i = 0;
         $this->_modelFiles = new mFiles();
         $this->_modelFiles->setIdOwner($_SESSION['id']);
+        
+        $this->_modelStorage = new mStorage();
+        $this->_modelStorage->setIdUser($_SESSION['id']);
+        $quota = $this->_modelStorage->getUserQuota();
+        $stored = $this->_modelStorage->getSizeStored();
 
         $time_start = microtime(true);
         $files = $this->_modelFiles->getFiles($this->_path);
@@ -94,13 +111,15 @@ class User extends Languages {
         echo '<p>['.$this->_path.']</p>';
 
         // Link to parent folder
+        echo '<p>';
         if($this->_path != '') {
             $lastPos = strrpos(substr($this->_path, 0, -1), "/");
             if($lastPos === false)
-                echo '<p><a ondblclick="openDir(\'\')">ROOT</a></p>';
+                echo '<a ondblclick="openDir(\'\')">ROOT</a> ';
             else
-                echo '<p><a ondblclick="openDir(\''.substr($this->_path, 0, $lastPos).'\')">^</a></p>';
+                echo '<a ondblclick="openDir(\''.substr($this->_path, 0, $lastPos).'\')">^</a> ';
         }
+        echo ' ['.$this->showSize($stored).'/'.$this->showSize($quota).']</p>';
 
         echo '<hr>';
 
@@ -162,7 +181,10 @@ class User extends Languages {
                     for($i=0;$i<$nbFiles;$i++)
                         $total_size += $this->rmFile($path, $files[$i]);
                 }
-                // To do : decrement storage counter
+                // Decrement storage counter
+                $this->_modelStorage = new mStorage();
+                $this->_modelStorage->setIdUser($_SESSION['id']);
+                $this->_modelStorage->decrementSizeStored($total_size);
             }
         }
         echo 'done';
@@ -208,7 +230,10 @@ class User extends Languages {
                     for($i=0;$i<$nbFolders;$i++)
                         $total_size += $this->rmFolder($path, $folders[$i]);
                 }
-                // To do : decrement storage counter
+                // Decrement storage counter
+                $this->_modelStorage = new mStorage();
+                $this->_modelStorage->setIdUser($_SESSION['id']);
+                $this->_modelStorage->decrementSizeStored($total_size);
             }
         }
         echo 'done';
