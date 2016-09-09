@@ -190,12 +190,12 @@ class User extends Languages {
         echo 'done';
     }
     
-    function rmDir($path) {
+    function rmRdir($path) {
         // This function is like rmdir() but it works when there are files and folders inside.
         foreach(glob("{$path}/*") as $file)
         {
             if(is_dir($file))
-                $this->rmDir($file);
+                $this->rmRdir($file);
             else 
                 unlink($file);
         }
@@ -204,7 +204,7 @@ class User extends Languages {
     
     function rmFolder($path, $name) {
         if(is_dir(NOVA.'/'.$_SESSION['id'].'/'.$path.$name)) {
-            $this->rmDir(NOVA.'/'.$_SESSION['id'].'/'.$path.$name);
+            $this->rmRdir(NOVA.'/'.$_SESSION['id'].'/'.$path.$name);
             // delete files in database
             // deleteFiles() returns total file size
             return $this->_modelFiles->deleteFiles($path.$name);
