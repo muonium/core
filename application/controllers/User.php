@@ -39,7 +39,7 @@ class User extends Languages {
                 $stored = $this->_modelStorage->getSizeStored();
                 if($stored === false)
                     return false;
-                
+
                 for($i=0;$i<count($_FILES['upload']['name']);$i++) {
                     $_FILES['upload']['name'][$i] = str_replace("|", "", $_FILES['upload']['name'][$i]); // | is not allowed
                     if(strlen($_FILES['upload']['name'][$i]) > 128) // max length 128 chars
@@ -49,9 +49,9 @@ class User extends Languages {
                         // If size stored > user_quota => don't upload
                         if(($stored+$_FILES['upload']['size'][$i]) > $quota)
                             break;
-                        
+
                         $stored += $_FILES['upload']['size'][$i];
-                        
+
                         $this->_modelFiles->setFile($_FILES['upload']['name'][$i]);
                         $this->_modelFiles->setSize($_FILES['upload']['size'][$i]);
                         $this->_modelFiles->setLastModification(time());
@@ -99,7 +99,7 @@ class User extends Languages {
         $i = 0;
         $this->_modelFiles = new mFiles();
         $this->_modelFiles->setIdOwner($_SESSION['id']);
-        
+
         $this->_modelStorage = new mStorage();
         $this->_modelStorage->setIdUser($_SESSION['id']);
         $quota = $this->_modelStorage->getUserQuota();
@@ -150,7 +150,7 @@ class User extends Languages {
             $this->getTree();
         }
     }
-    
+
     function rmFile($path, $id) {
         if(is_numeric($id)) {
             if($filename = $this->_modelFiles->getFilename($id)) {
@@ -163,11 +163,11 @@ class User extends Languages {
         }
         return 0;
     }
-    
+
     function rmFilesAction() {
         $this->_modelFiles = new mFiles();
         $this->_modelFiles->setIdOwner($_SESSION['id']);
-        
+
         $total_size = 0;
         if(!isset($_POST['path']))
             $path = '';
@@ -189,19 +189,20 @@ class User extends Languages {
         }
         echo 'done';
     }
-    
+
     function rmRdir($path) {
         // This function is like rmdir() but it works when there are files and folders inside.
+        //In fact : "R" for "recursive" like "rm -r" on Unix* like
         foreach(glob("{$path}/*") as $file)
         {
             if(is_dir($file))
                 $this->rmRdir($file);
-            else 
+            else
                 unlink($file);
         }
         rmdir($path);
     }
-    
+
     function rmFolder($path, $name) {
         if(is_dir(NOVA.'/'.$_SESSION['id'].'/'.$path.$name)) {
             $this->rmRdir(NOVA.'/'.$_SESSION['id'].'/'.$path.$name);
@@ -211,13 +212,13 @@ class User extends Languages {
         }
         return 0;
     }
-    
+
     function rmFoldersAction() {
         $this->_modelFiles = new mFiles();
         $this->_modelFiles->setIdOwner($_SESSION['id']);
-        
+
         $total_size = 0;
-        
+
         if(!isset($_POST['path']))
             $path = '';
         else
@@ -238,7 +239,7 @@ class User extends Languages {
         }
         echo 'done';
     }
-    
+
     function showSize($size, $precision = 2) {
         // $size => size in bytes
         if($size < 0)
@@ -248,7 +249,7 @@ class User extends Languages {
 
         return round(pow(1024, $base - floor($base)), $precision) .' '. $suffixes[floor($base)];
     }
-    
+
     //
     // Functions below could be modified
     //
