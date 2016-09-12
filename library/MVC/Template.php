@@ -94,5 +94,4 @@ class Template
     	{
         	echo '</html>';
     	}
-}
-?>
+};

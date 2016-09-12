@@ -26,4 +26,3 @@ function autoloader($nomClass) {
 
 spl_autoload_register('autoloader');
 
-?>

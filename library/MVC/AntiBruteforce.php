@@ -91,4 +91,3 @@ class AntiBruteforce
         fclose($file);
     }
 };
-?>

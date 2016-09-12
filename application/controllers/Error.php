@@ -5,7 +5,7 @@ class Error extends Languages {
     
     function DefaultAction() {
         $this->_error = $this->txt->Error->default;
-        include_once(DIR_VIEW."vError.php");
+        require_once(DIR_VIEW."vError.php");
     }
 	
 	function ErrorAction($err = "") {
@@ -16,7 +16,7 @@ class Error extends Languages {
             default :
                 $this->_error = $this->txt->Error->default;
         }
-        include_once(DIR_VIEW."vError.php");
+        require_once(DIR_VIEW."vError.php");
 	}
 };
 ?>

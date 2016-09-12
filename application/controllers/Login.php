@@ -8,12 +8,12 @@ class Login extends Languages {
         sleep(1);
         if(!isset($_SESSION['tmp_id'])) {
             $this->_message = htmlentities($this->txt->Login->expired);
-            include_once(DIR_VIEW."vLogin.php");
+            require_once(DIR_VIEW."vLogin.php");
         }
             
         elseif(strlen($_POST['code']) != 8) {
             $this->_message = htmlentities($this->txt->Login->invalidCode);
-            include_once(DIR_VIEW."vDoubleAuth.php");
+            require_once(DIR_VIEW."vDoubleAuth.php");
         }
         else {
             $brute = new AntiBruteforce();
@@ -36,7 +36,7 @@ class Login extends Languages {
                         $brute->setSID('doubleAuth');
                         $brute->Control();
                         $this->_message = htmlentities($this->txt->Login->invalidCode).'<br />'.htmlentities($this->txt->Register->{"bruteforceErr".$brute->getError()});
-                        include_once(DIR_VIEW."vDoubleAuth.php");
+                        require_once(DIR_VIEW."vDoubleAuth.php");
                     }
                 }
                 else // Unable to get code
@@ -126,10 +126,10 @@ class Login extends Languages {
         elseif(!empty($_SESSION['tmp_id'])) {
             // Double auth
             $this->_message = $this->txt->Login->doubleAuth;
-            include_once(DIR_VIEW."vDoubleAuth.php");
+            require_once(DIR_VIEW."vDoubleAuth.php");
         }
         else
-            include_once(DIR_VIEW."vLogin.php");
+            require_once(DIR_VIEW."vLogin.php");
     }
     
     function generateCode() {

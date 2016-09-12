@@ -20,7 +20,7 @@ class Register extends Languages {
     }
 
     function DefaultAction() {
-        include_once(DIR_VIEW.'vRegister.php');
+        require_once(DIR_VIEW.'vRegister.php');
     }
 
     function addUserAction() {

@@ -66,4 +66,4 @@ class Mail
         mail($this->_to, $this->_subject, $message, $header);
     }
 };
-?>
+

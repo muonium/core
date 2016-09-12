@@ -16,7 +16,7 @@ class Profile extends Languages
         $this->_modelUser = new mUsers();
         $this->_modelUser->setId($_SESSION['id']);
         $this->ppCounter = $this->_modelUser->getPpCounter();
-        include(DIR_VIEW."vProfile.php");
+        require_once(DIR_VIEW."vProfile.php");
     }
     
     function changeLoginAction() {

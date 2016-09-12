@@ -6,5 +6,4 @@ class confBDD {
 	const userDefaut = "root";
 	const passDefaut = "";
 	const bddDefaut = "cloud";
-}
-?>
+};

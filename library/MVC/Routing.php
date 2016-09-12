@@ -168,5 +168,4 @@ class Routing {
 		}
 		$array = array_values($array);
 	}
-}
-?>
+};

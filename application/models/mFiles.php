@@ -134,4 +134,3 @@
             return $total_size;
         }
     }
-?>

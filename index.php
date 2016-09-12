@@ -1,7 +1,7 @@
 <?php
 // This file is always called
 session_start();
-include_once("./config/autoload.php");
+require_once("./config/autoload.php");
 
 // Defines
 

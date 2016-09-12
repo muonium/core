@@ -21,5 +21,4 @@
         function getLastInsertedId() {
             return $this->_sql->lastInsertId();
         }
-    }
-?>
+    };

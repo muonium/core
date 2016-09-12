@@ -10,7 +10,7 @@
         private $_mail;
         
         function DefaultAction() {
-            include_once(DIR_VIEW."vSendMail.php");
+            require_once(DIR_VIEW."vSendMail.php");
         }
         
         function KeyAction($id_user, $key) {
@@ -28,7 +28,7 @@
             if($this->_modelUserVal->getKey() != $this->val_key) {
                 // Different key, send a new mail ?
                 $this->err_msg = $this->txt->Validate->message;
-                include_once(DIR_VIEW."vValidate.php");
+                require_once(DIR_VIEW."vValidate.php");
             }
             else {
                 // Same keys, validate account
@@ -52,7 +52,7 @@
                     if($_SESSION['sendMail']+60 < time()) {
                         $w = 1;
                         $this->err_msg = $this->txt->Validate->wait;
-                        include_once(DIR_VIEW."vValidate.php");
+                        require_once(DIR_VIEW."vValidate.php");
                     }
                 }
 
@@ -81,7 +81,7 @@
                     $_SESSION['sendMail'] = time();
                     
                     $this->err_msg = $this->txt->Global->mail_sent;
-                    include_once(DIR_VIEW."vValidate.php");
+                    require_once(DIR_VIEW."vValidate.php");
                 }
             }
             else {

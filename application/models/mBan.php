@@ -43,4 +43,3 @@
             return $this->duration;
         }
     }
-?>

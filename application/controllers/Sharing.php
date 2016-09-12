@@ -2,7 +2,7 @@
 class Sharing extends Languages {
     
     function DefaultAction() {
-        include_once('./application/views/vSharing.php');
+        require_once('./application/views/vSharing.php');
     }
 }
 ?>
