@@ -20,11 +20,11 @@ class Login extends Languages {
             $brute->setFolder(ROOT.DS."tmp");
             $brute->setNbMaxAttemptsPerHour(50);
             
-            $User = new mUsers();
-            $User->setId($_SESSION['tmp_id']);
+            $user = new mUsers();
+            $user->setId($_SESSION['tmp_id']);
             
-            if($User->getDoubleAuth()) {
-                if($code = $User->getCode()) {
+            if($user->getDoubleAuth()) {
+                if($code = $user->getCode()) {
                     if($code == $_POST['code']) {
                         // Code is correct
                         $_SESSION['id'] = $_SESSION['tmp_id'];
@@ -47,29 +47,29 @@ class Login extends Languages {
         }
     }
     
-    function connectionAction() {
+    function ConnectionAction() {
         // Sleep during 3s to avoid a big number of requests (bruteforce)
         sleep(3);
 
         if(!empty($_POST['mail']) && !empty($_POST['pass']) && !empty($_POST['passphrase'])) {
-            $newUser = new mUsers();
-            $newUser->setEmail(urldecode($_POST['mail']));
-            $newUser->setPassword($_POST['pass']);
-            $newUser->setPassphrase(urldecode($_POST['passphrase']));
-            //$newUser->setPassphrase($_POST['passphrase']);
+            $new_user = new mUsers();
+            $new_user->setEmail(urldecode($_POST['mail']));
+            $new_user->setPassword($_POST['pass']);
+            $new_user->setPassphrase(urldecode($_POST['passphrase']));
+            //$new_user->setPassphrase($_POST['passphrase']);
 
             $brute = new AntiBruteforce();
             $brute->setFolder(ROOT.DS."tmp");
             $brute->setNbMaxAttemptsPerHour(50);
 
-            if(!($id = $newUser->getId())) {
+            if(!($id = $new_user->getId())) {
                 // User doesn't exists - Anti bruteforce with session id
                 $brute->setSID();
                 $brute->Control();
                 echo htmlentities($this->txt->Login->{"bruteforceErr".$brute->getError()});
             }
             else {
-                if(!($newUser->Connection())) {
+                if(!($new_user->Connection())) {
                     // User exists - Anti bruteforce with user id
                     $brute->setId($id);
                     $brute->Control();
@@ -78,20 +78,20 @@ class Login extends Languages {
                 else {
                     // Mail, password and passphrase ok, connection
 
-                    $newUser->setId($id);
+                    $new_user->setId($id);
                     $mUserVal = new mUserValidation();
                     $mUserVal->setIdUser($id);
 
                     if(!($mUserVal->getKey())) { 
                         // Unable to find key - Validation is done
                         
-                        if($newUser->getDoubleAuth()) {
+                        if($new_user->getDoubleAuth()) {
                             // Double auth
                             $_SESSION['tmp_id'] = $id;
                             
                             // Send an email with a code
                             $code = $this->generateCode();
-                            $newUser->updateCode($code);
+                            $new_user->updateCode($code);
                             
                             $mail = new Mail();
                             $mail->setTo($_POST['mail']);

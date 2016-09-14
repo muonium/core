@@ -7,7 +7,7 @@
         //protected $_RequeteSql;
         
         function __construct() {
-            $this->_sql = new PDO('mysql:host='.confBDD::hostDefaut.';dbname='.confBDD::bddDefaut,confBDD::userDefaut,confBDD::passDefaut);
+            $this->_sql = new PDO('mysql:host='.confDB::hostDefaut.';dbname='.confDB::bddDefaut,confDB::userDefaut,confDB::passDefaut);
         }
 	
 	   public static function getInstance() {

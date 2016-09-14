@@ -20,7 +20,7 @@ class User extends Languages {
         include(DIR_VIEW."vUser.php");
     }
 
-    function upFilesAction() {
+    function UpFilesAction() {
         if(!empty($_FILES['upload'])) {
             $this->_modelFiles = new mFiles();
             $this->_modelFiles->setIdOwner($_SESSION['id']);
@@ -65,7 +65,7 @@ class User extends Languages {
         }
     }
 
-    function addFolderAction() {
+    function AddFolderAction() {
         if(!empty($_POST['folder'])) {
             $folder = urldecode($_POST['folder']);
             if(strlen($folder) > 64) // max length 64 chars
@@ -140,7 +140,7 @@ class User extends Languages {
         echo '<br />Loaded in '.($time_end-$time_start).' s';
     }
 
-    function changePathAction() {
+    function ChangePathAction() {
         if(!isset($_POST['path']))
             $path = '';
         else
@@ -164,7 +164,7 @@ class User extends Languages {
         return 0;
     }
 
-    function rmFilesAction() {
+    function RmFilesAction() {
         $this->_modelFiles = new mFiles();
         $this->_modelFiles->setIdOwner($_SESSION['id']);
 
@@ -213,7 +213,7 @@ class User extends Languages {
         return 0;
     }
 
-    function rmFoldersAction() {
+    function RmFoldersAction() {
         $this->_modelFiles = new mFiles();
         $this->_modelFiles->setIdOwner($_SESSION['id']);
 

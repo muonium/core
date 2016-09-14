@@ -28,7 +28,7 @@ class LostPass extends Languages {
             require_once(DIR_VIEW."vLostPass.php");
     }
 
-    function resetPassAction() {
+    function ResetPassAction() {
         // Called by lostPass.js
         if(!empty($_SESSION['changePassId']) && !empty($_SESSION['changePassKey'])) {
             if(is_numeric($_SESSION['changePassId']) && strlen($_SESSION['changePassKey']) == 128) {
@@ -148,7 +148,7 @@ class LostPass extends Languages {
         }
     }
 
-    function sendMailAction() {
+    function SendMailAction() {
         // Send AGAIN lost pass mail with validation key
         sleep(1);
 

@@ -29,7 +29,7 @@
 
             <p>
                 <?php echo_h($this->txt->Validate->sendmess); ?><br />
-                <a href="<?php echo $_SERVER['REQUEST_URI']; ?>/sendMail"><?php echo_h($this->txt->Validate->sendmail); ?></a>
+                <a href="<?php echo $_SERVER['REQUEST_URI']; ?>/SendMail"><?php echo_h($this->txt->Validate->sendmail); ?></a>
             </p>
         </section>
 </body>

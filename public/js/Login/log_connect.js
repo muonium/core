@@ -31,7 +31,7 @@ var sendConnectionRequest = function()
     else {
 
         var xhr = new XMLHttpRequest();
-        xhr.open("POST", "Login/connection", true);
+        xhr.open("POST", "Login/Connection", true);
         xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
         xhr.onreadystatechange = function()

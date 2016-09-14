@@ -40,7 +40,7 @@
             }
         }
         
-        function sendMailAction() {
+        function SendMailAction() {
         // Send AGAIN registration mail with validation key
             sleep(1000);
             if(!empty($_SESSION['id'])) {

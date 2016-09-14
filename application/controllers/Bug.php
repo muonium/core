@@ -2,7 +2,7 @@
 class Bug extends Languages {
 
     private $_modelUser;
-    private $_Bruteforce;
+    private $_bruteforce;
     private $_mail;
     private $_message;
     
@@ -37,10 +37,10 @@ class Bug extends Languages {
         if(!isset($_SESSION['id']))
             exit(header('Location: '.MVC_ROOT.'/Error/Error/404'));
         // Initialize the anti-bruteforce class
-        $this->_Bruteforce = new AntiBruteforce();
-        $this->_Bruteforce->setFolder(ROOT.DS."tmp");
-        $this->_Bruteforce->setSID('Bug');
-        $this->_Bruteforce->setNbMaxAttemptsPerHour(20);
+        $this->_bruteforce = new AntiBruteforce();
+        $this->_bruteforce->setFolder(ROOT.DS."tmp");
+        $this->_bruteforce->setSID('Bug');
+        $this->_bruteforce->setNbMaxAttemptsPerHour(20);
     }
     
     function printValues($key) {
@@ -65,8 +65,8 @@ class Bug extends Languages {
         if(!empty($_POST['os']) && !empty($_POST['browser']) && !empty($_POST['message'])) {
             // Sleep during 2s to avoid a big number of requests (bruteforce)
             sleep(2);
-            $this->_Bruteforce->Control();
-            if($this->_Bruteforce->getError() == 0) {
+            $this->_bruteforce->Control();
+            if($this->_bruteforce->getError() == 0) {
                 if(strlen($_POST['message']) > 50) {
                     if(($os = $this->checkValue($_POST['os'], 'os')) && ($browser = $this->checkValue($_POST['browser'], 'browser'))) {
                         // get User's mail
@@ -110,7 +110,7 @@ class Bug extends Languages {
             }
             else {
                 // Anti-bruteforce returns an error
-                $this->_message = $this->txt->Register->{"bruteforceErr".$this->_Bruteforce->getError()};
+                $this->_message = $this->txt->Register->{"bruteforceErr".$this->_bruteforce->getError()};
             }
         }
         require_once(DIR_VIEW.'vBug.php');

@@ -27,7 +27,7 @@
             <div id="avatar"><p><img src="<?php echo MVC_ROOT; ?>/public/pictures/register/user.svg" /></p></div>
             <div id="text"><p><?php echo_h($this->txt->Login->forgot); ?></p></div>
 
-            <form method="post" action="<?php echo MVC_ROOT; ?>/LostPass/sendMail">
+            <form method="post" action="<?php echo MVC_ROOT; ?>/LostPass/SendMail">
                 <?php echo $this->err_msg; ?><br />
                 <label for="user"><?php echo_h($this->txt->LostPass->user); ?></label>
                 <input type="text" name="user" id="user" required="required" value="<?php if(!empty($_POST['user'])) { echo_h($_POST['user']); } ?>">

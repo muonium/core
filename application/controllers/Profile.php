@@ -19,7 +19,7 @@ class Profile extends Languages
         require_once(DIR_VIEW."vProfile.php");
     }
     
-    function changeLoginAction() {
+    function ChangeLoginAction() {
         // Called by profile.js
         
         if(!empty($_POST['login'])) {
@@ -52,7 +52,7 @@ class Profile extends Languages
         }
     }
     
-    function changePasswordAction() {
+    function ChangePasswordAction() {
         // Called by profile.js
         
         if(!empty($_POST['old_pwd']) && !empty($_POST['new_pwd']) && !empty($_POST['pwd_confirm'])) {
@@ -87,7 +87,7 @@ class Profile extends Languages
         }
     }
     
-    function changePassPhraseAction() {
+    function ChangePassPhraseAction() {
         // Called by profile.js
         
         echo $this->txt->Error->pp;
@@ -128,7 +128,7 @@ class Profile extends Languages
         */
     }
     
-    function changeAuthAction() {
+    function ChangeAuthAction() {
         // Called by profile.js
         
         $this->_modelUser = new mUsers();

@@ -214,7 +214,7 @@ var nFolder = function() {
         document.querySelector("#box").style.display="none";
         
         var xhr = new XMLHttpRequest();
-        xhr.open("POST", "User/addFolder", true);
+        xhr.open("POST", "User/AddFolder", true);
         xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
         xhr.onreadystatechange = function()
@@ -288,7 +288,7 @@ var upFile = function(file, i) {
     formData.append('path', path);
     formData.append('upload[]', file, file.name);
     xhr[i] = new XMLHttpRequest();
-    xhr[i].open("POST", "User/upFiles", true);
+    xhr[i].open("POST", "User/UpFiles", true);
         
     // Progress bar
     xhr[i].upload.addEventListener("progress", function(event, filename) {
@@ -326,7 +326,7 @@ var openDir = function(dir) {
     var dirName = cleanPath(dir);
        
     var xhr = new XMLHttpRequest();
-    xhr.open("POST", "User/changePath", true);
+    xhr.open("POST", "User/ChangePath", true);
     xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
     xhr.onreadystatechange = function()
@@ -399,7 +399,7 @@ var rm = function(del) {
             if(del.substr(0, 1) == 'f') {
                 // file
                 if(confirm("Do you want to remove this file ?")) {
-                    xhr.open("POST", "User/rmFiles", true);
+                    xhr.open("POST", "User/RmFiles", true);
                     xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
                     xhr.onreadystatechange = function()
@@ -416,7 +416,7 @@ var rm = function(del) {
                 // folder
                 if(confirm("Do you want to remove this folder ?")) {
                     if(folderName = getFolderName(id)) {
-                        xhr.open("POST", "User/rmFolders", true);
+                        xhr.open("POST", "User/RmFolders", true);
                         xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
                         xhr.onreadystatechange = function()
@@ -462,7 +462,7 @@ var rmMultiple = function() {
             if(rmFolders.length > 0) {
                 var xhr = new XMLHttpRequest();
                 console.log("deleting folders...");
-                xhr.open("POST", "User/rmFolders", true);
+                xhr.open("POST", "User/RmFolders", true);
                 xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
                 
                 xhr.onreadystatechange = function()
@@ -485,7 +485,7 @@ var rmMultiple = function() {
             if(rmFiles.length > 0) {
                 var xhr2 = new XMLHttpRequest();
                 console.log("deleting files...");
-                xhr2.open("POST", "User/rmFiles", true);
+                xhr2.open("POST", "User/RmFiles", true);
                 xhr2.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
                 
                 xhr2.onreadystatechange = function()

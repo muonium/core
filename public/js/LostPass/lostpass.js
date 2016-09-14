@@ -20,7 +20,7 @@ var changePass = function() {
         returnArea.innerHTML = "<img src='./public/pictures/index/loader.gif' style='height: 3vh;' />";
 
         var xhr = new XMLHttpRequest();
-        xhr.open("POST", "LostPass/resetPass", true);
+        xhr.open("POST", "LostPass/ResetPass", true);
         xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
         xhr.onreadystatechange = function()

@@ -41,7 +41,7 @@ var sendRegisterRequest = function()
     else {
 
         var xhr = new XMLHttpRequest();
-        xhr.open("POST", "Register/addUser", true);
+        xhr.open("POST", "Register/AddUser", true);
         xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
         xhr.onreadystatechange = function()
