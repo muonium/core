@@ -50,20 +50,6 @@ Your code must be tested before to be merged in the master branch.
 - All functions, classes, variables names must be in English.
 - The "echo_h" function is defined in index.php, it can be used everywhere and this is the equivalent of "echo htmlentities("
 
-## Global - Names
-
-Use mixedCase or CamelCase
-
-Right :
-```PHP
- function connectionAction()
- function ConnectionAction()
-```
-Wrong :
-```PHP
- function connection_action()
-```
-
 ## Comments
 
 [Please, take this code as a reference](https://github.com/muonium/core/blob/master/application/controllers/Login.php)
