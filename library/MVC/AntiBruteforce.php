@@ -82,7 +82,7 @@ class AntiBruteforce
                     $this->_error = 1;
                 }
             
-                $NbAttempts++;
+                $nbAttempts++;
                 
                 // Update file
                 fwrite($file, $timestamp.';'.$nbAttempts);
