@@ -89,7 +89,7 @@ class User extends Languages {
 
             if($f == 0) {
                 if(is_dir(NOVA.'/'.$_SESSION['id'].'/'.$path) && !is_dir(NOVA.'/'.$_SESSION['id'].'/'.$path.$folder))
-                    mkdir(NOVA.'/'.$_SESSION['id'].'/'.$path.$folder, 0600);
+                    mkdir(NOVA.'/'.$_SESSION['id'].'/'.$path.$folder, 0770);
             }
         }
         echo 'done';

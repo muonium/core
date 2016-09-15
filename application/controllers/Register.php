@@ -63,7 +63,7 @@ class Register extends Languages {
                                                 $id_user = $this->_modelUser->getLastInsertedId();
                                                 $_SESSION['id'] = $id_user;
                                                 $key = hash('sha512', uniqid(rand(), true));
-                                                
+
                                                 $this->_modelStorage = new mStorage();
                                                 $this->_modelStorage->setIdUser($id_user);
                                                 $this->_modelStorage->Insertion();
@@ -80,7 +80,7 @@ class Register extends Languages {
                                                 $this->_mail->send();
 
                                                 // Create user folder
-                                                mkdir(NOVA.'/'.$id_user, 0600);
+                                                mkdir(NOVA.'/'.$id_user, 0770);
                                                 $_SESSION['validate'] = 1;
 
                                                 echo "ok@".htmlentities($this->txt->Register->ok);
