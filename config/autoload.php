@@ -2,13 +2,10 @@
 function autoloader($class_name) {
 	$tab_dir = array(
 			'./config/',
-			'./Application/models/',
-			'./Application/bdd/',
-			'./Application/controllers/',
-			'./Application/views/',
+			'./application/models/',
+			'./application/controllers/',
+			'./application/views/',
 			'./library/',
-			'./library/Dossier/',
-			'./library/BDD/',
 			'./library/MVC/'
 	);
 	 
