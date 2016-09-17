@@ -50,13 +50,25 @@ class User extends Languages {
                         if(($stored+$_FILES['upload']['size'][$i]) > $quota)
                             break;
 
-                        $stored += $_FILES['upload']['size'][$i];
+                        $exists = 0;
+                        if(file_exists(NOVA.'/'.$_SESSION['id'].'/'.$path.$_FILES['upload']['name'][$i]))
+                            $exists = 1; // File already exists
+                        
+                        if(move_uploaded_file($tmpFilePath, NOVA.'/'.$_SESSION['id'].'/'.$path.$_FILES['upload']['name'][$i])) {
+                            // File uploaded without errors
 
-                        $this->_modelFiles->setFile($_FILES['upload']['name'][$i]);
-                        $this->_modelFiles->setSize($_FILES['upload']['size'][$i]);
-                        $this->_modelFiles->setLastModification(time());
-                        $this->_modelFiles->addNewFile($path);
-                        move_uploaded_file($tmpFilePath, NOVA.'/'.$_SESSION['id'].'/'.$path.$_FILES['upload']['name'][$i]);
+                            $this->_modelFiles->setFile($_FILES['upload']['name'][$i]);
+                            $this->_modelFiles->setSize($_FILES['upload']['size'][$i]);
+                            $this->_modelFiles->setLastModification(time());
+                            if($exists == 0) {
+                                $this->_modelFiles->addNewFile($path);
+                                $stored += $_FILES['upload']['size'][$i];
+                            }
+                            else {
+                                $stored += $this->_modelFiles->updateFile($path);
+                                // updateFile returns the difference beetween the size of the new file and the size of the old file
+                            }
+                        }
                     }
                 }
 
@@ -104,7 +116,6 @@ class User extends Languages {
         $this->_modelStorage->setIdUser($_SESSION['id']);
         $quota = $this->_modelStorage->getUserQuota();
         $stored = $this->_modelStorage->getSizeStored();
-
         $time_start = microtime(true);
         $files = $this->_modelFiles->getFiles($this->_path);
 
@@ -244,7 +255,7 @@ class User extends Languages {
         // $size => size in bytes
         if(!is_numeric($size))
             return 0;
-        if($size < 0)
+        if($size <= 0)
             return 0;
         $base = log($size, 1024);
         $suffixes = array('', 'K', 'M', 'G', 'T');

@@ -63,7 +63,19 @@
         }
             
         function getSize() {
-            return $this->size;
+            if(!isset($this->id)) {
+                $req = $this->_sql->prepare("SELECT size FROM files WHERE id_owner = ? AND file = ? AND dir = ?");
+                $req->execute(array($_SESSION['id'], $this->name, $this->{'dir'}));
+            }
+            else {
+                $req = $this->_sql->prepare("SELECT size FROM files WHERE id_owner = ? AND id = ?");
+                $req->execute(array($_SESSION['id'], $id));
+            }
+                
+            if($req->rowCount() == 0)
+                return 0;
+            $res = $req->fetch();
+            return $res['size'];
         }
         
         function getLastModification() {
@@ -110,6 +122,15 @@
             $req = $this->_sql->prepare("INSERT INTO files VALUES ('', ?, ?, ?, ?, ?, '0')");
             $ret = $req->execute(array($_SESSION['id'], $path, $this->name, $this->size, $this->last_modification));   
             return $ret;
+        }
+        
+        function updateFile($path) {
+            // returns the difference beetween the size of the new file and the size of the old file
+            $this->{'dir'} = $path;
+            $old_size = $this->getSize();
+            $req = $this->_sql->prepare("UPDATE files SET size = ?, last_modification = ? WHERE id_owner = ? AND file = ? AND dir = ?");
+            $ret = $req->execute(array($this->size, $this->last_modification, $_SESSION['id'], $this->name, $path));
+            return (($this->size)-$old_size);
         }
         
         function deleteFile($id) {

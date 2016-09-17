@@ -399,13 +399,14 @@ var rm = function(del) {
             if(del.substr(0, 1) == 'f') {
                 // file
                 if(confirm("Do you want to remove this file ?")) {
+                    console.log("removing file");
                     xhr.open("POST", "User/RmFiles", true);
                     xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
                     xhr.onreadystatechange = function()
                     {
                         if(xhr.status == 200 && xhr.readyState == 4)
-                        {              
+                        {
                             openDir(path);
                         }
                     }
