@@ -27,7 +27,7 @@ class User extends Languages {
             if(!isset($_POST['path']))
                 $path = '';
             else
-                $path = $_POST['path'];
+                $path = urldecode($_POST['path']);
 
             if(is_dir(NOVA.'/'.$_SESSION['id'].'/'.$path)) {
                 $this->_modelStorage = new mStorage();
@@ -163,6 +163,11 @@ class User extends Languages {
     }
 
     function rmFile($path, $id) {
+        if(!isset($this->_modelFiles)) {
+            $this->_modelFiles = new mFiles();
+            $this->_modelFiles->setIdOwner($_SESSION['id']);
+        }
+        
         if(is_numeric($id)) {
             if($filename = $this->_modelFiles->getFilename($id)) {
                 if(file_exists(NOVA.'/'.$_SESSION['id'].'/'.$path.$filename)) {
@@ -215,6 +220,11 @@ class User extends Languages {
     }
 
     function rmFolder($path, $name) {
+        if(!isset($this->_modelFiles)) {
+            $this->_modelFiles = new mFiles();
+            $this->_modelFiles->setIdOwner($_SESSION['id']);
+        }
+        
         if(is_dir(NOVA.'/'.$_SESSION['id'].'/'.$path.$name)) {
             $this->rmRdir(NOVA.'/'.$_SESSION['id'].'/'.$path.$name);
             // delete files in database
@@ -261,6 +271,33 @@ class User extends Languages {
         $suffixes = array('', 'K', 'M', 'G', 'T');
 
         return round(pow(1024, $base - floor($base)), $precision) .' '. $suffixes[floor($base)];
+    }
+    
+    function DownloadAction($id) {
+        if(!isset($this->_modelFiles)) {
+            $this->_modelFiles = new mFiles();
+            $this->_modelFiles->setIdOwner($_SESSION['id']);
+        }
+        
+        if(is_numeric($id)) {
+            if($filename = $this->_modelFiles->getFilename($id)) {
+                if(file_exists(NOVA.'/'.$_SESSION['id'].'/'.$path.$filename)) { 
+                    $file_name = NOVA.'/'.$_SESSION['id'].'/'.$path.$filename;
+                    $mime = 'application/force-download';
+                    header('Pragma: public'); 	// required
+                    header('Expires: 0');		// no cache
+                    header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
+                    header('Last-Modified: '.gmdate ('D, d M Y H:i:s', filemtime ($file_name)).' GMT');
+                    header('Cache-Control: private',false);
+                    header('Content-Type: '.$mime);
+                    header('Content-Disposition: attachment; filename="'.basename($file_name).'"');
+                    header('Content-Transfer-Encoding: binary');
+                    header('Content-Length: '.filesize($file_name));	// provide file size
+                    header('Connection: close');
+                    readfile($file_name);		// push it out*/
+                }
+            }
+        }
     }
 
     //

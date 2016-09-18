@@ -69,7 +69,7 @@ var box = class {
                 break;
             //mouse over a file
             case 1:
-                this.box_div.innerHTML = '<p>'+txt.RightClick.dl+'</p><hr><p>'+txt.RightClick.star+'</p><hr><p onclick="cut(\''+id+'\')">'+txt.RightClick.cut+'</p><p onclick="copy(\''+id+'\')">'+txt.RightClick.copy+'</p><p onclick="paste(\''+id+'\')">'+txt.RightClick.paste+'</p><p onclick="rm(\''+id+'\')">'+txt.RightClick.rm+'</p><hr><p>'+txt.RightClick.mvItem+'</p><p>'+txt.RightClick.mvLocate+'</p><hr><p>'+txt.RightClick.vDetails+'</p>';
+                this.box_div.innerHTML = '<p onclick="dl(\''+id+'\')">'+txt.RightClick.dl+'</p><hr><p>'+txt.RightClick.star+'</p><hr><p onclick="cut(\''+id+'\')">'+txt.RightClick.cut+'</p><p onclick="copy(\''+id+'\')">'+txt.RightClick.copy+'</p><p onclick="paste(\''+id+'\')">'+txt.RightClick.paste+'</p><p onclick="rm(\''+id+'\')">'+txt.RightClick.rm+'</p><hr><p>'+txt.RightClick.mvItem+'</p><p>'+txt.RightClick.mvLocate+'</p><hr><p>'+txt.RightClick.vDetails+'</p>';
                 break;
             //mouse over a folder
             case 2:
@@ -112,6 +112,10 @@ window.onload = function() {
         if(event.ctrlKey && event.keyCode == 68) {
             event.preventDefault(); // disable the hotkey in web browser
             logout();
+        }
+        else if(event.ctrlKey && event.keyCode == 65) {
+            event.preventDefault(); // disable the hotkey in web browser
+            selectAll();
         }
         switch(event.keyCode) {
             case 46:
@@ -364,6 +368,17 @@ var addSelection = function(id) {
     }
 }
 
+var selectAll = function() {
+    var i = 0;
+    var files = document.querySelectorAll(".file");
+    for(i=0;i<files.length;i++)
+        addSelection(files[i].id);
+    
+    var folders = document.querySelectorAll(".folder");
+    for(i=0;i<folders.length;i++)
+        addSelection(folders[i].id);
+}
+
 var cut = function(id) {
     Move = id;
     Copy = 0;
@@ -384,6 +399,19 @@ var paste = function() {
             }
             else if(Move.substr(0, 1) == 'd') {
                 // folder
+            }
+        }
+    }
+}
+
+var dl = function(file) {
+    document.querySelector("#box").style.display="none";
+    var id = 0;
+    if(file.length > 1) {
+        id = file.substr(1);
+        if(isNumeric(id)) {
+            if(file.substr(0, 1) == 'f') {
+                location.href="User/Download/"+id;
             }
         }
     }
@@ -410,24 +438,24 @@ var rm = function(del) {
                             openDir(path);
                         }
                     }
-                    xhr.send("path="+path+"&files="+id);
+                    xhr.send("path="+encodeURIComponent(path)+"&files="+id);
                 }
             }
             else if(del.substr(0, 1) == 'd') {
                 // folder
                 if(confirm("Do you want to remove this folder ?")) {
-                    if(folderName = getFolderName(id)) {
+                    if(folderName = getFolderName(del)) {
                         xhr.open("POST", "User/RmFolders", true);
                         xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
                         xhr.onreadystatechange = function()
                         {
                             if(xhr.status == 200 && xhr.readyState == 4)
-                            {              
+                            {
                                 openDir(path);
                             }
                         }
-                        xhr.send("path="+path+"&folders="+encodeURIComponent(folderName));
+                        xhr.send("path="+encodeURIComponent(path)+"&folders="+encodeURIComponent(folderName));
                     }
                 }
             }
@@ -478,7 +506,7 @@ var rmMultiple = function() {
                         }
                     }
                 }
-                xhr.send("path="+path+"&folders="+encodeURIComponent(rmFolders.join("|")));
+                xhr.send("path="+encodeURIComponent(path)+"&folders="+encodeURIComponent(rmFolders.join("|")));
             }
             else
                 wait--;
@@ -500,7 +528,7 @@ var rmMultiple = function() {
                         }
                     }
                 }
-                xhr2.send("path="+path+"&files="+encodeURIComponent(rmFiles.join("|")));
+                xhr2.send("path="+encodeURIComponent(path)+"&files="+encodeURIComponent(rmFiles.join("|")));
             }
             else
                 wait--;
