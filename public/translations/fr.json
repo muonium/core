@@ -41,6 +41,14 @@
         "pp": "Impossible de modifier votre phrase secrète pour le moment",
         "bannedSession": "Vous avez atteint le nombre maximum autorisé de requêtes"
 	},
+    
+    "User": {
+        "lastmod": "Dernière modification",
+        "loaded": "Chargé en",
+        "folder": "Nom du dossier",
+        "questiond": "Voulez vous supprimer ce dossier ?",
+        "questionf": "Voulez vous supprimer ce fichier ?"
+    },
 
     "Register": {
         "email": "Adresse email",

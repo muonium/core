@@ -41,6 +41,14 @@
         "pp": "Editing the passphrase is not currently available",
         "bannedSession": "You reached the maximum allowed number of requests"
     },
+    
+    "User": {
+        "lastmod": "Last modification",
+        "loaded": "Loaded in",
+        "folder": "Folder name",
+        "questiond": "Do you want to remove this folder ?",
+        "questionf": "Do you want to remove this file ?"
+    },
 
     "Register": {
         "email": "Email address",

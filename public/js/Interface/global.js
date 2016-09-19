@@ -239,7 +239,7 @@ var nFolder = function() {
         //document.querySelector("#box").style.display = 'none';
     }
     else {
-        document.querySelector("#box").innerHTML = 'Folder name : <input type="text" id="nFolder" onkeypress="return verifFolderName(event);">';
+        document.querySelector("#box").innerHTML = txt.User.folder+' : <input type="text" id="nFolder" onkeypress="return verifFolderName(event);">';
     }
 }
 
@@ -426,7 +426,7 @@ var rm = function(del) {
             var xhr = new XMLHttpRequest();
             if(del.substr(0, 1) == 'f') {
                 // file
-                if(confirm("Do you want to remove this file ?")) {
+                if(confirm(txt.User.questionf)) {
                     console.log("removing file");
                     xhr.open("POST", "User/RmFiles", true);
                     xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -443,7 +443,7 @@ var rm = function(del) {
             }
             else if(del.substr(0, 1) == 'd') {
                 // folder
-                if(confirm("Do you want to remove this folder ?")) {
+                if(confirm(txt.User.questiond)) {
                     if(folderName = getFolderName(del)) {
                         xhr.open("POST", "User/RmFolders", true);
                         xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");

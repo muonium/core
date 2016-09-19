@@ -142,13 +142,13 @@ class User extends Languages {
                         $i++;
                     }
                     else {
-                        echo '<span class="file" id="f'.$files[$entry]['0'].'" onclick="addSelection(this.id)">'.$entry.' ['.$this->showSize($files[$entry]['1']).'] - Last modification : '.date('d/m/Y G:i', $files[$entry]['2']).'</span>';
+                        echo '<span class="file" id="f'.$files[$entry]['0'].'" onclick="addSelection(this.id)">'.$entry.' ['.$this->showSize($files[$entry]['1']).'] - '.$this->txt->User->lastmod.' : '.date('d/m/Y G:i', $files[$entry]['2']).'</span>';
                     }
                 }
             }
         }
         $time_end = microtime(true);
-        echo '<br />Loaded in '.($time_end-$time_start).' s';
+        echo '<br />'.$this->txt->User->loaded.' '.($time_end-$time_start).' s';
     }
 
     function ChangePathAction() {
