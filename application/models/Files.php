@@ -1,5 +1,8 @@
 <?php
-    class mFiles extends Model {
+namespace application\models;
+use \library\MVC as l;
+
+class Files extends l\Model {
         
         /*
             1   id                  int(11)     AUTO_INCREMENT
@@ -11,38 +14,15 @@
             7   favorite            tinyint(1)
         */
         
-        private $id;
-        private $id_owner;
-        private $dir;
-        private $name;
-        private $size;
-        private $last_modification;
-        private $favorite;
+        protected $id;
+        protected $id_owner;
+        protected $dir;
+        protected $name;
+        protected $size;
+        protected $last_modification;
+        protected $favorite;
         
         /* ******************** SETTER ******************** */
-        function setIdOwner($id_owner) {
-            $this->id_owner = $id_owner;
-        }
-        
-        function setFile($file) {
-            $this->name = $file;
-        }
-            
-        function setSize($size) {
-            $this->size = $size;
-        }
-        
-        function setLastModification($last_modification) {
-            $this->last_modification = $last_modification;
-        }
-        
-        function setFavorite() {
-            $this->favorite = 1;
-        }
-        
-        function unsetFavorite() {
-            $this->favorite = 0;
-        }
         
         /* ******************** GETTER ******************** */
         function getId() {

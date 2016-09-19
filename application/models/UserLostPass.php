@@ -1,5 +1,8 @@
 <?php
-    class mUserLostPass extends Model {
+namespace application\models;
+use \library\MVC as l;
+
+class UserLostPass extends l\Model {
         
         /*
             1   id                  int(11)         AUTO_INCREMENT
@@ -8,24 +11,12 @@
             4   expire              int(11)
         */
         
-        private $id;
-        private $id_user;
-        private $val_key;
-        private $expire;
+        protected $id;
+        protected $id_user;
+        protected $val_key;
+        protected $expire;
         
         /* ******************** SETTER ******************** */
-            
-        function setIdUser($id_user) {
-            $this->id_user = $id_user;
-        }
-        
-        function setKey($key) {
-            $this->val_key = $key;
-        }
-        
-        function setExpire($expire) {
-            $this->expire = $expire;
-        }
         
         /* ******************** GETTER ******************** */
         function getIdUser() {

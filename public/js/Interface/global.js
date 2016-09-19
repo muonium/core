@@ -117,6 +117,10 @@ window.onload = function() {
             event.preventDefault(); // disable the hotkey in web browser
             selectAll();
         }
+        else if(event.ctrlKey && event.keyCode == 73) {
+            event.preventDefault(); // disable the hotkey in web browser
+            invertSelection();
+        }
         switch(event.keyCode) {
             case 46:
                 // suppr
@@ -368,7 +372,7 @@ var addSelection = function(id) {
     }
 }
 
-var selectAll = function() {
+var invertSelection = function() {
     var i = 0;
     var files = document.querySelectorAll(".file");
     for(i=0;i<files.length;i++)
@@ -377,6 +381,30 @@ var selectAll = function() {
     var folders = document.querySelectorAll(".folder");
     for(i=0;i<folders.length;i++)
         addSelection(folders[i].id);
+}
+
+var selectAll = function() {
+    addSel = 1;
+    var i = 0;
+    var files = document.querySelectorAll(".file");
+    for(i=0;i<files.length;i++) {
+        if(document.querySelector("#"+files[i].id)) {
+            if(selected.indexOf(files[i].id) == -1) {
+                selected.push(files[i].id);
+                document.querySelector("#"+files[i].id).style.backgroundColor='#E0F0FA';
+            }
+        }
+    }
+    
+    var folders = document.querySelectorAll(".folder");
+    for(i=0;i<folders.length;i++) {
+        if(document.querySelector("#"+folders[i].id)) {
+            if(selected.indexOf(folders[i].id) == -1) {
+                selected.push(folders[i].id);
+                document.querySelector("#"+folders[i].id).style.backgroundColor='#E0F0FA';
+            }
+        }
+    }
 }
 
 var cut = function(id) {

@@ -4,8 +4,8 @@
 	* @description     : Favorites view
 	* @authors         : Romain Claveau <romain.claveau@protonmail.ch>, Quentin THOMAS <q.thomas54@protonmail.com>, Dylan Clement <dylanclement7@protonmail.ch>
 	*/
-
-    $_t = new Template($this->txt->Global->favorites);
+    use \library\MVC as l;
+    $_t = new l\Template($this->txt->Global->favorites);
     $_t->addCss("home_global");
     $_t->getHeader();
 ?>

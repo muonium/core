@@ -1,5 +1,9 @@
 <?php
-class User extends Languages {
+namespace application\controllers;
+use \library\MVC as l;
+use \application\models as m;
+
+class User extends l\Languages {
 
     private $_modelFiles;
     private $_modelStorage;
@@ -22,16 +26,16 @@ class User extends Languages {
 
     function UpFilesAction() {
         if(!empty($_FILES['upload'])) {
-            $this->_modelFiles = new mFiles();
-            $this->_modelFiles->setIdOwner($_SESSION['id']);
+            $this->_modelFiles = new m\Files();
+            $this->_modelFiles->id_owner = $_SESSION['id'];
             if(!isset($_POST['path']))
                 $path = '';
             else
                 $path = urldecode($_POST['path']);
 
             if(is_dir(NOVA.'/'.$_SESSION['id'].'/'.$path)) {
-                $this->_modelStorage = new mStorage();
-                $this->_modelStorage->setIdUser($_SESSION['id']);
+                $this->_modelStorage = new m\Storage();
+                $this->_modelStorage->id_user = $_SESSION['id'];
 
                 $quota = $this->_modelStorage->getUserQuota();
                 if($quota === false)
@@ -57,9 +61,9 @@ class User extends Languages {
                         if(move_uploaded_file($tmpFilePath, NOVA.'/'.$_SESSION['id'].'/'.$path.$_FILES['upload']['name'][$i])) {
                             // File uploaded without errors
 
-                            $this->_modelFiles->setFile($_FILES['upload']['name'][$i]);
-                            $this->_modelFiles->setSize($_FILES['upload']['size'][$i]);
-                            $this->_modelFiles->setLastModification(time());
+                            $this->_modelFiles->name = $_FILES['upload']['name'][$i];
+                            $this->_modelFiles->size = $_FILES['upload']['size'][$i];
+                            $this->_modelFiles->last_modification = time();
                             if($exists == 0) {
                                 $this->_modelFiles->addNewFile($path);
                                 $stored += $_FILES['upload']['size'][$i];
@@ -109,11 +113,11 @@ class User extends Languages {
 
     function getTree() {
         $i = 0;
-        $this->_modelFiles = new mFiles();
-        $this->_modelFiles->setIdOwner($_SESSION['id']);
+        $this->_modelFiles = new m\Files();
+        $this->_modelFiles->id_owner = $_SESSION['id'];
 
-        $this->_modelStorage = new mStorage();
-        $this->_modelStorage->setIdUser($_SESSION['id']);
+        $this->_modelStorage = new m\Storage();
+        $this->_modelStorage->id_user = $_SESSION['id'];
         $quota = $this->_modelStorage->getUserQuota();
         $stored = $this->_modelStorage->getSizeStored();
         $time_start = microtime(true);
@@ -164,8 +168,8 @@ class User extends Languages {
 
     function rmFile($path, $id) {
         if(!isset($this->_modelFiles)) {
-            $this->_modelFiles = new mFiles();
-            $this->_modelFiles->setIdOwner($_SESSION['id']);
+            $this->_modelFiles = new m\Files();
+            $this->_modelFiles->id_owner = $_SESSION['id'];
         }
         
         if(is_numeric($id)) {
@@ -181,8 +185,8 @@ class User extends Languages {
     }
 
     function RmFilesAction() {
-        $this->_modelFiles = new mFiles();
-        $this->_modelFiles->setIdOwner($_SESSION['id']);
+        $this->_modelFiles = new m\Files();
+        $this->_modelFiles->id_owner = $_SESSION['id'];
 
         $total_size = 0;
         if(!isset($_POST['path']))
@@ -198,8 +202,8 @@ class User extends Languages {
                         $total_size += $this->rmFile($path, $files[$i]);
                 }
                 // Decrement storage counter
-                $this->_modelStorage = new mStorage();
-                $this->_modelStorage->setIdUser($_SESSION['id']);
+                $this->_modelStorage = new m\Storage();
+                $this->_modelStorage->id_user = $_SESSION['id'];
                 $this->_modelStorage->decrementSizeStored($total_size);
             }
         }
@@ -222,7 +226,7 @@ class User extends Languages {
     function rmFolder($path, $name) {
         if(!isset($this->_modelFiles)) {
             $this->_modelFiles = new mFiles();
-            $this->_modelFiles->setIdOwner($_SESSION['id']);
+            $this->_modelFiles->id_owner = $_SESSION['id'];
         }
         
         if(is_dir(NOVA.'/'.$_SESSION['id'].'/'.$path.$name)) {
@@ -235,8 +239,8 @@ class User extends Languages {
     }
 
     function RmFoldersAction() {
-        $this->_modelFiles = new mFiles();
-        $this->_modelFiles->setIdOwner($_SESSION['id']);
+        $this->_modelFiles = new m\Files();
+        $this->_modelFiles->id_owner = $_SESSION['id'];
 
         $total_size = 0;
 
@@ -253,8 +257,8 @@ class User extends Languages {
                         $total_size += $this->rmFolder($path, $folders[$i]);
                 }
                 // Decrement storage counter
-                $this->_modelStorage = new mStorage();
-                $this->_modelStorage->setIdUser($_SESSION['id']);
+                $this->_modelStorage = new m\Storage();
+                $this->_modelStorage->id_user = $_SESSION['id'];
                 $this->_modelStorage->decrementSizeStored($total_size);
             }
         }
@@ -275,8 +279,8 @@ class User extends Languages {
     
     function DownloadAction($id) {
         if(!isset($this->_modelFiles)) {
-            $this->_modelFiles = new mFiles();
-            $this->_modelFiles->setIdOwner($_SESSION['id']);
+            $this->_modelFiles = new m\Files();
+            $this->_modelFiles->id_owner = $_SESSION['id'];
         }
         
         if(is_numeric($id)) {

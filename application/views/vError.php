@@ -4,8 +4,8 @@
 	* @description     : Error view
 	* @authors         : Romain Claveau <romain.claveau@protonmail.ch>, Dylan Clement <dylanclement7@protonmail.ch>
 	*/
-
-    $_t = new Template("Error");
+    use \library\MVC as l;
+    $_t = new l\Template("Error");
     $_t->addCss("home_global");
     $_t->getHeader();
 ?>

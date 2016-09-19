@@ -1,5 +1,12 @@
 <?php
 // This file is always called
+/*
+use \application\controllers as c;
+use \application\models as m;
+use \application\views as v;
+use \config as conf;*/
+use \library\MVC as l;
+//
 session_start();
 require_once("./config/autoload.php");
 
@@ -34,13 +41,13 @@ function echo_h($str) {
 
 // Banned session (anti-bruteforce)
 if(!empty($_SESSION['banSID'])) {
-    $err = new Languages();
+    $err = new l\Languages();
     echo_h($err->txt->Error->bannedSession);
     exit;
 }
 
 /* ROUTING */
-$_routing = Routing::getInstance();
+$_routing = l\Routing::getInstance();
 $_routing->route();
 //
 ?>

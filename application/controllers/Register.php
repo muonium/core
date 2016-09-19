@@ -1,6 +1,9 @@
 <?php
+namespace application\controllers;
+use \library\MVC as l;
+use \application\models as m;
 
-class Register extends Languages {
+class Register extends l\Languages {
 
     private $_modelUser;
     private $_modelUserVal;
@@ -13,7 +16,7 @@ class Register extends Languages {
         if(!empty($_SESSION['id']))
             exit(header('Location: '.MVC_ROOT.'/Error/Error/404'));
         // Initialize the anti-bruteforce class
-        $this->_bruteforce = new AntiBruteforce();
+        $this->_bruteforce = new l\AntiBruteforce();
         $this->_bruteforce->setFolder(ROOT.DS."tmp");
         $this->_bruteforce->setSID();
         $this->_bruteforce->setNbMaxAttemptsPerHour(50);
@@ -42,13 +45,13 @@ class Register extends Languages {
                             {
                                 if(preg_match("/^[A-Za-z0-9_.-]{2,19}$/", $_POST['login']))
                                 {
-                                    $this->_modelUser = new mUsers();
+                                    $this->_modelUser = new m\Users();
 
-                                    $this->_modelUser->setEmail($_POST['mail']);
-                                    $this->_modelUser->setPassphrase(urldecode($_POST['passphrase']));
-                                    //$this->_modelUser->setPassphrase($_POST['passphrase']);
-                                    $this->_modelUser->setPassword($_POST['pass']);
-                                    $this->_modelUser->setLogin($_POST['login']);
+                                    $this->_modelUser->email = $_POST['mail'];
+                                    $this->_modelUser->passphrase = urldecode($_POST['passphrase']);
+                                    //$this->_modelUser->passphrase = $_POST['passphrase'];
+                                    $this->_modelUser->password = $_POST['pass'];
+                                    $this->_modelUser->login = $_POST['login'];
 
                                     if(!($this->_modelUser->EmailExists()))
                                     {
@@ -64,19 +67,19 @@ class Register extends Languages {
                                                 $_SESSION['id'] = $id_user;
                                                 $key = hash('sha512', uniqid(rand(), true));
 
-                                                $this->_modelStorage = new mStorage();
-                                                $this->_modelStorage->setIdUser($id_user);
+                                                $this->_modelStorage = new m\Storage();
+                                                $this->_modelStorage->id_user = $id_user;
                                                 $this->_modelStorage->Insertion();
 
-                                                $this->_modelUserVal = new mUserValidation();
-                                                $this->_modelUserVal->setIdUser($id_user);
-                                                $this->_modelUserVal->setKey($key);
+                                                $this->_modelUserVal = new m\UserValidation();
+                                                $this->_modelUserVal->id_user = $id_user;
+                                                $this->_modelUserVal->val_key = $key;
                                                 $this->_modelUserVal->Insert();
 
-                                                $this->_mail = new Mail();
-                                                $this->_mail->setTo($_POST['mail']);
-                                                $this->_mail->setSubject($this->txt->Register->subject);
-                                                $this->_mail->setMessage(str_replace("[id_user]", $id_user, str_replace("[key]", $key, $this->txt->Register->message)));
+                                                $this->_mail = new l\Mail();
+                                                $this->_mail->_to = $_POST['mail'];
+                                                $this->_mail->_subject = $this->txt->Register->subject;
+                                                $this->_mail->_message = str_replace("[id_user]", $id_user, str_replace("[key]", $key, $this->txt->Register->message));
                                                 $this->_mail->send();
 
                                                 // Create user folder

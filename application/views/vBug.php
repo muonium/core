@@ -4,8 +4,8 @@
 	* @description     : Notify a bug view
 	* @authors         : Dylan Clement <dylanclement7@protonmail.ch>
 	*/
-
-    $_t = new Template($this->txt->Global->bug);
+    use \library\MVC as l;
+    $_t = new l\Template($this->txt->Global->bug);
     $_t->addCss("home_global");
     $_t->addCss("Interface/new_design");
     $_t->getHeader();

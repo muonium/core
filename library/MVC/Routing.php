@@ -1,4 +1,6 @@
 <?php
+namespace library\MVC;
+
 class Routing {
 
 	private static $instance;
@@ -15,13 +17,6 @@ class Routing {
 	function route() {
 
 		$appel_url = addslashes($_SERVER['REQUEST_URI']);
-        
-        // We remove the first directory of the url and we keep only the last part
-        //if(!($pos = strpos($appel_url, '/', 1)))
-        //    $appel_url = "";
-        //else {
-        //    $appel_url = substr($appel_url, $pos);
-        //}
         
         $appel_url = str_replace(MVC_ROOT, "", $appel_url);
         if($appel_url[0] == "/")
@@ -68,8 +63,9 @@ class Routing {
 		}		
 		else
 			require_once(DIR_CLASS.'/'.$_controller.'.php');
+        $c = '\application\controllers\\'.$_controller;
 
-		if (!class_exists($_controller))
+		if (!class_exists($c))
 		{
             // Error : Class doesn't exists
 			header('Location: '.MVC_ROOT.'/Error/Error/404');
@@ -77,7 +73,7 @@ class Routing {
 		else
 		{
             // Call the controller
-			$_class = new $_controller();
+			$_class = new $c();
             
             // Call a method ?
 			if(!empty($_method))
@@ -94,7 +90,7 @@ class Routing {
 					{
 						$nb_params = count($params);
 						
-						$r = new ReflectionMethod($_class, $_method);
+						$r = new \ReflectionMethod($_class, $_method);
 						
 						if($r->getNumberOfRequiredParameters() > $nb_params)
 						{
@@ -136,7 +132,7 @@ class Routing {
 					}
 					else
 					{
-						$r = new ReflectionMethod($_class, $_method);
+						$r = new \ReflectionMethod($_class, $_method);
 						if($r->getNumberOfRequiredParameters() > 0)
 						{
                             // Error : Not enough parameters for calling this method

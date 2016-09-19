@@ -1,5 +1,8 @@
 <?php
-class Error extends Languages {
+namespace application\controllers;
+use \library\MVC as l;
+
+class Error extends l\Languages {
 
     public $_error = "";
     

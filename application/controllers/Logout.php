@@ -1,4 +1,7 @@
 <?php
+namespace application\controllers;
+use \library\MVC as l;
+
 class Logout
 {
     function __construct() {

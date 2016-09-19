@@ -4,8 +4,8 @@
 	* @description     : Transfer view
 	* @authors         : Romain Claveau <romain.claveau@protonmail.ch>, Dylan Clement <dylanclement7@protonmail.ch>
 	*/
-
-    $_t = new Template($this->txt->Global->transfer);
+    use \library\MVC as l;
+    $_t = new l\Template($this->txt->Global->transfer);
     $_t->addCss("home_global");
     $_t->getHeader();
 ?>

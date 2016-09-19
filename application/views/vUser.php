@@ -4,8 +4,8 @@
 	* @description     : User view (files management)
 	* @authors         : Romain Claveau <romain.claveau@protonmail.ch>, Dylan Clement <dylanclement7@protonmail.ch>
 	*/
-
-    $_t = new Template($this->txt->Global->profile);
+    use \library\MVC as l;
+    $_t = new l\Template($this->txt->Global->profile);
     $_t->addCss("home_global");
     $_t->addCss("Interface/new_design");
     $_t->addCss("Interface/box");
@@ -13,29 +13,6 @@
     $_t->addJs("Interface/Request");
     //$_t->addScript("text/javascript","window.onload = function() {QC.init();}");
     $_t->getHeader();
-
-    /*$_user = new Utilisateur();
-    $chemin = '../nova/'.$_SESSION['Utilisateur']['idUtilisateur'];
-    $_user->setChemin($chemin);
-    $taille = $_user->getTaille();
-	$compteur  =0;
-	$arbo = $_user->getArborescenceDossier();
-	
-	
-    $mUser = new mUtilisateur();
-    $sqlUser = "
-            SELECT stockage.Taille,stockage.Type
-            FROM stockage, stockageutilisateur,utilisateur
-            WHERE  stockageutilisateur.Utilisateur_id = utilisateur.id AND stockageutilisateur.Stockage_idStockage = stockage.id AND utilisateur.idUtilisateur = :idUtilisateur";
-    $mUser->setRequete($sqlUser);
-	$mUser->setidUtilisateur($_SESSION['Utilisateur']['idUtilisateur']);
-    $stockage = $mUser->getStockage();
-    
-	
-    foreach($stockage as $key => $s) {
-        $stock = $s->getTaille();
-        $type = $s->getType();
-    }*/
 ?>
 <body>
         <header>

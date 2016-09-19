@@ -1,5 +1,8 @@
 <?php
-    class mBan extends Model {
+namespace application\models;
+use \library\MVC as l;
+
+class Ban extends l\Model {
         
         /*
             1	id        int(11)			AUTO_INCREMENT	
@@ -8,23 +11,12 @@
             4	duration  int(11)	
         */
         
-        private $id;
-        private $id_user;
-        private $reason;
-        private $duration;
+        protected $id;
+        protected $id_user;
+        protected $reason;
+        protected $duration;
         
         /* ******************** SETTER ******************** */
-        function setIdUser($id_user) {
-            $this->id_user = $id_user;
-        }
-        
-        function setReason($reason) {
-            $this->reason = $reason;
-        }
-        
-        function setDuration($duration) {
-            $this->duration = $duration;
-        }
         
         /* ******************** GETTER ******************** */
         function getId() {

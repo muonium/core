@@ -4,8 +4,8 @@
 	* @description     : Profile view (edit profile)
 	* @authors         : Dylan Clement <dylanclement7@protonmail.ch>
 	*/
-
-    $_t = new Template($this->txt->Global->user);
+    use \library\MVC as l;
+    $_t = new l\Template($this->txt->Global->user);
     $_t->addCss("home_global");
     $_t->addCss("Interface/new_design");
     $_t->addJs("Interface/global");
