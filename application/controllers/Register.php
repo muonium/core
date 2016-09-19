@@ -4,7 +4,8 @@ class Register extends Languages {
 
     private $_modelUser;
     private $_modelUserVal;
-    private $_Bruteforce;
+    private $_modelStorage;
+    private $_bruteforce;
     private $_mail;
 
     function __construct() {
@@ -12,28 +13,28 @@ class Register extends Languages {
         if(!empty($_SESSION['id']))
             exit(header('Location: '.MVC_ROOT.'/Error/Error/404'));
         // Initialize the anti-bruteforce class
-        $this->_Bruteforce = new AntiBruteforce();
-        $this->_Bruteforce->setFolder(ROOT.DS."tmp");
-        $this->_Bruteforce->setSID();
-        $this->_Bruteforce->setNbMaxAttemptsPerHour(50);
+        $this->_bruteforce = new AntiBruteforce();
+        $this->_bruteforce->setFolder(ROOT.DS."tmp");
+        $this->_bruteforce->setSID();
+        $this->_bruteforce->setNbMaxAttemptsPerHour(50);
     }
 
     function DefaultAction() {
-        include_once(DIR_VIEW.'vRegister.php');
+        require_once(DIR_VIEW.'vRegister.php');
     }
 
-    function addUserAction() {
+    function AddUserAction() {
 
         // Sleep during 3s to avoid a big number of requests (bruteforce)
         sleep(3);
-        $this->_Bruteforce->Control();
-        if($this->_Bruteforce->getError() == 0)
+        $this->_bruteforce->Control();
+        if($this->_bruteforce->getError() == 0)
         {
-            if(!empty($_POST['mail']) && !empty($_POST['login']) && !empty($_POST['pass']) && !empty($_POST['pass_confirm']) && !empty($_POST['passphrase']) && !empty($_POST['passphrase_confirm'])) 
-            {         
+            if(!empty($_POST['mail']) && !empty($_POST['login']) && !empty($_POST['pass']) && !empty($_POST['pass_confirm']) && !empty($_POST['passphrase']) && !empty($_POST['passphrase_confirm']))
+            {
                 if($_POST['pass'] == $_POST['pass_confirm'])
                 {
-                    if($_POST['passphrase'] == $_POST['passphrase_confirm']) 
+                    if($_POST['passphrase'] == $_POST['passphrase_confirm'])
                     {
                         if($_POST['pass'] != $_POST['passphrase'])
                         {
@@ -63,6 +64,10 @@ class Register extends Languages {
                                                 $_SESSION['id'] = $id_user;
                                                 $key = hash('sha512', uniqid(rand(), true));
 
+                                                $this->_modelStorage = new mStorage();
+                                                $this->_modelStorage->setIdUser($id_user);
+                                                $this->_modelStorage->Insertion();
+
                                                 $this->_modelUserVal = new mUserValidation();
                                                 $this->_modelUserVal->setIdUser($id_user);
                                                 $this->_modelUserVal->setKey($key);
@@ -73,6 +78,9 @@ class Register extends Languages {
                                                 $this->_mail->setSubject($this->txt->Register->subject);
                                                 $this->_mail->setMessage(str_replace("[id_user]", $id_user, str_replace("[key]", $key, $this->txt->Register->message)));
                                                 $this->_mail->send();
+
+                                                // Create user folder
+                                                mkdir(NOVA.'/'.$id_user, 0770);
                                                 $_SESSION['validate'] = 1;
 
                                                 echo "ok@".htmlentities($this->txt->Register->ok);
@@ -124,7 +132,7 @@ class Register extends Languages {
         }
         else {
             // Anti-bruteforce returns an error
-            echo htmlentities($this->txt->Register->{"bruteforceErr".$this->_Bruteforce->getError()});
+            echo htmlentities($this->txt->Register->{"bruteforceErr".$this->_bruteforce->getError()});
         }
     }
 };

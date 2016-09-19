@@ -16,18 +16,18 @@ class Template
 	 * Variable contenant le nom du fichier js 
 	 * @var string
 	 * */
-	private $_PathCss = "/public/css/";
+	private $_pathCss = "/public/css/";
 	/*
 	 * Chemin des fichiers javascript
 	* @var string
 	* */
-	private $_PathJs = "/public/js/";
+	private $_pathJs = "/public/js/";
 	/*
 	 * chemin des fichiers CSS
 	* @var string
 	* */
-	private $_Script = "";
-    private $_Meta = "";
+	private $_script = "";
+    private $_meta = "";
     
 	function __construct($title)
 	{
@@ -35,21 +35,21 @@ class Template
 	}
     
     function addCss($tabCss) {
-        $this->_tabCss[$tabCss]['Fichier'] = MVC_ROOT.$this->_PathCss.$tabCss.".css";
+        $this->_tabCss[$tabCss]['Fichier'] = MVC_ROOT.$this->_pathCss.$tabCss.".css";
     }
     
     function addJs($tabJs) {
-        $this->_tabJs[$tabJs]['Fichier'] = MVC_ROOT.$this->_PathJs.$tabJs.".js";
+        $this->_tabJs[$tabJs]['Fichier'] = MVC_ROOT.$this->_pathJs.$tabJs.".js";
     }
     
     function addScript($type,$contenu) {
-        $this->_Script[$type]["Type"] = $type;
-        $this->_Script[$type]["Contenu"] = $contenu;
+        $this->_script[$type]["Type"] = $type;
+        $this->_script[$type]["Contenu"] = $contenu;
     }
     
     function addMeta($name,$content) {
-        $this->_Meta[$name]["Name"] = $name;
-        $this->_Meta[$name]["Content"] = $content;
+        $this->_meta[$name]["Name"] = $name;
+        $this->_meta[$name]["Content"] = $content;
     }
     
 	function getHeader() {
@@ -68,19 +68,19 @@ class Template
                 echo "\t".'<link rel="stylesheet" type="text/css" href="'.$fichier['Fichier'].'" />'."\n";
 		}
 		
-		echo '<script type="text/javascript" src="'.MVC_ROOT.$this->_PathJs.'language.js"></script>'."\n";
+		echo '<script type="text/javascript" src="'.MVC_ROOT.$this->_pathJs.'language.js"></script>'."\n";
 		if(!empty($this->_tabJs)) {
             foreach($this->_tabJs as $id => $fichier)
                 echo '<script type="text/javascript" src="'.$fichier['Fichier'].'"></script>'."\n";
 		}
         
-        if(!empty($this->_Script)) {
-            foreach($this->_Script as $id => $fichier) 
+        if(!empty($this->_script)) {
+            foreach($this->_script as $id => $fichier) 
                 echo "\t".'<script type="'.$fichier["Type"].'"> '.$fichier["Contenu"].'</script> '."\n";
         }
 		
-        if(!empty($this->_Meta)) {
-            foreach($this->_Meta as $id => $fichier) 
+        if(!empty($this->_meta)) {
+            foreach($this->_meta as $id => $fichier) 
                 echo "\t".'<meta name="'.$fichier["Name"].'" content="'.$fichier["Content"].'" /> '."\n";
         }
 		echo '
@@ -94,5 +94,4 @@ class Template
     	{
         	echo '</html>';
     	}
-}
-?>
+};

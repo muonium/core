@@ -56,27 +56,35 @@
         </section>
         
         <section id="toolbar">
-            <div onclick="QuantaCloud.clickEvent(this,'DefaultAction','Recent')" id="toolbar_button_recents">
+            <div onclick="Muonium.clickEvent(this,'DefaultAction','Recent')" id="toolbar_button_recents">
                 <img src="<?php echo MVC_ROOT; ?>/public/pictures/toolbar/recent.svg" /><br /><?php echo_h($this->txt->Toolbar->recents); ?>
             </div>
-            <div class="selected" onclick="QuantaCloud.clickEvent(this,'DefaultAction','Favorites')" id="toolbar_button_favorite">
+            <div class="selected" onclick="Muonium.clickEvent(this,'DefaultAction','Favorites')" id="toolbar_button_favorite">
                 <img src="<?php echo MVC_ROOT; ?>/public/pictures/toolbar/favorite.svg" /><br /><?php echo_h($this->txt->Toolbar->favorites); ?>
             </div>
-            <div onclick="QuantaCloud.clickEvent(this,'DefaultAction','Home')" id="toolbar_button_general">
+            <div onclick="Muonium.clickEvent(this,'DefaultAction','Home')" id="toolbar_button_general">
                 <img src="<?php echo MVC_ROOT; ?>/public/pictures/toolbar/folder.svg" /><br /><?php echo_h($this->txt->Toolbar->general); ?>
             </div>
-            <div onclick="QuantaCloud.clickEvent(this,'DefaultAction','Sharing')" id="toolbar_button_share">
+            <div onclick="Muonium.clickEvent(this,'DefaultAction','Sharing')" id="toolbar_button_share">
                 <img src="<?php echo MVC_ROOT; ?>/public/pictures/toolbar/share.svg" /><br /><?php echo_h($this->txt->Toolbar->shared); ?>
             </div>
-            <div onclick="QuantaCloud.clickEvent(this,'DefaultAction','Transfer')" id="toolbar_button_transfers">
+            <div onclick="Muonium.clickEvent(this,'DefaultAction','Transfer')" id="toolbar_button_transfers">
                 <img src="<?php echo MVC_ROOT; ?>/public/pictures/toolbar/transfer.svg" /><br /><?php echo_h($this->txt->Toolbar->transfers); ?>
             </div>
         </section>
     
         <section id="desktop">
-            <!--<div class="file" id="f1" width="50" height="50" style="border:1px solid black">A file</div><br />
-            <div class="file" id="f2" width="50" height="50" style="border:1px solid black">A second file</div><br />
-        <div class="folder" id="d1">A folder</div><br />-->
+            <!-- Hidden upload form -->
+            <form style="display:none">
+                <input type="file" id="upFilesInput" name="files[]" multiple="multiple" style="display:none" onchange="upFiles(this.files);" />
+            </form>
+            <!-- End -->
+            
+            <div id="returnArea"></div>
+            <div id="progress"></div>
+            <div id="tree">
+                <?php $this->getTree(); ?>
+            </div>
             <img src="<?php echo MVC_ROOT; ?>/public/pictures/desktop/arrow.svg" class="arrow general" />
             
             <div id="desktop_general" class="content">

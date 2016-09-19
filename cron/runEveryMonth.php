@@ -1,5 +1,5 @@
 <?php
-include_once("run.php");
+require_once("run.php");
 
 $task = new cron();
 $task->resetPpCounter();

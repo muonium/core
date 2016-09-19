@@ -1,10 +1,9 @@
 <?php
 
-class confBDD {
-	const identDefaut = "quantacloud";
+class confDB {
+	const identDefaut = "muonium";
 	const hostDefaut = "localhost";
 	const userDefaut = "root";
 	const passDefaut = "";
 	const bddDefaut = "cloud";
-}
-?>
+};

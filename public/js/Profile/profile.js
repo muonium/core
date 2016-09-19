@@ -13,7 +13,7 @@ var changeLogin = function() {
     returnArea.innerHTML = "<img src='./public/pictures/index/loader.gif' style='height: 3vh;' />";
 
     var xhr = new XMLHttpRequest();
-    xhr.open("POST", "Profile/changeLogin", true);
+    xhr.open("POST", "Profile/ChangeLogin", true);
     xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
     xhr.onreadystatechange = function()
@@ -51,7 +51,7 @@ var changePassword = function() {
     else {
 
         var xhr = new XMLHttpRequest();
-        xhr.open("POST", "Profile/changePassword", true);
+        xhr.open("POST", "Profile/ChangePassword", true);
         xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
         xhr.onreadystatechange = function()
@@ -90,7 +90,7 @@ var changePassPhrase = function() {
     else {
 
         var xhr = new XMLHttpRequest();
-        xhr.open("POST", "Profile/changePassPhrase", true);
+        xhr.open("POST", "Profile/ChangePassPhrase", true);
         xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
         xhr.onreadystatechange = function()

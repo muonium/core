@@ -67,4 +67,4 @@
             return $req->execute(array($this->val_key, $this->id_user));
         }
     }
-?>
+

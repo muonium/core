@@ -1,5 +1,5 @@
 <?php
-require_once("config/confBDD.php");
+require_once("config/confDB.php");
 require_once("config/Mail.php");
 
 // run.php contains the cron class
@@ -19,7 +19,7 @@ class cron {
 	private $_inactiveUserMailDelay = 150;
 
 	function __construct() {
-		$this->_sql = new PDO('mysql:host='.confBDD::hostDefaut.';dbname='.confBDD::bddDefaut,confBDD::userDefaut,confBDD::passDefaut);
+		$this->_sql = new PDO('mysql:host='.confDB::hostDefaut.';dbname='.confDB::bddDefaut,confDB::userDefaut,confDB::passDefaut);
 		$this->_mail = new Mail();
 	}
 

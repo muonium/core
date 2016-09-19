@@ -26,6 +26,42 @@
             $this->size_stored = $size_stored;
         }
         
+        function incrementSizeStored($i) {
+            if(is_numeric($i)) {
+                if($i > 0) {
+                    $req = $this->_sql->prepare("UPDATE storage SET size_stored = size_stored+? WHERE id_user = ?");
+                    return $req->execute(array($i, $this->id_user));
+                }
+            }
+            return false;
+        }
+        
+        function decrementSizeStored($i) {
+            if(is_numeric($i)) {
+                if($i > 0) {
+                    $req = $this->_sql->prepare("UPDATE storage SET size_stored = size_stored-? WHERE id_user = ?");
+                    return $req->execute(array($i, $this->id_user));
+                }
+            }
+            return false;
+        }
+        
+        function updateSizeStored($i) {
+            if(is_numeric($i)) {
+                if($i > 0) {
+                    $req = $this->_sql->prepare("UPDATE storage SET size_stored = ? WHERE id_user = ?");
+                    return $req->execute(array($i, $this->id_user));
+                }
+            }
+            return false;
+        }
+        
+        function Insertion() {
+            $req = $this->_sql->prepare("INSERT INTO storage VALUES ('', ?, ?, ?)");
+            $ret = $req->execute(array($this->id_user, 2000000000, 0));   
+            return $ret;
+        }
+        
         /* ******************** GETTER ******************** */
         function getId() {
             return $this->id;
@@ -36,11 +72,21 @@
         }
         
         function getUserQuota() {
-            return $this->user_quota;
+            $req = $this->_sql->prepare("SELECT user_quota FROM storage WHERE id_user = ?");
+            $req->execute(array($this->id_user));
+            if($req->rowCount() == 0)
+                return false;
+            $res = $req->fetch();
+            return $res['user_quota'];
         }       
         
         function getSizeStored() {
-            return $this->size_stored;
+            $req = $this->_sql->prepare("SELECT size_stored FROM storage WHERE id_user = ?");
+            $req->execute(array($this->id_user));
+            if($req->rowCount() == 0)
+                return false;
+            $res = $req->fetch();
+            return $res['size_stored'];
         }
     }
-?>
+

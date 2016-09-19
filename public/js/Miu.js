@@ -1,11 +1,10 @@
 /*
-* @name         : qC.js
+* @name         : Miu.js
 * @authors      : Romain Claveau <romain.claveau@protonmail.ch>, ...
-* @description  : Méthode globale pour la gestion de l'interaction entre l'utilisateur et le serveur
-* @copyright    : (c) QC 2015
+* @copyright    : (c) Muonium 2015
 */
 
-var qC = 
+var Miu =
 {
     /*
     * @description : Initilisation globale de l'interface
@@ -20,7 +19,7 @@ var qC =
         * Suppression des données locales
         */
         sessionStorage.clear();
-        
+
         /*
         * Récupération de l'arborescence des dossiers du panneau de gauche
         */
@@ -30,11 +29,11 @@ var qC =
         {
             if(xhr.status == 200 && xhr.readyState == 4)
             {
-            
+
             }
         }
         xhr.send(null);
-        
+
         /*
         * Récupération des informations sur le quota
         */
@@ -44,11 +43,11 @@ var qC =
         {
             if(xhr.status == 200 && xhr.readyState == 4)
             {
-            
+              
             }
         }
         xhr.send(null);
-        
+
         /*
         * Récupération de l'arborescence courante
         */
@@ -58,11 +57,11 @@ var qC =
         {
             if(xhr.status == 200 && xhr.readyState == 4)
             {
-            
+
             }
         }
         xhr.send(null);
-        
+
         /*
         * Chargement des fichiers et dossiers appartenant à l'utilisateur
         */
@@ -72,14 +71,14 @@ var qC =
         {
             if(xhr.status == 200 && xhr.readyState == 4)
             {
-                qC.checkActions();
+                Miu.checkActions();
             }
         }
         xhr.send(null);
-        
+
         sessionStorage.setItem("listage", "atomic");
     },
-    
+
     /*
     * @description : Permet de sélectionner ou désélectionner un élément
     */
@@ -93,10 +92,10 @@ var qC =
         {
             element.className = element.className.replace(" selected", "");
         }
-        
-        qC.checkActions();
+
+        Miu.checkActions();
     },
-    
+
     /*
     * @description : Permet de charger les actions relatives aux éléments sélectionnés
     *   - Un fichier sélectionné : Ouvrir, Renommer, Supprimer, Copier, Couper, Télécharger, Propriétés, Favoris
@@ -111,28 +110,28 @@ var qC =
         */
         var elements = document.querySelectorAll("#panel_right_listingElements .selected");
         var container = document.querySelector("#panel_right_listingElements .actions_parentFolder");
-        
+
         /*
         * MàZ des actions
         */
         container.innerHTML = "";
-        
+
         /*
         * Traitement cas par cas, voir @description
         */
         if(elements.length == 0) // Pas d'élément
         {
-            container.innerHTML = 
-                "<div class='actions_atom element_root_folder_pos1' onclick='qC.actions.openPopUp(\"createFile\")'>" +
+            container.innerHTML =
+                "<div class='actions_atom element_root_folder_pos1' onclick='Miu.actions.openPopUp(\"createFile\")'>" +
                     "<p><img src='images/actions/create_file.svg' /></p>" +
                 "</div>" +
-                "<div class='actions_atom element_root_folder_pos3' onclick='qC.actions.openPopUp(\"createFolder\")'>" +
+                "<div class='actions_atom element_root_folder_pos3' onclick='Miu.actions.openPopUp(\"createFolder\")'>" +
                     "<p><img src='images/actions/create_folder.svg' /></p>" +
                 "</div>" +
-                "<div class='actions_atom element_root_folder_pos5' onclick='qC.actions.openPopUp(\"upload\");'>" +
+                "<div class='actions_atom element_root_folder_pos5' onclick='Miu.actions.openPopUp(\"upload\");'>" +
                     "<p><img src='images/actions/upload.svg' /></p>" +
                 "</div>" +
-                "<div class='actions_atom element_root_folder_pos7' onclick='qC.actions.paste();'>" +
+                "<div class='actions_atom element_root_folder_pos7' onclick='Miu.actions.paste();'>" +
                     "<p><img src='images/actions/paste.svg' /></p>" +
                 "</div>";
         }
@@ -140,74 +139,74 @@ var qC =
         {
             if(elements[0].getAttribute("data-type") == "folder") // 1 dossier
             {
-                container.innerHTML = 
-                    "<div class='actions_atom element_root_folder_pos1' onclick='qC.actions.open();'>" +
+                container.innerHTML =
+                    "<div class='actions_atom element_root_folder_pos1' onclick='Miu.actions.open();'>" +
                         "<p><img src='images/actions/view.svg' /></p>" +
                     "</div>" +
-                    "<div class='actions_atom element_root_folder_pos2' onclick='qC.actions.rename();'>" +
+                    "<div class='actions_atom element_root_folder_pos2' onclick='Miu.actions.rename();'>" +
                         "<p><img src='images/actions/rename.svg' /></p>" +
                     "</div>" +
-                    "<div class='actions_atom element_root_folder_pos3' onclick='qC.actions.trash();'>" +
+                    "<div class='actions_atom element_root_folder_pos3' onclick='Miu.actions.trash();'>" +
                         "<p><img src='images/actions/trash.svg' /></p>" +
                     "</div>" +
-                    "<div class='actions_atom element_root_folder_pos4' onclick='qC.actions.copy();'>" +
+                    "<div class='actions_atom element_root_folder_pos4' onclick='Miu.actions.copy();'>" +
                         "<p><img src='images/actions/copy.svg' /></p>" +
                     "</div>" +
-                    "<div class='actions_atom element_root_folder_pos5' onclick='qC.actions.cut();'>" +
+                    "<div class='actions_atom element_root_folder_pos5' onclick='Miu.actions.cut();'>" +
                         "<p><img src='images/actions/cut.svg' /></p>" +
                     "</div>" +
-                    "<div class='actions_atom element_root_folder_pos6' onclick='qC.actions.zip();'>" +
+                    "<div class='actions_atom element_root_folder_pos6' onclick='Miu.actions.zip();'>" +
                         "<p><img src='images/actions/zip.svg' /></p>" +
                     "</div>" +
-                    "<div class='actions_atom element_root_folder_pos7' onclick='qC.actions.properties();'>" +
+                    "<div class='actions_atom element_root_folder_pos7' onclick='Miu.actions.properties();'>" +
                         "<p><img src='images/actions/properties.svg' /></p>" +
                     "</div>" +
-                    "<div class='actions_atom element_root_folder_pos8' onclick='qC.actions.favorites();'>" +
+                    "<div class='actions_atom element_root_folder_pos8' onclick='Miu.actions.favorites();'>" +
                         "<p><img src='images/actions/putInFavorites.svg' /></p>" +
                     "</div>";
             }
             else // 1 fichier
             {
-                container.innerHTML = 
-                    "<div class='actions_atom element_root_folder_pos1' onclick='qC.actions.open();'>" +
+                container.innerHTML =
+                    "<div class='actions_atom element_root_folder_pos1' onclick='Miu.actions.open();'>" +
                         "<p><img src='images/actions/view.svg' /></p>" +
                     "</div>" +
-                    "<div class='actions_atom element_root_folder_pos2' onclick='qC.actions.rename();'>" +
+                    "<div class='actions_atom element_root_folder_pos2' onclick='Miu.actions.rename();'>" +
                         "<p><img src='images/actions/rename.svg' /></p>" +
                     "</div>" +
-                    "<div class='actions_atom element_root_folder_pos3' onclick='qC.actions.trash();'>" +
+                    "<div class='actions_atom element_root_folder_pos3' onclick='Miu.actions.trash();'>" +
                         "<p><img src='images/actions/trash.svg' /></p>" +
                     "</div>" +
-                    "<div class='actions_atom element_root_folder_pos4' onclick='qC.actions.copy();'>" +
+                    "<div class='actions_atom element_root_folder_pos4' onclick='Miu.actions.copy();'>" +
                         "<p><img src='images/actions/copy.svg' /></p>" +
                     "</div>" +
-                    "<div class='actions_atom element_root_folder_pos5' onclick='qC.actions.cut();'>" +
+                    "<div class='actions_atom element_root_folder_pos5' onclick='Miu.actions.cut();'>" +
                         "<p><img src='images/actions/cut.svg' /></p>" +
                     "</div>" +
-                    "<div class='actions_atom element_root_folder_pos6' onclick='qC.actions.download();'>" +
+                    "<div class='actions_atom element_root_folder_pos6' onclick='Miu.actions.download();'>" +
                         "<p><img src='images/actions/download.svg' /></p>" +
                     "</div>" +
-                    "<div class='actions_atom element_root_folder_pos7' onclick='qC.actions.properties();'>" +
+                    "<div class='actions_atom element_root_folder_pos7' onclick='Miu.actions.properties();'>" +
                         "<p><img src='images/actions/properties.svg' /></p>" +
                     "</div>" +
-                    "<div class='actions_atom element_root_folder_pos8' onclick='qC.actions.favorites();'>" +
+                    "<div class='actions_atom element_root_folder_pos8' onclick='Miu.actions.favorites();'>" +
                         "<p><img src='images/actions/putInFavorites.svg' /></p>" +
                     "</div>";
             }
         }
         else // Plusieurs éléments
         {
-            container.innerHTML = 
-                "<div class='actions_atom element_root_folder_pos1' onclick='qC.actions.trash();'>" +
+            container.innerHTML =
+                "<div class='actions_atom element_root_folder_pos1' onclick='Miu.actions.trash();'>" +
                     "<p><img src='images/actions/trash.svg' /></p>" +
                 "</div>" +
-                "<div class='actions_atom element_root_folder_pos3' onclick='qC.actions.copy();'>" +
+                "<div class='actions_atom element_root_folder_pos3' onclick='Miu.actions.copy();'>" +
                     "<p><img src='images/actions/copy.svg' /></p>" +
                 "</div>" +
-                "<div class='actions_atom element_root_folder_pos5' onclick='qC.actions.cut();'>" +
+                "<div class='actions_atom element_root_folder_pos5' onclick='Miu.actions.cut();'>" +
                     "<p><img src='images/actions/cut.svg' /></p>" +
                 "</div>" +
-                "<div class='actions_atom element_root_folder_pos7' onclick='qC.actions.zip();'>" +
+                "<div class='actions_atom element_root_folder_pos7' onclick='Miu.actions.zip();'>" +
                     "<p><img src='images/actions/zip.svg' /></p>" +
                 "</div>";
         }

@@ -68,4 +68,3 @@ class Mail
 		return false;
     }
 };
-?>

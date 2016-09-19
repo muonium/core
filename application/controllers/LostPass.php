@@ -22,13 +22,13 @@ class LostPass extends Languages {
             $this->_modelUser = new mUsers();
             $this->_modelUser->setId($_SESSION['changePassId']);
             $this->ppCounter = $this->_modelUser->getPpCounter();
-            include_once(DIR_VIEW."vLostPassForm.php");
+            require_once(DIR_VIEW."vLostPassForm.php");
         }
         else
-            include_once(DIR_VIEW."vLostPass.php");
+            require_once(DIR_VIEW."vLostPass.php");
     }
 
-    function resetPassAction() {
+    function ResetPassAction() {
         // Called by lostPass.js
         if(!empty($_SESSION['changePassId']) && !empty($_SESSION['changePassKey'])) {
             if(is_numeric($_SESSION['changePassId']) && strlen($_SESSION['changePassKey']) == 128) {
@@ -138,7 +138,7 @@ class LostPass extends Languages {
         if($this->_modelUserLostPass->getKey() != $this->val_key || $this->_modelUserLostPass->getExpire() < time()) {
             // Different key, send a new mail ?
             $this->err_msg = $this->txt->LostPass->errmessage;
-            include_once(DIR_VIEW."vLostPass.php");
+            require_once(DIR_VIEW."vLostPass.php");
         }
         else {
             // Same keys, redirect and show form to change password or passphrase
@@ -148,12 +148,12 @@ class LostPass extends Languages {
         }
     }
 
-    function sendMailAction() {
+    function SendMailAction() {
         // Send AGAIN lost pass mail with validation key
         sleep(1);
 
         if(!isset($_POST['user']))
-            include_once(DIR_VIEW."vLostPass.php");
+            require_once(DIR_VIEW."vLostPass.php");
         else {
             $user = $_POST['user'];
 
@@ -165,7 +165,7 @@ class LostPass extends Languages {
                 if($_SESSION['sendMail']+60 > time()) {
                     $w = 1;
                     $this->err_msg = $this->txt->Validate->wait;
-                    include_once(DIR_VIEW."vLostPass.php");
+                    require_once(DIR_VIEW."vLostPass.php");
                 }
             }
 
@@ -207,7 +207,7 @@ class LostPass extends Languages {
                 $_SESSION['sendMail'] = time();
                 
                 $this->err_msg = $this->txt->Global->mail_sent;
-                include_once(DIR_VIEW."vLostPass.php");
+                require_once(DIR_VIEW."vLostPass.php");
             }
         }
     }

@@ -32,9 +32,9 @@ class Routing {
 		// We remove useless "/"
 		$this->clear_empty_value($arguments);
 		// Number of arguments
-		$nbArgs = count($arguments);
+		$nb_args = count($arguments);
 
-		if($nbArgs == 0) // No arguments, we'll display default page
+		if($nb_args == 0) // No arguments, we'll display default page
 		{
 			$_controller = DEFAULT_CONTROLLER;
 			$_method = DEFAULT_FUNCTION;
@@ -45,15 +45,15 @@ class Routing {
 			$_controller = $arguments[0];
 			
             // More arguments ?
-			if($nbArgs > 1)
+			if($nb_args > 1)
 			{
                 // Method is the second argument
                 // We add "Action" suffix to tell that it's a method called in the url (to differentiate with other methods)
 				$_method = $arguments[1].'Action';
-				if($nbArgs > 2)
+				if($nb_args > 2)
 				{
                     // If there are more arguments, then these are the parameters
-					for($i = 2; $i < $nbArgs; $i++)
+					for($i = 2; $i < $nb_args; $i++)
 					{
 						$params[$i-2] = $arguments[$i];
 					}
@@ -92,18 +92,18 @@ class Routing {
                     // Are there parameters ?
 					if(!empty($params))
 					{
-						$nbParams = count($params);
+						$nb_params = count($params);
 						
 						$r = new ReflectionMethod($_class, $_method);
 						
-						if($r->getNumberOfRequiredParameters() > $nbParams)
+						if($r->getNumberOfRequiredParameters() > $nb_params)
 						{
                             // Error : Not enough parameters for calling this method
 							header('Location: '.MVC_ROOT.'/Error/Error/404');
 						}
 						else
                         {
-							switch($nbParams) {
+							switch($nb_params) {
                                 case 1:
                                     $_class->$_method($params['0']);
                                     break;
@@ -168,5 +168,4 @@ class Routing {
 		}
 		$array = array_values($array);
 	}
-}
-?>
+};
