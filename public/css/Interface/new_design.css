@@ -414,3 +414,7 @@ section#desktop div#desktop_general div#rightPanel table tr td img
 {
     cursor: pointer;
 }
+
+.undefined {
+    font-style: italic; 
+}

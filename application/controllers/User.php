@@ -57,7 +57,7 @@ class User extends l\Languages {
                         $exists = 0;
                         if(file_exists(NOVA.'/'.$_SESSION['id'].'/'.$path.$_FILES['upload']['name'][$i]))
                             $exists = 1; // File already exists
-                        
+
                         if(move_uploaded_file($tmpFilePath, NOVA.'/'.$_SESSION['id'].'/'.$path.$_FILES['upload']['name'][$i])) {
                             // File uploaded without errors
 
@@ -146,7 +146,10 @@ class User extends l\Languages {
                         $i++;
                     }
                     else {
-                        echo '<span class="file" id="f'.$files[$entry]['0'].'" onclick="addSelection(this.id)">'.$entry.' ['.$this->showSize($files[$entry]['1']).'] - '.$this->txt->User->lastmod.' : '.date('d/m/Y G:i', $files[$entry]['2']).'</span>';
+                        if(!array_key_exists($entry, $files)) // file not in database (for debugging)
+                            echo '<span class="undefined">'.$entry.'</span>';
+                        else
+                            echo '<span class="file" id="f'.$files[$entry]['0'].'" onclick="addSelection(this.id)">'.$entry.' ['.$this->showSize($files[$entry]['1']).'] - '.$this->txt->User->lastmod.' : '.date('d/m/Y G:i', $files[$entry]['2']).'</span>';
                     }
                 }
             }
@@ -171,7 +174,7 @@ class User extends l\Languages {
             $this->_modelFiles = new m\Files();
             $this->_modelFiles->id_owner = $_SESSION['id'];
         }
-        
+
         if(is_numeric($id)) {
             if($filename = $this->_modelFiles->getFilename($id)) {
                 if(file_exists(NOVA.'/'.$_SESSION['id'].'/'.$path.$filename)) {
@@ -228,7 +231,7 @@ class User extends l\Languages {
             $this->_modelFiles = new mFiles();
             $this->_modelFiles->id_owner = $_SESSION['id'];
         }
-        
+
         if(is_dir(NOVA.'/'.$_SESSION['id'].'/'.$path.$name)) {
             $this->rmRdir(NOVA.'/'.$_SESSION['id'].'/'.$path.$name);
             // delete files in database
@@ -276,13 +279,13 @@ class User extends l\Languages {
 
         return round(pow(1024, $base - floor($base)), $precision) .' '. $suffixes[floor($base)];
     }
-    
+
     function DownloadAction($id) {
         if(!isset($this->_modelFiles)) {
             $this->_modelFiles = new m\Files();
             $this->_modelFiles->id_owner = $_SESSION['id'];
         }
-        
+
         if(is_numeric($id)) {
             if($filename = $this->_modelFiles->getFilename($id)) {
                 if(file_exists(NOVA.'/'.$_SESSION['id'].'/'.$path.$filename)) { 
@@ -304,34 +307,132 @@ class User extends l\Languages {
         }
     }
 
-    //
-    // Functions below could be modified
-    //
+    function recurse_copy($src, $dst) {
+        // Thank you "gimmicklessgpt at gmail dot com" from php.net for this function
+        $dir = opendir($src); 
+        @mkdir($dst, 0770); 
+        while(false !== ( $file = readdir($dir)) ) { 
+            if (( $file != '.' ) && ( $file != '..' )) { 
+                if ( is_dir($src . '/' . $file) ) { 
+                    recurse_copy($src . '/' . $file, $dst . '/' . $file); 
+                } 
+                else { 
+                    copy($src . '/' . $file, $dst . '/' . $file); 
+                } 
+            } 
+        } 
+        closedir($dir); 
+    }
+    
+    function addSuffixe($file, $suffixe) {
+        /*$double_extensions = array(
+            'tar.gz',
+            'tar.bz',
+            'tar.xz',
+            'tar.bz2'
+        );*/
 
-    /*function getLastModification($chemin) {
-        $lstat = lstat($chemin);
-        $mtime = date('d/m/Y H:i', $lstat['mtime']);
-        return $mtime;
+        $pos = strpos($file, '.');
+        if($pos === false)
+            return $file.$suffixe;
 
+        $first = substr($file, 0, $pos);
+        $last = substr($file, $pos);
+        return $first.$suffixe.$last;
     }
 
-    function getTailleDossier($chemin) {
-        $this->_Size = 0;
-        //$lstat = lstat($chemin);
-        //$this->_Size += $lstat['size'];
-        //echo $this->_Size;
-        $pDossier = opendir($chemin);
-        while($file = readdir($pDossier)){
-            if($file != '.' && $file != '..') {
-                $pathfile = $chemin.'/'.$file;
-                $lstat = lstat($pathfile);
-                //echo $lstat['size'];
-                $this->_Size += $lstat['size'];
+    function MvAction() {
+        // $copy : 0 => cut, 1 => copy
+        $this->_modelFiles = new m\Files();
+        $this->_modelFiles->id_owner = $_SESSION['id'];
+
+        if(!isset($_POST['copy']))
+            $copy = 0;
+        else {
+            if($_POST['copy'] == 1)
+                $copy = 1;
+            else
+                $copy = 0;
+        }
+
+        if(!isset($_POST['path']))
+            $path = '';
+        else
+            $path = urldecode($_POST['path']);
+
+        if(!isset($_POST['old_path']))
+            $old_path = '';
+        else
+            $old_path = urldecode($_POST['old_path']);
+
+        if(!isset($_POST['files']) && !isset($_POST['folders']))
+            return;
+
+
+        if(is_dir(NOVA.'/'.$_SESSION['id'].'/'.$path) && is_dir(NOVA.'/'.$_SESSION['id'].'/'.$old_path)) {
+            if(!empty($_POST['files'])) {
+                $files = explode("|", urldecode($_POST['files']));
+                if($copy == 0 && $path != $old_path) {
+                    // cut and paste files
+                    for($i=0;$i<count($files);$i++) {
+                        if(is_numeric($files[$i])) {
+                            // To do : change file path in db
+
+                            if(!($filename = $this->_modelFiles->getFilename($files[$i])))
+                                continue;
+                            if(file_exists(NOVA.'/'.$_SESSION['id'].'/'.$old_path.$filename))
+                                rename(NOVA.'/'.$_SESSION['id'].'/'.$old_path.$filename, NOVA.'/'.$_SESSION['id'].'/'.$path.$filename);
+                        }
+                    }
+                }
+                elseif($copy == 1) {
+                    // copy and paste files
+                    for($i=0;$i<count($files);$i++) {
+                        if(is_numeric($files[$i])) {
+                            // To do : calculate file size and check if there is enough free space
+                            // To do : add all new copied files in db, update size_stored
+
+                            if(!($filename = $this->_modelFiles->getFilename($files[$i])))
+                                continue;
+                            if(file_exists(NOVA.'/'.$_SESSION['id'].'/'.$old_path.$filename)) {
+                                if($path == $old_path)
+                                    copy(NOVA.'/'.$_SESSION['id'].'/'.$old_path.$filename, NOVA.'/'.$_SESSION['id'].'/'.$path.$this->addSuffixe($filename, ' (Copy)'));
+                                else
+                                    copy(NOVA.'/'.$_SESSION['id'].'/'.$old_path.$filename, NOVA.'/'.$_SESSION['id'].'/'.$path.$filename);
+                            }
+                        }
+                    }
+                }
+            }
+
+            if(!empty($_POST['folders'])) {
+                $folders = explode("|", urldecode($_POST['folders']));
+                if($copy == 0 && $path != $old_path) {
+                    // cut and paste folders
+                    for($i=0;$i<count($folders);$i++) {
+                        if(is_dir(NOVA.'/'.$_SESSION['id'].'/'.$old_path.$folders[$i])) {
+                            rename(NOVA.'/'.$_SESSION['id'].'/'.$old_path.$folders[$i], NOVA.'/'.$_SESSION['id'].'/'.$path.$folders[$i]);
+
+                            // To do : rename in db all files with this old_path/folder_name to new_path/folder_name
+                        }
+                    }
+                }
+                elseif($copy == 1) {
+                    // copy and paste folders
+                    for($i=0;$i<count($folders);$i++) {
+                        // To do : calculate folder size and check if there is enough free space
+                        // To do : add all new copied files in db, update size_stored
+
+                        if(is_dir(NOVA.'/'.$_SESSION['id'].'/'.$old_path.$folders[$i])) {
+                            if($path == $old_path)
+                                $this->recurse_copy(NOVA.'/'.$_SESSION['id'].'/'.$old_path.$folders[$i], NOVA.'/'.$_SESSION['id'].'/'.$path.$folders[$i].' (Copy)');
+                            else
+                                $this->recurse_copy(NOVA.'/'.$_SESSION['id'].'/'.$old_path.$folders[$i], NOVA.'/'.$_SESSION['id'].'/'.$path.$folders[$i]);
+                        }
+                    }
+                }
             }
         }
-        closedir($pDossier);
-
     }
-    */
 }
 ?>

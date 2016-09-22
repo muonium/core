@@ -16,8 +16,9 @@ var Box;
 var Area = 0; // 0 : desktop div, 1 : file, 2 : folder
 var addSel = 0; // 1 => add a new selection
 
-var Move = ''; // Var which contains file/folder id cut/copied
+var Move = []; // Contains file(s)/folder(s) id cut/copied
 var Copy = 0; // 0 : cut, 1 : copy
+var mvPath = ''; // path where files/folders to move are located
 
 var selected = []; // selected files/folders
 
@@ -65,7 +66,9 @@ var box = class {
         switch(Area) {
             //over nothing
             case 0:
-                this.box_div.innerHTML = '<p onclick="nFolder()">'+txt.RightClick.nFolder+'</p><p onclick="upFilesDialog()">'+txt.RightClick.upFiles+'</p><hr><p onclick="logout()">'+txt.RightClick.logOut+'</p>';
+                this.box_div.innerHTML = '<p onclick="nFolder()">'+txt.RightClick.nFolder+'</p><p onclick="upFilesDialog()">'+txt.RightClick.upFiles+'</p>';
+                if(Move.length > 0) { this.box_div.innerHTML += '<hr><p onclick="paste(\''+id+'\')">'+txt.RightClick.paste+'</p>'; }
+                this.box_div.innerHTML += '<hr><p onclick="logout()">'+txt.RightClick.logOut+'</p>';
                 break;
             //mouse over a file
             case 1:
@@ -253,7 +256,7 @@ var verifFolderName = function(evt) {
         nFolder();
         return false;
     }
-    var interdit = '/\\:*?<>|" ';
+    var interdit = '/\\:*?<>|"';
     if (interdit.indexOf(String.fromCharCode(keyCode)) >= 0)
         return false;
     return true;
@@ -408,27 +411,74 @@ var selectAll = function() {
 }
 
 var cut = function(id) {
-    Move = id;
+    document.querySelector("#box").style.display="none";
     Copy = 0;
+    Move = []; // reset
+    if(selected.length == 0) {
+        // cut only the file selected
+        Move.push(id);
+    }
+    else {
+        // cut all selected files
+        Move = selected;
+    }
+    mvPath = path;
 }
 
 var copy = function(id) {
-    Move = id;
+    document.querySelector("#box").style.display="none";
     Copy = 1;
+    Move = []; // reset
+    if(selected.length == 0) {
+        // copy only the file selected
+        Move.push(id);
+    }
+    else {
+        // copy all selected files
+        Move = selected;
+    }
+    mvPath = path;
 }
 
 var paste = function() {
+    document.querySelector("#box").style.display="none";
     var id = 0;
-    if(Move.length > 1) {
-        id = Move.substr(1);
-        if(isNumeric(id)) {
-            if(Move.substr(0, 1) == 'f') {
-                // file
-            }
-            else if(Move.substr(0, 1) == 'd') {
-                // folder
+    var folderName;
+    
+    var folders = [];
+    var files = [];
+    
+    if(Move.length > 0) {
+        for(var i=0; i<Move.length; i++) {
+            if(Move[i].length > 0) {
+                if(Move[i].substr(0, 1) == 'd') {
+                    if(folderName = getFolderName(Move[i]))
+                        folders.push(folderName);
+                }
+                else if(Move[i].substr(0, 1) == 'f' && Move[i].length > 1) {
+                    id = Move[i].substr(1);
+                    if(isNumeric(id))
+                        files.push(id);
+                }
             }
         }
+        
+        folders = encodeURIComponent(folders.join('|'));
+        files = encodeURIComponent(files.join('|'));
+        
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "User/Mv", true);
+        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+        xhr.onreadystatechange = function()
+        {
+            if(xhr.status == 200 && xhr.readyState == 4)
+            {
+                console.log(xhr.responseText);
+                //openDir(path);
+            }
+        }
+        xhr.send("copy="+Copy+"&path="+encodeURIComponent(path)+"&old_path="+encodeURIComponent(mvPath)+"&files="+files+"&folders="+folders);
     }
 }
 
