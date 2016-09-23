@@ -58,6 +58,10 @@ Your code must be tested before to be merged in the master branch.
 ##Version
 We're using PHP version 5.6
 
+# Support
+- We do not support IE.
+- We support only the recent web browsers.
+
 # Directories
 core/ : web application
 nova/ : where the users datum are stored
