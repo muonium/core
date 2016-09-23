@@ -49,7 +49,7 @@ class Files extends l\Model {
             }
             else {
                 $req = $this->_sql->prepare("SELECT size FROM files WHERE id_owner = ? AND id = ?");
-                $req->execute(array($_SESSION['id'], $id));
+                $req->execute(array($_SESSION['id'], $this->id));
             }
                 
             if($req->rowCount() == 0)
@@ -111,6 +111,16 @@ class Files extends l\Model {
             $req = $this->_sql->prepare("UPDATE files SET size = ?, last_modification = ? WHERE id_owner = ? AND file = ? AND dir = ?");
             $ret = $req->execute(array($this->size, $this->last_modification, $_SESSION['id'], $this->name, $path));
             return (($this->size)-$old_size);
+        }
+    
+        function updateDir() {
+            $req = $this->_sql->prepare("UPDATE files SET dir = ? WHERE id_owner = ? AND id = ?");
+            return $req->execute(array($this->{'dir'}, $_SESSION['id'], $this->id));
+        }
+    
+        function renameDir($old, $new) {
+            $req = $this->_sql->prepare("UPDATE files SET dir = (? + SUBSTRING(dir, ".strlen($old).")) WHERE id_owner = ? AND dir LIKE ?");
+            return $req->execute(array($new, $_SESSION['id'], $old.'%'));
         }
         
         function deleteFile($id) {

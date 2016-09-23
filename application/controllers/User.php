@@ -308,43 +308,79 @@ class User extends l\Languages {
     }
 
     function recurse_copy($src, $dst) {
-        // Thank you "gimmicklessgpt at gmail dot com" from php.net for this function
+        // Thank you "gimmicklessgpt at gmail dot com" from php.net for the base code
+        // recurse_copy add also new files in db
+        $this->_modelFiles = new m\Files();
+        $this->_modelFiles->id_owner = $_SESSION['id'];
         $dir = opendir($src); 
         @mkdir($dst, 0770); 
-        while(false !== ( $file = readdir($dir)) ) { 
-            if (( $file != '.' ) && ( $file != '..' )) { 
-                if ( is_dir($src . '/' . $file) ) { 
-                    recurse_copy($src . '/' . $file, $dst . '/' . $file); 
+        while(false !== ($file = readdir($dir))) { 
+            if (($file != '.') && ($file != '..')) { 
+                if(is_dir($src.'/'.$file)) { 
+                    recurse_copy($src.'/'.$file, $dst.'/'.$file); 
                 } 
                 else { 
-                    copy($src . '/' . $file, $dst . '/' . $file); 
-                } 
+                    copy($src.'/'. $file, $dst.'/'.$file);
+                    // Add the new file in db
+                    $this->_modelFiles->name = $file;
+                    $this->_modelFiles->last_modification = time();
+                    $this->_modelFiles->size = filesize($dst.'/'.$file);
+                    $this->_modelFiles->addNewFile($dst.'/'); // to change
+                    //
+                }
             } 
         } 
         closedir($dir); 
     }
     
     function addSuffixe($file, $suffixe) {
-        /*$double_extensions = array(
+        $double_extensions = array(
             'tar.gz',
             'tar.bz',
             'tar.xz',
             'tar.bz2'
-        );*/
+        );
 
         $pos = strpos($file, '.');
         if($pos === false)
             return $file.$suffixe;
 
-        $first = substr($file, 0, $pos);
-        $last = substr($file, $pos);
-        return $first.$suffixe.$last;
+        $pathinfo = pathinfo($file);
+        if(empty($pathinfo['extension']))
+            return $file.$suffixe;
+
+        $file_length = strlen($file);
+        for($i=0;$i<count($double_extensions);$i++) {
+            $length = strlen($double_extensions[$i])+1;
+            if($file_length > $length) {
+                $end = substr($file, -1*$length);
+                if('.'.$double_extensions[$i] == $end) {
+                    $start = substr($file, 0, $file_length-$length);
+                    return $start.$suffixe.$end;
+                }
+            }
+        }
+
+        return $pathinfo['filename'].$suffixe.'.'.$pathinfo['extension'];
+    }
+    
+    function getFolderSize($path) {
+        $size = 0;
+        foreach(glob("{$path}/*") as $file)
+        {
+            if(is_dir($file))
+                $this->getFolderSize($file);
+            else
+                $size += filesize($file);
+        }
+        return $size;
     }
 
     function MvAction() {
         // $copy : 0 => cut, 1 => copy
         $this->_modelFiles = new m\Files();
         $this->_modelFiles->id_owner = $_SESSION['id'];
+        $this->_modelFiles->{'dir'} = $path;
 
         if(!isset($_POST['copy']))
             $copy = 0;
@@ -368,37 +404,55 @@ class User extends l\Languages {
         if(!isset($_POST['files']) && !isset($_POST['folders']))
             return;
 
+        $this->_modelStorage = new m\Storage();
+        $this->_modelStorage->id_user = $_SESSION['id'];
+        $quota = $this->_modelStorage->getUserQuota();
+        $stored = $this->_modelStorage->getSizeStored();
 
         if(is_dir(NOVA.'/'.$_SESSION['id'].'/'.$path) && is_dir(NOVA.'/'.$_SESSION['id'].'/'.$old_path)) {
             if(!empty($_POST['files'])) {
                 $files = explode("|", urldecode($_POST['files']));
                 if($copy == 0 && $path != $old_path) {
+                    //
                     // cut and paste files
+                    //
                     for($i=0;$i<count($files);$i++) {
                         if(is_numeric($files[$i])) {
-                            // To do : change file path in db
-
                             if(!($filename = $this->_modelFiles->getFilename($files[$i])))
                                 continue;
-                            if(file_exists(NOVA.'/'.$_SESSION['id'].'/'.$old_path.$filename))
+                            if(file_exists(NOVA.'/'.$_SESSION['id'].'/'.$old_path.$filename)) {
                                 rename(NOVA.'/'.$_SESSION['id'].'/'.$old_path.$filename, NOVA.'/'.$_SESSION['id'].'/'.$path.$filename);
+                                $this->_modelFiles->id = $files[$i];
+                                $this->_modelFiles->updateDir();
+                            }
                         }
                     }
                 }
                 elseif($copy == 1) {
+                    //
                     // copy and paste files
+                    //
                     for($i=0;$i<count($files);$i++) {
                         if(is_numeric($files[$i])) {
-                            // To do : calculate file size and check if there is enough free space
-                            // To do : add all new copied files in db, update size_stored
-
                             if(!($filename = $this->_modelFiles->getFilename($files[$i])))
                                 continue;
                             if(file_exists(NOVA.'/'.$_SESSION['id'].'/'.$old_path.$filename)) {
-                                if($path == $old_path)
-                                    copy(NOVA.'/'.$_SESSION['id'].'/'.$old_path.$filename, NOVA.'/'.$_SESSION['id'].'/'.$path.$this->addSuffixe($filename, ' (Copy)'));
-                                else
-                                    copy(NOVA.'/'.$_SESSION['id'].'/'.$old_path.$filename, NOVA.'/'.$_SESSION['id'].'/'.$path.$filename);
+                                $this->_modelFiles->id = $files[$i];
+                                $this->_modelFiles->size = filesize(NOVA.'/'.$_SESSION['id'].'/'.$old_path.$filename);
+                                if($stored+$this->_modelFiles->size <= $quota) {
+                                    $stored += $this->_modelFiles->size;
+                                    $this->_modelFiles->last_modification = time();
+                                    
+                                    if($path == $old_path) {
+                                        $this->_modelFiles->name = $this->addSuffixe($filename, ' (Copy)');
+                                        copy(NOVA.'/'.$_SESSION['id'].'/'.$old_path.$filename, NOVA.'/'.$_SESSION['id'].'/'.$path.$this->_modelFiles->name);
+                                    }
+                                    else {
+                                        $this->_modelFiles->name = $filename;
+                                        copy(NOVA.'/'.$_SESSION['id'].'/'.$old_path.$filename, NOVA.'/'.$_SESSION['id'].'/'.$path.$filename);
+                                    }
+                                    $this->_modelFiles->addNewFile($path);
+                                }
                             }
                         }
                     }
@@ -408,30 +462,37 @@ class User extends l\Languages {
             if(!empty($_POST['folders'])) {
                 $folders = explode("|", urldecode($_POST['folders']));
                 if($copy == 0 && $path != $old_path) {
+                    //
                     // cut and paste folders
+                    //
                     for($i=0;$i<count($folders);$i++) {
                         if(is_dir(NOVA.'/'.$_SESSION['id'].'/'.$old_path.$folders[$i])) {
                             rename(NOVA.'/'.$_SESSION['id'].'/'.$old_path.$folders[$i], NOVA.'/'.$_SESSION['id'].'/'.$path.$folders[$i]);
-
-                            // To do : rename in db all files with this old_path/folder_name to new_path/folder_name
+                            $this->_modelFiles->renameDir($old_path.$folders[$i], $path.$folders[$i]);
                         }
                     }
                 }
                 elseif($copy == 1) {
+                    //
                     // copy and paste folders
+                    //
                     for($i=0;$i<count($folders);$i++) {
-                        // To do : calculate folder size and check if there is enough free space
-                        // To do : add all new copied files in db, update size_stored
-
                         if(is_dir(NOVA.'/'.$_SESSION['id'].'/'.$old_path.$folders[$i])) {
-                            if($path == $old_path)
-                                $this->recurse_copy(NOVA.'/'.$_SESSION['id'].'/'.$old_path.$folders[$i], NOVA.'/'.$_SESSION['id'].'/'.$path.$folders[$i].' (Copy)');
-                            else
-                                $this->recurse_copy(NOVA.'/'.$_SESSION['id'].'/'.$old_path.$folders[$i], NOVA.'/'.$_SESSION['id'].'/'.$path.$folders[$i]);
+                            $folderSize = $this->getFolderSize(NOVA.'/'.$_SESSION['id'].'/'.$old_path.$folders[$i]);
+                            if($stored+$folderSize <= $quota) {
+                                $stored += $folderSize;
+                                // recurse_copy add also new files in db
+                                if($path == $old_path)
+                                    $this->recurse_copy(NOVA.'/'.$_SESSION['id'].'/'.$old_path.$folders[$i], NOVA.'/'.$_SESSION['id'].'/'.$path.$folders[$i].' (Copy)');
+                                else
+                                    $this->recurse_copy(NOVA.'/'.$_SESSION['id'].'/'.$old_path.$folders[$i], NOVA.'/'.$_SESSION['id'].'/'.$path.$folders[$i]);
+                            }
                         }
                     }
                 }
             }
+            
+            $this->_modelStorage->updateSizeStored($stored);
         }
     }
 }
