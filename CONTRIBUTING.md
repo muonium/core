@@ -85,12 +85,12 @@ Your code must be tested before to be merged in the master branch.
             - use \config as conf;
         - Do not forget to add "\" before other classes like Exception.
         - Example : Initializing model files and setting id_owner to the user id 
-        ```
+        ```php
         $this->_modelFiles = new m\Files();
         $this->_modelFiles->id_owner = $_SESSION['id'];
         ```
     - An example of constructor when the user must be logged :
-    ```
+    ```php
     function __construct() {
         parent::__construct();
         if(empty($_SESSION['id']))
@@ -102,7 +102,7 @@ Your code must be tested before to be merged in the master branch.
     
     - **All strings must be in all json files.** By default, you can put english string value for all other json files.
         - Example
-        ```
+        ```php
         echo $this->txt->Global->back;
         ```
 
@@ -122,7 +122,7 @@ Your code must be tested before to be merged in the master branch.
         - There is a method getJSON() which gets the user's language json and store it in var txt.
     - **All strings must be in all json files.** By default, you can put english string value for all other json files.
         - Example
-        ```
+        ```php
         console.log(txt.Global.back);
         ```
 
