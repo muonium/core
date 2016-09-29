@@ -142,14 +142,14 @@ class User extends l\Languages {
             while(false !== ($entry = readdir($handle))) {
                 if($entry != '.' && $entry != '..') {
                     if(is_dir(NOVA.'/'.$_SESSION['id'].'/'.$this->_path.$entry)) {
-                        echo '<span class="folder" id="d'.$i.'" name="'.$entry.'" onclick="addSelection(this.id)" ondblclick="openDirById(this.id)"><strong>'.$entry.'</strong></span>';
+                        echo '<span class="folder" id="d'.$i.'" name="'.$entry.'" onclick="addFolderSelection(this.id)" ondblclick="openDirById(this.id)"><strong>'.$entry.'</strong></span>';
                         $i++;
                     }
                     else {
                         if(!array_key_exists($entry, $files)) // file not in database (for debugging)
                             echo '<span class="undefined">'.$entry.'</span>';
                         else
-                            echo '<span class="file" id="f'.$files[$entry]['0'].'" onclick="addSelection(this.id)">'.$entry.' ['.$this->showSize($files[$entry]['1']).'] - '.$this->txt->User->lastmod.' : '.date('d/m/Y G:i', $files[$entry]['2']).'</span>';
+                            echo '<span class="file" id="f'.$files[$entry]['0'].'" onclick="addFileSelection(this.id)">'.$entry.' ['.$this->showSize($files[$entry]['1']).'] - '.$this->txt->User->lastmod.' : '.date('d/m/Y G:i', $files[$entry]['2']).'</span>';
                     }
                 }
             }
@@ -290,7 +290,7 @@ class User extends l\Languages {
             if($filename = $this->_modelFiles->getFilename($id)) {
                 if(file_exists(NOVA.'/'.$_SESSION['id'].'/'.$path.$filename)) { 
                     $file_name = NOVA.'/'.$_SESSION['id'].'/'.$path.$filename;
-                    $mime = 'application/force-download';
+                    $mime = 'application/octet-stream';
                     header('Pragma: public'); 	// required
                     header('Expires: 0');		// no cache
                     header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
@@ -312,19 +312,19 @@ class User extends l\Languages {
         // recurse_copy add also new files in db
         $this->_modelFiles = new m\Files();
         $this->_modelFiles->id_owner = $_SESSION['id'];
-        $dir = opendir($src); 
-        @mkdir($dst, 0770); 
+        $dir = opendir(NOVA.'/'.$_SESSION['id'].'/'.$src); 
+        @mkdir(NOVA.'/'.$_SESSION['id'].'/'.$dst, 0770); 
         while(false !== ($file = readdir($dir))) { 
             if (($file != '.') && ($file != '..')) { 
-                if(is_dir($src.'/'.$file)) { 
+                if(is_dir(NOVA.'/'.$_SESSION['id'].'/'.$src.'/'.$file)) { 
                     recurse_copy($src.'/'.$file, $dst.'/'.$file); 
                 } 
                 else { 
-                    copy($src.'/'. $file, $dst.'/'.$file);
+                    copy(NOVA.'/'.$_SESSION['id'].'/'.$src.'/'. $file, NOVA.'/'.$_SESSION['id'].'/'.$dst.'/'.$file);
                     // Add the new file in db
                     $this->_modelFiles->name = $file;
                     $this->_modelFiles->last_modification = time();
-                    $this->_modelFiles->size = filesize($dst.'/'.$file);
+                    $this->_modelFiles->size = filesize(NOVA.'/'.$_SESSION['id'].'/'.$dst.'/'.$file);
                     $this->_modelFiles->addNewFile($dst.'/'); // to change
                     //
                 }
@@ -378,9 +378,6 @@ class User extends l\Languages {
 
     function MvAction() {
         // $copy : 0 => cut, 1 => copy
-        $this->_modelFiles = new m\Files();
-        $this->_modelFiles->id_owner = $_SESSION['id'];
-        $this->_modelFiles->{'dir'} = $path;
 
         if(!isset($_POST['copy']))
             $copy = 0;
@@ -401,15 +398,20 @@ class User extends l\Languages {
         else
             $old_path = urldecode($_POST['old_path']);
 
-        if(!isset($_POST['files']) && !isset($_POST['folders']))
+        if(empty($_POST['files']) && empty($_POST['folders']))
             return;
+        
+        $this->_modelFiles = new m\Files();
+        $this->_modelFiles->id_owner = $_SESSION['id'];
+        $this->_modelFiles->{'dir'} = $path;
 
         $this->_modelStorage = new m\Storage();
         $this->_modelStorage->id_user = $_SESSION['id'];
         $quota = $this->_modelStorage->getUserQuota();
         $stored = $this->_modelStorage->getSizeStored();
-
+        
         if(is_dir(NOVA.'/'.$_SESSION['id'].'/'.$path) && is_dir(NOVA.'/'.$_SESSION['id'].'/'.$old_path)) {
+            
             if(!empty($_POST['files'])) {
                 $files = explode("|", urldecode($_POST['files']));
                 if($copy == 0 && $path != $old_path) {
@@ -483,9 +485,9 @@ class User extends l\Languages {
                                 $stored += $folderSize;
                                 // recurse_copy add also new files in db
                                 if($path == $old_path)
-                                    $this->recurse_copy(NOVA.'/'.$_SESSION['id'].'/'.$old_path.$folders[$i], NOVA.'/'.$_SESSION['id'].'/'.$path.$folders[$i].' (Copy)');
+                                    $this->recurse_copy($old_path.$folders[$i], $path.$folders[$i].' (Copy)');
                                 else
-                                    $this->recurse_copy(NOVA.'/'.$_SESSION['id'].'/'.$old_path.$folders[$i], NOVA.'/'.$_SESSION['id'].'/'.$path.$folders[$i]);
+                                    $this->recurse_copy($old_path.$folders[$i], $path.$folders[$i]);
                             }
                         }
                     }

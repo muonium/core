@@ -16,11 +16,14 @@ var Box;
 var Area = 0; // 0 : desktop div, 1 : file, 2 : folder
 var addSel = 0; // 1 => add a new selection
 
-var Move = []; // Contains file(s)/folder(s) id cut/copied
+var MoveFile = [];     // Contains file(s) id cut/copied
+var MoveFolder = [];   // Contains folder(s) name cut/copied
+
 var Copy = 0; // 0 : cut, 1 : copy
 var mvPath = ''; // path where files/folders to move are located
 
-var selected = []; // selected files/folders
+var SelectedFile = [];      // Selected files
+var SelectedFolder = [];    // Selected folders
 
 var path = ''; // Current path
 
@@ -67,7 +70,7 @@ var box = class {
             //over nothing
             case 0:
                 this.box_div.innerHTML = '<p onclick="nFolder()">'+txt.RightClick.nFolder+'</p><p onclick="upFilesDialog()">'+txt.RightClick.upFiles+'</p>';
-                if(Move.length > 0) { this.box_div.innerHTML += '<hr><p onclick="paste(\''+id+'\')">'+txt.RightClick.paste+'</p>'; }
+                if(MoveFile.length > 0 || MoveFolder.length > 0) { this.box_div.innerHTML += '<hr><p onclick="paste(\''+id+'\')">'+txt.RightClick.paste+'</p>'; }
                 this.box_div.innerHTML += '<hr><p onclick="logout()">'+txt.RightClick.logOut+'</p>';
                 break;
             //mouse over a file
@@ -92,10 +95,13 @@ window.onclick = function(event) {
     Box.left_click(event.clientX, event.clientY);
     // reset selected folders/files
     if(addSel == 0) {
-        for(var i=0;i<selected.length;i++) {
-            document.querySelector("#"+selected[i]).style.backgroundColor="white";
-        }
-        selected = [];
+        for(var i=0;i<SelectedFile.length;i++)
+            document.querySelector("#f"+SelectedFile[i]).style.backgroundColor="white";
+        for(var i=0;i<SelectedFolder.length;i++)
+            if(folderId = getFolderId(SelectedFolder[i]))
+                document.querySelector("#"+folderId).style.backgroundColor="white";
+        SelectedFile = [];
+        SelectedFolder = [];
     }
     else
         addSel = 0;
@@ -237,7 +243,6 @@ var nFolder = function() {
                 // To do : add folder to the div without reloading
             }
         }
-        console.log(path);
         xhr.send("path="+encodeURIComponent(path)+"&folder="+encodeURIComponent(document.querySelector("#nFolder").value));
         
         // Refresh
@@ -324,6 +329,12 @@ var getFolderName = function(id) {
     return false;
 }
 
+var getFolderId = function(name) {
+    if(document.getElementsByName(name))
+        return document.getElementsByName(name)[0].getAttribute("id");
+    return false;
+}
+
 var openDirById = function(dir) {
     var id = 0;
     if(dir.length > 1) {
@@ -351,7 +362,8 @@ var openDir = function(dir) {
                 document.querySelector("#tree").innerHTML = xhr.responseText;
                 path = dirName;
                 // reset selected files/folders
-                selected = [];
+                SelectedFile = [];
+                SelectedFolder = [];
                 // Set events for all files and folders loaded
                 setEvents();
             }
@@ -360,16 +372,31 @@ var openDir = function(dir) {
     xhr.send("path="+encodeURIComponent(dirName));
 }
 
-var addSelection = function(id) {
+var addFileSelection = function(id) {
     addSel = 1;
     if(document.querySelector("#"+id)) {
-        var pos = selected.indexOf(id);
+        var pos = SelectedFile.indexOf(id.substr(1));
         if(pos != -1) {
-            selected.splice(pos, 1);
+            SelectedFile.splice(pos, 1);
             document.querySelector("#"+id).style.backgroundColor='white';
         }
         else {
-            selected.push(id);
+            SelectedFile.push(id.substr(1));
+            document.querySelector("#"+id).style.backgroundColor='#E0F0FA';
+        }
+    }
+}
+
+var addFolderSelection = function(id) {
+    addSel = 1;
+    if(document.querySelector("#"+id)) {
+        var pos = SelectedFolder.indexOf(getFolderName(id));
+        if(pos != -1) {
+            SelectedFolder.splice(pos, 1);
+            document.querySelector("#"+id).style.backgroundColor='white';
+        }
+        else {
+            SelectedFolder.push(getFolderName(id));
             document.querySelector("#"+id).style.backgroundColor='#E0F0FA';
         }
     }
@@ -379,11 +406,11 @@ var invertSelection = function() {
     var i = 0;
     var files = document.querySelectorAll(".file");
     for(i=0;i<files.length;i++)
-        addSelection(files[i].id);
+        addFileSelection(files[i].id);
     
     var folders = document.querySelectorAll(".folder");
     for(i=0;i<folders.length;i++)
-        addSelection(folders[i].id);
+        addFolderSelection(folders[i].id);
 }
 
 var selectAll = function() {
@@ -392,8 +419,8 @@ var selectAll = function() {
     var files = document.querySelectorAll(".file");
     for(i=0;i<files.length;i++) {
         if(document.querySelector("#"+files[i].id)) {
-            if(selected.indexOf(files[i].id) == -1) {
-                selected.push(files[i].id);
+            if(SelectedFile.indexOf((files[i].id).substr(1)) == -1) {
+                SelectedFile.push((files[i].id).substr(1));
                 document.querySelector("#"+files[i].id).style.backgroundColor='#E0F0FA';
             }
         }
@@ -402,8 +429,8 @@ var selectAll = function() {
     var folders = document.querySelectorAll(".folder");
     for(i=0;i<folders.length;i++) {
         if(document.querySelector("#"+folders[i].id)) {
-            if(selected.indexOf(folders[i].id) == -1) {
-                selected.push(folders[i].id);
+            if(SelectedFolder.indexOf(getFolderName(folders[i].id)) == -1) {
+                SelectedFolder.push(getFolderName(folders[i].id));
                 document.querySelector("#"+folders[i].id).style.backgroundColor='#E0F0FA';
             }
         }
@@ -413,14 +440,26 @@ var selectAll = function() {
 var cut = function(id) {
     document.querySelector("#box").style.display="none";
     Copy = 0;
-    Move = []; // reset
-    if(selected.length == 0) {
-        // cut only the file selected
-        Move.push(id);
+    
+    // reset
+    MoveFile = [];
+    MoveFolder = [];
+    
+    if(SelectedFile.length == 0 && SelectedFolder.length == 0) {
+        // cut only the file/folder selected
+        if(id.length > 0) {
+            if(id.substr(0, 1) == 'd') {
+                if(folderName = getFolderName(id))
+                    MoveFolder.push(folderName);
+            }
+            if(id.substr(0, 1) == 'f') 
+                MoveFile.push(id.substr(1));
+        }
     }
     else {
-        // cut all selected files
-        Move = selected;
+        // cut all selected files/folders
+        MoveFile = SelectedFile;
+        MoveFolder = SelectedFolder;
     }
     mvPath = path;
 }
@@ -428,14 +467,26 @@ var cut = function(id) {
 var copy = function(id) {
     document.querySelector("#box").style.display="none";
     Copy = 1;
-    Move = []; // reset
-    if(selected.length == 0) {
-        // copy only the file selected
-        Move.push(id);
+    
+    // reset
+    MoveFile = [];
+    MoveFolder = [];
+    
+    if(SelectedFile.length == 0 && SelectedFolder.length == 0) {
+        // cut only the file/folder selected
+        if(id.length > 0) {
+            if(id.substr(0, 1) == 'd') {
+                if(folderName = getFolderName(id))
+                    MoveFolder.push(folderName);
+            }
+            if(id.substr(0, 1) == 'f') 
+                MoveFile.push(id.substr(1));
+        }
     }
     else {
-        // copy all selected files
-        Move = selected;
+        // cut all selected files/folders
+        MoveFile = SelectedFile;
+        MoveFolder = SelectedFolder;
     }
     mvPath = path;
 }
@@ -448,19 +499,15 @@ var paste = function() {
     var folders = [];
     var files = [];
     
-    if(Move.length > 0) {
-        for(var i=0; i<Move.length; i++) {
-            if(Move[i].length > 0) {
-                if(Move[i].substr(0, 1) == 'd') {
-                    if(folderName = getFolderName(Move[i]))
-                        folders.push(folderName);
-                }
-                else if(Move[i].substr(0, 1) == 'f' && Move[i].length > 1) {
-                    id = Move[i].substr(1);
-                    if(isNumeric(id))
-                        files.push(id);
-                }
-            }
+    if(MoveFile.length > 0 || MoveFolder.length > 0) {
+        for(var i=0; i<MoveFile.length; i++) {
+            if(MoveFile[i].length > 0 && isNumeric(MoveFile[i]))
+                files.push(MoveFile[i]);
+        }
+        
+        for(var i=0; i<MoveFolder.length; i++) {
+            if(MoveFolder[i].length > 0)
+                folders.push(MoveFolder[i]);
         }
         
         folders = encodeURIComponent(folders.join('|'));
@@ -475,7 +522,7 @@ var paste = function() {
             if(xhr.status == 200 && xhr.readyState == 4)
             {
                 console.log(xhr.responseText);
-                //openDir(path);
+                openDir(path);
             }
         }
         xhr.send("copy="+Copy+"&path="+encodeURIComponent(path)+"&old_path="+encodeURIComponent(mvPath)+"&files="+files+"&folders="+folders);
@@ -544,12 +591,12 @@ var rm = function(del) {
 var rmMultiple = function() {
     var id = 0;
     var folderName;
-    var rmFolders = [];
-    var rmFiles = [];
+    //var rmFolders = [];
+    //var rmFiles = [];
     if(selected.length > 0) {
         if(confirm("Do you want to remove these files/folders ?")) {
             
-            for(var i=0;i<selected.length;i++) {
+            /*for(var i=0;i<selected.length;i++) {
                 if(selected[i].length > 1) {
                     if(selected[i].substr(0, 1) == 'f') {
                         // file
@@ -563,10 +610,10 @@ var rmMultiple = function() {
                             rmFolders.push(folderName);
                     }
                 }
-            }
+            }*/
             
             var wait = 2;
-            if(rmFolders.length > 0) {
+            if(SelectedFolder.length > 0) {
                 var xhr = new XMLHttpRequest();
                 console.log("deleting folders...");
                 xhr.open("POST", "User/RmFolders", true);
@@ -584,12 +631,12 @@ var rmMultiple = function() {
                         }
                     }
                 }
-                xhr.send("path="+encodeURIComponent(path)+"&folders="+encodeURIComponent(rmFolders.join("|")));
+                xhr.send("path="+encodeURIComponent(path)+"&folders="+encodeURIComponent(SelectedFolder.join("|")));
             }
             else
                 wait--;
             
-            if(rmFiles.length > 0) {
+            if(SelectedFile.length > 0) {
                 var xhr2 = new XMLHttpRequest();
                 console.log("deleting files...");
                 xhr2.open("POST", "User/RmFiles", true);
@@ -606,7 +653,7 @@ var rmMultiple = function() {
                         }
                     }
                 }
-                xhr2.send("path="+encodeURIComponent(path)+"&files="+encodeURIComponent(rmFiles.join("|")));
+                xhr2.send("path="+encodeURIComponent(path)+"&files="+encodeURIComponent(SelectedFile.join("|")));
             }
             else
                 wait--;
