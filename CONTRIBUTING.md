@@ -139,7 +139,7 @@ We're using PHP version 5.6
 - We support only the recent web browsers.
 
 # Directories
->>>>>>> interface
+
 core/ : web application
 nova/ : where the users datum are stored
 
