@@ -138,9 +138,6 @@ We're using PHP version 5.6
 - We do not support IE.
 - We support only the recent web browsers.
 
-<<<<<<< HEAD
-# Directories
-=======
 # Directories
 >>>>>>> interface
 core/ : web application
