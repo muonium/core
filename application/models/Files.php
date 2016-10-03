@@ -41,6 +41,15 @@ class Files extends l\Model {
             $res = $req->fetch();
             return $res['file'];
         }
+    
+        function getDir($id) {
+            $req = $this->_sql->prepare("SELECT dir FROM files WHERE id_owner = ? AND id = ?");
+            $req->execute(array($_SESSION['id'], $id));
+            if($req->rowCount() == 0)
+                return false;
+            $res = $req->fetch();
+            return $res['dir'];
+        }
             
         function getSize() {
             if(!isset($this->id)) {
@@ -119,8 +128,8 @@ class Files extends l\Model {
         }
     
         function renameDir($old, $new) {
-            $req = $this->_sql->prepare("UPDATE files SET dir = (? + SUBSTRING(dir, ".strlen($old).")) WHERE id_owner = ? AND dir LIKE ?");
-            return $req->execute(array($new, $_SESSION['id'], $old.'%'));
+            $req = $this->_sql->prepare("UPDATE files SET dir = CONCAT(?, SUBSTRING(dir, ?)) WHERE id_owner = ? AND dir LIKE ?");
+            return $req->execute(array($new, strlen($old)+1, $_SESSION['id'], $old.'%'));
         }
         
         function deleteFile($id) {

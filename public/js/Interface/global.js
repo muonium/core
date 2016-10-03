@@ -593,8 +593,8 @@ var rmMultiple = function() {
     var folderName;
     //var rmFolders = [];
     //var rmFiles = [];
-    if(selected.length > 0) {
-        if(confirm("Do you want to remove these files/folders ?")) {
+    if(SelectedFile.length > 0 || SelectedFolder.length > 0) {
+        if(confirm(txt.User.questionrm)) {
             
             /*for(var i=0;i<selected.length;i++) {
                 if(selected[i].length > 1) {

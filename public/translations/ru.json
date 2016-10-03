@@ -47,7 +47,8 @@
         "loaded": "Loaded in",
         "folder": "Folder name",
         "questiond": "Do you want to remove this folder ?",
-        "questionf": "Do you want to remove this file ?"
+        "questionf": "Do you want to remove this file ?",
+        "questionrm": "Do you want to remove these files/folders ?"
     },
 
     "Register": {
