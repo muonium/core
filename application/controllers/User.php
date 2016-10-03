@@ -288,7 +288,8 @@ class User extends l\Languages {
 
         if(is_numeric($id)) {
             if($filename = $this->_modelFiles->getFilename($id)) {
-                if($dir = $this->_modelFiles->getDir($id)) {
+                $dir = $this->_modelFiles->getDir($id);
+                if($dir !== false) {
                     if(file_exists(NOVA.'/'.$_SESSION['id'].'/'.$dir.$filename)) { 
                         $file_name = NOVA.'/'.$_SESSION['id'].'/'.$dir.$filename;
                         $mime = 'application/octet-stream';
@@ -302,7 +303,7 @@ class User extends l\Languages {
                         header('Content-Transfer-Encoding: binary');
                         header('Content-Length: '.filesize($file_name));	// provide file size
                         header('Connection: close');
-                        readfile($file_name);		// push it out*/
+                        readfile($file_name);	// push it out*/
                     }
                 }
             }
