@@ -1,4 +1,5 @@
 <?php
+namespace config;
 
 class confDB {
 	const identDefaut = "muonium";

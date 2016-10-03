@@ -1,5 +1,8 @@
 <?php
-    class mUsers extends Model {
+namespace application\models;
+use \library\MVC as l;
+
+class Users extends l\Model {
         
         /*
             1   id                  int(11)         AUTO_INCREMENT
@@ -14,36 +17,16 @@
             9   pp_counter          tinyint(1)      => passphrase changes counter, resetted to 0 every month. max value : 3 (delete user's files)
         */
         
-        private $id;
-        private $login;
-        private $password;
-        private $email;
-        private $passphrase;
-        private $doubleAuth = 0;
-        private $code;
-        private $pp_counter = 0;
+        protected $id;
+        protected $login;
+        protected $password;
+        protected $email;
+        protected $passphrase;
+        protected $doubleAuth = 0;
+        protected $code;
+        protected $pp_counter = 0;
         
         /* ******************** SETTER ******************** */
-            
-        function setId($id) {
-            $this->id = $id;
-        }
-        
-        function setLogin($login) {
-            $this->login = $login;
-        }
-        
-        function setEmail($email) {
-            $this->email = $email;
-        }
-            
-        function setPassphrase($pp){
-            $this->passphrase = $pp;
-        }
-        
-        function setPassword($p) {
-            $this->password = $p;
-        }
         
         function setDoubleAuth($state) {
             if($state == 0 || $state == 1)
@@ -54,6 +37,8 @@
             if(strlen($code) == 8)
                 $this->code = $code;
         }
+    
+        /* ************************************************ */
         
         function incrementPpCounter() {
             // max value is 3

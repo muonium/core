@@ -1,6 +1,8 @@
 <?php
+namespace application\controllers;
+use \library\MVC as l;
 
-class Home extends Languages {
+class Home extends l\Languages {
 
 	function DefaultAction() {
 			if(!empty($_SESSION['id']))

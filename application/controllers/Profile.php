@@ -1,5 +1,9 @@
 <?php
-class Profile extends Languages
+namespace application\controllers;
+use \library\MVC as l;
+use \application\models as m;
+
+class Profile extends l\Languages
 {
     private $_modelUser;
     private $ppCounter = 0;
@@ -13,8 +17,8 @@ class Profile extends Languages
     }
     
     function DefaultAction() {
-        $this->_modelUser = new mUsers();
-        $this->_modelUser->setId($_SESSION['id']);
+        $this->_modelUser = new m\Users();
+        $this->_modelUser->id = $_SESSION['id'];
         $this->ppCounter = $this->_modelUser->getPpCounter();
         require_once(DIR_VIEW."vProfile.php");
     }
@@ -26,10 +30,10 @@ class Profile extends Languages
             $login = urldecode($_POST['login']);
             
             if(preg_match("/^[A-Za-z0-9_.-]{2,19}$/", $login)) {
-                $this->_modelUser = new mUsers();
+                $this->_modelUser = new m\Users();
 
-                $this->_modelUser->setId($_SESSION['id']);
-                $this->_modelUser->setLogin($_POST['login']);
+                $this->_modelUser->id = $_SESSION['id'];
+                $this->_modelUser->login = $_POST['login'];
                 
                 if(!($this->_modelUser->LoginExists())) {
                     if($this->_modelUser->updateLogin()) {
@@ -57,12 +61,12 @@ class Profile extends Languages
         
         if(!empty($_POST['old_pwd']) && !empty($_POST['new_pwd']) && !empty($_POST['pwd_confirm'])) {
             if($_POST['new_pwd'] == $_POST['pwd_confirm']) {
-                        $this->_modelUser = new mUsers();
+                        $this->_modelUser = new m\Users();
 
-                        $this->_modelUser->setId($_SESSION['id']);
+                        $this->_modelUser->id = $_SESSION['id'];
                         if($user_pwd = $this->_modelUser->getPassword()) {
                             if($user_pwd == $_POST['old_pwd']) {
-                                $this->_modelUser->setPassword($_POST['new_pwd']);
+                                $this->_modelUser->password = $_POST['new_pwd'];
                                 if($this->_modelUser->updatePassword()) {
                                     echo 'ok@'.$this->txt->Profile->updateOk;
                                 }
@@ -94,13 +98,13 @@ class Profile extends Languages
         /*
         if(!empty($_POST['old_pp']) && !empty($_POST['new_pp']) && !empty($_POST['pp_confirm'])) {
             if($_POST['new_pp'] == $_POST['pp_confirm']) {
-                        $this->_modelUser = new mUsers();
+                        $this->_modelUser = new m\Users();
 
-                        $this->_modelUser->setId($_SESSION['id']);
+                        $this->_modelUser->id = $_SESSION['id'];
                         if($this->_modelUser->getPpCounter() < 2) {
                             if($user_pp = $this->_modelUser->getPassphrase()) {
                                     if($user_pp == $_POST['old_pp']) {
-                                        $this->_modelUser->setPassphrase($_POST['new_pp']);
+                                        $this->_modelUser->passphrase = $_POST['new_pp'];
                                         if($this->_modelUser->updatePassphrase()) {
                                             $this->_modelUser->incrementPpCounter();
                                             echo 'ok@'.$this->txt->Profile->updateOk;
@@ -131,8 +135,8 @@ class Profile extends Languages
     function ChangeAuthAction() {
         // Called by profile.js
         
-        $this->_modelUser = new mUsers();
-        $this->_modelUser->setId($_SESSION['id']);
+        $this->_modelUser = new m\Users();
+        $this->_modelUser->id = $_SESSION['id'];
         
         $s = 0;
         if($_POST['doubleAuth'] == 'true')

@@ -1,25 +1,15 @@
 <?php
+namespace library\MVC;
+
 class Mail
 {
-    private $_from = "muonium@protonmail.ch";
-    private $_to;
-    private $_subject;
-    private $_message;
-
-    function setFrom($from) {
-        $this->_from = $from;
-    }
-
-    function setTo($to) {
-        $this->_to = $to;
-    }
-
-    function setSubject($subject) {
-        $this->_subject = $subject;
-    }
-
-    function setMessage($message) {
-        $this->_message = $message;
+    protected $_from = "muonium@protonmail.ch";
+    protected $_to;
+    protected $_subject;
+    protected $_message;
+    
+    function __set($attr, $val) {
+        $this->$attr = $val;
     }
 
     function send() {

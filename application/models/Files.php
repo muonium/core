@@ -1,5 +1,8 @@
 <?php
-    class mFiles extends Model {
+namespace application\models;
+use \library\MVC as l;
+
+class Files extends l\Model {
         
         /*
             1   id                  int(11)     AUTO_INCREMENT
@@ -11,38 +14,15 @@
             7   favorite            tinyint(1)
         */
         
-        private $id;
-        private $id_owner;
-        private $dir;
-        private $name;
-        private $size;
-        private $last_modification;
-        private $favorite;
+        protected $id;
+        protected $id_owner;
+        protected $dir;
+        protected $name;
+        protected $size;
+        protected $last_modification;
+        protected $favorite;
         
         /* ******************** SETTER ******************** */
-        function setIdOwner($id_owner) {
-            $this->id_owner = $id_owner;
-        }
-        
-        function setFile($file) {
-            $this->name = $file;
-        }
-            
-        function setSize($size) {
-            $this->size = $size;
-        }
-        
-        function setLastModification($last_modification) {
-            $this->last_modification = $last_modification;
-        }
-        
-        function setFavorite() {
-            $this->favorite = 1;
-        }
-        
-        function unsetFavorite() {
-            $this->favorite = 0;
-        }
         
         /* ******************** GETTER ******************** */
         function getId() {
@@ -61,6 +41,15 @@
             $res = $req->fetch();
             return $res['file'];
         }
+    
+        function getDir($id) {
+            $req = $this->_sql->prepare("SELECT dir FROM files WHERE id_owner = ? AND id = ?");
+            $req->execute(array($_SESSION['id'], $id));
+            if($req->rowCount() == 0)
+                return false;
+            $res = $req->fetch();
+            return $res['dir'];
+        }
             
         function getSize() {
             if(!isset($this->id)) {
@@ -69,7 +58,7 @@
             }
             else {
                 $req = $this->_sql->prepare("SELECT size FROM files WHERE id_owner = ? AND id = ?");
-                $req->execute(array($_SESSION['id'], $id));
+                $req->execute(array($_SESSION['id'], $this->id));
             }
                 
             if($req->rowCount() == 0)
@@ -131,6 +120,16 @@
             $req = $this->_sql->prepare("UPDATE files SET size = ?, last_modification = ? WHERE id_owner = ? AND file = ? AND dir = ?");
             $ret = $req->execute(array($this->size, $this->last_modification, $_SESSION['id'], $this->name, $path));
             return (($this->size)-$old_size);
+        }
+    
+        function updateDir() {
+            $req = $this->_sql->prepare("UPDATE files SET dir = ? WHERE id_owner = ? AND id = ?");
+            return $req->execute(array($this->{'dir'}, $_SESSION['id'], $this->id));
+        }
+    
+        function renameDir($old, $new) {
+            $req = $this->_sql->prepare("UPDATE files SET dir = CONCAT(?, SUBSTRING(dir, ?)) WHERE id_owner = ? AND dir LIKE ?");
+            return $req->execute(array($new, strlen($old)+1, $_SESSION['id'], $old.'%'));
         }
         
         function deleteFile($id) {

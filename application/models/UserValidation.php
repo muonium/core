@@ -1,5 +1,8 @@
 <?php
-    class mUserValidation extends Model {
+namespace application\models;
+use \library\MVC as l;
+
+class UserValidation extends l\Model {
         
         /*
             1   id                  int(11)         AUTO_INCREMENT
@@ -7,19 +10,11 @@
             3   val_key             varchar(128)
         */
         
-        private $id;
-        private $id_user;
-        private $val_key;
+        protected $id;
+        protected $id_user;
+        protected $val_key;
         
         /* ******************** SETTER ******************** */
-            
-        function setIdUser($id_user) {
-            $this->id_user = $id_user;
-        }
-        
-        function setKey($key) {
-            $this->val_key = $key;
-        }
         
         /* ******************** GETTER ******************** */
         function getIdUser() {

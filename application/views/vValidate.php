@@ -4,8 +4,8 @@
 	* @description     : Validate view
 	* @authors         : Dylan Clement <dylanclement7@protonmail.ch>
 	*/
-
-	$_t = new Template($this->txt->Global->validate);
+    use \library\MVC as l;
+	$_t = new l\Template($this->txt->Global->validate);
     $_t->addCss("home_global");
     $_t->addCss("Register/home_register");
    	$_t->getHeader();

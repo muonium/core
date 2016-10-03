@@ -1,5 +1,8 @@
 <?php
-    class mStorage extends Model {
+namespace application\models;
+use \library\MVC as l;
+
+class Storage extends l\Model {
         
         /*
             1   id              int(11)     AUTO_INCREMENT
@@ -8,24 +11,15 @@
             4   size_stored     int(11)	
         */
         
-        private $id;
-        private $id_user;
-        private $user_quota;
-        private $size_stored;
+        protected $id;
+        protected $id_user;
+        protected $user_quota;
+        protected $size_stored;
         
         /* ******************** SETTER ******************** */
-        function setIdUser($id_user) {
-            $this->id_user = $id_user;
-        }
-        
-        function setUserQuota($user_quota) {
-            $this->user_quota = $user_quota;
-        }       
-        
-        function setSizeStored($size_stored) {
-            $this->size_stored = $size_stored;
-        }
-        
+
+        /* ************************************************ */
+    
         function incrementSizeStored($i) {
             if(is_numeric($i)) {
                 if($i > 0) {

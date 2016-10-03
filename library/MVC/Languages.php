@@ -1,4 +1,6 @@
 <?php
+namespace library\MVC;
+
 class Languages {
     // This class is called by all controllers (with "extends")
     // It allows to use different languages
@@ -41,5 +43,13 @@ class Languages {
             echo '>'.$this->languages[$i][1].'</option>';
         }
         echo '</select>';
+    }
+    
+    public function __get($attr) {
+        return $this->$attr;
+    }
+    
+    public function __set($attr, $val) {
+        $this->$attr = $val;
     }
 }

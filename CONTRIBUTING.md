@@ -45,7 +45,7 @@ Your code must be tested before to be merged in the master branch.
 
 # Coding style
 
-## Global
+## Global
 
 - Use indentation
 - The syntax must be light, flexible and simple. If someone needs, the code have to be easy to be modified.
@@ -138,7 +138,11 @@ We're using PHP version 5.6
 - We do not support IE.
 - We support only the recent web browsers.
 
+<<<<<<< HEAD
 # Directories
+=======
+# Directories
+>>>>>>> interface
 core/ : web application
 nova/ : where the users datum are stored
 
@@ -150,6 +154,6 @@ We don't work with the GitHub milestones because Muonium is on a rolling release
 
 But if you want to know where we go, check [here](https://muonium.ch/photon/Adventure) ! :)
 
-# AUTHORS file
+# AUTHORS file
 
 In your pull request, you can add your name to AUTHORS.md.

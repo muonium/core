@@ -16,6 +16,15 @@ window.onload = function() {
 
     // Get txt from user's language json (language.js)
     getJSON();
+    
+    window.addEventListener("keydown", function(event) {
+        switch(event.keyCode) {
+            case 13:
+                // enter
+                sendRegisterRequest();
+                break;    
+        }
+    });
 }
 
 var sendRegisterRequest = function()

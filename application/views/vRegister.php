@@ -4,8 +4,8 @@
 	* @description     : Register view
 	* @authors         : Romain Claveau <romain.claveau@protonmail.ch>, Dylan Clement <dylanclement7@protonmail.ch>
 	*/
-
-	$_t = new Template($this->txt->Global->register);
+    use \library\MVC as l;
+	$_t = new l\Template($this->txt->Global->register);
     $_t->addCss("home_global");
     $_t->addCss("Register/home_register");
     $_t->addJs("Register/sha512");

@@ -4,8 +4,8 @@
 	* @description     : Lost pass view (password or passphrase)
 	* @authors         : Dylan Clement <dylanclement7@protonmail.ch>
 	*/
-
-	$_t = new Template($this->txt->Login->forgot);
+    use \library\MVC as l;
+	$_t = new l\Template($this->txt->Login->forgot);
     $_t->addCss("home_global");
     $_t->addCss("Register/home_register");
    	$_t->getHeader();

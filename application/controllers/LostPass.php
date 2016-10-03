@@ -1,5 +1,9 @@
 <?php
-class LostPass extends Languages {
+namespace application\controllers;
+use \library\MVC as l;
+use \application\models as m;
+
+class LostPass extends l\Languages {
 
     private $id_user;
     private $val_key;
@@ -19,8 +23,8 @@ class LostPass extends Languages {
 
     function DefaultAction() {
         if(!empty($_SESSION['changePassId']) && !empty($_SESSION['changePassKey'])) {
-            $this->_modelUser = new mUsers();
-            $this->_modelUser->setId($_SESSION['changePassId']);
+            $this->_modelUser = new m\Users();
+            $this->_modelUser->id = $_SESSION['changePassId'];
             $this->ppCounter = $this->_modelUser->getPpCounter();
             require_once(DIR_VIEW."vLostPassForm.php");
         }
@@ -34,22 +38,22 @@ class LostPass extends Languages {
             if(is_numeric($_SESSION['changePassId']) && strlen($_SESSION['changePassKey']) == 128) {
                 if((!empty($_POST['pwd']) && !empty($_POST['pwd_confirm'])) || (!empty($_POST['pp']) && !empty($_POST['pp_confirm']))) {
                     
-                    $this->_modelUserLostPass = new mUserLostPass();
-                    $this->_modelUserLostPass->setIdUser($_SESSION['changePassId']);
+                    $this->_modelUserLostPass = new m\UserLostPass();
+                    $this->_modelUserLostPass->id_user = $_SESSION['changePassId'];
 
                     if($this->_modelUserLostPass->getKey()) {
 
                         if($this->_modelUserLostPass->getKey() == $_SESSION['changePassKey'] && $this->_modelUserLostPass->getExpire() >= time()) {
                             if($_POST['pwd_length'] || $_POST['pp_length']) {
-                                $this->_modelUser = new mUsers();
-                                $this->_modelUser->setId($_SESSION['changePassId']);
+                                $this->_modelUser = new m\Users();
+                                $this->_modelUser->id = $_SESSION['changePassId'];
                                 $this->ppCounter = $this->_modelUser->getPpCounter();
 
                                 if(!empty($_POST['pwd']) && !empty($_POST['pwd_confirm']) && $_POST['pwd_length']) {
                                     // change password
 
                                     if($_POST['pwd'] == $_POST['pwd_confirm']) {
-                                        $this->_modelUser->setPassword($_POST['pwd']);
+                                        $this->_modelUser->password = $_POST['pwd'];
                                         
                                         if($this->_modelUser->updatePassword()) {
                                             unset($_SESSION['changePassId']);
@@ -69,8 +73,8 @@ class LostPass extends Languages {
                                     // change passphrase
 
                                     if($_POST['pp'] == $_POST['pp_confirm']) {
-                                        $this->_modelUser->setPassphrase(urldecode($_POST['pp']));
-                                        //$this->_modelUser->setPassphrase($_POST['pp']);
+                                        $this->_modelUser->passphrase = urldecode($_POST['pp']);
+                                        //$this->_modelUser->passphrase = $_POST['pp'];
                                         
                                         if($this->_modelUser->updatePassphrase()) {
                                             if($this->ppCounter >= 2) {
@@ -129,8 +133,8 @@ class LostPass extends Languages {
         $this->id_user = $id_user;
         $this->val_key = $key;
 
-        $this->_modelUserLostPass = new mUserLostPass();
-        $this->_modelUserLostPass->setIdUser($this->id_user);
+        $this->_modelUserLostPass = new m\UserLostPass();
+        $this->_modelUserLostPass->id_user = $this->id_user;
 
         if(!($this->_modelUserLostPass->getKey())) // Unable to find key
             exit(header('Location: '.MVC_ROOT.'/Error/Error/404'));
@@ -171,12 +175,12 @@ class LostPass extends Languages {
 
             if($w == 0) {
                 // Allowed to send a new mail
-                $this->_modelUser = new mUsers();
+                $this->_modelUser = new m\Users();
 
                 if(strpos($user, '@'))
-                    $this->_modelUser->setEmail($user);
+                    $this->_modelUser->email = $user;
                 else
-                    $this->_modelUser->setLogin($user);
+                    $this->_modelUser->login = $user;
                 
                 if(!($user_mail = $this->_modelUser->getEmail()))
                     exit(header('Location: '.MVC_ROOT.'/Error/Error/404'));
@@ -184,25 +188,25 @@ class LostPass extends Languages {
                 if(!($id_user = $this->_modelUser->getId()))
                     exit(header('Location: '.MVC_ROOT.'/Error/Error/404'));
                 
-                $this->_modelUserLostPass = new mUserLostPass();
-                $this->_modelUserLostPass->setIdUser($id_user);
+                $this->_modelUserLostPass = new m\UserLostPass();
+                $this->_modelUserLostPass->id_user = $id_user;
                 if(!($this->_modelUserLostPass->getKey()))
                     $new = 1;
 
                 $key = hash('sha512', uniqid(rand(), true));
 
-                $this->_modelUserLostPass->setKey($key);
-                $this->_modelUserLostPass->setExpire(time()+3600);
+                $this->_modelUserLostPass->val_key = $key;
+                $this->_modelUserLostPass->expire = time()+3600;
 
                 if($new == 0)
                     $this->_modelUserLostPass->Update();
                 else
                     $this->_modelUserLostPass->Insert();
 
-                $this->_mail = new Mail();
-                $this->_mail->setTo($user_mail);
-                $this->_mail->setSubject($this->txt->LostPass->subject);
-                $this->_mail->setMessage(str_replace("[id_user]", $id_user, str_replace("[key]", $key, $this->txt->LostPass->message)));
+                $this->_mail = new l\Mail();
+                $this->_mail->_to = $user_mail;
+                $this->_mail->_subject = $this->txt->LostPass->subject;
+                $this->_mail->_message = str_replace("[id_user]", $id_user, str_replace("[key]", $key, $this->txt->LostPass->message));
                 $this->_mail->send();
                 $_SESSION['sendMail'] = time();
                 

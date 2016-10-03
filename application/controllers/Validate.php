@@ -1,5 +1,9 @@
 <?php
-    class Validate extends Languages {
+namespace application\controllers;
+use \library\MVC as l;
+use \application\models as m;
+
+class Validate extends l\Languages {
         
         private $id_user;
         private $val_key;
@@ -19,8 +23,8 @@
             $this->id_user = $id_user;
             $this->val_key = $key;
             
-            $this->_modelUserVal = new mUserValidation();
-            $this->_modelUserVal->setIdUser($this->id_user);
+            $this->_modelUserVal = new m\UserValidation();
+            $this->_modelUserVal->id_user = $this->id_user;
             
             if(!($this->_modelUserVal->getKey())) // Unable to find key
                 exit(header('Location: '.MVC_ROOT.'/Error/Error/404'));
@@ -58,25 +62,25 @@
 
                 if($w == 0) {
                     // Allowed to send a new mail
-                    $this->_modelUserVal = new mUserValidation();
-                    $this->_modelUserVal->setIdUser($_SESSION['id']);
+                    $this->_modelUserVal = new m\UserValidation();
+                    $this->_modelUserVal->id_user = $_SESSION['id'];
                     if(!($this->_modelUserVal->getKey()))
                         exit(header('Location: '.MVC_ROOT.'/Error/Error/404'));
 
-                    $this->_modelUser = new mUsers();
-                    $this->_modelUser->setId($_SESSION['id']);
+                    $this->_modelUser = new m\Users();
+                    $this->_modelUser->id = $_SESSION['id'];
                     if(!($user_mail = $this->_modelUser->getEmail()))
                        exit(header('Location: '.MVC_ROOT.'/Error/Error/404'));
 
                     $key = hash('sha512', uniqid(rand(), true));
 
-                    $this->_modelUserVal->setKey($key);
+                    $this->_modelUserVal->val_key = $key;
                     $this->_modelUserVal->Update();
 
-                    $this->_mail = new Mail();
-                    $this->_mail->setTo($user_mail);
-                    $this->_mail->setSubject($this->txt->Register->subject);
-                    $this->_mail->setMessage(str_replace("[id_user]", $_SESSION['id'], str_replace("[key]", $key, $this->txt->Register->message)));
+                    $this->_mail = new l\Mail();
+                    $this->_mail->_to = $user_mail;
+                    $this->_mail->_subject = $this->txt->Register->subject;
+                    $this->_mail->_message = str_replace("[id_user]", $_SESSION['id'], str_replace("[key]", $key, $this->txt->Register->message));
                     $this->_mail->send();
                     $_SESSION['sendMail'] = time();
                     

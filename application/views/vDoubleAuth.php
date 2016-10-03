@@ -4,11 +4,11 @@
 	* @description     : Double auth view
 	* @authors         : Dylan Clement <dylanclement7@protonmail.ch>
 */
-
-$_t = new Template($this->txt->Global->login);
-$_t->addCss("home_global");
-$_t->addCss("Login/home_login");
-$_t->getHeader();
+    use \library\MVC as l;
+    $_t = new l\Template($this->txt->Global->login);
+    $_t->addCss("home_global");
+    $_t->addCss("Login/home_login");
+    $_t->getHeader();
 ?>
 <body>
     <section id="language">

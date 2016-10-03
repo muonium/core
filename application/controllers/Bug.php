@@ -1,5 +1,9 @@
 <?php
-class Bug extends Languages {
+namespace application\controllers;
+use \library\MVC as l;
+use \application\models as m;
+
+class Bug extends l\Languages {
 
     private $_modelUser;
     private $_bruteforce;
@@ -37,7 +41,7 @@ class Bug extends Languages {
         if(!isset($_SESSION['id']))
             exit(header('Location: '.MVC_ROOT.'/Error/Error/404'));
         // Initialize the anti-bruteforce class
-        $this->_bruteforce = new AntiBruteforce();
+        $this->_bruteforce = new l\AntiBruteforce();
         $this->_bruteforce->setFolder(ROOT.DS."tmp");
         $this->_bruteforce->setSID('Bug');
         $this->_bruteforce->setNbMaxAttemptsPerHour(20);
@@ -71,26 +75,25 @@ class Bug extends Languages {
                     if(($os = $this->checkValue($_POST['os'], 'os')) && ($browser = $this->checkValue($_POST['browser'], 'browser'))) {
                         // get User's mail
                         
-                        $this->_modelUser = new mUsers();
-                        $this->_modelUser->setId($_SESSION['id']);
+                        $this->_modelUser = new m\Users();
+                        $this->_modelUser->id = $_SESSION['id'];
                         if($mail = $this->_modelUser->getEmail()) {
                         
                             $message = htmlentities($_POST['message']);
                             // Send the mail
 
-                            $this->_mail = new Mail();
-                            //$this->_mail->setTo("muonium@protonmail.ch");
-                            $this->_mail->setTo("dylanclement7@gmail.com");
-                            $this->_mail->setSubject("[Bug report] ".$mail." - ".substr($message, 0, 20));
-                            $this->_mail->setMessage("====================<br />
+                            $this->_mail = new l\Mail();
+                            //$this->_mail->_to = "muonium@protonmail.ch";
+                            $this->_mail->_to = "dylanclement7@gmail.com";
+                            $this->_mail->_subject = "[Bug report] ".$mail." - ".substr($message, 0, 20);
+                            $this->_mail->_message = "====================<br />
                             <strong>User mail :</strong> ".$mail."<br />
                             <strong>User ID :</strong> ".$_SESSION['id']."<br />
                             <strong>O.S :</strong> ".$os."<br />
                             <strong>Browser :</strong> ".$browser."<br />
                             <strong>Browser version :</strong> ".htmlentities($_POST['browserVersion'])."
                             <br />====================<br />"
-                                .nl2br($message)
-                            );
+                                .nl2br($message);
                             $this->_mail->send();
 
                             $this->_message = $this->txt->Bug->sent;

@@ -1,5 +1,9 @@
 <?php
-class User extends Languages {
+namespace application\controllers;
+use \library\MVC as l;
+use \application\models as m;
+
+class User extends l\Languages {
 
     private $_modelFiles;
     private $_modelStorage;
@@ -22,16 +26,16 @@ class User extends Languages {
 
     function UpFilesAction() {
         if(!empty($_FILES['upload'])) {
-            $this->_modelFiles = new mFiles();
-            $this->_modelFiles->setIdOwner($_SESSION['id']);
+            $this->_modelFiles = new m\Files();
+            $this->_modelFiles->id_owner = $_SESSION['id'];
             if(!isset($_POST['path']))
                 $path = '';
             else
                 $path = urldecode($_POST['path']);
 
             if(is_dir(NOVA.'/'.$_SESSION['id'].'/'.$path)) {
-                $this->_modelStorage = new mStorage();
-                $this->_modelStorage->setIdUser($_SESSION['id']);
+                $this->_modelStorage = new m\Storage();
+                $this->_modelStorage->id_user = $_SESSION['id'];
 
                 $quota = $this->_modelStorage->getUserQuota();
                 if($quota === false)
@@ -53,13 +57,13 @@ class User extends Languages {
                         $exists = 0;
                         if(file_exists(NOVA.'/'.$_SESSION['id'].'/'.$path.$_FILES['upload']['name'][$i]))
                             $exists = 1; // File already exists
-                        
+
                         if(move_uploaded_file($tmpFilePath, NOVA.'/'.$_SESSION['id'].'/'.$path.$_FILES['upload']['name'][$i])) {
                             // File uploaded without errors
 
-                            $this->_modelFiles->setFile($_FILES['upload']['name'][$i]);
-                            $this->_modelFiles->setSize($_FILES['upload']['size'][$i]);
-                            $this->_modelFiles->setLastModification(time());
+                            $this->_modelFiles->name = $_FILES['upload']['name'][$i];
+                            $this->_modelFiles->size = $_FILES['upload']['size'][$i];
+                            $this->_modelFiles->last_modification = time();
                             if($exists == 0) {
                                 $this->_modelFiles->addNewFile($path);
                                 $stored += $_FILES['upload']['size'][$i];
@@ -109,11 +113,11 @@ class User extends Languages {
 
     function getTree() {
         $i = 0;
-        $this->_modelFiles = new mFiles();
-        $this->_modelFiles->setIdOwner($_SESSION['id']);
+        $this->_modelFiles = new m\Files();
+        $this->_modelFiles->id_owner = $_SESSION['id'];
 
-        $this->_modelStorage = new mStorage();
-        $this->_modelStorage->setIdUser($_SESSION['id']);
+        $this->_modelStorage = new m\Storage();
+        $this->_modelStorage->id_user = $_SESSION['id'];
         $quota = $this->_modelStorage->getUserQuota();
         $stored = $this->_modelStorage->getSizeStored();
         $time_start = microtime(true);
@@ -138,11 +142,14 @@ class User extends Languages {
             while(false !== ($entry = readdir($handle))) {
                 if($entry != '.' && $entry != '..') {
                     if(is_dir(NOVA.'/'.$_SESSION['id'].'/'.$this->_path.$entry)) {
-                        echo '<span class="folder" id="d'.$i.'" name="'.$entry.'" onclick="addSelection(this.id)" ondblclick="openDirById(this.id)"><strong>'.$entry.'</strong></span>';
+                        echo '<span class="folder" id="d'.$i.'" name="'.$entry.'" onclick="addFolderSelection(this.id)" ondblclick="openDirById(this.id)"><strong>'.$entry.'</strong></span>';
                         $i++;
                     }
                     else {
-                        echo '<span class="file" id="f'.$files[$entry]['0'].'" onclick="addSelection(this.id)">'.$entry.' ['.$this->showSize($files[$entry]['1']).'] - '.$this->txt->User->lastmod.' : '.date('d/m/Y G:i', $files[$entry]['2']).'</span>';
+                        if(!array_key_exists($entry, $files)) // file not in database (for debugging)
+                            echo '<span class="undefined">'.$entry.'</span>';
+                        else
+                            echo '<span class="file" id="f'.$files[$entry]['0'].'" onclick="addFileSelection(this.id)">'.$entry.' ['.$this->showSize($files[$entry]['1']).'] - '.$this->txt->User->lastmod.' : '.date('d/m/Y G:i', $files[$entry]['2']).'</span>';
                     }
                 }
             }
@@ -164,10 +171,10 @@ class User extends Languages {
 
     function rmFile($path, $id) {
         if(!isset($this->_modelFiles)) {
-            $this->_modelFiles = new mFiles();
-            $this->_modelFiles->setIdOwner($_SESSION['id']);
+            $this->_modelFiles = new m\Files();
+            $this->_modelFiles->id_owner = $_SESSION['id'];
         }
-        
+
         if(is_numeric($id)) {
             if($filename = $this->_modelFiles->getFilename($id)) {
                 if(file_exists(NOVA.'/'.$_SESSION['id'].'/'.$path.$filename)) {
@@ -181,8 +188,8 @@ class User extends Languages {
     }
 
     function RmFilesAction() {
-        $this->_modelFiles = new mFiles();
-        $this->_modelFiles->setIdOwner($_SESSION['id']);
+        $this->_modelFiles = new m\Files();
+        $this->_modelFiles->id_owner = $_SESSION['id'];
 
         $total_size = 0;
         if(!isset($_POST['path']))
@@ -198,8 +205,8 @@ class User extends Languages {
                         $total_size += $this->rmFile($path, $files[$i]);
                 }
                 // Decrement storage counter
-                $this->_modelStorage = new mStorage();
-                $this->_modelStorage->setIdUser($_SESSION['id']);
+                $this->_modelStorage = new m\Storage();
+                $this->_modelStorage->id_user = $_SESSION['id'];
                 $this->_modelStorage->decrementSizeStored($total_size);
             }
         }
@@ -222,9 +229,9 @@ class User extends Languages {
     function rmFolder($path, $name) {
         if(!isset($this->_modelFiles)) {
             $this->_modelFiles = new mFiles();
-            $this->_modelFiles->setIdOwner($_SESSION['id']);
+            $this->_modelFiles->id_owner = $_SESSION['id'];
         }
-        
+
         if(is_dir(NOVA.'/'.$_SESSION['id'].'/'.$path.$name)) {
             $this->rmRdir(NOVA.'/'.$_SESSION['id'].'/'.$path.$name);
             // delete files in database
@@ -235,8 +242,8 @@ class User extends Languages {
     }
 
     function RmFoldersAction() {
-        $this->_modelFiles = new mFiles();
-        $this->_modelFiles->setIdOwner($_SESSION['id']);
+        $this->_modelFiles = new m\Files();
+        $this->_modelFiles->id_owner = $_SESSION['id'];
 
         $total_size = 0;
 
@@ -253,8 +260,8 @@ class User extends Languages {
                         $total_size += $this->rmFolder($path, $folders[$i]);
                 }
                 // Decrement storage counter
-                $this->_modelStorage = new mStorage();
-                $this->_modelStorage->setIdUser($_SESSION['id']);
+                $this->_modelStorage = new m\Storage();
+                $this->_modelStorage->id_user = $_SESSION['id'];
                 $this->_modelStorage->decrementSizeStored($total_size);
             }
         }
@@ -272,62 +279,225 @@ class User extends Languages {
 
         return round(pow(1024, $base - floor($base)), $precision) .' '. $suffixes[floor($base)];
     }
-    
+
     function DownloadAction($id) {
         if(!isset($this->_modelFiles)) {
-            $this->_modelFiles = new mFiles();
-            $this->_modelFiles->setIdOwner($_SESSION['id']);
+            $this->_modelFiles = new m\Files();
+            $this->_modelFiles->id_owner = $_SESSION['id'];
         }
-        
+
         if(is_numeric($id)) {
             if($filename = $this->_modelFiles->getFilename($id)) {
-                if(file_exists(NOVA.'/'.$_SESSION['id'].'/'.$path.$filename)) { 
-                    $file_name = NOVA.'/'.$_SESSION['id'].'/'.$path.$filename;
-                    $mime = 'application/force-download';
-                    header('Pragma: public'); 	// required
-                    header('Expires: 0');		// no cache
-                    header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
-                    header('Last-Modified: '.gmdate ('D, d M Y H:i:s', filemtime ($file_name)).' GMT');
-                    header('Cache-Control: private',false);
-                    header('Content-Type: '.$mime);
-                    header('Content-Disposition: attachment; filename="'.basename($file_name).'"');
-                    header('Content-Transfer-Encoding: binary');
-                    header('Content-Length: '.filesize($file_name));	// provide file size
-                    header('Connection: close');
-                    readfile($file_name);		// push it out*/
+                if($dir = $this->_modelFiles->getDir($id)) {
+                    if(file_exists(NOVA.'/'.$_SESSION['id'].'/'.$dir.$filename)) { 
+                        $file_name = NOVA.'/'.$_SESSION['id'].'/'.$dir.$filename;
+                        $mime = 'application/octet-stream';
+                        header('Pragma: public'); 	// required
+                        header('Expires: 0');		// no cache
+                        header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
+                        header('Last-Modified: '.gmdate ('D, d M Y H:i:s', filemtime ($file_name)).' GMT');
+                        header('Cache-Control: private',false);
+                        header('Content-Type: '.$mime);
+                        header('Content-Disposition: attachment; filename="'.basename($file_name).'"');
+                        header('Content-Transfer-Encoding: binary');
+                        header('Content-Length: '.filesize($file_name));	// provide file size
+                        header('Connection: close');
+                        readfile($file_name);		// push it out*/
+                    }
                 }
             }
         }
     }
 
-    //
-    // Functions below could be modified
-    //
-
-    /*function getLastModification($chemin) {
-        $lstat = lstat($chemin);
-        $mtime = date('d/m/Y H:i', $lstat['mtime']);
-        return $mtime;
-
+    function recurse_copy($src, $dst) {
+        // Thank you "gimmicklessgpt at gmail dot com" from php.net for the base code
+        // recurse_copy add also new files in db
+        $this->_modelFiles = new m\Files();
+        $this->_modelFiles->id_owner = $_SESSION['id'];
+        $dir = opendir(NOVA.'/'.$_SESSION['id'].'/'.$src); 
+        @mkdir(NOVA.'/'.$_SESSION['id'].'/'.$dst, 0770); 
+        while(false !== ($file = readdir($dir))) { 
+            if (($file != '.') && ($file != '..')) { 
+                if(is_dir(NOVA.'/'.$_SESSION['id'].'/'.$src.'/'.$file)) { 
+                    recurse_copy($src.'/'.$file, $dst.'/'.$file); 
+                } 
+                else { 
+                    copy(NOVA.'/'.$_SESSION['id'].'/'.$src.'/'. $file, NOVA.'/'.$_SESSION['id'].'/'.$dst.'/'.$file);
+                    // Add the new file in db
+                    $this->_modelFiles->name = $file;
+                    $this->_modelFiles->last_modification = time();
+                    $this->_modelFiles->size = filesize(NOVA.'/'.$_SESSION['id'].'/'.$dst.'/'.$file);
+                    $this->_modelFiles->addNewFile($dst.'/'); // to change
+                    //
+                }
+            } 
+        } 
+        closedir($dir); 
     }
+    
+    function addSuffixe($file, $suffixe) {
+        $double_extensions = array(
+            'tar.gz',
+            'tar.bz',
+            'tar.xz',
+            'tar.bz2'
+        );
 
-    function getTailleDossier($chemin) {
-        $this->_Size = 0;
-        //$lstat = lstat($chemin);
-        //$this->_Size += $lstat['size'];
-        //echo $this->_Size;
-        $pDossier = opendir($chemin);
-        while($file = readdir($pDossier)){
-            if($file != '.' && $file != '..') {
-                $pathfile = $chemin.'/'.$file;
-                $lstat = lstat($pathfile);
-                //echo $lstat['size'];
-                $this->_Size += $lstat['size'];
+        $pos = strpos($file, '.');
+        if($pos === false)
+            return $file.$suffixe;
+
+        $pathinfo = pathinfo($file);
+        if(empty($pathinfo['extension']))
+            return $file.$suffixe;
+
+        $file_length = strlen($file);
+        for($i=0;$i<count($double_extensions);$i++) {
+            $length = strlen($double_extensions[$i])+1;
+            if($file_length > $length) {
+                $end = substr($file, -1*$length);
+                if('.'.$double_extensions[$i] == $end) {
+                    $start = substr($file, 0, $file_length-$length);
+                    return $start.$suffixe.$end;
+                }
             }
         }
-        closedir($pDossier);
 
+        return $pathinfo['filename'].$suffixe.'.'.$pathinfo['extension'];
     }
-    */
+    
+    function getFolderSize($path) {
+        $size = 0;
+        foreach(glob("{$path}/*") as $file)
+        {
+            if(is_dir($file))
+                $this->getFolderSize($file);
+            else
+                $size += filesize($file);
+        }
+        return $size;
+    }
+
+    function MvAction() {
+        // $copy : 0 => cut, 1 => copy
+
+        if(!isset($_POST['copy']))
+            $copy = 0;
+        else {
+            if($_POST['copy'] == 1)
+                $copy = 1;
+            else
+                $copy = 0;
+        }
+
+        if(!isset($_POST['path']))
+            $path = '';
+        else
+            $path = urldecode($_POST['path']);
+
+        if(!isset($_POST['old_path']))
+            $old_path = '';
+        else
+            $old_path = urldecode($_POST['old_path']);
+
+        if(empty($_POST['files']) && empty($_POST['folders']))
+            return;
+        
+        $this->_modelFiles = new m\Files();
+        $this->_modelFiles->id_owner = $_SESSION['id'];
+        $this->_modelFiles->{'dir'} = $path;
+
+        $this->_modelStorage = new m\Storage();
+        $this->_modelStorage->id_user = $_SESSION['id'];
+        $quota = $this->_modelStorage->getUserQuota();
+        $stored = $this->_modelStorage->getSizeStored();
+        
+        if(is_dir(NOVA.'/'.$_SESSION['id'].'/'.$path) && is_dir(NOVA.'/'.$_SESSION['id'].'/'.$old_path)) {
+            
+            if(!empty($_POST['files'])) {
+                $files = explode("|", urldecode($_POST['files']));
+                if($copy == 0 && $path != $old_path) {
+                    //
+                    // cut and paste files
+                    //
+                    for($i=0;$i<count($files);$i++) {
+                        if(is_numeric($files[$i])) {
+                            if(!($filename = $this->_modelFiles->getFilename($files[$i])))
+                                continue;
+                            if(file_exists(NOVA.'/'.$_SESSION['id'].'/'.$old_path.$filename)) {
+                                rename(NOVA.'/'.$_SESSION['id'].'/'.$old_path.$filename, NOVA.'/'.$_SESSION['id'].'/'.$path.$filename);
+                                $this->_modelFiles->id = $files[$i];
+                                $this->_modelFiles->updateDir();
+                            }
+                        }
+                    }
+                }
+                elseif($copy == 1) {
+                    //
+                    // copy and paste files
+                    //
+                    for($i=0;$i<count($files);$i++) {
+                        if(is_numeric($files[$i])) {
+                            if(!($filename = $this->_modelFiles->getFilename($files[$i])))
+                                continue;
+                            if(file_exists(NOVA.'/'.$_SESSION['id'].'/'.$old_path.$filename)) {
+                                $this->_modelFiles->id = $files[$i];
+                                $this->_modelFiles->size = filesize(NOVA.'/'.$_SESSION['id'].'/'.$old_path.$filename);
+                                if($stored+$this->_modelFiles->size <= $quota) {
+                                    $stored += $this->_modelFiles->size;
+                                    $this->_modelFiles->last_modification = time();
+                                    
+                                    if($path == $old_path) {
+                                        $this->_modelFiles->name = $this->addSuffixe($filename, ' (Copy)');
+                                        copy(NOVA.'/'.$_SESSION['id'].'/'.$old_path.$filename, NOVA.'/'.$_SESSION['id'].'/'.$path.$this->_modelFiles->name);
+                                    }
+                                    else {
+                                        $this->_modelFiles->name = $filename;
+                                        copy(NOVA.'/'.$_SESSION['id'].'/'.$old_path.$filename, NOVA.'/'.$_SESSION['id'].'/'.$path.$filename);
+                                    }
+                                    $this->_modelFiles->addNewFile($path);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            if(!empty($_POST['folders'])) {
+                $folders = explode("|", urldecode($_POST['folders']));
+                if($copy == 0 && $path != $old_path) {
+                    //
+                    // cut and paste folders
+                    //
+                    for($i=0;$i<count($folders);$i++) {
+                        if(is_dir(NOVA.'/'.$_SESSION['id'].'/'.$old_path.$folders[$i])) {
+                            rename(NOVA.'/'.$_SESSION['id'].'/'.$old_path.$folders[$i], NOVA.'/'.$_SESSION['id'].'/'.$path.$folders[$i]);
+                            $this->_modelFiles->renameDir($old_path.$folders[$i], $path.$folders[$i]);
+                        }
+                    }
+                }
+                elseif($copy == 1) {
+                    //
+                    // copy and paste folders
+                    //
+                    for($i=0;$i<count($folders);$i++) {
+                        if(is_dir(NOVA.'/'.$_SESSION['id'].'/'.$old_path.$folders[$i])) {
+                            $folderSize = $this->getFolderSize(NOVA.'/'.$_SESSION['id'].'/'.$old_path.$folders[$i]);
+                            if($stored+$folderSize <= $quota) {
+                                $stored += $folderSize;
+                                // recurse_copy add also new files in db
+                                if($path == $old_path)
+                                    $this->recurse_copy($old_path.$folders[$i], $path.$folders[$i].' (Copy)');
+                                else
+                                    $this->recurse_copy($old_path.$folders[$i], $path.$folders[$i]);
+                            }
+                        }
+                    }
+                }
+            }
+            
+            $this->_modelStorage->updateSizeStored($stored);
+        }
+    }
 }
 ?>

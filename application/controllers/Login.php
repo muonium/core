@@ -1,5 +1,9 @@
 <?php
-class Login extends Languages {
+namespace application\controllers;
+use \library\MVC as l;
+use \application\models as m;
+
+class Login extends l\Languages {
 
     private $_message;
     
@@ -16,12 +20,12 @@ class Login extends Languages {
             require_once(DIR_VIEW."vDoubleAuth.php");
         }
         else {
-            $brute = new AntiBruteforce();
+            $brute = new l\AntiBruteforce();
             $brute->setFolder(ROOT.DS."tmp");
             $brute->setNbMaxAttemptsPerHour(50);
             
-            $user = new mUsers();
-            $user->setId($_SESSION['tmp_id']);
+            $user = new m\Users();
+            $user->id = $_SESSION['tmp_id'];
             
             if($user->getDoubleAuth()) {
                 if($code = $user->getCode()) {
@@ -49,16 +53,16 @@ class Login extends Languages {
     
     function ConnectionAction() {
         // Sleep during 3s to avoid a big number of requests (bruteforce)
-        sleep(3);
+        sleep(2);
 
         if(!empty($_POST['mail']) && !empty($_POST['pass']) && !empty($_POST['passphrase'])) {
-            $new_user = new mUsers();
-            $new_user->setEmail(urldecode($_POST['mail']));
-            $new_user->setPassword($_POST['pass']);
-            $new_user->setPassphrase(urldecode($_POST['passphrase']));
+            $new_user = new m\Users();
+            $new_user->email = urldecode($_POST['mail']);
+            $new_user->password = $_POST['pass'];
+            $new_user->passphrase = urldecode($_POST['passphrase']);
             //$new_user->setPassphrase($_POST['passphrase']);
 
-            $brute = new AntiBruteforce();
+            $brute = new l\AntiBruteforce();
             $brute->setFolder(ROOT.DS."tmp");
             $brute->setNbMaxAttemptsPerHour(50);
 
@@ -78,9 +82,9 @@ class Login extends Languages {
                 else {
                     // Mail, password and passphrase ok, connection
 
-                    $new_user->setId($id);
-                    $mUserVal = new mUserValidation();
-                    $mUserVal->setIdUser($id);
+                    $new_user->id = $id;
+                    $mUserVal = new m\UserValidation();
+                    $mUserVal->id_user = $id;
 
                     if(!($mUserVal->getKey())) { 
                         // Unable to find key - Validation is done
@@ -93,10 +97,10 @@ class Login extends Languages {
                             $code = $this->generateCode();
                             $new_user->updateCode($code);
                             
-                            $mail = new Mail();
-                            $mail->setTo($_POST['mail']);
-                            $mail->setSubject("Muonium - ".$this->txt->Profile->doubleAuth);
-                            $mail->setMessage(str_replace("[key]", $code, $this->txt->Login->doubleAuthMessage));
+                            $mail = new l\Mail();
+                            $mail->_to = $_POST['mail'];
+                            $mail->_subject = "Muonium - ".$this->txt->Profile->doubleAuth;
+                            $mail->_message = str_replace("[key]", $code, $this->txt->Login->doubleAuthMessage);
                             $mail->send();
                         }
                         else // Logged

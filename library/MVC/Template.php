@@ -1,4 +1,6 @@
 <?php
+namespace library\MVC;
+
 class Template
 {
 	private $_title;
