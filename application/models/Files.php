@@ -108,7 +108,7 @@ class Files extends l\Model {
         //
         
         function addNewFile($path) {
-            $req = $this->_sql->prepare("INSERT INTO files VALUES ('', ?, ?, ?, ?, ?, '0')");
+            $req = $this->_sql->prepare("INSERT INTO files VALUES (NULL, ?, ?, ?, ?, ?, '0')");
             $ret = $req->execute(array($_SESSION['id'], $path, $this->name, $this->size, $this->last_modification));   
             return $ret;
         }

@@ -51,7 +51,7 @@ class Storage extends l\Model {
         }
         
         function Insertion() {
-            $req = $this->_sql->prepare("INSERT INTO storage VALUES ('', ?, ?, ?)");
+            $req = $this->_sql->prepare("INSERT INTO storage VALUES (NULL, ?, ?, ?)");
             $ret = $req->execute(array($this->id_user, 2000000000, 0));   
             return $ret;
         }

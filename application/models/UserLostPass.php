@@ -49,7 +49,7 @@ class UserLostPass extends l\Model {
         }
         
         function Insert() {
-            $req = $this->_sql->prepare("INSERT INTO user_lostpass VALUES ('', ?, ?, ?)");
+            $req = $this->_sql->prepare("INSERT INTO user_lostpass VALUES (NULL, ?, ?, ?)");
             return $req->execute(array($this->id_user, $this->val_key, $this->expire));
         }
         

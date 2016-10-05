@@ -38,7 +38,7 @@ class UserValidation extends l\Model {
         }
         
         function Insert() {
-            $req = $this->_sql->prepare("INSERT INTO user_validation VALUES ('', ?, ?)");
+            $req = $this->_sql->prepare("INSERT INTO user_validation VALUES (NULL, ?, ?)");
             return $req->execute(array($this->id_user, $this->val_key));
         }
         

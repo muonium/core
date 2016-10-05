@@ -48,9 +48,10 @@ class Register extends l\Languages {
                                     $this->_modelUser = new m\Users();
 
                                     $this->_modelUser->email = $_POST['mail'];
+                                    //$this->_modelUser->passphrase = password_hash($_POST['passphrase'], PASSWORD_BCRYPT);
                                     $this->_modelUser->passphrase = urldecode($_POST['passphrase']);
-                                    //$this->_modelUser->passphrase = $_POST['passphrase'];
-                                    $this->_modelUser->password = $_POST['pass'];
+                                    $this->_modelUser->password = password_hash($_POST['pass'], PASSWORD_BCRYPT);
+                                    
                                     $this->_modelUser->login = $_POST['login'];
 
                                     if(!($this->_modelUser->EmailExists()))

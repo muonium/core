@@ -60,7 +60,6 @@ class Login extends l\Languages {
             $new_user->email = urldecode($_POST['mail']);
             $new_user->password = $_POST['pass'];
             $new_user->passphrase = urldecode($_POST['passphrase']);
-            //$new_user->setPassphrase($_POST['passphrase']);
 
             $brute = new l\AntiBruteforce();
             $brute->setFolder(ROOT.DS."tmp");
@@ -73,50 +72,54 @@ class Login extends l\Languages {
                 echo htmlentities($this->txt->Login->{"bruteforceErr".$brute->getError()});
             }
             else {
-                if(!($new_user->Connection())) {
-                    // User exists - Anti bruteforce with user id
-                    $brute->setId($id);
-                    $brute->Control();
-                    echo htmlentities($this->txt->Login->{"bruteforceErr".$brute->getError()});
-                }
-                else {
-                    // Mail, password and passphrase ok, connection
+                $new_user->id = $id;
+                $pass = $new_user->getPassword();
+                $pp = $new_user->getPassphrase();
+                
+                if($pass !== false && $pp !== false) {
+                    if(password_verify($new_user->password, $pass) && password_verify($new_user->passphrase, $pp)) {
+                    //if(password_verify($new_user->password, $pass) && $new_user->passphrase == $pp) {
+                        // Mail, password and passphrase ok, connection
 
-                    $new_user->id = $id;
-                    $mUserVal = new m\UserValidation();
-                    $mUserVal->id_user = $id;
+                        $mUserVal = new m\UserValidation();
+                        $mUserVal->id_user = $id;
 
-                    if(!($mUserVal->getKey())) { 
-                        // Unable to find key - Validation is done
-                        
-                        if($new_user->getDoubleAuth()) {
-                            // Double auth
-                            $_SESSION['tmp_id'] = $id;
-                            
-                            // Send an email with a code
-                            $code = $this->generateCode();
-                            $new_user->updateCode($code);
-                            
-                            $mail = new l\Mail();
-                            $mail->_to = $_POST['mail'];
-                            $mail->_subject = "Muonium - ".$this->txt->Profile->doubleAuth;
-                            $mail->_message = str_replace("[key]", $code, $this->txt->Login->doubleAuthMessage);
-                            $mail->send();
+                        if(!($mUserVal->getKey())) { 
+                            // Unable to find key - Validation is done
+
+                            if($new_user->getDoubleAuth()) {
+                                // Double auth
+                                $_SESSION['tmp_id'] = $id;
+
+                                // Send an email with a code
+                                $code = $this->generateCode();
+                                $new_user->updateCode($code);
+
+                                $mail = new l\Mail();
+                                $mail->_to = $_POST['mail'];
+                                $mail->_subject = "Muonium - ".$this->txt->Profile->doubleAuth;
+                                $mail->_message = str_replace("[key]", $code, $this->txt->Login->doubleAuthMessage);
+                                $mail->send();
+                            }
+                            else // Logged
+                                $_SESSION['id'] = $id;
+
+                            echo 'ok@';
                         }
-                        else // Logged
+                        else {
+                            // Key found - User needs to validate its account (double auth only for validated accounts)
                             $_SESSION['id'] = $id;
-                        
-                        echo 'ok@';
+                            $_SESSION['validate'] = 1;
+                            echo 'va@';
+                        }
+                        return;
                     }
-                    else {
-                        // Key found - User needs to validate its account (double auth only for validated accounts)
-                        $_SESSION['id'] = $id;
-                        $_SESSION['validate'] = 1;
-                        echo 'va@';
-                    }
-                    
-                    
                 }
+                
+                // User exists but incorrect password/passphrase - Anti bruteforce with user id
+                $brute->setId($id);
+                $brute->Control();
+                echo htmlentities($this->txt->Login->{"bruteforceErr".$brute->getError()});
             }
         }
         else {

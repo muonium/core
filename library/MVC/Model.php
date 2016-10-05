@@ -11,6 +11,8 @@ class Model {
 
     function __construct() {
         $this->_sql = new \PDO('mysql:host='.conf\confDB::hostDefaut.';dbname='.conf\confDB::bddDefaut,conf\confDB::userDefaut,conf\confDB::passDefaut);
+        $this->_sql->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+        $this->_sql->setAttribute(\PDO::ATTR_EMULATE_PREPARES, false);
     }
 
     public static function getInstance() {

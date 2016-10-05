@@ -271,9 +271,19 @@ var upFilesDialog = function() {
     document.querySelector('#upFilesInput').click();
 }
 
+//
+var xhr_upload = new Array();
+
+var abort = function(i) {
+    xhr_upload[i].abort();
+    console.log("aborted "+i);
+    document.querySelector("#upload"+i).innerHTML = '';
+    filesUploaded++;
+}
+
 var upFiles = function(files) {
     // Upload multiple files function
-    
+    xhr_upload = new Array();
     var progress = document.querySelector("#progress");
     progress.innerHTML = ' ';
     // Loop through each of the selected files.
@@ -295,7 +305,6 @@ var upFiles = function(files) {
 
 var upFile = function(file, i) {
     // Upload a file
-    var xhr = new Array();
     
     // Create a new FormData object.
     var formData = new FormData();
@@ -303,25 +312,26 @@ var upFile = function(file, i) {
     // Add the file to the request.
     formData.append('path', path);
     formData.append('upload[]', file, file.name);
-    xhr[i] = new XMLHttpRequest();
-    xhr[i].open("POST", "User/UpFiles", true);
+    xhr_upload[i] = new XMLHttpRequest();
+    xhr_upload[i].open("POST", "User/UpFiles", true);
         
     // Progress bar
-    xhr[i].upload.addEventListener("progress", function(event, filename) {
+    xhr_upload[i].upload.addEventListener("progress", function(event, filename) {
         if(event.lengthComputable)
-            document.querySelector("#upload"+i).innerHTML = file.name+" : "+(event.loaded/event.total*100).toFixed(2)+"%";
+            document.querySelector("#upload"+i).innerHTML = "<a onclick='abort("+i+")'>x</a> "+file.name+" : "+(event.loaded/event.total*100).toFixed(2)+"%";
     }, false);
         
-    xhr[i].onreadystatechange = function() {
-        if(xhr[i].readyState === 4) {
-            if(xhr[i].status === 200) {
-                console.log(xhr[i].responseText);
+    xhr_upload[i].onreadystatechange = function() {
+        if(xhr_upload[i].readyState === 4) {
+            if(xhr_upload[i].status === 200) {
+                console.log(xhr_upload[i].responseText);
                 filesUploaded++;
             }
         }
     };
-    xhr[i].send(formData);
+    xhr_upload[i].send(formData);
 }
+//
 
 var getFolderName = function(id) {
     if(document.getElementById(id))
