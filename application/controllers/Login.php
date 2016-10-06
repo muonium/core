@@ -2,9 +2,7 @@
 namespace application\controllers;
 use \library\MVC as l;
 use \application\models as m;
-
 class Login extends l\Languages {
-
     private $_message;
     
     function AuthCodeAction() {
@@ -54,17 +52,19 @@ class Login extends l\Languages {
     function ConnectionAction() {
         // Sleep during 3s to avoid a big number of requests (bruteforce)
         sleep(2);
-
-        if(!empty($_POST['mail']) && !empty($_POST['pass']) && !empty($_POST['passphrase'])) {
+        if(!empty($_POST['username']) && !empty($_POST['pass']) && !empty($_POST['passphrase'])) {
             $new_user = new m\Users();
-            $new_user->email = urldecode($_POST['mail']);
-            $new_user->password = $_POST['pass'];
+            
+            if(filter_var($_POST['username'], FILTER_VALIDATE_EMAIL) === false)
+                $new_user->login = urldecode($_POST['username']);
+            else
+                $new_user->email = urldecode($_POST['username']);
+            
+            $new_user->password = urldecode($_POST['pass']);
             $new_user->passphrase = urldecode($_POST['passphrase']);
-
             $brute = new l\AntiBruteforce();
             $brute->setFolder(ROOT.DS."tmp");
             $brute->setNbMaxAttemptsPerHour(50);
-
             if(!($id = $new_user->getId())) {
                 // User doesn't exists - Anti bruteforce with session id
                 $brute->setSID();
@@ -77,24 +77,19 @@ class Login extends l\Languages {
                 $pp = $new_user->getPassphrase();
                 
                 if($pass !== false && $pp !== false) {
-                    if(password_verify($new_user->password, $pass) && password_verify($new_user->passphrase, $pp)) {
-                    //if(password_verify($new_user->password, $pass) && $new_user->passphrase == $pp) {
+                    //if(password_verify($new_user->password, $pass) && password_verify($new_user->passphrase, $pp)) {
+                    if(password_verify($new_user->password, $pass) && $new_user->passphrase == $pp) {
                         // Mail, password and passphrase ok, connection
-
                         $mUserVal = new m\UserValidation();
                         $mUserVal->id_user = $id;
-
                         if(!($mUserVal->getKey())) { 
                             // Unable to find key - Validation is done
-
                             if($new_user->getDoubleAuth()) {
                                 // Double auth
                                 $_SESSION['tmp_id'] = $id;
-
                                 // Send an email with a code
                                 $code = $this->generateCode();
                                 $new_user->updateCode($code);
-
                                 $mail = new l\Mail();
                                 $mail->_to = $_POST['mail'];
                                 $mail->_subject = "Muonium - ".$this->txt->Profile->doubleAuth;
@@ -103,7 +98,6 @@ class Login extends l\Languages {
                             }
                             else // Logged
                                 $_SESSION['id'] = $id;
-
                             echo 'ok@';
                         }
                         else {
@@ -126,7 +120,6 @@ class Login extends l\Languages {
             echo htmlentities($this->txt->Register->form);
         }
     }
-
     function DefaultAction() {
         if(!empty($_SESSION['id']))
             exit(header('Location: '.MVC_ROOT.'/Error/Error/404'));

@@ -88,6 +88,7 @@
         "codeMail": "Code reçu par email",
         "expired": "Le code est expiré, veuillez vous connecter à nouveau",
         "invalidCode": "Le code entré est invalide",
+        "username": "Email ou login",
         "doubleAuth": "Un email avec un code d'authentification vous a été envoyé. Copiez ce code dans le champ ci-dessus.<br />Si vous n'avez rien reçu d'ici 5 mn et que le mail n'est pas présent dans le dossier Spam, suivez ce <a href='https://muonium.ch/core/Logout'>lien</a> pour effectuer une nouvelle tentative de connexion."
     },
 

@@ -8,8 +8,10 @@
     $_t = new l\Template($this->txt->Global->login);
     $_t->addCss("home_global");
     $_t->addCss("Login/home_login");
+    $_t->addJs("base64");
+    $_t->addJs("sha512");
+    $_t->addJs("mui_hash");
     $_t->addJs("Login/log_connect");
-    $_t->addJs("Login/sha512");
     $_t->getHeader();
 ?>
 <body>
@@ -31,7 +33,7 @@
 
         <div id="form">
             <p style="color:red"><?php if(!empty($this->_message)) { echo $this->_message; } ?></p>
-            <input type="text" name="mail" id="field_mail" placeholder="<?php echo_h($this->txt->Register->email); ?>..." required="required" autofocus><br />
+            <input type="text" name="username" id="field_username" placeholder="<?php echo_h($this->txt->Login->username); ?>..." required="required" autofocus><br />
             <input type="password" name="pass" id="field_password" placeholder="<?php echo_h($this->txt->Register->password); ?>..." required="required" /><br />
             <input type="password" name="passphrase" id="field_passphrase" placeholder="<?php echo_h($this->txt->Register->passphrase); ?>..." required="required" /><br /><br />
             <a href="<?php echo MVC_ROOT; ?>/LostPass"><?php echo_h($this->txt->Login->forgot); ?></a> &nbsp;&nbsp; <a href="<?php echo MVC_ROOT; ?>/Register"><?php echo_h($this->txt->Login->register); ?></a><br />

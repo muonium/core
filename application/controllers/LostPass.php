@@ -12,7 +12,7 @@ class LostPass extends l\Languages {
     private $_modelUser;
     private $_modelUserLostPass;
     private $_mail;
-    
+
     private $ppCounter = 0;
 
     function __construct() {
@@ -36,68 +36,53 @@ class LostPass extends l\Languages {
         // Called by lostPass.js
         if(!empty($_SESSION['changePassId']) && !empty($_SESSION['changePassKey'])) {
             if(is_numeric($_SESSION['changePassId']) && strlen($_SESSION['changePassKey']) == 128) {
-                if((!empty($_POST['pwd']) && !empty($_POST['pwd_confirm'])) || (!empty($_POST['pp']) && !empty($_POST['pp_confirm']))) {
-                    
+                if(!empty($_POST['pwd']) || !empty($_POST['pp'])) {
+
                     $this->_modelUserLostPass = new m\UserLostPass();
                     $this->_modelUserLostPass->id_user = $_SESSION['changePassId'];
 
                     if($this->_modelUserLostPass->getKey()) {
 
                         if($this->_modelUserLostPass->getKey() == $_SESSION['changePassKey'] && $this->_modelUserLostPass->getExpire() >= time()) {
-                            if($_POST['pwd_length'] || $_POST['pp_length']) {
-                                $this->_modelUser = new m\Users();
-                                $this->_modelUser->id = $_SESSION['changePassId'];
-                                $this->ppCounter = $this->_modelUser->getPpCounter();
+                            $this->_modelUser = new m\Users();
+                            $this->_modelUser->id = $_SESSION['changePassId'];
+                            $this->ppCounter = $this->_modelUser->getPpCounter();
 
-                                if(!empty($_POST['pwd']) && !empty($_POST['pwd_confirm']) && $_POST['pwd_length']) {
-                                    // change password
+                            if(!empty($_POST['pwd'])) {
+                                // change password
 
-                                    if($_POST['pwd'] == $_POST['pwd_confirm']) {
-                                        $this->_modelUser->password = $_POST['pwd'];
-                                        
-                                        if($this->_modelUser->updatePassword()) {
-                                            unset($_SESSION['changePassId']);
-                                            unset($_SESSION['changePassKey']);
-                                            unset($_SESSION['sendMail']);
-                                            $this->_modelUserLostPass->Delete();
-                                            echo 'ok@'.$this->txt->LostPass->updateOk;
-                                        }
-                                        else
-                                            echo $this->txt->LostPass->updateErr;
-                                    }
-                                    else {
-                                        echo $this->txt->Register->badPassConfirm;
-                                    }
+                                $this->_modelUser->password = password_hash(urldecode($_POST['pwd']), PASSWORD_BCRYPT);
+
+                                if($this->_modelUser->updatePassword()) {
+                                    unset($_SESSION['changePassId']);
+                                    unset($_SESSION['changePassKey']);
+                                    unset($_SESSION['sendMail']);
+                                    $this->_modelUserLostPass->Delete();
+                                    echo 'ok@'.$this->txt->LostPass->updateOk;
                                 }
-                                if(!empty($_POST['pp']) && !empty($_POST['pp_confirm']) && $_POST['pp_length']) {
-                                    // change passphrase
-
-                                    if($_POST['pp'] == $_POST['pp_confirm']) {
-                                        $this->_modelUser->passphrase = urldecode($_POST['pp']);
-                                        //$this->_modelUser->passphrase = $_POST['pp'];
-                                        
-                                        if($this->_modelUser->updatePassphrase()) {
-                                            if($this->ppCounter >= 2) {
-                                                // To do :
-                                                // Delete all user's data
-                                            }
-                                            $this->_modelUser->incrementPpCounter();
-                                            unset($_SESSION['changePassId']);
-                                            unset($_SESSION['changePassKey']);
-                                            unset($_SESSION['sendMail']);
-                                            $this->_modelUserLostPass->Delete();
-                                            echo 'ok@'.$this->txt->LostPass->updateOk;
-                                        }
-                                        else
-                                            echo $this->txt->LostPass->updateErr;
-                                    }
-                                    else {
-                                        echo $this->txt->Register->badPassphraseConfirm;
-                                    }
-                                }
+                                else
+                                    echo $this->txt->LostPass->updateErr;
                             }
-                            else {
-                                echo $this->txt->Register->passLength;
+                            if(!empty($_POST['pp'])) {
+                                // change passphrase
+
+                                $this->_modelUser->passphrase = urldecode($_POST['pp']);
+                                //$this->_modelUser->passphrase = password_hash(urldecode($_POST['pp']), PASSWORD_BCRYPT);
+
+                                if($this->_modelUser->updatePassphrase()) {
+                                    if($this->ppCounter >= 2) {
+                                        // To do :
+                                        // Delete all user's data
+                                    }
+                                    $this->_modelUser->incrementPpCounter();
+                                    unset($_SESSION['changePassId']);
+                                    unset($_SESSION['changePassKey']);
+                                    unset($_SESSION['sendMail']);
+                                    $this->_modelUserLostPass->Delete();
+                                    echo 'ok@'.$this->txt->LostPass->updateOk;
+                                }
+                                else
+                                    echo $this->txt->LostPass->updateErr;
                             }
                         }
                         else {
@@ -181,13 +166,13 @@ class LostPass extends l\Languages {
                     $this->_modelUser->email = $user;
                 else
                     $this->_modelUser->login = $user;
-                
+
                 if(!($user_mail = $this->_modelUser->getEmail()))
                     exit(header('Location: '.MVC_ROOT.'/Error/Error/404'));
-                
+
                 if(!($id_user = $this->_modelUser->getId()))
                     exit(header('Location: '.MVC_ROOT.'/Error/Error/404'));
-                
+
                 $this->_modelUserLostPass = new m\UserLostPass();
                 $this->_modelUserLostPass->id_user = $id_user;
                 if(!($this->_modelUserLostPass->getKey()))
@@ -209,7 +194,7 @@ class LostPass extends l\Languages {
                 $this->_mail->_message = str_replace("[id_user]", $id_user, str_replace("[key]", $key, $this->txt->LostPass->message));
                 $this->_mail->send();
                 $_SESSION['sendMail'] = time();
-                
+
                 $this->err_msg = $this->txt->Global->mail_sent;
                 require_once(DIR_VIEW."vLostPass.php");
             }
