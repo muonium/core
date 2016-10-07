@@ -15,7 +15,8 @@
         "profile": "Аккаунт",
         "mail_sent": "An email was sent to you, please check your mailbox and your spams. If you received nothing after 5mn, try again :",
         "submit": "Submit",
-        "bug": "Send a bug report"
+        "bug": "Send a bug report",
+        "loading": "Loading..."
     },
 
     "UserMenu": {

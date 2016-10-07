@@ -15,7 +15,8 @@
         "profile": "Profil",
         "mail_sent": "Un email vous a été envoyé, veuillez vérifier votre boîte de réception et vos spams. Si vous n'avez rien reçu au bout de 5mn, tentez à nouveau :",
         "submit": "Valider",
-        "bug": "Send a bug report"
+        "bug": "Send a bug report",
+        "loading": "Chargement..."
     },
 
     "UserMenu": {

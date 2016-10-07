@@ -132,7 +132,7 @@ class User extends l\Languages {
             if($lastPos === false)
                 echo '<a ondblclick="openDir(\'\')">ROOT</a> ';
             else
-                echo '<a ondblclick="openDir(\''.substr($this->_path, 0, $lastPos).'\')">^</a> ';
+                echo '<a ondblclick="openDir(\''.substr($this->_path, 0, $lastPos).'\')"><img src="'.IMG.'desktop/arrow.svg" class="icon"></a> ';
         }
         echo ' ['.$this->showSize($stored).'/'.$this->showSize($quota).']</p>';
 
@@ -142,14 +142,14 @@ class User extends l\Languages {
             while(false !== ($entry = readdir($handle))) {
                 if($entry != '.' && $entry != '..') {
                     if(is_dir(NOVA.'/'.$_SESSION['id'].'/'.$this->_path.$entry)) {
-                        echo '<span class="folder" id="d'.$i.'" name="'.$entry.'" onclick="addFolderSelection(this.id)" ondblclick="openDirById(this.id)"><strong>'.$entry.'</strong></span>';
+                        echo '<span class="folder" id="d'.$i.'" name="'.$entry.'" onclick="addFolderSelection(this.id)" ondblclick="openDirById(this.id)"><img src="'.IMG.'desktop/extensions/folder.svg" class="icon"> <strong>'.$entry.'</strong></span>';
                         $i++;
                     }
                     else {
                         if(!array_key_exists($entry, $files)) // file not in database (for debugging)
                             echo '<span class="undefined">'.$entry.'</span>';
                         else
-                            echo '<span class="file" id="f'.$files[$entry]['0'].'" onclick="addFileSelection(this.id)">'.$entry.' ['.$this->showSize($files[$entry]['1']).'] - '.$this->txt->User->lastmod.' : '.date('d/m/Y G:i', $files[$entry]['2']).'</span>';
+                            echo '<span class="file" id="f'.$files[$entry]['0'].'" onclick="addFileSelection(this.id)" title="'.$entry.'">'.$entry.' ['.$this->showSize($files[$entry]['1']).'] - '.$this->txt->User->lastmod.' : '.date('d/m/Y G:i', $files[$entry]['2']).'</span>';
                     }
                 }
             }

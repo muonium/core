@@ -69,17 +69,17 @@ var box = class {
         switch(Area) {
             //over nothing
             case 0:
-                this.box_div.innerHTML = '<p onclick="nFolder()">'+txt.RightClick.nFolder+'</p><p onclick="upFilesDialog()">'+txt.RightClick.upFiles+'</p>';
-                if(MoveFile.length > 0 || MoveFolder.length > 0) { this.box_div.innerHTML += '<hr><p onclick="paste(\''+id+'\')">'+txt.RightClick.paste+'</p>'; }
+                this.box_div.innerHTML = '<p onclick="nFolder()"><img src="'+img+'desktop/actions/create_folder.svg" class="icon"> '+txt.RightClick.nFolder+'</p><p onclick="upFilesDialog()"><img src="'+img+'desktop/actions/upload.svg" class="icon"> '+txt.RightClick.upFiles+'</p>';
+                if(MoveFile.length > 0 || MoveFolder.length > 0) { this.box_div.innerHTML += '<hr><p onclick="paste(\''+id+'\')"><img src="'+img+'index/actions/paste.svg" class="icon"> '+txt.RightClick.paste+'</p>'; }
                 this.box_div.innerHTML += '<hr><p onclick="logout()">'+txt.RightClick.logOut+'</p>';
                 break;
             //mouse over a file
             case 1:
-                this.box_div.innerHTML = '<p onclick="dl(\''+id+'\')">'+txt.RightClick.dl+'</p><hr><p>'+txt.RightClick.star+'</p><hr><p onclick="cut(\''+id+'\')">'+txt.RightClick.cut+'</p><p onclick="copy(\''+id+'\')">'+txt.RightClick.copy+'</p><p onclick="paste(\''+id+'\')">'+txt.RightClick.paste+'</p><p onclick="rm(\''+id+'\')">'+txt.RightClick.rm+'</p><hr><p>'+txt.RightClick.mvItem+'</p><p>'+txt.RightClick.mvLocate+'</p><hr><p>'+txt.RightClick.vDetails+'</p>';
+                this.box_div.innerHTML = '<p onclick="dl(\''+id+'\')"><img src="'+img+'index/actions/download.svg" class="icon"> '+txt.RightClick.dl+'</p><hr><p><img src="'+img+'index/actions/putInFavorites.svg" class="icon"> '+txt.RightClick.star+'</p><hr><p onclick="cut(\''+id+'\')"><img src="'+img+'index/actions/cut.svg" class="icon"> '+txt.RightClick.cut+'</p><p onclick="copy(\''+id+'\')"><img src="'+img+'index/actions/copy.svg" class="icon"> '+txt.RightClick.copy+'</p><p onclick="paste(\''+id+'\')"><img src="'+img+'index/actions/paste.svg" class="icon"> '+txt.RightClick.paste+'</p><p onclick="rm(\''+id+'\')">'+txt.RightClick.rm+'</p><hr><p><img src="'+img+'index/actions/rename.svg" class="icon"> '+txt.RightClick.mvItem+'</p><p><img src="'+img+'index/actions/paste.svg" class="icon">'+txt.RightClick.mvLocate+'</p><hr><p>'+txt.RightClick.vDetails+'</p>';
                 break;
             //mouse over a folder
             case 2:
-                this.box_div.innerHTML = '<p onclick="openDirById(\''+id+'\')">'+txt.RightClick.open+'</p><hr><p onclick="cut(\''+id+'\')">'+txt.RightClick.cut+'</p><p onclick="copy(\''+id+'\')">'+txt.RightClick.copy+'</p><p onclick="paste(\''+id+'\')">'+txt.RightClick.paste+'</p><p onclick="rm(\''+id+'\')">'+txt.RightClick.rm+'</p><hr><p>'+txt.RightClick.mvItem+'</p><p>'+txt.RightClick.mvLocate+'</p><hr><p>'+txt.RightClick.vDetails+'</p>';
+                this.box_div.innerHTML = '<p onclick="openDirById(\''+id+'\')"><img src="'+img+'index/actions/view.svg" class="icon"> '+txt.RightClick.open+'</p><hr><p onclick="cut(\''+id+'\')"><img src="'+img+'index/actions/cut.svg" class="icon"> '+txt.RightClick.cut+'</p><p onclick="copy(\''+id+'\')"><img src="'+img+'index/actions/copy.svg" class="icon"> '+txt.RightClick.copy+'</p><p onclick="paste(\''+id+'\')"><img src="'+img+'index/actions/paste.svg" class="icon"> '+txt.RightClick.paste+'</p><p onclick="rm(\''+id+'\')">'+txt.RightClick.rm+'</p><hr><p><img src="'+img+'index/actions/rename.svg" class="icon"> '+txt.RightClick.mvItem+'</p><p>'+txt.RightClick.mvLocate+'</p><hr><p>'+txt.RightClick.vDetails+'</p>';
         }
         this.box_div.style.display = 'block';
     }
@@ -275,9 +275,9 @@ var upFilesDialog = function() {
 var xhr_upload = new Array();
 
 var abort = function(i) {
+    document.querySelector("#div_upload"+i).style.display = 'none';
     xhr_upload[i].abort();
     console.log("aborted "+i);
-    document.querySelector("#upload"+i).innerHTML = '';
     filesUploaded++;
 }
 
@@ -288,7 +288,7 @@ var upFiles = function(files) {
     progress.innerHTML = ' ';
     // Loop through each of the selected files.
     for(var i=0;i<files.length;i++) {
-        progress.innerHTML += '<div id="upload'+i+'"></div>';
+        progress.innerHTML += '<div id="div_upload'+i+'"><button onclick="abort('+i+')">X</button> <span id="span_upload'+i+'"></span></div>';
         upFile(files[i], i);
     }
     
@@ -318,7 +318,7 @@ var upFile = function(file, i) {
     // Progress bar
     xhr_upload[i].upload.addEventListener("progress", function(event, filename) {
         if(event.lengthComputable)
-            document.querySelector("#upload"+i).innerHTML = "<a onclick='abort("+i+")'>x</a> "+file.name+" : "+(event.loaded/event.total*100).toFixed(2)+"%";
+            document.querySelector("#span_upload"+i).innerHTML = file.name+" : "+(event.loaded/event.total*100).toFixed(2)+"%";
     }, false);
         
     xhr_upload[i].onreadystatechange = function() {
@@ -376,6 +376,43 @@ var openDir = function(dir) {
                 SelectedFolder = [];
                 // Set events for all files and folders loaded
                 setEvents();
+                
+                // Put icons
+                var ext = '';
+                var pos = -1;
+                var icon;
+                
+                // Types of files
+                var archive = ['zip', 'tar', 'gz', 'bz', 'bz2', 'xz', 'rar', 'jar', '7z'];
+                var code = ['php', 'html', 'htm', 'php3', 'php4', 'php5', 'java', 'css', 'scss', 'xml', 'svg', 'sql', 'c', 'cpp', 'cs', 'js', 'au3', 'asm', 'h', 'ini', 'jav', 'p', 'pl', 'rb', 'sh', 'bat'];
+                var image = ['jpg', 'jpeg', 'png', 'bmp', 'gif'];
+                var doc = ['docx', 'odt'];
+                var pdf = ['pdf'];
+                var sound = ['mp3', 'ogg', 'flac', 'wav', 'aac'];
+                var video = ['mp4', 'avi', 'wmv', 'mpeg', 'mov', 'mkv', 'mka', 'mks', 'flv'];
+                
+                document.querySelectorAll(".file").forEach(function(e) {
+                    icon = 'text';
+                    pos = e.title.lastIndexOf('.');
+                    if(pos !== -1) {
+                        ext = e.title.substr(pos+1);
+                        if(archive.indexOf(ext) !== -1)
+                            icon = 'archive';
+                        else if(code.indexOf(ext) !== -1)
+                            icon = 'code';
+                        else if(image.indexOf(ext) !== -1)
+                            icon = 'image';
+                        else if(doc.indexOf(ext) !== -1)
+                            icon = 'doc';
+                        else if(pdf.indexOf(ext) !== -1)
+                            icon = 'pdf';
+                        else if(sound.indexOf(ext) !== -1)
+                            icon = 'sound';
+                        else if(video.indexOf(ext) !== -1)
+                            icon = 'video'; 
+                    }
+                    e.innerHTML = '<img src="'+img+'desktop/extensions/'+icon+'.svg" class="icon"> '+e.innerHTML;
+                });
             }
         }
     }

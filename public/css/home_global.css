@@ -285,3 +285,8 @@ section#content div#return p.success
 {
     color: green;
 }
+
+.icon {
+    height: 20px;
+    width: 20px;
+}
