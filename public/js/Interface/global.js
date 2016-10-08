@@ -33,57 +33,56 @@ var returnArea;
 
 // Box class. Show a div 'box' when user uses right click inside desktop div, close the box when user uses left click
 
-var box = class {
+var box = function() {
+    this.box_div = document.querySelector("#box");
+    this.x = 0;
+    this.y = 0;
+}
 
-    constructor() {
-        this.box_div = document.querySelector("#box");
+box.prototype.left_click = function(x, y) {
+    // If the user uses left click inside the 'box'
+    if((x > this.x && x < this.x + this.box_div.clientWidth) && (y > this.y && y < this.y + this.box_div.clientHeight)) {
+        // Action
+    }
+    else {
+        // Otherwise, hide 'box'
+        this.box_div.style.display = 'none';
+        Area = 0;
+    }
+}
+
+box.prototype.right_click = function(x, y, id) {
+    // Show box at position x, y
+    this.x = x;
+    this.y = y;
+
+    this.box_div.style.left = x+'px';
+    this.box_div.style.top = y+'px';
+
+    if(id === undefined) {
+        //when there isn't anything
+        //under the mouse
+        Area = 0;
     }
 
-    left_click(x, y) {
-        // If the user uses left click inside the 'box'
-        if((x > this.x && x < this.x + this.box_div.clientWidth) && (y > this.y && y < this.y + this.box_div.clientHeight)) {
-            // Action
-        }
-        else {
-            // Otherwise, hide 'box'
-            this.box_div.style.display = 'none';
-            Area = 0;
-        }
+    // Content according to area
+    switch(Area) {
+        //over nothing
+        case 0:
+            this.box_div.innerHTML = '<p onclick="nFolder()"><img src="'+img+'desktop/actions/create_folder.svg" class="icon"> '+txt.RightClick.nFolder+'</p><p onclick="upFilesDialog()"><img src="'+img+'desktop/actions/upload.svg" class="icon"> '+txt.RightClick.upFiles+'</p>';
+            if(MoveFile.length > 0 || MoveFolder.length > 0) { this.box_div.innerHTML += '<hr><p onclick="paste(\''+id+'\')"><img src="'+img+'index/actions/paste.svg" class="icon"> '+txt.RightClick.paste+'</p>'; }
+            this.box_div.innerHTML += '<hr><p onclick="logout()">'+txt.RightClick.logOut+'</p>';
+            break;
+        //mouse over a file
+        case 1:
+            this.box_div.innerHTML = '<p onclick="dl(\''+id+'\')"><img src="'+img+'index/actions/download.svg" class="icon"> '+txt.RightClick.dl+'</p><hr><p><img src="'+img+'index/actions/putInFavorites.svg" class="icon"> '+txt.RightClick.star+'</p><hr><p onclick="cut(\''+id+'\')"><img src="'+img+'index/actions/cut.svg" class="icon"> '+txt.RightClick.cut+'</p><p onclick="copy(\''+id+'\')"><img src="'+img+'index/actions/copy.svg" class="icon"> '+txt.RightClick.copy+'</p><p onclick="paste(\''+id+'\')"><img src="'+img+'index/actions/paste.svg" class="icon"> '+txt.RightClick.paste+'</p><p onclick="rm(\''+id+'\')">'+txt.RightClick.rm+'</p><hr><p><img src="'+img+'index/actions/rename.svg" class="icon"> '+txt.RightClick.mvItem+'</p><p><img src="'+img+'index/actions/paste.svg" class="icon">'+txt.RightClick.mvLocate+'</p><hr><p>'+txt.RightClick.vDetails+'</p>';
+            break;
+        //mouse over a folder
+        case 2:
+            this.box_div.innerHTML = '<p onclick="openDirById(\''+id+'\')"><img src="'+img+'index/actions/view.svg" class="icon"> '+txt.RightClick.open+'</p><hr><p onclick="cut(\''+id+'\')"><img src="'+img+'index/actions/cut.svg" class="icon"> '+txt.RightClick.cut+'</p><p onclick="copy(\''+id+'\')"><img src="'+img+'index/actions/copy.svg" class="icon"> '+txt.RightClick.copy+'</p><p onclick="paste(\''+id+'\')"><img src="'+img+'index/actions/paste.svg" class="icon"> '+txt.RightClick.paste+'</p><p onclick="rm(\''+id+'\')">'+txt.RightClick.rm+'</p><hr><p><img src="'+img+'index/actions/rename.svg" class="icon"> '+txt.RightClick.mvItem+'</p><p>'+txt.RightClick.mvLocate+'</p><hr><p>'+txt.RightClick.vDetails+'</p>';
     }
-
-    right_click(x, y, id) {
-        // Show box at position x, y
-        this.x = x;
-        this.y = y;
-
-        this.box_div.style.left = x+'px';
-        this.box_div.style.top = y+'px';
-
-        if(id === undefined) {
-            //when there isn't anything
-            //under the mouse
-            Area = 0;
-        }
-
-        // Content according to area
-        switch(Area) {
-            //over nothing
-            case 0:
-                this.box_div.innerHTML = '<p onclick="nFolder()"><img src="'+img+'desktop/actions/create_folder.svg" class="icon"> '+txt.RightClick.nFolder+'</p><p onclick="upFilesDialog()"><img src="'+img+'desktop/actions/upload.svg" class="icon"> '+txt.RightClick.upFiles+'</p>';
-                if(MoveFile.length > 0 || MoveFolder.length > 0) { this.box_div.innerHTML += '<hr><p onclick="paste(\''+id+'\')"><img src="'+img+'index/actions/paste.svg" class="icon"> '+txt.RightClick.paste+'</p>'; }
-                this.box_div.innerHTML += '<hr><p onclick="logout()">'+txt.RightClick.logOut+'</p>';
-                break;
-            //mouse over a file
-            case 1:
-                this.box_div.innerHTML = '<p onclick="dl(\''+id+'\')"><img src="'+img+'index/actions/download.svg" class="icon"> '+txt.RightClick.dl+'</p><hr><p><img src="'+img+'index/actions/putInFavorites.svg" class="icon"> '+txt.RightClick.star+'</p><hr><p onclick="cut(\''+id+'\')"><img src="'+img+'index/actions/cut.svg" class="icon"> '+txt.RightClick.cut+'</p><p onclick="copy(\''+id+'\')"><img src="'+img+'index/actions/copy.svg" class="icon"> '+txt.RightClick.copy+'</p><p onclick="paste(\''+id+'\')"><img src="'+img+'index/actions/paste.svg" class="icon"> '+txt.RightClick.paste+'</p><p onclick="rm(\''+id+'\')">'+txt.RightClick.rm+'</p><hr><p><img src="'+img+'index/actions/rename.svg" class="icon"> '+txt.RightClick.mvItem+'</p><p><img src="'+img+'index/actions/paste.svg" class="icon">'+txt.RightClick.mvLocate+'</p><hr><p>'+txt.RightClick.vDetails+'</p>';
-                break;
-            //mouse over a folder
-            case 2:
-                this.box_div.innerHTML = '<p onclick="openDirById(\''+id+'\')"><img src="'+img+'index/actions/view.svg" class="icon"> '+txt.RightClick.open+'</p><hr><p onclick="cut(\''+id+'\')"><img src="'+img+'index/actions/cut.svg" class="icon"> '+txt.RightClick.cut+'</p><p onclick="copy(\''+id+'\')"><img src="'+img+'index/actions/copy.svg" class="icon"> '+txt.RightClick.copy+'</p><p onclick="paste(\''+id+'\')"><img src="'+img+'index/actions/paste.svg" class="icon"> '+txt.RightClick.paste+'</p><p onclick="rm(\''+id+'\')">'+txt.RightClick.rm+'</p><hr><p><img src="'+img+'index/actions/rename.svg" class="icon"> '+txt.RightClick.mvItem+'</p><p>'+txt.RightClick.mvLocate+'</p><hr><p>'+txt.RightClick.vDetails+'</p>';
-        }
-        this.box_div.style.display = 'block';
-    }
-};
+    this.box_div.style.display = 'block';
+}
 
 window.oncontextmenu = function(event) {
     // Disable right click
@@ -169,7 +168,7 @@ var setEvents = function() {
     //called automatically (because we are inside desktop) and will set Area to 0 without displaying a new 'box'
     // Files actions
     var files = document.querySelectorAll(".file");
-    for (var i = 0; i < files.length; i++) {
+    for (var i = 0; i < files.length; i++) {
         // For each file
         files[i].addEventListener("contextmenu", function(event) {
             // Right click
@@ -185,7 +184,7 @@ var setEvents = function() {
     //above will be called automatically (because we are inside desktop) and will set Area to 0 without displaying a new 'box'
     // Folders actions
     var folders = document.querySelectorAll(".folder");
-    for (var i = 0; i < folders.length; i++) {
+    for (var i = 0; i < folders.length; i++) {
         // For each folder
         folders[i].addEventListener("contextmenu", function(event) {
             // Right click
@@ -198,9 +197,9 @@ var setEvents = function() {
 }
 
 var isNumeric = function(n) {
-	if(typeof(n) == "string")
-		n = n.replace(",", ".");
-	return !isNaN(parseFloat(n)) && isFinite(n);
+    if(typeof(n) == "string")
+        n = n.replace(",", ".");
+    return !isNaN(parseFloat(n)) && isFinite(n);
 }
 
 var cleanPath = function(p) {
@@ -391,11 +390,12 @@ var openDir = function(dir) {
                 var sound = ['mp3', 'ogg', 'flac', 'wav', 'aac'];
                 var video = ['mp4', 'avi', 'wmv', 'mpeg', 'mov', 'mkv', 'mka', 'mks', 'flv'];
                 
-                document.querySelectorAll(".file").forEach(function(e) {
+                var dir_files = document.querySelectorAll(".file");
+                for(var i = 0; i < dir_files.length; i++) {
                     icon = 'text';
-                    pos = e.title.lastIndexOf('.');
+                    pos = dir_files[i].title.lastIndexOf('.');
                     if(pos !== -1) {
-                        ext = e.title.substr(pos+1);
+                        ext = dir_files[i].title.substr(pos+1);
                         if(archive.indexOf(ext) !== -1)
                             icon = 'archive';
                         else if(code.indexOf(ext) !== -1)
@@ -411,8 +411,8 @@ var openDir = function(dir) {
                         else if(video.indexOf(ext) !== -1)
                             icon = 'video'; 
                     }
-                    e.innerHTML = '<img src="'+img+'desktop/extensions/'+icon+'.svg" class="icon"> '+e.innerHTML;
-                });
+                    dir_files[i].innerHTML = '<img src="'+img+'desktop/extensions/'+icon+'.svg" class="icon"> '+dir_files[i].innerHTML;
+                }
             }
         }
     }
