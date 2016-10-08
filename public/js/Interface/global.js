@@ -113,7 +113,7 @@ window.onload = function() {
 
     /*
     */
-    
+
     returnArea = document.querySelector("#returnArea");
 
     window.addEventListener("keydown", function(event) {
@@ -137,7 +137,7 @@ window.onload = function() {
             case 27:
                 // esc
                 document.querySelector("#box").style.display = 'none';
-                break;    
+                break;
         }
     });
     Box = new box();
@@ -228,7 +228,7 @@ var logout = function() {
 var nFolder = function() {
     if(document.querySelector("#nFolder")) {
         document.querySelector("#box").style.display="none";
-        
+
         var xhr = new XMLHttpRequest();
         xhr.open("POST", "User/AddFolder", true);
         xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -243,9 +243,9 @@ var nFolder = function() {
             }
         }
         xhr.send("path="+encodeURIComponent(path)+"&folder="+encodeURIComponent(document.querySelector("#nFolder").value));
-        
+
         // Refresh
-        
+
         // Hide box
         //document.querySelector("#box").style.display = 'none';
     }
@@ -290,7 +290,7 @@ var upFiles = function(files) {
         progress.innerHTML += '<div id="div_upload'+i+'"><button onclick="abort('+i+')">X</button> <span id="span_upload'+i+'"></span></div>';
         upFile(files[i], i);
     }
-    
+
     // Waiting end of the uploading process
     var timer = setInterval(function() {
         console.log("waiting...");
@@ -304,7 +304,7 @@ var upFiles = function(files) {
 
 var upFile = function(file, i) {
     // Upload a file
-    
+
     // Create a new FormData object.
     var formData = new FormData();
 
@@ -313,13 +313,13 @@ var upFile = function(file, i) {
     formData.append('upload[]', file, file.name);
     xhr_upload[i] = new XMLHttpRequest();
     xhr_upload[i].open("POST", "User/UpFiles", true);
-        
+
     // Progress bar
     xhr_upload[i].upload.addEventListener("progress", function(event, filename) {
         if(event.lengthComputable)
             document.querySelector("#span_upload"+i).innerHTML = file.name+" : "+(event.loaded/event.total*100).toFixed(2)+"%";
     }, false);
-        
+
     xhr_upload[i].onreadystatechange = function() {
         if(xhr_upload[i].readyState === 4) {
             if(xhr_upload[i].status === 200) {
@@ -355,7 +355,7 @@ var openDirById = function(dir) {
 
 var openDir = function(dir) {
     var dirName = cleanPath(dir);
-       
+
     var xhr = new XMLHttpRequest();
     xhr.open("POST", "User/ChangePath", true);
     xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -363,11 +363,11 @@ var openDir = function(dir) {
     xhr.onreadystatechange = function()
     {
         if(xhr.status == 200 && xhr.readyState == 4)
-        {              
+        {
             if(xhr.responseText != '') {
                 // Hide box
                 document.querySelector("#box").style.display = 'none';
-                
+
                 document.querySelector("#tree").innerHTML = xhr.responseText;
                 path = dirName;
                 // reset selected files/folders
@@ -375,21 +375,21 @@ var openDir = function(dir) {
                 SelectedFolder = [];
                 // Set events for all files and folders loaded
                 setEvents();
-                
+
                 // Put icons
                 var ext = '';
                 var pos = -1;
                 var icon;
-                
+
                 // Types of files
                 var archive = ['zip', 'tar', 'gz', 'bz', 'bz2', 'xz', 'rar', 'jar', '7z'];
-                var code = ['php', 'html', 'htm', 'php3', 'php4', 'php5', 'java', 'css', 'scss', 'xml', 'svg', 'sql', 'c', 'cpp', 'cs', 'js', 'au3', 'asm', 'h', 'ini', 'jav', 'p', 'pl', 'rb', 'sh', 'bat'];
+                var code = ['php', 'html', 'htm', 'php3', 'php4', 'php5', 'java', 'css', 'scss', 'xml', 'svg', 'sql', 'c', 'cpp', 'cs', 'js', 'au3', 'asm', 'h', 'ini', 'jav', 'p', 'pl', 'rb', 'sh', 'bat', 'py'];
                 var image = ['jpg', 'jpeg', 'png', 'bmp', 'gif'];
-                var doc = ['docx', 'odt'];
+                var doc = ['docx', 'odt', 'doc'];
                 var pdf = ['pdf'];
                 var sound = ['mp3', 'ogg', 'flac', 'wav', 'aac'];
                 var video = ['mp4', 'avi', 'wmv', 'mpeg', 'mov', 'mkv', 'mka', 'mks', 'flv'];
-                
+
                 var dir_files = document.querySelectorAll(".file");
                 for(var i = 0; i < dir_files.length; i++) {
                     icon = 'text';
@@ -409,7 +409,7 @@ var openDir = function(dir) {
                         else if(sound.indexOf(ext) !== -1)
                             icon = 'sound';
                         else if(video.indexOf(ext) !== -1)
-                            icon = 'video'; 
+                            icon = 'video';
                     }
                     dir_files[i].innerHTML = '<img src="'+img+'desktop/extensions/'+icon+'.svg" class="icon"> '+dir_files[i].innerHTML;
                 }
@@ -454,7 +454,7 @@ var invertSelection = function() {
     var files = document.querySelectorAll(".file");
     for(i=0;i<files.length;i++)
         addFileSelection(files[i].id);
-    
+
     var folders = document.querySelectorAll(".folder");
     for(i=0;i<folders.length;i++)
         addFolderSelection(folders[i].id);
@@ -472,7 +472,7 @@ var selectAll = function() {
             }
         }
     }
-    
+
     var folders = document.querySelectorAll(".folder");
     for(i=0;i<folders.length;i++) {
         if(document.querySelector("#"+folders[i].id)) {
@@ -487,11 +487,11 @@ var selectAll = function() {
 var cut = function(id) {
     document.querySelector("#box").style.display="none";
     Copy = 0;
-    
+
     // reset
     MoveFile = [];
     MoveFolder = [];
-    
+
     if(SelectedFile.length == 0 && SelectedFolder.length == 0) {
         // cut only the file/folder selected
         if(id.length > 0) {
@@ -499,7 +499,7 @@ var cut = function(id) {
                 if(folderName = getFolderName(id))
                     MoveFolder.push(folderName);
             }
-            if(id.substr(0, 1) == 'f') 
+            if(id.substr(0, 1) == 'f')
                 MoveFile.push(id.substr(1));
         }
     }
@@ -514,11 +514,11 @@ var cut = function(id) {
 var copy = function(id) {
     document.querySelector("#box").style.display="none";
     Copy = 1;
-    
+
     // reset
     MoveFile = [];
     MoveFolder = [];
-    
+
     if(SelectedFile.length == 0 && SelectedFolder.length == 0) {
         // cut only the file/folder selected
         if(id.length > 0) {
@@ -526,7 +526,7 @@ var copy = function(id) {
                 if(folderName = getFolderName(id))
                     MoveFolder.push(folderName);
             }
-            if(id.substr(0, 1) == 'f') 
+            if(id.substr(0, 1) == 'f')
                 MoveFile.push(id.substr(1));
         }
     }
@@ -542,24 +542,24 @@ var paste = function() {
     document.querySelector("#box").style.display="none";
     var id = 0;
     var folderName;
-    
+
     var folders = [];
     var files = [];
-    
+
     if(MoveFile.length > 0 || MoveFolder.length > 0) {
         for(var i=0; i<MoveFile.length; i++) {
             if(MoveFile[i].length > 0 && isNumeric(MoveFile[i]))
                 files.push(MoveFile[i]);
         }
-        
+
         for(var i=0; i<MoveFolder.length; i++) {
             if(MoveFolder[i].length > 0)
                 folders.push(MoveFolder[i]);
         }
-        
+
         folders = encodeURIComponent(folders.join('|'));
         files = encodeURIComponent(files.join('|'));
-        
+
         var xhr = new XMLHttpRequest();
         xhr.open("POST", "User/Mv", true);
         xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -642,7 +642,7 @@ var rmMultiple = function() {
     //var rmFiles = [];
     if(SelectedFile.length > 0 || SelectedFolder.length > 0) {
         if(confirm(txt.User.questionrm)) {
-            
+
             /*for(var i=0;i<selected.length;i++) {
                 if(selected[i].length > 1) {
                     if(selected[i].substr(0, 1) == 'f') {
@@ -658,18 +658,18 @@ var rmMultiple = function() {
                     }
                 }
             }*/
-            
+
             var wait = 2;
             if(SelectedFolder.length > 0) {
                 var xhr = new XMLHttpRequest();
                 console.log("deleting folders...");
                 xhr.open("POST", "User/RmFolders", true);
                 xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-                
+
                 xhr.onreadystatechange = function()
                 {
                     if(xhr.status == 200 && xhr.readyState == 4)
-                    {              
+                    {
                         if(xhr.responseText != '') {
                             //
                             wait--;
@@ -682,17 +682,17 @@ var rmMultiple = function() {
             }
             else
                 wait--;
-            
+
             if(SelectedFile.length > 0) {
                 var xhr2 = new XMLHttpRequest();
                 console.log("deleting files...");
                 xhr2.open("POST", "User/RmFiles", true);
                 xhr2.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-                
+
                 xhr2.onreadystatechange = function()
                 {
                     if(xhr2.status == 200 && xhr2.readyState == 4)
-                    {              
+                    {
                         if(xhr2.responseText != '') {
                             //
                             wait--;
@@ -704,7 +704,7 @@ var rmMultiple = function() {
             }
             else
                 wait--;
-            
+
             var timer = setInterval(function() {
                 console.log("waiting...");
                 if(wait == 0) {
