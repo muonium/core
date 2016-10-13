@@ -5,7 +5,7 @@ use \config as conf;
 // This class is called by all models (with "extends")
 class Model {
 
-    protected $_sql;
+    protected static $_sql;
     //protected $_ListModel = array();
     //protected $_RequeteSql;
 
@@ -16,11 +16,11 @@ class Model {
     }
 
     public static function getInstance() {
-        if (!isset(self::$instance)) {
+        if (!isset(self::$_sql)) {
             $c = __CLASS__;
-            self::$instance = new $c;
+            self::$_sql = new $c;
         }
-        return self::$instance;
+        return self::$_sql;
     }
 
     function getLastInsertedId() {

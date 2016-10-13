@@ -42,7 +42,7 @@
         "pp": "Edit the passphrase is not available for now",
         "bannedSession": "You reached the maximum allowed number of requests"
     },
-    
+
     "User": {
         "lastmod": "Last modification",
         "loaded": "Loaded in",
@@ -143,7 +143,9 @@
         "open": "Open",
         "nFolder": "New folder...",
         "upFiles": "Upload files...",
-        "logOut": "Log out"
+        "logOut": "Log out",
+        "trash": "Trash",
+        "restore": "Restore"
     },
 
     "Bug": {
