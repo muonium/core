@@ -157,4 +157,28 @@ class Files extends l\Model {
             $ret = $req->execute(array($_SESSION['id'], $folder_id));
             return $ret;
         }
+
+        function getFullPath($id) {
+            // Used for download feature
+            if(!is_numeric($id))
+                return false;
+            $folder_id = $this->getFolderId($id);
+            if($folder_id === false)
+                return false;
+            elseif($folder_id != 0) {
+                $req = $this->_sql->prepare("SELECT `path`, folders.name, files.name FROM files, folders WHERE files.id_owner = ? AND files.id = ? AND folders.id = ? AND folders.id_owner = files.id_owner");
+                $ret = $req->execute(array($_SESSION['id'], $id, $folder_id));
+                if($ret) {
+                    $res = $req->fetch();
+                    return NOVA.'/'.$_SESSION['id'].'/'.$res['0'].$res['1'].'/'.$res['2'];
+                }
+                return false;
+            }
+            else {
+                $filename = $this->getFilename($id);
+                if($filename === false)
+                    return false;
+                return NOVA.'/'.$_SESSION['id'].'/'.$filename;
+            }
+        }
     }
