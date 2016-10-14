@@ -62,7 +62,8 @@ class Template
 			<head>
 				<meta charset="utf-8">
 				<title>'.$this->_title.'</title>
-                <link rel="icon" type="image/png" href="'.MVC_ROOT.'/public/pictures/favicon.png" />  
+                <link rel="icon" type="image/x-icon" href="'.MVC_ROOT.'/public/pictures/favicon_small.ico" />
+                <link rel="icon" type="image/png" href="'.MVC_ROOT.'/public/pictures/favicon_small.png" />  
 		'."\n";
 
 		if(!empty($this->_tabCss)) {

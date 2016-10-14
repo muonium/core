@@ -15,7 +15,8 @@
         "profile": "Profil",
         "mail_sent": "Un email vous a été envoyé, veuillez vérifier votre boîte de réception et vos spams. Si vous n'avez rien reçu au bout de 5mn, tentez à nouveau :",
         "submit": "Valider",
-        "bug": "Send a bug report"
+        "bug": "Send a bug report",
+        "loading": "Chargement..."
     },
 
     "UserMenu": {
@@ -41,7 +42,7 @@
         "pp": "Impossible de modifier votre phrase secrète pour le moment",
         "bannedSession": "Vous avez atteint le nombre maximum autorisé de requêtes"
 	},
-    
+
     "User": {
         "lastmod": "Dernière modification",
         "loaded": "Chargé en",
@@ -88,6 +89,7 @@
         "codeMail": "Code reçu par email",
         "expired": "Le code est expiré, veuillez vous connecter à nouveau",
         "invalidCode": "Le code entré est invalide",
+        "username": "Email ou nom d'utilisateur",
         "doubleAuth": "Un email avec un code d'authentification vous a été envoyé. Copiez ce code dans le champ ci-dessus.<br />Si vous n'avez rien reçu d'ici 5 mn et que le mail n'est pas présent dans le dossier Spam, suivez ce <a href='https://muonium.ch/core/Logout'>lien</a> pour effectuer une nouvelle tentative de connexion."
     },
 
@@ -97,7 +99,7 @@
         "sendmess": "Suivez le lien donné dans l'email pour activer votre compte",
         "sendmail": "Envoyer un nouvel email",
         "sendmess": "Suivez le lien présent dans l'email pour activer votre compte",
-        "sendmail": "Envoyer un nouvel mail"
+        "sendmail": "Envoyer un nouvel email"
     },
 
     "Profile": {
@@ -127,7 +129,7 @@
         "user": "Votre adresse email ou nom d'utilisateur",
         "subject": "Muonium - Mot de passe oublié",
         "message": "Bonjour,<br />Afin de modifier votre mot de passe ou votre phrase secrète, veuillez suivre ce lien : <a href='https://muonium.ch/core/LostPass/Key/[id_user]/[key]'>https://muonium.ch/core/LostPass/Key/[id_user]/[key]</a><br />Cordialement,<br />L'équipe Muonium.<br /><br />Ce mail a été généré automatiquement, merci de ne pas y répondre.",
-        "reset": "Attention ! Si vous changez votre phrase secrète, votre compte sera remis à zéro et vous perdrez vos données !"
+        "reset": "Attention ! Si vous changez votre phrase secrète, votre compte sera réinitialisé et vous perdrez vos données !"
     },
 
     "RightClick": {
@@ -143,7 +145,9 @@
         "open": "Ouvrir",
         "nFolder": "Nouveau dossier...",
         "upFiles": "Charger des fichiers...",
-        "logOut": "Se déconnecter"
+        "logOut": "Se déconnecter",
+        "trash": "Corbeille",
+        "restore": "Restaurer"
     },
 
     "Bug": {

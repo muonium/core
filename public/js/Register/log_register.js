@@ -75,7 +75,8 @@ var sendRegisterRequest = function()
             }
         }
 
-        xhr.send("mail="+field_mail+"&login="+field_login+"&pass="+sha512(field_password)+"&pass_confirm="+sha512(field_password_confirm)+"&passphrase="+encodeURIComponent(field_passphrase)+"&passphrase_confirm="+encodeURIComponent(field_passphrase_confirm)+"&doubleAuth="+doubleAuth); //xhr.send("mail="+field_mail+"&login="+field_login+"&pass="+sha512(field_password)+"&pass_confirm="+sha512(field_password_confirm)+"&passphrase="+sha512(field_passphrase)+"&passphrase_confirm="+sha512(field_passphrase_confirm)+"&doubleAuth="+doubleAuth);
+        xhr.send("mail="+field_mail+"&login="+field_login+"&pass="+mui_hash(field_password)+"&pass_confirm="+mui_hash(field_password_confirm)+"&passphrase="+encodeURIComponent(field_passphrase)+"&passphrase_confirm="+encodeURIComponent(field_passphrase_confirm)+"&doubleAuth="+doubleAuth); 
+        //xhr.send("mail="+field_mail+"&login="+field_login+"&pass="+mui_hash(field_password)+"&pass_confirm="+mui_hash(field_password_confirm)+"&passphrase="+mui_hash(field_passphrase)+"&passphrase_confirm="+mui_hash(field_passphrase_confirm)+"&doubleAuth="+doubleAuth);
 
     }
 }
@@ -87,7 +88,6 @@ var sendRegisterRequest = function()
 /*var generateKeys = function(passphrase)
 {
     var returnArea = document.querySelector("#return p");
-
     if(passphrase.length != 0)
     {
         aeJs.actions.encrypt("pp", passphrase);
@@ -107,11 +107,9 @@ var sendRegisterRequest = function()
 /*var openSession = function(passphrase)
 {
     var returnArea = document.querySelector("#return p");
-
     var xhr = new XMLHttpRequest();
     xhr.open("POST", "Inscription/GenerateSession", true);
     xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-
     xhr.onreadystatechange = function()
     {
         if(xhr.status == 200 && xhr.readyState == 4)
@@ -123,7 +121,6 @@ var sendRegisterRequest = function()
                 sessionStorage.setItem("pp",aeJs.actions.encrypt(passphrase)); //encrypt passphrase in sessionStorage
                 //sessionStorage.setItem("pp", CryptoJS.AES.encrypt(passphrase, xhr.responseText));
                 returnArea.innerHTML = "End. Redirecting...";
-
                 setTimeout(function(){document.location.href = "Accueil";}, 1000);
             }
             else
@@ -132,6 +129,5 @@ var sendRegisterRequest = function()
             }
         }
     }
-
     xhr.send(null);
 }*/

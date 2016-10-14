@@ -3,6 +3,9 @@
 var txt; // All strings of user's language
 var lang = 'en'; // User's language
 
+var root = '/core/';
+var img = root+'public/pictures/';
+
 function changeLanguage(lang)
 {
     var date = new Date();
@@ -35,7 +38,7 @@ function getJSON() {
     }
     
     var xmlhttp = new XMLHttpRequest();
-    var url = "/core/public/translations/"+lang+".json";
+    var url = root+"public/translations/"+lang+".json";
 
     xmlhttp.onreadystatechange = function() {
         if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {

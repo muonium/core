@@ -8,7 +8,9 @@
 	$_t = new l\Template($this->txt->Global->register);
     $_t->addCss("home_global");
     $_t->addCss("Register/home_register");
-    $_t->addJs("Register/sha512");
+    $_t->addJs("base64");
+    $_t->addJs("sha512");
+    $_t->addJs("mui_hash");
     $_t->addJs("Register/log_register");
    	$_t->getHeader();
 ?>
@@ -30,7 +32,7 @@
             <div id="text"><p><?php echo $this->txt->Global->register; ?></p></div>
 
             <div id="form">
-                <input type="text" id="field_mail" placeholder="<?php echo_h($this->txt->Register->email); ?>..." /><br />
+                <input type="text" id="field_mail" placeholder="<?php echo_h($this->txt->Register->email); ?>..." autofocus><br />
                 <input type="text" id="field_login" placeholder="<?php echo_h($this->txt->Register->login); ?>..." /><br />
                 <input type="password" id="field_pass" placeholder="<?php echo_h($this->txt->Register->password); ?>..." /><br />
                 <input type="password" id="field_pass_confirm" placeholder="<?php echo_h($this->txt->Register->confirm); ?>..." /><br />

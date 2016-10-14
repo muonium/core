@@ -27,7 +27,7 @@ window.onload = function() {
 
 var sendConnectionRequest = function()
 {
-    var field_mail = document.querySelector("#field_mail").value;
+    var field_username = document.querySelector("#field_username").value;
     var field_password = document.querySelector("#field_password").value;
     var field_passphrase = document.querySelector("#field_passphrase").value;
 
@@ -35,7 +35,7 @@ var sendConnectionRequest = function()
 
     returnArea.innerHTML = "<img src='./public/pictures/index/loader.gif' style='height: 3vh;' />";
     
-    if(field_password.length < 6 || field_passphrase.length < 1 || field_mail.length < 6)
+    if(field_password.length < 6 || field_passphrase.length < 1 || field_username.length < 3)
         returnArea.innerHTML = txt.Register.form;
     else {
 
@@ -68,7 +68,8 @@ var sendConnectionRequest = function()
             }
         }
 
-       xhr.send("mail="+encodeURIComponent(field_mail)+"&pass="+sha512(field_password)+"&passphrase="+encodeURIComponent(field_passphrase)); //xhr.send("mail="+encodeURIComponent(field_mail)+"&pass="+sha512(field_password)+"&passphrase="+sha512(field_passphrase));
+       xhr.send("username="+encodeURIComponent(field_username)+"&pass="+mui_hash(field_password)+"&passphrase="+encodeURIComponent(field_passphrase)); 
+       // xhr.send("username="+encodeURIComponent(field_username)+"&pass="+mui_hash(field_password)+"&passphrase="+mui_hash(field_passphrase));
     }
 }
 /*
@@ -82,12 +83,10 @@ var sendConnectionRequest = function()
     var xhr_private_key = new XMLHttpRequest();
     xhr_public.open("POST", "Connexion/getPrivateKey", true);
     //xhr_public.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-
     xhr_public.onreadystatechange = function()
     {
         if(xhr_private_key.status == 200 && xhr_public.readyState == 4)
         {
-
             if(xhr_private_key.responseText == "")
             {
               alert("Private key cannot be recieved");
@@ -100,9 +99,7 @@ var sendConnectionRequest = function()
             }
         }
     }
-
     xhr_private_key.send(null);
-
     var checkKeysStatus = setInterval(function(){
         if(status_key == 1)
         {
@@ -119,10 +116,8 @@ var sendConnectionRequest = function()
 /*var encryptPassphrase = function(passphrase)
 {
     var returnArea = document.querySelector("#return");
-
     var xhr = new XMLHttpRequest();
     xhr.open("POST", "Connexion/getToken", true);
-
     xhr.onreadystatechange = function()
     {
         if(xhr.status == 200 && xhr.readyState == 4)
@@ -130,9 +125,7 @@ var sendConnectionRequest = function()
             if((xhr.responseText).length == 128)
             {
                 sessionStorage.setItem("token", CryptoJS.AES.encrypt(passphrase, xhr.responseText));
-
                 returnArea.innerHTML = "<p class='success'>Authentification terminée. Redirection en cours...</p>";
-
                 setTimeout(function(){
                     openSession();
                 }, 1000);
@@ -140,14 +133,12 @@ var sendConnectionRequest = function()
             else
             {
                 returnArea.innerHTML = "<p class='error'>Erreur lors de l'authentification. Veuillez réessayer ultérieurement</p>";
-
                 setTimeout(function(){
                     destroySession();
                 }, 1000);
             }
         }
     }
-
     xhr.send(null);
 }*/
 
@@ -168,7 +159,6 @@ var sendConnectionRequest = function()
 {
     var xhr = new XMLHttpRequest();
     xhr.open("POST", "Connexion/destroySession", true);
-
     xhr.onreadystatechange = function()
     {
         if(xhr.status == 200 && xhr.readyState == 4)
@@ -176,6 +166,5 @@ var sendConnectionRequest = function()
             document.location.href = "Accueil";
         }
     }
-
     xhr.send(null);
 }*/

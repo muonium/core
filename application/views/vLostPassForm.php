@@ -4,11 +4,13 @@
 	* @description     : Lost pass form view (password or passphrase)
 	* @authors         : Dylan Clement <dylanclement7@protonmail.ch>
 	*/
-
-	$_t = new Template($this->txt->Login->forgot);
+    use \library\MVC as l;
+	$_t = new l\Template($this->txt->Login->forgot);
     $_t->addCss("home_global");
     $_t->addCss("Register/home_register");
-    $_t->addJs("Login/sha512");
+    $_t->addJs("base64");
+    $_t->addJs("sha512");
+    $_t->addJs("mui_hash");
     $_t->addJs("LostPass/lostpass");
     $_t->getHeader();
 ?>
@@ -36,7 +38,7 @@
                     <legend><?php echo_h($this->txt->Profile->changepwd); ?></legend>
 
                     <p><label for="pwd"><?php echo_h($this->txt->Profile->newpwd); ?></label>
-                    <input type="password" name="pwd" id="pwd"></p>
+                    <input type="password" name="pwd" id="pwd" autofocus></p>
 
                     <p><label for="pwd_confirm"><?php echo_h($this->txt->Register->confirm); ?></label>
                     <input type="password" name="pwd_confirm" id="pwd_confirm"></p>

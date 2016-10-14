@@ -25,13 +25,13 @@
                 <p><a href="<?php echo MVC_ROOT; ?>/Logout"><img src="<?php echo MVC_ROOT; ?>/public/pictures/header/user.svg" /><br /><?php echo_h($this->txt->UserMenu->logout); ?></a></p>
             </div>
         </header>
-    
+
         <section id="language">
             <div>
                 <?php $this->getLanguageSelector(); ?>
             </div>
         </section>
-        
+
         <section id="toolbar">
             <div onclick="Muonium.clickEvent(this,'DefaultAction','Recent')" id="toolbar_button_recents">
                 <img src="<?php echo MVC_ROOT; ?>/public/pictures/toolbar/recent.svg" /><br /><?php echo_h($this->txt->Toolbar->recents); ?>
@@ -49,21 +49,24 @@
                 <img src="<?php echo MVC_ROOT; ?>/public/pictures/toolbar/transfer.svg" /><br /><?php echo_h($this->txt->Toolbar->transfers); ?>
             </div>
         </section>
-    
+
         <section id="desktop">
             <!-- Hidden upload form -->
             <form style="display:none">
-                <input type="file" id="upFilesInput" name="files[]" multiple="multiple" style="display:none" onchange="upFiles(this.files);" />
+                <input type="file" id="upFilesInput" name="files[]" multiple="multiple" style="display:none" onchange="upFiles(this.files);" onclick="reset();" />
             </form>
             <!-- End -->
-            
+
             <div id="returnArea"></div>
+            <!-- progress contains progress status of uploaded files -->
             <div id="progress"></div>
-            <div id="tree">
-                <?php $this->getTree(); ?>
+            <!-- mui contains all contents of interface : storage infos, link to parent folder, #tree (files and folders) ... -->
+            <div id="mui">
+                <?php echo_h($this->txt->Global->loading); ?>
+                <script type="text/javascript">openDir(0);</script>
             </div>
             <img src="<?php echo MVC_ROOT; ?>/public/pictures/desktop/arrow.svg" class="arrow general" />
-            
+
             <div id="desktop_general" class="content">
                 <div id="nav">
                     <span class="content">
@@ -84,54 +87,8 @@
                     </div>
                 </div>
                 <div id="rightPanel">
-                    <table>
-                        	<?php 
-                        		/*foreach($arbo as $key => $Arborescence) {
-                        			
-                        			if($compteur == 4) {
-                        				echo "</tr>";
-                        				$compteur = 0;
-                        				echo "<tr>";
-                        			}
-                        			if(substr($Arborescence,strlen($Arborescence) - 4 ,1) != ".") {
-                        				?> 
-                        					<td><img src="./public/pictures/desktop/extensions/folder.svg" /><br /><?php echo $Arborescence ?></td> 
-                        				<?php
-                        			} else if(substr($Arborescence,strlen($Arborescence) - 3 ,3) == "txt") {
-                        				?>
-                        					<td><img src="./public/pictures/desktop/extensions/text.svg" /><br /><?php echo $Arborescence ?></td>
-                        				<?php 
-                        			}else if(substr($Arborescence,strlen($Arborescence) - 3 ,3) == "doc") {
-                        				?>
-                        					<td><img src="./public/pictures/desktop/extensions/doc.svg" /><br /><?php echo $Arborescence ?></td>
-                        				<?php 
-                        			} else if(substr($Arborescence,strlen($Arborescence) - 3 ,3) == "png") {
-                        				?>
-                        					<td><img src="./public/pictures/desktop/extensions/image.svg" /><br /><?php echo $Arborescence ?></td>
-                        				<?php 
-									} else if(substr($Arborescence,strlen($Arborescence) - 3 ,3) == "cpp") {
-                        				?>
-                        					<td><img src="./public/pictures/desktop/extensions/code.svg" /><br /><?php echo $Arborescence ?></td>
-                        				<?php
-									}
-                        			$compteur ++;
-                        		}*/
-                            /*<td><img src="./public/pictures/desktop/extensions/folder.svg" /><br />test</td>
-                            <td><img src="./public/pictures/desktop/extensions/folder.svg" /><br />test2</td>
-                            <td><img src="./public/pictures/desktop/extensions/code.svg" /><br />source.cpp</td>
-                            <td><img src="./public/pictures/desktop/extensions/doc.svg" /><br />document.doc</td>
-                            <td><img src="./public/pictures/desktop/extensions/image.svg" /><br />image.png</td>*/?>
-                        <tr>
-                            <?php 
-	                            /*<td><img src="./public/pictures/desktop/extensions/pdf.svg" /><br />rapport.pdf</td>
-	                            <td><img src="./public/pictures/desktop/extensions/sound.svg" /><br />sound.mp3</td>
-	                            <td><img src="./public/pictures/desktop/extensions/video.svg" /><br />movie.mp4</td>
-	                            <td><img src="./public/pictures/desktop/extensions/image.svg" /><br />image2.png</td>*/
-                            ?>
-                        </tr>
-                    </table>
                 </div>
-                
+
             </div>
         </section>
     <div id="box" style="display:none"></div>
