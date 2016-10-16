@@ -37,4 +37,4 @@ Our method is the rolling release.
 We haven't really packaged Muonium, but you can modify the code to run it on your own server. Also, do not hesitate to create a wiki page for this.
 We created a wiki page [here](https://github.com/muonium/install/wiki/How-can-I-install-it-on-my-own-server-%3F). Feel free to contribute ! :)
 
-An "installer" is available [here](https://github.com/muonium/install). Not forget to read the README.md .
+An "installer" is available [here](https://github.com/muonium/install). Do not forget to read the README.md .
