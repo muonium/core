@@ -14,6 +14,8 @@ class User extends l\Languages {
     private $_path = ''; // current path
     private $_folderId = 0; // current folder id (0 = root)
 
+    private $trash = 0; // 0 : view contents not in the trash || 1 : view contents in the trash
+
     function __construct() {
         parent::__construct();
         if(empty($_SESSION['id']))
@@ -173,11 +175,11 @@ class User extends l\Languages {
         echo '<hr><div id="tree"> ';
 
         // New way
-        if($subdirs = $this->_modelFolders->getChildren($this->_folderId)) {
+        if($subdirs = $this->_modelFolders->getChildren($this->_folderId, $this->trash)) {
             foreach($subdirs as $subdir)
                 echo '<span class="folder" id="d'.$subdir['0'].'" name="'.htmlentities($subdir['1']).'" onclick="addFolderSelection(this.id)" ondblclick="openDir('.$subdir['0'].')"><img src="'.IMG.'desktop/extensions/folder.svg" class="icon"> <strong>'.htmlentities($subdir['1']).'</strong> ['.$this->showSize($subdir['2']).']</span>';
         }
-        if($files = $this->_modelFiles->getFiles($this->_folderId)) {
+        if($files = $this->_modelFiles->getFiles($this->_folderId, $this->trash)) {
             foreach($files as $file)
                 echo '<span class="file" id="f'.$file['1'].'" onclick="addFileSelection(this.id)" title="'.htmlentities($file['0']).'">'.htmlentities($file['0']).' ['.$this->showSize($file['2']).'] - '.$this->txt->User->lastmod.' : '.date('d/m/Y G:i', $file['3']).'</span>';
         }
@@ -193,6 +195,11 @@ class User extends l\Languages {
             return false;
         else
             $folder_id = urldecode($_POST['folder_id']);
+
+        if(empty($_POST['trash']))
+            $this->trash = 0;
+        else
+            $this->trash = 1;
 
         if($folder_id == 0) {
             // root

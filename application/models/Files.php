@@ -77,9 +77,20 @@ class Files extends l\Model {
             return $this->favorite;
         }
 
-        function getFiles($folder_id, $style = '') {
-            $req = $this->_sql->prepare("SELECT name, id, size, last_modification, favorite, trash FROM files WHERE id_owner = ? AND folder_id = ? ORDER BY name ASC");
-            $req->execute(array($_SESSION['id'], $folder_id));
+        function getFiles($folder_id, $trash = '', $style = '') {
+            if($trash === '' || $trash === 'all') {
+                $req = $this->_sql->prepare("SELECT name, id, size, last_modification, favorite, trash FROM files WHERE id_owner = ? AND folder_id = ? ORDER BY name ASC");
+                $req->execute(array($_SESSION['id'], $folder_id));
+            }
+            elseif($trash === 0 || ($trash === 1 && $folder_id !== 0)) {
+                $req = $this->_sql->prepare("SELECT name, id, size, last_modification, favorite, trash FROM files WHERE id_owner = ? AND folder_id = ? AND trash = 0 ORDER BY name ASC");
+                $req->execute(array($_SESSION['id'], $folder_id));
+            }
+            else { // trash === 1 && $folder_id === 0
+                $req = $this->_sql->prepare("SELECT name, id, size, last_modification, favorite, trash FROM files WHERE id_owner = ? AND trash = 1 ORDER BY name ASC");
+                $req->execute(array($_SESSION['id']));
+            }
+
             if($req->rowCount() == 0)
                 return false;
             //   $style = 'filename' (old way)  ||      $style = '' (default)

@@ -51,6 +51,7 @@
         </section>
 
         <section id="desktop">
+            <button id="button_trash" onclick="showTrashed()"><?php echo_h($this->txt->User->trash_0); ?></button>
             <!-- Hidden upload form -->
             <form style="display:none">
                 <input type="file" id="upFilesInput" name="files[]" multiple="multiple" style="display:none" onchange="upFiles(this.files);" onclick="reset();" />

@@ -33,8 +33,18 @@ var filesUploaded = 0; // Number of files uploaded
 
 var returnArea;
 
-// Box class. Show a div 'box' when user uses right click inside desktop div, close the box when user uses left click
+// If trash = 0, set trash to 1 and load contents from trash.
+// If trash = 1, set trash to 0 and load other contents.
+var showTrashed = function() {
+    trash = Math.abs(trash-1);
+    if(trash == 0)
+        document.querySelector("#button_trash").innerHTML = txt.User.trash_0;
+    else
+        document.querySelector("#button_trash").innerHTML = txt.User.trash_1;
+    openDir(0);
+}
 
+// Box. Show a div 'box' when user uses right click inside desktop div, close the box when user uses left click
 var box = function() {
     this.box_div = document.querySelector("#box");
     this.x = 0;
@@ -375,7 +385,7 @@ var getFolderName = function(id) {
 }
 
 var openDir = function(id) {
-    console.log(id);
+    //console.log(id);
     if(!isNumeric(id))
         return false;
 
@@ -440,7 +450,7 @@ var openDir = function(id) {
             }
         }
     }
-    xhr.send("folder_id="+id);
+    xhr.send("folder_id="+id+"&trash="+trash);
 }
 
 var addFileSelection = function(id) {

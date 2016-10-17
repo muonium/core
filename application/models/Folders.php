@@ -60,9 +60,19 @@ class Folders extends l\Model {
             return $res['parent'];
         }
 
-        function getChildren($id) {
-            $req = $this->_sql->prepare("SELECT id, name, size FROM folders WHERE id_owner = ? AND parent = ? ORDER BY name ASC");
-            $req->execute(array($_SESSION['id'], $id));
+        function getChildren($id, $trash = '') {
+            if($trash === '' || $trash === 'all') {
+                $req = $this->_sql->prepare("SELECT id, name, size FROM folders WHERE id_owner = ? AND parent = ? ORDER BY name ASC");
+                $req->execute(array($_SESSION['id'], $id));
+            }
+            elseif($trash === 0 || ($trash === 1 && $id !== 0)) {
+                $req = $this->_sql->prepare("SELECT id, name, size FROM folders WHERE id_owner = ? AND parent = ? AND trash = 0 ORDER BY name ASC");
+                $req->execute(array($_SESSION['id'], $id));
+            }
+            else { // trash === 1 && $id === 0
+                $req = $this->_sql->prepare("SELECT id, name, size FROM folders WHERE id_owner = ? AND trash = 1 ORDER BY name ASC");
+                $req->execute(array($_SESSION['id']));
+            }
             if($req->rowCount() == 0)
                 return false;
             $res = $req->fetchAll(\PDO::FETCH_NUM);
