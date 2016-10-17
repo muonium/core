@@ -97,6 +97,11 @@ class Folders extends l\Model {
             return $res['size'];
         }
 
+        function updateTrash($id, $trash) {
+            $req = $this->_sql->prepare("UPDATE folders SET trash = ? WHERE id_owner = ? AND id = ?");
+            return $req->execute(array($trash, $_SESSION['id'], $id));
+        }
+
         // Update the size of the folder with an increment of $size
         function updateFolderSize($id, $size) {
             $req = $this->_sql->prepare("UPDATE folders SET size = size + ? WHERE id_owner = ? AND id = ?");

@@ -133,6 +133,11 @@ class Files extends l\Model {
             return $ret;
         }
 
+        function updateTrash($id, $trash) {
+            $req = $this->_sql->prepare("UPDATE files SET trash = ? WHERE id_owner = ? AND id = ?");
+            return $req->execute(array($trash, $_SESSION['id'], $id));
+        }
+
         function updateFile($folder_id) {
             // returns the difference beetween the size of the new file and the size of the old file
             $this->folder_id = $folder_id;

@@ -88,14 +88,16 @@ box.prototype.right_click = function(x, y, id) {
         //mouse over a file
         case 1:
             this.box_div.innerHTML = '<p onclick="dl(\''+id+'\')"><img src="'+img+'index/actions/download.svg" class="icon"> '+txt.RightClick.dl+'</p><hr><p><img src="'+img+'index/actions/putInFavorites.svg" class="icon"> '+txt.RightClick.star+'</p><hr><p onclick="cut(\''+id+'\')"><img src="'+img+'index/actions/cut.svg" class="icon"> '+txt.RightClick.cut+'</p><p onclick="copy(\''+id+'\')"><img src="'+img+'index/actions/copy.svg" class="icon"> '+txt.RightClick.copy+'</p><p onclick="paste(\''+id+'\')"><img src="'+img+'index/actions/paste.svg" class="icon"> '+txt.RightClick.paste+'</p>';
-            if(trash == 0) { this.box_div.innerHTML += '<p onclick="rm(\''+id+'\')"><img src="'+img+'index/actions/trash.svg" class="icon"> '+txt.RightClick.trash+'</p>'; } else { this.box_div.innerHTML += '<p onclick="rm(\''+id+'\')">'+txt.RightClick.rm+'</p>'; }
+            if(trash == 0) { this.box_div.innerHTML += '<p onclick="mvTrash(\''+id+'\')"><img src="'+img+'index/actions/trash.svg" class="icon"> '+txt.RightClick.trash+'</p>'; }
+            else { this.box_div.innerHTML += '<p onclick="mvTrash(\''+id+'\')">'+txt.RightClick.restore+'</p><p onclick="rm(\''+id+'\')">'+txt.RightClick.rm+'</p>'; }
             this.box_div.innerHTML += '<hr><p><img src="'+img+'index/actions/rename.svg" class="icon"> '+txt.RightClick.mvItem+'</p><p><img src="'+img+'index/actions/paste.svg" class="icon">'+txt.RightClick.mvLocate+'</p><hr><p>'+txt.RightClick.vDetails+'</p>';
             break;
         //mouse over a folder
         case 2:
             console.log(trash);
             this.box_div.innerHTML = '<p onclick="openDir(\''+id+'\')"><img src="'+img+'index/actions/view.svg" class="icon"> '+txt.RightClick.open+'</p><hr><p onclick="cut(\''+id+'\')"><img src="'+img+'index/actions/cut.svg" class="icon"> '+txt.RightClick.cut+'</p><p onclick="copy(\''+id+'\')"><img src="'+img+'index/actions/copy.svg" class="icon"> '+txt.RightClick.copy+'</p><p onclick="paste(\''+id+'\')"><img src="'+img+'index/actions/paste.svg" class="icon"> '+txt.RightClick.paste+'</p>';
-            if(trash == 0) { this.box_div.innerHTML += '<p onclick="rm(\''+id+'\')"><img src="'+img+'index/actions/trash.svg" class="icon"> '+txt.RightClick.trash+'</p>'; } else { this.box_div.innerHTML += '<p onclick="rm(\''+id+'\')">'+txt.RightClick.rm+'</p>'; }
+            if(trash == 0) { this.box_div.innerHTML += '<p onclick="mvTrash(\''+id+'\')"><img src="'+img+'index/actions/trash.svg" class="icon"> '+txt.RightClick.trash+'</p>'; }
+            else { this.box_div.innerHTML += '<p onclick="mvTrash(\''+id+'\')">'+txt.RightClick.restore+'</p><p onclick="rm(\''+id+'\')">'+txt.RightClick.rm+'</p>'; }
             this.box_div.innerHTML += '<hr><p><img src="'+img+'index/actions/rename.svg" class="icon"> '+txt.RightClick.mvItem+'</p><p>'+txt.RightClick.mvLocate+'</p><hr><p>'+txt.RightClick.vDetails+'</p>';
     }
     this.box_div.style.display = 'block';
@@ -144,6 +146,10 @@ window.onload = function() {
         else if(event.ctrlKey && event.keyCode == 73) {
             event.preventDefault(); // disable the hotkey in web browser
             invertSelection();
+        }
+        else if(event.ctrlKey && event.keyCode == 82) {
+            event.preventDefault(); // disable the hotkey in web browser
+            mvTrashMultiple();
         }
         switch(event.keyCode) {
             case 46:
@@ -627,13 +633,52 @@ var dl = function(file) {
     }
 }
 
-// mvTrash is not coded yet, rm instead
 var mvTrash = function(t) {
+    document.querySelector("#box").style.display="none";
+    if(t.length > 1) {
+        id = t.substr(1);
+        if(isNumeric(id)) {
+            var request;
+            if(t.substr(0, 1) == 'f') {
+                request = "files="+id;
+            }
+            else if(t.substr(0, 1) == 'd') {
+                request = "folders="+id;
+            }
+            else
+                return false;
 
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "User/MvTrash", true);
+            xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+            xhr.onreadystatechange = function()
+            {
+                if(xhr.status == 200 && xhr.readyState == 4)
+                {
+                    console.log(xhr.responseText);
+                    openDir(folder_id);
+                }
+            }
+            xhr.send(request+"&trash="+Math.abs(trash-1));
+        }
+    }
 }
 
 var mvTrashMultiple = function() {
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "User/MvTrash", true);
+    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
+    xhr.onreadystatechange = function()
+    {
+        if(xhr.status == 200 && xhr.readyState == 4)
+        {
+            console.log(xhr.responseText);
+            openDir(folder_id);
+        }
+    }
+    xhr.send("folders="+SelectedFolder.join('|')+"&files="+SelectedFile.join('|')+"&trash="+Math.abs(trash-1));
 }
 
 var rm = function(del) {

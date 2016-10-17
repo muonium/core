@@ -225,6 +225,35 @@ class User extends l\Languages {
         }
     }
 
+    function MvTrashAction() {
+        $this->_modelFiles = new m\Files();
+        $this->_modelFiles->id_owner = $_SESSION['id'];
+
+        $this->_modelFolders = new m\Folders();
+        $this->_modelFolders->id_owner = $_SESSION['id'];
+
+        $trash = 1;
+        if(isset($_POST['trash']))
+            if($_POST['trash'] == 0)
+                $trash = 0;
+
+        if(!empty($_POST['files'])) {
+            $files = explode("|", $_POST['files']);
+            foreach($files as $file) {
+                if(is_numeric($file))
+                    $this->_modelFiles->updateTrash($file, $trash);
+            }
+        }
+
+        if(!empty($_POST['folders'])) {
+            $folders = explode("|", $_POST['folders']);
+            foreach($folders as $folder) {
+                if(is_numeric($folder))
+                    $this->_modelFolders->updateTrash($folder, $trash);
+            }
+        }
+    }
+
     function rmFile($id) {
         if(!isset($this->_modelFiles)) {
             $this->_modelFiles = new m\Files();
