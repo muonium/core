@@ -9,7 +9,7 @@
     $_t->addCss("home_global");
     $_t->addCss("Interface/new_design");
     $_t->addCss("Interface/box");
-    $_t->addJs("Interface/global");
+    $_t->addJs("Interface/interface");
     $_t->addJs("Interface/Request");
     //$_t->addScript("text/javascript","window.onload = function() {QC.init();}");
     $_t->getHeader();
@@ -54,7 +54,7 @@
             <button id="button_trash" onclick="showTrashed()"><?php echo_h($this->txt->User->trash_0); ?></button>
             <!-- Hidden upload form -->
             <form style="display:none">
-                <input type="file" id="upFilesInput" name="files[]" multiple="multiple" style="display:none" onchange="upFiles(this.files);" onclick="reset();" />
+                <input type="file" id="upFilesInput" name="files[]" multiple="multiple" style="display:none" onchange="Upload.upFiles(this.files);" onclick="reset();" />
             </form>
             <!-- End -->
 

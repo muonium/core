@@ -177,11 +177,11 @@ class User extends l\Languages {
         // New way
         if($subdirs = $this->_modelFolders->getChildren($this->_folderId, $this->trash)) {
             foreach($subdirs as $subdir)
-                echo '<span class="folder" id="d'.$subdir['0'].'" name="'.htmlentities($subdir['1']).'" onclick="addFolderSelection(this.id)" ondblclick="openDir('.$subdir['0'].')"><img src="'.IMG.'desktop/extensions/folder.svg" class="icon"> <strong>'.htmlentities($subdir['1']).'</strong> ['.$this->showSize($subdir['2']).']</span>';
+                echo '<span class="folder" id="d'.$subdir['0'].'" name="'.htmlentities($subdir['1']).'" onclick="Selection.addFolder(this.id)" ondblclick="openDir('.$subdir['0'].')"><img src="'.IMG.'desktop/extensions/folder.svg" class="icon"> <strong>'.htmlentities($subdir['1']).'</strong> ['.$this->showSize($subdir['2']).']</span>';
         }
         if($files = $this->_modelFiles->getFiles($this->_folderId, $this->trash)) {
             foreach($files as $file)
-                echo '<span class="file" id="f'.$file['1'].'" onclick="addFileSelection(this.id)" title="'.htmlentities($file['0']).'">'.htmlentities($file['0']).' ['.$this->showSize($file['2']).'] - '.$this->txt->User->lastmod.' : '.date('d/m/Y G:i', $file['3']).'</span>';
+                echo '<span class="file" id="f'.$file['1'].'" onclick="Selection.addFile(this.id)" title="'.htmlentities($file['0']).'">'.htmlentities($file['0']).' ['.$this->showSize($file['2']).'] - '.$this->txt->User->lastmod.' : '.date('d/m/Y G:i', $file['3']).'</span>';
         }
 
         $time_end = microtime(true);
