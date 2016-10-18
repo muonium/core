@@ -64,7 +64,6 @@
             <!-- mui contains all contents of interface : storage infos, link to parent folder, #tree (files and folders) ... -->
             <div id="mui">
                 <?php echo_h($this->txt->Global->loading); ?>
-                <script type="text/javascript">openDir(0);</script>
             </div>
             <img src="<?php echo MVC_ROOT; ?>/public/pictures/desktop/arrow.svg" class="arrow general" />
 
