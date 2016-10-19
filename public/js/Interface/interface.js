@@ -4,28 +4,18 @@
 - Box
 - Arrows
 - Selection
-- Move
+- Move      (Move files and folders, also from/to trash)
 - Upload
-
+- Files
+- Folders
+- Rm        (Remove files and folders)
+- Trash
+- ExtIcons  (Icons according to extensions)
 */
 
 //      Global Vars     //
 
 var returnArea;
-var folder_id = 0; // Id of current folder
-var trash = 0; // 0 : not in the trash, 1 : in the trash
-
-
-// If trash = 0, set trash to 1 and load contents from trash.
-// If trash = 1, set trash to 0 and load other contents.
-var showTrashed = function() {
-    trash = Math.abs(trash-1);
-    if(trash == 0)
-        document.querySelector("#button_trash").innerHTML = txt.User.trash_0;
-    else
-        document.querySelector("#button_trash").innerHTML = txt.User.trash_1;
-    openDir(0);
-}
 
 //                  //
 //      Modules     //
@@ -78,23 +68,34 @@ var Box = (function() {
             switch(Box.Area) {
                 //over nothing
                 case 0:
-                    box_div.innerHTML = '<p onclick="nFolder()"><img src="'+img+'desktop/actions/create_folder.svg" class="icon"> '+txt.RightClick.nFolder+'</p><p onclick="Upload.dialog()"><img src="'+img+'desktop/actions/upload.svg" class="icon"> '+txt.RightClick.upFiles+'</p>';
-                    if(Move.Files.length > 0 || Move.Folders.length > 0) { box_div.innerHTML += '<hr><p onclick="Move.paste(\''+id+'\')"><img src="'+img+'index/actions/paste.svg" class="icon"> '+txt.RightClick.paste+'</p>'; }
-                    box_div.innerHTML += '<hr><p onclick="logout()">'+txt.RightClick.logOut+'</p>';
+                    if(Trash.State == 0) {
+                        box_div.innerHTML = '<p onclick="Folders.create()"><img src="'+img+'desktop/actions/create_folder.svg" class="icon"> '+txt.RightClick.nFolder+'</p><p onclick="Upload.dialog()"><img src="'+img+'desktop/actions/upload.svg" class="icon"> '+txt.RightClick.upFiles+'</p>';
+                        if(Move.Files.length > 0 || Move.Folders.length > 0)
+                            box_div.innerHTML += '<hr><p onclick="Move.paste(\''+id+'\')"><img src="'+img+'index/actions/paste.svg" class="icon"> '+txt.RightClick.paste+'</p>';
+                        box_div.innerHTML += '<hr><p onclick="logout()">'+txt.RightClick.logOut+'</p>';
+                    }
                     break;
                 //mouse over a file
                 case 1:
-                    box_div.innerHTML = '<p onclick="dl(\''+id+'\')"><img src="'+img+'index/actions/download.svg" class="icon"> '+txt.RightClick.dl+'</p><hr><p><img src="'+img+'index/actions/putInFavorites.svg" class="icon"> '+txt.RightClick.star+'</p><hr><p onclick="Move.cut(\''+id+'\')"><img src="'+img+'index/actions/cut.svg" class="icon"> '+txt.RightClick.cut+'</p><p onclick="Move.copy(\''+id+'\')"><img src="'+img+'index/actions/copy.svg" class="icon"> '+txt.RightClick.copy+'</p><p onclick="Move.paste(\''+id+'\')"><img src="'+img+'index/actions/paste.svg" class="icon"> '+txt.RightClick.paste+'</p>';
-                    if(trash == 0) { box_div.innerHTML += '<p onclick="Move.trash(\''+id+'\')"><img src="'+img+'index/actions/trash.svg" class="icon"> '+txt.RightClick.trash+'</p>'; }
-                    else { box_div.innerHTML += '<p onclick="Move.trash(\''+id+'\')">'+txt.RightClick.restore+'</p><p onclick="rm(\''+id+'\')">'+txt.RightClick.rm+'</p>'; }
-                    box_div.innerHTML += '<hr><p><img src="'+img+'index/actions/rename.svg" class="icon"> '+txt.RightClick.mvItem+'</p><p><img src="'+img+'index/actions/paste.svg" class="icon">'+txt.RightClick.mvLocate+'</p><hr><p>'+txt.RightClick.vDetails+'</p>';
+                    box_div.innerHTML = '<p onclick="Files.dl(\''+id+'\')"><img src="'+img+'index/actions/download.svg" class="icon"> '+txt.RightClick.dl+'</p><hr>';
+                    if(Trash.State == 0) {
+                        box_div.innerHTML += '<p><img src="'+img+'index/actions/putInFavorites.svg" class="icon"> '+txt.RightClick.star+'</p><hr><p onclick="Move.cut(\''+id+'\')"><img src="'+img+'index/actions/cut.svg" class="icon"> '+txt.RightClick.cut+'</p><p onclick="Move.copy(\''+id+'\')"><img src="'+img+'index/actions/copy.svg" class="icon"> '+txt.RightClick.copy+'</p><p onclick="Move.paste(\''+id+'\')"><img src="'+img+'index/actions/paste.svg" class="icon"> '+txt.RightClick.paste+'</p>';
+                        box_div.innerHTML += '<p onclick="Move.trash(\''+id+'\')"><img src="'+img+'index/actions/trash.svg" class="icon"> '+txt.RightClick.trash+'</p>';
+                    } else { box_div.innerHTML += '<p onclick="Move.trash(\''+id+'\')">'+txt.RightClick.restore+'</p><p onclick="Rm.rm(\''+id+'\')">'+txt.RightClick.rm+'</p>'; }
+                    if(Trash.State == 0)
+                        box_div.innerHTML += '<hr><p><img src="'+img+'index/actions/rename.svg" class="icon"> '+txt.RightClick.mvItem+'</p><p><img src="'+img+'index/actions/paste.svg" class="icon">'+txt.RightClick.mvLocate+'</p>';
+                    box_div.innerHTML += '<hr><p>'+txt.RightClick.vDetails+'</p>';
                     break;
                 //mouse over a folder
                 case 2:
-                    box_div.innerHTML = '<p onclick="openDir(\''+id+'\')"><img src="'+img+'index/actions/view.svg" class="icon"> '+txt.RightClick.open+'</p><hr><p onclick="Move.cut(\''+id+'\')"><img src="'+img+'index/actions/cut.svg" class="icon"> '+txt.RightClick.cut+'</p><p onclick="Move.copy(\''+id+'\')"><img src="'+img+'index/actions/copy.svg" class="icon"> '+txt.RightClick.copy+'</p><p onclick="Move.paste(\''+id+'\')"><img src="'+img+'index/actions/paste.svg" class="icon"> '+txt.RightClick.paste+'</p>';
-                    if(trash == 0) { box_div.innerHTML += '<p onclick="Move.trash(\''+id+'\')"><img src="'+img+'index/actions/trash.svg" class="icon"> '+txt.RightClick.trash+'</p>'; }
-                    else { box_div.innerHTML += '<p onclick="Move.trash(\''+id+'\')">'+txt.RightClick.restore+'</p><p onclick="rm(\''+id+'\')">'+txt.RightClick.rm+'</p>'; }
-                    box_div.innerHTML += '<hr><p><img src="'+img+'index/actions/rename.svg" class="icon"> '+txt.RightClick.mvItem+'</p><p>'+txt.RightClick.mvLocate+'</p><hr><p>'+txt.RightClick.vDetails+'</p>';
+                    box_div.innerHTML = '<p onclick="Folders.open(\''+id+'\')"><img src="'+img+'index/actions/view.svg" class="icon"> '+txt.RightClick.open+'</p><hr>';
+                    if(Trash.State == 0) {
+                        box_div.innerHTML += '<p onclick="Move.cut(\''+id+'\')"><img src="'+img+'index/actions/cut.svg" class="icon"> '+txt.RightClick.cut+'</p><p onclick="Move.copy(\''+id+'\')"><img src="'+img+'index/actions/copy.svg" class="icon"> '+txt.RightClick.copy+'</p><p onclick="Move.paste(\''+id+'\')"><img src="'+img+'index/actions/paste.svg" class="icon"> '+txt.RightClick.paste+'</p>';
+                        box_div.innerHTML += '<p onclick="Move.trash(\''+id+'\')"><img src="'+img+'index/actions/trash.svg" class="icon"> '+txt.RightClick.trash+'</p>';
+                    } else { box_div.innerHTML += '<p onclick="Move.trash(\''+id+'\')">'+txt.RightClick.restore+'</p><p onclick="Rm.rm(\''+id+'\')">'+txt.RightClick.rm+'</p>'; }
+                    if(Trash.State == 0)
+                        box_div.innerHTML += '<hr><p><img src="'+img+'index/actions/rename.svg" class="icon"> '+txt.RightClick.mvItem+'</p><p>'+txt.RightClick.mvLocate+'</p>';
+                    box_div.innerHTML += '<hr><p>'+txt.RightClick.vDetails+'</p>';
             }
             Box.show();
         }
@@ -136,6 +137,7 @@ var Arrows = (function() {
             else
                 i--;
             lastSelected = span[i].id;
+            console.log(span[i].getAttribute('data-folder'));
 
             if(ctrl === undefined) // remove previous selected element(s)
                 Selection.remove();
@@ -187,7 +189,7 @@ var Upload = (function() {
             progress.innerHTML = ' ';
             // Loop through each of the selected files.
             for(var i=0;i<files.length;i++) {
-                progress.innerHTML += '<div id="div_upload'+i+'"><button onclick="abort('+i+')">X</button> <span id="span_upload'+i+'"></span></div>';
+                progress.innerHTML += '<div id="div_upload'+i+'"><button onclick="Upload.abort('+i+')">X</button> <span id="span_upload'+i+'"></span></div>';
                 Upload.upFile(files[i], i);
             }
 
@@ -197,7 +199,7 @@ var Upload = (function() {
                 if(filesUploaded >= files.length) {
                     progress.innerHTML = ' ';
                     clearInterval(timer);
-                    openDir(folder_id);
+                    Folders.open(Folders.id);
                 }
             }, 1000);
         },
@@ -208,7 +210,7 @@ var Upload = (function() {
             var formData = new FormData();
 
             // Add the file to the request.
-            formData.append('folder_id', folder_id);
+            formData.append('folder_id', Folders.id);
             formData.append('upload[]', file, file.name);
             xhr_upload[i] = new XMLHttpRequest();
             xhr_upload[i].open("POST", "User/UpFiles", true);
@@ -366,7 +368,7 @@ var Move = (function() {
             Move.Files = Selection.Files;
             Move.Folders = Selection.Folders;
         }
-        mvFolder_id = folder_id;
+        mvFolder_id = Folders.id;
     }
 
     // Public
@@ -421,10 +423,10 @@ var Move = (function() {
                     if(xhr.status == 200 && xhr.readyState == 4)
                     {
                         console.log(xhr.responseText);
-                        openDir(folder_id);
+                        Folders.open(Folders.id);
                     }
                 }
-                xhr.send("copy="+Copy+"&folder_id="+folder_id+"&old_folder_id="+mvFolder_id+"&files="+p_files+"&folders="+p_folders);
+                xhr.send("copy="+Copy+"&folder_id="+Folders.id+"&old_folder_id="+mvFolder_id+"&files="+p_files+"&folders="+p_folders);
             }
         },
 
@@ -452,10 +454,10 @@ var Move = (function() {
                         if(xhr.status == 200 && xhr.readyState == 4)
                         {
                             console.log(xhr.responseText);
-                            openDir(folder_id);
+                            Folders.open(Folders.id);
                         }
                     }
-                    xhr.send(request+"&trash="+Math.abs(trash-1));
+                    xhr.send(request+"&trash="+Math.abs(Trash.State-1));
                 }
             }
         },
@@ -470,12 +472,359 @@ var Move = (function() {
                 if(xhr.status == 200 && xhr.readyState == 4)
                 {
                     console.log(xhr.responseText);
-                    openDir(folder_id);
+                    Folders.open(Folders.id);
                 }
             }
-            xhr.send("folders="+Selection.Folders.join('|')+"&files="+Selection.Files.join('|')+"&trash="+Math.abs(trash-1));
+            xhr.send("folders="+Selection.Folders.join('|')+"&files="+Selection.Files.join('|')+"&trash="+Math.abs(Trash.State-1));
         }
     }
+});
+
+// Files module. Loaded in window.onload()
+var Files = (function() {
+	// Private
+
+	// Public
+	return {
+		dl : function(file) {
+			Box.hide();
+			var id = 0;
+			if(file.length > 1) {
+				id = file.substr(1);
+				if(isNumeric(id)) {
+				    if(file.substr(0, 1) == 'f') {
+				        location.href="User/Download/"+id;
+				    }
+				}
+			}
+		}
+	}
+});
+
+// Folders module. Loaded in window.onload()
+var Folders = (function() {
+	// Private
+
+	// Public
+	return {
+		id : 0,
+		create : function() {
+			if(document.querySelector("#nFolder")) {
+				Box.hide();
+
+				var xhr = new XMLHttpRequest();
+				xhr.open("POST", "User/AddFolder", true);
+				xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+				xhr.onreadystatechange = function()
+				{
+				    if(xhr.status == 200 && xhr.readyState == 4)
+				    {
+				        // Add the folder in tree without reloading
+				        if(isNumeric(xhr.response)) {
+				            var first;
+				            var content = '<img src="'+img+'desktop/extensions/folder.svg" class="icon"> <strong>'+document.querySelector("#nFolder").value+'</strong> [0]';
+				            // Check if there is already file or folder
+				            if(document.querySelector(".folder") || document.querySelector(".file")) {
+				                if(!(first = document.querySelector(".folder")))
+				                    if(!(first = document.querySelector(".file")))
+				                        window.location.href="User";
+				                var span = document.createElement('span');
+				                span.className = 'folder';
+				                span.id = 'd'+xhr.response;
+				                span.name = document.querySelector("#nFolder").value;
+				                span.onclick = function(){ Selection.addFolder(this.id); };
+				                span.ondblclick = function(){ Folders.open(this.id.substr(1)); };
+				                span.innerHTML = content;
+				                first.parentNode.insertBefore(span, first);
+				            }
+				            else {
+				                var span = '<span class="folder" id="d'+xhr.response+'" name="'+document.querySelector("#nFolder").value+'" onclick="Selection.addFolder(this.id)" ondblclick="Folders.open('+xhr.response+')">'+content+'</span>';
+				                document.querySelector("#tree").innerHTML = span + document.querySelector("#tree").innerHTML;
+				            }
+
+				            document.querySelector("#d"+xhr.response).addEventListener("contextmenu", function(event) {
+				                Box.Area = 2;
+				                Box.right_click(event.clientX, event.clientY, this.id);
+				                return false;
+				            });
+				        }
+				    }
+				}
+				xhr.send("folder_id="+Folders.id+"&folder="+encodeURIComponent(document.querySelector("#nFolder").value));
+			}
+			else {
+				document.querySelector("#box").innerHTML = txt.User.folder+' : <input type="text" id="nFolder" onkeypress="return Folders.verif(event);">';
+			}
+		},
+
+		open : function(folder_id) {
+			if(!isNumeric(folder_id))
+				return false;
+
+			var xhr = new XMLHttpRequest();
+			xhr.open("POST", "User/ChangePath", true);
+			xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+			xhr.onreadystatechange = function()
+			{
+				if(xhr.status == 200 && xhr.readyState == 4)
+				{
+				    if(xhr.responseText != '') {
+				        // Hide box
+				        Box.hide();
+
+				        document.querySelector("#mui").innerHTML = xhr.responseText;
+				        Folders.id = folder_id;
+				        // reset selected files/folders
+				        Selection.Files = [];
+				        Selection.Folders = [];
+				        // Set events for all files and folders loaded
+				        setEvents();
+
+				        // Put icons
+						ExtIcons.set();
+				    }
+				}
+			}
+			xhr.send("folder_id="+folder_id+"&trash="+Trash.State);
+		},
+
+		verif : function(evt) {
+			var keyCode = evt.which ? evt.which : evt.keyCode;
+			if(keyCode == 13) { // Submit
+				Folders.create();
+				return false;
+			}
+			var interdit = '/\\:*?<>|"';
+			if (interdit.indexOf(String.fromCharCode(keyCode)) >= 0)
+				return false;
+			return true;
+		},
+
+		getName : function(folder_id) {
+			if(document.getElementById(folder_id))
+				return document.getElementById(folder_id).getAttribute("name");
+			return false;
+		},
+
+        getDataFolder : function(elem_id) {
+            if(document.getElementById(elem_id))
+                return document.getElementById(elem_id).getAttribute("data-folder");
+            return false;
+        }
+	}
+});
+
+var Trash = (function() {
+	// Private
+
+	// Public
+	// If State = 0, set State to 1 and load contents from trash.
+	// If State = 1, set State to 0 and load other contents.
+	return {
+		State : 0,
+		switch : function() {
+			Trash.State = Math.abs(Trash.State-1);
+			if(Trash.State == 0)
+				document.querySelector("#button_trash").innerHTML = txt.User.trash_0;
+			else
+				document.querySelector("#button_trash").innerHTML = txt.User.trash_1;
+			Folders.open(0);
+		}
+	}
+});
+
+var Rm = (function() {
+	// Private
+
+	// Public
+	return {
+		rm : function(del) {
+			Box.hide();
+			var id = 0;
+			if(del.length > 1) {
+				id = del.substr(1);
+				if(isNumeric(id)) {
+                    // Get folder id where file/folder is located, it can be different than current folder id in trash.
+                    var folder_id = Folders.getDataFolder(del);
+                    if(folder_id === false)
+                        return false;
+				    var xhr = new XMLHttpRequest();
+				    if(del.substr(0, 1) == 'f') {
+				        // file
+				        if(confirm(txt.User.questionf)) {
+				            console.log("removing file");
+				            xhr.open("POST", "User/RmFiles", true);
+				            xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+				            xhr.onreadystatechange = function()
+				            {
+				                if(xhr.status == 200 && xhr.readyState == 4)
+				                {
+				                    console.log(xhr.responseText);
+				                    Folders.open(Folders.id);
+				                }
+				            }
+				            xhr.send("ids="+folder_id+"&files="+id);
+				        }
+				    }
+				    else if(del.substr(0, 1) == 'd') {
+				        // folder
+				        if(confirm(txt.User.questiond)) {
+				            xhr.open("POST", "User/RmFolders", true);
+				            xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+				            xhr.onreadystatechange = function()
+				            {
+				                if(xhr.status == 200 && xhr.readyState == 4)
+				                {
+				                    console.log(xhr.responseText);
+				                    Folders.open(Folders.id);
+				                }
+				            }
+				            xhr.send("ids="+folder_id+"&folders="+id);
+				        }
+				    }
+				}
+			}
+		},
+
+		multiple : function() {
+			var id = 0;
+			var folderName;
+            var folder_id;
+            // Folder id tab where files/folders are located, it can be different than current folder id in trash.
+            var filesFolderId = [];
+            var foldersFolderId = [];
+
+			if(Selection.Files.length > 0 || Selection.Folders.length > 0) {
+				if(confirm(txt.User.questionrm)) {
+				    var wait = 2;
+				    if(Selection.Folders.length > 0) {
+
+                        // Get folder id where folder is located for each folder
+                        for(var i=0; i<Selection.Folders.length; i++) {
+                            folder_id = Folders.getDataFolder("d"+Selection.Folders[i]);
+                            if(folder_id === false)
+                                return false;
+                            foldersFolderId.push(folder_id);
+                        }
+                        if(Selection.Folders.length != foldersFolderId.length)
+                            return false;
+
+				        var xhr = new XMLHttpRequest();
+				        console.log("deleting folders...");
+				        xhr.open("POST", "User/RmFolders", true);
+				        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+				        xhr.onreadystatechange = function()
+				        {
+				            if(xhr.status == 200 && xhr.readyState == 4)
+				            {
+				                if(xhr.responseText != '') {
+				                    //
+				                    wait--;
+				                    console.log(xhr.responseText);
+				                    console.log("deleted selected folders !");
+				                }
+				            }
+				        }
+				        xhr.send("ids="+encodeURIComponent(foldersFolderId.join("|"))+"&folders="+encodeURIComponent(Selection.Folders.join("|")));
+				    }
+				    else
+				        wait--;
+
+				    if(Selection.Files.length > 0) {
+
+                        // Get folder id where file is located for each file
+                        for(var i=0; i<Selection.Files.length; i++) {
+                            folder_id = Folders.getDataFolder("f"+Selection.Files[i]);
+                            if(folder_id === false)
+                                return false;
+                            filesFolderId.push(folder_id);
+                        }
+                        if(Selection.Files.length != filesFolderId.length)
+                            return false;
+
+				        var xhr2 = new XMLHttpRequest();
+				        console.log("deleting files...");
+				        xhr2.open("POST", "User/RmFiles", true);
+				        xhr2.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+				        xhr2.onreadystatechange = function()
+				        {
+				            if(xhr2.status == 200 && xhr2.readyState == 4)
+				            {
+				                if(xhr2.responseText != '') {
+				                    //
+				                    wait--;
+				                    console.log(xhr2.responseText);
+				                    console.log("deleted selected files !");
+				                }
+				            }
+				        }
+				        xhr2.send("ids="+encodeURIComponent(filesFolderId.join("|"))+"&files="+encodeURIComponent(Selection.Files.join("|")));
+				    }
+				    else
+				        wait--;
+
+				    var timer = setInterval(function() {
+				        console.log("waiting...");
+				        if(wait == 0) {
+				            clearInterval(timer);
+				            Folders.open(Folders.id);
+				        }
+				    }, 250);
+				}
+			}
+		}
+	}
+});
+
+var ExtIcons = (function() {
+	// Private
+	var ext = '';
+	var pos = -1;
+	var icon;
+
+	// Types of files
+	var archive = ['zip', 'tar', 'gz', 'bz', 'bz2', 'xz', 'rar', 'jar', '7z'];
+	var code = ['php', 'html', 'htm', 'php3', 'php4', 'php5', 'java', 'css', 'scss', 'xml', 'svg', 'sql', 'c', 'cpp', 'cs', 'js', 'au3', 'asm', 'h', 'ini', 'jav', 'p', 'pl', 'rb', 'sh', 'bat', 'py'];
+	var image = ['jpg', 'jpeg', 'png', 'bmp', 'gif'];
+	var doc = ['docx', 'odt', 'doc'];
+	var pdf = ['pdf'];
+	var sound = ['mp3', 'ogg', 'flac', 'wav', 'aac', 'm4a'];
+	var video = ['mp4', 'avi', 'wmv', 'mpeg', 'mov', 'mkv', 'mka', 'mks', 'flv'];
+
+	// Public
+	return {
+		set : function() {
+			var dir_files = document.querySelectorAll(".file");
+			for(var i = 0; i < dir_files.length; i++) {
+				icon = 'text';
+				pos = dir_files[i].getAttribute('data-title').lastIndexOf('.');
+				if(pos !== -1) {
+					ext = dir_files[i].getAttribute('data-title').substr(pos+1);
+					if(archive.indexOf(ext) !== -1)
+				    	icon = 'archive';
+				    else if(code.indexOf(ext) !== -1)
+				    	icon = 'code';
+				    else if(image.indexOf(ext) !== -1)
+				    	icon = 'image';
+				    else if(doc.indexOf(ext) !== -1)
+				    	icon = 'doc';
+				    else if(pdf.indexOf(ext) !== -1)
+				    	icon = 'pdf';
+				    else if(sound.indexOf(ext) !== -1)
+				    	icon = 'sound';
+				    else if(video.indexOf(ext) !== -1)
+				    	icon = 'video';
+				}
+				dir_files[i].innerHTML = '<img src="'+img+'desktop/extensions/'+icon+'.svg" class="icon"> '+dir_files[i].innerHTML;
+			}
+		}
+	}
 });
 
 //                          //
@@ -485,7 +834,7 @@ var Move = (function() {
 //      App launcher
 
 window.onload = function() {
-    console.log("Loading application");
+    console.log("Loading application.");
 
     // Get txt from user's language json (language.js)
     getJSON();
@@ -500,6 +849,11 @@ window.onload = function() {
     Selection = Selection();
     Move = Move();
     Upload = Upload();
+	Files = Files();
+	Folders = Folders();
+	Trash = Trash();
+	Rm = Rm();
+	ExtIcons = ExtIcons();
 
     // Set events in the app
 
@@ -525,7 +879,7 @@ window.onload = function() {
         }
         else if(event.ctrlKey && event.keyCode == 65) {
             event.preventDefault(); // disable the hotkey in web browser
-            selection.all();
+            Selection.all();
         }
         else if(event.ctrlKey && event.keyCode == 73) {
             event.preventDefault(); // disable the hotkey in web browser
@@ -547,7 +901,7 @@ window.onload = function() {
             switch(event.keyCode) {
                 case 46:
                     // suppr
-                    rmMultiple();
+                    Rm.multiple();
                     break;
                 case 27:
                     // esc
@@ -580,7 +934,9 @@ window.onload = function() {
     });
 
     // Open root dir
-    openDir(0);
+    Folders.open(0);
+
+    console.log("Application loaded.");
 }
 
 //  Set events in files and folders
@@ -621,274 +977,8 @@ var setEvents = function() {
     }
 }
 
-// Create a folder
-var nFolder = function() {
-    if(document.querySelector("#nFolder")) {
-        Box.hide();
-
-        var xhr = new XMLHttpRequest();
-        xhr.open("POST", "User/AddFolder", true);
-        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-
-        xhr.onreadystatechange = function()
-        {
-            if(xhr.status == 200 && xhr.readyState == 4)
-            {
-                // Add the folder in tree without reloading
-                if(isNumeric(xhr.response)) {
-                    var first;
-                    var content = '<img src="'+img+'desktop/extensions/folder.svg" class="icon"> <strong>'+document.querySelector("#nFolder").value+'</strong> [0]';
-                    // Check if there is already file or folder
-                    if(document.querySelector(".folder") || document.querySelector(".file")) {
-                        if(!(first = document.querySelector(".folder")))
-                            if(!(first = document.querySelector(".file")))
-                                window.location.href="User";
-                        var span = document.createElement('span');
-                        span.className = 'folder';
-                        span.id = 'd'+xhr.response;
-                        span.name = document.querySelector("#nFolder").value;
-                        span.onclick = function(){Selection.addFolder(this.id);};
-                        span.ondblclick = function(){openDir(this.id.substr(1));};
-                        span.innerHTML = content;
-                        first.parentNode.insertBefore(span, first);
-                    }
-                    else {
-                        var span = '<span class="folder" id="d'+xhr.response+'" name="'+document.querySelector("#nFolder").value+'" onclick="Selection.addFolder(this.id)" ondblclick="openDir('+xhr.response+')">'+content+'</span>';
-                        document.querySelector("#tree").innerHTML = span + document.querySelector("#tree").innerHTML;
-                    }
-
-                    document.querySelector("#d"+xhr.response).addEventListener("contextmenu", function(event) {
-                        Box.Area = 2;
-                        Box.right_click(event.clientX, event.clientY, this.id);
-                        return false;
-                    });
-                }
-            }
-        }
-        xhr.send("folder_id="+folder_id+"&folder="+encodeURIComponent(document.querySelector("#nFolder").value));
-    }
-    else {
-        document.querySelector("#box").innerHTML = txt.User.folder+' : <input type="text" id="nFolder" onkeypress="return verifFolderName(event);">';
-    }
-}
-
-//      Open a folder
-
-var openDir = function(id) {
-    if(!isNumeric(id))
-        return false;
-
-    var xhr = new XMLHttpRequest();
-    xhr.open("POST", "User/ChangePath", true);
-    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-
-    xhr.onreadystatechange = function()
-    {
-        if(xhr.status == 200 && xhr.readyState == 4)
-        {
-            if(xhr.responseText != '') {
-                // Hide box
-                Box.hide();
-
-                document.querySelector("#mui").innerHTML = xhr.responseText;
-                //path = dirName;
-                folder_id = id;
-                // reset selected files/folders
-                Selection.Files = [];
-                Selection.Folders = [];
-                // Set events for all files and folders loaded
-                setEvents();
-
-                // Put icons
-                var ext = '';
-                var pos = -1;
-                var icon;
-
-                // Types of files
-                var archive = ['zip', 'tar', 'gz', 'bz', 'bz2', 'xz', 'rar', 'jar', '7z'];
-                var code = ['php', 'html', 'htm', 'php3', 'php4', 'php5', 'java', 'css', 'scss', 'xml', 'svg', 'sql', 'c', 'cpp', 'cs', 'js', 'au3', 'asm', 'h', 'ini', 'jav', 'p', 'pl', 'rb', 'sh', 'bat', 'py'];
-                var image = ['jpg', 'jpeg', 'png', 'bmp', 'gif'];
-                var doc = ['docx', 'odt', 'doc'];
-                var pdf = ['pdf'];
-                var sound = ['mp3', 'ogg', 'flac', 'wav', 'aac'];
-                var video = ['mp4', 'avi', 'wmv', 'mpeg', 'mov', 'mkv', 'mka', 'mks', 'flv'];
-
-                var dir_files = document.querySelectorAll(".file");
-                for(var i = 0; i < dir_files.length; i++) {
-                    icon = 'text';
-                    pos = dir_files[i].title.lastIndexOf('.');
-                    if(pos !== -1) {
-                        ext = dir_files[i].title.substr(pos+1);
-                        if(archive.indexOf(ext) !== -1)
-                            icon = 'archive';
-                        else if(code.indexOf(ext) !== -1)
-                            icon = 'code';
-                        else if(image.indexOf(ext) !== -1)
-                            icon = 'image';
-                        else if(doc.indexOf(ext) !== -1)
-                            icon = 'doc';
-                        else if(pdf.indexOf(ext) !== -1)
-                            icon = 'pdf';
-                        else if(sound.indexOf(ext) !== -1)
-                            icon = 'sound';
-                        else if(video.indexOf(ext) !== -1)
-                            icon = 'video';
-                    }
-                    dir_files[i].innerHTML = '<img src="'+img+'desktop/extensions/'+icon+'.svg" class="icon"> '+dir_files[i].innerHTML;
-                }
-            }
-        }
-    }
-    xhr.send("folder_id="+id+"&trash="+trash);
-}
-
-// Download a file
-var dl = function(file) {
-    Box.hide();
-    var id = 0;
-    if(file.length > 1) {
-        id = file.substr(1);
-        if(isNumeric(id)) {
-            if(file.substr(0, 1) == 'f') {
-                location.href="User/Download/"+id;
-            }
-        }
-    }
-}
-
-// Remove a file/folder
-var rm = function(del) {
-    Box.hide();
-    var id = 0;
-    if(del.length > 1) {
-        id = del.substr(1);
-        if(isNumeric(id)) {
-            var xhr = new XMLHttpRequest();
-            if(del.substr(0, 1) == 'f') {
-                // file
-                if(confirm(txt.User.questionf)) {
-                    console.log("removing file");
-                    xhr.open("POST", "User/RmFiles", true);
-                    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-
-                    xhr.onreadystatechange = function()
-                    {
-                        if(xhr.status == 200 && xhr.readyState == 4)
-                        {
-                            console.log(xhr.responseText);
-                            openDir(folder_id);
-                        }
-                    }
-                    //xhr.send("path="+encodeURIComponent(path)+"&files="+id);
-                    xhr.send("folder_id="+folder_id+"&files="+id);
-                }
-            }
-            else if(del.substr(0, 1) == 'd') {
-                // folder
-                if(confirm(txt.User.questiond)) {
-                    xhr.open("POST", "User/RmFolders", true);
-                    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-
-                    xhr.onreadystatechange = function()
-                    {
-                        if(xhr.status == 200 && xhr.readyState == 4)
-                        {
-                            console.log(xhr.responseText);
-                            openDir(folder_id);
-                        }
-                    }
-                    xhr.send("folder_id="+folder_id+"&folders="+id);
-                }
-            }
-        }
-    }
-}
-
-// Remove files/folders
-var rmMultiple = function() {
-    var id = 0;
-    var folderName;
-
-    if(Selection.Files.length > 0 || Selection.Folders.length > 0) {
-        if(confirm(txt.User.questionrm)) {
-            var wait = 2;
-            if(Selection.Folders.length > 0) {
-                var xhr = new XMLHttpRequest();
-                console.log("deleting folders...");
-                xhr.open("POST", "User/RmFolders", true);
-                xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-
-                xhr.onreadystatechange = function()
-                {
-                    if(xhr.status == 200 && xhr.readyState == 4)
-                    {
-                        if(xhr.responseText != '') {
-                            //
-                            wait--;
-                            console.log(xhr.responseText);
-                            console.log("deleted selected folders !");
-                        }
-                    }
-                }
-                xhr.send("folder_id="+folder_id+"&folders="+encodeURIComponent(Selection.Folders.join("|")));
-            }
-            else
-                wait--;
-
-            if(Selection.Files.length > 0) {
-                var xhr2 = new XMLHttpRequest();
-                console.log("deleting files...");
-                xhr2.open("POST", "User/RmFiles", true);
-                xhr2.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-
-                xhr2.onreadystatechange = function()
-                {
-                    if(xhr2.status == 200 && xhr2.readyState == 4)
-                    {
-                        if(xhr2.responseText != '') {
-                            //
-                            wait--;
-                            console.log(xhr2.responseText);
-                            console.log("deleted selected files !");
-                        }
-                    }
-                }
-                xhr2.send("folder_id="+folder_id+"&files="+encodeURIComponent(Selection.Files.join("|")));
-            }
-            else
-                wait--;
-
-            var timer = setInterval(function() {
-                console.log("waiting...");
-                if(wait == 0) {
-                    clearInterval(timer);
-                    openDir(folder_id);
-                }
-            }, 250);
-        }
-    }
-}
-
-var verifFolderName = function(evt) {
-    var keyCode = evt.which ? evt.which : evt.keyCode;
-    if(keyCode == 13) { // Submit
-        nFolder();
-        return false;
-    }
-    var interdit = '/\\:*?<>|"';
-    if (interdit.indexOf(String.fromCharCode(keyCode)) >= 0)
-        return false;
-    return true;
-}
-
 var reset = function() {
     this.value = '';
-}
-
-var getFolderName = function(id) {
-    if(document.getElementById(id))
-        return document.getElementById(id).getAttribute("name");
-    return false;
 }
 
 var isNumeric = function(n) {

@@ -51,6 +51,23 @@ class Folders extends l\Model {
             return $res['path'];
         }
 
+        function getFullPath($folder_id) {
+            // getPath + getFolderName
+            if(!is_numeric($folder_id))
+                return false;
+            elseif($folder_id != 0) {
+                $req = $this->_sql->prepare("SELECT `path`, name FROM folders WHERE id_owner = ? AND id = ?");
+                $ret = $req->execute(array($_SESSION['id'], $folder_id));
+                if($ret) {
+                    $res = $req->fetch();
+                    return $res['0'].$res['1'];
+                }
+                return false;
+            }
+            else
+                return '';
+        }
+
         function getParent($id) {
             $req = $this->_sql->prepare("SELECT parent FROM folders WHERE id_owner = ? AND id = ?");
             $req->execute(array($_SESSION['id'], $id));
@@ -62,15 +79,15 @@ class Folders extends l\Model {
 
         function getChildren($id, $trash = '') {
             if($trash === '' || $trash === 'all') {
-                $req = $this->_sql->prepare("SELECT id, name, size FROM folders WHERE id_owner = ? AND parent = ? ORDER BY name ASC");
+                $req = $this->_sql->prepare("SELECT id, name, size, parent FROM folders WHERE id_owner = ? AND parent = ? ORDER BY name ASC");
                 $req->execute(array($_SESSION['id'], $id));
             }
             elseif($trash === 0 || ($trash === 1 && $id !== 0)) {
-                $req = $this->_sql->prepare("SELECT id, name, size FROM folders WHERE id_owner = ? AND parent = ? AND trash = 0 ORDER BY name ASC");
+                $req = $this->_sql->prepare("SELECT id, name, size, parent FROM folders WHERE id_owner = ? AND parent = ? AND trash = 0 ORDER BY name ASC");
                 $req->execute(array($_SESSION['id'], $id));
             }
             else { // trash === 1 && $id === 0
-                $req = $this->_sql->prepare("SELECT id, name, size FROM folders WHERE id_owner = ? AND trash = 1 ORDER BY name ASC");
+                $req = $this->_sql->prepare("SELECT id, name, size, parent FROM folders WHERE id_owner = ? AND trash = 1 ORDER BY name ASC");
                 $req->execute(array($_SESSION['id']));
             }
             if($req->rowCount() == 0)
@@ -138,7 +155,7 @@ class Folders extends l\Model {
         }
 
         function delete($id) {
-            // Delete folder with id $id and its children in database, update parents folder size
+            // Delete folder with id $id and its children in database, //removed :update parents folder size
             if($id == 0)
                 return false;
             $size = $this->getSize($id);
@@ -150,7 +167,7 @@ class Folders extends l\Model {
             if(!($name = $this->getFoldername($id)))
                 return false;
             $path .= $name;
-            $this->updateFoldersSize($id, -1*$size);
+            //$this->updateFoldersSize($id, -1*$size);
             $req = $this->_sql->prepare("DELETE FROM folders WHERE `path` LIKE ? AND id_owner = ?");
             $req->execute(array($path.'%', $_SESSION['id']));
             $req2 = $this->_sql->prepare("DELETE FROM folders WHERE id = ? AND id_owner = ?");

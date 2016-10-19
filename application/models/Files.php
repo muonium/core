@@ -79,15 +79,15 @@ class Files extends l\Model {
 
         function getFiles($folder_id, $trash = '', $style = '') {
             if($trash === '' || $trash === 'all') {
-                $req = $this->_sql->prepare("SELECT name, id, size, last_modification, favorite, trash FROM files WHERE id_owner = ? AND folder_id = ? ORDER BY name ASC");
+                $req = $this->_sql->prepare("SELECT name, id, size, last_modification, favorite, trash, folder_id FROM files WHERE id_owner = ? AND folder_id = ? ORDER BY name ASC");
                 $req->execute(array($_SESSION['id'], $folder_id));
             }
             elseif($trash === 0 || ($trash === 1 && $folder_id !== 0)) {
-                $req = $this->_sql->prepare("SELECT name, id, size, last_modification, favorite, trash FROM files WHERE id_owner = ? AND folder_id = ? AND trash = 0 ORDER BY name ASC");
+                $req = $this->_sql->prepare("SELECT name, id, size, last_modification, favorite, trash, folder_id FROM files WHERE id_owner = ? AND folder_id = ? AND trash = 0 ORDER BY name ASC");
                 $req->execute(array($_SESSION['id'], $folder_id));
             }
             else { // trash === 1 && $folder_id === 0
-                $req = $this->_sql->prepare("SELECT name, id, size, last_modification, favorite, trash FROM files WHERE id_owner = ? AND trash = 1 ORDER BY name ASC");
+                $req = $this->_sql->prepare("SELECT name, id, size, last_modification, favorite, trash, folder_id FROM files WHERE id_owner = ? AND trash = 1 ORDER BY name ASC");
                 $req->execute(array($_SESSION['id']));
             }
 
@@ -98,6 +98,7 @@ class Files extends l\Model {
             // 0 => id, 1 => size,              ||  0 => name, 1 => id, 2 => size
             // 2 => last_modification,          ||  3 => last_modification,
             // 3 => favorite, 4 => trash        ||  4 => favorite, 5 => trash
+            // 5 => folder_id                   ||  6 => folder_id
             /*
                 Array                           ||  Array
                 (                               ||  (
