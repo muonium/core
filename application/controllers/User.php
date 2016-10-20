@@ -255,16 +255,14 @@ class User extends l\Languages {
     }
 
     function rmFile($id, $path) {
-        if(!isset($this->_modelFiles)) {
-            $this->_modelFiles = new m\Files();
-            $this->_modelFiles->id_owner = $_SESSION['id'];
-        }
-
         if(is_numeric($id)) {
-            if(file_exists(NOVA.'/'.$_SESSION['id'].'/'.$path)) {
-                unlink(NOVA.'/'.$_SESSION['id'].'/'.$path);
-                // deleteFile() returns file size
-                return $this->_modelFiles->deleteFile($id);
+            $filename = $this->_modelFiles->getFilename($id);
+            if($filename !== false) {
+                if(file_exists(NOVA.'/'.$_SESSION['id'].'/'.$path.$filename)) {
+                    unlink(NOVA.'/'.$_SESSION['id'].'/'.$path.$filename);
+                    // deleteFile() returns file size
+                    return $this->_modelFiles->deleteFile($id);
+                }
             }
         }
         return 0;
