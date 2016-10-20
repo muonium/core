@@ -159,11 +159,6 @@ class User extends l\Languages {
 
         $time_start = microtime(true);
 
-        // debug
-        //echo '<p>folder_id : '.$this->_folderId.', path : '.$this->_path.'</p>';
-
-        //echo '<p>['.$this->_path.']</p>';
-
         // Link to parent folder
         echo '<p>';
         if($this->_folderId != 0) {
@@ -175,13 +170,18 @@ class User extends l\Languages {
         echo '<hr><div id="tree"> ';
 
         // New way
+        $path = $this->_modelFolders->getFullPath($this->_folderId);
         if($subdirs = $this->_modelFolders->getChildren($this->_folderId, $this->trash)) {
             foreach($subdirs as $subdir)
-                echo '<span class="folder" id="d'.$subdir['0'].'" name="'.htmlentities($subdir['1']).'" data-folder="'.htmlentities($subdir['3']).'" onclick="Selection.addFolder(this.id)" ondblclick="Folders.open('.$subdir['0'].')"><img src="'.IMG.'desktop/extensions/folder.svg" class="icon"> <strong>'.htmlentities($subdir['1']).'</strong> ['.$this->showSize($subdir['2']).']</span>';
+                echo '<span class="folder" id="d'.$subdir['0'].'" name="'.htmlentities($subdir['1']).'" data-folder="'.htmlentities($subdir['3']).'" data-path="'.htmlentities($subdir['4']).'" onclick="Selection.addFolder(this.id)" ondblclick="Folders.open('.$subdir['0'].')"><img src="'.IMG.'desktop/extensions/folder.svg" class="icon"> <strong>'.htmlentities($subdir['1']).'</strong> ['.$this->showSize($subdir['2']).']</span>';
         }
         if($files = $this->_modelFiles->getFiles($this->_folderId, $this->trash)) {
-            foreach($files as $file)
-                echo '<span class="file" id="f'.$file['1'].'" onclick="Selection.addFile(this.id)" data-folder="'.htmlentities($file['6']).'" data-title="'.htmlentities($file['0']).'">'.htmlentities($file['0']).' ['.$this->showSize($file['2']).'] - '.$this->txt->User->lastmod.' : '.date('d/m/Y G:i', $file['3']).'</span>';
+            foreach($files as $file) {
+                $fpath = $path;
+                if(array_key_exists(7, $file) && array_key_exists(8, $file))
+                    $fpath = $file['7'].$file['8'];
+                echo '<span class="file" id="f'.$file['1'].'" onclick="Selection.addFile(this.id)" data-folder="'.htmlentities($file['6']).'" data-path="'.htmlentities($fpath).'" data-title="'.htmlentities($file['0']).'">'.htmlentities($file['0']).' ['.$this->showSize($file['2']).'] - '.$this->txt->User->lastmod.' : '.date('d/m/Y G:i', $file['3']).'</span>';
+            }
         }
 
         $time_end = microtime(true);

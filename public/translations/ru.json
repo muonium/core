@@ -51,7 +51,8 @@
         "questionf": "Do you want to remove this file ?",
         "questionrm": "Do you want to remove these files/folders ?",
         "trash_0": "View trash",
-        "trash_1": "Exit trash"
+        "trash_1": "Exit trash",
+        "path": "Path"
     },
 
     "Register": {

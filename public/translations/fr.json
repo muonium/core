@@ -51,7 +51,8 @@
         "questionf": "Voulez vous supprimer ce fichier ?",
         "questionrm": "Voulez vous supprimer ce(s) fichier(s)/dossier(s) ?",
         "trash_0": "Voir la corbeille",
-        "trash_1": "Sortir de la corbeille"
+        "trash_1": "Sortir de la corbeille",
+        "path": "Emplacement"
     },
 
     "Register": {

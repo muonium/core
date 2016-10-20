@@ -87,7 +87,7 @@ class Files extends l\Model {
                 $req->execute(array($_SESSION['id'], $folder_id));
             }
             else { // trash === 1 && $folder_id === 0
-                $req = $this->_sql->prepare("SELECT name, id, size, last_modification, favorite, trash, folder_id FROM files WHERE id_owner = ? AND trash = 1 ORDER BY name ASC");
+                $req = $this->_sql->prepare("SELECT files.name, files.id, files.size, files.last_modification, files.favorite, files.trash, files.folder_id, folders.path, folders.name FROM files LEFT JOIN folders ON files.folder_id = folders.id WHERE files.id_owner = ? AND files.trash = 1 ORDER BY files.name ASC");
                 $req->execute(array($_SESSION['id']));
             }
 
@@ -98,7 +98,7 @@ class Files extends l\Model {
             // 0 => id, 1 => size,              ||  0 => name, 1 => id, 2 => size
             // 2 => last_modification,          ||  3 => last_modification,
             // 3 => favorite, 4 => trash        ||  4 => favorite, 5 => trash
-            // 5 => folder_id                   ||  6 => folder_id
+            // 5 => folder_id [, 6 => path, 7=>]||  6 => folder_id [, 7 => folder path, 8 => folder name]
             /*
                 Array                           ||  Array
                 (                               ||  (

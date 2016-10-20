@@ -27,12 +27,13 @@ var Box = (function() {
     var box_div = document.querySelector("#box");
     var x = 0;
     var y = 0;
-    //var Area = 0;
 
     // Public
     // Area : 0 : desktop div, 1 : file, 2 : folder
+    // box_more : used in "show details" feature, to avoid default behavior (hide the box)
     return {
         Area : 0,
+        box_more : false,
 
         hide : function() {
             box_div.style.display = 'none';
@@ -42,10 +43,20 @@ var Box = (function() {
             box_div.style.display = 'block';
         },
 
+        reset : function() {
+            box_div.innerHTML = ' ';
+        },
+
+        set : function(content) {
+            box_div.innerHTML = content;
+            //console.log(box_div.innerHTML);
+        },
+
         left_click : function(cx, cy) {
             // If the user uses left click inside the 'box'
-            if((cx > x && cx < x + box_div.clientWidth) && (cy > y && cy < y + box_div.clientHeight)) {
+            if((cx >= x && cx <= (x + box_div.clientWidth)) && (cy >= y && cy <= (y + box_div.clientHeight)) || Box.box_more) {
                 // Action
+                Box.box_more = false;
             }
             else { // Otherwise, hide 'box'
                 Box.hide();
@@ -84,7 +95,7 @@ var Box = (function() {
                     } else { box_div.innerHTML += '<p onclick="Move.trash(\''+id+'\')">'+txt.RightClick.restore+'</p><p onclick="Rm.rm(\''+id+'\')">'+txt.RightClick.rm+'</p>'; }
                     if(Trash.State == 0)
                         box_div.innerHTML += '<hr><p><img src="'+img+'index/actions/rename.svg" class="icon"> '+txt.RightClick.mvItem+'</p><p><img src="'+img+'index/actions/paste.svg" class="icon">'+txt.RightClick.mvLocate+'</p>';
-                    box_div.innerHTML += '<hr><p>'+txt.RightClick.vDetails+'</p>';
+                    box_div.innerHTML += '<hr><p onclick="Files.details(\''+id+'\')">'+txt.RightClick.vDetails+'</p>';
                     break;
                 //mouse over a folder
                 case 2:
@@ -95,7 +106,7 @@ var Box = (function() {
                     } else { box_div.innerHTML += '<p onclick="Move.trash(\''+id+'\')">'+txt.RightClick.restore+'</p><p onclick="Rm.rm(\''+id+'\')">'+txt.RightClick.rm+'</p>'; }
                     if(Trash.State == 0)
                         box_div.innerHTML += '<hr><p><img src="'+img+'index/actions/rename.svg" class="icon"> '+txt.RightClick.mvItem+'</p><p>'+txt.RightClick.mvLocate+'</p>';
-                    box_div.innerHTML += '<hr><p>'+txt.RightClick.vDetails+'</p>';
+                    box_div.innerHTML += '<hr><p onclick="Folders.details(\''+id+'\')">'+txt.RightClick.vDetails+'</p>';
             }
             Box.show();
         }
@@ -497,7 +508,22 @@ var Files = (function() {
 				    }
 				}
 			}
-		}
+		},
+
+        details : function(el) {
+            var elem;
+            if(elem = document.querySelector("#"+el)) {
+                Box.box_more = true;
+                Box.reset();
+                Box.Area = 1;
+
+                Box.set("<p style='padding:5px'>\
+                <button onclick=\"Box.right_click(event.clientX, event.clientY, '"+el+"')\"><</button> &nbsp;&nbsp;<strong>Details</strong>\
+                <hr><ul><li>"+elem.innerHTML+"</li><li>"+txt.User.path+" : "+elem.getAttribute("data-path")+"/</li></ul></p>");
+
+                Box.show();
+            }
+        }
 	}
 });
 
@@ -612,6 +638,21 @@ var Folders = (function() {
             if(document.getElementById(elem_id))
                 return document.getElementById(elem_id).getAttribute("data-folder");
             return false;
+        },
+
+        details : function(el) {
+            var elem;
+            if(elem = document.querySelector("#"+el)) {
+                Box.box_more = true;
+                Box.reset();
+                Box.Area = 2;
+
+                Box.set("<p style='padding:5px'>\
+                <button onclick=\"Box.right_click(event.clientX, event.clientY, '"+el+"')\"><</button> &nbsp;&nbsp;<strong>Details</strong>\
+                <hr><ul><li>"+elem.innerHTML+"</li><li>"+txt.User.path+" : "+elem.getAttribute("data-path")+"/</li></ul></p>");
+
+                Box.show();
+            }
         }
 	}
 });
@@ -897,6 +938,31 @@ window.onload = function() {
             event.preventDefault(); // disable the hotkey in web browser
             Arrows.down('ctrl');
         }
+        else if(event.ctrlKey && event.keyCode == 67) {
+            event.preventDefault(); // disable the hotkey in web browser
+            Move.copy();
+        }
+        else if(event.ctrlKey && event.keyCode == 88) {
+            event.preventDefault(); // disable the hotkey in web browser
+            Move.cut();
+        }
+        else if(event.ctrlKey && event.keyCode == 86) {
+            event.preventDefault(); // disable the hotkey in web browser
+            Move.paste();
+        }
+        else if(event.ctrlKey && event.keyCode == 83) {
+            event.preventDefault(); // disable the hotkey in web browser
+            if(Selection.Files.length > 0) {
+                // Start download for one file per second
+                var i = 0;
+                var timer = setInterval(function() {
+                    Files.dl("f"+Selection.Files[i]);
+                    i++;
+                    if(i >= Selection.Files.length)
+                        clearInterval(timer);
+                }, 1000);
+            }
+        }
         else {
             switch(event.keyCode) {
                 case 46:
@@ -914,6 +980,13 @@ window.onload = function() {
                 case 40:
                     // down arrow
                     Arrows.down();
+                    break;
+                case 13:
+                    // enter
+                    if(Selection.Files.length == 1 && Selection.Folders.length == 0)
+                        Files.dl("f"+Selection.Files[0]);
+                    else if(Selection.Files.length == 0 && Selection.Folders.length == 1)
+                        Folders.open(Selection.Folders[0]);
                     break;
             }
         }
