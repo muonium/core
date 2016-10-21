@@ -225,6 +225,17 @@ class User extends l\Languages {
         }
     }
 
+    function FavoritesAction() {
+        if(isset($_POST['id'])) {
+            if(is_numeric($_POST['id'])) {
+                $id = $_POST['id'];
+                $this->_modelFiles = new m\Files();
+                $this->_modelFiles->id_owner = $_SESSION['id'];
+                $this->_modelFiles->setFavorite($id);
+            }
+        }
+    }
+
     function MvTrashAction() {
         $this->_modelFiles = new m\Files();
         $this->_modelFiles->id_owner = $_SESSION['id'];

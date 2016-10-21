@@ -10,6 +10,7 @@
 - Folders
 - Rm        (Remove files and folders)
 - Trash
+- Favorites
 - ExtIcons  (Icons according to extensions)
 */
 
@@ -24,9 +25,10 @@ var returnArea;
 // Box module. Loaded in window.onload()
 var Box = (function() {
     // Private
-    var box_div = document.querySelector("#box");
+    var box_div = null;
     var x = 0;
     var y = 0;
+    var init = false;
 
     // Public
     // Area : 0 : desktop div, 1 : file, 2 : folder
@@ -35,37 +37,60 @@ var Box = (function() {
         Area : 0,
         box_more : false,
 
+        init : function() {
+            box_div = document.querySelector("#box");
+            init = true;
+        },
+
         hide : function() {
+            //console.log("box hide");
+            if(!init)
+                return false;
             box_div.style.display = 'none';
         },
 
         show : function() {
+            //console.log("box show");
+            if(!init)
+                return false;
             box_div.style.display = 'block';
         },
 
         reset : function() {
+            //console.log("box reset");
+            if(!init)
+                return false;
             box_div.innerHTML = ' ';
         },
 
         set : function(content) {
+            //console.log("box set");
+            if(!init)
+                return false;
             box_div.innerHTML = content;
-            //console.log(box_div.innerHTML);
         },
 
         left_click : function(cx, cy) {
+            if(!init)
+                return false;
             // If the user uses left click inside the 'box'
             if((cx >= x && cx <= (x + box_div.clientWidth)) && (cy >= y && cy <= (y + box_div.clientHeight)) || Box.box_more) {
+                //console.log("left click action");
                 // Action
                 Box.box_more = false;
             }
             else { // Otherwise, hide 'box'
+                //console.log("left click hide box");
                 Box.hide();
                 Box.Area = 0;
             }
         },
 
         right_click : function(cx, cy, id) {
+            if(!init)
+                return false;
             // Show box at position x, y
+            //console.log("right click");
             x = cx;
             y = cy;
 
@@ -74,7 +99,6 @@ var Box = (function() {
 
             if(id === undefined) //when there isn't anything under the mouse
                 Box.Area = 0;
-
             // Content according to area
             switch(Box.Area) {
                 //over nothing
@@ -90,7 +114,7 @@ var Box = (function() {
                 case 1:
                     box_div.innerHTML = '<p onclick="Files.dl(\''+id+'\')"><img src="'+img+'index/actions/download.svg" class="icon"> '+txt.RightClick.dl+'</p><hr>';
                     if(Trash.State == 0) {
-                        box_div.innerHTML += '<p><img src="'+img+'index/actions/putInFavorites.svg" class="icon"> '+txt.RightClick.star+'</p><hr><p onclick="Move.cut(\''+id+'\')"><img src="'+img+'index/actions/cut.svg" class="icon"> '+txt.RightClick.cut+'</p><p onclick="Move.copy(\''+id+'\')"><img src="'+img+'index/actions/copy.svg" class="icon"> '+txt.RightClick.copy+'</p><p onclick="Move.paste(\''+id+'\')"><img src="'+img+'index/actions/paste.svg" class="icon"> '+txt.RightClick.paste+'</p>';
+                        box_div.innerHTML += '<p onclick="Favorites.update(\''+id+'\')"><img src="'+img+'index/actions/putInFavorites.svg" class="icon"> '+txt.RightClick.star+'</p><hr><p onclick="Move.cut(\''+id+'\')"><img src="'+img+'index/actions/cut.svg" class="icon"> '+txt.RightClick.cut+'</p><p onclick="Move.copy(\''+id+'\')"><img src="'+img+'index/actions/copy.svg" class="icon"> '+txt.RightClick.copy+'</p><p onclick="Move.paste(\''+id+'\')"><img src="'+img+'index/actions/paste.svg" class="icon"> '+txt.RightClick.paste+'</p>';
                         box_div.innerHTML += '<p onclick="Move.trash(\''+id+'\')"><img src="'+img+'index/actions/trash.svg" class="icon"> '+txt.RightClick.trash+'</p>';
                     } else { box_div.innerHTML += '<p onclick="Move.trash(\''+id+'\')">'+txt.RightClick.restore+'</p><p onclick="Rm.rm(\''+id+'\')">'+txt.RightClick.rm+'</p>'; }
                     if(Trash.State == 0)
@@ -148,7 +172,6 @@ var Arrows = (function() {
             else
                 i--;
             lastSelected = span[i].id;
-            console.log(span[i].getAttribute('data-folder'));
 
             if(ctrl === undefined) // remove previous selected element(s)
                 Selection.remove();
@@ -178,7 +201,6 @@ var Upload = (function() {
     // Private
     var xhr_upload = new Array();
     var filesUploaded = 0; // Number of files uploaded
-    var progress = document.querySelector("#progress");
 
     // Public
     return {
@@ -197,10 +219,10 @@ var Upload = (function() {
             // Upload multiple files function
             xhr_upload = new Array();
             // To change ?
-            progress.innerHTML = ' ';
+            document.querySelector("#progress").innerHTML = ' ';
             // Loop through each of the selected files.
             for(var i=0;i<files.length;i++) {
-                progress.innerHTML += '<div id="div_upload'+i+'"><button onclick="Upload.abort('+i+')">X</button> <span id="span_upload'+i+'"></span></div>';
+                document.querySelector("#progress").innerHTML += '<div id="div_upload'+i+'"><button onclick="Upload.abort('+i+')">X</button> <span id="span_upload'+i+'"></span></div>';
                 Upload.upFile(files[i], i);
             }
 
@@ -208,7 +230,7 @@ var Upload = (function() {
             var timer = setInterval(function() {
                 console.log("waiting...");
                 if(filesUploaded >= files.length) {
-                    progress.innerHTML = ' ';
+                    document.querySelector("#progress").innerHTML = ' ';
                     clearInterval(timer);
                     Folders.open(Folders.id);
                 }
@@ -823,6 +845,31 @@ var Rm = (function() {
 	}
 });
 
+var Favorites = (function() {
+    return {
+        update : function(fav) {
+            Box.hide();
+            if(fav.length > 1) {
+                var id = fav.substr(1);
+                if(isNumeric(id)) {
+                    var xhr = new XMLHttpRequest();
+                    xhr.open("POST", "User/Favorites", true);
+                    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+                    xhr.onreadystatechange = function()
+                    {
+                        if(xhr.status == 200 && xhr.readyState == 4)
+                        {
+                            //
+                        }
+                    }
+                    xhr.send("id="+id);
+                }
+            }
+        }
+    }
+});
+
 var ExtIcons = (function() {
 	// Private
 	var ext = '';
@@ -874,7 +921,7 @@ var ExtIcons = (function() {
 
 //      App launcher
 
-window.onload = function() {
+var UserLoader = function(folder_id) {
     console.log("Loading application.");
 
     // Get txt from user's language json (language.js)
@@ -884,17 +931,25 @@ window.onload = function() {
     */
     returnArea = document.querySelector("#returnArea");
 
-    // Load modules
-    Box = Box();
-    Arrows = Arrows();
-    Selection = Selection();
-    Move = Move();
-    Upload = Upload();
-	Files = Files();
-	Folders = Folders();
-	Trash = Trash();
-	Rm = Rm();
-	ExtIcons = ExtIcons();
+    console.log(Request.modulesLoaded);
+    if(Request.modulesLoaded === undefined || Request.modulesLoaded === false) {
+        // Load modules
+        console.log("Loading modules.");
+        Box = Box();
+        Arrows = Arrows();
+        Selection = Selection();
+        Move = Move();
+        Upload = Upload();
+    	Files = Files();
+    	Folders = Folders();
+    	Trash = Trash();
+    	Rm = Rm();
+        Favorites = Favorites();
+    	ExtIcons = ExtIcons();
+        Request.modulesLoaded = true;
+    }
+    else
+        console.log("Modules already loaded.");
 
     // Set events in the app
 
@@ -994,7 +1049,6 @@ window.onload = function() {
 
     // Right click inside desktop section
     document.querySelector("#desktop").addEventListener("contextmenu", function(event) {
-        //event.preventDefault();
         if(Box.Area == 0) // If we are inside desktop but not inside its children
             Box.right_click(event.clientX, event.clientY);
         else {
@@ -1006,8 +1060,11 @@ window.onload = function() {
         return false;
     });
 
-    // Open root dir
-    Folders.open(0);
+    // Open specified dir or root dir
+    if(folder_id === undefined || !isNumeric(folder_id))
+        Folders.open(0);
+    else
+        Folders.open(folder_id);
 
     console.log("Application loaded.");
 }
@@ -1016,6 +1073,9 @@ window.onload = function() {
 var setEvents = function() {
     // Init Arrows actions
     Arrows.init();
+
+    // Init Box
+    Box.init();
 
     // Right click inside divs with file's class (these divs are children of 'desktop')
     // After the execution of the function below, the function for 'desktop' above will be

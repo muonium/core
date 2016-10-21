@@ -77,6 +77,12 @@ class Files extends l\Model {
             return $this->favorite;
         }
 
+        function getFavorites() {
+            $req = $this->_sql->prepare("SELECT name, id, size, last_modification, folder_id FROM files WHERE id_owner = ? AND favorite = 1");
+            $req->execute(array($_SESSION['id']));
+            return $req->fetchAll(\PDO::FETCH_NUM);
+        }
+
         function getFiles($folder_id, $trash = '', $style = '') {
             if($trash === '' || $trash === 'all') {
                 $req = $this->_sql->prepare("SELECT name, id, size, last_modification, favorite, trash, folder_id FROM files WHERE id_owner = ? AND folder_id = ? ORDER BY name ASC");
@@ -173,6 +179,11 @@ class Files extends l\Model {
             $req = $this->_sql->prepare("DELETE FROM files WHERE id_owner = ? AND folder_id = ?");
             $ret = $req->execute(array($_SESSION['id'], $folder_id));
             return $ret;
+        }
+
+        function setFavorite($id) {
+            $req = $this->_sql->prepare("UPDATE files SET favorite = ABS(favorite-1) WHERE id_owner = ? AND id = ?");
+            return $req->execute(array($_SESSION['id'], $id));
         }
 
         function getFullPath($id) {

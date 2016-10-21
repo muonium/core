@@ -1,110 +1,45 @@
-var Muonium = 
+//var pageLoaded = '';
+// modulesLoaded : Modules in interface.js
+var Request =
 {
-    clickEvent: function(element, action, controller)
+    modulesLoaded: false,
+    load: function(controller, action)
     {
-        switch(element.id)
-        {
-            /*
-            * Header
-            */
-            case "header_button_bug":
-                break;
-                
-            case "header_button_help":
-                break;
-                
-            case "header_button_settings":
-                break;
-                
-            case "header_button_user":
-                break;
-                
-                
-            /*
-            * Toolbar
-            */
-            case "toolbar_button_recents":
-                xhr = new XMLHttpRequest();
-                xhr.open("GET",controller+"/"+action, true);
-                xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-                xhr.onreadystatechange = function()
+        if(action === 'DefaultAction' || action === undefined)
+            var url = controller;
+        else
+            var url = controller+'/'+action;
+        console.log("Loading "+url);
+
+        if(url.length > 0) {
+            // Load page
+            xhr = new XMLHttpRequest();
+            xhr.open("GET", url, true);
+            xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhr.onreadystatechange = function()
+            {
+                if(xhr.status == 200 && xhr.readyState == 4)
                 {
-                    if(xhr.status == 200 && xhr.readyState == 4)
-                    {
-                        document.body.innerHTML = xhr.responseText;
-                        document.title = "Recents";
-                        document.querySelector("img.arrow").className = "arrow recents";
+                    //pageLoaded = '';
+                    history.pushState({ path: this.path }, '', url);
+                    document.documentElement.innerHTML = xhr.responseText;
+
+                    switch(url) {
+                        case "User":
+                            if(Request.modulesLoaded)
+                                if(Trash.State === 1)
+                                    document.querySelector("#button_trash").innerHTML = txt.User.trash_1;
+                            // Call loader from interface.js to load "User" page features
+                            UserLoader(Folders.id);
+                            break;
+
+                        case "Favorites":
+
+                            break;
                     }
                 }
-                xhr.send(null);
-                break;
-            case "toolbar_button_favorite":
-            	xhr = new XMLHttpRequest();
-                xhr.open("GET",controller+"/"+action, true);
-                xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-                xhr.onreadystatechange = function()
-                {
-                    if(xhr.status == 200 && xhr.readyState == 4)
-                    {   
-                        document.title = "Favoris";
-                        document.body.innerHTML = xhr.responseText;
-                        document.querySelector("img.arrow").className = "arrow favoris";
-                    }
-                }
-                xhr.send(null);
-                break;
-            case "toolbar_button_general":
-                xhr = new XMLHttpRequest();
-                xhr.open("GET",controller+"/"+action, true);
-                xhr.setRequestHeader("Content-type", "text/html");
-                xhr.onreadystatechange = function()
-                {
-                    if(xhr.status == 200 && xhr.readyState == 4)
-                    {
-                        document.body.innerHTML = xhr.responseText;
-                        document.title = "General";
-                        document.querySelector("img.arrow").className = "arrow general";
-                    }
-                }
-                xhr.send(null);
-            	break;
-            case "toolbar_button_share":
-                xhr = new XMLHttpRequest();
-                xhr.open("GET",controller+"/"+action, true);
-                xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-                xhr.onreadystatechange = function()
-                {
-                    if(xhr.status == 200 && xhr.readyState == 4)
-                    {
-                        document.body.innerHTML = xhr.responseText;
-                        document.title = "Partage";
-                        document.querySelector("img.arrow").className = "arrow share";
-                    }
-                } 
-                xhr.send(null);
-            	break; 
-            case "toolbar_button_transfers":
-                xhr = new XMLHttpRequest();
-                xhr.open("GET",controller+"/"+action, true);
-                xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-                xhr.onreadystatechange = function()
-                {
-                    if(xhr.status == 200 && xhr.readyState == 4)
-                    {
-                        document.body.innerHTML = xhr.responseText;
-                        document.title = "Transferts";
-                        document.querySelector("img.arrow").className = "arrow transfers";
-                    }
-                }
-                xhr.send(null);
-            	break;
-                
-            /*
-            * Default
-            */
-                default :
-                Miu.init();
-                break;
+            }
+            xhr.send(null);
         }
     }
 } || {};

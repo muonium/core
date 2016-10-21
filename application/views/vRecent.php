@@ -1,5 +1,5 @@
-<?php    
-    
+<?php
+
 	/*
 	* @name            : vRecent.php
 	* @description     : Recent view
@@ -7,7 +7,11 @@
 	*/
     use \library\MVC as l;
     $_t = new l\Template($this->txt->Global->recents);
-    $_t->addCss("home_global");
+	$_t->addCss("home_global");
+    $_t->addCss("Interface/new_design");
+    $_t->addCss("Interface/box");
+    $_t->addJs("Interface/Request");
+	$_t->addJs("Interface/interface");
     $_t->getHeader();
 ?>
 <body>
@@ -20,35 +24,35 @@
                 <p><img src="<?php echo MVC_ROOT; ?>/public/pictures/header/user.svg" /><br /><?php echo_h($this->txt->UserMenu->profile); ?></p>
             </div>
         </header>
-    
+
         <section id="language">
             <div>
                 <?php $this->getLanguageSelector(); ?>
             </div>
         </section>
-        
+
         <section id="toolbar">
-            <div onclick="Muonium.clickEvent(this,'DefaultAction','Recent')" id="toolbar_button_recents">
+            <div class="selected" onclick="Request.load('Recent', 'DefaultAction')" id="toolbar_button_recents">
                 <img src="<?php echo MVC_ROOT; ?>/public/pictures/toolbar/recent.svg" /><br /><?php echo_h($this->txt->Toolbar->recents); ?>
             </div>
-            <div class="selected" onclick="Muonium.clickEvent(this,'DefaultAction','Favorites')" id="toolbar_button_favorite">
+            <div onclick="Request.load('Favorites', 'DefaultAction')" id="toolbar_button_favorite">
                 <img src="<?php echo MVC_ROOT; ?>/public/pictures/toolbar/favorite.svg" /><br /><?php echo_h($this->txt->Toolbar->favorites); ?>
             </div>
-            <div onclick="Muonium.clickEvent(this,'DefaultAction','Home')" id="toolbar_button_general">
+            <div onclick="Request.load('User', 'DefaultAction')" id="toolbar_button_general">
                 <img src="<?php echo MVC_ROOT; ?>/public/pictures/toolbar/folder.svg" /><br /><?php echo_h($this->txt->Toolbar->general); ?>
             </div>
-            <div onclick="Muonium.clickEvent(this,'DefaultAction','Sharing')" id="toolbar_button_share">
+            <div onclick="Request.load('Sharing', 'DefaultAction')" id="toolbar_button_share">
                 <img src="<?php echo MVC_ROOT; ?>/public/pictures/toolbar/share.svg" /><br /><?php echo_h($this->txt->Toolbar->shared); ?>
             </div>
-            <div onclick="Muonium.clickEvent(this,'DefaultAction','Transfer')" id="toolbar_button_transfers">
+            <div onclick="Request.load('Transfer', 'DefaultAction')" id="toolbar_button_transfers">
                 <img src="<?php echo MVC_ROOT; ?>/public/pictures/toolbar/transfer.svg" /><br /><?php echo_h($this->txt->Toolbar->transfers); ?>
             </div>
         </section>
-        
+
         <section id="desktop">
             <img src="<?php echo MVC_ROOT; ?>/public/pictures/desktop/arrow.svg" class="arrow general" />
-            
-            
+
+
             <div id="desktop_general" class="content">
                 <div id="nav">
                         <span class="content">
@@ -75,10 +79,10 @@
                             <tr>
                             </tr>
                         </table>
-                    </div>             
+                    </div>
             </div>
         </section>
-        
+
         <script type="text/javascript">
             QC.init();
         </script>
