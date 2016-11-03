@@ -36,7 +36,7 @@ class Files extends l\Model {
         }
 
         function getFilename($id) {
-            $req = $this->_sql->prepare("SELECT name FROM files WHERE id_owner = ? AND id = ?");
+            $req = self::$_sql->prepare("SELECT name FROM files WHERE id_owner = ? AND id = ?");
             $req->execute(array($_SESSION['id'], $id));
             if($req->rowCount() == 0)
                 return false;
@@ -45,7 +45,7 @@ class Files extends l\Model {
         }
 
         function getFolderId($id) {
-            $req = $this->_sql->prepare("SELECT folder_id FROM files WHERE id_owner = ? AND id = ?");
+            $req = self::$_sql->prepare("SELECT folder_id FROM files WHERE id_owner = ? AND id = ?");
             $req->execute(array($_SESSION['id'], $id));
             if($req->rowCount() == 0)
                 return false;
@@ -55,11 +55,11 @@ class Files extends l\Model {
 
         function getSize() {
             if(!isset($this->id)) {
-                $req = $this->_sql->prepare("SELECT size FROM files WHERE id_owner = ? AND name = ? AND folder_id = ?");
+                $req = self::$_sql->prepare("SELECT size FROM files WHERE id_owner = ? AND name = ? AND folder_id = ?");
                 $req->execute(array($_SESSION['id'], $this->name, $this->folder_id));
             }
             else {
-                $req = $this->_sql->prepare("SELECT size FROM files WHERE id_owner = ? AND id = ?");
+                $req = self::$_sql->prepare("SELECT size FROM files WHERE id_owner = ? AND id = ?");
                 $req->execute(array($_SESSION['id'], $this->id));
             }
 
@@ -78,22 +78,22 @@ class Files extends l\Model {
         }
 
         function getFavorites() {
-            $req = $this->_sql->prepare("SELECT name, id, size, last_modification, folder_id FROM files WHERE id_owner = ? AND favorite = 1");
+            $req = self::$_sql->prepare("SELECT name, id, size, last_modification, folder_id FROM files WHERE id_owner = ? AND favorite = 1");
             $req->execute(array($_SESSION['id']));
             return $req->fetchAll(\PDO::FETCH_NUM);
         }
 
         function getFiles($folder_id, $trash = '', $style = '') {
             if($trash === '' || $trash === 'all') {
-                $req = $this->_sql->prepare("SELECT name, id, size, last_modification, favorite, trash, folder_id FROM files WHERE id_owner = ? AND folder_id = ? ORDER BY name ASC");
+                $req = self::$_sql->prepare("SELECT name, id, size, last_modification, favorite, trash, folder_id FROM files WHERE id_owner = ? AND folder_id = ? ORDER BY name ASC");
                 $req->execute(array($_SESSION['id'], $folder_id));
             }
             elseif($trash === 0 || ($trash === 1 && $folder_id !== 0)) {
-                $req = $this->_sql->prepare("SELECT name, id, size, last_modification, favorite, trash, folder_id FROM files WHERE id_owner = ? AND folder_id = ? AND trash = 0 ORDER BY name ASC");
+                $req = self::$_sql->prepare("SELECT name, id, size, last_modification, favorite, trash, folder_id FROM files WHERE id_owner = ? AND folder_id = ? AND trash = 0 ORDER BY name ASC");
                 $req->execute(array($_SESSION['id'], $folder_id));
             }
             else { // trash === 1 && $folder_id === 0
-                $req = $this->_sql->prepare("SELECT files.name, files.id, files.size, files.last_modification, files.favorite, files.trash, files.folder_id, folders.path, folders.name FROM files LEFT JOIN folders ON files.folder_id = folders.id WHERE files.id_owner = ? AND files.trash = 1 ORDER BY files.name ASC");
+                $req = self::$_sql->prepare("SELECT files.name, files.id, files.size, files.last_modification, files.favorite, files.trash, files.folder_id, folders.path, folders.name FROM files LEFT JOIN folders ON files.folder_id = folders.id WHERE files.id_owner = ? AND files.trash = 1 ORDER BY files.name ASC");
                 $req->execute(array($_SESSION['id']));
             }
 
@@ -135,13 +135,13 @@ class Files extends l\Model {
         //
 
         function addNewFile($folder_id) {
-            $req = $this->_sql->prepare("INSERT INTO files VALUES (NULL, ?, ?, ?, ?, ?, '0', '0')");
+            $req = self::$_sql->prepare("INSERT INTO files VALUES (NULL, ?, ?, ?, ?, ?, '0', '0')");
             $ret = $req->execute(array($_SESSION['id'], $folder_id, $this->name, $this->size, $this->last_modification));
             return $ret;
         }
 
         function updateTrash($id, $trash) {
-            $req = $this->_sql->prepare("UPDATE files SET trash = ? WHERE id_owner = ? AND id = ?");
+            $req = self::$_sql->prepare("UPDATE files SET trash = ? WHERE id_owner = ? AND id = ?");
             return $req->execute(array($trash, $_SESSION['id'], $id));
         }
 
@@ -149,19 +149,19 @@ class Files extends l\Model {
             // returns the difference beetween the size of the new file and the size of the old file
             $this->folder_id = $folder_id;
             $old_size = $this->getSize();
-            $req = $this->_sql->prepare("UPDATE files SET size = ?, last_modification = ? WHERE id_owner = ? AND name = ? AND folder_id = ?");
+            $req = self::$_sql->prepare("UPDATE files SET size = ?, last_modification = ? WHERE id_owner = ? AND name = ? AND folder_id = ?");
             $ret = $req->execute(array($this->size, $this->last_modification, $_SESSION['id'], $this->name, $folder_id));
             return (($this->size)-$old_size);
         }
 
         function updateDir() {
-            $req = $this->_sql->prepare("UPDATE files SET folder_id = ? WHERE id_owner = ? AND id = ?");
+            $req = self::$_sql->prepare("UPDATE files SET folder_id = ? WHERE id_owner = ? AND id = ?");
             return $req->execute(array($this->folder_id, $_SESSION['id'], $this->id));
         }
 
         // I don't know for now if I will use this method...
         function updateFolderId($old, $new) {
-            $req = $this->_sql->prepare("UPDATE files SET folder_id = ? WHERE id_owner = ? AND folder_id = ?");
+            $req = self::$_sql->prepare("UPDATE files SET folder_id = ? WHERE id_owner = ? AND folder_id = ?");
             return $req->execute(array($new, $_SESSION['id'], $old));
         }
 
@@ -170,19 +170,19 @@ class Files extends l\Model {
             if(!($size = $this->getSize()))
               return false;
 
-            $req = $this->_sql->prepare("DELETE FROM files WHERE id_owner = ? AND id = ?");
+            $req = self::$_sql->prepare("DELETE FROM files WHERE id_owner = ? AND id = ?");
             $req->execute(array($_SESSION['id'], $id));
             return $size;
         }
 
         function deleteFiles($folder_id) {
-            $req = $this->_sql->prepare("DELETE FROM files WHERE id_owner = ? AND folder_id = ?");
+            $req = self::$_sql->prepare("DELETE FROM files WHERE id_owner = ? AND folder_id = ?");
             $ret = $req->execute(array($_SESSION['id'], $folder_id));
             return $ret;
         }
 
         function setFavorite($id) {
-            $req = $this->_sql->prepare("UPDATE files SET favorite = ABS(favorite-1) WHERE id_owner = ? AND id = ?");
+            $req = self::$_sql->prepare("UPDATE files SET favorite = ABS(favorite-1) WHERE id_owner = ? AND id = ?");
             return $req->execute(array($_SESSION['id'], $id));
         }
 
@@ -194,7 +194,7 @@ class Files extends l\Model {
             if($folder_id === false)
                 return false;
             elseif($folder_id != 0) {
-                $req = $this->_sql->prepare("SELECT `path`, folders.name, files.name FROM files, folders WHERE files.id_owner = ? AND files.id = ? AND folders.id = ? AND folders.id_owner = files.id_owner");
+                $req = self::$_sql->prepare("SELECT `path`, folders.name, files.name FROM files, folders WHERE files.id_owner = ? AND files.id = ? AND folders.id = ? AND folders.id_owner = files.id_owner");
                 $ret = $req->execute(array($_SESSION['id'], $id, $folder_id));
                 if($ret) {
                     $res = $req->fetch();

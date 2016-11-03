@@ -6,13 +6,11 @@ use \config as conf;
 class Model {
 
     protected static $_sql;
-    //protected $_ListModel = array();
-    //protected $_RequeteSql;
 
     function __construct() {
-        $this->_sql = new \PDO('mysql:host='.conf\confDB::hostDefaut.';dbname='.conf\confDB::bddDefaut,conf\confDB::userDefaut,conf\confDB::passDefaut);
-        $this->_sql->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
-        $this->_sql->setAttribute(\PDO::ATTR_EMULATE_PREPARES, false);
+        self::$_sql = new \PDO('mysql:host='.conf\confDB::hostDefaut.';dbname='.conf\confDB::bddDefaut,conf\confDB::userDefaut,conf\confDB::passDefaut);
+        self::$_sql->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+        self::$_sql->setAttribute(\PDO::ATTR_EMULATE_PREPARES, false);
     }
 
     public static function getInstance() {
@@ -24,7 +22,7 @@ class Model {
     }
 
     function getLastInsertedId() {
-        return $this->_sql->lastInsertId();
+        return self::$_sql->lastInsertId();
     }
 
     public function __get($attr) {
