@@ -155,8 +155,8 @@ class Files extends l\Model {
         }
 
         function updateDir() {
-            $req = self::$_sql->prepare("UPDATE files SET folder_id = ? WHERE id_owner = ? AND id = ?");
-            return $req->execute(array($this->folder_id, $_SESSION['id'], $this->id));
+            $req = self::$_sql->prepare("UPDATE files SET folder_id = ?, name = ? WHERE id_owner = ? AND id = ?");
+            return $req->execute(array($this->folder_id, $this->name, $_SESSION['id'], $this->id));
         }
 
         // I don't know for now if I will use this method...

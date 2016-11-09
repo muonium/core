@@ -453,6 +453,41 @@ class User extends l\Languages {
         }
     }
 
+    // Check if there are multiple versions of a file or a folder and update the name.
+    // Folder, Folder (1), Folder (2)...
+    // File.ext, File (1).ext, File (2).ext...
+    function checkMultiple($path, $name, $type) {
+        $i = 1;
+        if($type == 'folder') {
+            while(is_dir($path.$name)) {
+                if($i < 2)
+                    $name .= " ($i)";
+                else {
+                    $pos = strrpos($name, "(");
+                    if($pos === false)
+                        return false;
+                    $name = substr($name, 0, $pos)."($i)";
+                }
+                $i++;
+            }
+        }
+        elseif($type == 'file') {
+            while(file_exists($path.$name)) {
+                if($i < 2)
+                    $name = $this->addSuffixe($name, " ($i)");
+                else {
+                    $first_pos = strrpos($name, "(");
+                    $last_pos = strrpos($name, ")");
+                    if($first_pos === false || $last_pos === false || $first_pos >= $last_pos)
+                        return false;
+                    $name = substr($name, 0, $first_pos)."($i)".substr($name, $last_pos+1);
+                }
+                $i++;
+            }
+        }
+        return $name;
+    }
+
     // $src is the folder id of source folder
     // $dst is the folder id of dest folder where $src folder will be pasted
     function recurse_copy($src, $dst) {
@@ -478,20 +513,10 @@ class User extends l\Languages {
             $dst_parent_name = $this->_modelFolders->getFoldername($dst).'/';
         }
 
-        $dst_foldername = $src_foldername;
         // Folder copies support
-        $i = 1;
-        while(is_dir(NOVA.'/'.$_SESSION['id'].'/'.$dst_parent_path.$dst_foldername)) {
-            if($i < 2)
-                $dst_foldername .= " ($i)";
-            else {
-                $pos = strrpos($dst_foldername, "(");
-                if($pos === false)
-                    return false;
-                $dst_foldername = substr($dst_foldername, 0, $pos)."($i)";
-            }
-            $i++;
-        }
+        $dst_foldername = $this->checkMultiple(NOVA.'/'.$_SESSION['id'].'/'.$dst_parent_path, $src_foldername, 'folder');
+        if($dst_foldername === false)
+            return false;
         //
         $this->_modelFolders->name = $dst_foldername;
         $this->_modelFolders->parent = $dst;
@@ -609,9 +634,16 @@ class User extends l\Languages {
                             if(!($filename = $this->_modelFiles->getFilename($files[$i])))
                                 continue;
                             if(file_exists(NOVA.'/'.$_SESSION['id'].'/'.$old_path.$filename)) {
-                                rename(NOVA.'/'.$_SESSION['id'].'/'.$old_path.$filename, NOVA.'/'.$_SESSION['id'].'/'.$this->_path.$filename);
+
+                                // Files copies support
+                                $dst_filename = $this->checkMultiple(NOVA.'/'.$_SESSION['id'].'/'.$this->_path, $filename, 'file');
+                                if($dst_filename === false)
+                                    return false;
+                                //
+                                rename(NOVA.'/'.$_SESSION['id'].'/'.$old_path.$filename, NOVA.'/'.$_SESSION['id'].'/'.$this->_path.$dst_filename);
                                 $this->_modelFiles->id = $files[$i];
-                                $uploaded += filesize(NOVA.'/'.$_SESSION['id'].'/'.$this->_path.$filename);
+                                $this->_modelFiles->name = $dst_filename;
+                                $uploaded += filesize(NOVA.'/'.$_SESSION['id'].'/'.$this->_path.$dst_filename);
                                 $this->_modelFiles->updateDir();
                             }
                         }
@@ -635,21 +667,10 @@ class User extends l\Languages {
                                     $uploaded += $this->_modelFiles->size;
                                     $this->_modelFiles->last_modification = time();
 
-                                    $dst_filename = $filename;
                                     // Files copies support
-                                    $i = 1;
-                                    while(file_exists(NOVA.'/'.$_SESSION['id'].'/'.$this->_path.$dst_filename)) {
-                                        if($i < 2)
-                                            $dst_filename = $this->addSuffixe($dst_filename, " ($i)");
-                                        else {
-                                            $first_pos = strrpos($dst_filename, "(");
-                                            $last_pos = strrpos($dst_filename, ")");
-                                            if($first_pos === false || $last_pos === false || $first_pos >= $last_pos)
-                                                return false;
-                                            $dst_filename = substr($dst_filename, 0, $first_pos)."($i)".substr($dst_filename, $last_pos+1);
-                                        }
-                                        $i++;
-                                    }
+                                    $dst_filename = $this->checkMultiple(NOVA.'/'.$_SESSION['id'].'/'.$this->_path, $filename, 'file');
+                                    if($dst_filename === false)
+                                        return false;
                                     //
                                     $this->_modelFiles->name = $dst_filename;
                                     copy(NOVA.'/'.$_SESSION['id'].'/'.$old_path.$filename, NOVA.'/'.$_SESSION['id'].'/'.$this->_path.$dst_filename);
@@ -674,7 +695,13 @@ class User extends l\Languages {
                         if(is_dir(NOVA.'/'.$_SESSION['id'].'/'.$old_path.$foldername)) {
                             $folderSize = $this->_modelFolders->getSize($folders[$i]);
                             $old_parent = $this->_modelFolders->getParent($folders[$i]);
-                            rename(NOVA.'/'.$_SESSION['id'].'/'.$old_path.$foldername, NOVA.'/'.$_SESSION['id'].'/'.$this->_path.$foldername);
+
+                            // Folder copies support
+                            $dst_foldername = $this->checkMultiple(NOVA.'/'.$_SESSION['id'].'/'.$this->_path, $foldername, 'folder');
+                            if($dst_foldername === false)
+                                return false;
+                            //
+                            rename(NOVA.'/'.$_SESSION['id'].'/'.$old_path.$foldername, NOVA.'/'.$_SESSION['id'].'/'.$this->_path.$dst_foldername);
                             $this->_modelFolders->updatePath($folders[$i], $this->_path);
                             $this->_modelFolders->updateParent($folders[$i], $this->_folderId);
 
