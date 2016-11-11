@@ -309,7 +309,7 @@ class User extends l\Languages {
                         $tab_folders[$folder_id][0] = $path;
                         $tab_folders[$folder_id][1] = 0;
                     }
-                    $size = $this->rmFile($files[$i], $path);
+                    $size = $this->rmFile($files[$i], $path.'/');
                     $total_size += $size;
                     $tab_folders[$folder_id][1] += $size;
                 }

@@ -596,6 +596,8 @@ var Folders = (function() {
 				                Box.right_click(event.clientX, event.clientY, this.id);
 				                return false;
 				            });
+
+                            Arrows.init();
 				        }
 				    }
 				}
@@ -949,8 +951,11 @@ var UserLoader = function(folder_id) {
     	ExtIcons = ExtIcons();
         Request.modulesLoaded = true;
     }
-    else
+    else {
+        if(Trash.State === 1)
+            document.querySelector("#button_trash").innerHTML = txt.User.trash_1;
         console.log("Modules already loaded.");
+    }
 
     // Set events in the app
 
