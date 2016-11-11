@@ -23,7 +23,7 @@ class Storage extends l\Model {
         function incrementSizeStored($i) {
             if(is_numeric($i)) {
                 if($i > 0) {
-                    $req = $this->_sql->prepare("UPDATE storage SET size_stored = size_stored+? WHERE id_user = ?");
+                    $req = self::$_sql->prepare("UPDATE storage SET size_stored = size_stored+? WHERE id_user = ?");
                     return $req->execute(array($i, $this->id_user));
                 }
             }
@@ -33,7 +33,7 @@ class Storage extends l\Model {
         function decrementSizeStored($i) {
             if(is_numeric($i)) {
                 if($i > 0) {
-                    $req = $this->_sql->prepare("UPDATE storage SET size_stored = size_stored-? WHERE id_user = ?");
+                    $req = self::$_sql->prepare("UPDATE storage SET size_stored = size_stored-? WHERE id_user = ?");
                     return $req->execute(array($i, $this->id_user));
                 }
             }
@@ -43,7 +43,7 @@ class Storage extends l\Model {
         function updateSizeStored($i) {
             if(is_numeric($i)) {
                 if($i > 0) {
-                    $req = $this->_sql->prepare("UPDATE storage SET size_stored = ? WHERE id_user = ?");
+                    $req = self::$_sql->prepare("UPDATE storage SET size_stored = ? WHERE id_user = ?");
                     return $req->execute(array($i, $this->id_user));
                 }
             }
@@ -51,7 +51,7 @@ class Storage extends l\Model {
         }
 
         function Insertion() {
-            $req = $this->_sql->prepare("INSERT INTO storage VALUES (NULL, ?, ?, ?)");
+            $req = self::$_sql->prepare("INSERT INTO storage VALUES (NULL, ?, ?, ?)");
             $ret = $req->execute(array($this->id_user, 2000000000, 0));
             return $ret;
         }
@@ -66,7 +66,7 @@ class Storage extends l\Model {
         }
 
         function getUserQuota() {
-            $req = $this->_sql->prepare("SELECT user_quota FROM storage WHERE id_user = ?");
+            $req = self::$_sql->prepare("SELECT user_quota FROM storage WHERE id_user = ?");
             $req->execute(array($_SESSION['id']));
             if($req->rowCount() == 0)
                 return false;
@@ -75,7 +75,7 @@ class Storage extends l\Model {
         }
 
         function getSizeStored() {
-            $req = $this->_sql->prepare("SELECT size_stored FROM storage WHERE id_user = ?");
+            $req = self::$_sql->prepare("SELECT size_stored FROM storage WHERE id_user = ?");
             $req->execute(array($_SESSION['id']));
             if($req->rowCount() == 0)
                 return false;

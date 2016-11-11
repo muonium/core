@@ -24,7 +24,7 @@ class UserLostPass extends l\Model {
         }
         
         function getKey() {
-            $req = $this->_sql->prepare("SELECT val_key FROM user_lostpass WHERE id_user = ?");
+            $req = self::$_sql->prepare("SELECT val_key FROM user_lostpass WHERE id_user = ?");
             $req->execute(array($this->id_user));
             if($req->rowCount() == 0)
                 return false;
@@ -33,7 +33,7 @@ class UserLostPass extends l\Model {
         }
         
         function getExpire() {
-            $req = $this->_sql->prepare("SELECT expire FROM user_lostpass WHERE id_user = ?");
+            $req = self::$_sql->prepare("SELECT expire FROM user_lostpass WHERE id_user = ?");
             $req->execute(array($this->id_user));
             if($req->rowCount() == 0)
                 return false;
@@ -44,17 +44,17 @@ class UserLostPass extends l\Model {
         /* **************************************** */
         
         function Delete() {
-            $req = $this->_sql->prepare("DELETE FROM user_lostpass WHERE id_user = ?");
+            $req = self::$_sql->prepare("DELETE FROM user_lostpass WHERE id_user = ?");
             return $req->execute(array($this->id_user));
         }
         
         function Insert() {
-            $req = $this->_sql->prepare("INSERT INTO user_lostpass VALUES (NULL, ?, ?, ?)");
+            $req = self::$_sql->prepare("INSERT INTO user_lostpass VALUES (NULL, ?, ?, ?)");
             return $req->execute(array($this->id_user, $this->val_key, $this->expire));
         }
         
         function Update() {
-            $req = $this->_sql->prepare("UPDATE user_lostpass SET val_key = ? WHERE id_user = ?");
+            $req = self::$_sql->prepare("UPDATE user_lostpass SET val_key = ? WHERE id_user = ?");
             return $req->execute(array($this->val_key, $this->id_user));
         }
     }

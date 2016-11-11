@@ -9,12 +9,11 @@
     $_t->addCss("home_global");
     $_t->addCss("Interface/new_design");
     $_t->addCss("Interface/box");
-    $_t->addJs("Interface/global");
     $_t->addJs("Interface/Request");
-    //$_t->addScript("text/javascript","window.onload = function() {QC.init();}");
+    $_t->addJs("Interface/interface");
     $_t->getHeader();
 ?>
-<body>
+<body onload="UserLoader()">
         <header>
             <div id="logo"></div>
             <div id="user">
@@ -33,27 +32,28 @@
         </section>
 
         <section id="toolbar">
-            <div onclick="Muonium.clickEvent(this,'DefaultAction','Recent')" id="toolbar_button_recents">
+            <div onclick="Request.load('Recent', 'DefaultAction')" id="toolbar_button_recents">
                 <img src="<?php echo MVC_ROOT; ?>/public/pictures/toolbar/recent.svg" /><br /><?php echo_h($this->txt->Toolbar->recents); ?>
             </div>
-            <div class="selected" onclick="Muonium.clickEvent(this,'DefaultAction','Favorites')" id="toolbar_button_favorite">
+            <div onclick="Request.load('Favorites', 'DefaultAction')" id="toolbar_button_favorite">
                 <img src="<?php echo MVC_ROOT; ?>/public/pictures/toolbar/favorite.svg" /><br /><?php echo_h($this->txt->Toolbar->favorites); ?>
             </div>
-            <div onclick="Muonium.clickEvent(this,'DefaultAction','Home')" id="toolbar_button_general">
+            <div class="selected" onclick="Request.load('User', 'DefaultAction')" id="toolbar_button_general">
                 <img src="<?php echo MVC_ROOT; ?>/public/pictures/toolbar/folder.svg" /><br /><?php echo_h($this->txt->Toolbar->general); ?>
             </div>
-            <div onclick="Muonium.clickEvent(this,'DefaultAction','Sharing')" id="toolbar_button_share">
+            <div onclick="Request.load('Sharing', 'DefaultAction')" id="toolbar_button_share">
                 <img src="<?php echo MVC_ROOT; ?>/public/pictures/toolbar/share.svg" /><br /><?php echo_h($this->txt->Toolbar->shared); ?>
             </div>
-            <div onclick="Muonium.clickEvent(this,'DefaultAction','Transfer')" id="toolbar_button_transfers">
+            <div onclick="Request.load('Transfer', 'DefaultAction')" id="toolbar_button_transfers">
                 <img src="<?php echo MVC_ROOT; ?>/public/pictures/toolbar/transfer.svg" /><br /><?php echo_h($this->txt->Toolbar->transfers); ?>
             </div>
         </section>
 
         <section id="desktop">
+            <button id="button_trash" onclick="Trash.switch()"><?php echo_h($this->txt->User->trash_0); ?></button>
             <!-- Hidden upload form -->
             <form style="display:none">
-                <input type="file" id="upFilesInput" name="files[]" multiple="multiple" style="display:none" onchange="upFiles(this.files);" onclick="reset();" />
+                <input type="file" id="upFilesInput" name="files[]" multiple="multiple" style="display:none" onchange="Upload.upFiles(this.files);" onclick="reset();" />
             </form>
             <!-- End -->
 
@@ -63,7 +63,6 @@
             <!-- mui contains all contents of interface : storage infos, link to parent folder, #tree (files and folders) ... -->
             <div id="mui">
                 <?php echo_h($this->txt->Global->loading); ?>
-                <script type="text/javascript">openDir(0);</script>
             </div>
             <img src="<?php echo MVC_ROOT; ?>/public/pictures/desktop/arrow.svg" class="arrow general" />
 

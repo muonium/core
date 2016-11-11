@@ -8,7 +8,7 @@ require_once("config/Mail.php");
 
 class cron {
 
-	protected $_sql;
+	protected static $_sql;
 
 	private $_mail;
 
@@ -19,14 +19,14 @@ class cron {
 	private $_inactiveUserMailDelay = 150;
 
 	function __construct() {
-		$this->_sql = new PDO('mysql:host='.confDB::hostDefaut.';dbname='.confDB::bddDefaut,confDB::userDefaut,confDB::passDefaut);
+		self::$_sql = new PDO('mysql:host='.confDB::hostDefaut.';dbname='.confDB::bddDefaut,confDB::userDefaut,confDB::passDefaut);
 		$this->_mail = new Mail();
 	}
 
 	function resetPpCounter() {
 		// Run every month
 		// Reset passphrase change counter for all users
-		$req = $this->_sql->prepare("UPDATE users SET pp_counter = '0'");
+		$req = self::$_sql->prepare("UPDATE users SET pp_counter = '0'");
 		$req->execute();
 
 		//call the notifier to log the event.
@@ -36,7 +36,7 @@ class cron {
 	function deleteInactiveUsers() {
 		// Run every day
 		// Query for selecting inactive users to delete
-		$req = $this->_sql->prepare("SELECT id FROM users WHERE last_connection < ?");
+		$req = self::$_sql->prepare("SELECT id FROM users WHERE last_connection < ?");
 		$req->execute(array(time()-$this->_inactiveUserDeleteDelay*86400));
 
 		$i = 0;
@@ -44,7 +44,7 @@ class cron {
 			// To do : delete user's folder ($row['id'])
 
 			// Delete user
-			$req = $this->_sql->prepare("DELETE FROM users, user_lostpass, user_validation, ban, files, storage
+			$req = self::$_sql->prepare("DELETE FROM users, user_lostpass, user_validation, ban, files, storage
 			WHERE users.id = ? AND users.id = user_lostpass.id_user AND users.id = user_validation.id_user
 			AND users.id = ban.id_user AND users.id = files.id_owner AND users.id = storage.id_user");
 
@@ -58,7 +58,7 @@ class cron {
 		//
 
 		// Query for selecting inactive users to send a mail
-		$req = $this->_sql->prepare("SELECT login, email FROM users WHERE last_connection >= ? AND last_connection <= ?");
+		$req = self::$_sql->prepare("SELECT login, email FROM users WHERE last_connection >= ? AND last_connection <= ?");
 
 		// $mailDay is an array with the day, month and year of the date x days before the current date
 		$mailDay = explode("/", date('d/m/Y', time()-$this->_inactiveUserMailDelay*86400));

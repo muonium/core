@@ -49,7 +49,10 @@
         "folder": "Folder name",
         "questiond": "Do you want to remove this folder ?",
         "questionf": "Do you want to remove this file ?",
-        "questionrm": "Do you want to remove these files/folders ?"
+        "questionrm": "Do you want to remove these files/folders ?",
+        "trash_0": "View trash",
+        "trash_1": "Exit trash",
+        "path": "Path"
     },
 
     "Register": {
