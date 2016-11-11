@@ -702,8 +702,9 @@ class User extends l\Languages {
                                 return false;
                             //
                             rename(NOVA.'/'.$_SESSION['id'].'/'.$old_path.$foldername, NOVA.'/'.$_SESSION['id'].'/'.$this->_path.$dst_foldername);
-                            $this->_modelFolders->updatePath($folders[$i], $this->_path);
+                            $this->_modelFolders->name = $dst_foldername;
                             $this->_modelFolders->updateParent($folders[$i], $this->_folderId);
+                            $this->_modelFolders->updatePath($folders[$i], $this->_path, $dst_foldername);
 
                             // Update parent folders size
                             $this->_modelFolders->updateFoldersSize($old_parent, -1*$folderSize);

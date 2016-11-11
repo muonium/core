@@ -135,18 +135,19 @@ class Folders extends l\Model {
         }
 
         // Update path of a folder and its subfolders
-        function updatePath($id, $path) {
-            if($subdirs = $this->getChildren($id)) {
+        function updatePath($id, $path, $foldername) {
+            $subdirs = $this->getChildren($id);
+            if($subdirs !== false) {
                 foreach($subdirs as $subdir)
-                    $this->updatePath($subdir['0'], $path.$subdir['1'].'/');
+                    $this->updatePath($subdir['0'], $path.$foldername.'/', $subdir['1']);
             }
             $req = self::$_sql->prepare("UPDATE folders SET `path` = ? WHERE id_owner = ? AND id = ?");
             $req->execute(array($path, $_SESSION['id'], $id));
         }
 
         function updateParent($id, $parent) {
-            $req = self::$_sql->prepare("UPDATE folders SET parent = ? WHERE id_owner = ? AND id = ?");
-            return $req->execute(array($parent, $_SESSION['id'], $id));
+            $req = self::$_sql->prepare("UPDATE folders SET parent = ?, name = ? WHERE id_owner = ? AND id = ?");
+            return $req->execute(array($parent, $this->name, $_SESSION['id'], $id));
         }
 
         function insert() {

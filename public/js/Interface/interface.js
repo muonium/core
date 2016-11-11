@@ -602,7 +602,8 @@ var Folders = (function() {
 				xhr.send("folder_id="+Folders.id+"&folder="+encodeURIComponent(document.querySelector("#nFolder").value));
 			}
 			else {
-				document.querySelector("#box").innerHTML = txt.User.folder+' : <input type="text" id="nFolder" onkeypress="return Folders.verif(event);">';
+				document.querySelector("#box").innerHTML = txt.User.folder+' : <input type="text" id="nFolder" autocomplete="off" onkeypress="return Folders.verif(event);" autofocus>';
+                document.querySelector("#nFolder").focus();
 			}
 		},
 
