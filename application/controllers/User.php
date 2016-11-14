@@ -384,7 +384,6 @@ class User extends l\Languages {
         $path = '';
 
         if(isset($_POST['folders']) && isset($_POST['ids'])) {
-            echo 'a';
             $folders = explode("|", urldecode($_POST['folders']));
             $ids = explode("|", urldecode($_POST['ids']));
 
@@ -448,6 +447,59 @@ class User extends l\Languages {
                     header('Content-Length: '.filesize($file_name));	// provide file size
                     header('Connection: close');
                     readfile($file_name);	// push it out
+                }
+            }
+        }
+    }
+
+    function RenameAction() {
+        $this->_modelFiles = new m\Files();
+        $this->_modelFiles->id_owner = $_SESSION['id'];
+
+        $this->_modelFolders = new m\Folders();
+        $this->_modelFolders->id_owner = $_SESSION['id'];
+
+        if(isset($_POST['old']) && isset($_POST['new']) && isset($_POST['path'])) {
+            $path = urldecode($_POST['path']);
+            if(!empty($path))
+                $path .= '/';
+            $old = urldecode($_POST['old']);
+            $new = urldecode($_POST['new']);
+
+            if($old != $new && !empty($old) && !empty($new)) {
+                $forbidden = '/\\:*?<>|" ';
+
+                $f = 0;
+                for($i=0;$i<count($forbidden);$i++) {
+                    if(strpos($folder, $forbidden[$i])) {
+                        $f = 1; // Forbidden char found
+                        break;
+                    }
+                }
+
+                if($f == 0) {
+                    if(is_dir(NOVA.'/'.$_SESSION['id'].'/'.$path.$old) && !is_dir(NOVA.'/'.$_SESSION['id'].'/'.$path.$new)) {
+                        if(strlen($new) > 64) // max folder length 64 chars
+                            $new = substr($new, 0, 64);
+                        // Rename folder in db
+                        $this->_modelFolders->rename($path, $old, $new);
+                    }
+                    elseif(file_exists(NOVA.'/'.$_SESSION['id'].'/'.$path.$old) && !file_exists(NOVA.'/'.$_SESSION['id'].'/'.$path.$new)) {
+                        if(strlen($new) > 128) // max file length 128 chars
+                            $new = substr($new, 0, 128);
+                        // Rename file in db
+                        $folder_id = 0;
+                        if(!empty($path)) {
+                            $folder_id = $this->_modelFolders->getId($path);
+                            if($folder_id === false)
+                                return false;
+                        }
+                        $this->_modelFiles->rename($folder_id, $old, $new);
+                    }
+                    else
+                        return false;
+
+                    rename(NOVA.'/'.$_SESSION['id'].'/'.$path.$old, NOVA.'/'.$_SESSION['id'].'/'.$path.$new);
                 }
             }
         }

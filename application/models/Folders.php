@@ -25,8 +25,13 @@ class Folders extends l\Model {
         /* ******************** SETTER ******************** */
 
         /* ******************** GETTER ******************** */
-        function getId() {
-            return $this->id;
+        function getId($path) {
+            $req = self::$_sql->prepare("SELECT id FROM folders WHERE id_owner = ? AND `path` = ?");
+            $req->execute(array($_SESSION['id'], $path));
+            if($req->rowCount() == 0)
+                return false;
+            $res = $req->fetch();
+            return $res['id'];
         }
 
         function getIdOwner() {
@@ -135,6 +140,7 @@ class Folders extends l\Model {
         }
 
         // Update path of a folder and its subfolders
+        // Maybe better to use UPDATE with LIKE ?
         function updatePath($id, $path, $foldername) {
             $subdirs = $this->getChildren($id);
             if($subdirs !== false) {
@@ -143,6 +149,16 @@ class Folders extends l\Model {
             }
             $req = self::$_sql->prepare("UPDATE folders SET `path` = ? WHERE id_owner = ? AND id = ?");
             $req->execute(array($path, $_SESSION['id'], $id));
+        }
+
+        // Experimental method
+        function rename($path, $old, $new) {
+            $req = self::$_sql->prepare("UPDATE folders SET name = ? WHERE id_owner = ? AND name = ? AND `path` = ?");
+            $req->execute(array($new, $_SESSION['id'], $old, $path));
+
+            // Children
+            $req = self::$_sql->prepare("UPDATE folders SET `path` = CONCAT(?, SUBSTR(`path`, ?)) WHERE id_owner = ? AND `path` LIKE ?");
+            $req->execute(array($path.$new, strlen($path.$old)+1, $_SESSION['id'], $path.$old.'%'));
         }
 
         function updateParent($id, $parent) {

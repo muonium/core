@@ -118,7 +118,7 @@ var Box = (function() {
                         box_div.innerHTML += '<p onclick="Move.trash(\''+id+'\')"><img src="'+img+'index/actions/trash.svg" class="icon"> '+txt.RightClick.trash+'</p>';
                     } else { box_div.innerHTML += '<p onclick="Move.trash(\''+id+'\')">'+txt.RightClick.restore+'</p><p onclick="Rm.rm(\''+id+'\')">'+txt.RightClick.rm+'</p>'; }
                     if(Trash.State == 0)
-                        box_div.innerHTML += '<hr><p><img src="'+img+'index/actions/rename.svg" class="icon"> '+txt.RightClick.mvItem+'</p><p><img src="'+img+'index/actions/paste.svg" class="icon">'+txt.RightClick.mvLocate+'</p>';
+                        box_div.innerHTML += '<hr><p onclick="Move.rename(\''+id+'\')"><img src="'+img+'index/actions/rename.svg" class="icon"> '+txt.RightClick.mvItem+'</p><p><img src="'+img+'index/actions/paste.svg" class="icon">'+txt.RightClick.mvLocate+'</p>';
                     box_div.innerHTML += '<hr><p onclick="Files.details(\''+id+'\')">'+txt.RightClick.vDetails+'</p>';
                     break;
                 //mouse over a folder
@@ -129,7 +129,7 @@ var Box = (function() {
                         box_div.innerHTML += '<p onclick="Move.trash(\''+id+'\')"><img src="'+img+'index/actions/trash.svg" class="icon"> '+txt.RightClick.trash+'</p>';
                     } else { box_div.innerHTML += '<p onclick="Move.trash(\''+id+'\')">'+txt.RightClick.restore+'</p><p onclick="Rm.rm(\''+id+'\')">'+txt.RightClick.rm+'</p>'; }
                     if(Trash.State == 0)
-                        box_div.innerHTML += '<hr><p><img src="'+img+'index/actions/rename.svg" class="icon"> '+txt.RightClick.mvItem+'</p><p>'+txt.RightClick.mvLocate+'</p>';
+                        box_div.innerHTML += '<hr><p onclick="Move.rename(\''+id+'\')"><img src="'+img+'index/actions/rename.svg" class="icon"> '+txt.RightClick.mvItem+'</p><p>'+txt.RightClick.mvLocate+'</p>';
                     box_div.innerHTML += '<hr><p onclick="Folders.details(\''+id+'\')">'+txt.RightClick.vDetails+'</p>';
             }
             Box.show();
@@ -410,6 +410,59 @@ var Move = (function() {
     return {
         Files : [],
         Folders : [],
+
+        rename : function(id) {
+            var elem = document.querySelector("#"+id);
+            var name;
+            var path;
+            if(elem) {
+                if(elem.hasAttribute("data-path")) {
+                    path = elem.getAttribute("data-path");
+                    if(elem.hasAttribute("data-title"))
+                        name = elem.getAttribute("data-title");
+                    else
+                        name = elem.getAttribute("name");
+
+                    if(document.querySelector("#nRename")) {
+                        console.log("rename");
+        				Box.hide();
+
+        				var xhr = new XMLHttpRequest();
+        				xhr.open("POST", "User/Rename", true);
+        				xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+        				xhr.onreadystatechange = function()
+        				{
+        				    if(xhr.status == 200 && xhr.readyState == 4)
+        				    {
+        				        // To do : rename without reloading
+                                console.log(xhr.responseText);
+                                Folders.open(Folders.id);
+        				    }
+        				}
+        				xhr.send("path="+path+"&old="+encodeURIComponent(name)+"&new="+encodeURIComponent(document.querySelector("#nRename").value));
+        			}
+        			else {
+                        Box.box_more = true;
+        				document.querySelector("#box").innerHTML = txt.RightClick.mvItem+' : <input type="text" id="nRename" value="'+name+'" autocomplete="off" onkeypress="return Move.renameVerif(\''+id+'\', event);" autofocus>';
+                        document.querySelector("#nRename").focus();
+                        Box.show();
+        			}
+                }
+            }
+        },
+
+        renameVerif : function(id, evt) {
+			var keyCode = evt.which ? evt.which : evt.keyCode;
+			if(keyCode == 13) { // Submit
+				Move.rename(id);
+				return false;
+			}
+			var interdit = '/\\:*?<>|"';
+			if (interdit.indexOf(String.fromCharCode(keyCode)) >= 0)
+				return false;
+			return true;
+		},
 
         cut : function(id) {
             Box.hide();

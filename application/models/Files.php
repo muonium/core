@@ -186,6 +186,11 @@ class Files extends l\Model {
             return $req->execute(array($_SESSION['id'], $id));
         }
 
+        function rename($folder_id, $old, $new) {
+            $req = self::$_sql->prepare("UPDATE files SET name = ? WHERE id_owner = ? AND folder_id = ? AND name = ?");
+            $req->execute(array($new, $_SESSION['id'], $folder_id, $old));
+        }
+
         function getFullPath($id) {
             // Used for download feature
             if(!is_numeric($id))
