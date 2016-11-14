@@ -5,7 +5,7 @@
 	* @authors         : Romain Claveau <romain.claveau@protonmail.ch>, Dylan Clement <dylanclement7@protonmail.ch>
 	*/
     use \library\MVC as l;
-    $_t = new l\Template($this->txt->Global->profile);
+    $_t = new l\Template($this->txt->Global->user);
     $_t->addCss("home_global");
     $_t->addCss("Interface/new_design");
     $_t->addCss("Interface/box");
