@@ -46,13 +46,18 @@
     "User": {
         "lastmod": "Last modification",
         "loaded": "Loaded in",
-        "folder": "Folder name",
+        "foldername": "Folder name",
         "questiond": "Do you want to remove this folder ?",
         "questionf": "Do you want to remove this file ?",
         "questionrm": "Do you want to remove these files/folders ?",
         "trash_0": "View trash",
         "trash_1": "Exit trash",
-        "path": "Path"
+        "path": "Path",
+        "name": "Name",
+        "type": "File type",
+        "size": "Size",
+        "file": "File",
+        "folder": "Folder"
     },
 
     "Register": {

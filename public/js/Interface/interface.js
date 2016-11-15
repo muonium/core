@@ -594,7 +594,11 @@ var Files = (function() {
 
                 Box.set("<p style='padding:5px'>\
                 <button onclick=\"Box.right_click(event.clientX, event.clientY, '"+el+"')\"><</button> &nbsp;&nbsp;<strong>Details</strong>\
-                <hr><ul><li>"+elem.innerHTML+"</li><li>"+txt.User.path+" : "+elem.getAttribute("data-path")+"/</li></ul></p>");
+                <hr><ul><li>"+txt.User.name+" : "+elem.getAttribute("data-title")+"</li>\
+                <li>"+txt.User.path+" : "+elem.getAttribute("data-path")+"/</li>\
+                <li>"+txt.User.type+" : "+txt.User.file+"</li>\
+                <li>"+txt.User.size+" : "+elem.innerHTML.substr(elem.innerHTML.lastIndexOf("["))+"</li>\
+                <li>"+elem.title+"</li></ul></p>");
 
                 Box.show();
             }
@@ -657,7 +661,7 @@ var Folders = (function() {
 				xhr.send("folder_id="+Folders.id+"&folder="+encodeURIComponent(document.querySelector("#nFolder").value));
 			}
 			else {
-				document.querySelector("#box").innerHTML = txt.User.folder+' : <input type="text" id="nFolder" autocomplete="off" onkeypress="return Folders.verif(event);" autofocus>';
+				document.querySelector("#box").innerHTML = txt.User.foldername+' : <input type="text" id="nFolder" autocomplete="off" onkeypress="return Folders.verif(event);" autofocus>';
                 document.querySelector("#nFolder").focus();
 			}
 		},
@@ -727,7 +731,11 @@ var Folders = (function() {
 
                 Box.set("<p style='padding:5px'>\
                 <button onclick=\"Box.right_click(event.clientX, event.clientY, '"+el+"')\"><</button> &nbsp;&nbsp;<strong>Details</strong>\
-                <hr><ul><li>"+elem.innerHTML+"</li><li>"+txt.User.path+" : "+elem.getAttribute("data-path")+"/</li></ul></p>");
+                <hr><ul><li>"+txt.User.name+" : "+elem.getAttribute("name")+"</li>\
+                <li>"+txt.User.path+" : "+elem.getAttribute("data-path")+"/</li>\
+                <li>"+txt.User.type+" : "+txt.User.folder+"</li>\
+                <li>"+txt.User.size+" : "+elem.innerHTML.substr(elem.innerHTML.lastIndexOf("["))+"</li>\
+                </ul></p>");
 
                 Box.show();
             }

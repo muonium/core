@@ -180,7 +180,7 @@ class User extends l\Languages {
                 $fpath = $path;
                 if(array_key_exists(7, $file) && array_key_exists(8, $file))
                     $fpath = $file['7'].$file['8'];
-                echo '<span class="file" id="f'.$file['1'].'" onclick="Selection.addFile(this.id)" data-folder="'.htmlentities($file['6']).'" data-path="'.htmlentities($fpath).'" data-title="'.htmlentities($file['0']).'">'.htmlentities($file['0']).' ['.$this->showSize($file['2']).'] - '.$this->txt->User->lastmod.' : '.date('d/m/Y G:i', $file['3']).'</span>';
+                echo '<span class="file" id="f'.$file['1'].'" title="'.$this->txt->User->lastmod.' : '.date('d/m/Y G:i', $file['3']).'" onclick="Selection.addFile(this.id)" data-folder="'.htmlentities($file['6']).'" data-path="'.htmlentities($fpath).'" data-title="'.htmlentities($file['0']).'">'.htmlentities($file['0']).' ['.$this->showSize($file['2']).']</span>';
             }
         }
 
