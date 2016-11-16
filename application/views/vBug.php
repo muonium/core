@@ -13,26 +13,20 @@
 <body>
         <header>
             <div id="logo"></div>
-            <div id="user">
-                <p><img src="<?php echo MVC_ROOT; ?>/public/pictures/header/bug.svg" /><br /><?php echo_h($this->txt->UserMenu->bug); ?></p>
-                <p><img src="<?php echo MVC_ROOT; ?>/public/pictures/header/help.svg" /><br /><?php echo_h($this->txt->UserMenu->help); ?></p>
-                <p><img src="<?php echo MVC_ROOT; ?>/public/pictures/header/settings.svg" /><br /><?php echo_h($this->txt->UserMenu->settings); ?></p>
-                <p><a href="<?php echo MVC_ROOT; ?>/Profile"><img src="<?php echo MVC_ROOT; ?>/public/pictures/header/user.svg" /><br /><?php echo_h($this->txt->UserMenu->profile); ?></a></p>
-                <p><a href="<?php echo MVC_ROOT; ?>/Logout"><img src="<?php echo MVC_ROOT; ?>/public/pictures/header/user.svg" /><br /><?php echo_h($this->txt->UserMenu->logout); ?></a></p>
-            </div>
+            <?php $_t->getRegisteredMenu($this->txt->UserMenu); ?>
         </header>
-    
+
         <section id="language">
             <div>
                 <?php $this->getLanguageSelector(); ?>
             </div>
         </section>
-        
+
         <section id="desktop">
             <h1><?php echo_h($this->txt->Global->bug); ?></h1>
-            
+
             <p><strong><?php if(!empty($this->_message)) { echo_h($this->_message); } ?></strong></p>
-            
+
             <form method="post" action="<?php echo MVC_ROOT; ?>/Bug/Form">
                 <table>
                     <tr>

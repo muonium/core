@@ -123,7 +123,7 @@ var Box = (function() {
                     break;
                 //mouse over a folder
                 case 2:
-                    box_div.innerHTML = '<p onclick="Folders.open(\''+id+'\')"><img src="'+img+'index/actions/view.svg" class="icon"> '+txt.RightClick.open+'</p><hr>';
+                    box_div.innerHTML = '<p onclick="Folders.open(\''+id.substr(1)+'\')"><img src="'+img+'index/actions/view.svg" class="icon"> '+txt.RightClick.open+'</p><hr>';
                     if(Trash.State == 0) {
                         box_div.innerHTML += '<p onclick="Move.cut(\''+id+'\')"><img src="'+img+'index/actions/cut.svg" class="icon"> '+txt.RightClick.cut+'</p><p onclick="Move.copy(\''+id+'\')"><img src="'+img+'index/actions/copy.svg" class="icon"> '+txt.RightClick.copy+'</p><p onclick="Move.paste(\''+id+'\')"><img src="'+img+'index/actions/paste.svg" class="icon"> '+txt.RightClick.paste+'</p>';
                         box_div.innerHTML += '<p onclick="Move.trash(\''+id+'\')"><img src="'+img+'index/actions/trash.svg" class="icon"> '+txt.RightClick.trash+'</p>';
@@ -591,15 +591,16 @@ var Files = (function() {
                 Box.box_more = true;
                 Box.reset();
                 Box.Area = 1;
-
                 Box.set("<p style='padding:5px'>\
                 <button onclick=\"Box.right_click(event.clientX, event.clientY, '"+el+"')\"><</button> &nbsp;&nbsp;<strong>Details</strong>\
                 <hr><ul><li>"+txt.User.name+" : "+elem.getAttribute("data-title")+"</li>\
                 <li>"+txt.User.path+" : "+elem.getAttribute("data-path")+"/</li>\
-                <li>"+txt.User.type+" : "+txt.User.file+"</li>\
+                <li>"+txt.User.type+" : "+txt.User.file+" <span class='ext_icon'></span></li>\
                 <li>"+txt.User.size+" : "+elem.innerHTML.substr(elem.innerHTML.lastIndexOf("["))+"</li>\
                 <li>"+elem.title+"</li></ul></p>");
 
+                var newNode = document.importNode(elem.getElementsByTagName('img')[0], true);
+                document.querySelector(".ext_icon").appendChild(newNode);
                 Box.show();
             }
         }
@@ -733,10 +734,12 @@ var Folders = (function() {
                 <button onclick=\"Box.right_click(event.clientX, event.clientY, '"+el+"')\"><</button> &nbsp;&nbsp;<strong>Details</strong>\
                 <hr><ul><li>"+txt.User.name+" : "+elem.getAttribute("name")+"</li>\
                 <li>"+txt.User.path+" : "+elem.getAttribute("data-path")+"/</li>\
-                <li>"+txt.User.type+" : "+txt.User.folder+"</li>\
+                <li>"+txt.User.type+" : "+txt.User.folder+" <span class='ext_icon'></span></li>\
                 <li>"+txt.User.size+" : "+elem.innerHTML.substr(elem.innerHTML.lastIndexOf("["))+"</li>\
                 </ul></p>");
 
+                var newNode = document.importNode(elem.getElementsByTagName('img')[0], true);
+                document.querySelector(".ext_icon").appendChild(newNode);
                 Box.show();
             }
         }
