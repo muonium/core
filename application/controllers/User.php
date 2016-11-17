@@ -163,7 +163,7 @@ class User extends l\Languages {
         echo '<p>';
         if($this->_folderId != 0) {
             $parent = $this->_modelFolders->getParent($this->_folderId);
-            echo '<a ondblclick="Folders.open('.$parent.')"><img src="'.IMG.'desktop/arrow.svg" class="icon"></a> ';
+            echo '<a id="parent-'.$parent.'" ondblclick="Folders.open('.$parent.')"><img src="'.IMG.'desktop/arrow.svg" class="icon"></a> ';
         }
         echo ' ['.$this->showSize($stored).'/'.$this->showSize($quota).']</p>';
 

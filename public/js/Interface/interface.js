@@ -699,6 +699,13 @@ var Folders = (function() {
 			xhr.send("folder_id="+folder_id+"&trash="+Trash.State);
 		},
 
+        back : function() {
+            // Open parent folder
+            var parent = document.querySelector("a[id^=parent-]");
+            if(parent)
+                Folders.open(parent.id.substr(parent.id.lastIndexOf("-")+1));
+        },
+
 		verif : function(evt) {
 			var keyCode = evt.which ? evt.which : evt.keyCode;
 			if(keyCode == 13) { // Submit
@@ -1090,6 +1097,11 @@ var UserLoader = function(folder_id) {
         }
         else {
             switch(event.keyCode) {
+                case 8:
+                    // backspace
+                    event.preventDefault();
+                    Folders.back();
+                    break;
                 case 46:
                     // suppr
                     Rm.multiple();
