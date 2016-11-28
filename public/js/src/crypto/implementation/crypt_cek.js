@@ -3,6 +3,7 @@
 * @name: cekEncryption()
 * @description: encrypt the cek before send it to the server
 * @params: user's passphrase and user's CEK
+* @dependencies: base64.js
 */
 var cekEncryption = function(passphrase, cek)
 {
@@ -19,6 +20,7 @@ var cekEncryption = function(passphrase, cek)
 * @name: cekDecryption()
 * @description: decrypt the CEK after downloaded the encrypted CEK
 * @params: passphrase, cek
+* @dependencies: base64.js
 */
 var cekDecryption = function(passphrase, cek)
 {

@@ -3,6 +3,7 @@
 * @description: generation of the content encryption key,
 * CEK means "Content Encryption Key"
 * the CEK is encrypted by the passphrase of the user
+* @dependencies: crypt_cek.js
 */
 var cekGeneration = function()
 {

@@ -1,5 +1,9 @@
 //@TODO description of this js file
 
+/*
+@dependencies: cek_generation.js
+*/
+
 window.onload = function() {
 
     // Get txt from user's language json (language.js)
