@@ -3,6 +3,10 @@
 * @description: encrypt the file before uploading
 * @params: file, cek is the content encryption key
 * @dependencies: base64.js
+* @note: the CEK is there a passphrase, not a key composed of
+* the salt and the secrete password and the iteration
+* This system allow us to get a different key for all the files
+* even if the params are readable.
 */
 var fileEncryption = function(file, cek)
 {
