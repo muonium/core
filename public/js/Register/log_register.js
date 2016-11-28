@@ -56,7 +56,7 @@ var sendRegisterRequest = function()
                     // success message
                     if(xhr.responseText.substr(0, 3) == "ok@") {
 						//get the CEK from cek_generation.js
-						var cek = cekGeneration();
+						var cek = cekGeneration(); //the CEK is already encrypted with the user's passphrase by the cekGeneration() function, no encryption needed
                         returnArea.innerHTML = xhr.responseText.substr(3);
                         window.location.href="Home";
                         return false;

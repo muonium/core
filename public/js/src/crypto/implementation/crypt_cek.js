@@ -11,6 +11,7 @@ var cekEncryption = function(passphrase, cek)
 	var encryptedCEK = sjcl.encrypt(passphrase, cek,{
 		mode:'gcm', ks:256, ts:128, iter:2048, adata:aDATA
 	});
+	var encryptedCEK = base64.encode(encryptedCEK);
 	return encryptedCEK;
 }
 
@@ -21,6 +22,7 @@ var cekEncryption = function(passphrase, cek)
 */
 var cekDecryption = function(passphrase, cek)
 {
-	var decryptedCEK = sjcl.decrypt(passphrase, cek);
+	var decryptedCEK = base64.decode(cek)
+	var decryptedCEK = sjcl.decrypt(passphrase, decryptedCEK);
 	return decryptedCEK;
 }

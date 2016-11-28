@@ -2,6 +2,7 @@
 * @name: cekGeneration()
 * @description: generation of the content encryption key,
 * CEK means "Content Encryption Key"
+* the CEK is encrypted by the passphrase of the user
 */
 var cekGeneration = function()
 {
@@ -12,5 +13,5 @@ var cekGeneration = function()
 	var contentEncryptionKey = sjcl.misc.pbkdf2(password, salt, 4096, 256); //4096 : iteration, 256 : key size
 	var contentEncryptionKey = sjcl.codec.base64.fromBits(contentEncryptionKey);
 	console.log("CEK generated!");
-	return contentEncryptionKey;
+	return cekEncryption(passphrase, contentEncryptionKey); //cekEncryption() come from js/implementation/crypt_cek.js
 }
