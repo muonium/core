@@ -9,6 +9,7 @@
 var cekEncryption = function(passphrase, cek)
 {
 	var cek = base64.decode(cek)
+	var passphrase = base64.decode(passphrase)
 	var aDATA = sjcl.random.randomWords(3);
 	var aDATA = sjcl.codec.base64.fromBits(aDATA);
 	var encryptedCEK = sjcl.encrypt(passphrase, cek,{
@@ -27,6 +28,7 @@ var cekEncryption = function(passphrase, cek)
 var cekDecryption = function(passphrase, cek)
 {
 	var decryptedCEK = base64.decode(cek);
+	var passphrase = base64.decode(passphrase)
 	var decryptedCEK = sjcl.decrypt(passphrase, decryptedCEK);
 	var decryptedCEK = base64.encode(decryptedCEK);
 	return decryptedCEK;
