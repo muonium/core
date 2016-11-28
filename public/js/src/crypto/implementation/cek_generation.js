@@ -5,7 +5,7 @@
 * the CEK is encrypted by the passphrase of the user
 * @dependencies: crypt_cek.js
 */
-var cekGeneration = function()
+var cekGeneration = function(passphrase)
 {
 	var password = sjcl.random.randomWords(32);
 	var password = sjcl.codec.base64.fromBits(password);
