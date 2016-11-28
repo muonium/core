@@ -24,7 +24,8 @@ var cekEncryption = function(passphrase, cek)
 */
 var cekDecryption = function(passphrase, cek)
 {
-	var decryptedCEK = base64.decode(cek)
+	var decryptedCEK = base64.decode(cek);
 	var decryptedCEK = sjcl.decrypt(passphrase, decryptedCEK);
+	var decryptedCEK = base64.encode(decryptedCEK);
 	return decryptedCEK;
 }
