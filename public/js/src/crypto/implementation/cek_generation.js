@@ -1,6 +1,7 @@
 /*
 * @name: cekGeneration()
 * @description: generation of the content encryption key,
+* @params: 'passphrase' is the user's passphrase or secrete password, call this like you want to...
 * CEK means "Content Encryption Key"
 * the CEK is encrypted by the passphrase of the user
 * @dependencies: crypt_cek.js
