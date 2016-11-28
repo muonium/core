@@ -10,7 +10,7 @@
 */
 var fileEncryption = function(file, cek)
 {
-	var cek = base64.decode(cek)
+	var cek = base64.decode(cek);
 	var aDATA = sjcl.random.randomWords(3);
 	var aDATa = sjcl.codec.base64.fromBits(aDATA);
 	var cipheredFile = sjcl.encrypt(cek, file,{
