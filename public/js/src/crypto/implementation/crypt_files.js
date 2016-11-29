@@ -32,7 +32,7 @@ var fileEncryption = function(file, cek)
 var fileDecryption = function(file, cek)
 {
 	var cek = base64.decode(cek);
-	var decryptedFile = base64.decode(file);
 	var decryptedFile = sjcl.decrypt(cek, file);
+	var decryptedFile = base64.decode(file);
 	return decryptedFile;
 }
