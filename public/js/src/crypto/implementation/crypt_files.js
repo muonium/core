@@ -17,7 +17,7 @@ var fileEncryption= function(file, cek)
 	var file = fileEncode(file); //make it compatible
 	var aDATA = sjcl.random.randomWords(1);
 	var aDATA = sjcl.codec.base64.fromBits(aDATA);
-	var cipheredFile = sjcl.encrypt(cek, z,{
+	var cipheredFile = sjcl.encrypt(cek, file,{
 		mode:'gcm', iter:2000, ks:256, ts:128, adata:aDATA
 	});
 	return cipheredFile;
