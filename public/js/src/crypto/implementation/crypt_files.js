@@ -1,7 +1,7 @@
 /*
 * @name: fileEncryption()
 * @description: encrypt the file before uploading
-* @params: file, cek is the content encryption key
+* @params: file, cek is the content encryption key and CEK is a bits array
 * @dependencies: base64.js
 * @note: the CEK is there a passphrase, not a key composed of
 * the salt and the secrete password and the iteration
@@ -12,7 +12,7 @@
 */
 var fileEncryption = function(file, cek)
 {
-	var cek = base64.decode(cek);
+	var cek = sjcl.codec.base64.toBits(cek);
 	var file = base64.encode(file);
 	var aDATA = sjcl.random.randomWords(1);
 	var aDATA = sjcl.codec.base64.fromBits(aDATA);
@@ -26,12 +26,12 @@ var fileEncryption = function(file, cek)
 /*
 * @name: fileDecryption()
 * @description: decrypt the file after being downloaded
-* @params: file, cek
+* @params: file, cek (cek is a bits array)
 * @dependencies: base64.js
 */
 var fileDecryption = function(file, cek)
 {
-	var cek = base64.decode(cek);
+	var cek = sjcl.codec.base64.toBits(cek);
 	var decryptedFile = sjcl.decrypt(cek, file);
 	var decryptedFile = base64.decode(file);
 	return decryptedFile;
