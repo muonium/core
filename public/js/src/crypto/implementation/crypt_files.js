@@ -37,21 +37,3 @@ var fileDecryption = function(file, cek)
 	var decryptedFile = base64.decode(file);
 	return decryptedFile;
 }
-
-/*
-* @name: fileEncode()
-* @description: base64 the file to avoid any incompatibility issue
-* @params: file
-* @dependencies: sjcl.js, base64.js
-*/
-var fileEncode = function(file)
-{
-	try {
-		//try to encode it from bits array to base64, if error (see catch(e)), then encode it from plaintext to base64
-		var z = sjcl.codec.base64.fromBits(file)
-		return z;
-	} catch (e) {
-		var z = base64.encode(file)
-		return z;
-	}
-}
