@@ -11,7 +11,7 @@
 * The file is encrypted to don't get a bug issue about the binary files encryption
 */
 
-var fileEncryption= function(file, cek)
+var fileEncryption = function(file, cek)
 {
 	var cek = sjcl.codec.base64.toBits(cek);
 	var aDATA = sjcl.random.randomWords(1);
