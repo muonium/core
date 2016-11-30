@@ -10,10 +10,10 @@ var cekEncryption = function(passphrase, cek)
 {
 	var cek = base64.decode(cek)
 	var passphrase = base64.decode(passphrase)
-	var aDATA = sjcl.random.randomWords(3);
+	var aDATA = sjcl.random.randomWords(1);
 	var aDATA = sjcl.codec.base64.fromBits(aDATA);
 	var encryptedCEK = sjcl.encrypt(passphrase, cek,{
-		mode:'gcm', ks:256, ts:128, iter:2048, adata:aDATA
+		mode:'gcm', ks:256, ts:128, iter:2000, adata:aDATA
 	});
 	var encryptedCEK = base64.encode(encryptedCEK);
 	return encryptedCEK;
