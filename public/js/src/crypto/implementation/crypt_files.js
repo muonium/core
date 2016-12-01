@@ -20,13 +20,16 @@ var fileEncryption = function(file, cek)
 		mode:'gcm', iter:2000, ks:256, ts:128, adata:aDATA
 	});
 	return cipheredFile;
+	/*
+	* SJCL returns a JSON
+	*/
 }
 
 
 /*
 * @name: fileDecryption()
 * @description: decrypt the file after being downloaded
-* @params: file, cek (cek is a bits array)
+* @params: file (have to be the JSON returned by the encryption function), cek (cek is a bits array)
 * @dependencies: base64.js
 */
 var fileDecryption = function(file, cek)

@@ -15,7 +15,7 @@ var cekEncryption = function(passphrase, cek)
 	var encryptedCEK = sjcl.encrypt(passphrase, cek,{
 		mode:'gcm', ks:256, ts:128, iter:2000, adata:aDATA
 	});
-	var encryptedCEK = base64.encode(encryptedCEK)
+	var encryptedCEK = base64.encode(encryptedCEK); //return base64 encoded
 	return encryptedCEK;
 }
 
@@ -27,9 +27,9 @@ var cekEncryption = function(passphrase, cek)
 */
 var cekDecryption = function(passphrase, cek)
 {
-	var decryptedCEK = base64.decode(cek);
-	var passphrase = base64.decode(passphrase);
+	var decryptedCEK = base64.decode(cek); //decode it because the CEK is b64 encoded in a cookie
+	var passphrase = base64.decode(passphrase); //same
 	var decryptedCEK = sjcl.decrypt(passphrase, decryptedCEK);
-	var decryptedCEK = sjcl.codec.base64.fromBits(decryptedCEK)
+	var decryptedCEK = sjcl.codec.base64.fromBits(decryptedCEK); //return b64 encoded
 	return decryptedCEK;
 }
