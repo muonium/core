@@ -84,7 +84,7 @@
         "bruteforceErr1": "Warning: following a large number of requests from you, you have only 3 attempts still",
         "bruteforceErr2": "You reached the maximum allowed number of requests.",
         "subject": "Muonium - Account validation",
-        "message": "Welcome to Muonium !<br />To validate your account, follow this link : <a href='https://muonium.ch/core/Validate/Key/[id_user]/[key]'>https://muonium.ch/core/Validate/Key/[id_user]/[key]</a><br />Best regards,<br />Muonium Team<br /><br />This email was automatically generated, please do not answer."
+        "message": "Welcome to Muonium !<br />To validate your account, follow this link : <a href='https://photon.muonium.ch/neutron/Validate/Key/[id_user]/[key]'>https://photon.muonium.ch/neutron/Validate/Key/[id_user]/[key]</a><br />Best regards,<br />Muonium Team<br /><br />This email was automatically generated, please do not answer."
     },
 
     "Login": {
@@ -98,7 +98,7 @@
         "expired": "The code is expired, please login again",
         "invalidCode": "The code entered is invalid",
         "username": "Email or login",
-        "doubleAuth": "A mail with an authentification code was sent to you. Copy this code in the field above.<br />If you received nothing from now until 5 mn and the mail is not in the Spam folder, please follow this <a href='https://muonium.ch/core/Logout'>link</a> to perform a new connection attempt."
+        "doubleAuth": "A mail with an authentification code was sent to you. Copy this code in the field above.<br />If you received nothing from now until 5 mn and the mail is not in the Spam folder, please follow this <a href='https://photon.muonium.ch/neutron/Logout'>link</a> to perform a new connection attempt."
     },
 
     "Validate": {
@@ -134,7 +134,7 @@
         "errmessage": "Error : The validation key is wrong or it expired, please <a href='LostPass'>make a new request</a> and retype your username or email.",
         "user": "Your email or your username",
         "subject": "Muonium - Forgot your password",
-        "message": "Hi,<br />To update your password or passphrase, please follow this link : <a href='https://muonium.ch/core/LostPass/Key/[id_user]/[key]'>https://muonium.ch/core/LostPass/Key/[id_user]/[key]</a><br />Best regards,<br />Muonium Team.<br /><br />This email was automatically generated, please do not answer.",
+        "message": "Hi,<br />To update your password or passphrase, please follow this link : <a href='https://photon.muonium.ch/photon/LostPass/Key/[id_user]/[key]'>https://photon.muonium.ch/neutron/LostPass/Key/[id_user]/[key]</a><br />Best regards,<br />Muonium Team.<br /><br />This email was automatically generated, please do not answer.",
         "reset": "Warning ! If you change your passphrase, your account will be resetted and you will loose all your data !"
     },
 

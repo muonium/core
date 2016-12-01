@@ -1,0 +1,164 @@
+{
+    "Global": {
+        "home": "Home",
+        "register": "Registrati",
+        "back": "Torna a Muonium",
+        "favorites": "Preferiti",
+        "login": "Login",
+        "notready": "L'interfaccia non è ancora pronta",
+        "recents": "Recenti",
+        "sharing": "Condivisione",
+        "transfer": "Trasferimento",
+        "user": "Desktop",
+        "validate": "Convalida email",
+        "refresh": "Aggiorna",
+        "profile": "Profilo",
+        "mail_sent": "Ti è stata inviata una mail, per favore controlla la tua casella di posta e lo spam. Se dopo 5 minuti non hai ricevuto nulla, riprova:",
+        "submit": "Invia",
+        "bug": "Invia un bug report",
+        "loading": "Caricamento..."
+    },
+
+    "UserMenu": {
+        "bug": "Bug",
+        "help": "Aiuto",
+        "settings": "Impostazioni",
+        "profile": "Profilo",
+        "logout": "Logout"
+    },
+
+    "Toolbar": {
+        "recents": "Recenti",
+        "favorites": "Preferiti",
+        "general": "Generale",
+        "shared": "Condivisi",
+        "transfers": "Trasferimenti"
+    },
+
+    "Error": {
+        "e404": "Errore: pagina non trovata",
+        "default": "É stato riscontrato un errore",
+        "form": "Errore nel form",
+        "pp": "La modifica della frase di sicurezza al momento non è disponibile",
+        "bannedSession": "Hai raggiunto il numero massimo di richieste consentite"
+    },
+
+    "User": {
+        "lastmod": "Ultima modifica",
+        "loaded": "Caricato in",
+        "folder": "Nome cartella",
+        "questiond": "Desideri rimuovere questa cartella?",
+        "questionf": "Desideri rimuovere questo file?",
+        "questionrm": "Desideri rimuovere questi files/cartelle?",
+        "trash_0": "Guarda il cestino",
+        "trash_1": "Esci dal cestion",
+        "path": "Percorso"
+    },
+
+    "Register": {
+        "email": "Indirizzo email",
+        "login": "Username",
+        "password": "Password",
+        "confirm": "Conferma",
+        "passphrase": "Frase di sicurezza",
+        "doubleAuth": "Vuoi attivare la doppia autenticazione?",
+        "alreadyregistered": "Già registrato?",
+        "impossible": "Registrazione impossibile al momento",
+        "ok": "Registrazione completata!",
+        "mailExists": "Il tuo indirizzo mail è già presente nel nostro database. Impossibile creare un account con questo indirizzo.",
+        "loginExists": "Il tuo username è già presente nel nostro database. Impossibile creare un account con questo username.",
+        "badPassConfirm": "Le password non corrispondono.",
+        "badPassphraseConfirm": "Le frasi di sicurezza non corrispondono.",
+        "passEqualPassphrase": "La password e la frase di sicurezza devono essere diverse.",
+        "form": "Tutti i campi devono essere compilati.",
+        "passLength": "La password o la frase di sicurezza deve essere di almeno 6 caratteri.",
+        "loginFormat": "Il formato dello username non è corretto (tra 2 e 20 caratteri alfanumerici, -_. consentiti).",
+        "mailFormat": "Il formato email non è corretto.",
+        "error": "Errore durante la creazione dell'account.",
+        "bruteforceErr0": "",
+        "bruteforceErr1": "Attenzione: in seguito a un grosso numero di richieste da parte tua, ti restano solo 3 tentativi",
+        "bruteforceErr2": "Hai raggiunto il limite massimo consentito di richieste.",
+        "subject": "Muonium - Validazione account",
+        "message": "Benvenuto in Muonium !<br />Per convalidare il tuo account, segui questo link: <a href='https://muonium.ch/core/Validate/Key/[id_user]/[key]'>https://muonium.ch/core/Validate/Key/[id_user]/[key]</a><br />Cordiali saluti,<br />il Team Muonium<br /><br />Questa mail è stata generata automaticamente, si prega di non rispondere."
+    },
+
+    "Login": {
+        "forgot": "Dimenticato la password?",
+        "register": "Non sei ancora registrato?",
+        "bruteforceErr0": "Indirizzo mail o password non valida",
+        "bruteforceErr1": "Attenzione: in seguito a un grosso numero di richieste da parte tua, ti restano solo 3 tentativi",
+        "bruteforceErr2": "Hai raggiunto il limite massimo consentito di richieste.",
+        "doubleAuthMessage": "Ciao, il tuo codice di autenticazione è [key]<br />Cordiali saluti,<br />il Team Muonium<br /><br />Questa mail è stata generata automaticamente, si prega di non rispondere.",
+        "codeMail": "Codice ricevuto via mail",
+        "expired": "Il codice è scaduto, ti preghiamo di effettuare nuovamente il login",
+        "invalidCode": "Il codice inserito non è valido",
+        "username": "Email o login",
+        "doubleAuth": "Ti è stata inviata una mail con un codice identificativo. Copia il codice nel campo qui sopra.<br />Se non ricevi nulla entro 5 minuti e la mail non è presente nella tua cartella di spam, <a href='https://muonium.ch/core/Logout'>clicca qui</a> per effettuare un nuovo tentativo di connessione."
+    },
+
+    "Validate": {
+        "message": "Errore: la chiave di convalida è errata, effettua il login per inviare una nuova mail di convalida",
+        "wait": "Ti preghiamo di attendere un minuto prima di inviare una nuova mail di convalida",
+        "sendmess": "Segui il link nella mail per attivare il tuo account",
+        "sendmail": "Invia una nuova mail"
+    },
+
+    "Profile": {
+        "changelogin": "Cambia il mio username",
+        "changepwd": "Cambia la mia password",
+        "changepp": "Cambia la mia frase di sicurezza",
+        "newlogin": "Nuovo username",
+        "oldpwd": "Vecchia password",
+        "newpwd": "NUova password",
+        "oldpp": "Vecchia frase di sicurezza",
+        "newpp": "Nuova frase di sicurezza",
+        "updateErr": "Aggiornamento del tuo profilo fallito",
+        "updateOk": "Il tuo profilo è stato aggiornato con successo",
+        "loginExists": "Questo username è già in uso",
+        "badOldPass": "La tua vecchia password non corrisponde",
+        "badOldPassphrase": "La tua vecchia frase di sicurezza non corrisponde",
+        "getpwd": "Recupero della tua password fallito",
+        "getpp": "Recupero della tua frase di sicurezza fallito",
+        "doubleAuth": "Doppia autenticazione",
+        "warningpp": "Attenzione! Puoi cambiare la tua frase di sicurezza soltanto <strong>2</strong> volte al mese. L'hai già cambiata [count] volte!"
+    },
+
+    "LostPass": {
+        "updateErr": "Impossibile aggiornare le tue informazioni account",
+        "updateOk": "Le tue informazioni account sono state aggiornate con successo",
+        "errmessage": "Errore: The la chiave di convalida è errata o scaduta, ti chiediamo di <a href='LostPass'>effettuare una nuova richiesta</a> e riscrivi il tuo username o la tua email.",
+        "user": "La tua email o il tuo username",
+        "subject": "Muonium - Password dimenticata",
+        "message": "Hi,<br />Per aggiornare la tua password o la frase di sicurezza, segui questo link: <a href='https://muonium.ch/core/LostPass/Key/[id_user]/[key]'>https://muonium.ch/core/LostPass/Key/[id_user]/[key]</a><br />Cordiali saluti,<br />il Team Muonium.<br /><br />Questa mail è stata generata automaticamente, si prega di non rispondere.",
+        "reset": "Attenzione! Se cambi la tua frase di sicurezza, il tuo account sarà azzerato e perderai tutti i tuoi dati!"
+    },
+
+    "RightClick": {
+        "dl": "Download",
+        "rm": "Cancella",
+        "star": "Star",
+        "cut": "Taglia",
+        "copy": "Copia",
+        "paste": "Incolla",
+        "mvLocate": "Sposta in...",
+        "mvItem": "Renomina",
+        "vDetails": "Visualizza dettalgi",
+        "open": "Apri",
+        "nFolder": "Nuova cartella...",
+        "upFiles": "Carica files...",
+        "logOut": "Log out",
+        "trash": "Cestino",
+        "restore": "Ripristina"
+    },
+
+    "Bug": {
+        "os": "Sistema operativo",
+        "other": "Altro (specifica nel messaggio)",
+        "browser": "Browser",
+        "browserVersion": "Versione del browser",
+        "message": "Messaggio",
+        "messageLength": "Il messaggio deve essere di almeno 50 caratteri",
+        "form": "Errore nel form",
+        "sent": "Il tuo messaggio è stato inviato con successo. Ti risponderemo via mail il prima possibile."
+    }
+}
