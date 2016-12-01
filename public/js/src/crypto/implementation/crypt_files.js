@@ -13,9 +13,9 @@
 
 var fileEncryption = function(file, cek)
 {
-	var cek = sjcl.codec.base64.toBits(cek);
-	var aDATA = sjcl.random.randomWords(1);
-	var aDATA = sjcl.codec.base64.fromBits(aDATA);
+	var cek = base64.decode(cek); //decode the cek stored in a cookie
+	var aDATA = sjcl.random.randomWords(1); //generate the authentification tag, returns a bits array
+	var aDATA = sjcl.codec.hex.fromBits(aDATA); //encode the bit array to get a hex string
 	var cipheredFile = sjcl.encrypt(cek, file,{
 		mode:'gcm', iter:2000, ks:256, ts:128, adata:aDATA
 	});
@@ -29,13 +29,12 @@ var fileEncryption = function(file, cek)
 /*
 * @name: fileDecryption()
 * @description: decrypt the file after being downloaded
-* @params: file (have to be the JSON returned by the encryption function), cek (cek is a bits array)
+* @params: file (have to be the JSON returned by the encryption function), cek (is a string)
 * @dependencies: base64.js
 */
 var fileDecryption = function(file, cek)
 {
-	var cek = sjcl.codec.base64.toBits(cek);
+	var cek = base64.decode(cek); //decoding of the CEK, to use it as a bits array of 256 bits
 	var decryptedFile = sjcl.decrypt(cek, file);
-	var decryptedFile = base64.decode(file);
 	return decryptedFile;
 }
