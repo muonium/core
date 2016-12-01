@@ -46,9 +46,9 @@
                 <input type="submit" value="<?php echo_h($this->txt->Global->register); ?>" onclick="sendRegisterRequest()"/>
             </div>
 
-            <div id="return">
+            <!--<div id="return">
                 <p class="error"><?php echo_h($this->txt->Register->impossible); ?> :)</p>
-            </div>
+            </div>-->
         </section>
 </body>
 <?php
