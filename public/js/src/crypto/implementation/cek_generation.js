@@ -14,6 +14,6 @@ var cekGeneration = function(passphrase)
 	var contentEncryptionKey = sjcl.codec.base64.fromBits(contentEncryptionKey); //convert the key as a b64 encoded string to get the CEK we want
 	console.log("CEK generated!\n\
 	More details about the cryptography implementation at https://github.com/muonium/core/wiki/Crypto-details");
-	var contentEncryptionKey = base64.encode(contentEncryptionKey); //convert it because cekEncryption() ask it
+	var contentEncryptionKey = base64.encode(contentEncryptionKey); //convert it one more time because cekEncryption() askes it
 	return cekEncryption(passphrase, contentEncryptionKey); //cekEncryption() come from js/implementation/crypt_cek.js
 }
