@@ -9,7 +9,7 @@
     $_t->addCss("home_global");
     $_t->addCss("Register/home_register");
 	$_t->addJS("src/crypto/sjcl");
-	$_t->addJS("src/crypto/implementation/cek_generation")
+	$_t->addJS("src/crypto/implementation/cek_generation");
     $_t->addJs("base64");
     $_t->addJs("sha512");
     $_t->addJs("mui_hash");
@@ -46,9 +46,9 @@
                 <input type="submit" value="<?php echo_h($this->txt->Global->register); ?>" onclick="sendRegisterRequest()"/>
             </div>
 
-            <!--<div id="return">
-                <p class="error"><?php echo_h($this->txt->Register->impossible); ?> :)</p>
-            </div>-->
+            <div id="return">
+                <p class="error"><?php //echo_h($this->txt->Register->impossible); ?></p>
+            </div>
         </section>
 </body>
 <?php
