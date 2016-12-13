@@ -59,7 +59,8 @@ Your code must be tested before to be merged in the master branch.
 - CEK and passphrase are base64 encoded in a cookie, you have to decode it internally to use them
 
 ## More precisely
-- cloud.sql is the current database structure
+- cloud.sql is the current database structure (relational database, we plan to move to a NoSQL database)
+![database structure](http://image.noelshack.com/fichiers/2016/50/1481576596-mui.png)
 
 - For the PHP side, we use a MVC architecture :
     - Controllers (application/controllers) : Filename must be the same as class name inside this file (one class per file).
