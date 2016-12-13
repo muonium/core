@@ -5,11 +5,11 @@
         "back": "Back to Muonium",
         "favorites": "Favorites",
         "login": "Login",
-        "notready": "The interface is not ready yet",
-        "recents": "Recents",
-        "sharing": "Sharing",
-        "transfer": "Transfer",
-        "user": "Desktop",
+        "notready": "Private Beta, welcome to the whales kingdom",
+        "recents": "Mui :: Recents",
+        "sharing": "Mui :: Sharing",
+        "transfer": "Mui :: Transfer",
+        "user": "Mui :: General",
         "validate": "Validate email",
         "refresh": "Refresh",
         "profile": "Profile",
@@ -46,13 +46,18 @@
     "User": {
         "lastmod": "Last modification",
         "loaded": "Loaded in",
-        "folder": "Folder name",
+        "foldername": "Folder name",
         "questiond": "Do you want to remove this folder ?",
         "questionf": "Do you want to remove this file ?",
         "questionrm": "Do you want to remove these files/folders ?",
         "trash_0": "View trash",
         "trash_1": "Exit trash",
-        "path": "Location"
+        "path": "Location",
+        "name": "Name",
+        "type": "File type",
+        "size": "Size",
+        "file": "File",
+        "folder": "Folder"
     },
 
     "Register": {
@@ -129,7 +134,7 @@
         "errmessage": "Error : The validation key is wrong or it expired, please <a href='LostPass'>make a new request</a> and retype your username or email.",
         "user": "Your email or your username",
         "subject": "Muonium - Forgot your password",
-        "message": "Hi,<br />To update your password or passphrase, please follow this link : <a href='https://photon.muonium.ch/photon/LostPass/Key/[id_user]/[key]'>https://photon.muonium.ch/neutron/LostPass/Key/[id_user]/[key]</a><br />Best regards,<br />Muonium Team.<br /><br />This email was automatically generated, please do not answer.",
+        "message": "Hi,<br />To update your password or passphrase, please follow this link : <a href='https://photon.muonium.ch/neutron/LostPass/Key/[id_user]/[key]'>https://photon.muonium.ch/neutron/LostPass/Key/[id_user]/[key]</a><br />Best regards,<br />Muonium Team.<br /><br />This email was automatically generated, please do not answer.",
         "reset": "Warning ! If you change your passphrase, your account will be resetted and you will loose all your data !"
     },
 

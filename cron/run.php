@@ -19,7 +19,7 @@ class cron {
 	private $_inactiveUserMailDelay = 150;
 
 	function __construct() {
-		self::$_sql = new PDO('mysql:host='.confDB::hostDefaut.';dbname='.confDB::bddDefaut,confDB::userDefaut,confDB::passDefaut);
+		self::$_sql = new PDO('mysql:host='.confDB::host.';dbname='.confDB::db,confDB::user,confDB::password);
 		$this->_mail = new Mail();
 	}
 

@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.5.1
+-- version 4.5.4.1
 -- http://www.phpmyadmin.net
 --
--- Host: 127.0.0.1
--- Generation Time: Oct 08, 2016 at 03:19 PM
+-- Host: localhost
+-- Generation Time: Dec 12, 2016 at 10:07 PM
 -- Server version: 5.7.11
--- PHP Version: 5.6.19
+-- PHP Version: 5.6.18
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -93,6 +93,7 @@ CREATE TABLE `users` (
   `registration_date` int(11) NOT NULL,
   `last_connection` int(11) NOT NULL,
   `passphrase` varchar(128) NOT NULL,
+  `cek` varchar(330) NOT NULL,
   `double_auth` tinyint(1) NOT NULL,
   `auth_code` varchar(8) NOT NULL,
   `pp_counter` tinyint(1) NOT NULL

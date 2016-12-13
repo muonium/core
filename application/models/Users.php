@@ -12,9 +12,10 @@ class Users extends l\Model {
             5   registration_date   int(11)
             5   last_connection     int(11)
             6   passphrase          varchar(128)
-            7   double_auth         tinyint(1)      => 0 : Double auth not available for this user
-            8   auth_code           varchar(8)      => 1 : Double auth available for this user
-            9   pp_counter          tinyint(1)      => passphrase changes counter, resetted to 0 every month. max value : 3 (delete user's files)
+            7   cek                 varchar(330)
+            8   double_auth         tinyint(1)      => 0 : Double auth not available for this user
+            9   auth_code           varchar(8)      => 1 : Double auth available for this user
+            10  pp_counter          tinyint(1)      => passphrase changes counter, resetted to 0 every month. max value : 3 (delete user's files)
         */
 
         protected $id;
@@ -22,6 +23,7 @@ class Users extends l\Model {
         protected $password;
         protected $email;
         protected $passphrase;
+		protected $cek;
         protected $doubleAuth = 0;
         protected $code;
         protected $pp_counter = 0;
@@ -162,8 +164,8 @@ class Users extends l\Model {
 
         function Insertion() {
             // $this->password must be encrypted !
-            $req = self::$_sql->prepare("INSERT INTO users VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, '', '0')");
-            $ret = $req->execute(array($this->login, $this->password, $this->email, time(), time(), $this->passphrase, $this->doubleAuth));
+            $req = self::$_sql->prepare("INSERT INTO users VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, '', '0')");
+            $ret = $req->execute(array($this->login, $this->password, $this->email, time(), time(), $this->passphrase, '', $this->doubleAuth));
             return $ret;
         }
 

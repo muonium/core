@@ -5,10 +5,24 @@
 	* @authors         : Romain Claveau <romain.claveau@protonmail.ch>, Dylan Clement <dylanclement7@protonmail.ch>
 	*/
     use \library\MVC as l;
-    $_t = new l\Template($this->txt->Global->profile);
+    $_t = new l\Template($this->txt->Global->user);
     $_t->addCss("home_global");
     $_t->addCss("Interface/new_design");
     $_t->addCss("Interface/box");
+
+	// JS Modules
+	$_t->addJs("Interface/modules/Arrows");
+	$_t->addJs("Interface/modules/Box");
+	$_t->addJs("Interface/modules/ExtIcons");
+	$_t->addJs("Interface/modules/Favorites");
+	$_t->addJs("Interface/modules/Files");
+	$_t->addJs("Interface/modules/Folders");
+	$_t->addJs("Interface/modules/Move");
+	$_t->addJs("Interface/modules/Rm");
+	$_t->addJs("Interface/modules/Selection");
+	$_t->addJs("Interface/modules/Trash");
+	$_t->addJs("Interface/modules/Upload");
+
     $_t->addJs("Interface/Request");
     $_t->addJs("Interface/interface");
     $_t->getHeader();
@@ -16,13 +30,7 @@
 <body onload="UserLoader()">
         <header>
             <div id="logo"></div>
-            <div id="user">
-                <p><img src="<?php echo MVC_ROOT; ?>/public/pictures/header/bug.svg" /><br /><?php echo_h($this->txt->UserMenu->bug); ?></p>
-                <p><img src="<?php echo MVC_ROOT; ?>/public/pictures/header/help.svg" /><br /><?php echo_h($this->txt->UserMenu->help); ?></p>
-                <p><img src="<?php echo MVC_ROOT; ?>/public/pictures/header/settings.svg" /><br /><?php echo_h($this->txt->UserMenu->settings); ?></p>
-                <p><a href="<?php echo MVC_ROOT; ?>/Profile"><img src="<?php echo MVC_ROOT; ?>/public/pictures/header/user.svg" /><br /><?php echo_h($this->txt->UserMenu->profile); ?></a></p>
-                <p><a href="<?php echo MVC_ROOT; ?>/Logout"><img src="<?php echo MVC_ROOT; ?>/public/pictures/header/user.svg" /><br /><?php echo_h($this->txt->UserMenu->logout); ?></a></p>
-            </div>
+            <?php $_t->getRegisteredMenu($this->txt->UserMenu); ?>
         </header>
 
         <section id="language">

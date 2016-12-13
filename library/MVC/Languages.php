@@ -4,16 +4,17 @@ namespace library\MVC;
 class Languages {
     // This class is called by all controllers (with "extends")
     // It allows to use different languages
-    
+
     // $txt contains user language json
     public $txt;
-        
+
     protected $userLanguage = DEFAULT_LANGUAGE;
-        
+
     // Available languages
     protected $languages = array(
         array('en', 'English'),
         array('fr', 'Français'),
+        array('it', 'Italiano'),
         array('ru', 'Русский')
     );
 
@@ -22,7 +23,7 @@ class Languages {
     {
         // Get user language
         $_json = file_get_contents(DIR_LANGUAGE.$this->userLanguage.".json");
-        
+
         if(!empty($_COOKIE['lang'])) {
             if(file_exists(DIR_LANGUAGE.htmlentities($_COOKIE['lang']).".json")) {
 				$_json = file_get_contents(DIR_LANGUAGE.htmlentities($_COOKIE['lang']).".json");
@@ -31,7 +32,7 @@ class Languages {
         }
         $this->txt = json_decode($_json);
     }
-		
+
     // Generate a language selector (select)
     function getLanguageSelector()
     {
@@ -44,11 +45,11 @@ class Languages {
         }
         echo '</select>';
     }
-    
+
     public function __get($attr) {
         return $this->$attr;
     }
-    
+
     public function __set($attr, $val) {
         $this->$attr = $val;
     }

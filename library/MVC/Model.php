@@ -8,7 +8,7 @@ class Model {
     protected static $_sql;
 
     function __construct() {
-        self::$_sql = new \PDO('mysql:host='.conf\confDB::hostDefaut.';dbname='.conf\confDB::bddDefaut,conf\confDB::userDefaut,conf\confDB::passDefaut);
+        self::$_sql = new \PDO('mysql:host='.conf\confDB::host.';dbname='.conf\confDB::db,conf\confDB::user,conf\confDB::password);
         self::$_sql->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
         self::$_sql->setAttribute(\PDO::ATTR_EMULATE_PREPARES, false);
     }

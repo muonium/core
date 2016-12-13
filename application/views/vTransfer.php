@@ -9,6 +9,20 @@
     $_t->addCss("home_global");
     $_t->addCss("Interface/new_design");
     $_t->addCss("Interface/box");
+
+	// JS Modules
+	$_t->addJs("Interface/modules/Arrows");
+	$_t->addJs("Interface/modules/Box");
+	$_t->addJs("Interface/modules/ExtIcons");
+	$_t->addJs("Interface/modules/Favorites");
+	$_t->addJs("Interface/modules/Files");
+	$_t->addJs("Interface/modules/Folders");
+	$_t->addJs("Interface/modules/Move");
+	$_t->addJs("Interface/modules/Rm");
+	$_t->addJs("Interface/modules/Selection");
+	$_t->addJs("Interface/modules/Trash");
+	$_t->addJs("Interface/modules/Upload");
+	
     $_t->addJs("Interface/Request");
 	$_t->addJs("Interface/interface");
     $_t->getHeader();
@@ -16,12 +30,7 @@
 <body>
         <header>
             <div id="logo"></div>
-            <div id="user">
-                <p><img src="<?php echo MVC_ROOT; ?>/public/pictures/header/bug.svg" /><br /><?php echo_h($this->txt->UserMenu->bug); ?></p>
-                <p><img src="<?php echo MVC_ROOT; ?>/public/pictures/header/help.svg" /><br /><?php echo_h($this->txt->UserMenu->help); ?></p>
-                <p><img src="<?php echo MVC_ROOT; ?>/public/pictures/header/settings.svg" /><br /><?php echo_h($this->txt->UserMenu->settings); ?></p>
-                <p><img src="<?php echo MVC_ROOT; ?>/public/pictures/header/user.svg" /><br /><?php echo_h($this->txt->UserMenu->profile); ?></p>
-            </div>
+            <?php $_t->getRegisteredMenu($this->txt->UserMenu); ?>
     </header>
 
         <section id="language">

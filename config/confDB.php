@@ -1,10 +1,9 @@
 <?php
 namespace config;
-
+// Class used for database connection configuration
 class confDB {
-	const identDefaut = "muonium";
-	const hostDefaut = "127.0.0.1";
-	const userDefaut = "root";
-	const passDefaut = "";
-	const bddDefaut = "cloud";
+	const host = "127.0.0.1";
+	const user = "root";
+	const password = "root";
+	const db = "cloud";
 };
