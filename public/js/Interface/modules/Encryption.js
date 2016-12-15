@@ -6,6 +6,8 @@ var Encryption = (function() {
 	var CEK = 'password'; // for tests
 	var target = 'User';
 	var folder_id;
+	var j = 0; // Number of chunks read
+	var k = 0; // Number of chunks written
 
 	var errorHandler = function(e) {
 		console.log("Error");
@@ -46,38 +48,44 @@ var Encryption = (function() {
 		read : function(f) {
 			folder_id = Folders.id;
 			Time.start();//
-    		var j = 0;
-    		console.log('File size : '+f.files[0].size);
-    		console.log('File name : '+f.files[0].name);
+    		j = 0; k = 0;
+    		console.log('File size : '+f.size);
+    		console.log('File name : '+f.name);
 
-		    parseFile(f.files[0], {
+		    Encryption.parseFile(f, {
 		        binary: true,
 		        chunk_size: chunkSize,
 		        success: function(i) {
-					// Done, write "EOF" at the end of file
-					var xhr = new XMLHttpRequest();
-				    xhr.open("POST", target+'/writeChunk', true);
-				    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+					// Waiting end of the uploading process
+		            var timer = setInterval(function() {
+		                console.log("Waiting...");
+		                if(k >= j) {
+							// Done, write "EOF" at the end of file
+		                    clearInterval(timer);
 
-				    xhr.onreadystatechange = function() {
-				        if(xhr.status == 200 && xhr.readyState == 4) {
-				            //console.log(xhr.responseText);
-				        }
-				    }
-				    xhr.send("filename="+f.files[0].name+"&data=EOF&folder_id"+folder_id);
-					//
-		            Time.stop();//
-		    		console.log("Split + encryption : "+Time.elapsed()+" ms");//
-		            console.log("Splitted in "+j+" chunks !");
+							var xhr = new XMLHttpRequest();
+						    xhr.open("POST", target+'/writeChunk', true);
+						    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+						    xhr.onreadystatechange = function() {
+						        if(xhr.status == 200 && xhr.readyState == 4) {
+									Time.stop();//
+									console.log("Split + encryption : "+Time.elapsed()+" ms");//
+									console.log("Splitted in "+j+" chunks !");
+						        }
+						    }
+						    xhr.send("filename="+f.name+"&data=EOF&folder_id="+folder_id);
+		                }
+		            }, 1000);
 		        },
 		        chunk_read_callback: function(chk) {
 		            // Reading a chunk
+					j++;
 		            chk = new Uint8Array(chk);
 		            chk = Encryption.toBitArrayCodec(chk);
 		            chk = sjcl.codec.base64.fromBits(chk);
-		            var chk_length = Encryption.encryptChk(f.files[0].name, chk);
+		            var chk_length = Encryption.encryptChk(f.name, chk);
 		            console.log('Part '+j+' size : '+chk_length);
-		            j++;
 		        },
 		        error_callback: errorHandler
 		    });
@@ -137,10 +145,11 @@ var Encryption = (function() {
 
 		    xhr.onreadystatechange = function() {
 		        if(xhr.status == 200 && xhr.readyState == 4) {
-		            //console.log(xhr.responseText);
+					k++;
+		            //console.log('encryptChk response : '+xhr.responseText);
 		        }
 		    }
-		    xhr.send("filename="+filename+"&data="+encodeURIComponent(s)+"&folder_id"+folder_id);
+		    xhr.send("filename="+filename+"&data="+encodeURIComponent(s)+"&folder_id="+folder_id);
 		    return s.length;
 		}
 	}

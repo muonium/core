@@ -120,7 +120,7 @@ class User extends l\Languages {
 					$filepath = NOVA.'/'.$_SESSION['id'].'/'.$path.$filename;
 					$filestatus = $this->fileStatus($filepath);
 					$_SESSION['upload'][$folder_id]['files'][$filename] = $filestatus;
-
+					
 					if($filestatus == 2) {
 						// The file is complete, replace it ?
 						// TODO action

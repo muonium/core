@@ -1,7 +1,7 @@
 // Upload module. Loaded in window.onload()
 var Upload = (function() {
     // Private
-    //var xhr_upload = new Array();
+    var xhr_upload = new Array();
     var filesUploaded = 0; // Number of files uploaded
 
     // Public
@@ -12,32 +12,34 @@ var Upload = (function() {
 
         abort : function(i) {
             document.querySelector("#div_upload"+i).style.display = 'none';
-            /*xhr_upload[i].abort();
+            xhr_upload[i].abort();
             console.log("aborted "+i);
-            filesUploaded++;*/
+            filesUploaded++;
         },
 
         upFiles : function(files) {
+            // Upload multiple files function
+            xhr_upload = new Array();
             // To change ?
             document.querySelector("#progress").innerHTML = ' ';
             // Loop through each of the selected files.
             for(var i=0;i<files.length;i++) {
-                //document.querySelector("#progress").innerHTML += '<div id="div_upload'+i+'"><button onclick="Upload.abort('+i+')">X</button> <span id="span_upload'+i+'"></span></div>';
-				Encryption.read(files[i]);
+                document.querySelector("#progress").innerHTML += '<div id="div_upload'+i+'"><button onclick="Upload.abort('+i+')">X</button> <span id="span_upload'+i+'"></span></div>';
+                Upload.upFile(files[i], i);
             }
 
             // Waiting end of the uploading process
-            /*var timer = setInterval(function() {
+            var timer = setInterval(function() {
                 console.log("waiting...");
                 if(filesUploaded >= files.length) {
                     document.querySelector("#progress").innerHTML = ' ';
                     clearInterval(timer);
                     Folders.open(Folders.id);
                 }
-            }, 1000);*/
+            }, 1000);
         },
 
-        /*upFile : function(file, i) {
+        upFile : function(file, i) {
             // Upload a file
             // Create a new FormData object.
             var formData = new FormData();
@@ -64,6 +66,6 @@ var Upload = (function() {
                 }
             };
             xhr_upload[i].send(formData);
-        }*/
+        }
     }
 });
