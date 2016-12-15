@@ -4,8 +4,9 @@
 var Decryption = (function() {
 	// Private
 	var chunkSize = 1024 * 1024; // Size of one chunk in B
-	var CEK = 'password';
+	var CEK = 'password'; // for tests
 	var target = 'User';
+	var folder_id;
 
 	var smallQuota = 1024*1024;
 	var largeQuota = 1024*1024*1024*100;
@@ -38,10 +39,11 @@ var Decryption = (function() {
 		},
 
 		getNbChunks : function() {
+			folder_id = Folders.id;
     		Time.start();//
 		    if(document.querySelector("#decrypt").value.length > 0) { // TODO : edit this line
 		        var xhr = new XMLHttpRequest();
-		        xhr.open("POST", target, true);
+		        xhr.open("POST", target+'/getNbChunks', true);
 		        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
 		        xhr.onreadystatechange = function() {
@@ -53,7 +55,7 @@ var Decryption = (function() {
 		                }
 		            }
 		        }
-		        xhr.send("filename="+document.querySelector("#decrypt").value); // TODO : edit this line
+		        xhr.send("filename="+document.querySelector("#decrypt").value+"&folder_id="+folder_id); // TODO : edit this line
 		    }
 		},
 
@@ -64,7 +66,7 @@ var Decryption = (function() {
 
 		    console.log("Decrypting chunk "+(line+1));
 		    var xhr = new XMLHttpRequest();
-		    xhr.open("POST", target, true);
+		    xhr.open("POST", target+'/getChunk', true);
 		    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
 		    xhr.onreadystatechange = function() {
@@ -134,7 +136,7 @@ var Decryption = (function() {
 		            }
 		        }
 		    }
-		    xhr.send("filename="+filename+"&line="+line);
+		    xhr.send("filename="+filename+"&line="+line+"&folder_id="+folder_id);
 		},
 
 		requestQuota : function(fc, arg, quota) {

@@ -55,6 +55,162 @@ class User extends l\Languages {
         return true;
     }
 
+	function parseFilename($f) {
+		$f = str_replace("|", "", $f); // | is not allowed
+		if(strlen($f) > 128) // max length 128 chars
+			$f = substr($f, 0, 128);
+		$forbidden = '/\\:*?<>|"';
+		for($i=0;$i<count($forbidden);$i++)
+			if(strpos($f, $forbidden[$i]))
+				return false;
+		return $f;
+	}
+
+	function getUploadFolderPath($folder_id) {
+		// Get the full path of an uploaded file until its folder using SESSION
+		if(isset($_SESSION['upload'][$folder_id]['path']))
+			return $_SESSION['upload'][$folder_id]['path'];
+
+		$this->_modelFolders = new m\Folders();
+		$this->_modelFolders->id_owner = $_SESSION['id'];
+
+		$path = $this->_modelFolders->getFullPath($folder_id);
+		if($path === false || !is_dir(NOVA.'/'.$_SESSION['id'].'/'.$path))
+			return false;
+
+		if($path != '')
+			$path = $path.'/';
+		$_SESSION['upload'][$folder_id]['path'] = $path;
+		return $path;
+	}
+
+	function writeChunkAction() {
+		// SESSION upload contains path for a folder id and its files uploaded during this session but only which doesn't exist or not complete
+		// TODO : Storage management (quota, size stored), insert file in DB
+
+		function write($fpath, $data) {
+			$f = fopen($fpath, "a");
+			if(fwrite($f, $data."\r\n") === false)
+				echo 'error';
+			else
+				echo 'ok';
+			fclose($f);
+		}
+
+		if(isset($_POST['data']) && isset($_POST['filename']) && isset($_POST['folder_id'])) {
+		    // Chunk sent by Ajax
+		    $data = $_POST['data'];
+		    $filename = $this->parseFilename($_POST['filename']);
+			$folder_id = $_POST['folder_id'];
+
+			if($filename !== false && is_numeric($folder_id)) {
+				if(isset($_SESSION['upload'][$folder_id]['files'][$filename])) {
+					// We have already write into this file in this session
+					$filepath = NOVA.'/'.$_SESSION['id'].'/'.$_SESSION['upload'][$folder_id]['path'].$filename;
+					write($filepath, $data);
+				}
+				else {
+					// Write into a new file (which exists or not)
+					$path = $this->getUploadFolderPath($folder_id);
+					if($path === false) {
+						echo 'error';
+						exit;
+					}
+
+					$filepath = NOVA.'/'.$_SESSION['id'].'/'.$path.$filename;
+					$filestatus = $this->fileStatus($filepath);
+					$_SESSION['upload'][$folder_id]['files'][$filename] = $filestatus;
+
+					if($filestatus == 2) {
+						// The file is complete, replace it ?
+						// TODO action
+					}
+					else {
+						// The file doesn't exist or is not complete
+						write($filepath, $data);
+					}
+				}
+
+				if($data === 'EOF' && isset($_SESSION['upload'][$folder_id]['files'][$filename])) {
+					// Remove the file from SESSION upload because the status is now complete
+					unset($_SESSION['upload'][$folder_id]['files'][$filename]);
+				}
+			}
+		}
+	}
+
+	function getChunkAction() {
+		if(isset($_POST['filename']) && isset($_POST['line']) && isset($_POST['folder_id'])) {
+			// Get a chunk with Ajax
+		    $line = $_POST['line'];
+		    $filename = $this->parseFilename($_POST['filename']);
+			$folder_id = $_POST['folder_id'];
+
+			if($filename !== false && is_numeric($folder_id)) {
+				$path = $this->getUploadFolderPath($folder_id);
+				if($path === false) {
+					echo 'error';
+					exit;
+				}
+
+				$filepath = NOVA.'/'.$_SESSION['id'].'/'.$path.$filename;
+
+			    $file = new \SplFileObject($filepath, 'r');
+			    $file->seek($line);
+
+			    echo str_replace("\r\n", "", $file->current());
+			}
+		}
+	}
+
+	function getNbChunksAction() {
+		if(isset($_POST['filename']) && isset($_POST['folder_id'])) {
+		    // Get number of chunks with Ajax
+		    $filename = $this->parseFilename($_POST['filename']);
+			$folder_id = $_POST['folder_id'];
+
+			if($filename !== false && is_numeric($folder_id)) {
+				$path = $this->getUploadFolderPath($folder_id);
+				if($path === false) {
+					echo '0';
+					exit;
+				}
+
+				$filepath = NOVA.'/'.$_SESSION['id'].'/'.$path.$filename;
+
+			    if(file_exists($filepath)) {
+			        $file = new \SplFileObject($filepath, 'r');
+			        $file->seek(PHP_INT_MAX);
+
+					if($file->current() === "EOF\r\n") // A line with "EOF" at the end of the file when the file is complete
+						echo $file->key()-1;
+					else
+						echo $file->key();
+				}
+				else
+					echo '0';
+			}
+			else
+				echo '0';
+		}
+	}
+
+	function fileStatus($f) {
+		// Returns 0 when the file doesn't exist, 1 when it exists and not complete, 2 when it exists and is complete
+		if(file_exists($f)) {
+		    $file = new \SplFileObject($f, 'r');
+		    $file->seek(PHP_INT_MAX);
+
+			if($file->current() === "EOF\r\n") // A line with "EOF" at the end of the file when the file is complete
+				return 2;
+			else
+				return 1;
+		}
+		else
+			return 0;
+	}
+
+	/* Obsolete */
     function UpFilesAction() {
         $uploaded = 0;
         $this->getFolderVars();
@@ -117,7 +273,7 @@ class User extends l\Languages {
             if(strlen($folder) > 64) // max length 64 chars
                 $folder = substr($folder, 0, 64);
 
-            $forbidden = '/\\:*?<>|" ';
+            $forbidden = '/\\:*?<>|"';
 
             $f = 0;
             for($i=0;$i<count($forbidden);$i++) {
@@ -425,6 +581,7 @@ class User extends l\Languages {
         return round(pow(1024, $base - floor($base)), $precision) .' '. $suffixes[floor($base)];
     }
 
+	/* Obsolete */
     function DownloadAction($id) {
         if(!isset($this->_modelFiles)) {
             $this->_modelFiles = new m\Files();

@@ -3,8 +3,9 @@
 var Encryption = (function() {
 	// Private
 	var chunkSize = 1024 * 1024; // Size of one chunk in B
-	var CEK = 'password';
+	var CEK = 'password'; // for tests
 	var target = 'User';
+	var folder_id;
 
 	var errorHandler = function(e) {
 		console.log("Error");
@@ -43,6 +44,7 @@ var Encryption = (function() {
 		},
 
 		read : function(f) {
+			folder_id = Folders.id;
 			Time.start();//
     		var j = 0;
     		console.log('File size : '+f.files[0].size);
@@ -52,10 +54,21 @@ var Encryption = (function() {
 		        binary: true,
 		        chunk_size: chunkSize,
 		        success: function(i) {
-					// Done
+					// Done, write "EOF" at the end of file
+					var xhr = new XMLHttpRequest();
+				    xhr.open("POST", target+'/writeChunk', true);
+				    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+				    xhr.onreadystatechange = function() {
+				        if(xhr.status == 200 && xhr.readyState == 4) {
+				            //console.log(xhr.responseText);
+				        }
+				    }
+				    xhr.send("filename="+f.files[0].name+"&data=EOF&folder_id"+folder_id);
+					//
 		            Time.stop();//
-		    		console.log("split + encryption : "+Time.elapsed()+" ms");//
-		            console.log("splitted in "+j+" parts !");
+		    		console.log("Split + encryption : "+Time.elapsed()+" ms");//
+		            console.log("Splitted in "+j+" chunks !");
 		        },
 		        chunk_read_callback: function(chk) {
 		            // Reading a chunk
@@ -119,7 +132,7 @@ var Encryption = (function() {
 			var s = sjcl.encrypt(CEK, chk, {mode:'gcm', adata:aDATA, iter:2000, ks:256, ts:128} );
 
 		    var xhr = new XMLHttpRequest();
-		    xhr.open("POST", target, true);
+		    xhr.open("POST", target+'/writeChunk', true);
 		    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
 		    xhr.onreadystatechange = function() {
@@ -127,7 +140,7 @@ var Encryption = (function() {
 		            //console.log(xhr.responseText);
 		        }
 		    }
-		    xhr.send("filename="+filename+"&data="+encodeURIComponent(s));
+		    xhr.send("filename="+filename+"&data="+encodeURIComponent(s)+"&folder_id"+folder_id);
 		    return s.length;
 		}
 	}
