@@ -18,9 +18,6 @@ var Decryption = (function() {
 
 	var nb_chk = 0, fname;
 
-	var aDATA = sjcl.random.randomWords(1);
-	var aDATA = sjcl.codec.base64.fromBits(aDATA);
-
 	// API
     window.requestFileSystem  = window.requestFileSystem || window.webkitRequestFileSystem;
 
