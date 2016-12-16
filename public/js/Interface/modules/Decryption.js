@@ -35,10 +35,10 @@ var Decryption = (function() {
 		    return out;
 		},
 
-		getNbChunks : function() {
-			folder_id = Folders.id;
+		getNbChunks : function(filename, f_id) {
     		Time.start();//
-		    if(document.querySelector("#decrypt").value.length > 0) { // TODO : edit this line
+			folder_id = f_id;
+		    if(filename.length > 0) {
 		        var xhr = new XMLHttpRequest();
 		        xhr.open("POST", target+'/getNbChunks', true);
 		        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -48,11 +48,11 @@ var Decryption = (function() {
 		                if(xhr.responseText > 0) {
 		                    nb_chk = xhr.responseText;
 							console.log("File splitted in "+nb_chk+" chunks");
-		                    Decryption.decryptChk(document.querySelector("#decrypt").value, 0); // TODO : edit this line
+		                    Decryption.decryptChk(filename, 0); // TODO : edit this line
 		                }
 		            }
 		        }
-		        xhr.send("filename="+document.querySelector("#decrypt").value+"&folder_id="+folder_id); // TODO : edit this line
+		        xhr.send("filename="+filename+"&folder_id="+folder_id); // TODO : edit this line
 		    }
 		},
 
@@ -74,7 +74,7 @@ var Decryption = (function() {
 		                chk = decodeURIComponent(xhr.responseText);
 		                chk = sjcl.decrypt(CEK, chk);
 		                chk = sjcl.codec.base64.toBits(chk);
-		                chk = fromBitArrayCodec(chk);
+		                chk = Decryption.fromBitArrayCodec(chk);
 		                chk = new Uint8Array(chk);
 
 						// FileSystem API
@@ -93,7 +93,7 @@ var Decryption = (function() {
 												// Chunk written
 		                                        console.log('Chunk '+(line+1)+'/'+nb_chk+' : Write completed.');
 
-		                                        if((line+1) >= nbChunks) {
+		                                        if((line+1) >= nb_chk) {
 													// All chunks are written
 		                                            console.log("Done !");
 		                                            Time.stop();//

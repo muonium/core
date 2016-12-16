@@ -4,15 +4,12 @@ var Files = (function() {
 
 	// Public
 	return {
-		dl : function(file) {
+		dl : function(id) {
 			Box.hide();
-			var id = 0;
-			if(file.length > 1) {
-				id = file.substr(1);
-				if(isNumeric(id)) {
-				    if(file.substr(0, 1) == 'f') {
-				        location.href="User/Download/"+id;
-				    }
+			var f = document.querySelector("#"+id);
+			if(f) {
+				if(f.getAttribute("data-title").length > 0 && f.getAttribute("data-folder").length > 0) {
+					Decryption.getNbChunks(f.getAttribute("data-title"), f.getAttribute("data-folder"));
 				}
 			}
 		},

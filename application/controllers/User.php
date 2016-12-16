@@ -90,7 +90,7 @@ class User extends l\Languages {
 
 		function write($fpath, $data) {
 			$f = fopen($fpath, "a");
-			if(fwrite($f, $data."\r\n") === false)
+			if(fwrite($f, $data) === false)
 				echo 'error';
 			else
 				echo 'ok';
@@ -100,6 +100,8 @@ class User extends l\Languages {
 		if(isset($_POST['data']) && isset($_POST['filename']) && isset($_POST['folder_id'])) {
 		    // Chunk sent by Ajax
 		    $data = $_POST['data'];
+			if($data !== 'EOF')
+				$data = $data."\r\n";
 		    $filename = $this->parseFilename($_POST['filename']);
 			$folder_id = $_POST['folder_id'];
 
@@ -120,7 +122,7 @@ class User extends l\Languages {
 					$filepath = NOVA.'/'.$_SESSION['id'].'/'.$path.$filename;
 					$filestatus = $this->fileStatus($filepath);
 					$_SESSION['upload'][$folder_id]['files'][$filename] = $filestatus;
-					
+
 					if($filestatus == 2) {
 						// The file is complete, replace it ?
 						// TODO action
@@ -182,7 +184,7 @@ class User extends l\Languages {
 			        $file = new \SplFileObject($filepath, 'r');
 			        $file->seek(PHP_INT_MAX);
 
-					if($file->current() === "EOF\r\n") // A line with "EOF" at the end of the file when the file is complete
+					if($file->current() === "EOF") // A line with "EOF" at the end of the file when the file is complete
 						echo $file->key()-1;
 					else
 						echo $file->key();
