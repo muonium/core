@@ -16,6 +16,10 @@ var Encryption = (function() {
 
 	var aDATA = sjcl.random.randomWords(1);
 	var aDATA = sjcl.codec.base64.fromBits(aDATA);
+	
+	var initVector = sjcl.random.randomWords(4);
+	
+	var SALT = sjcl.random.randomWords(2);
 
 	// Public
 	return {
@@ -137,7 +141,7 @@ var Encryption = (function() {
 		},
 
 		encryptChk : function(filename, chk) {
-			var s = sjcl.encrypt(CEK, chk, {mode:'gcm', adata:aDATA, iter:2000, ks:256, ts:128} );
+			var s = sjcl.encrypt(CEK, chk, {mode:'gcm', adata:aDATA, iter:2000, ks:256, ts:128, salt:SALT, iv:initVector} );
 
 		    var xhr = new XMLHttpRequest();
 		    xhr.open("POST", target+'/writeChunk', true);
