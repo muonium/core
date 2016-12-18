@@ -20,10 +20,12 @@ var Upload = (function() {
         upFiles : function(files) {
             // To change ?
             document.querySelector("#progress").innerHTML = ' ';
+			//var up = [];
             // Loop through each of the selected files.
             for(var i=0;i<files.length;i++) {
                 //document.querySelector("#progress").innerHTML += '<div id="div_upload'+i+'"><button onclick="Upload.abort('+i+')">X</button> <span id="span_upload'+i+'"></span></div>';
-				Encryption.read(files[i]);
+				//up.push(new Encryption(files[i], Folders.id));
+				new Encryption(files[i], Folders.id);
             }
 
             // Waiting end of the uploading process
