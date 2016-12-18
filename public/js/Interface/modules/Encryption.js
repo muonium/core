@@ -15,7 +15,6 @@ var Encryption = (function() {
 	};
 
 	var aDATA = sjcl.random.randomWords(1);
-	var aDATA = sjcl.codec.base64.fromBits(aDATA);
 
 	var initVector = sjcl.random.randomWords(4);
 
@@ -87,7 +86,6 @@ var Encryption = (function() {
 					j++;
 		            chk = new Uint8Array(chk);
 		            chk = Encryption.toBitArrayCodec(chk);
-		            chk = sjcl.codec.base64.fromBits(chk);
 		            var chk_length = Encryption.encryptChk(f.name, chk);
 		            console.log('Part '+j+' size : '+chk_length);
 		        },
@@ -141,7 +139,21 @@ var Encryption = (function() {
 		},
 
 		encryptChk : function(filename, chk) {
-			var s = sjcl.encrypt(CEK, chk, {mode:'gcm', adata:aDATA, iter:2000, ks:256, ts:128, salt:SALT, iv:initVector});
+
+			var pack = function(c, s, a, i){ //ciphered_chk, salt, authentification data, initialization vector
+				var c = sjcl.codec.hex.fromBits(ciphered_chk);
+				var s = sjcl.codec.hex.fromBits(SALT);
+				var a = sjcl.codec.hex.fromBits(aDATA);
+				var i = sjcl.codec.hex.fromBits(initVector);
+				var t = c+":"+s+":"+a+":"+i;
+				return t;
+			}
+
+			var key = sjcl.misc.pbkdf2(CEK, SALT, 2000, 256);
+			var enc = new sjcl.cipher.aes(key);
+
+			var s = sjcl.mode.gcm.encrypt(enc, chk, initVector, aDATA, 128);
+			var s = pack(s, SALT, aDATA, initVector);
 
 		    var xhr = new XMLHttpRequest();
 		    xhr.open("POST", target+'/writeChunk', true);

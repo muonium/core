@@ -72,8 +72,18 @@ var Decryption = (function() {
 		                console.log("Got chunk "+(line+1)+" contents");
 
 		                chk = decodeURIComponent(xhr.responseText);
-		                chk = sjcl.decrypt(CEK, chk);
-		                chk = sjcl.codec.base64.toBits(chk);
+
+						var split = chk.split(":");
+						var c = sjcl.codec.hex.toBits(split[0]);
+						var s = sjcl.codec.hex.toBits(split[1]);
+						var a = sjcl.codec.hex.toBits(split[2]);
+						var i = sjcl.codec.hex.toBits(split[3]);
+
+						var key = sjcl.misc.pbkdf2(CEK, s, 2000, 256);
+						var enc = new sjcl.cipher.aes(key);
+
+						chk = sjcl.mode.gcm.decrypt(enc, c, i, a, 128);
+						
 		                chk = Decryption.fromBitArrayCodec(chk);
 		                chk = new Uint8Array(chk);
 
