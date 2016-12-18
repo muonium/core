@@ -75,7 +75,7 @@ var Decryption = (function() {
 
 						var split = chk.split(":");
 						if (split.length !== 4) {
-							throw new sjcl.exception.corrupt("Error :: Incomplete ciphered pack!");
+							throw new sjcl.exception.corrupt("Error :: Incomplete chunk!");
 						}
 						var c = sjcl.codec.hex.toBits(split[0]);
 						var s = sjcl.codec.hex.toBits(split[1]);
