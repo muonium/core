@@ -23,6 +23,8 @@ var Encryption = (function() {
 	var key = sjcl.misc.pbkdf2(CEK, SALT, 2000, 256);
 	var enc = new sjcl.cipher.aes(key);
 
+	var time;
+
 	// Public
 	return {
 		checkAPI : function() {
@@ -53,7 +55,7 @@ var Encryption = (function() {
 
 		read : function(f) {
 			folder_id = Folders.id;
-			Time.start();//
+			time = new Time();
     		j = 0; k = 0;
     		console.log('File size : '+f.size);
     		console.log('File name : '+f.name);
@@ -75,8 +77,8 @@ var Encryption = (function() {
 
 						    xhr.onreadystatechange = function() {
 						        if(xhr.status == 200 && xhr.readyState == 4) {
-									Time.stop();//
-									console.log("Split + encryption : "+Time.elapsed()+" ms");//
+									time.stop();//
+									console.log("Split + encryption : "+time.elapsed()+" ms");//
 									console.log("Splitted in "+j+" chunks !");
 						        }
 						    }
@@ -144,16 +146,16 @@ var Encryption = (function() {
 		encryptChk : function(filename, chk) {
 
 			var pack = function(c, s, a, i){ //ciphered_chk, salt, authentification data, initialization vector
-				var c = sjcl.codec.hex.fromBits(c);
-				var s = sjcl.codec.hex.fromBits(s);
-				var a = sjcl.codec.hex.fromBits(a);
-				var i = sjcl.codec.hex.fromBits(i);
+				var c = sjcl.codec.base64.fromBits(c);
+				var s = sjcl.codec.base64.fromBits(s);
+				var a = sjcl.codec.base64.fromBits(a);
+				var i = sjcl.codec.base64.fromBits(i);
 				var t = c+":"+s+":"+a+":"+i;
 				return t;
 			}
 
 			var s = sjcl.mode.gcm.encrypt(enc, chk, initVector, aDATA, 128);
-			var s = pack(s, SALT, aDATA, initVector);
+			s = pack(s, SALT, aDATA, initVector);
 
 		    var xhr = new XMLHttpRequest();
 		    xhr.open("POST", target+'/writeChunk', true);

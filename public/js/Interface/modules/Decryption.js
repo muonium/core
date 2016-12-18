@@ -18,6 +18,8 @@ var Decryption = (function() {
 
 	var nb_chk = 0, fname;
 
+	var time, time_chunk;
+
 	// API
     window.requestFileSystem  = window.requestFileSystem || window.webkitRequestFileSystem;
 
@@ -36,7 +38,7 @@ var Decryption = (function() {
 		},
 
 		getNbChunks : function(filename, f_id) {
-    		Time.start();//
+			time = new Time();
 			folder_id = f_id;
 		    if(filename.length > 0) {
 		        var xhr = new XMLHttpRequest();
@@ -62,6 +64,7 @@ var Decryption = (function() {
 				line = 0;
 
 		    console.log("Decrypting chunk "+(line+1));
+			time_chunk = new Time();
 		    var xhr = new XMLHttpRequest();
 		    xhr.open("POST", target+'/getChunk', true);
 		    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -69,7 +72,8 @@ var Decryption = (function() {
 		    xhr.onreadystatechange = function() {
 		        if(xhr.status == 200 && xhr.readyState == 4) {
 		            if(xhr.responseText != '') {
-		                console.log("Got chunk "+(line+1)+" contents");
+						time_chunk.stop();
+		                console.log("Got chunk "+(line+1)+" contents in "+time_chunk.elapsed()+" ms");
 
 		                chk = decodeURIComponent(xhr.responseText);
 
@@ -77,10 +81,10 @@ var Decryption = (function() {
 						if (split.length !== 4) {
 							throw new sjcl.exception.corrupt("Error :: Incomplete chunk!");
 						}
-						var c = sjcl.codec.hex.toBits(split[0]);
-						var s = sjcl.codec.hex.toBits(split[1]);
-						var a = sjcl.codec.hex.toBits(split[2]);
-						var i = sjcl.codec.hex.toBits(split[3]);
+						var c = sjcl.codec.base64.toBits(split[0]);
+						var s = sjcl.codec.base64.toBits(split[1]);
+						var a = sjcl.codec.base64.toBits(split[2]);
+						var i = sjcl.codec.base64.toBits(split[3]);
 
 						var key = sjcl.misc.pbkdf2(CEK, s, 2000, 256);
 						var enc = new sjcl.cipher.aes(key);
@@ -109,8 +113,8 @@ var Decryption = (function() {
 		                                        if((line+1) >= nb_chk) {
 													// All chunks are written
 		                                            console.log("Done !");
-		                                            Time.stop();//
-													console.log("decryption + download : "+Time.elapsed()+" ms");//
+		                                            time.stop();//
+													console.log("decryption + download : "+time.elapsed()+" ms");//
 
 													// Try to download the file (move from filesystem to download folder)
 													fname = filename;
