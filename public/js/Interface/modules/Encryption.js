@@ -20,6 +20,9 @@ var Encryption = (function() {
 
 	var SALT = sjcl.random.randomWords(2);
 
+	var key = sjcl.misc.pbkdf2(CEK, SALT, 2000, 256);
+	var enc = new sjcl.cipher.aes(key);
+
 	// Public
 	return {
 		checkAPI : function() {
@@ -148,9 +151,6 @@ var Encryption = (function() {
 				var t = c+":"+s+":"+a+":"+i;
 				return t;
 			}
-
-			var key = sjcl.misc.pbkdf2(CEK, SALT, 2000, 256);
-			var enc = new sjcl.cipher.aes(key);
 
 			var s = sjcl.mode.gcm.encrypt(enc, chk, initVector, aDATA, 128);
 			var s = pack(s, SALT, aDATA, initVector);
