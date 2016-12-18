@@ -59,8 +59,6 @@ var sendRegisterRequest = function()
                 {
                     // success message
                     if(xhr.responseText.substr(0, 3) == "ok@") {
-						//get the CEK from cek_generation.js
-						var cek = cekGeneration(field_passphrase); //the CEK is already encrypted with the user's passphrase by the cekGeneration() function, no encryption needed
                         returnArea.innerHTML = xhr.responseText.substr(3);
                         window.location.href="Home";
                         return false;
@@ -73,8 +71,9 @@ var sendRegisterRequest = function()
             }
         }
 
-		var cek = ''; // @TODO generate CEK
-        xhr.send("mail="+field_mail+"&login="+field_login+"&pass="+mui_hash(field_password)+"&pass_confirm="+mui_hash(field_password_confirm)+"&passphrase="+encodeURIComponent(field_passphrase)+"&passphrase_confirm="+encodeURIComponent(field_passphrase_confirm)+"&doubleAuth="+doubleAuth+"&cek="+cek);
+		var cek_plt = genCek.plt(); //get the cek in plaintext to store it locally
+		var cek_xhr = genCek.enc(cek_plt, field_passphrase); //encrypt the cek to store in the database
+        xhr.send("mail="+field_mail+"&login="+field_login+"&pass="+mui_hash(field_password)+"&pass_confirm="+mui_hash(field_password_confirm)+"&passphrase="+encodeURIComponent(field_passphrase)+"&passphrase_confirm="+encodeURIComponent(field_passphrase_confirm)+"&doubleAuth="+doubleAuth+"&cek="+mui_hash(cek_xhr));
         //xhr.send("mail="+field_mail+"&login="+field_login+"&pass="+mui_hash(field_password)+"&pass_confirm="+mui_hash(field_password_confirm)+"&passphrase="+mui_hash(field_passphrase)+"&passphrase_confirm="+mui_hash(field_passphrase_confirm)+"&doubleAuth="+doubleAuth);
 
     }
