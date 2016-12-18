@@ -145,9 +145,9 @@ var Encryption = (function() {
 
 			var pack = function(c, s, a, i){ //ciphered_chk, salt, authentification data, initialization vector
 				var c = sjcl.codec.hex.fromBits(c);
-				var s = sjcl.codec.hex.fromBits(SALT);
-				var a = sjcl.codec.hex.fromBits(aDATA);
-				var i = sjcl.codec.hex.fromBits(initVector);
+				var s = sjcl.codec.hex.fromBits(s);
+				var a = sjcl.codec.hex.fromBits(a);
+				var i = sjcl.codec.hex.fromBits(i);
 				var t = c+":"+s+":"+a+":"+i;
 				return t;
 			}
