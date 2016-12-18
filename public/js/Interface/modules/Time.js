@@ -4,30 +4,35 @@ var Time = (function() {
 	// Private
 	var s = 0, e = 0;
 
+	// Constructor
+	function Time() {
+		this.start();
+	};
+
 	// Public
-	return {
-		start : function() {
-			s = new Date().getTime();
-		},
+	Time.prototype.start = function() {
+		s = new Date().getTime();
+	};
 
-		stop : function() {
-			e = new Date().getTime();
-		},
+	Time.prototype.stop = function() {
+		e = new Date().getTime();
+	};
 
-		elapsed : function(unit) {
-			var diff = e-s;
-			switch(unit) {
-				case 'ms':
-					return diff;
-				case 'cs':
-					return diff/10;
-				case 'ds':
-					return diff/100;
-				case 's':
-					return diff/1000;
-				default:
-					return diff;
-			}
+	Time.prototype.elapsed = function(unit) {
+		var diff = e-s;
+		switch(unit) {
+			case 'ms':
+				return diff;
+			case 'cs':
+				return diff/10;
+			case 'ds':
+				return diff/100;
+			case 's':
+				return diff/1000;
+			default:
+				return diff;
 		}
-	}
+	};
+
+	return Time;
 });
