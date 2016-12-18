@@ -74,6 +74,9 @@ var Decryption = (function() {
 		                chk = decodeURIComponent(xhr.responseText);
 
 						var split = chk.split(":");
+						if (split.length !== 4) {
+							throw new sjcl.exception.corrupt("Error :: Incomplete ciphered pack!");
+						}
 						var c = sjcl.codec.hex.toBits(split[0]);
 						var s = sjcl.codec.hex.toBits(split[1]);
 						var a = sjcl.codec.hex.toBits(split[2]);
@@ -83,7 +86,7 @@ var Decryption = (function() {
 						var enc = new sjcl.cipher.aes(key);
 
 						chk = sjcl.mode.gcm.decrypt(enc, c, i, a, 128);
-						
+
 		                chk = Decryption.fromBitArrayCodec(chk);
 		                chk = new Uint8Array(chk);
 
