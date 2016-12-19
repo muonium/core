@@ -9,7 +9,7 @@ var Files = (function() {
 			var f = document.querySelector("#"+id);
 			if(f) {
 				if(f.getAttribute("data-title").length > 0 && f.getAttribute("data-folder").length > 0) {
-					Decryption.getNbChunks(f.getAttribute("data-title"), f.getAttribute("data-folder"));
+					new Decryption(f.getAttribute("data-title"), f.getAttribute("data-folder"));
 				}
 			}
 		},

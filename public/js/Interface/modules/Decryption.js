@@ -6,7 +6,6 @@ var Decryption = (function() {
 	var chunkSize = 1024 * 1024; // Size of one chunk in B
 	var CEK = 'password'; // for tests
 	var target = 'User';
-	var folder_id;
 
 	var smallQuota = 1024*1024;
 	var largeQuota = 1024*1024*1024*100;
@@ -16,210 +15,216 @@ var Decryption = (function() {
 		console.log(e);
 	};
 
-	var nb_chk = 0, fname;
-
 	var time, time_chunk;
 
 	// API
-    window.requestFileSystem  = window.requestFileSystem || window.webkitRequestFileSystem;
+	window.requestFileSystem  = window.requestFileSystem || window.webkitRequestFileSystem;
+
+	// Constructor
+	function Decryption(fname, f_id) {
+		this.folder_id = f_id;
+		this.filename = fname;
+		this.nb_chk = 0;
+
+		this.getNbChunks();
+	}
 
 	// Public
-	return {
-		fromBitArrayCodec : function(arr) {
-			/** Convert from a bitArray to an array of bytes. */
-		    var out = [], bl = sjcl.bitArray.bitLength(arr), i, tmp;
-		    for (i=0; i<bl/8; i++) {
-		        if ((i&3) === 0)
-		            tmp = arr[i/4];
-		        out.push(tmp >>> 24);
-		        tmp <<= 8;
-		    }
-		    return out;
-		},
+	Decryption.prototype.fromBitArrayCodec = function(arr) {
+		/** Convert from a bitArray to an array of bytes. */
+		var out = [], bl = sjcl.bitArray.bitLength(arr), i, tmp;
+		for (i=0; i<bl/8; i++) {
+			if ((i&3) === 0)
+				tmp = arr[i/4];
+			out.push(tmp >>> 24);
+			tmp <<= 8;
+		}
+		return out;
+	};
 
-		getNbChunks : function(filename, f_id) {
-			time = new Time();
-			folder_id = f_id;
-		    if(filename.length > 0) {
-		        var xhr = new XMLHttpRequest();
-		        xhr.open("POST", target+'/getNbChunks', true);
-		        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	Decryption.prototype.getNbChunks = function() {
+		var me = this;
 
-		        xhr.onreadystatechange = function() {
-		            if(xhr.status == 200 && xhr.readyState == 4) {
-		                if(xhr.responseText > 0) {
-		                    nb_chk = xhr.responseText;
-							console.log("File splitted in "+nb_chk+" chunks");
-		                    Decryption.decryptChk(filename, 0); // TODO : edit this line
-		                }
-		            }
-		        }
-		        xhr.send("filename="+filename+"&folder_id="+folder_id); // TODO : edit this line
-		    }
-		},
+		time = new Time();
+		if(this.filename.length > 0) {
+			var xhr = new XMLHttpRequest();
+			xhr.open("POST", target+'/getNbChunks', true);
+			xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
-		decryptChk : function(filename, line) {
-			var chk;
-			if(line === undefined)
-				line = 0;
-
-		    console.log("Decrypting chunk "+(line+1));
-			time_chunk = new Time();
-		    var xhr = new XMLHttpRequest();
-		    xhr.open("POST", target+'/getChunk', true);
-		    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-
-		    xhr.onreadystatechange = function() {
-		        if(xhr.status == 200 && xhr.readyState == 4) {
-		            if(xhr.responseText != '') {
-						time_chunk.stop();
-		                console.log("Got chunk "+(line+1)+" contents in "+time_chunk.elapsed()+" ms");
-
-		                chk = decodeURIComponent(xhr.responseText);
-
-						var split = chk.split(":");
-						if (split.length !== 4) {
-							throw new sjcl.exception.corrupt("Error :: Incomplete chunk!");
-						}
-						var c = sjcl.codec.base64.toBits(split[0]);
-						var s = sjcl.codec.base64.toBits(split[1]);
-						var a = sjcl.codec.base64.toBits(split[2]);
-						var i = sjcl.codec.base64.toBits(split[3]);
-
-						var key = sjcl.misc.pbkdf2(CEK, s, 2000, 256);
-						var enc = new sjcl.cipher.aes(key);
-
-						chk = sjcl.mode.gcm.decrypt(enc, c, i, a, 128);
-
-		                chk = Decryption.fromBitArrayCodec(chk);
-		                chk = new Uint8Array(chk);
-
-						// FileSystem API
-		                // We request large quota (100 GB) to avoid storage errors
-						if(window.requestFileSystem === undefined) {
-							console.log("Your web browser is currently not supported by Mui app");
-						}
-						else {
-							window.requestFileSystem(
-								window.PERSISTENT,
-		                        largeQuota,
-		                        function(fs) {
-		                            fs.root.getFile(filename, {create: true}, function(fileEntry) {
-		                                fileEntry.createWriter(function(fileWriter) {
-		                                    fileWriter.onwriteend = function(e) {
-												// Chunk written
-		                                        console.log('Chunk '+(line+1)+'/'+nb_chk+' : Write completed.');
-
-		                                        if((line+1) >= nb_chk) {
-													// All chunks are written
-		                                            console.log("Done !");
-		                                            time.stop();//
-													console.log("decryption + download : "+time.elapsed()+" ms");//
-
-													// Try to download the file (move from filesystem to download folder)
-													fname = filename;
-													if(typeof fileEntry.file === 'function') {
-														fileEntry.file(Decryption.file2url,
-														function() {
-															Decryption.dl(filename, fileEntry.toURL(), true);
-														});
-													}
-													else
-														Decryption.dl(filename, fileEntry.toURL(), true);
-		                                        }
-		                                        else {
-													// Write next chunk
-		                                            Decryption.decryptChk(filename, line+1);
-		                                        }
-		                                    };
-
-											// Write at the end of the file
-		                                    fileWriter.seek(fileWriter.length);
-		                                    var blob = new Blob([chk]);
-		                                    fileWriter.write(blob);
-
-		                                }, errorHandler);
-		                            }, function() {
-										// If we can't write to filesystem, request a quota
-										Decryption.requestQuota(Decryption.decryptChk, filename, largeQuota);
-									});
-		                        },
-		                        errorHandler
-		                    );
-						}
-		            }
-		        }
-		    }
-		    xhr.send("filename="+filename+"&line="+line+"&folder_id="+folder_id);
-		},
-
-		requestQuota : function(fc, arg, quota) {
-			// Usually for Google Chrome
-			console.log("Mui cannot download contents for now. Requesting quota...");
-			if(navigator.webkitPersistentStorage === undefined) {
-				console.log("Your web browser is currently not supported by Mui app");
-			}
-			else {
-				if(quota === undefined)
-					quota = smallQuota;
-
-				navigator.webkitPersistentStorage.requestQuota(
-					quota,
-					function(grantedBytes) {
-						console.log("Allowed quota");
-						fc(arg);
-					},
-					function() {
-						console.log("Denied quota");
+			xhr.onreadystatechange = function() {
+				if(xhr.status == 200 && xhr.readyState == 4) {
+					if(xhr.responseText > 0) {
+						me.nb_chk = xhr.responseText;
+						console.log("File splitted in "+me.nb_chk+" chunks");
+						me.decryptChk(0);
 					}
-				);
+				}
 			}
-		},
+			xhr.send("filename="+this.filename+"&folder_id="+this.folder_id);
+		}
+	};
 
-		file2url : function(file) {
-			file = new File([file], fname);
-			console.log("Creating temp url");
-			Decryption.dl(fname, window.URL.createObjectURL(file));
-		},
+	Decryption.prototype.decryptChk = function(line) {
+		var me = this;
 
-		dl : function(filename, url, feUrl) {
-			console.log("File name : "+filename+", url : "+url);
+		var chk;
+		if(line === undefined)
+			line = 0;
 
-			document.querySelector("#dl_decrypted").href = url;
-		    document.querySelector("#dl_decrypted").download = filename;
-		    document.querySelector("#dl_decrypted").click();
+		console.log("Decrypting chunk "+(line+1));
+		time_chunk = new Time();
+		var xhr = new XMLHttpRequest();
+		xhr.open("POST", target+'/getChunk', true);
+		xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
-			// Once downloaded, remove the file in sandbox
-			Decryption.rm(filename);
+		xhr.onreadystatechange = function() {
+			if(xhr.status == 200 && xhr.readyState == 4) {
+				if(xhr.responseText != '') {
+					time_chunk.stop();
+					console.log("Got chunk "+(line+1)+" contents in "+time_chunk.elapsed()+" ms");
+
+					chk = decodeURIComponent(xhr.responseText);
+
+					var split = chk.split(":");
+					if (split.length !== 4) {
+						throw new sjcl.exception.corrupt("Error :: Incomplete chunk!");
+					}
+					var c = sjcl.codec.base64.toBits(split[0]);
+					var s = sjcl.codec.base64.toBits(split[1]);
+					var a = sjcl.codec.base64.toBits(split[2]);
+					var i = sjcl.codec.base64.toBits(split[3]);
+
+					var key = sjcl.misc.pbkdf2(CEK, s, 2000, 256);
+					var enc = new sjcl.cipher.aes(key);
+
+					chk = sjcl.mode.gcm.decrypt(enc, c, i, a, 128);
+
+					chk = me.fromBitArrayCodec(chk);
+					chk = new Uint8Array(chk);
+
+					// FileSystem API
+					// We request large quota (100 GB) to avoid storage errors
+					if(window.requestFileSystem === undefined) {
+						console.log("Your web browser is currently not supported by Mui app");
+					}
+					else {
+						window.requestFileSystem(
+							window.PERSISTENT,
+							largeQuota,
+							function(fs) {
+								fs.root.getFile(me.filename, {create: true}, function(fileEntry) {
+									fileEntry.createWriter(function(fileWriter) {
+										fileWriter.onwriteend = function(e) {
+											// Chunk written
+											console.log('Chunk '+(line+1)+'/'+me.nb_chk+' : Write completed.');
+
+											if((line+1) >= me.nb_chk) {
+												// All chunks are written
+												console.log("Done !");
+												time.stop();//
+												console.log("decryption + download : "+time.elapsed()+" ms");//
+
+												// Try to download the file (move from filesystem to download folder)
+												if(typeof fileEntry.file === 'function') {
+													fileEntry.file(function(file) {
+															file = new File([file], me.filename);
+															console.log("Creating temp url");
+															me.dl(window.URL.createObjectURL(file));
+														},
+														function() {
+															me.dl(fileEntry.toURL(), true);
+														}
+													);
+												}
+												else
+													me.dl(fileEntry.toURL(), true);
+											}
+											else {
+												// Write next chunk
+												me.decryptChk(line+1);
+											}
+										};
+
+										// Write at the end of the file
+										fileWriter.seek(fileWriter.length);
+										var blob = new Blob([chk]);
+										fileWriter.write(blob);
+
+									}, errorHandler);
+								}, function() {
+									// If we can't write to filesystem, request a quota
+									me.requestQuota(me.decryptChk, me.filename, largeQuota);
+								});
+							},
+							errorHandler
+						);
+					}
+				}
+			}
+		}
+		xhr.send("filename="+this.filename+"&line="+line+"&folder_id="+this.folder_id);
+	};
+
+	Decryption.prototype.requestQuota = function(fc, arg, quota) {
+		// Usually for Google Chrome
+		console.log("Mui cannot download contents for now. Requesting quota...");
+		if(navigator.webkitPersistentStorage === undefined) {
+			console.log("Your web browser is currently not supported by Mui app");
+		}
+		else {
+			if(quota === undefined)
+				quota = smallQuota;
+
+			navigator.webkitPersistentStorage.requestQuota(
+				quota,
+				function(grantedBytes) {
+					console.log("Allowed quota");
+					fc(arg);
+				},
+				function() {
+					console.log("Denied quota");
+				}
+			);
+		}
+	};
+
+	Decryption.prototype.dl = function(url, feUrl) {
+		var me = this;
+		console.log("File name : "+this.filename+", url : "+url);
+
+		document.querySelector("#dl_decrypted").href = url;
+		document.querySelector("#dl_decrypted").download = this.filename;
+		document.querySelector("#dl_decrypted").click();
+
+		// Once downloaded, remove the file in sandbox
+		setTimeout(function() {
+			me.rm(me.filename);
 			if(feUrl === undefined) {
 				console.log("Removing temp url");
-				//window.URL.revokeObjectURL(url);
+				window.URL.revokeObjectURL(url);
 			}
-		},
+		}, 2000);
+	};
 
-		rm : function(filename) {
-			if(filename === undefined) { // TODO update these lines
-				if(document.querySelector("#delete").value.length > 0)
-					var filename = document.querySelector("#delete").value;
-				else
-					return;
-			}
+	Decryption.prototype.rm = function(filename) {
+		var me = this;
 
-		    window.requestFileSystem(
-		        window.PERSISTENT,
-		        smallQuota,
-		        function(fs) {
-		            fs.root.getFile(filename, {create: false}, function(fileEntry) {
-		                fileEntry.remove(function() {
-		                    console.log('File removed.');
-		                }, errorHandler);
-		            }, function() {
-						// If we can't delete to filesystem, request a quota
-						Decryption.requestQuota(Decryption.rm, filename, smallQuota);
-					});
-		        },
-				errorHandler
-		    );
-		}
-	}
+		window.requestFileSystem(
+			window.PERSISTENT,
+			smallQuota,
+			function(fs) {
+				fs.root.getFile(filename, {create: false}, function(fileEntry) {
+					fileEntry.remove(function() {
+						console.log('File removed.');
+					}, errorHandler);
+				}, function() {
+					// If we can't delete to filesystem, request a quota
+					me.requestQuota(me.rm, filename, smallQuota);
+				});
+			},
+			errorHandler
+		);
+	};
+
+	return Decryption;
 });
