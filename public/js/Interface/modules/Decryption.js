@@ -96,7 +96,7 @@ var Decryption = (function() {
 					var i = sjcl.codec.base64.toBits(split[3]);
 
 					if(me.enc === undefined) {
-						console.log("Generating key and derivating it");
+						console.log("Key derivation process...");
 						var key = sjcl.misc.pbkdf2(CEK, s, 2000, 256);
 						me.enc = new sjcl.cipher.aes(key);
 					}
