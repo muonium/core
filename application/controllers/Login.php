@@ -4,7 +4,7 @@ use \library\MVC as l;
 use \application\models as m;
 class Login extends l\Languages {
     private $_message;
-    
+
     function AuthCodeAction() {
         // User sent an auth code
         sleep(1);
@@ -12,7 +12,7 @@ class Login extends l\Languages {
             $this->_message = htmlentities($this->txt->Login->expired);
             require_once(DIR_VIEW."vLogin.php");
         }
-            
+
         elseif(strlen($_POST['code']) != 8) {
             $this->_message = htmlentities($this->txt->Login->invalidCode);
             require_once(DIR_VIEW."vDoubleAuth.php");
@@ -21,15 +21,22 @@ class Login extends l\Languages {
             $brute = new l\AntiBruteforce();
             $brute->setFolder(ROOT.DS."tmp");
             $brute->setNbMaxAttemptsPerHour(50);
-            
+
             $user = new m\Users();
             $user->id = $_SESSION['tmp_id'];
-            
+
             if($user->getDoubleAuth()) {
                 if($code = $user->getCode()) {
                     if($code == $_POST['code']) {
                         // Code is correct
                         $_SESSION['id'] = $_SESSION['tmp_id'];
+
+						$storage = new m\Storage();
+						$storage->id_user = $_SESSION['id'];
+						// getSizeStored() and getUserQuota() initialize session vars about size stored and quota
+						$storage->getSizeStored();
+						$storage->getUserQuota();
+
                         unset($_SESSION['tmp_id']);
                         exit(header('Location: '.MVC_ROOT.'/User'));
                     }
@@ -48,18 +55,18 @@ class Login extends l\Languages {
                 exit(header('Location: '.MVC_ROOT.'/Logout'));
         }
     }
-    
+
     function ConnectionAction() {
         // Sleep during 3s to avoid a big number of requests (bruteforce)
         sleep(2);
         if(!empty($_POST['username']) && !empty($_POST['pass']) && !empty($_POST['passphrase'])) {
             $new_user = new m\Users();
-            
+
             if(filter_var($_POST['username'], FILTER_VALIDATE_EMAIL) === false)
                 $new_user->login = urldecode($_POST['username']);
             else
                 $new_user->email = urldecode($_POST['username']);
-            
+
             $new_user->password = urldecode($_POST['pass']);
             $new_user->passphrase = urldecode($_POST['passphrase']);
             $brute = new l\AntiBruteforce();
@@ -75,14 +82,14 @@ class Login extends l\Languages {
                 $new_user->id = $id;
                 $pass = $new_user->getPassword();
                 $pp = $new_user->getPassphrase();
-                
+
                 if($pass !== false && $pp !== false) {
                     //if(password_verify($new_user->password, $pass) && password_verify($new_user->passphrase, $pp)) {
                     if(password_verify($new_user->password, $pass) && $new_user->passphrase == $pp) {
                         // Mail, password and passphrase ok, connection
                         $mUserVal = new m\UserValidation();
                         $mUserVal->id_user = $id;
-                        if(!($mUserVal->getKey())) { 
+                        if(!($mUserVal->getKey())) {
                             // Unable to find key - Validation is done
                             if($new_user->getDoubleAuth()) {
                                 // Double auth
@@ -109,7 +116,7 @@ class Login extends l\Languages {
                         return;
                     }
                 }
-                
+
                 // User exists but incorrect password/passphrase - Anti bruteforce with user id
                 $brute->setId($id);
                 $brute->Control();
@@ -131,7 +138,7 @@ class Login extends l\Languages {
         else
             require_once(DIR_VIEW."vLogin.php");
     }
-    
+
     function generateCode() {
         $code = '';
         $chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';

@@ -24,6 +24,7 @@ class Storage extends l\Model {
             if(is_numeric($i)) {
                 if($i > 0) {
                     $req = self::$_sql->prepare("UPDATE storage SET size_stored = size_stored+? WHERE id_user = ?");
+					$_SESSION['size_stored'] += $i;
                     return $req->execute(array($i, $this->id_user));
                 }
             }
@@ -34,6 +35,7 @@ class Storage extends l\Model {
             if(is_numeric($i)) {
                 if($i > 0) {
                     $req = self::$_sql->prepare("UPDATE storage SET size_stored = size_stored-? WHERE id_user = ?");
+					$_SESSION['size_stored'] -= $i;
                     return $req->execute(array($i, $this->id_user));
                 }
             }
@@ -44,6 +46,7 @@ class Storage extends l\Model {
             if(is_numeric($i)) {
                 if($i > 0) {
                     $req = self::$_sql->prepare("UPDATE storage SET size_stored = ? WHERE id_user = ?");
+					$_SESSION['size_stored'] = $i;
                     return $req->execute(array($i, $this->id_user));
                 }
             }
@@ -71,6 +74,7 @@ class Storage extends l\Model {
             if($req->rowCount() == 0)
                 return false;
             $res = $req->fetch();
+			$_SESSION['user_quota'] = $res['user_quota'];
             return $res['user_quota'];
         }
 
@@ -80,6 +84,7 @@ class Storage extends l\Model {
             if($req->rowCount() == 0)
                 return false;
             $res = $req->fetch();
+			$_SESSION['size_stored'] = $res['size_stored'];
             return $res['size_stored'];
         }
     }
