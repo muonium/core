@@ -12,3 +12,9 @@ genCek.enc = function(key, passphrase){
 	var key = base64.encode(key); //don't store a Json in mongoDB...
 	return key;
 }
+
+genCek.dec = function(key, passphrase){
+	var cek = base64.decode(key);
+	var cek = sjcl.decrypt(passphrase, cek);
+	return cek;
+}
