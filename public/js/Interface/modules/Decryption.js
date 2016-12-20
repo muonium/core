@@ -25,7 +25,7 @@ var Decryption = (function() {
 		this.folder_id = f_id;
 		this.filename = fname;
 		this.nb_chk = 0;
-
+		this.enc;
 		this.getNbChunks();
 	}
 
@@ -46,6 +46,7 @@ var Decryption = (function() {
 		var me = this;
 
 		time = new Time();
+		time.start();
 		if(this.filename.length > 0) {
 			var xhr = new XMLHttpRequest();
 			xhr.open("POST", target+'/getNbChunks', true);
@@ -94,10 +95,13 @@ var Decryption = (function() {
 					var a = sjcl.codec.base64.toBits(split[2]);
 					var i = sjcl.codec.base64.toBits(split[3]);
 
-					var key = sjcl.misc.pbkdf2(CEK, s, 2000, 256);
-					var enc = new sjcl.cipher.aes(key);
+					if(me.enc === undefined) {
+						console.log("Generating key and derivating it");
+						var key = sjcl.misc.pbkdf2(CEK, s, 2000, 256);
+						me.enc = new sjcl.cipher.aes(key);
+					}
 
-					chk = sjcl.mode.gcm.decrypt(enc, c, i, a, 128);
+					chk = sjcl.mode.gcm.decrypt(me.enc, c, i, a, 128);
 
 					chk = me.fromBitArrayCodec(chk);
 					chk = new Uint8Array(chk);

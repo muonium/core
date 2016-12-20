@@ -157,7 +157,7 @@ class User extends l\Languages {
 
 				$filepath = NOVA.'/'.$_SESSION['id'].'/'.$path.$filename;
 
-			    $file = new \SplFileObject($filepath, 'r');
+				$file = new \SplFileObject($filepath, 'r');
 			    $file->seek($line);
 
 			    echo str_replace("\r\n", "", $file->current());
