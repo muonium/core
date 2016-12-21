@@ -29,7 +29,7 @@
 	$_t->addJs("src/crypto/sjcl");
 	$_t->addJs("Interface/idb.filesystem.min");
     $_t->addJs("Interface/Request");
-    $_t->addJs("Interface/interface");
+	$_t->addJs("Interface/interface");
     $_t->getHeader();
 ?>
 <body onload="UserLoader()">

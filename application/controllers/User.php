@@ -740,6 +740,7 @@ class User extends l\Languages {
                             if($folder_id === false)
                                 return false;
                         }
+						
 						if(isset($_SESSION['upload'][$folder_id]['files'][$old]))
 							unset($_SESSION['upload'][$folder_id]['files'][$old]);
                         $this->_modelFiles->rename($folder_id, $old, $new);

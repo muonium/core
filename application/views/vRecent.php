@@ -26,7 +26,7 @@
 	$_t->addJs("Interface/modules/Time");
 	$_t->addJs("Interface/modules/Trash");
 	$_t->addJs("Interface/modules/Upload");
-
+	
 	$_t->addJs("src/crypto/sjcl");
 	$_t->addJs("Interface/idb.filesystem.min");
     $_t->addJs("Interface/Request");
