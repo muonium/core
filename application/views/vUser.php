@@ -13,6 +13,8 @@
 	// JS Modules
 	$_t->addJs("Interface/modules/Arrows");
 	$_t->addJs("Interface/modules/Box");
+	$_t->addJs("Interface/modules/Decryption");
+	$_t->addJs("Interface/modules/Encryption");
 	$_t->addJs("Interface/modules/ExtIcons");
 	$_t->addJs("Interface/modules/Favorites");
 	$_t->addJs("Interface/modules/Files");
@@ -20,11 +22,14 @@
 	$_t->addJs("Interface/modules/Move");
 	$_t->addJs("Interface/modules/Rm");
 	$_t->addJs("Interface/modules/Selection");
+	$_t->addJs("Interface/modules/Time");
 	$_t->addJs("Interface/modules/Trash");
 	$_t->addJs("Interface/modules/Upload");
 
+	$_t->addJs("src/crypto/sjcl");
+	$_t->addJs("Interface/idb.filesystem.min");
     $_t->addJs("Interface/Request");
-    $_t->addJs("Interface/interface");
+	$_t->addJs("Interface/interface");
     $_t->getHeader();
 ?>
 <body onload="UserLoader()">
@@ -99,6 +104,7 @@
             </div>
         </section>
     <div id="box" style="display:none"></div>
+	<a href="#" id="dl_decrypted"></a>
 </body>
 <?php
     $_t->getFooter();

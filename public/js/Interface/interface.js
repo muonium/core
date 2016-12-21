@@ -37,11 +37,14 @@ var UserLoader = function(folder_id) {
         console.log("Loading modules.");
         Box = Box();
         Arrows = Arrows();
+		Decryption = Decryption();
+		Encryption = Encryption();
         Selection = Selection();
         Move = Move();
         Upload = Upload();
     	Files = Files();
     	Folders = Folders();
+		Time = Time();
     	Trash = Trash();
     	Rm = Rm();
         Favorites = Favorites();

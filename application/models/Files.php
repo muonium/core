@@ -35,6 +35,14 @@ class Files extends l\Model {
             return $this->id_owner;
         }
 
+		function exists($name, $folder) {
+            $req = self::$_sql->prepare("SELECT id FROM files WHERE id_owner = ? AND name = ? AND folder_id = ?");
+            $req->execute(array($_SESSION['id'], $name, $folder));
+            if($req->rowCount() == 0)
+                return false;
+            return true;
+        }
+
         function getFilename($id) {
             $req = self::$_sql->prepare("SELECT name FROM files WHERE id_owner = ? AND id = ?");
             $req->execute(array($_SESSION['id'], $id));

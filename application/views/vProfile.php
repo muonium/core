@@ -8,11 +8,10 @@
     $_t = new l\Template($this->txt->Global->profile);
     $_t->addCss("home_global");
     $_t->addCss("Interface/new_design");
-    $_t->addJs("Interface/global");
+    $_t->addJs("Interface/interface");
     $_t->addJs("Interface/Request");
     $_t->addJs("Profile/profile");
     $_t->addJs("Login/sha512");
-    $_t->addScript("text/javascript","window.onload = function() {QC.init();}");
     $_t->getHeader();
 ?>
 <body>
