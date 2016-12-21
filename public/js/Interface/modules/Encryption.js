@@ -5,6 +5,7 @@ var Encryption = (function() {
 	var chunkSize = 1024 * 1024; // Size of one chunk in B
 	var CEK = 'password'; // for tests
 	var target = 'User';
+	var est = 33.5; // Estimation of the difference between the file and encrypted file in %
 
 	var errorHandler = function(e) {
 		console.log("Error");
@@ -14,13 +15,21 @@ var Encryption = (function() {
 	var time;
 
 	// Constructor
-	function Encryption(f, f_id) {
+	function Encryption(f, f_id, i, reload) {
 		var me = this;
+
+		if(reload === true)
+			this.reload = true;
+		else
+			this.reload = false;
 
 		this.folder_id = f_id;
 		this.file = f;	// file.name, file.size
+		this.est_size = Math.round(f.size*(1+est/100)); // Estimation of encrypted file size
+		this.i = i; // Id of file, used only for displaying progress, different from database !
 		this.j = 0; // Number of chunks read
 		this.k = 0; // Number of chunks written
+		this.l = 0; // Number of B written
 		this.halt = false;
 
 		this.aDATA = sjcl.random.randomWords(1);
@@ -40,7 +49,7 @@ var Encryption = (function() {
 					me.read();
 				else if(xhr.responseText == '1' || xhr.responseText == '2') // File exists
 					if(confirm('The file '+f.name+' exists, do you want to replace it ?'))
-						//me.read(); // TODO
+						console.log('replace it'); //me.read(); // TODO
 				else if(xhr.responseText == 'quota')
 					alert('Quota exceeded !');
 				else
@@ -104,8 +113,13 @@ var Encryption = (function() {
 						xhr.onreadystatechange = function() {
 							if(xhr.status == 200 && xhr.readyState == 4) {
 								time.stop();//
+								var node = document.querySelector("#div_upload"+(me.i));
+								while(node.firstChild) // remove all children
+									node.removeChild(node.firstChild);
 								console.log("Split + encryption : "+time.elapsed()+" ms");//
 								console.log("Splitted in "+me.j+" chunks !");
+								if(me.reload)
+									Folders.open(me.folder_id);
 							}
 						}
 						xhr.send("filename="+me.file.name+"&data=EOF&folder_id="+me.folder_id);
@@ -121,6 +135,11 @@ var Encryption = (function() {
 				chk = me.toBitArrayCodec(chk);
 				var chk_length = me.encryptChk(chk);
 				console.log(me.file.name+' - Part '+me.j+' size : '+chk_length);
+				me.l += chk_length;
+				var pct = me.l/me.est_size*100;
+				if(pct > 100)
+					pct = 100;
+				document.querySelector("#span_upload"+(me.i)).innerHTML = me.file.name+' : '+pct.toFixed(2)+'%';
 			},
 			error_callback: errorHandler
 		});
@@ -188,6 +207,9 @@ var Encryption = (function() {
 		this.initVector = sjcl.random.randomWords(4);
 		var s = sjcl.mode.gcm.encrypt(this.enc, chk, this.initVector, this.aDATA, 128);
 		s = pack(s, this.SALT, this.aDATA, this.initVector);
+		var initVector = sjcl.random.randomWords(4);
+		var s = sjcl.mode.gcm.encrypt(this.enc, chk, initVector, this.aDATA, 128);
+		s = pack(s, this.SALT, this.aDATA, initVector);
 
 		var xhr = new XMLHttpRequest();
 		xhr.open("POST", target+'/writeChunk', true);
