@@ -15,10 +15,13 @@ var Encryption = (function() {
 
 	// Constructor
 	function Encryption(f, f_id) {
+		var me = this;
+
 		this.folder_id = f_id;
 		this.file = f;	// file.name, file.size
 		this.j = 0; // Number of chunks read
 		this.k = 0; // Number of chunks written
+		this.halt = false;
 
 		this.aDATA = sjcl.random.randomWords(1);
 		this.initVector = sjcl.random.randomWords(4);
@@ -26,7 +29,26 @@ var Encryption = (function() {
 		this.key = sjcl.misc.pbkdf2(CEK, this.SALT, 2000, 256);
 		this.enc = new sjcl.cipher.aes(this.key);
 
-		this.read();
+		// Check status before uploading
+		var xhr = new XMLHttpRequest();
+		xhr.open("POST", target+'/getFileStatus', true);
+		xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+		xhr.onreadystatechange = function() {
+			// TODO : improve alert (only one) and confirm (yes, no, yes for all, no for all)
+			if(xhr.status == 200 && xhr.readyState == 4) {
+				if(xhr.responseText == '0') // File doesn't exist, it's ok
+					me.read();
+				else if(xhr.responseText == '1' || xhr.responseText == '2') // File exists
+					if(confirm('The file '+f.name+' exists, do you want to replace it ?'))
+						//me.read(); // TODO
+				else if(xhr.responseText == 'quota')
+					alert('Quota exceeded !');
+				else
+					alert('Error');
+			}
+		}
+		xhr.send("filename="+f.name+"&filesize="+f.size+"&folder_id="+f_id);
 	}
 
 	// Public
@@ -67,6 +89,8 @@ var Encryption = (function() {
 			binary: true,
 			chunk_size: chunkSize,
 			success: function(i) {
+				if(me.halt)
+					return false;
 				// Waiting end of the uploading process
 				var timer = setInterval(function() {
 					console.log("Waiting...");
@@ -91,6 +115,8 @@ var Encryption = (function() {
 			},
 			chunk_read_callback: function(chk) {
 				// Reading a chunk
+				if(me.halt)
+					return false;
 				me.j++;
 				chk = new Uint8Array(chk);
 				chk = me.toBitArrayCodec(chk);
@@ -147,6 +173,8 @@ var Encryption = (function() {
 	};
 
 	Encryption.prototype.encryptChk = function(chk) {
+		if(this.halt)
+			return false;
 		var me = this;
 
 		var pack = function(c, s, a, i){ //ciphered_chk, salt, authentification data, initialization vector
@@ -167,8 +195,12 @@ var Encryption = (function() {
 
 		xhr.onreadystatechange = function() {
 			if(xhr.status == 200 && xhr.readyState == 4) {
+				if(xhr.responseText == 'error') {
+					// Quota exceeded or unable to write
+					me.halt = true;
+					return false;
+				}
 				me.k++;
-				//console.log('encryptChk response : '+xhr.responseText);
 			}
 		}
 		xhr.send("filename="+this.file.name+"&data="+encodeURIComponent(s)+"&folder_id="+this.folder_id);
