@@ -32,9 +32,9 @@ var Encryption = (function() {
 		this.l = 0; // Number of B written
 		this.halt = false;
 
-		this.aDATA = sjcl.random.randomWords(1);
-		this.SALT = sjcl.random.randomWords(2);
-		this.key = sjcl.misc.pbkdf2(CEK, this.SALT, 2000, 256);
+		this.aDATA = sjcl.random.randomWords(4);
+		this.salt = sjcl.random.randomWords(2);
+		this.key = sjcl.misc.pbkdf2(CEK, this.salt, 2000, 256);
 		this.enc = new sjcl.cipher.aes(this.key);
 
 		// Check status before uploading
@@ -206,7 +206,7 @@ var Encryption = (function() {
 
 		var initVector = sjcl.random.randomWords(4);
 		var s = sjcl.mode.gcm.encrypt(this.enc, chk, initVector, this.aDATA, 128);
-		s = pack(s, this.SALT, this.aDATA, initVector);
+		s = pack(s, this.salt, this.aDATA, initVector);
 
 		var xhr = new XMLHttpRequest();
 		xhr.open("POST", target+'/writeChunk', true);
