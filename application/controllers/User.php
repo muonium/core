@@ -97,9 +97,9 @@ class User extends l\Languages {
 				if(fwrite($f, $data) === false)
 					echo 'error';
 				else {
-					$this->_modelStorage = new m\Storage();
-	                $this->_modelStorage->id_user = $_SESSION['id'];
-					$this->_modelStorage->incrementSizeStored($data_length); // SESSION size_stored is also incremented
+					$Storage = new m\Storage();
+	                $Storage->id_user = $_SESSION['id'];
+					$Storage->incrementSizeStored($data_length); // SESSION size_stored is also incremented
 					echo 'ok';
 				}
 				fclose($f);
@@ -159,7 +159,7 @@ class User extends l\Languages {
 
 				// End of file
 				if($data === 'EOF' && isset($_SESSION['upload'][$folder_id]['files'][$filename]) && isset($_SESSION['upload'][$folder_id]['path'])) {
-					// TODO Update files table and folders size
+					// Update files table and folders size
 					if(!isset($this->_modelFiles)) {
 						$this->_modelFiles = new m\Files();
 						$this->_modelFiles->id_owner = $_SESSION['id'];
@@ -175,9 +175,9 @@ class User extends l\Languages {
 					$this->_modelFiles->last_modification = time();
 
 					if($this->_modelFiles->exists($filename, $folder_id))
-						$this->_modelFiles->addNewFile($folder_id);
-					else
 						$this->_modelFiles->updateFile($folder_id);
+					else
+						$this->_modelFiles->addNewFile($folder_id);
 
 					$this->_modelFolders->updateFoldersSize($folder_id, $this->_modelFiles->size);
 
