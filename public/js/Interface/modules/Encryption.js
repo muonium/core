@@ -204,9 +204,9 @@ var Encryption = (function() {
 			return t;
 		}
 
-		this.initVector = sjcl.random.randomWords(4);
-		var s = sjcl.mode.gcm.encrypt(this.enc, chk, this.initVector, this.aDATA, 128);
-		s = pack(s, this.SALT, this.aDATA, this.initVector);
+		initVector = sjcl.random.randomWords(4);
+		var s = sjcl.mode.gcm.encrypt(this.enc, chk, initVector, this.aDATA, 128);
+		s = pack(s, this.SALT, this.aDATA, initVector);
 
 		var xhr = new XMLHttpRequest();
 		xhr.open("POST", target+'/writeChunk', true);
