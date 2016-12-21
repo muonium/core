@@ -24,7 +24,6 @@ var Encryption = (function() {
 		this.halt = false;
 
 		this.aDATA = sjcl.random.randomWords(1);
-		this.initVector = sjcl.random.randomWords(4);
 		this.SALT = sjcl.random.randomWords(2);
 		this.key = sjcl.misc.pbkdf2(CEK, this.SALT, 2000, 256);
 		this.enc = new sjcl.cipher.aes(this.key);
@@ -186,6 +185,7 @@ var Encryption = (function() {
 			return t;
 		}
 
+		this.initVector = sjcl.random.randomWords(4);
 		var s = sjcl.mode.gcm.encrypt(this.enc, chk, this.initVector, this.aDATA, 128);
 		s = pack(s, this.SALT, this.aDATA, this.initVector);
 
