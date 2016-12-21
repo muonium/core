@@ -3,7 +3,7 @@
 var Encryption = (function() {
 	// Private
 	var chunkSize = 1024 * 1024; // Size of one chunk in B
-	var CEK = 'password'; // for tests
+	var cek = 'password'; // for tests
 	var target = 'User';
 	var est = 33.5; // Estimation of the difference between the file and encrypted file in %
 
@@ -34,7 +34,7 @@ var Encryption = (function() {
 
 		this.aDATA = sjcl.random.randomWords(4);
 		this.salt = sjcl.random.randomWords(2);
-		this.key = sjcl.misc.pbkdf2(CEK, this.salt, 2000, 256);
+		this.key = sjcl.misc.pbkdf2(cek, this.salt, 2000, 256);
 		this.enc = new sjcl.cipher.aes(this.key);
 
 		// Check status before uploading
