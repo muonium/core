@@ -204,7 +204,7 @@ var Encryption = (function() {
 			return t;
 		}
 
-		initVector = sjcl.random.randomWords(4);
+		var initVector = sjcl.random.randomWords(4);
 		var s = sjcl.mode.gcm.encrypt(this.enc, chk, initVector, this.aDATA, 128);
 		s = pack(s, this.SALT, this.aDATA, initVector);
 
