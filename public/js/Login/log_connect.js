@@ -93,7 +93,7 @@ var decryptCek = function(kek){
 
 var testCek = function(kek, cek){
 	try {
-		var dec = sjcl.decrypt(kek, cek);
+		var cek = sjcl.decrypt(kek, cek);
 		sessionStorage.setItem("cek", cek);
 	} catch (e) {
 		returnArea.innerHTML = "<p>Your passphrase is invalid!</p>";
