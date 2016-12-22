@@ -89,7 +89,7 @@ class User extends l\Languages {
 		// TODO : Storage management (quota, size stored), insert file in DB
 
 		function write($fpath, $data) {
-			$data_length = strlen($data)+1;
+			$data_length = strlen($data);
 			if($_SESSION['size_stored']+$data_length > $_SESSION['user_quota'])
 				echo 'error';
 			else {
@@ -609,7 +609,7 @@ class User extends l\Languages {
         if(!is_numeric($size))
             return 0;
         if($size < 0 && is_array($file_info)) // File not completely uploaded
-            return '<span style="display:inline;color:red">'.$this->showSize(filesize(NOVA.'/'.$_SESSION['id'].'/'.$file_info['1'].'/'.$file_info['0'])).'</span>';
+            return '<span style="display:inline;color:red">'.$this->showSize(@filesize(NOVA.'/'.$_SESSION['id'].'/'.$file_info['1'].'/'.$file_info['0'])).'</span>';
 		if($size <= 0)
 			return 0;
         $base = log($size, 1024);
