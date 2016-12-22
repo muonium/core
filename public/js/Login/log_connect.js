@@ -53,7 +53,7 @@ var sendConnectionRequest = function()
                 {
                     // success message
                     if(xhr.responseText.substr(0, 3) == "ok@") {
-						decryptCek(field_passphrase);
+						decryptCek(field_passphrase, field_username);
 						return false;
                     }
                     else if(xhr.responseText.substr(0, 3) == "va@") {
@@ -73,9 +73,9 @@ var sendConnectionRequest = function()
 }
 
 //requires sjcl.js and base64.js
-var decryptCek = function(kek){
+var decryptCek = function(kek, usr){
 	var xhr = new XMLHttpRequest();
-	xhr.open("GET", "Login/GetCek", true)
+	xhr.open("POST", "Login/GetCek", true)
 	xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
 	xhr.onreadystatechange = function(){
@@ -83,7 +83,7 @@ var decryptCek = function(kek){
 			var cek = xhr.responseText;
 		}
 	}
-	xhr.send(null);
+	xhr.send("username="+encodeURIComponent(usr));
 
 	var cek = base64.decode(cek);
 	testCek(kek, cek);
