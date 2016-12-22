@@ -53,12 +53,12 @@ var sendConnectionRequest = function()
                 {
                     // success message
                     if(xhr.responseText.substr(0, 3) == "ok@") {
-						decryptCek(field_passphrase, field_username);
+						getCek(field_passphrase, field_username);
 						window.location.href = "Home";
 						return false;
                     }
                     else if(xhr.responseText.substr(0, 3) == "va@") {
-						decryptCek(field_passphrase, field_username);
+						getCek(field_passphrase, field_username);
 						window.location.href = "Validate";
                         return false;
                     }
@@ -75,7 +75,7 @@ var sendConnectionRequest = function()
 }
 
 //requires sjcl.js and base64.js
-var decryptCek = function(kek, usr){
+var getCek = function(kek, usr){
 	var xhr = new XMLHttpRequest();
 	xhr.open("POST", "Login/GetCek", true)
 	xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
