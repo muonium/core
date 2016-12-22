@@ -128,12 +128,16 @@ var UserLoader = function(folder_id) {
             switch(event.keyCode) {
                 case 8:
                     // backspace
-                    event.preventDefault();
-                    Folders.back();
+					if(document.activeElement.tagName != 'INPUT' && document.activeElement.tagName != 'TEXTAREA') {
+                    	event.preventDefault();
+                    	Folders.back();
+					}
                     break;
                 case 46:
                     // suppr
-                    Rm.multiple();
+					if(document.activeElement.tagName != 'INPUT' && document.activeElement.tagName != 'TEXTAREA') {
+                    	Rm.multiple();
+					}
                     break;
                 case 27:
                     // esc
@@ -149,10 +153,12 @@ var UserLoader = function(folder_id) {
                     break;
                 case 13:
                     // enter
-                    if(Selection.Files.length == 1 && Selection.Folders.length == 0)
-                        Files.dl("f"+Selection.Files[0]);
-                    else if(Selection.Files.length == 0 && Selection.Folders.length == 1)
-                        Folders.open(Selection.Folders[0]);
+					if(document.activeElement.tagName != 'INPUT' && document.activeElement.tagName != 'TEXTAREA') {
+	                    if(Selection.Files.length == 1 && Selection.Folders.length == 0)
+	                        Files.dl("f"+Selection.Files[0]);
+	                    else if(Selection.Files.length == 0 && Selection.Folders.length == 1)
+	                        Folders.open(Selection.Folders[0]);
+					}
                     break;
             }
         }

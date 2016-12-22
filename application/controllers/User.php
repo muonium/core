@@ -452,11 +452,14 @@ class User extends l\Languages {
         }
     }
 
-    function rmFile($id, $path) {
+    function rmFile($id, $path, $folder_id) {
+		// $folder_id is used only to delete session var
         if(is_numeric($id)) {
             $filename = $this->_modelFiles->getFilename($id);
             if($filename !== false) {
                 if(file_exists(NOVA.'/'.$_SESSION['id'].'/'.$path.$filename)) {
+					if(isset($_SESSION['upload'][$folder_id]['files'][$filename]))
+						unset($_SESSION['upload'][$folder_id]['files'][$filename]);
                     unlink(NOVA.'/'.$_SESSION['id'].'/'.$path.$filename);
                     // deleteFile() returns file size
                     return $this->_modelFiles->deleteFile($id);
@@ -496,9 +499,8 @@ class User extends l\Languages {
                         $tab_folders[$folder_id][0] = $path;
                         $tab_folders[$folder_id][1] = 0;
                     }
-					if(isset($_SESSION['upload'][$folder_id]['files'][$files[$i]]))
-						unset($_SESSION['upload'][$folder_id]['files'][$files[$i]]);
-                    $size = $this->rmFile($files[$i], $path.'/');
+
+                    $size = $this->rmFile($files[$i], $path.'/', $folder_id);
                     $total_size += $size;
                     $tab_folders[$folder_id][1] += $size;
                 }
@@ -633,11 +635,11 @@ class User extends l\Languages {
             $new = urldecode($_POST['new']);
 
             if($old != $new && !empty($old) && !empty($new)) {
-                $forbidden = '/\\:*?<>|" ';
+                $forbidden = '/\\:*?<>|"';
 
                 $f = 0;
                 for($i=0;$i<count($forbidden);$i++) {
-                    if(strpos($folder, $forbidden[$i])) {
+                    if(strpos($new, $forbidden[$i])) {
                         $f = 1; // Forbidden char found
                         break;
                     }
@@ -669,6 +671,7 @@ class User extends l\Languages {
                         return false;
 
                     rename(NOVA.'/'.$_SESSION['id'].'/'.$path.$old, NOVA.'/'.$_SESSION['id'].'/'.$path.$new);
+					echo 'ok';
                 }
             }
         }
