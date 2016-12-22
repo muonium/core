@@ -54,9 +54,11 @@ var sendConnectionRequest = function()
                     // success message
                     if(xhr.responseText.substr(0, 3) == "ok@") {
 						decryptCek(field_passphrase, field_username);
+						window.location.href = "Home";
 						return false;
                     }
                     else if(xhr.responseText.substr(0, 3) == "va@") {
+						decryptCek(field_passphrase, field_username);
 						window.location.href = "Validate";
                         return false;
                     }
@@ -88,7 +90,6 @@ var decryptCek = function(kek, usr){
 	var cek = base64.decode(cek);
 	testCek(kek, cek);
 	sessionStorage.setItem("kek", kek);
-	window.location.href="Home";
 }
 
 var testCek = function(kek, cek){
