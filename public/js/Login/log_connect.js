@@ -57,8 +57,7 @@ var sendConnectionRequest = function()
 						return false;
                     }
                     else if(xhr.responseText.substr(0, 3) == "va@") {
-						decryptCek(field_passphrase);
-						tempTransfer(cek)
+						window.location.href = "Validate";
                         return false;
                     }
                     else {
