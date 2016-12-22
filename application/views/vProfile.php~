@@ -40,26 +40,6 @@
                 <br />
             </p>
 
-		<!-- Add delete button user  -->
-            <p>
-		<br /><br /><br /><br />
-		<fieldset>
-						<!--<legend><?php echo_h($this->txt->Profile->deleteuser); ?></legend>
-					    <p>
-							<input type="text" name="deleteuser" id="deleteuser" placeholder="<?php //echo_h($this->txt->Profile->deleteuser); ?>">
-						</p> -->
-						<!--<input type="submit" value="Delete Account" onclick="deleteUser()">-->
-						<input type="submit" value="Delete Account" onclick="ConfirmDelete()">
-
-
-
-						<!--<p id="pass_message"></p>-->
-						<div id="deleteUserReturn"></div>
-					</fieldset>
-					<br />
-		</p>
-				<!--    -->
-
             <p>
                 <fieldset>
                     <legend><?php echo_h($this->txt->Profile->changepwd); ?></legend>

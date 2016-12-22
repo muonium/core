@@ -34,16 +34,4 @@ class Ban extends l\Model {
         function getDuration() {
             return $this->duration;
         }
-
-	function deleteBan() {
-            if(!empty($this->id_user)) {
-				
-                if(is_numeric($this->id_user)) {
-                    $req = self::$_sql->prepare("DELETE FROM ban WHERE id_user = ?");
-                   return $req->execute(array($this->id_user));
-                   
-                }
-            }
-            return false;
-        }
     }

@@ -134,25 +134,6 @@ var changeAuth = function() {
     xhr.send("doubleAuth="+doubleAuth);
 }
 
-//delete button
-
-var deleteUser = function() {
-    var returnArea = document.querySelector("#deleteUserReturn");
-   // var doubleAuth = document.querySelector("#doubleAuth").checked;
-    var xhr = new XMLHttpRequest();
-    xhr.open("POST", "Profile/deleteUser", true);
-    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-
-    xhr.onreadystatechange = function()
-    {
-        if(xhr.status == 200 && xhr.readyState == 4) {
-            console.log(xhr.responseText);
-            returnArea.innerHTML = xhr.responseText;
-        }
-    }
-    xhr.send("deleteUser="+deleteUser);
-}
-
 /*function GettingPassword() {
 	var pass = prompt("Please enter your password");
 
