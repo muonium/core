@@ -21,11 +21,13 @@ var Decryption = (function() {
 	window.requestFileSystem  = window.requestFileSystem || window.webkitRequestFileSystem;
 
 	// Constructor
-	function Decryption(fname, f_id) {
+	function Decryption(fname, f_id, i) {
 		this.folder_id = f_id;
 		this.filename = fname;
 		this.nb_chk = 0;
 		this.enc;
+		this.i = i; // Id of file, used only for displaying progress, different from database !
+		this.halt = false;
 		this.getNbChunks();
 	}
 
@@ -42,8 +44,20 @@ var Decryption = (function() {
 		return out;
 	};
 
+	Decryption.prototype.abort = function() {
+		this.halt = true;
+		var node;
+		if(node = document.querySelector("#div_download"+(this.i))) {
+			while(node.firstChild) // remove all children
+				node.removeChild(node.firstChild);
+		}
+	};
+
 	Decryption.prototype.getNbChunks = function() {
 		var me = this;
+
+		if(this.halt)
+			return false;
 
 		time = new Time();
 		time.start();
@@ -68,11 +82,19 @@ var Decryption = (function() {
 	Decryption.prototype.decryptChk = function(line) {
 		var me = this;
 
+		if(this.halt)
+			return false;
+
 		var chk;
 		if(line === undefined)
 			line = 0;
 
 		console.log("Decrypting chunk "+(line+1));
+		var pct = line/this.nb_chk*100;
+		if(pct > 100)
+			pct = 100;
+		document.querySelector("#span_download"+(this.i)).innerHTML = this.filename+' : '+pct.toFixed(2)+'%';
+
 		time_chunk = new Time();
 		var xhr = new XMLHttpRequest();
 		xhr.open("POST", target+'/getChunk', true);
@@ -127,6 +149,9 @@ var Decryption = (function() {
 												console.log("Done !");
 												time.stop();//
 												console.log("decryption + download : "+time.elapsed()+" ms");//
+												var node = document.querySelector("#div_download"+(me.i));
+												while(node.firstChild) // remove all children
+													node.removeChild(node.firstChild);
 
 												// Try to download the file (move from filesystem to download folder)
 												if(typeof fileEntry.file === 'function') {
