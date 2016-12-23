@@ -87,6 +87,7 @@ var changePassPhrase = function() {
 	var current_pp = sessionStorage.getItem("kek");
 
 	var cek = sessionStorage.getItem("cek");
+	var cek = sjcl.codec.hex.toBits(cek),
 
 	if (old_pp != current_pp) {
 		returnArea.innerHTML = "<p>You typed the wrong passphrase!</p>";

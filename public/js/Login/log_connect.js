@@ -1,7 +1,7 @@
 /**
 ** @name        : log_connect.js
 ** @authors     : Romain Claveau <romain.claveau@protonmail.ch>, Dylan CLEMENT <dylanclement7@protonmail.ch>
-** @description : Méthode permettant la connexion à l'application
+** @description : Method to connect the user to the servers
 **/
 
 
@@ -60,6 +60,7 @@ var sendConnectionRequest = function()
 							var cek = decodeURIComponent(cek);
 							var cek = base64.decode(cek);
 							var cek = sjcl.decrypt(field_passphrase, cek);
+							var cek = sjcl.codec.hex.toBits(cek);
 							sessionStorage.setItem("kek", field_passphrase);
 							sessionStorage.setItem("cek", cek)
 							window.location.href  = "Home";
@@ -75,6 +76,7 @@ var sendConnectionRequest = function()
 							var cek = decodeURIComponent(cek);
 							var cek = base64.decode(cek);
 							var cek = sjcl.decrypt(field_passphrase, cek);
+							var cek = sjcl.codec.hex.toBits(cek);
 							sessionStorage.setItem("kek", field_passphrase);
 							sessionStorage.setItem("cek", cek);
 							window.location.href = "Validate";

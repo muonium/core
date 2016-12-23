@@ -6,8 +6,10 @@ genCek.plt = function(){
 
 genCek.enc = function(key, passphrase){
 	var a = sjcl.random.randomWords(1);
+	var i = sjcl.random.randomWords(4);
+	var s = sjcl.random.randomWords(2);
 	//encrypt it
-	var key = sjcl.encrypt(passphrase, key, {mode:'gcm', iter:2000, ks:256, a, ts:128});
+	var key = sjcl.encrypt(passphrase, key, {mode:'gcm', iv:i, salt:s, iter:2000, ks:256, adata:a, ts:128});
 	var key = base64.encode(key); //don't store a Json in mongoDB...
 	return key;
 }
