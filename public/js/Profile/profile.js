@@ -84,38 +84,51 @@ var changePassPhrase = function() {
     var old_pp = document.querySelector("#oldpp").value;
     var new_pp = document.querySelector("#newpp").value;
     var pp_confirm = document.querySelector("#ppconfirm").value;
+	var current_pp = sessionStorage.getItem("kek");
 
-    if(new_pp.length < 6)
-        returnArea.innerHTML = txt.Register.form;
-    else {
+	var cek = sessionStorage.getItem("cek");
 
-        var xhr = new XMLHttpRequest();
-        xhr.open("POST", "Profile/ChangePassPhrase", true);
-        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	if (old_pp != current_pp) {
+		returnArea.innerHTML = "<p>You typed the wrong passphrase!</p>";
+		}else if (new_pp.length < 6) {
+			returnArea.innerHTML = txt.Register.form;
+		}else{
 
-        xhr.onreadystatechange = function()
-        {
-            if(xhr.status == 200 && xhr.readyState == 4)
-            {
-                console.log(xhr.responseText);
-                if(xhr.responseText.length > 2)
-                {
-                    // success message
-                    if(xhr.responseText.substr(0, 3) == "ok@") {
-                        window.location.href="Profile";
-                        return false;
-                    }
-                    else {
-                        // error
-                        returnArea.innerHTML = xhr.responseText;
-                    }
-                }
-            }
-        }
-        xhr.send("old_pp="+encodeURIComponent(old_pp)+"&new_pp="+encodeURIComponent(new_pp)+"&pp_confirm="+encodeURIComponent(pp_confirm));
-        //xhr.send("old_pp="+sha512(old_pp)+"&new_pp="+sha512(new_pp)+"&pp_confirm="+sha512(pp_confirm));
-    }
-}
+					sessionStorage.setItem("kek", new_pp);
+
+					var aDATA = sjcl.random.randomWords(4);
+					var initVector = sjcl.random.randomWords(4);
+					var salt = sjcl.random.randomWords(2);
+					var encryptedCek = sjcl.encrypt(new_pp, cek, {mode:'gcm', iter:2000, iv:initVector, ks:256, aDATA, ts:128, salt:salt});
+					var encryptedCek = base64.encode(encryptedCek);
+
+			        var xhr = new XMLHttpRequest();
+			        xhr.open("POST", "Profile/ChangePassPhrase", true);
+			        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+			        xhr.onreadystatechange = function()
+			        {
+			            if(xhr.status == 200 && xhr.readyState == 4)
+			            {
+			                console.log(xhr.responseText);
+			                if(xhr.responseText.length > 2)
+			                {
+			                    // success message
+			                    if(xhr.responseText.substr(0, 3) == "ok@") {
+			                        window.location.href="Profile";
+			                        return false;
+			                    }
+			                    else {
+			                        // error
+			                        returnArea.innerHTML = xhr.responseText;
+			                    }
+			                }
+			            }
+			        }
+			        xhr.send(encodeURIComponent(encryptedCek));
+
+		}
+	}
 
 var changeAuth = function() {
     var returnArea = document.querySelector("#changeAuthReturn");

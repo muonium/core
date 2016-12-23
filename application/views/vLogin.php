@@ -9,6 +9,7 @@
     $_t->addCss("home_global");
     $_t->addCss("Login/home_login");
     $_t->addJs("base64");
+	$_t->addJs("sjcl")
     $_t->addJs("sha512");
     $_t->addJs("mui_hash");
     $_t->addJs("Login/log_connect");
