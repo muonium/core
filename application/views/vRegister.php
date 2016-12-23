@@ -9,7 +9,7 @@
     $_t->addCss("home_global");
     $_t->addCss("Register/home_register");
 	$_t->addJS("src/crypto/sjcl");
-	$_t->addJS("src/crypto/implementation/gen_cek");
+	$_t->addJS("src/crypto/gen_cek");
     $_t->addJs("base64");
     $_t->addJs("sha512");
     $_t->addJs("mui_hash");
