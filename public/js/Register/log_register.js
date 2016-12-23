@@ -71,8 +71,8 @@ var sendRegisterRequest = function()
             }
         }
 
-		var cek_plt = genCek.plt(); //get the cek in plaintext to store it locally
-		var cek_xhr = genCek.enc(cek_plt, field_passphrase); //encrypt the cek to store in the database
+		var cek_plt = genCek.plt(); //get the cek in plaintext (bytes array) to store it locally
+		var cek_xhr = genCek.enc(cek_plt, field_passphrase); //encrypt and base64encode the cek to store in the database
         xhr.send("mail="+field_mail+"&login="+field_login+"&pass="+mui_hash(field_password)+"&pass_confirm="+mui_hash(field_password_confirm)+"&doubleAuth="+doubleAuth+"&cek="+encodeURIComponent(cek_xhr));
         //xhr.send("mail="+field_mail+"&login="+field_login+"&pass="+mui_hash(field_password)+"&pass_confirm="+mui_hash(field_password_confirm)+"&passphrase="+mui_hash(field_passphrase)+"&passphrase_confirm="+mui_hash(field_passphrase_confirm)+"&doubleAuth="+doubleAuth);
 
