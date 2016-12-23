@@ -52,15 +52,37 @@ var sendConnectionRequest = function()
                 if(xhr.responseText.length > 2)
                 {
                     // success message
-                    if(xhr.responseText.substr(0, 3) == "ok@") {
-						getCek(field_passphrase, field_username);
-						window.location.href = "Home";
+					var rep = xhr.responseText;
+					var rep = rep.split("@");
+                    if(rep[0] == "ok") {
+						var cek = rep[1];
+						try {
+							var cek = decodeURIComponent(cek);
+							var cek = base64.decode(cek);
+							var cek = sjcl.decrypt(field_passphrase, cek);
+							sessionStorage.setItem("kek", field_passphrase);
+							sessionStorage.setItem("cek", cek)
+							window.location.href  = "Home";
+						} catch (e) {
+							console.log(e.message);
+							returnArea.innerHTML = "<p>Error : bad passphrase.</p>";
+						}
 						return false;
                     }
-                    else if(xhr.responseText.substr(0, 3) == "va@") {
-						getCek(field_passphrase, field_username);
-						window.location.href = "Validate";
-                        return false;
+                    else if(rep[0] == "va") {
+						var cek = rep[1];
+						try {
+							var cek = decodeURIComponent(cek);
+							var cek = base64.decode(cek);
+							var cek = sjcl.decrypt(field_passphrase, cek);
+							sessionStorage.setItem("kek", field_passphrase);
+							sessionStorage.setItem("cek", cek);
+							window.location.href = "Validate";
+						} catch (e) {
+							console.log(e.message);
+							returnArea.innerHTML = "<p>Error : bad passphrase</p>";
+						}
+					return false;
                     }
                     else {
                         // error
@@ -72,31 +94,4 @@ var sendConnectionRequest = function()
 
        xhr.send("username="+encodeURIComponent(field_username)+"&pass="+mui_hash(field_password));
     }
-}
-
-//requires sjcl.js and base64.js
-var getCek = function(kek, usr){
-	var xhr = new XMLHttpRequest();
-	xhr.open("POST", "Login/GetCek", true)
-	xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-
-	xhr.onreadystatechange = function(){
-		if (xhr.status == 200 && xhr.readyState == 4) {
-			var cek = xhr.responseText;
-		}
-	}
-	xhr.send("username="+encodeURIComponent(usr));
-
-	var cek = base64.decode(cek);
-	testCek(kek, cek);
-	sessionStorage.setItem("kek", kek);
-}
-
-var testCek = function(kek, cek){
-	try {
-		var cek = sjcl.decrypt(kek, cek);
-		sessionStorage.setItem("cek", cek);
-	} catch (e) {
-		returnArea.innerHTML = "<p>Your passphrase is invalid!</p>";
-	}
 }
