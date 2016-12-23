@@ -8,6 +8,7 @@
     $_t = new l\Template($this->txt->Global->profile);
     $_t->addCss("home_global");
     $_t->addCss("Interface/new_design");
+	$_t->addJs("check");
     $_t->addJs("Interface/interface");
     $_t->addJs("Interface/Request");
     $_t->addJs("Profile/profile");
