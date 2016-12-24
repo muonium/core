@@ -60,7 +60,7 @@ var sendConnectionRequest = function()
 							var cek = decodeURIComponent(cek);
 							var cek = base64.decode(cek);
 							var cek = sjcl.decrypt(field_passphrase, cek);
-							var cek = sjcl.codec.hex.toBits(cek);
+							var cek = sjcl.codec.hex.fromBits(cek);
 							sessionStorage.setItem("kek", field_passphrase);
 							sessionStorage.setItem("cek", cek)
 							window.location.href  = "Home";
