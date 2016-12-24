@@ -62,7 +62,7 @@ var sendConnectionRequest = function()
 							var cek = sjcl.decrypt(field_passphrase, cek);
 							var cek = sjcl.codec.hex.fromBits(cek);
 							sessionStorage.setItem("kek", field_passphrase);
-							sessionStorage.setItem("cek", cek)
+							sessionStorage.setItem("cek", cek);
 							window.location.href  = "Home";
 						} catch (e) {
 							console.log(e.message);
