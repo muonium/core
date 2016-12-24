@@ -71,20 +71,8 @@ var sendConnectionRequest = function()
 						return false;
                     }
                     else if(rep[0] == "va") {
-						var cek = rep[1];
-						try {
-							var cek = decodeURIComponent(cek);
-							var cek = base64.decode(cek);
-							var cek = sjcl.decrypt(field_passphrase, cek);
-							var cek = sjcl.codec.hex.from(cek);
-							sessionStorage.setItem("kek", field_passphrase);
-							sessionStorage.setItem("cek", cek);
-							window.location.href = "Validate";
-						} catch (e) {
-							console.log(e.message);
-							returnArea.innerHTML = "<p>Error : bad passphrase</p>";
-						}
-					return false;
+						window.location.href = "Validate";
+						return false;
                     }
                     else {
                         // error
