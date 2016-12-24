@@ -100,7 +100,7 @@ var changePassPhrase = function() {
 					var aDATA = sjcl.random.randomWords(4);
 					var initVector = sjcl.random.randomWords(4);
 					var salt = sjcl.random.randomWords(2);
-					var encryptedCek = sjcl.encrypt(new_pp, cek, {mode:'gcm', iter:2000, iv:initVector, ks:256, aDATA, ts:128, salt:salt});
+					var encryptedCek = sjcl.encrypt(new_pp, cek, {mode:'gcm', iter:2000, iv:initVector, ks:256, adata:aDATA, ts:128, salt:salt});
 					var encryptedCek = base64.encode(encryptedCek);
 
 			        var xhr = new XMLHttpRequest();
