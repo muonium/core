@@ -46,7 +46,7 @@ var changePassword = function() {
     var new_pwd = document.querySelector("#newpwd").value;
     var pwd_confirm = document.querySelector("#pwdconfirm").value;
 
-    if(new_pwd.length < 6)
+    if(new_pwd.length < 6 || pwd_confirm !== new_pwd)
         returnArea.innerHTML = txt.Register.form;
     else {
 
