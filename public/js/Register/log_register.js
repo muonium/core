@@ -1,7 +1,6 @@
-//@TODO description of this js file
-
 /*
 @dependencies: cek_generation.js
+@description: to send the username+password+generate a cek for the user
 */
 
 window.onload = function() {

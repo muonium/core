@@ -7,7 +7,7 @@
 
 /*
 * @name         : sendConnectionRequest()
-* @description  : Permet l'envoi de la requête de connexion avec les identifiants
+* @description  : to send username + password + base64encoded encrypted CEK to the server and log in the the user if all is good
 */
 
 window.onload = function() {
