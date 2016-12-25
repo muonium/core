@@ -95,7 +95,6 @@ var changePassPhrase = function() {
 			returnArea.innerHTML = txt.Register.form;
 		}else{
 
-					sessionStorage.setItem("kek", new_pp); //we store the new kek locally
 
 					//crypto parameters, don't touch
 					var aDATA = sjcl.random.randomWords(4);
@@ -119,6 +118,7 @@ var changePassPhrase = function() {
 			                {
 			                    // success message
 			                    if(xhr.responseText.substr(0, 3) == "ok@") {
+									sessionStorage.setItem("kek", new_pp);
 			                        window.location.href="Profile";
 			                        return false;
 			                    }
