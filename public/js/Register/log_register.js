@@ -80,7 +80,7 @@ var sendRegisterRequest = function()
                     // success message
                     if(xhr.responseText.substr(0, 3) == "ok@") {
                         returnArea.innerHTML = xhr.responseText.substr(3);
-						var cek = sjcl.codec.hex.fromBits(cek);
+						var cek = sjcl.codec.hex.fromBits(cek_plt);
 						sessionStorage.setItem("cek", cek);
 						sessionStorage.setItem("kek", field_passphrase);
                         window.location.href="Home";
