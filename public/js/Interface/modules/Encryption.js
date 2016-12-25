@@ -6,6 +6,8 @@ var Encryption = (function() {
 	var cek = sessionStorage.getItem("cek");
 	if (cek == null) {
 		window.location.href = "Logout";
+	}else {
+		var cek = sjcl.codec.toBits(cek);
 	}
 	var target = 'User';
 	var est = 33.5; // Estimation of the difference between the file and encrypted file in %
