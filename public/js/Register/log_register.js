@@ -17,12 +17,33 @@ window.onload = function() {
         }
     });
 }
+
+/*
+* @name         : genCek
+* @description plt: generate a new CEK
+* @description enc: encrypt and next base64 encode it to store it in the database
+*/
+var genCek = {};
+genCek.plt = function(){
+	var key = sjcl.random.randomWords(4); //get a random value on 128 bits
+	return key;
+}
+
+genCek.enc = function(key, passphrase){
+	var a = sjcl.random.randomWords(1);
+	var i = sjcl.random.randomWords(4);
+	var s = sjcl.random.randomWords(2);
+	//encrypt it
+	var key = sjcl.encrypt(passphrase, key, {mode:'gcm', iv:i, salt:s, iter:2000, ks:256, adata:a, ts:128});
+	var key = base64.encode(key); //don't store a Json in mongoDB...
+	return key;
+}
+
+
 /*
 * @name         : sendRegisterRequest()
 * @description  : send the user's informations
 */
-
-
 var sendRegisterRequest = function()
 {
     console.log("Start register");
