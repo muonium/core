@@ -53,24 +53,28 @@ var sendConnectionRequest = function()
                 {
                     // success message
 					var rep = xhr.responseText;
+					//the responseText have to be: ok@$cek or val@$cek, where $cek is the urlencoded encrypted cek
 					var rep = rep.split("@");
                     if(rep[0] == "ok") {
 						var cek = rep[1];
 						try {
+							//we decrypt the CEK which is received from the server
 							var cek = decodeURIComponent(cek);
-							var cek = base64.decode(cek);
-							var cek = sjcl.decrypt(field_passphrase, cek);
-							var cek = sjcl.codec.hex.fromBits(cek);
-							sessionStorage.setItem("kek", field_passphrase);
-							sessionStorage.setItem("cek", cek);
-							window.location.href  = "Home";
+							var cek = base64.decode(cek); //the CEK is base64encoded in the database, then we decode it
+							var cek = sjcl.decrypt(field_passphrase, cek); //the CEK is now a bytes array, we decrypt it
+							var cek = sjcl.codec.hex.fromBits(cek); //we hexa' encode it to store it correctly in sessionStorage
+							sessionStorage.setItem("kek", field_passphrase); //we store locally the passphrase
+							sessionStorage.setItem("cek", cek); //we store locally the CEK
+							window.location.href  = "Home"; //it's okay, all is good -> redirect the user to the desktop
 						} catch (e) {
+							//if the cek decryption didn't work
 							console.log(e.message);
-							returnArea.innerHTML = "<p>Error : bad passphrase.</p>";
+							returnArea.innerHTML = "<p>Error : bad passphrase.</p>"; // TODO: put this string in JSON files
 						}
 						return false;
                     }
                     else if(rep[0] == "va") {
+						// TODO: cek decryption at the Validate view page, for Dylan
 						window.location.href = "Validate";
 						return false;
                     }

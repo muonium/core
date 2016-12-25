@@ -86,8 +86,8 @@ var changePassPhrase = function() {
     var pp_confirm = document.querySelector("#ppconfirm").value;
 	var current_pp = sessionStorage.getItem("kek");
 
-	var cek = sessionStorage.getItem("cek");
-	var cek = sjcl.codec.hex.toBits(cek);
+	var cek = sessionStorage.getItem("cek"); ///we get the CEK from sessionStorage
+	var cek = sjcl.codec.hex.toBits(cek); //we decode it because the CEK is hexa' encoded in sessionStorage to avoid any compatibility problem
 
 	if (old_pp != current_pp) {
 		returnArea.innerHTML = "<p>You typed the wrong passphrase!</p>";
@@ -95,13 +95,16 @@ var changePassPhrase = function() {
 			returnArea.innerHTML = txt.Register.form;
 		}else{
 
-					sessionStorage.setItem("kek", new_pp);
+					sessionStorage.setItem("kek", new_pp); //we store the new kek locally
 
+					//crypto parameters, don't touch
 					var aDATA = sjcl.random.randomWords(4);
 					var initVector = sjcl.random.randomWords(4);
 					var salt = sjcl.random.randomWords(2);
+
+					//we encrypt the CEK under the new passphrase (alias "KEK" -Key Encryption Key)
 					var encryptedCek = sjcl.encrypt(new_pp, cek, {mode:'gcm', iter:2000, iv:initVector, ks:256, adata:aDATA, ts:128, salt:salt});
-					var encryptedCek = base64.encode(encryptedCek);
+					var encryptedCek = base64.encode(encryptedCek); //we b64encode it to store it in the DB
 
 			        var xhr = new XMLHttpRequest();
 			        xhr.open("POST", "Profile/ChangePassPhrase", true);
@@ -126,7 +129,7 @@ var changePassPhrase = function() {
 			                }
 			            }
 			        }
-			        xhr.send(encodeURIComponent(encryptedCek));
+			        xhr.send(encodeURIComponent(encryptedCek)); //we send the b64encoded&encrypted CEK
 
 		}
 	}
