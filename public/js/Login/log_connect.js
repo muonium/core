@@ -61,7 +61,7 @@ var sendConnectionRequest = function()
 							//we decrypt the CEK which is received from the server
 							var cek = decodeURIComponent(cek);
 							var cek = base64.decode(cek); //the CEK is base64encoded in the database, then we decode it
-							var cek = sjcl.decrypt(field_passphrase, cek); //the CEK is now a bytes array, we decrypt it
+							var cek = sjcl.decrypt(field_passphrase, cek); //the CEK is now a JSON, we decrypt it
 							var cek = sjcl.codec.hex.fromBits(cek); //we hexa' encode it to store it correctly in sessionStorage
 							sessionStorage.setItem("kek", field_passphrase); //we store locally the passphrase
 							sessionStorage.setItem("cek", cek); //we store locally the CEK
