@@ -3,7 +3,10 @@
 var Encryption = (function() {
 	// Private
 	var chunkSize = 1024 * 1024; // Size of one chunk in B
-	var cek = 'password'; // for tests
+	var cek = sessionStorage.getItem("cek");
+	if (cek == null) {
+		window.location.href = "Logout";
+	}
 	var target = 'User';
 	var est = 33.5; // Estimation of the difference between the file and encrypted file in %
 
