@@ -4,7 +4,12 @@
 var Decryption = (function() {
 	// Private
 	var chunkSize = 1024 * 1024; // Size of one chunk in B
-	var CEK = 'password'; // for tests
+	var cek = sessionStorage.getItem("cek");
+	if (cek == null) {
+		window.location.href = "Logout";
+	}else {
+		var cek = sjcl.codec.hex.toBits(cek);
+	}
 	var target = 'User';
 
 	var smallQuota = 1024*1024;
