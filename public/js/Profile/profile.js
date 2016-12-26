@@ -87,7 +87,7 @@ var changePassPhrase = function() {
 	var current_pp = sessionStorage.getItem("kek");
 
 	var cek = sessionStorage.getItem("cek"); ///we get the CEK from sessionStorage
-	if (cek == null) {
+	if (cek == null || current_pp == null) {
 		window.location.href = "Logout";
 	}else {
 		var cek = sjcl.codec.hex.toBits(cek); //we decode it because the CEK is hexa' encoded in sessionStorage to avoid any compatibility problem
