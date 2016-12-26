@@ -147,5 +147,48 @@ class Profile extends l\Languages
         else
             echo $this->txt->Profile->updateErr;
     }
+
+/*     add function to change email of user  */
+
+ function ChangeMailAction() {
+        // Called by profile.js
+        
+        if(!empty($_POST['changemail'])) {
+           
+            
+            if(filter_var($_POST['changemail'], FILTER_VALIDATE_EMAIL))
+               {
+                $this->_modelUser = new m\Users();
+
+                $this->_modelUser->id = $_SESSION['id'];
+                $this->_modelUser->email = $_POST['changemail'];
+                
+                if(!($this->_modelUser->LoginExists())) {
+					echo "hello login";
+                    if($this->_modelUser->updateMail()) {
+						echo "hello right";
+                        echo 'ok@'.$this->txt->Profile->updateOk;
+                    }
+                    else {
+						echo "helllo  error";
+                        echo $this->txt->Profile->updateErr;
+                    }
+                }
+                else {
+                    echo $this->txt->Profile->loginExists;
+                }
+             }
+				else {
+					// "mailFormat" response
+					echo htmlentities($this->txt->Profile->mailFormat);
+				}
+        }
+        else {
+            echo $this->txt->Profile->emptymail;
+        }
+    }
+
+/*                                               */
+
 };
 ?>
