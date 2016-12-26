@@ -62,7 +62,7 @@ var sendConnectionRequest = function()
 							var cek = decodeURIComponent(cek);
 							var cek = base64.decode(cek); //the CEK is base64encoded in the database, then we decode it
 							var cek = sjcl.decrypt(field_passphrase, cek); //the CEK is now a JSON, we decrypt it
-							var cek = sjcl.codec.hex.fromBits(cek); //we hexa' encode it to store it correctly in sessionStorage
+							var cek = sjcl.codec.hex.fromBits(cek); //we hexa' encode it to store it correctly in sessionStorage (to avoid any compatibility trouble)
 							sessionStorage.setItem("kek", field_passphrase); //we store locally the passphrase
 							sessionStorage.setItem("cek", cek); //we store locally the CEK
 							window.location.href  = "Home"; //it's okay, all is good -> redirect the user to the desktop
