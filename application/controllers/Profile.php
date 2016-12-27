@@ -178,14 +178,10 @@ class Profile extends l\Languages
         $this->_modelUserValidation->id_user = $_SESSION['id'];
         $this->_modelUserLostPass = new m\UserLostPass();
         $this->_modelUserLostPass->id_user = $_SESSION['id'];
-   // $this->_modelUser->login = $_POST['login'];
+   
 
 	if(!($this->_modelUser->LoginExists())) {
-		//print_r($_SESSION);
-		//echo "Hellllooooo";
-		//echo $_SESSION['id'];
-		//header('Location: ../User ');
-					//echo $_SESSION['id'];
+		
 		if($this->_modelUserLostPass->Delete()) {
 		    if($this->_modelUserValidation->Delete()) {
 		        if($this->_modelBan->deleteBan()) {
@@ -195,12 +191,12 @@ class Profile extends l\Languages
 					if($this->_modelUser->deleteUser()) {
 						echo 'ok@'.$this->txt->Profile->accountDeletionOk;
 						removeDirectory(NOVA.$_SESSION['id']);
-						//header("Location: User");
+					
 						session_destroy();
 					}
 					else {
 						echo $this->txt->Profile->updateErr;
-						//echo $_SESSION['id'];
+						
 					}
                                             }
                                             else {

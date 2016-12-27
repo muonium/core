@@ -153,23 +153,11 @@ var deleteUser = function() {
     xhr.send("deleteUser="+deleteUser);
 }
 
-/*function GettingPassword() {
-	var pass = prompt("Please enter your password");
 
-	if (pass != null) {
-		y ="your password is correct";
-		//alert('yes');
-	}
-	else{
-			y ="your password is incorrect";
-			//alert('no');
-		}
-		document.getElementById("pass_message").innerHTML =y;
-}*/
 function ConfirmDelete() {
 	var x;
 	if (confirm(txt.Profile.accountDeletionConfirm) == true) {
-		//GettingPassword();
+		
 		deleteUser();
 	}
 }
