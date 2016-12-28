@@ -5,10 +5,10 @@
 **/
 
 
-/*
-* @name         : sendConnectionRequest()
-* @description  : to send username + password + base64encoded encrypted CEK to the server and log in the the user if all is good
-*/
+/**
+** @name         : sendConnectionRequest()
+** @description  : to send username + password + base64encoded encrypted CEK to the server and log in the the user if all is good
+**/
 
 window.onload = function() {
 
