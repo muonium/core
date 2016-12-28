@@ -126,8 +126,8 @@
         "getpp": "Unable to get your passphrase",
         "doubleAuth": "Double authentification",
         "warningpp": "Warning ! You can only change your passphrase <strong>2</strong> times per month. You have already changed [count] times !",
-	"accountDeletionConfirm": "Do you really want to delete your account ?",
-	"accountDeletionOk": "Your account was successfully deleted!"
+		"accountDeletionConfirm": "Do you really want to delete your account ?",
+		"accountDeletionOk": "Your account was successfully deleted!"
     },
 
     "LostPass": {

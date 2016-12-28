@@ -127,7 +127,9 @@
         "getpwd": "Impossible de récupérer le mot de passe",
         "getpp": "Impossible de récupérer la phrase secrète",
         "doubleAuth": "Double authentification",
-        "warningpp": "Attention ! Vous pouvez changer votre phrase secrète seulement <strong>2</strong> fois par mois. Vous l'avez déjà changé [count] fois !"
+        "warningpp": "Attention ! Vous pouvez changer votre phrase secrète seulement <strong>2</strong> fois par mois. Vous l'avez déjà changé [count] fois !",
+		"accountDeletionConfirm": "Voulez-vous vraiment supprimer votre compte ?",
+		"accountDeletionOk": "Votre compte a bien été supprimé !"
     },
 
     "LostPass": {

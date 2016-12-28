@@ -120,7 +120,9 @@
         "getpwd": "Recupero della tua password fallito",
         "getpp": "Recupero della tua frase di sicurezza fallito",
         "doubleAuth": "Doppia autenticazione",
-        "warningpp": "Attenzione! Puoi cambiare la tua frase di sicurezza soltanto <strong>2</strong> volte al mese. L'hai già cambiata [count] volte!"
+        "warningpp": "Attenzione! Puoi cambiare la tua frase di sicurezza soltanto <strong>2</strong> volte al mese. L'hai già cambiata [count] volte!",
+		"accountDeletionConfirm": "Do you really want to delete your account ?",
+		"accountDeletionOk": "Your account was successfully deleted!"
     },
 
     "LostPass": {
