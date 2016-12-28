@@ -37,8 +37,11 @@ var Encryption = (function() {
 		this.l = 0; // Number of B written
 		this.halt = false;
 
+		//crypto parameters
 		this.aDATA = sjcl.random.randomWords(4);
 		this.salt = sjcl.random.randomWords(2);
+		
+		//key derivation
 		this.key = sjcl.misc.pbkdf2(cek, this.salt, 2000, 256);
 		this.enc = new sjcl.cipher.aes(this.key);
 
