@@ -40,7 +40,7 @@ var Encryption = (function() {
 		//crypto parameters
 		this.aDATA = sjcl.random.randomWords(4);
 		this.salt = sjcl.random.randomWords(2);
-		
+
 		//key derivation
 		this.key = sjcl.misc.pbkdf2(cek, this.salt, 2000, 256);
 		this.enc = new sjcl.cipher.aes(this.key);
@@ -212,7 +212,10 @@ var Encryption = (function() {
 			return t;
 		}
 
+		//crypto parameter
 		var initVector = sjcl.random.randomWords(4);
+
+		//chunk encryption
 		var s = sjcl.mode.gcm.encrypt(this.enc, chk, initVector, this.aDATA, 128);
 		s = pack(s, this.salt, this.aDATA, initVector);
 
