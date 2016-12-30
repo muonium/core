@@ -166,6 +166,7 @@ var changeMail = function() {
         }
     }
     xhr.send("changemail="+encodeURIComponent(changemail));
+}
 
 //delete button
 
