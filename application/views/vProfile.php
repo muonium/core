@@ -40,17 +40,16 @@
                 <br />
             </p>
 
-		<!-- Add delete button user  -->
+			<!-- Add delete button user  -->
             <p>
-		<br /><br /><br /><br />
-		<fieldset>
-						
-						<input type="submit" value="Delete Account" onclick="ConfirmDelete()">
-						<div id="deleteUserReturn"></div>
-					</fieldset>
-					<br />
-		</p>
-				<!--    -->
+				<fieldset>
+					<legend><?php echo_h($this->txt->Profile->deleteAccount); ?></legend>
+					<input type="submit" onclick="ConfirmDelete()">
+					<div id="deleteUserReturn"></div>
+				</fieldset>
+				<br />
+			</p>
+			<!--    -->
 
             <p>
                 <fieldset>

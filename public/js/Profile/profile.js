@@ -138,26 +138,29 @@ var changeAuth = function() {
 
 var deleteUser = function() {
     var returnArea = document.querySelector("#deleteUserReturn");
-   // var doubleAuth = document.querySelector("#doubleAuth").checked;
     var xhr = new XMLHttpRequest();
-    xhr.open("POST", "Profile/deleteUser", true);
+    xhr.open("POST", "Profile/DeleteUser", true);
     xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
     xhr.onreadystatechange = function()
     {
         if(xhr.status == 200 && xhr.readyState == 4) {
-            console.log(xhr.responseText);
-            returnArea.innerHTML = xhr.responseText;
+			if(xhr.responseText.substr(0, 3) == "ok@") {
+				window.location.href="Logout";
+				return false;
+			}
+			else {
+				// error
+            	returnArea.innerHTML = xhr.responseText;
+			}
         }
     }
-    xhr.send("deleteUser="+deleteUser);
+    xhr.send("deleteUser=ok");
 }
 
 
 function ConfirmDelete() {
-	var x;
-	if (confirm(txt.Profile.accountDeletionConfirm) == true) {
-		
+	if (confirm(txt.Profile.accountDeletionConfirm)) {
 		deleteUser();
 	}
 }
