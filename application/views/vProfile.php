@@ -40,6 +40,21 @@
                 <br />
             </p>
 
+		<!-- Add change email button -->
+            
+            <p>
+                <fieldset>
+                    <legend><?php echo_h($this->txt->Profile->changemail); ?></legend>
+                    <p>
+                        <input type="text" name="changemail" id="changemail" placeholder="<?php echo_h($this->txt->Profile->changemail); ?>">
+                    </p>
+                    <input type="submit" onclick="changeMail()">
+                    <div id="changeMailReturn"></div>
+                </fieldset>
+                <br />
+            </p>
+            
+            <!--                        -->
 			<!-- Add delete button user  -->
             <p>
 				<fieldset>

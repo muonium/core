@@ -225,6 +225,17 @@ class Users extends l\Model {
             return false;
         }
 
+/*      Add method for update email  */
+	
+	function updatemail() {
+            if(!empty($this->id)) {
+                if(is_numeric($this->id)) {
+                    $req = self::$_sql->prepare("UPDATE users SET email = ? WHERE id = ?");
+                    return $req->execute(array($this->email, $this->id));
+                  }
+            }
+            return false;
+        }
 	/*  Add Method for delete user  */
 
 	function deleteUser() {
@@ -237,6 +248,4 @@ class Users extends l\Model {
             }
             return false;
         }
-
-	/*                                 */
     }

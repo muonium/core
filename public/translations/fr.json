@@ -128,9 +128,12 @@
         "getpp": "Impossible de récupérer la phrase secrète",
         "doubleAuth": "Double authentification",
         "warningpp": "Attention ! Vous pouvez changer votre phrase secrète seulement <strong>2</strong> fois par mois. Vous l'avez déjà changé [count] fois !",
-		"accountDeletionConfirm": "Voulez-vous vraiment supprimer votre compte ?",
-		"accountDeletionOk": "Votre compte a bien été supprimé !",
-		"deleteAccount": "Supprimer votre compte"
+        "changemail" : "Changement d'email",
+        "mailFormat": "Le format de l'email est invalide.",
+        "emptymail": "Complétez ce champ",
+        "accountDeletionConfirm": "Voulez-vous vraiment supprimer votre compte ?",
+        "accountDeletionOk": "Votre compte a bien été supprimé !",
+        "deleteAccount": "Supprimer votre compte"
     },
 
     "LostPass": {

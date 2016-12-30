@@ -134,17 +134,51 @@ var changeAuth = function() {
     xhr.send("doubleAuth="+doubleAuth);
 }
 
+//change user email
+
+var changeMail = function() {
+    var changemail = document.querySelector("#changemail").value;
+
+    var returnArea = document.querySelector("#changeMailReturn");
+    returnArea.innerHTML = "<img src='./public/pictures/index/loader.gif' style='height: 3vh;' />";
+
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "Profile/ChangeMail", true);
+  xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+    xhr.onreadystatechange = function()
+    {
+      if(xhr.status == 200 && xhr.readyState == 4)
+        {
+            console.log(xhr.responseText);
+            if(xhr.responseText.length > 2)
+            {
+                // success message
+                if(xhr.responseText.substr(0, 3) == "ok@") {
+                    window.location.href="Profile";
+                    return false;
+                }
+                else {
+                    // error
+                    returnArea.innerHTML = xhr.responseText;
+                }
+            }
+        }
+    }
+    xhr.send("changemail="+encodeURIComponent(changemail));
+}
+
 //delete button
 
 var deleteUser = function() {
     var returnArea = document.querySelector("#deleteUserReturn");
     var xhr = new XMLHttpRequest();
     xhr.open("POST", "Profile/DeleteUser", true);
-    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+  xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
     xhr.onreadystatechange = function()
     {
-        if(xhr.status == 200 && xhr.readyState == 4) {
+      if(xhr.status == 200 && xhr.readyState == 4) {
 			if(xhr.responseText.substr(0, 3) == "ok@") {
 				window.location.href="Logout";
 				return false;
