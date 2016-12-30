@@ -224,4 +224,19 @@ class Users extends l\Model {
             }
             return false;
         }
+
+	/*  Add Method for delete user  */
+
+	function deleteUser() {
+            if(!empty($this->id)) {
+				
+                if(is_numeric($this->id)) {
+                     $req2 = self::$_sql->prepare("DELETE FROM users WHERE id = ?");
+                    return $req2->execute(array( $this->id));
+                }
+            }
+            return false;
+        }
+
+	/*                                 */
     }

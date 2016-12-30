@@ -133,3 +133,34 @@ var changeAuth = function() {
     }
     xhr.send("doubleAuth="+doubleAuth);
 }
+
+//delete button
+
+var deleteUser = function() {
+    var returnArea = document.querySelector("#deleteUserReturn");
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "Profile/DeleteUser", true);
+    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+    xhr.onreadystatechange = function()
+    {
+        if(xhr.status == 200 && xhr.readyState == 4) {
+			if(xhr.responseText.substr(0, 3) == "ok@") {
+				window.location.href="Logout";
+				return false;
+			}
+			else {
+				// error
+            	returnArea.innerHTML = xhr.responseText;
+			}
+        }
+    }
+    xhr.send("deleteUser=ok");
+}
+
+
+function ConfirmDelete() {
+	if (confirm(txt.Profile.accountDeletionConfirm)) {
+		deleteUser();
+	}
+}
