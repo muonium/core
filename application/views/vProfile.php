@@ -55,6 +55,16 @@
             </p>
             
             <!--                        -->
+			<!-- Add delete button user  -->
+            <p>
+				<fieldset>
+					<legend><?php echo_h($this->txt->Profile->deleteAccount); ?></legend>
+					<input type="submit" onclick="ConfirmDelete()">
+					<div id="deleteUserReturn"></div>
+				</fieldset>
+				<br />
+			</p>
+			<!--    -->
 
             <p>
                 <fieldset>

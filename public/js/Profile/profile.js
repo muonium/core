@@ -144,11 +144,11 @@ var changeMail = function() {
 
     var xhr = new XMLHttpRequest();
     xhr.open("POST", "Profile/ChangeMail", true);
-    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+  xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
     xhr.onreadystatechange = function()
     {
-        if(xhr.status == 200 && xhr.readyState == 4)
+      if(xhr.status == 200 && xhr.readyState == 4)
         {
             console.log(xhr.responseText);
             if(xhr.responseText.length > 2)
@@ -166,4 +166,34 @@ var changeMail = function() {
         }
     }
     xhr.send("changemail="+encodeURIComponent(changemail));
+
+//delete button
+
+var deleteUser = function() {
+    var returnArea = document.querySelector("#deleteUserReturn");
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "Profile/DeleteUser", true);
+  xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+    xhr.onreadystatechange = function()
+    {
+      if(xhr.status == 200 && xhr.readyState == 4) {
+			if(xhr.responseText.substr(0, 3) == "ok@") {
+				window.location.href="Logout";
+				return false;
+			}
+			else {
+				// error
+            	returnArea.innerHTML = xhr.responseText;
+			}
+        }
+    }
+    xhr.send("deleteUser=ok");
+}
+
+
+function ConfirmDelete() {
+	if (confirm(txt.Profile.accountDeletionConfirm)) {
+		deleteUser();
+	}
 }
