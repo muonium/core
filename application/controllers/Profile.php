@@ -6,6 +6,13 @@ use \application\models as m;
 class Profile extends l\Languages
 {
     private $_modelUser;
+	private $_modelBan;
+	private $_modelFiles;
+	private $_modelStorage;
+	private $_modelFolders;
+	private $_modelUserLostPass;
+	private $_modelUserValidation;
+
     private $ppCounter = 0;
 
     function __construct() {
@@ -93,6 +100,7 @@ class Profile extends l\Languages
 
     function ChangePassPhraseAction() {
         // Called by profile.js
+        echo $this->txt->Error->pp;
         /*
 		- receive the new base64encoded encrypted CEK
 		- store it in the database
@@ -114,5 +122,123 @@ class Profile extends l\Languages
         else
             echo $this->txt->Profile->updateErr;
     }
+
+/*     add function to change email of user  */
+
+ function ChangeMailAction() {
+        // Called by profile.js
+
+        if(!empty($_POST['changemail'])) {
+
+
+            if(filter_var($_POST['changemail'], FILTER_VALIDATE_EMAIL))
+               {
+                $this->_modelUser = new m\Users();
+
+                $this->_modelUser->id = $_SESSION['id'];
+                $this->_modelUser->email = $_POST['changemail'];
+
+                if(!($this->_modelUser->LoginExists())) {
+                    if($this->_modelUser->updateMail()) {
+                        echo $this->txt->Profile->updateOk;
+                    }
+                    else {
+                        echo $this->txt->Profile->updateErr;
+                    }
+                }
+                else {
+                    echo $this->txt->Profile->loginExists;
+                }
+             }
+				else {
+					// "mailFormat" response
+					echo htmlentities($this->txt->Profile->mailFormat);
+				}
+        }
+        else {
+            echo $this->txt->Profile->emptymail;
+        }
+    }
+
+/*                                               */
+
+		/*   Add delete user function */
+
+	function DeleteUserAction() {
+		// Called by profile.js
+
+		// function of remove the user directory and it's files
+		function removeDirectory($path) {
+			$files = glob($path . '/*');
+			foreach ($files as $file) {
+				is_dir($file) ? removeDirectory($file) : unlink($file);
+			}
+			rmdir($path);
+			return;
+		}
+
+		$this->_modelUser = new m\Users();
+		$this->_modelUser->id = $_SESSION['id'];
+        $this->_modelStorage = new m\Storage();
+        $this->_modelStorage->id_user = $_SESSION['id'];
+        $this->_modelFiles = new m\Files();
+        $this->_modelFiles->id_owner = $_SESSION['id'];
+        $this->_modelFolders = new m\Folders();
+        $this->_modelFolders->id_owner = $_SESSION['id'];
+        $this->_modelBan = new m\Ban();
+        $this->_modelBan->id_user = $_SESSION['id'];
+        $this->_modelUserValidation = new m\UserValidation();
+        $this->_modelUserValidation->id_user = $_SESSION['id'];
+        $this->_modelUserLostPass = new m\UserLostPass();
+        $this->_modelUserLostPass->id_user = $_SESSION['id'];
+
+		if(!($this->_modelUser->LoginExists())) {
+
+			if($this->_modelUserLostPass->Delete()) {
+			    if($this->_modelUserValidation->Delete()) {
+			        if($this->_modelBan->deleteBan()) {
+			            if($this->_modelFiles->deleteFilesfinal()) {
+			                if($this->_modelFolders->deleteFoldersfinal()) {
+			                    if($this->_modelStorage->deleteStorage()) {
+									if($this->_modelUser->deleteUser()) {
+										echo 'ok@'.$this->txt->Profile->accountDeletionOk;
+										removeDirectory(NOVA.'/'.$_SESSION['id']);
+
+										session_destroy();
+									}
+									else {
+										echo $this->txt->Profile->updateErr;
+									}
+			                    }
+			                    else {
+			                        echo $this->txt->Profile->updateErr;
+			                    }
+			                }
+			            	else {
+			                    echo $this->txt->Profile->updateErr;
+			                }
+			            }
+			            else {
+			            	echo $this->txt->Profile->updateErr;
+			            }
+			        }
+			        else {
+			            echo $this->txt->Profile->updateErr;
+			        }
+			    }
+			    else {
+			        echo $this->txt->Profile->updateErr;
+			    }
+			}
+			else {
+			    echo $this->txt->Profile->updateErr;
+			}
+		}
+		else {
+			echo $this->txt->Profile->loginExists;
+		}
+	}
+
+/*                             */
 };
 ?>
