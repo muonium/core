@@ -165,7 +165,7 @@ class Users extends l\Model {
         function Insertion() {
             // $this->password must be encrypted !
             $req = self::$_sql->prepare("INSERT INTO users VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, '', '0')");
-            $ret = $req->execute(array($this->login, $this->password, $this->email, time(), time(), $this->passphrase, '', $this->doubleAuth));
+            $ret = $req->execute(array($this->login, $this->password, $this->email, time(), time(), $this->passphrase, $this->cek, $this->doubleAuth));
             return $ret;
         }
 
