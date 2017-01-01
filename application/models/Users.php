@@ -112,6 +112,15 @@ class Users extends l\Model {
             $res = $req->fetch();
             return $res['password'];
         }
+        
+        function getCek() {
+            $req = self::$_sql->prepare("SELECT cek FROM users WHERE id = ?");
+            $req->execute(array($this->id));
+            if($req->rowCount() == 0)
+                return false;
+            $res = $req->fetch();
+            return $res['cek'];
+        }
 
         function getLogin() {
              return $this->login;
@@ -204,6 +213,17 @@ class Users extends l\Model {
                 if(is_numeric($this->id)) {
                     $req = self::$_sql->prepare("UPDATE users SET passphrase = ? WHERE id = ?");
                     return $req->execute(array($this->passphrase, $this->id));
+                }
+            }
+            return false;
+        }
+        
+        function updateCek() {
+            // $this->passphrase must be encrypted !
+            if(!empty($this->id)) {
+                if(is_numeric($this->id)) {
+                    $req = self::$_sql->prepare("UPDATE users SET cek = ? WHERE id = ?");
+                    return $req->execute(array($this->cek, $this->id));
                 }
             }
             return false;

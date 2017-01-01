@@ -77,7 +77,7 @@ var changePassword = function() {
     }
 }
 
-var changePassPhrase = function() {
+var changeCek = function() {
     var returnArea = document.querySelector("#changePassPhraseReturn");
     returnArea.innerHTML = "<img src='./public/pictures/index/loader.gif' style='height: 3vh;' />";
 
@@ -110,7 +110,7 @@ var changePassPhrase = function() {
 					var encryptedCek = base64.encode(encryptedCek); //we b64encode it to store it in the DB
 
 			        var xhr = new XMLHttpRequest();
-			        xhr.open("POST", "Profile/ChangePassPhrase", true);
+			        xhr.open("POST", "Profile/ChangeCek", true);
 			        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
 			        xhr.onreadystatechange = function()

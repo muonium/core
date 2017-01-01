@@ -98,13 +98,47 @@ class Profile extends l\Languages
         }
     }
 
-    function ChangePassPhraseAction() {
+    function ChangeCekAction() {
         // Called by profile.js
         echo $this->txt->Error->pp;
         /*
 		- receive the new base64encoded encrypted CEK
 		- store it in the database
 		*/
+		
+		  if(!empty($_POST['old_pp']) && !empty($_POST['new_pp']) && !empty($_POST['pp_confirm'])) {
+            if($_POST['new_pp'] == $_POST['pp_confirm']) {
+                        $this->_modelUser = new m\Users();
+
+                        $this->_modelUser->id = $_SESSION['id'];
+                        if($this->_modelUser->getPpCounter() < 2) {
+                            if($user_pp = $this->_modelUser->getCek()) {
+                                    if($user_pp == $_POST['old_pp']) {
+                                        $this->_modelUser->cek = $_POST['new_pp'];
+                                        if($this->_modelUser->updateCek()) {
+                                            $this->_modelUser->incrementPpCounter();
+                                            echo 'ok@'.$this->txt->Profile->updateOk;
+                                        }
+                                        else {
+                                            echo $this->txt->Profile->updateErr;
+                                        }
+                                    }
+                                    else {
+                                        echo $this->txt->Register->badOldPassphrase;
+                                    }
+                            }
+                            else {
+                                echo $this->txt->Profile->getpp;
+                            }
+                        }
+                }
+                else {
+                    echo $this->txt->Register->badPassphraseConfirm;
+                }
+            }
+            else {
+                echo $this->txt->Register->form;
+            }
     }
 
     function ChangeAuthAction() {

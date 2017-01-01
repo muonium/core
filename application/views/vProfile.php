@@ -104,7 +104,7 @@
                     <p>
                         <input type="password" name="ppconfirm" id="ppconfirm" placeholder="<?php echo_h($this->txt->Register->confirm); ?>">
                     </p>
-                    <input type="submit" onclick="changePassPhrase()">
+                    <input type="submit" onclick="changeCek()">
                     <div id="changePassPhraseReturn"></div>
                     <?php } ?>
                 </fieldset>
