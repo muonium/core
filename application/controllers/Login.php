@@ -104,7 +104,7 @@ class Login extends l\Languages {
                             }
                             else // Logged
                                 $_SESSION['id'] = $id;
-                            echo 'ok@'.$cek;
+                            echo 'ok@'.$cek; //the CEK is already url encoded in the database
                         }
                         else {
                             // Key found - User needs to validate its account (double auth only for validated accounts)
