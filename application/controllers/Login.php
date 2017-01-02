@@ -80,6 +80,7 @@ class Login extends l\Languages {
             else {
                 $new_user->id = $id;
                 $pass = $new_user->getPassword();
+				$cek = $new_user->getCek();
 
                 if($pass !== false && $pp !== false) {
                     if(password_verify($new_user->password, $pass)) {
@@ -102,7 +103,7 @@ class Login extends l\Languages {
                             }
                             else // Logged
                                 $_SESSION['id'] = $id;
-                            echo 'ok@';
+                            echo 'ok@'.$cek;
                         }
                         else {
                             // Key found - User needs to validate its account (double auth only for validated accounts)
