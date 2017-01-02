@@ -62,10 +62,11 @@ class Login extends l\Languages {
         if(!empty($_POST['username']) && !empty($_POST['pass'])) {
             $new_user = new m\Users();
 
-            if(filter_var($_POST['username'], FILTER_VALIDATE_EMAIL) === false)
+            if(filter_var($_POST['username'], FILTER_VALIDATE_EMAIL) === false){
                 $new_user->login = urldecode($_POST['username']);
-            else
+            }else{
                 $new_user->email = urldecode($_POST['username']);
+			}
 
             $new_user->password = urldecode($_POST['pass']);
             $brute = new l\AntiBruteforce();
