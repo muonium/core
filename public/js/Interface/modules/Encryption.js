@@ -7,7 +7,11 @@ var Encryption = (function() {
 	if (cek == null) {
 		window.location.href = "Logout";
 	}else {
-		var cek = sjcl.codec.toBits(cek);
+		try {
+			var cek = sjcl.codec.hex.toBits(cek);
+		} catch (e) {
+			window.location.href = "Logout";
+		}
 	}
 	var target = 'User';
 	var est = 33.5; // Estimation of the difference between the file and encrypted file in %
