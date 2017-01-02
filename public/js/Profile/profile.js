@@ -133,7 +133,7 @@ var changeCek = function() {
 			                }
 			            }
 			        }
-			        xhr.send(encodeURIComponent(encryptedCek)); //we send the b64encoded&encrypted CEK
+			        xhr.send("cek="+encodeURIComponent(encryptedCek)); //we send the b64encoded&encrypted CEK
 
 		}
 	}
