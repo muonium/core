@@ -109,7 +109,7 @@ class Profile extends l\Languages
 		if (!empty(_POST['cek'])) {
 			$this->_modelUser = new m\Users();
 			$this->_modelUser->id = $_SESSION['id']; //set the 'id' value for the MySQL request
-			$this->_modelUser->cek = $_SESSION['cek']; //set the 'cek' value for the MySQL request
+			$this->_modelUser->cek = $_POST['cek']; //set the 'cek' value for the MySQL request
 			if ($this->_modelUser->updateCek()) { //try to update
 				echo "@ok".$this->txt->Profile->updateOk; //all is okay, return that request went fine
 			}else { //error, cannot update
