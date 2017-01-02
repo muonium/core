@@ -106,7 +106,7 @@ class Profile extends l\Languages
 		- DO NOT FORGET: THE PASSPHRASE MUST NOT BE SENT TO THE SERVERS!!!!!
 		- keep the cek as an urlencoded string, it's urldecoded at the frontend anyway
 		*/
-		if (!empty(_POST['cek'])) {
+		if (!empty($_POST['cek'])) {
 			$this->_modelUser = new m\Users();
 			$this->_modelUser->id = $_SESSION['id']; //set the 'id' value for the MySQL request
 			$this->_modelUser->cek = $_POST['cek']; //set the 'cek' value for the MySQL request
