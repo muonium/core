@@ -82,7 +82,7 @@ class Login extends l\Languages {
                 $pass = $new_user->getPassword();
 				$cek = $new_user->getCek();
 
-                if($pass !== false && $pp !== false) {
+                if($pass !== false) {
                     if(password_verify($new_user->password, $pass)) {
                         // Mail, password ok, connection
                         $mUserVal = new m\UserValidation();
