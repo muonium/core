@@ -147,8 +147,8 @@ class Users extends l\Model {
         }
 
 		function Connection() {
-			$req = self::$_sql->prepare("SELECT id FROM users WHERE email = ? AND password = ? AND passphrase = ?");
-            $req->execute(array($this->email, $this->password, $this->passphrase));
+			$req = self::$_sql->prepare("SELECT id FROM users WHERE email = ? AND password = ?");
+            $req->execute(array($this->email, $this->password));
             if($req->rowCount())
                 return true;
             return false;
