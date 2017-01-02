@@ -104,6 +104,7 @@ class Profile extends l\Languages
 		- receive the new base64encoded encrypted CEK
 		- store it in the database
 		- DO NOT FORGET: THE PASSPHRASE MUST NOT BE SENT TO THE SERVERS!!!!!
+		- keep the cek as an urlencoded string, it's urldecoded at the frontend anyway
 		*/
 		if (!empty(_POST['cek'])) {
 			$this->_modelUser->id = $_SESSION['id']; //set the 'id' value for the MySQL request
