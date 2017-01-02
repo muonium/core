@@ -14,6 +14,7 @@ window.onload = function() {
 
     // Get txt from user's language json (language.js)
     getJSON();
+	sessionStorage.clear();
 
     window.addEventListener("keydown", function(event) {
         switch(event.keyCode) {
