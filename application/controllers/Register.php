@@ -27,24 +27,18 @@ class Register extends l\Languages {
         $this->_bruteforce->Control();
         if($this->_bruteforce->getError() == 0)
         {
-            if(!empty($_POST['mail']) && !empty($_POST['login']) && !empty($_POST['pass']) && !empty($_POST['pass_confirm']) && !empty($_POST['passphrase']) && !empty($_POST['passphrase_confirm']))
+            if(!empty($_POST['mail']) && !empty($_POST['login']) && !empty($_POST['pass']) && !empty($_POST['pass_confirm']))
             {
                 if($_POST['pass'] == $_POST['pass_confirm'])
                 {
-                    if($_POST['passphrase'] == $_POST['passphrase_confirm'])
-                    {
-                        if($_POST['pass'] != $_POST['passphrase'])
-                        {
                             if(filter_var($_POST['mail'], FILTER_VALIDATE_EMAIL))
                             {
                                 if(preg_match("/^[A-Za-z0-9_.-]{2,19}$/", $_POST['login']))
                                 {
                                     $this->_modelUser = new m\Users();
                                     $this->_modelUser->email = $_POST['mail'];
-                                    //$this->_modelUser->passphrase = password_hash(urldecode($_POST['passphrase']), PASSWORD_BCRYPT);
-                                    $this->_modelUser->passphrase = urldecode($_POST['passphrase']);
                                     $this->_modelUser->password = password_hash(urldecode($_POST['pass']), PASSWORD_BCRYPT);
-                                    
+
                                     $this->_modelUser->login = $_POST['login'];
                                     $this->_modelUser->cek = $_POST['cek'];
                                     if(!($this->_modelUser->EmailExists()))
@@ -101,16 +95,6 @@ class Register extends l\Languages {
                                 echo htmlentities($this->txt->Register->mailFormat);
                             }
                         }
-                        else {
-                            // "passEqualPassphrase" response
-                            echo htmlentities($this->txt->Register->passEqualPassphrase);
-                        }
-                    }
-                    else {
-                        // "badPassphraseConfirm" response
-                        echo htmlentities($this->txt->Register->badPassphraseConfirm);
-                    }
-                }
                 else {
                     // "badPassConfirm" response
                     echo htmlentities($this->txt->Register->badPassConfirm);
