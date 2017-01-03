@@ -58,8 +58,7 @@ var sendConnectionRequest = function()
 					var rep = rep.split("@");
                     if(rep[0] == "ok") {
 						var cek = rep[1];
-						try {
-							//we decrypt the CEK which is received from the server
+						try { //we try to decrypt the CEK with the passphrase
 							var cek = decodeURIComponent(cek);
 							var cek = base64.decode(cek); //the CEK is base64encoded in the database, then we decode it
 							var cek = sjcl.decrypt(field_passphrase, cek); //the CEK is now a JSON, we decrypt it
@@ -67,8 +66,7 @@ var sendConnectionRequest = function()
 							sessionStorage.setItem("kek", field_passphrase); //we store locally the passphrase
 							sessionStorage.setItem("cek", cek); //we store locally the CEK
 							window.location.href  = "Home"; //it's okay, all is good -> redirect the user to the desktop
-						} catch (e) {
-							//if the cek decryption didn't work
+						} catch (e) { //the passphrase is wrong
 							console.log(e.message);
 							returnArea.innerHTML = "<p>Error : bad passphrase.</p>"; // TODO: put this string in JSON files
 						}
