@@ -40,7 +40,7 @@ class Register extends l\Languages {
                                     $this->_modelUser->password = password_hash(urldecode($_POST['pass']), PASSWORD_BCRYPT);
 
                                     $this->_modelUser->login = $_POST['login'];
-                                    $this->_modelUser->cek = urldecode($_POST['cek']);
+                                    $this->_modelUser->cek = $_POST['cek'];
                                     if(!($this->_modelUser->EmailExists()))
                                     {
                                         if(!($this->_modelUser->LoginExists()))
