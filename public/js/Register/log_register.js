@@ -24,7 +24,7 @@ window.onload = function() {
 ** y : passphrase
 **/
 var cek = {};
-var cek.encrypt = function(key, y){
+cek.encrypt = function(key, y){
 	//crypto parameters
 	var a = sjcl.random.randomWords(4);
 	var i = sjcl.random.randomWords(4);
@@ -34,7 +34,7 @@ var cek.encrypt = function(key, y){
 	var key = base64.encode(key); //don't store a Json in mongoDB...
 	return key;
 }
-var cek.gen = function(y){
+cek.gen = function(y){
 	var t = sjcl.random.randomWords(4); //4*4 = 16B <=> 4*4*8 = 128 bits
 	var t = sjcl.codec.base64.fromBits(t); //this string will be the user's CEK
 	return cek.encrypt(t, y); //encrypt it
