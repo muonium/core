@@ -100,7 +100,7 @@ var Decryption = (function() {
 
 					if(me.enc === undefined) {
 						console.log("Key derivation process...");
-						var key = sjcl.misc.pbkdf2(CEK, s, 2000, 256);
+						var key = sjcl.misc.pbkdf2(cek, s, 2000, 256);
 						me.enc = new sjcl.cipher.aes(key);
 					}
 
