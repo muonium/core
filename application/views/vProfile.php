@@ -14,7 +14,7 @@
     $_t->addJs("Profile/profile");
     $_t->addJs("Login/sha512");
 	$_t->addJs("src/crypto/sjcl");
-	$_t->addJs("base64")
+	$_t->addJs("base64");
     $_t->getHeader();
 ?>
 <body>
