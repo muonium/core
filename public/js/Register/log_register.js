@@ -8,6 +8,15 @@ window.onload = function() {
     // Get txt from user's language json (language.js)
     getJSON();
 
+	//for the private beta
+	alert("Notice:\
+	- The private beta is there just to test or to find bugs\n\
+	- We can delete all the users data when we need, doesn't matter when\n\
+	- The key encryption key is the same for all the users, consequently, you don't have a privacy\n\
+	- Don't put any personal data in the private beta release\n\
+	Servers are in France, we don't created the Estonian company yet.\n\
+	Once the company created, users will be able to have their own key. ");
+
     window.addEventListener("keydown", function(event) {
         switch(event.keyCode) {
             case 13:
