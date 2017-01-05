@@ -5,10 +5,8 @@ var Decryption = (function() {
 	// Private
 	var chunkSize = 1024 * 1024; // Size of one chunk in B
 	var cek = sessionStorage.getItem("cek");
-	if (cek == null) {
-		window.location.href = "Logout";
-	}else {
-		var cek = sjcl.codec.hex.toBits(cek);
+	if (cek == null) { //check if the cek is there
+		window.location.href = "Logout"; //doesn't exist ? Then logout the user
 	}
 	var target = 'User';
 
