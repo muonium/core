@@ -21,7 +21,7 @@ window.onload = function() {
 /**
 ** @name         :  cek
 ** @description: generate & encrypt cek
-** y : passphrase
+** y = passphrase
 **/
 var cek = {};
 cek.encrypt = function(key, y){
