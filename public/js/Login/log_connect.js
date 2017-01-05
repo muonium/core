@@ -67,7 +67,7 @@ var sendConnectionRequest = function()
 							window.location.href  = "Home"; //it's okay, all is good -> redirect the user to the desktop
 						} catch (e) { //the passphrase is wrong
 							console.log(e.message);
-							returnArea.innerHTML = "<p>Error : bad passphrase.</p>"; // TODO: put this string in JSON files
+							returnArea.innerHTML = txt.Login.badPassphrase;
 						}
 						return false;
                     }
