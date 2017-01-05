@@ -56,10 +56,8 @@ var sendConnectionRequest = function()
 					var rep = xhr.responseText;
 					//the responseText have to be: ok@$cek or val@$cek, where $cek is the urlencoded encrypted cek
 					var z = rep.split("@");
-					console.log(z[0]);
                     if(z[0] == "ok") {
 						var cek = z[1];
-						console.log(z[1]);
 						try { //we try to decrypt the CEK with the passphrase
 							var cek = decodeURIComponent(cek);
 							var cek = base64.decode(cek); //the CEK is base64encoded in the database, then we decode it
