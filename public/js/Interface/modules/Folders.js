@@ -25,7 +25,7 @@ var Folders = (function() {
 				            if(document.querySelector(".folder") || document.querySelector(".file")) {
 				                if(!(first = document.querySelector(".folder")))
 				                    if(!(first = document.querySelector(".file")))
-				                        window.location.href="User";
+				                        window.location.href=root+"User";
 				                var span = document.createElement('span');
 				                span.className = 'folder';
 				                span.id = 'd'+xhr.response;

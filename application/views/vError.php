@@ -7,7 +7,6 @@
     use \library\MVC as l;
     $_t = new l\Template("Error");
     $_t->addCss("home_global");
-	$_t->addJs("check");
     $_t->getHeader();
 ?>
 <body>

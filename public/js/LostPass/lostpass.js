@@ -4,13 +4,13 @@ window.onload = function() {
 
     // Get txt from user's language json (language.js)
     getJSON();
-    
+
     window.addEventListener("keydown", function(event) {
         switch(event.keyCode) {
             case 13:
                 // enter
                 changePass();
-                break;    
+                break;
         }
     });
 }
@@ -66,7 +66,7 @@ var changePass = function() {
                 {
                     // success message
                     if(xhr.responseText.substr(0, 3) == "ok@") {
-                        window.location.href="Login";
+                        window.location.href=root+"Login";
                         return false;
                     }
                     else {

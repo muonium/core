@@ -25,7 +25,7 @@ var changeLogin = function() {
             {
                 // success message
                 if(xhr.responseText.substr(0, 3) == "ok@") {
-                    window.location.href="Profile";
+                    window.location.href=root+"Profile";
                     return false;
                 }
                 else {
@@ -63,7 +63,7 @@ var changePassword = function() {
                 {
                     // success message
                     if(xhr.responseText.substr(0, 3) == "ok@") {
-                        window.location.href="Profile";
+                        window.location.href=root+"Profile";
                         return false;
                     }
                     else {
@@ -88,53 +88,52 @@ var changeCek = function() {
 
 	var cek = sessionStorage.getItem("cek"); ///we get the CEK from sessionStorage
 	if (cek == null || current_pp == null) {
-		window.location.href = "Logout";
+		window.location.href = root+"Logout";
 	}
 
 	if (old_pp != current_pp) {
 		returnArea.innerHTML = txt.Profile.badOldPassphrase;
-		}else if (new_pp.length < 6) {
-			returnArea.innerHTML = txt.Register.form;
-		}else{
-
-
-					//crypto parameters, don't touch
-					var aDATA = sjcl.random.randomWords(4);
-					var initVector = sjcl.random.randomWords(4);
-					var salt = sjcl.random.randomWords(2);
-
-					//we encrypt the CEK under the new passphrase (alias "KEK" -Key Encryption Key)
-					var encryptedCek = sjcl.encrypt(new_pp, cek, {mode:'gcm', iter:2000, iv:initVector, ks:256, adata:aDATA, ts:128, salt:salt});
-					var encryptedCek = base64.encode(encryptedCek); //we b64encode it to store it in the DB
-
-			        var xhr = new XMLHttpRequest();
-			        xhr.open("POST", "Profile/ChangeCek", true);
-			        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-
-			        xhr.onreadystatechange = function()
-			        {
-			            if(xhr.status == 200 && xhr.readyState == 4)
-			            {
-			                console.log(xhr.responseText);
-			                if(xhr.responseText.length > 2)
-			                {
-			                    // success message
-			                    if(xhr.responseText.substr(0, 3) == "ok@") {
-									sessionStorage.setItem("kek", new_pp);
-			                        window.location.href="Profile";
-			                        return false;
-			                    }
-			                    else {
-			                        // error
-			                        returnArea.innerHTML = xhr.responseText;
-			                    }
-			                }
-			            }
-			        }
-			        xhr.send("cek="+encodeURIComponent(encryptedCek)); //we send the b64encoded&encrypted CEK
-
-		}
 	}
+	else if (new_pp.length < 6) {
+		returnArea.innerHTML = txt.Register.form;
+	}
+	else {
+		//crypto parameters, don't touch
+		var aDATA = sjcl.random.randomWords(4);
+		var initVector = sjcl.random.randomWords(4);
+		var salt = sjcl.random.randomWords(2);
+
+		//we encrypt the CEK under the new passphrase (alias "KEK" -Key Encryption Key)
+		var encryptedCek = sjcl.encrypt(new_pp, cek, {mode:'gcm', iter:2000, iv:initVector, ks:256, adata:aDATA, ts:128, salt:salt});
+		var encryptedCek = base64.encode(encryptedCek); //we b64encode it to store it in the DB
+
+		var xhr = new XMLHttpRequest();
+		xhr.open("POST", "Profile/ChangeCek", true);
+		xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+		xhr.onreadystatechange = function()
+		{
+			if(xhr.status == 200 && xhr.readyState == 4)
+			{
+			    console.log(xhr.responseText);
+			    if(xhr.responseText.length > 2)
+			    {
+			        // success message
+			        if(xhr.responseText.substr(0, 3) == "ok@") {
+						sessionStorage.setItem("kek", new_pp);
+			            window.location.href=root+"Profile";
+			            return false;
+			        }
+			        else {
+			            // error
+			            returnArea.innerHTML = xhr.responseText;
+			        }
+			    }
+			}
+		}
+		xhr.send("cek="+encodeURIComponent(encryptedCek)); //we send the b64encoded&encrypted CEK
+	}
+}
 
 var changeAuth = function() {
     var returnArea = document.querySelector("#changeAuthReturn");
@@ -173,7 +172,7 @@ var changeMail = function() {
             {
                 // success message
                 if(xhr.responseText.substr(0, 3) == "ok@") {
-                    window.location.href="Profile";
+                    window.location.href=root+"Profile";
                     return false;
                 }
                 else {
@@ -198,7 +197,7 @@ var deleteUser = function() {
     {
       if(xhr.status == 200 && xhr.readyState == 4) {
 			if(xhr.responseText.substr(0, 3) == "ok@") {
-				window.location.href="Logout";
+				window.location.href=root+"Logout";
 				return false;
 			}
 			else {
