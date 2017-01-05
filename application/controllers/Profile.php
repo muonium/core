@@ -26,7 +26,7 @@ class Profile extends l\Languages
     function DefaultAction() {
         $this->_modelUser = new m\Users();
         $this->_modelUser->id = $_SESSION['id'];
-        $this->ppCounter = $this->_modelUser->getPpCounter();
+       // $this->ppCounter = $this->_modelUser->getPpCounter();
         require_once(DIR_VIEW."vProfile.php");
     }
 
@@ -118,7 +118,7 @@ class Profile extends l\Languages
 		}else { //CEK value was sent empty
 			//error: cek is empty
 		}
-
+	}
     function ChangeAuthAction() {
         // Called by profile.js
 
