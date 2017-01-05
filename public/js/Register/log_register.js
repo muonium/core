@@ -26,7 +26,7 @@ window.onload = function() {
 var cek = {};
 var cek.encrypt = function(key, y){
 	//crypto parameters
-	var a = sjcl.random.randomWords(1);
+	var a = sjcl.random.randomWords(4);
 	var i = sjcl.random.randomWords(4);
 	var s = sjcl.random.randomWords(2);
 	//encrypt it
