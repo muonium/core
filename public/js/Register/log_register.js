@@ -69,11 +69,13 @@ var sendRegisterRequest = function()
 
     returnArea.innerHTML = "<img src='./public/pictures/index/loader.gif' style='height: 3vh;' />";
 
-    if(field_mail.length < 6 || field_login.length < 2)
+    if(field_mail.length < 6 || field_login.length < 2){
         returnArea.innerHTML = txt.Register.form;
-    else if(field_password.length < 6 || field_password_confirm.length < 6 || field_passphrase.length < 6 || field_passphrase_confirm.length < 6)
+    }else if(field_password.length < 6 || field_password_confirm.length < 6 || field_passphrase.length < 6 || field_passphrase_confirm.length < 6){
         returnArea.innerHTML = txt.Register.passLength;
-    else {
+	}else if (field_password == field_passphrase) {
+		returnArea.innerHTML = txt.Register.passEqualPassphrase;
+	}else {
 
         var xhr = new XMLHttpRequest();
         xhr.open("POST", "Register/AddUser", true);
