@@ -92,11 +92,9 @@ CREATE TABLE `users` (
   `email` varchar(254) NOT NULL,
   `registration_date` int(11) NOT NULL,
   `last_connection` int(11) NOT NULL,
-  `passphrase` varchar(128) NOT NULL,
   `cek` varchar(330) NOT NULL,
   `double_auth` tinyint(1) NOT NULL,
-  `auth_code` varchar(8) NOT NULL,
-  `pp_counter` tinyint(1) NOT NULL
+  `auth_code` varchar(8) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
