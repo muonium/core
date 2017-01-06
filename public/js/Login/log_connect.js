@@ -64,16 +64,16 @@ var sendConnectionRequest = function()
 							var cek = sjcl.decrypt(field_passphrase, cek); //the CEK is now a JSON, we decrypt it
 							sessionStorage.setItem("kek", field_passphrase); //we store locally the passphrase
 							sessionStorage.setItem("cek", cek); //we store locally the CEK
-							window.location.href  = "Home"; //it's okay, all is good -> redirect the user to the desktop
+							window.location.href = root+"Home"; //it's okay, all is good -> redirect the user to the desktop
 						} catch (e) { //the passphrase is wrong
 							console.log(e.message);
-							returnArea.innerHTML = "<p>Error : bad passphrase.</p>"; // TODO: put this string in JSON files
+							returnArea.innerHTML = txt.Login.badPassphrase;
 						}
 						return false;
                     }
                     else if(rep[0] == "va") {
 						// TODO: cek decryption at the Validate view page, for Dylan
-						window.location.href = "Validate";
+						window.location.href = root+"Validate";
 						return false;
                     }
                     else {

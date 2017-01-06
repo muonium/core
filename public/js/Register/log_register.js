@@ -91,7 +91,7 @@ var sendRegisterRequest = function()
                     // success message
                     if(xhr.responseText.substr(0, 3) == "ok@") {
                         returnArea.innerHTML = xhr.responseText.substr(3);
-                        window.location.href="Home";
+                        window.location.href=root+"Home";
                         return false;
                     }
                     else {

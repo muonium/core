@@ -113,10 +113,10 @@ class Profile extends l\Languages
 			if ($this->_modelUser->updateCek()) { //try to update
 				echo "@ok".$this->txt->Profile->updateOk; //all is okay, return that request went fine
 			}else { //error, cannot update
-				//error: cannot update the cek
+				echo $this->txt->cek->updateErr;
 			}
 		}else { //CEK value was sent empty
-			//error: cek is empty
+			echo $this->txt->cek->empty;
 		}
 	}
     function ChangeAuthAction() {

@@ -5,7 +5,7 @@ var Encryption = (function() {
 	var chunkSize = 1024 * 1024; // Size of one chunk in B
 	var cek = sessionStorage.getItem("cek");
 	if (cek == null) { //check if the cek is there
-		window.location.href = "Logout"; //doesn't exist ? Then logout the user
+		window.location.href = root+"Logout"; //doesn't exist ? Then logout the user
 	}
 	var target = 'User';
 	var est = 33.5; // Estimation of the difference between the file and encrypted file in %
