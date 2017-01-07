@@ -8,10 +8,13 @@
     $_t = new l\Template($this->txt->Global->profile);
     $_t->addCss("home_global");
     $_t->addCss("Interface/new_design");
+	$_t->addJs("check");
     $_t->addJs("Interface/interface");
     $_t->addJs("Interface/Request");
     $_t->addJs("Profile/profile");
     $_t->addJs("Login/sha512");
+	$_t->addJs("src/crypto/sjcl");
+	$_t->addJs("base64");
     $_t->getHeader();
 ?>
 <body>
@@ -39,6 +42,32 @@
                 </fieldset>
                 <br />
             </p>
+
+		<!-- Add change email button -->
+            
+            <p>
+                <fieldset>
+                    <legend><?php echo_h($this->txt->Profile->changemail); ?></legend>
+                    <p>
+                        <input type="text" name="changemail" id="changemail" placeholder="<?php echo_h($this->txt->Profile->changemail); ?>">
+                    </p>
+                    <input type="submit" onclick="changeMail()">
+                    <div id="changeMailReturn"></div>
+                </fieldset>
+                <br />
+            </p>
+            
+            <!--                        -->
+			<!-- Add delete button user  -->
+            <p>
+				<fieldset>
+					<legend><?php echo_h($this->txt->Profile->deleteAccount); ?></legend>
+					<input type="submit" onclick="ConfirmDelete()">
+					<div id="deleteUserReturn"></div>
+				</fieldset>
+				<br />
+			</p>
+			<!--    -->
 
             <p>
                 <fieldset>
@@ -75,7 +104,7 @@
                     <p>
                         <input type="password" name="ppconfirm" id="ppconfirm" placeholder="<?php echo_h($this->txt->Register->confirm); ?>">
                     </p>
-                    <input type="submit" onclick="changePassPhrase()">
+                    <input type="submit" onclick="changeCek()">
                     <div id="changePassPhraseReturn"></div>
                     <?php } ?>
                 </fieldset>

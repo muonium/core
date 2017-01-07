@@ -4,7 +4,10 @@
 var Decryption = (function() {
 	// Private
 	var chunkSize = 1024 * 1024; // Size of one chunk in B
-	var CEK = 'password'; // for tests
+	var cek = sessionStorage.getItem("cek");
+	if (cek == null) { //check if the cek is there
+		window.location.href = root+"Logout"; //doesn't exist ? Then logout the user
+	}
 	var target = 'User';
 
 	var smallQuota = 1024*1024;
@@ -119,7 +122,7 @@ var Decryption = (function() {
 
 					if(me.enc === undefined) {
 						console.log("Key derivation process...");
-						var key = sjcl.misc.pbkdf2(CEK, s, 2000, 256);
+						var key = sjcl.misc.pbkdf2(cek, s, 2000, 256);
 						me.enc = new sjcl.cipher.aes(key);
 					}
 

@@ -8,6 +8,7 @@
     $_t = new l\Template($this->txt->Global->bug);
     $_t->addCss("home_global");
     $_t->addCss("Interface/new_design");
+	$_t->addJs("check");
     $_t->getHeader();
 ?>
 <body>

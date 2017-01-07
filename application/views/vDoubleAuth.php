@@ -8,6 +8,7 @@
     $_t = new l\Template($this->txt->Global->login);
     $_t->addCss("home_global");
     $_t->addCss("Login/home_login");
+	$_t->addJs("check");
     $_t->getHeader();
 ?>
 <body>

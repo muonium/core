@@ -59,16 +59,16 @@ class Login extends l\Languages {
     function ConnectionAction() {
         // Sleep during 3s to avoid a big number of requests (bruteforce)
         sleep(2);
-        if(!empty($_POST['username']) && !empty($_POST['pass']) && !empty($_POST['passphrase'])) {
+        if(!empty($_POST['username']) && !empty($_POST['pass'])) {
             $new_user = new m\Users();
 
-            if(filter_var($_POST['username'], FILTER_VALIDATE_EMAIL) === false)
+            if(filter_var($_POST['username'], FILTER_VALIDATE_EMAIL) === false){
                 $new_user->login = urldecode($_POST['username']);
-            else
+            }else{
                 $new_user->email = urldecode($_POST['username']);
+			}
 
             $new_user->password = urldecode($_POST['pass']);
-            $new_user->passphrase = urldecode($_POST['passphrase']);
             $brute = new l\AntiBruteforce();
             $brute->setFolder(ROOT.DS."tmp");
             $brute->setNbMaxAttemptsPerHour(50);
@@ -81,12 +81,11 @@ class Login extends l\Languages {
             else {
                 $new_user->id = $id;
                 $pass = $new_user->getPassword();
-                $pp = $new_user->getPassphrase();
+				$cek = $new_user->getCek();
 
-                if($pass !== false && $pp !== false) {
-                    //if(password_verify($new_user->password, $pass) && password_verify($new_user->passphrase, $pp)) {
-                    if(password_verify($new_user->password, $pass) && $new_user->passphrase == $pp) {
-                        // Mail, password and passphrase ok, connection
+                if($pass !== false) {
+                    if(password_verify($new_user->password, $pass)) {
+                        // Mail, password ok, connection
                         $mUserVal = new m\UserValidation();
                         $mUserVal->id_user = $id;
                         if(!($mUserVal->getKey())) {
@@ -105,7 +104,7 @@ class Login extends l\Languages {
                             }
                             else // Logged
                                 $_SESSION['id'] = $id;
-                            echo 'ok@';
+                            echo 'ok@'.$cek; //the CEK is already url encoded in the database
                         }
                         else {
                             // Key found - User needs to validate its account (double auth only for validated accounts)
@@ -117,7 +116,7 @@ class Login extends l\Languages {
                     }
                 }
 
-                // User exists but incorrect password/passphrase - Anti bruteforce with user id
+                // User exists but incorrect password - Anti bruteforce with user id
                 $brute->setId($id);
                 $brute->Control();
                 echo htmlentities($this->txt->Login->{"bruteforceErr".$brute->getError()});

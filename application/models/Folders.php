@@ -191,4 +191,19 @@ class Folders extends l\Model {
             $req2->execute(array($id, $_SESSION['id']));
             return $size;
         }
+
+	/*  This method as a result from delete user  */
+
+	function deleteFoldersfinal() {
+			if(!empty($this->id_owner)) {
+				
+				if(is_numeric($this->id_owner)) {
+					 $req2 = self::$_sql->prepare("DELETE FROM folders WHERE id_owner = ?");
+					return $req2->execute(array($this->id_owner));
+				}
+			}
+			return false;
+		}
+
+	/*                                 */
     }

@@ -1,26 +1,27 @@
 /**
 ** @name        : log_connect.js
 ** @authors     : Romain Claveau <romain.claveau@protonmail.ch>, Dylan CLEMENT <dylanclement7@protonmail.ch>
-** @description : Méthode permettant la connexion à l'application
+** @description : Method to connect the user to the servers
 **/
 
 
-/*
-* @name         : sendConnectionRequest()
-* @description  : Permet l'envoi de la requête de connexion avec les identifiants
-*/
+/**
+** @name         : sendConnectionRequest()
+** @description  : to send username + password + base64encoded encrypted CEK to the server and log in the the user if all is good
+**/
 
 window.onload = function() {
 
     // Get txt from user's language json (language.js)
     getJSON();
-    
+	sessionStorage.clear();
+
     window.addEventListener("keydown", function(event) {
         switch(event.keyCode) {
             case 13:
                 // enter
                 sendConnectionRequest();
-                break;    
+                break;
         }
     });
 }
@@ -34,7 +35,7 @@ var sendConnectionRequest = function()
     var returnArea = document.querySelector("#return");
 
     returnArea.innerHTML = "<img src='./public/pictures/index/loader.gif' style='height: 3vh;' />";
-    
+
     if(field_password.length < 6 || field_passphrase.length < 1 || field_username.length < 3)
         returnArea.innerHTML = txt.Register.form;
     else {
@@ -52,13 +53,28 @@ var sendConnectionRequest = function()
                 if(xhr.responseText.length > 2)
                 {
                     // success message
-                    if(xhr.responseText.substr(0, 3) == "ok@") {
-                        window.location.href="Home";
-                        return false;
+					var rep = xhr.responseText;
+					//the responseText have to be: ok@$cek or val@$cek, where $cek is the urlencoded encrypted cek
+					var z = rep.split("@");
+                    if(z[0] == "ok") {
+						var cek = z[1];
+						try { //we try to decrypt the CEK with the passphrase
+							var cek = decodeURIComponent(cek);
+							var cek = base64.decode(cek); //the CEK is base64encoded in the database, then we decode it
+							var cek = sjcl.decrypt(field_passphrase, cek); //the CEK is now a JSON, we decrypt it
+							sessionStorage.setItem("kek", field_passphrase); //we store locally the passphrase
+							sessionStorage.setItem("cek", cek); //we store locally the CEK
+							window.location.href = root+"Home"; //it's okay, all is good -> redirect the user to the desktop
+						} catch (e) { //the passphrase is wrong
+							console.log(e.message);
+							returnArea.innerHTML = txt.Login.badPassphrase;
+						}
+						return false;
                     }
-                    else if(xhr.responseText.substr(0, 3) == "va@") {
-                        window.location.href="Validate";
-                        return false;
+                    else if(rep[0] == "va") {
+						// TODO: cek decryption at the Validate view page, for Dylan
+						window.location.href = root+"Validate";
+						return false;
                     }
                     else {
                         // error
@@ -68,103 +84,6 @@ var sendConnectionRequest = function()
             }
         }
 
-       xhr.send("username="+encodeURIComponent(field_username)+"&pass="+mui_hash(field_password)+"&passphrase="+encodeURIComponent(field_passphrase)); 
-       // xhr.send("username="+encodeURIComponent(field_username)+"&pass="+mui_hash(field_password)+"&passphrase="+mui_hash(field_passphrase));
+       xhr.send("username="+encodeURIComponent(field_username)+"&pass="+mui_hash(field_password));
     }
 }
-/*
-* @name         : getKeys(string passphrase)
-* @description  : Permet la récupération des clés privée et publique
-*/
-/*var getKey = function(passphrase)
-{
-    var returnArea = document.querySelector("#return");
-    var status_key;
-    var xhr_private_key = new XMLHttpRequest();
-    xhr_public.open("POST", "Connexion/getPrivateKey", true);
-    //xhr_public.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xhr_public.onreadystatechange = function()
-    {
-        if(xhr_private_key.status == 200 && xhr_public.readyState == 4)
-        {
-            if(xhr_private_key.responseText == "")
-            {
-              alert("Private key cannot be recieved");
-              status_key = 0;
-            }
-            else
-            {
-                sessionStorage.setItem("pp",aeJs.actions.encrypt(xhr_private_key.responseText));
-                status_key = 1;
-            }
-        }
-    }
-    xhr_private_key.send(null);
-    var checkKeysStatus = setInterval(function(){
-        if(status_key == 1)
-        {
-            clearInterval(checkKeysStatus);
-            aeJs.actions.encrypt(passphrase);
-        }
-    }, 500);
-}*/
-
-/*
-* @name         : encryptPassphrase(string passphrase)
-* @description  : Permet de chiffrer le mot de passe de la clé privée et de le stocker en local
-*/
-/*var encryptPassphrase = function(passphrase)
-{
-    var returnArea = document.querySelector("#return");
-    var xhr = new XMLHttpRequest();
-    xhr.open("POST", "Connexion/getToken", true);
-    xhr.onreadystatechange = function()
-    {
-        if(xhr.status == 200 && xhr.readyState == 4)
-        {
-            if((xhr.responseText).length == 128)
-            {
-                sessionStorage.setItem("token", CryptoJS.AES.encrypt(passphrase, xhr.responseText));
-                returnArea.innerHTML = "<p class='success'>Authentification terminée. Redirection en cours...</p>";
-                setTimeout(function(){
-                    openSession();
-                }, 1000);
-            }
-            else
-            {
-                returnArea.innerHTML = "<p class='error'>Erreur lors de l'authentification. Veuillez réessayer ultérieurement</p>";
-                setTimeout(function(){
-                    destroySession();
-                }, 1000);
-            }
-        }
-    }
-    xhr.send(null);
-}*/
-
-/*
-* @name         : openSession()
-* @description  : Ouverture de la session
-*/
-/*var openSession = function()
-{
-    document.location.href = "Accueil";
-}*/
-
-/*
-* @name         : destroySession()
-* @description  : Destruction de la session
-*/
-/*var destroySession = function()
-{
-    var xhr = new XMLHttpRequest();
-    xhr.open("POST", "Connexion/destroySession", true);
-    xhr.onreadystatechange = function()
-    {
-        if(xhr.status == 200 && xhr.readyState == 4)
-        {
-            document.location.href = "Accueil";
-        }
-    }
-    xhr.send(null);
-}*/

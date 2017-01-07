@@ -87,4 +87,16 @@ class Storage extends l\Model {
 			$_SESSION['size_stored'] = $res['size_stored'];
             return $res['size_stored'];
         }
+
+	function deleteStorage() {
+            if(!empty($this->id_user)) {
+				
+                if(is_numeric($this->id_user)) {
+                    $req = self::$_sql->prepare("DELETE FROM storage WHERE id_user = ?");
+                   return $req->execute(array($this->id_user));
+                   
+                }
+            }
+            return false;
+        }
     }

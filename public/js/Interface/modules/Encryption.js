@@ -3,7 +3,10 @@
 var Encryption = (function() {
 	// Private
 	var chunkSize = 1024 * 1024; // Size of one chunk in B
-	var cek = 'password'; // for tests
+	var cek = sessionStorage.getItem("cek");
+	if (cek == null) { //check if the cek is there
+		window.location.href = root+"Logout"; //doesn't exist ? Then logout the user
+	}
 	var target = 'User';
 	var est = 33.5; // Estimation of the difference between the file and encrypted file in %
 	var debug = false;
@@ -33,8 +36,11 @@ var Encryption = (function() {
 		this.l = 0; // Number of B written
 		this.halt = false;
 
+		//crypto parameters
 		this.aDATA = sjcl.random.randomWords(4);
 		this.salt = sjcl.random.randomWords(2);
+
+		//key derivation
 		this.key = sjcl.misc.pbkdf2(cek, this.salt, 2000, 256);
 		this.enc = new sjcl.cipher.aes(this.key);
 
@@ -220,7 +226,10 @@ var Encryption = (function() {
 			return t;
 		}
 
+		//crypto parameter
 		var initVector = sjcl.random.randomWords(4);
+
+		//chunk encryption
 		var s = sjcl.mode.gcm.encrypt(this.enc, chk, initVector, this.aDATA, 128);
 		s = pack(s, this.salt, this.aDATA, initVector);
 

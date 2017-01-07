@@ -93,6 +93,7 @@
         "expired": "Il codice è scaduto, ti preghiamo di effettuare nuovamente il login",
         "invalidCode": "Il codice inserito non è valido",
         "username": "Email o login",
+		"badPassphrase": "Error: bad passphrase",
         "doubleAuth": "Ti è stata inviata una mail con un codice identificativo. Copia il codice nel campo qui sopra.<br />Se non ricevi nulla entro 5 minuti e la mail non è presente nella tua cartella di spam, <a href='https://photon.muonium.ch/core/Logout'>clicca qui</a> per effettuare un nuovo tentativo di connessione."
     },
 
@@ -120,7 +121,13 @@
         "getpwd": "Recupero della tua password fallito",
         "getpp": "Recupero della tua frase di sicurezza fallito",
         "doubleAuth": "Doppia autenticazione",
-        "warningpp": "Attenzione! Puoi cambiare la tua frase di sicurezza soltanto <strong>2</strong> volte al mese. L'hai già cambiata [count] volte!"
+        "warningpp": "Attenzione! Puoi cambiare la tua frase di sicurezza soltanto <strong>2</strong> volte al mese. L'hai già cambiata [count] volte!",
+        "changemail" : "Change Email",
+        "mailFormat": "Mail format is incorrect.",
+        "emptymail": "Please, fill this field",
+        "accountDeletionConfirm": "Do you really want to delete your account ?",
+        "accountDeletionOk": "Your account was successfully deleted!",
+        "deleteAccount": "Delete account"
     },
 
     "LostPass": {
@@ -160,5 +167,10 @@
         "messageLength": "Il messaggio deve essere di almeno 50 caratteri",
         "form": "Errore nel form",
         "sent": "Il tuo messaggio è stato inviato con successo. Ti risponderemo via mail il prima possibile."
-    }
+    },
+
+	"cek": {
+		"updateErr": "Error: cannot update cek",
+		"empty": "Error: cek is empty"
+	}
 }

@@ -256,6 +256,6 @@ var cleanPath = function(p) {
 }
 
 var logout = function() {
-    window.location.href="Logout";
+    window.location.href=root+"Logout";
     return false;
 }
