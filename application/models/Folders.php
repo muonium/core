@@ -82,6 +82,16 @@ class Folders extends l\Model {
             return $res['parent'];
         }
 
+	 function getSubfoldernum($id) {
+            $req = self::$_sql->prepare("SELECT count(id) FROM folders WHERE id_owner = ? AND parent = ?");
+            $req->execute(array($_SESSION['id'], $id));
+            if($req->rowCount() == 0)
+                return false;
+            $res = $req->fetch();
+            return $res['count(id)'];
+        }
+
+
         function getChildren($id, $trash = '') {
             if($trash === '' || $trash === 'all') {
                 $req = self::$_sql->prepare("SELECT id, name, size, parent, `path` FROM folders WHERE id_owner = ? AND parent = ? ORDER BY name ASC");

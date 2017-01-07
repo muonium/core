@@ -61,6 +61,15 @@ class Files extends l\Model {
             return $res['folder_id'];
         }
 
+	function getFilesnum($id) {
+            $req = self::$_sql->prepare("SELECT count(id) FROM files WHERE id_owner = ? AND folder_id = ?");
+            $req->execute(array($_SESSION['id'], $id));
+            if($req->rowCount() == 0)
+                return false;
+            $res = $req->fetch();
+            return $res['count(id)'];
+        }
+
         function getSize() {
             if(!isset($this->id)) {
                 $req = self::$_sql->prepare("SELECT size FROM files WHERE id_owner = ? AND name = ? AND folder_id = ?");
