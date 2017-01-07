@@ -1,18 +1,42 @@
 // Files module. Loaded in window.onload()
 var Files = (function() {
 	// Private
+	var f_dec = [];
+	var i = 0;
 
 	// Public
 	return {
 		dl : function(id) {
+			var dwl, btn, spn;
 			Box.hide();
 			var f = document.querySelector("#"+id);
 			if(f) {
 				if(f.getAttribute("data-title").length > 0 && f.getAttribute("data-folder").length > 0) {
-					new Decryption(f.getAttribute("data-title"), f.getAttribute("data-folder"));
+					dwl = document.createElement('div');
+					dwl.id = 'div_download'+i;
+
+					btn = document.createElement('button');
+					btn.setAttribute('data-id', i);
+					btn.onclick = Files.abort;
+					btn.innerHTML = '- X -';
+
+					spn = document.createElement('span');
+					spn.id = 'span_download'+i;
+
+					dwl.appendChild(btn);
+					dwl.appendChild(spn);
+					document.querySelector("#progress").appendChild(dwl);
+					f_dec[i] = new Decryption(f.getAttribute("data-title"), f.getAttribute("data-folder"), i);
+					i++;
 				}
 			}
 		},
+
+		abort : function() {
+			var j = this.getAttribute('data-id');
+			console.log("Aborting "+j);
+			f_dec[j].abort();
+        },
 
         details : function(el) {
             var elem;

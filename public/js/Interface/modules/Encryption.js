@@ -9,6 +9,7 @@ var Encryption = (function() {
 	}
 	var target = 'User';
 	var est = 33.5; // Estimation of the difference between the file and encrypted file in %
+	var debug = false;
 
 	var errorHandler = function(e) {
 		console.log("Error");
@@ -77,6 +78,15 @@ var Encryption = (function() {
 		}
 	};
 
+	Encryption.prototype.abort = function() {
+		this.halt = true;
+		var node;
+		if(node = document.querySelector("#div_upload"+(this.i))) {
+			while(node.firstChild) // remove all children
+				node.removeChild(node.firstChild);
+		}
+	};
+
 	Encryption.prototype.toBitArrayCodec = function(bytes) {
 		/** Convert from an array of bytes to a bitArray. */
 		var out = [], i, tmp=0;
@@ -96,8 +106,10 @@ var Encryption = (function() {
 		var me = this;
 
 		time = new Time();
-		console.log('File size : '+this.file.size);
-		console.log('File name : '+this.file.name);
+		if(debug) {
+			console.log('File size : '+this.file.size);
+			console.log('File name : '+this.file.name);
+		}
 
 		this.parseFile(this.file, {
 			binary: true,
@@ -107,7 +119,8 @@ var Encryption = (function() {
 					return false;
 				// Waiting end of the uploading process
 				var timer = setInterval(function() {
-					console.log("Waiting...");
+					if(debug)
+						console.log("Waiting...");
 					if(me.k >= me.j) {
 						// Done, write "EOF" at the end of file
 						clearInterval(timer);
@@ -122,8 +135,10 @@ var Encryption = (function() {
 								var node = document.querySelector("#div_upload"+(me.i));
 								while(node.firstChild) // remove all children
 									node.removeChild(node.firstChild);
-								console.log("Split + encryption : "+time.elapsed()+" ms");//
-								console.log("Splitted in "+me.j+" chunks !");
+								if(debug) {
+									console.log("Split + encryption : "+time.elapsed()+" ms");//
+									console.log("Splitted in "+me.j+" chunks !");
+								}
 								if(me.reload)
 									Folders.open(me.folder_id);
 							}
@@ -140,7 +155,8 @@ var Encryption = (function() {
 				chk = new Uint8Array(chk);
 				chk = me.toBitArrayCodec(chk);
 				var chk_length = me.encryptChk(chk);
-				console.log(me.file.name+' - Part '+me.j+' size : '+chk_length);
+				if(debug)
+					console.log(me.file.name+' - Part '+me.j+' size : '+chk_length);
 				me.l += chk_length;
 				var pct = me.l/me.est_size*100;
 				if(pct > 100)

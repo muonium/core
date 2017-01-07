@@ -1,6 +1,7 @@
 // Upload module. Loaded in window.onload()
 var Upload = (function() {
     // Private
+	var f_enc = [];
 
     // Public
     return {
@@ -8,11 +9,10 @@ var Upload = (function() {
             document.querySelector('#upFilesInput').click();
         },
 
-        abort : function(i) {
-            document.querySelector("#div_upload"+i).style.display = 'none';
-            /*xhr_upload[i].abort();
-            console.log("aborted "+i);
-            filesUploaded++;*/
+        abort : function() {
+			var i = this.getAttribute('data-id');
+			console.log("Aborting "+i);
+			f_enc[i].abort();
         },
 
         upFiles : function(files) {
@@ -24,8 +24,9 @@ var Upload = (function() {
 				up.id = 'div_upload'+i;
 
 				btn = document.createElement('button');
-				btn.onclick = 'Upload.abort('+i+')';
-				btn.innerHTML = 'X';
+				btn.setAttribute('data-id', i);
+				btn.onclick = Upload.abort;
+				btn.innerHTML = '- X -';
 
 				spn = document.createElement('span');
 				spn.id = 'span_upload'+i;
@@ -35,9 +36,9 @@ var Upload = (function() {
 				document.querySelector("#progress").appendChild(up);
 
 				if(i == files.length-1) // 3rd parameter is used for reloading current folder after uploading process
-					new Encryption(files[i], Folders.id, i, true);
+					f_enc[i] = new Encryption(files[i], Folders.id, i, true);
 				else
-					new Encryption(files[i], Folders.id, i);
+					f_enc[i] = new Encryption(files[i], Folders.id, i);
             }
         }
     }
