@@ -102,7 +102,7 @@ var sendRegisterRequest = function()
             }
         }
 
-		    var cek_xhr = cek.gen(field_passphrase); //encryption of the CEK under the KEK (alias "passphrase") and b64encoding
+		var cek_xhr = cek.gen(field_passphrase); //encryption of the CEK under the KEK (alias "passphrase") and b64encoding
         xhr.send("mail="+field_mail+"&login="+field_login+"&pass="+mui_hash(field_password)+"&pass_confirm="+mui_hash(field_password_confirm)+"&doubleAuth="+doubleAuth+"&cek="+encodeURIComponent(cek_xhr));
     }
 }

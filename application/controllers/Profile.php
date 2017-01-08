@@ -117,6 +117,7 @@ class Profile extends l\Languages
 			echo $this->txt->cek->empty;
 		}
 	}
+
     function ChangeAuthAction() {
         // Called by profile.js
 

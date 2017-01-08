@@ -46,7 +46,6 @@
             </p>
 
 		<!-- Add change email button -->
-
             <p>
                 <fieldset>
                     <legend><?php echo_h($this->txt->Profile->changemail); ?></legend>
@@ -58,7 +57,6 @@
                 </fieldset>
                 <br />
             </p>
-
             <!--                        -->
 			<!-- Add delete button user  -->
             <p>

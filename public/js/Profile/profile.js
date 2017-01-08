@@ -144,8 +144,8 @@ var changeAuth = function() {
     }
     xhr.send("doubleAuth="+doubleAuth);
 }
-//change user email
 
+//change user email
 var changeMail = function() {
     var changemail = document.querySelector("#changemail").value;
 
@@ -165,8 +165,9 @@ var changeMail = function() {
             {
                 // success message
                 if(xhr.responseText.substr(0, 3) == "ok@") {
-                    window.location.href=root+"Profile";
-                    return false;
+					returnArea.innerHTML = xhr.responseText.substr(3);
+                    //window.location.href=root+"Profile";
+                    //return false;
                 }
                 else {
                     // error
