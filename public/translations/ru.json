@@ -98,6 +98,7 @@
         "expired": "The code is expired, please login again",
         "invalidCode": "The code entered is invalid",
         "username": "Email or login",
+		"badPassphrase": "Error: bad passphrase",
         "doubleAuth": "A mail with an authentification code was sent to you. Copy this code in the field above.<br />If you received nothing from now until 5 mn and the mail is not in the Spam folder, please follow this <a href='https://photon.muonium.ch/neutron/Logout'>link</a> to perform a new connection attempt."
     },
 
@@ -125,7 +126,6 @@
         "getpwd": "Unable to get your password",
         "getpp": "Unable to get your passphrase",
         "doubleAuth": "Double authentification",
-        "warningpp": "Warning ! You can only change your passphrase <strong>2</strong> times per month. You have already changed [count] times !",
         "changemail" : "Change Email",
         "mailFormat": "Mail format is incorrect.",
         "emptymail": "Please, fill this field",
@@ -171,5 +171,10 @@
         "messageLength": "The message must be at least 50 characters",
         "form": "Error in the form",
         "sent": "Your message has been sent successfully. We will respond as soon as possible by email"
-    }
+    },
+
+	"cek": {
+		"updateErr": "Error: cannot update cek",
+		"empty": "Error: cek is empty"
+	}
 }

@@ -8,10 +8,14 @@
     $_t = new l\Template($this->txt->Global->profile);
     $_t->addCss("home_global");
     $_t->addCss("Interface/new_design");
+	$_t->addJs("check");
     $_t->addJs("Interface/interface");
     $_t->addJs("Interface/Request");
     $_t->addJs("Profile/profile");
     $_t->addJs("Login/sha512");
+	$_t->addJs("mui_hash");
+	$_t->addJs("src/crypto/sjcl");
+	$_t->addJs("base64");
     $_t->getHeader();
 ?>
 <body>
@@ -27,6 +31,7 @@
         </section>
 
         <section id="desktop">
+			<p><a href="<?php echo MVC_ROOT; ?>/User"><< <?php echo_h($this->txt->Global->back); ?></a></p><br />
             <p>
                 ID : <?php echo $_SESSION['id']; ?>
                 <fieldset>
@@ -41,7 +46,6 @@
             </p>
 
 		<!-- Add change email button -->
-            
             <p>
                 <fieldset>
                     <legend><?php echo_h($this->txt->Profile->changemail); ?></legend>
@@ -53,7 +57,6 @@
                 </fieldset>
                 <br />
             </p>
-            
             <!--                        -->
 			<!-- Add delete button user  -->
             <p>
@@ -71,13 +74,13 @@
                     <legend><?php echo_h($this->txt->Profile->changepwd); ?></legend>
 
                     <p>
-                        <input type="password" name="oldpwd" id="oldpwd" placeholder="<?php echo_h($this->txt->Profile->oldpwd); ?>">
+                        <input type="password" name="old_pwd" id="old_pwd" placeholder="<?php echo_h($this->txt->Profile->oldpwd); ?>">
                     </p>
                     <p>
-                        <input type="password" name="newpwd" id="newpwd" placeholder="<?php echo_h($this->txt->Profile->newpwd); ?>">
+                        <input type="password" name="new_pwd" id="new_pwd" placeholder="<?php echo_h($this->txt->Profile->newpwd); ?>">
                     </p>
                     <p>
-                        <input type="password" name="pwdconfirm" id="pwdconfirm" placeholder="<?php echo_h($this->txt->Register->confirm); ?>">
+                        <input type="password" name="pwd_confirm" id="pwd_confirm" placeholder="<?php echo_h($this->txt->Register->confirm); ?>">
                     </p>
                     <input type="submit" onclick="changePassword()">
                     <div id="changePasswordReturn"></div>
@@ -89,10 +92,6 @@
                 <fieldset>
                     <legend><?php echo_h($this->txt->Profile->changepp); ?></legend>
                     <p>
-                        <?php echo str_replace("[count]", $this->ppCounter, $this->txt->Profile->warningpp); ?>
-                    </p>
-                    <?php if($this->ppCounter < 2) { ?>
-                    <p>
                         <input type="password" name="oldpp" id="oldpp" placeholder="<?php echo_h($this->txt->Profile->oldpp); ?>">
                     </p>
                     <p>
@@ -101,9 +100,8 @@
                     <p>
                         <input type="password" name="ppconfirm" id="ppconfirm" placeholder="<?php echo_h($this->txt->Register->confirm); ?>">
                     </p>
-                    <input type="submit" onclick="changePassPhrase()">
+                    <input type="submit" onclick="changeCek()">
                     <div id="changePassPhraseReturn"></div>
-                    <?php } ?>
                 </fieldset>
                 <br />
             </p>

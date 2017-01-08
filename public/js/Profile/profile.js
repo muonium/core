@@ -25,7 +25,7 @@ var changeLogin = function() {
             {
                 // success message
                 if(xhr.responseText.substr(0, 3) == "ok@") {
-                    window.location.href="Profile";
+                    window.location.href=root+"Profile";
                     return false;
                 }
                 else {
@@ -42,11 +42,11 @@ var changePassword = function() {
     var returnArea = document.querySelector("#changePasswordReturn");
     returnArea.innerHTML = "<img src='./public/pictures/index/loader.gif' style='height: 3vh;' />";
 
-    var old_pwd = document.querySelector("#oldpwd").value;
-    var new_pwd = document.querySelector("#newpwd").value;
-    var pwd_confirm = document.querySelector("#pwdconfirm").value;
+    var old_pwd = document.querySelector("#old_pwd").value;
+    var new_pwd = document.querySelector("#new_pwd").value;
+    var pwd_confirm = document.querySelector("#pwd_confirm").value;
 
-    if(new_pwd.length < 6)
+    if(new_pwd.length < 6 || pwd_confirm !== new_pwd)
         returnArea.innerHTML = txt.Register.form;
     else {
 
@@ -61,60 +61,71 @@ var changePassword = function() {
                 console.log(xhr.responseText);
                 if(xhr.responseText.length > 2)
                 {
-                    // success message
-                    if(xhr.responseText.substr(0, 3) == "ok@") {
-                        window.location.href="Profile";
-                        return false;
-                    }
-                    else {
-                        // error
-                        returnArea.innerHTML = xhr.responseText;
-                    }
+                    returnArea.innerHTML = xhr.responseText;
                 }
             }
         }
-        xhr.send("old_pwd="+sha512(old_pwd)+"&new_pwd="+sha512(new_pwd)+"&pwd_confirm="+sha512(pwd_confirm));
+        xhr.send("old_pwd="+mui_hash(old_pwd)+"&new_pwd="+mui_hash(new_pwd)+"&pwd_confirm="+mui_hash(pwd_confirm));
     }
 }
 
-var changePassPhrase = function() {
+var changeCek = function() {
     var returnArea = document.querySelector("#changePassPhraseReturn");
     returnArea.innerHTML = "<img src='./public/pictures/index/loader.gif' style='height: 3vh;' />";
 
     var old_pp = document.querySelector("#oldpp").value;
     var new_pp = document.querySelector("#newpp").value;
     var pp_confirm = document.querySelector("#ppconfirm").value;
+	var current_pp = sessionStorage.getItem("kek");
 
-    if(new_pp.length < 6)
-        returnArea.innerHTML = txt.Register.form;
-    else {
+	var cek = sessionStorage.getItem("cek"); ///we get the CEK from sessionStorage
+	if (cek == null || current_pp == null) {
+		window.location.href = root+"Logout";
+	}
 
-        var xhr = new XMLHttpRequest();
-        xhr.open("POST", "Profile/ChangePassPhrase", true);
-        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	if (old_pp != current_pp) {
+		returnArea.innerHTML = txt.Profile.badOldPassphrase;
+	}
+	else if (new_pp.length < 6) {
+		returnArea.innerHTML = txt.Register.form;
+	}
+	else {
+		//crypto parameters, don't touch
+		var aDATA = sjcl.random.randomWords(4);
+		var initVector = sjcl.random.randomWords(4);
+		var salt = sjcl.random.randomWords(2);
 
-        xhr.onreadystatechange = function()
-        {
-            if(xhr.status == 200 && xhr.readyState == 4)
-            {
-                console.log(xhr.responseText);
-                if(xhr.responseText.length > 2)
-                {
-                    // success message
-                    if(xhr.responseText.substr(0, 3) == "ok@") {
-                        window.location.href="Profile";
-                        return false;
-                    }
-                    else {
-                        // error
-                        returnArea.innerHTML = xhr.responseText;
-                    }
-                }
-            }
-        }
-        xhr.send("old_pp="+encodeURIComponent(old_pp)+"&new_pp="+encodeURIComponent(new_pp)+"&pp_confirm="+encodeURIComponent(pp_confirm));
-        //xhr.send("old_pp="+sha512(old_pp)+"&new_pp="+sha512(new_pp)+"&pp_confirm="+sha512(pp_confirm));
-    }
+		//we encrypt the CEK under the new passphrase (alias "KEK" -Key Encryption Key)
+		var encryptedCek = sjcl.encrypt(new_pp, cek, {mode:'gcm', iter:2000, iv:initVector, ks:256, adata:aDATA, ts:128, salt:salt});
+		var encryptedCek = base64.encode(encryptedCek); //we b64encode it to store it in the DB
+
+		var xhr = new XMLHttpRequest();
+		xhr.open("POST", "Profile/ChangeCek", true);
+		xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+		xhr.onreadystatechange = function()
+		{
+			if(xhr.status == 200 && xhr.readyState == 4)
+			{
+			    console.log(xhr.responseText);
+			    if(xhr.responseText.length > 2)
+			    {
+			        // success message
+			        if(xhr.responseText.substr(0, 3) == "ok@") {
+						sessionStorage.setItem("kek", new_pp);
+						returnArea.innerHTML = xhr.responseText.substr(3);
+			            //window.location.href=root+"Profile";
+			            //return false;
+			        }
+			        else {
+			            // error
+			            returnArea.innerHTML = xhr.responseText;
+			        }
+			    }
+			}
+		}
+		xhr.send("cek="+encodeURIComponent(encryptedCek)); //we send the b64encoded&encrypted CEK
+	}
 }
 
 var changeAuth = function() {
@@ -135,7 +146,6 @@ var changeAuth = function() {
 }
 
 //change user email
-
 var changeMail = function() {
     var changemail = document.querySelector("#changemail").value;
 
@@ -155,8 +165,9 @@ var changeMail = function() {
             {
                 // success message
                 if(xhr.responseText.substr(0, 3) == "ok@") {
-                    window.location.href="Profile";
-                    return false;
+					returnArea.innerHTML = xhr.responseText.substr(3);
+                    //window.location.href=root+"Profile";
+                    //return false;
                 }
                 else {
                     // error
@@ -180,7 +191,7 @@ var deleteUser = function() {
     {
       if(xhr.status == 200 && xhr.readyState == 4) {
 			if(xhr.responseText.substr(0, 3) == "ok@") {
-				window.location.href="Logout";
+				window.location.href=root+"Logout";
 				return false;
 			}
 			else {

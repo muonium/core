@@ -13,8 +13,6 @@ class Profile extends l\Languages
 	private $_modelUserLostPass;
 	private $_modelUserValidation;
 
-    private $ppCounter = 0;
-
     function __construct() {
         parent::__construct();
         if(empty($_SESSION['id']))
@@ -26,7 +24,6 @@ class Profile extends l\Languages
     function DefaultAction() {
         $this->_modelUser = new m\Users();
         $this->_modelUser->id = $_SESSION['id'];
-        $this->ppCounter = $this->_modelUser->getPpCounter();
         require_once(DIR_VIEW."vProfile.php");
     }
 
@@ -68,26 +65,27 @@ class Profile extends l\Languages
 
         if(!empty($_POST['old_pwd']) && !empty($_POST['new_pwd']) && !empty($_POST['pwd_confirm'])) {
             if($_POST['new_pwd'] == $_POST['pwd_confirm']) {
-                        $this->_modelUser = new m\Users();
+                $this->_modelUser = new m\Users();
 
-                        $this->_modelUser->id = $_SESSION['id'];
-                        if($user_pwd = $this->_modelUser->getPassword()) {
-                            if($user_pwd == $_POST['old_pwd']) {
-                                $this->_modelUser->password = $_POST['new_pwd'];
-                                if($this->_modelUser->updatePassword()) {
-                                    echo 'ok@'.$this->txt->Profile->updateOk;
-                                }
-                                else {
-                                    echo $this->txt->Profile->updateErr;
-                                }
-                            }
-                            else {
-                                echo $this->txt->Register->badOldPass;
-                            }
+                $this->_modelUser->id = $_SESSION['id'];
+                if($user_pwd = $this->_modelUser->getPassword()) {
+					$old_pwd = urldecode($_POST['old_pwd']);
+                    if(password_verify($old_pwd, $user_pwd)) {
+                        $this->_modelUser->password = password_hash(urldecode($_POST['new_pwd']), PASSWORD_BCRYPT);
+                        if($this->_modelUser->updatePassword()) {
+                            echo $this->txt->Profile->updateOk;
                         }
                         else {
-                            echo $this->txt->Profile->getpwd;
+                            echo $this->txt->Profile->updateErr;
                         }
+                    }
+                    else {
+                        echo $this->txt->Profile->badOldPass;
+                    }
+                }
+                else {
+                    echo $this->txt->Profile->getpwd;
+                }
             }
             else {
                 echo $this->txt->Register->badPassConfirm;
@@ -98,46 +96,27 @@ class Profile extends l\Languages
         }
     }
 
-    function ChangePassPhraseAction() {
+    function ChangeCekAction() {
         // Called by profile.js
-
-        echo $this->txt->Error->pp;
         /*
-        if(!empty($_POST['old_pp']) && !empty($_POST['new_pp']) && !empty($_POST['pp_confirm'])) {
-            if($_POST['new_pp'] == $_POST['pp_confirm']) {
-                        $this->_modelUser = new m\Users();
-
-                        $this->_modelUser->id = $_SESSION['id'];
-                        if($this->_modelUser->getPpCounter() < 2) {
-                            if($user_pp = $this->_modelUser->getPassphrase()) {
-                                    if($user_pp == $_POST['old_pp']) {
-                                        $this->_modelUser->passphrase = $_POST['new_pp'];
-                                        if($this->_modelUser->updatePassphrase()) {
-                                            $this->_modelUser->incrementPpCounter();
-                                            echo 'ok@'.$this->txt->Profile->updateOk;
-                                        }
-                                        else {
-                                            echo $this->txt->Profile->updateErr;
-                                        }
-                                    }
-                                    else {
-                                        echo $this->txt->Register->badOldPassphrase;
-                                    }
-                            }
-                            else {
-                                echo $this->txt->Profile->getpp;
-                            }
-                        }
-                }
-                else {
-                    echo $this->txt->Register->badPassphraseConfirm;
-                }
-            }
-            else {
-                echo $this->txt->Register->form;
-            }
-        */
-    }
+		- receive the new base64encoded encrypted CEK
+		- store it in the database
+		- DO NOT FORGET: THE PASSPHRASE MUST NOT BE SENT TO THE SERVERS!!!!!
+		- keep the cek as an urlencoded string, it's urldecoded at the frontend anyway
+		*/
+		if (!empty($_POST['cek'])) {
+			$this->_modelUser = new m\Users();
+			$this->_modelUser->id = $_SESSION['id']; //set the 'id' value for the MySQL request
+			$this->_modelUser->cek = $_POST['cek']; //set the 'cek' value for the MySQL request
+			if ($this->_modelUser->updateCek()) { //try to update
+				echo "ok@".$this->txt->Profile->updateOk; //all is okay, return that request went fine
+			}else { //error, cannot update
+				echo $this->txt->cek->updateErr;
+			}
+		}else { //CEK value was sent empty
+			echo $this->txt->cek->empty;
+		}
+	}
 
     function ChangeAuthAction() {
         // Called by profile.js

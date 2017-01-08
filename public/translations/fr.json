@@ -15,7 +15,7 @@
         "profile": "Profil",
         "mail_sent": "Un email vous a été envoyé, veuillez vérifier votre boîte de réception et vos spams. Si vous n'avez rien reçu au bout de 5mn, tentez à nouveau :",
         "submit": "Valider",
-        "bug": "Send a bug report",
+        "bug": "Envoyer un rapport de bug",
         "loading": "Chargement..."
     },
 
@@ -98,6 +98,7 @@
         "expired": "Le code est expiré, veuillez vous connecter à nouveau",
         "invalidCode": "Le code entré est invalide",
         "username": "Email ou nom d'utilisateur",
+		"badPassphrase": "Erreur : Passphrase incorrecte",
         "doubleAuth": "Un email avec un code d'authentification vous a été envoyé. Copiez ce code dans le champ ci-dessus.<br />Si vous n'avez rien reçu d'ici 5 mn et que le mail n'est pas présent dans le dossier Spam, suivez ce <a href='https://photon.muonium.ch/neutron/Logout'>lien</a> pour effectuer une nouvelle tentative de connexion."
     },
 
@@ -127,7 +128,6 @@
         "getpwd": "Impossible de récupérer le mot de passe",
         "getpp": "Impossible de récupérer la phrase secrète",
         "doubleAuth": "Double authentification",
-        "warningpp": "Attention ! Vous pouvez changer votre phrase secrète seulement <strong>2</strong> fois par mois. Vous l'avez déjà changé [count] fois !",
         "changemail" : "Changement d'email",
         "mailFormat": "Le format de l'email est invalide.",
         "emptymail": "Complétez ce champ",
@@ -173,5 +173,10 @@
         "messageLength": "Le message doit être composé de 50 caractères minimum",
         "form": "Erreur dans le formulaire",
         "sent": "Votre message a été envoyé avec succès. Nous vous répondrons dès que possible par e-mail"
-    }
+    },
+
+	"cek": {
+		"updateErr": "Erreur: Impossible de mettre à jour cek",
+		"empty": "Erreur: cek est vide"
+	}
 }

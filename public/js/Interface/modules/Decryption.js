@@ -4,7 +4,10 @@
 var Decryption = (function() {
 	// Private
 	var chunkSize = 1024 * 1024; // Size of one chunk in B
-	var CEK = 'password'; // for tests
+	var cek = sessionStorage.getItem("cek");
+	if (cek == null) { //check if the cek is there
+		window.location.href = root+"Logout"; //doesn't exist ? Then logout the user
+	}
 	var target = 'User';
 
 	var smallQuota = 1024*1024;
@@ -13,6 +16,9 @@ var Decryption = (function() {
 	var errorHandler = function(e) {
 		console.log("Error");
 		console.log(e);
+		if(e.constructor.name == "FileError" || e == "SecurityError: It was determined that certain files are unsafe for access within a Web application, or that too many calls are being made on file resources.") {
+			alert('The file downloading feature is not available in your browser.');
+		}
 	};
 
 	var time, time_chunk;
@@ -21,11 +27,13 @@ var Decryption = (function() {
 	window.requestFileSystem  = window.requestFileSystem || window.webkitRequestFileSystem;
 
 	// Constructor
-	function Decryption(fname, f_id) {
+	function Decryption(fname, f_id, i) {
 		this.folder_id = f_id;
 		this.filename = fname;
 		this.nb_chk = 0;
 		this.enc;
+		this.i = i; // Id of file, used only for displaying progress, different from database !
+		this.halt = false;
 		this.getNbChunks();
 	}
 
@@ -42,8 +50,20 @@ var Decryption = (function() {
 		return out;
 	};
 
+	Decryption.prototype.abort = function() {
+		this.halt = true;
+		var node;
+		if(node = document.querySelector("#div_download"+(this.i))) {
+			while(node.firstChild) // remove all children
+				node.removeChild(node.firstChild);
+		}
+	};
+
 	Decryption.prototype.getNbChunks = function() {
 		var me = this;
+
+		if(this.halt)
+			return false;
 
 		time = new Time();
 		time.start();
@@ -68,11 +88,19 @@ var Decryption = (function() {
 	Decryption.prototype.decryptChk = function(line) {
 		var me = this;
 
+		if(this.halt)
+			return false;
+
 		var chk;
 		if(line === undefined)
 			line = 0;
 
 		console.log("Decrypting chunk "+(line+1));
+		var pct = line/this.nb_chk*100;
+		if(pct > 100)
+			pct = 100;
+		document.querySelector("#span_download"+(this.i)).innerHTML = this.filename+' : '+pct.toFixed(2)+'%';
+
 		time_chunk = new Time();
 		var xhr = new XMLHttpRequest();
 		xhr.open("POST", target+'/getChunk', true);
@@ -97,7 +125,7 @@ var Decryption = (function() {
 
 					if(me.enc === undefined) {
 						console.log("Key derivation process...");
-						var key = sjcl.misc.pbkdf2(CEK, s, 2000, 256);
+						var key = sjcl.misc.pbkdf2(cek, s, 2000, 256);
 						me.enc = new sjcl.cipher.aes(key);
 					}
 
@@ -127,6 +155,9 @@ var Decryption = (function() {
 												console.log("Done !");
 												time.stop();//
 												console.log("decryption + download : "+time.elapsed()+" ms");//
+												var node = document.querySelector("#div_download"+(me.i));
+												while(node.firstChild) // remove all children
+													node.removeChild(node.firstChild);
 
 												// Try to download the file (move from filesystem to download folder)
 												if(typeof fileEntry.file === 'function') {

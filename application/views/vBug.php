@@ -8,6 +8,7 @@
     $_t = new l\Template($this->txt->Global->bug);
     $_t->addCss("home_global");
     $_t->addCss("Interface/new_design");
+	$_t->addJs("check");
     $_t->getHeader();
 ?>
 <body>
@@ -23,6 +24,7 @@
         </section>
 
         <section id="desktop">
+			<p><a href="<?php echo MVC_ROOT; ?>/User"><< <?php echo_h($this->txt->Global->back); ?></a></p><br />
             <h1><?php echo_h($this->txt->Global->bug); ?></h1>
 
             <p><strong><?php if(!empty($this->_message)) { echo_h($this->_message); } ?></strong></p>
@@ -59,8 +61,9 @@
                     <tr>
                         <td>
                             <textarea name="message" cols="50" rows="5"><?php if(!empty($_POST['message'])) { echo_h($_POST['message']); } ?></textarea>
-                        </td><td><input type="submit"></td>
+                        </td><td></td>
                     </tr>
+					<tr><td><input type="submit"></td><td></td></tr>
                 </table>
             </form>
         </section>

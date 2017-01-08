@@ -3,9 +3,13 @@
 var Encryption = (function() {
 	// Private
 	var chunkSize = 1024 * 1024; // Size of one chunk in B
-	var cek = 'password'; // for tests
+	var cek = sessionStorage.getItem("cek");
+	if (cek == null) { //check if the cek is there
+		window.location.href = root+"Logout"; //doesn't exist ? Then logout the user
+	}
 	var target = 'User';
 	var est = 33.5; // Estimation of the difference between the file and encrypted file in %
+	var debug = false;
 
 	var errorHandler = function(e) {
 		console.log("Error");
@@ -32,8 +36,11 @@ var Encryption = (function() {
 		this.l = 0; // Number of B written
 		this.halt = false;
 
+		//crypto parameters
 		this.aDATA = sjcl.random.randomWords(4);
 		this.salt = sjcl.random.randomWords(2);
+
+		//key derivation
 		this.key = sjcl.misc.pbkdf2(cek, this.salt, 2000, 256);
 		this.enc = new sjcl.cipher.aes(this.key);
 
@@ -71,6 +78,15 @@ var Encryption = (function() {
 		}
 	};
 
+	Encryption.prototype.abort = function() {
+		this.halt = true;
+		var node;
+		if(node = document.querySelector("#div_upload"+(this.i))) {
+			while(node.firstChild) // remove all children
+				node.removeChild(node.firstChild);
+		}
+	};
+
 	Encryption.prototype.toBitArrayCodec = function(bytes) {
 		/** Convert from an array of bytes to a bitArray. */
 		var out = [], i, tmp=0;
@@ -90,8 +106,10 @@ var Encryption = (function() {
 		var me = this;
 
 		time = new Time();
-		console.log('File size : '+this.file.size);
-		console.log('File name : '+this.file.name);
+		if(debug) {
+			console.log('File size : '+this.file.size);
+			console.log('File name : '+this.file.name);
+		}
 
 		this.parseFile(this.file, {
 			binary: true,
@@ -101,7 +119,8 @@ var Encryption = (function() {
 					return false;
 				// Waiting end of the uploading process
 				var timer = setInterval(function() {
-					console.log("Waiting...");
+					if(debug)
+						console.log("Waiting...");
 					if(me.k >= me.j) {
 						// Done, write "EOF" at the end of file
 						clearInterval(timer);
@@ -116,8 +135,10 @@ var Encryption = (function() {
 								var node = document.querySelector("#div_upload"+(me.i));
 								while(node.firstChild) // remove all children
 									node.removeChild(node.firstChild);
-								console.log("Split + encryption : "+time.elapsed()+" ms");//
-								console.log("Splitted in "+me.j+" chunks !");
+								if(debug) {
+									console.log("Split + encryption : "+time.elapsed()+" ms");//
+									console.log("Splitted in "+me.j+" chunks !");
+								}
 								if(me.reload)
 									Folders.open(me.folder_id);
 							}
@@ -134,7 +155,8 @@ var Encryption = (function() {
 				chk = new Uint8Array(chk);
 				chk = me.toBitArrayCodec(chk);
 				var chk_length = me.encryptChk(chk);
-				console.log(me.file.name+' - Part '+me.j+' size : '+chk_length);
+				if(debug)
+					console.log(me.file.name+' - Part '+me.j+' size : '+chk_length);
 				me.l += chk_length;
 				var pct = me.l/me.est_size*100;
 				if(pct > 100)
@@ -204,7 +226,10 @@ var Encryption = (function() {
 			return t;
 		}
 
+		//crypto parameter
 		var initVector = sjcl.random.randomWords(4);
+
+		//chunk encryption
 		var s = sjcl.mode.gcm.encrypt(this.enc, chk, initVector, this.aDATA, 128);
 		s = pack(s, this.salt, this.aDATA, initVector);
 

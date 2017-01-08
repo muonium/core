@@ -10,23 +10,19 @@ class Users extends l\Model {
             3   password            varchar(128)
             4   email               varchar(254)
             5   registration_date   int(11)
-            5   last_connection     int(11)
-            6   passphrase          varchar(128)
+            6   last_connection     int(11)
             7   cek                 varchar(330)
             8   double_auth         tinyint(1)      => 0 : Double auth not available for this user
             9   auth_code           varchar(8)      => 1 : Double auth available for this user
-            10  pp_counter          tinyint(1)      => passphrase changes counter, resetted to 0 every month. max value : 3 (delete user's files)
         */
 
         protected $id;
         protected $login;
         protected $password;
         protected $email;
-        protected $passphrase;
 		protected $cek;
         protected $doubleAuth = 0;
         protected $code;
-        protected $pp_counter = 0;
 
         /* ******************** SETTER ******************** */
 
@@ -41,16 +37,6 @@ class Users extends l\Model {
         }
 
         /* ************************************************ */
-
-        function incrementPpCounter() {
-            // max value is 3
-            if($this->pp_counter < 2) {
-                $this->pp_counter = ($this->pp_counter)+1;
-                $req = self::$_sql->prepare("UPDATE users SET pp_counter = ? WHERE id = ?");
-                return $req->execute(array($this->pp_counter, $this->id));
-            }
-            return false;
-        }
 
         /* ******************** GETTER ******************** */
         function getId() {
@@ -95,15 +81,6 @@ class Users extends l\Model {
             return $res['email'];
         }
 
-        function getPassphrase() {
-            $req = self::$_sql->prepare("SELECT passphrase FROM users WHERE id = ?");
-            $req->execute(array($this->id));
-            if($req->rowCount() == 0)
-                return false;
-            $res = $req->fetch();
-            return $res['passphrase'];
-        }
-
         function getPassword() {
             $req = self::$_sql->prepare("SELECT password FROM users WHERE id = ?");
             $req->execute(array($this->id));
@@ -111,6 +88,15 @@ class Users extends l\Model {
                 return false;
             $res = $req->fetch();
             return $res['password'];
+        }
+
+        function getCek() {
+            $req = self::$_sql->prepare("SELECT cek FROM users WHERE id = ?");
+            $req->execute(array($this->id));
+            if($req->rowCount() == 0)
+                return false;
+            $res = $req->fetch();
+            return $res['cek'];
         }
 
         function getLogin() {
@@ -134,16 +120,6 @@ class Users extends l\Model {
             return $res['auth_code'];
         }
 
-        function getPpCounter() {
-            $req = self::$_sql->prepare("SELECT pp_counter FROM users WHERE id = ?");
-            $req->execute(array($this->id));
-            if($req->rowCount() == 0)
-                return false;
-            $res = $req->fetch();
-            $this->pp_counter = $res['pp_counter'];
-            return $res['pp_counter'];
-        }
-
         /* **************************************** */
 
         function EmailExists() {
@@ -163,15 +139,15 @@ class Users extends l\Model {
         }
 
         function Insertion() {
-            // $this->password must be encrypted !
-            $req = self::$_sql->prepare("INSERT INTO users VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, '', '0')");
-            $ret = $req->execute(array($this->login, $this->password, $this->email, time(), time(), $this->passphrase, '', $this->doubleAuth));
+            // $this->password must be double-hashed !
+            $req = self::$_sql->prepare("INSERT INTO users VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, '')");
+            $ret = $req->execute(array($this->login, $this->password, $this->email, time(), time(), $this->cek, $this->doubleAuth));
             return $ret;
         }
 
 		function Connection() {
-			$req = self::$_sql->prepare("SELECT id FROM users WHERE email = ? AND password = ? AND passphrase = ?");
-            $req->execute(array($this->email, $this->password, $this->passphrase));
+			$req = self::$_sql->prepare("SELECT id FROM users WHERE email = ? AND password = ?");
+            $req->execute(array($this->email, $this->password));
             if($req->rowCount())
                 return true;
             return false;
@@ -198,12 +174,12 @@ class Users extends l\Model {
             return false;
         }
 
-        function updatePassphrase() {
+        function updateCek() {
             // $this->passphrase must be encrypted !
             if(!empty($this->id)) {
                 if(is_numeric($this->id)) {
-                    $req = self::$_sql->prepare("UPDATE users SET passphrase = ? WHERE id = ?");
-                    return $req->execute(array($this->passphrase, $this->id));
+                    $req = self::$_sql->prepare("UPDATE users SET cek = ? WHERE id = ?");
+                    return $req->execute(array($this->cek, $this->id));
                 }
             }
             return false;
@@ -226,21 +202,19 @@ class Users extends l\Model {
         }
 
 /*      Add method for update email  */
-	
-	function updatemail() {
-            if(!empty($this->id)) {
-                if(is_numeric($this->id)) {
-                    $req = self::$_sql->prepare("UPDATE users SET email = ? WHERE id = ?");
-                    return $req->execute(array($this->email, $this->id));
-                  }
-            }
-            return false;
-        }
+		function updatemail() {
+	        if(!empty($this->id)) {
+	            if(is_numeric($this->id)) {
+	                $req = self::$_sql->prepare("UPDATE users SET email = ? WHERE id = ?");
+	                return $req->execute(array($this->email, $this->id));
+	            }
+	        }
+	        return false;
+	    }
 	/*  Add Method for delete user  */
 
-	function deleteUser() {
+		function deleteUser() {
             if(!empty($this->id)) {
-				
                 if(is_numeric($this->id)) {
                      $req2 = self::$_sql->prepare("DELETE FROM users WHERE id = ?");
                     return $req2->execute(array( $this->id));
