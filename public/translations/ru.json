@@ -58,11 +58,6 @@
         "size": "Size",
         "file": "File",
         "folder": "Folder",
-        "name": "Name",
-        "type": "File type",
-        "size": "Size",
-        "file": "File",
-        "folder": "Folder",
 		"element": "Element",
 		"PlurialElement": "Elements"
     },
