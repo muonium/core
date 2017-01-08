@@ -21,6 +21,7 @@ var Encryption = (function() {
 	// Constructor
 	function Encryption(f, f_id, i, reload) {
 		var me = this;
+		document.querySelector("#span_upload"+i).innerHTML = f.name+' : 0%';
 
 		if(reload === true)
 			this.reload = true;
@@ -157,11 +158,6 @@ var Encryption = (function() {
 				var chk_length = me.encryptChk(chk);
 				if(debug)
 					console.log(me.file.name+' - Part '+me.j+' size : '+chk_length);
-				me.l += chk_length;
-				var pct = me.l/me.est_size*100;
-				if(pct > 100)
-					pct = 100;
-				document.querySelector("#span_upload"+(me.i)).innerHTML = me.file.name+' : '+pct.toFixed(2)+'%';
 			},
 			error_callback: errorHandler
 		});
@@ -239,6 +235,12 @@ var Encryption = (function() {
 
 		xhr.onreadystatechange = function() {
 			if(xhr.status == 200 && xhr.readyState == 4) {
+				me.l += s.length;
+				var pct = me.l/me.est_size*100;
+				if(pct > 100)
+					pct = 100;
+				document.querySelector("#span_upload"+(me.i)).innerHTML = me.file.name+' : '+pct.toFixed(2)+'%';
+
 				if(xhr.responseText == 'error') {
 					// Quota exceeded or unable to write
 					me.halt = true;
