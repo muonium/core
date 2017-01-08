@@ -2,7 +2,7 @@
 {
     margin: 0;
     padding: 0;
-    
+
     font-family: Tahoma;
     font-size: 14px;
 }
@@ -28,7 +28,7 @@ header
     left: 0;
     height: 7%;
     width: 100%;
-    
+
     background-color: rgba(40, 68, 92, 0.9);
 }
 
@@ -39,7 +39,7 @@ header div#logo
     left: 0;
     height: 100%;
     width: 10%;
-    
+
     background: url("../images/header/logo.svg") no-repeat;
     background-size: 5vh;
     background-position: .8vw center;
@@ -48,13 +48,13 @@ header div#logo
 header div#user
 {
     display: table;
-    
+
     position: absolute;
     top: 0;
     right: 100px;
     height: 100%;
     width: 25%;
-    
+
     color: #f2f2f2;
 }
 
@@ -64,14 +64,14 @@ header div#user p
     -webkit-transition: all .3s ease;
     -ms-transition: all .3s ease;
     -o-transition: all .3s ease;
-    
+
     display: table-cell;
     vertical-align: middle;
-    
+
     text-align: center;
-    
+
     width: 25%;
-    
+
     cursor: pointer;
 }
 header div#user p:hover
@@ -80,7 +80,7 @@ header div#user p:hover
     -webkit-transition: all .3s ease;
     -ms-transition: all .3s ease;
     -o-transition: all .3s ease;
-    
+
     color: orange;
     background-color: rgba(255, 165, 0, 0.2);
 }
@@ -93,13 +93,13 @@ header div#user img
 section#toolbar
 {
     display: table;
-    
+
     position: absolute;
     top: 11%;
     left: 0;
     height: 12%;
     width: 100%;
-    
+
     background-color: rgb(167, 167, 167);
 }
 
@@ -109,19 +109,19 @@ section#toolbar div
     -webkit-transition: all .3s ease;
     -ms-transition: all .3s ease;
     -o-transition: all .3s ease;
-    
+
     display: table-cell;
     vertical-align: middle;
-    
+
     text-align: center;
-    
+
     color: rgb(10, 76, 95);
     text-transform: uppercase;
-    
+
     font-size: 12px;
-    
+
     width: 20%;
-    
+
     cursor: pointer;
 }
 section#toolbar div.selected
@@ -135,9 +135,9 @@ section#toolbar div:hover
     -webkit-transition: all .3s ease;
     -ms-transition: all .3s ease;
     -o-transition: all .3s ease;
-    
+
     background-color: rgba(255, 165, 0, 0.2);
-    
+
     color: #bc7a00;
 }
 
@@ -154,26 +154,26 @@ section#desktop
     left: 3vh;
     width: calc(100% - 6vh);
     height: 71%;
-    
+
     background-color: white;
-    
+
     border-radius: 3px;
-    
+
     box-shadow: 0 0 2px rgba(0, 0, 0, 0.49);
 }
 
 section#desktop img.arrow
 {
     z-index: 1;
-    
+
     position: absolute;
     top: -3.5vh;
     height: 5vh;
     width: 5vh;
 }
 
-section#desktop img.arrow.favorites { left: calc(7.8% - 2.5vh); }
-section#desktop img.arrow.recents { left: calc(29% - 2.5vh); }
+section#desktop img.arrow.recents { left: calc(7.8% - 2.5vh); }
+section#desktop img.arrow.favorites { left: calc(29% - 2.5vh); }
 section#desktop img.arrow.general { left: calc(50% - 2.5vh); }
 section#desktop img.arrow.shares { left: calc(71.2% - 2.5vh); }
 section#desktop img.arrow.transfers { left: calc(92.2% - 2.5vh); }
@@ -181,15 +181,15 @@ section#desktop img.arrow.transfers { left: calc(92.2% - 2.5vh); }
 section#desktop div.content
 {
     z-index: 2;
-    
+
     position: absolute;
     top: 0;
     left: 0;
     height: 100%;
     width: 100%;
-    
+
     border-radius: 3px;
-    
+
     display: none;
 }
 
@@ -200,14 +200,14 @@ section#desktop div#desktop_general div#nav
     left: 7%;
     height: 10%;
     width: 93%;
-    
+
     background-color: rgba(0, 0, 0, 0.1);
 }
 
 section#desktop div#desktop_general div#nav span.content
 {
     display: table;
-    
+
     position: absolute;
     top: 0;
     left: 0;
@@ -219,18 +219,18 @@ section#desktop div#desktop_general div#nav span.content span
 {
     display: table-cell;
     vertical-align: middle;
-    
+
     text-align: center;
-    
+
     color: #0f7a9a;
 }
 
 section#desktop div#desktop_general div#nav span.content span.separator
 {
     width: 4vw;
-    
+
     text-shadow: 1px 1px 1px #1e3e45;
-    
+
     color: #1e3e45;
 }
 
@@ -240,10 +240,10 @@ section#desktop div#desktop_general div#nav span.content span.dir
     -webkit-transition: all .3s ease;
     -ms-transition: all .3s ease;
     -o-transition: all .3s ease;
-    
+
     width: 10vw;
-    
-    cursor: pointer; 
+
+    cursor: pointer;
 }
 section#desktop div#desktop_general div#nav span.content span.dir:hover
 {
@@ -251,7 +251,7 @@ section#desktop div#desktop_general div#nav span.content span.dir:hover
     -webkit-transition: all .3s ease;
     -ms-transition: all .3s ease;
     -o-transition: all .3s ease;
-    
+
     background-color: rgba(255, 165, 0, 0.2);
     color: #aa6e00;
 }
@@ -263,16 +263,16 @@ section#desktop div#desktop_general div#leftPanel
     left: 0;
     height: 100%;
     width: 7%;
-    
+
     background-color: rgba(0, 0, 0, 0.1);
-    
+
     border-right: 1px solid rgba(0, 0, 0, 0);
 }
 
 section#desktop div#desktop_general div#leftPanel div#listTypes
 {
     display: table;
-    
+
     position: absolute;
     top: 0;
     left: 0;
@@ -284,11 +284,11 @@ section#desktop div#desktop_general div#leftPanel div#listTypes p
 {
     display: table-cell;
     vertical-align: middle;
-    
+
     text-align: center;
-    
+
     width: 33.33%;
-    
+
     cursor: pointer;
 }
 
@@ -310,12 +310,12 @@ section#desktop div#desktop_general div#leftPanel div#listTypes p img
 section#desktop div#desktop_general div#leftPanel div#actions
 {
     display: table;
-    
+
     position: absolute;
     top: 10%;
     left: 0;
     height: 90%;
-    width: 100%;   
+    width: 100%;
 }
 
 section#desktop div#desktop_general div#leftPanel div#actions div.action
@@ -329,12 +329,12 @@ section#desktop div#desktop_general div#leftPanel div#actions div.action p
     -webkit-transition: all .3s ease;
     -ms-transition: all .3s ease;
     -o-transition: all .3s ease;
-    
+
     display: table-cell;
     vertical-align: middle;
-    
+
     text-align: center;
-    
+
     cursor: pointer;
 }
 section#desktop div#desktop_general div#leftPanel div#actions div.action p:hover
@@ -343,7 +343,7 @@ section#desktop div#desktop_general div#leftPanel div#actions div.action p:hover
     -webkit-transition: all .3s ease;
     -ms-transition: all .3s ease;
     -o-transition: all .3s ease;
-    
+
     background-color: rgba(255, 165, 0, 0.2);
 }
 
@@ -359,14 +359,14 @@ section#desktop div#desktop_general div#rightPanel
     left: 7%;
     height: 93%;
     width: 93%;
-    
+
     overflow: auto;
 }
 
 section#desktop div#desktop_general div#rightPanel table
 {
     padding: 2vh;
-    
+
     position: absolute;
     top: 0;
     left: 0;
@@ -376,7 +376,7 @@ section#desktop div#desktop_general div#rightPanel table
 section#desktop div#desktop_general div#rightPanel table tr
 {
     text-align: center;
-    
+
     height: 15vh;
 }
 
@@ -386,11 +386,11 @@ section#desktop div#desktop_general div#rightPanel table tr td
     -webkit-transition: all .3s ease;
     -ms-transition: all .3s ease;
     -o-transition: all .3s ease;
-    
+
     width: 16.66%;
-    
+
     cursor: pointer;
-    
+
     border-radius: 3px;
 }
 section#desktop div#desktop_general div#rightPanel table tr td:hover
@@ -416,5 +416,5 @@ section#desktop div#desktop_general div#rightPanel table tr td img
 }
 
 .undefined {
-    font-style: italic; 
+    font-style: italic;
 }

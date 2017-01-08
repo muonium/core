@@ -65,7 +65,7 @@
         </section>
 
         <section id="desktop">
-            <img src="<?php echo MVC_ROOT; ?>/public/pictures/desktop/arrow.svg" class="arrow general" />
+            <img src="<?php echo MVC_ROOT; ?>/public/pictures/desktop/arrow.svg" class="arrow recents" />
 
 
             <div id="desktop_general" class="content">
@@ -97,10 +97,6 @@
                     </div>
             </div>
         </section>
-
-        <script type="text/javascript">
-            QC.init();
-        </script>
 </body>
 <?php
     $_t->getFooter();

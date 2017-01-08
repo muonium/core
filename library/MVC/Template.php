@@ -97,7 +97,7 @@ class Template
 		echo '
 		<div id="user">
 			<p><a href="'.MVC_ROOT.'/Bug"><img src="'.MVC_ROOT.'/public/pictures/header/bug.svg" /><br />'.htmlentities($strings->bug).'</a></p>
-			<p><img src="'.MVC_ROOT.'/public/pictures/header/help.svg" /><br />'.htmlentities($strings->help).'</p>
+			<p><a href="https://github.com/muonium/core/wiki/%5BHELP%5D-:-User-Experience" target="_blank"><img src="'.MVC_ROOT.'/public/pictures/header/help.svg" /><br />'.htmlentities($strings->help).'</a></p>
 			<p><img src="'.MVC_ROOT.'/public/pictures/header/settings.svg" /><br />'.htmlentities($strings->settings).'</p>
 			<p><a href="'.MVC_ROOT.'/Profile"><img src="'.MVC_ROOT.'/public/pictures/header/user.svg" /><br />'.htmlentities($strings->profile).'</a></p>
 			<p><a href="'.MVC_ROOT.'/Logout"><img src="'.MVC_ROOT.'/public/pictures/header/user.svg" /><br />'.htmlentities($strings->logout).'</a></p>

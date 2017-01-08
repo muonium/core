@@ -372,7 +372,8 @@ class User extends l\Languages {
         }
 
         $time_end = microtime(true);
-        echo '</div><br />'.$this->txt->User->loaded.' '.($time_end-$time_start).' s';
+        echo '</div>';
+		//echo '<br />'.$this->txt->User->loaded.' '.($time_end-$time_start).' s';
     }
 
     function ChangePathAction() {

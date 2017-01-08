@@ -16,6 +16,9 @@ var Decryption = (function() {
 	var errorHandler = function(e) {
 		console.log("Error");
 		console.log(e);
+		if(e.constructor.name == "FileError" || e == "SecurityError: It was determined that certain files are unsafe for access within a Web application, or that too many calls are being made on file resources.") {
+			alert('The file downloading feature is not available in your browser.');
+		}
 	};
 
 	var time, time_chunk;

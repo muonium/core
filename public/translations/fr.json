@@ -15,7 +15,7 @@
         "profile": "Profil",
         "mail_sent": "Un email vous a été envoyé, veuillez vérifier votre boîte de réception et vos spams. Si vous n'avez rien reçu au bout de 5mn, tentez à nouveau :",
         "submit": "Valider",
-        "bug": "Send a bug report",
+        "bug": "Envoyer un rapport de bug",
         "loading": "Chargement..."
     },
 
@@ -128,7 +128,6 @@
         "getpwd": "Impossible de récupérer le mot de passe",
         "getpp": "Impossible de récupérer la phrase secrète",
         "doubleAuth": "Double authentification",
-        "warningpp": "Attention ! Vous pouvez changer votre phrase secrète seulement <strong>2</strong> fois par mois. Vous l'avez déjà changé [count] fois !",
         "changemail" : "Changement d'email",
         "mailFormat": "Le format de l'email est invalide.",
         "emptymail": "Complétez ce champ",

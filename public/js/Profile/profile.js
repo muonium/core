@@ -42,9 +42,9 @@ var changePassword = function() {
     var returnArea = document.querySelector("#changePasswordReturn");
     returnArea.innerHTML = "<img src='./public/pictures/index/loader.gif' style='height: 3vh;' />";
 
-    var old_pwd = document.querySelector("#oldpwd").value;
-    var new_pwd = document.querySelector("#newpwd").value;
-    var pwd_confirm = document.querySelector("#pwdconfirm").value;
+    var old_pwd = document.querySelector("#old_pwd").value;
+    var new_pwd = document.querySelector("#new_pwd").value;
+    var pwd_confirm = document.querySelector("#pwd_confirm").value;
 
     if(new_pwd.length < 6 || pwd_confirm !== new_pwd)
         returnArea.innerHTML = txt.Register.form;
@@ -61,19 +61,11 @@ var changePassword = function() {
                 console.log(xhr.responseText);
                 if(xhr.responseText.length > 2)
                 {
-                    // success message
-                    if(xhr.responseText.substr(0, 3) == "ok@") {
-                        window.location.href=root+"Profile";
-                        return false;
-                    }
-                    else {
-                        // error
-                        returnArea.innerHTML = xhr.responseText;
-                    }
+                    returnArea.innerHTML = xhr.responseText;
                 }
             }
         }
-        xhr.send("old_pwd="+sha512(old_pwd)+"&new_pwd="+sha512(new_pwd)+"&pwd_confirm="+sha512(pwd_confirm));
+        xhr.send("old_pwd="+mui_hash(old_pwd)+"&new_pwd="+mui_hash(new_pwd)+"&pwd_confirm="+mui_hash(pwd_confirm));
     }
 }
 
@@ -121,8 +113,9 @@ var changeCek = function() {
 			        // success message
 			        if(xhr.responseText.substr(0, 3) == "ok@") {
 						sessionStorage.setItem("kek", new_pp);
-			            window.location.href=root+"Profile";
-			            return false;
+						returnArea.innerHTML = xhr.responseText.substr(3);
+			            //window.location.href=root+"Profile";
+			            //return false;
 			        }
 			        else {
 			            // error
