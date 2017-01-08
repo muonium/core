@@ -57,7 +57,9 @@
         "type": "Type de fichier",
         "size": "Taille",
         "file": "Fichier",
-        "folder": "Dossier"
+        "folder": "Dossier",
+		"element": "Élément",
+		"PlurialElement": "Éléments"
     },
 
     "Register": {

@@ -52,7 +52,14 @@
         "questionrm": "Desideri rimuovere questi files/cartelle?",
         "trash_0": "Guarda il cestino",
         "trash_1": "Esci dal cestion",
-        "path": "Percorso"
+        "path": "Percorso",
+        "name": "Name",
+        "type": "File type",
+        "size": "Size",
+        "file": "File",
+        "folder": "Folder",
+		"element": "Element",
+		"PlurialElement": "Elements"
     },
 
     "Register": {
