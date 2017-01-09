@@ -65,42 +65,8 @@
         </section>
 
         <section id="desktop">
-            <img src="<?php echo MVC_ROOT; ?>/public/pictures/desktop/arrow.svg" class="arrow general" />
-
-
-            <div id="desktop_general" class="content">
-                <div id="nav">
-                        <span class="content">
-                            <span class="dir">Home</span>
-                            <span class="separator">&gt;</span>
-                        </span>
-                    </div>
-                    <div id="leftPanel">
-                        <div id="listTypes">
-                            <p><img src="<?php echo MVC_ROOT; ?>/public/pictures/desktop/list/list.svg" /></p>
-                            <p><img src="<?php echo MVC_ROOT; ?>/public/pictures/desktop/list/grid.svg" /></p>
-                            <p><img src="<?php echo MVC_ROOT; ?>/public/pictures/desktop/list/atomic.svg" /></p>
-                        </div>
-                        <div id="actions">
-                            <div class="action"><p><img src="<?php echo MVC_ROOT; ?>/public/pictures/desktop/actions/create_file.svg" /></p></div>
-                            <div class="action"><p><img src="<?php echo MVC_ROOT; ?>/public/pictures/desktop/actions/create_folder.svg" /></p></div>
-                            <div class="action"><p><img src="<?php echo MVC_ROOT; ?>/public/pictures/desktop/actions/upload.svg" /></p></div>
-                        </div>
-                    </div>
-                    <div id="rightPanel">
-                        <table>
-                            <tr> test
-                            </tr>
-                            <tr>
-                            </tr>
-                        </table>
-                    </div>
-            </div>
+            <img src="<?php echo MVC_ROOT; ?>/public/pictures/desktop/arrow.svg" class="arrow recents" />
         </section>
-
-        <script type="text/javascript">
-            QC.init();
-        </script>
 </body>
 <?php
     $_t->getFooter();

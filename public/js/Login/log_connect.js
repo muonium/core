@@ -48,14 +48,16 @@ var sendConnectionRequest = function()
         {
             if(xhr.status == 200 && xhr.readyState == 4)
             {
-
                 console.log(xhr.responseText);
+                console.log("length :: "+xhr.responseText.length);
                 if(xhr.responseText.length > 2)
                 {
+					console.log("ok");
                     // success message
 					var rep = xhr.responseText;
 					//the responseText have to be: ok@$cek or val@$cek, where $cek is the urlencoded encrypted cek
 					var z = rep.split("@");
+					console.log(z[0]);
                     if(z[0] == "ok") {
 						var cek = z[1];
 						try { //we try to decrypt the CEK with the passphrase
@@ -71,7 +73,7 @@ var sendConnectionRequest = function()
 						}
 						return false;
                     }
-                    else if(rep[0] == "va") {
+                    else if(z[0] == "va") {
 						// TODO: cek decryption at the Validate view page, for Dylan
 						window.location.href = root+"Validate";
 						return false;

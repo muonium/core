@@ -69,28 +69,6 @@
             </div>
 
             <img src="<?php echo MVC_ROOT; ?>/public/pictures/desktop/arrow.svg" class="arrow favorites" />
-
-            <div id="desktop_general" class="content">
-                <div id="nav">
-                    <span class="content">
-                        <span class="dir">Home</span>
-                        <span class="separator">&gt;</span>
-                    </span>
-                </div>
-                <div id="leftPanel">
-                    <div id="listTypes">
-                        <p><img src="<?php echo MVC_ROOT; ?>/public/pictures/desktop/list/list.svg" /></p>
-                        <p><img src="<?php echo MVC_ROOT; ?>/public/pictures/desktop/list/grid.svg" /></p>
-                        <p><img src="<?php echo MVC_ROOT; ?>/public/pictures/desktop/list/atomic.svg" /></p>
-                    </div>
-                    <div id="actions">
-                    </div>
-                </div>
-                <div id="rightPanel">
-                    <table>
-                    </table>
-                </div>
-            </div>
         </section>
 </body>
 <?php

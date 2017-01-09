@@ -19,8 +19,21 @@ class Languages {
     );
 
     // Constructor loads user language json
-    function __construct()
+    function __construct($tab = '')
     {
+        if(is_array($tab)) {
+            if(array_key_exists('mustBeLogged', $tab)) {
+                if($tab['mustBeLogged'] == true && empty($_SESSION['id'])) {
+                    exit(header('Location: '.MVC_ROOT.'/Login'));
+                }
+            }
+            if(array_key_exists('mustBeValidated', $tab)) {
+                if($tab['mustBeValidated'] == true && !empty($_SESSION['validate'])) {
+                    exit(header('Location: '.MVC_ROOT.'/Validate'));
+                }
+            }
+        }
+
         // Get user language
         $_json = file_get_contents(DIR_LANGUAGE.$this->userLanguage.".json");
 

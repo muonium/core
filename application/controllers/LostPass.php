@@ -16,9 +16,10 @@ class LostPass extends l\Languages {
     private $ppCounter = 0;
 
     function __construct() {
-        parent::__construct();
-        if(!empty($_SESSION['id']))
-            exit(header('Location: '.MVC_ROOT.'/Error/Error/404'));
+        parent::__construct(array(
+            'mustBeLogged' => true,
+            'mustBeValidated' => false
+        ));
     }
 
     function DefaultAction() {

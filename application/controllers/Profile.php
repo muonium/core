@@ -13,20 +13,16 @@ class Profile extends l\Languages
 	private $_modelUserLostPass;
 	private $_modelUserValidation;
 
-    private $ppCounter = 0;
-
     function __construct() {
-        parent::__construct();
-        if(empty($_SESSION['id']))
-            exit(header('Location: '.MVC_ROOT.'/Error/Error/404'));
-        if(!empty($_SESSION['validate']))
-            exit(header('Location: '.MVC_ROOT.'/Validate'));
+        parent::__construct(array(
+            'mustBeLogged' => true,
+            'mustBeValidated' => true
+        ));
     }
 
     function DefaultAction() {
         $this->_modelUser = new m\Users();
         $this->_modelUser->id = $_SESSION['id'];
-       // $this->ppCounter = $this->_modelUser->getPpCounter();
         require_once(DIR_VIEW."vProfile.php");
     }
 
@@ -68,26 +64,27 @@ class Profile extends l\Languages
 
         if(!empty($_POST['old_pwd']) && !empty($_POST['new_pwd']) && !empty($_POST['pwd_confirm'])) {
             if($_POST['new_pwd'] == $_POST['pwd_confirm']) {
-                        $this->_modelUser = new m\Users();
+                $this->_modelUser = new m\Users();
 
-                        $this->_modelUser->id = $_SESSION['id'];
-                        if($user_pwd = $this->_modelUser->getPassword()) {
-                            if($user_pwd == $_POST['old_pwd']) {
-                                $this->_modelUser->password = $_POST['new_pwd'];
-                                if($this->_modelUser->updatePassword()) {
-                                    echo 'ok@'.$this->txt->Profile->updateOk;
-                                }
-                                else {
-                                    echo $this->txt->Profile->updateErr;
-                                }
-                            }
-                            else {
-                                echo $this->txt->Register->badOldPass;
-                            }
+                $this->_modelUser->id = $_SESSION['id'];
+                if($user_pwd = $this->_modelUser->getPassword()) {
+					$old_pwd = urldecode($_POST['old_pwd']);
+                    if(password_verify($old_pwd, $user_pwd)) {
+                        $this->_modelUser->password = password_hash(urldecode($_POST['new_pwd']), PASSWORD_BCRYPT);
+                        if($this->_modelUser->updatePassword()) {
+                            echo $this->txt->Profile->updateOk;
                         }
                         else {
-                            echo $this->txt->Profile->getpwd;
+                            echo $this->txt->Profile->updateErr;
                         }
+                    }
+                    else {
+                        echo $this->txt->Profile->badOldPass;
+                    }
+                }
+                else {
+                    echo $this->txt->Profile->getpwd;
+                }
             }
             else {
                 echo $this->txt->Register->badPassConfirm;
@@ -111,7 +108,7 @@ class Profile extends l\Languages
 			$this->_modelUser->id = $_SESSION['id']; //set the 'id' value for the MySQL request
 			$this->_modelUser->cek = $_POST['cek']; //set the 'cek' value for the MySQL request
 			if ($this->_modelUser->updateCek()) { //try to update
-				echo "@ok".$this->txt->Profile->updateOk; //all is okay, return that request went fine
+				echo "ok@".$this->txt->Profile->updateOk; //all is okay, return that request went fine
 			}else { //error, cannot update
 				echo $this->txt->cek->updateErr;
 			}
@@ -119,6 +116,7 @@ class Profile extends l\Languages
 			echo $this->txt->cek->empty;
 		}
 	}
+
     function ChangeAuthAction() {
         // Called by profile.js
 
