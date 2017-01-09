@@ -355,9 +355,18 @@ class User extends l\Languages {
 
         // New way
         $path = $this->_modelFolders->getFullPath($this->_folderId);
+
         if($subdirs = $this->_modelFolders->getChildren($this->_folderId, $this->trash)) {
-            foreach($subdirs as $subdir)
-                echo '<span class="folder" id="d'.$subdir['0'].'" name="'.htmlentities($subdir['1']).'" data-folder="'.htmlentities($subdir['3']).'" data-path="'.htmlentities($subdir['4']).'" onclick="Selection.addFolder(this.id)" ondblclick="Folders.open('.$subdir['0'].')"><img src="'.IMG.'desktop/extensions/folder.svg" class="icon"> <strong>'.htmlentities($subdir['1']).'</strong> ['.$this->showSize($subdir['2']).']</span>';
+            foreach($subdirs as $subdir) {
+                $elementnum = count(glob(NOVA.'/'.$_SESSION['id'].'/'.$subdir['4'].$subdir['1']."/*"));
+
+                echo '<span class="folder" id="d'.$subdir['0'].'" name="'.htmlentities($subdir['1']).'" data-folder="'.htmlentities($subdir['3']).'" data-path="'.htmlentities($subdir['4']).'" onclick="Selection.addFolder(this.id)" ondblclick="Folders.open('.$subdir['0'].')"><img src="'.IMG.'desktop/extensions/folder.svg" class="icon"> <strong>'.htmlentities($subdir['1']).'</strong> ['.$this->showSize($subdir['2']).'][';
+                if ($elementnum>1){
+    				echo $elementnum.' '.$this->txt->User->PlurialElement.']</span>';
+    			}else{
+    				echo $elementnum.' '.$this->txt->User->element.']</span>';
+    			}
+            }
         }
         if($files = $this->_modelFiles->getFiles($this->_folderId, $this->trash)) {
             foreach($files as $file) {

@@ -61,6 +61,16 @@ class Files extends l\Model {
             return $res['folder_id'];
         }
 
+        // Not used for now
+	    function getFilesnum($id) {
+            $req = self::$_sql->prepare("SELECT count(id) FROM files WHERE id_owner = ? AND folder_id = ?");
+            $req->execute(array($_SESSION['id'], $id));
+            if($req->rowCount() == 0)
+                return false;
+            $res = $req->fetch();
+            return $res['count(id)'];
+        }
+
         function getSize() {
             if(!isset($this->id)) {
                 $req = self::$_sql->prepare("SELECT size FROM files WHERE id_owner = ? AND name = ? AND folder_id = ?");
@@ -227,7 +237,7 @@ class Files extends l\Model {
 
 	function deleteFilesfinal() {
 			if(!empty($this->id_owner)) {
-				
+
 				if(is_numeric($this->id_owner)) {
 					 $req2 = self::$_sql->prepare("DELETE FROM files WHERE id_owner = ?");
 					return $req2->execute(array($this->id_owner));
