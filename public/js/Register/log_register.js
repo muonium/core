@@ -10,12 +10,12 @@ window.onload = function() {
 
 	//for the private beta
 	alert("Notice:\
-	- The private beta is there just to test or to find bugs\n\
-	- We can delete all the users data when we need, doesn't matter when\n\
-	- The key encryption key is the same for all the users, consequently, you don't have a privacy\n\
-	- Don't put any personal data in the private beta release\n\
-	Servers are in France, we don't created the Estonian company yet.\n\
-	Once the company created, users will be able to have their own key. ");
+	- The private beta is just here to test and find some bugs left\n\
+	- We can delete all the users data whenever we need\n\
+	- The encryption key is the same for all the users, so you don't have a privacy yet\n\
+	- Don't put any personal documents for the moment\n\
+	Servers are in France for now. We didn't create the Estonian company yet.\n\
+	Once it's done, users will be able to have their own private key. ");
 
     window.addEventListener("keydown", function(event) {
         switch(event.keyCode) {
