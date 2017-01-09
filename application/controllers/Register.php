@@ -2,12 +2,14 @@
 namespace application\controllers;
 use \library\MVC as l;
 use \application\models as m;
+
 class Register extends l\Languages {
     private $_modelUser;
     private $_modelUserVal;
     private $_modelStorage;
     private $_bruteforce;
     private $_mail;
+
     function __construct() {
         parent::__construct();
         if(!empty($_SESSION['id']))
@@ -18,9 +20,11 @@ class Register extends l\Languages {
         $this->_bruteforce->setSID();
         $this->_bruteforce->setNbMaxAttemptsPerHour(50);
     }
+
     function DefaultAction() {
         require_once(DIR_VIEW.'vRegister.php');
     }
+
     function AddUserAction() {
         // Sleep during 3s to avoid a big number of requests (bruteforce)
         sleep(3);

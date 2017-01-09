@@ -17,11 +17,10 @@ class User extends l\Languages {
     private $trash = 0; // 0 : view contents not in the trash || 1 : view contents in the trash
 
     function __construct() {
-        parent::__construct();
-        if(empty($_SESSION['id']))
-            exit(header('Location: '.MVC_ROOT.'/Error/Error/404'));
-        if(!empty($_SESSION['validate']))
-            exit(header('Location: '.MVC_ROOT.'/Validate'));
+        parent::__construct(array(
+            'mustBeLogged' => true,
+            'mustBeValidated' => true
+        ));
     }
 
     function DefaultAction() {
@@ -628,10 +627,10 @@ class User extends l\Languages {
         $this->_modelFolders = new m\Folders();
         $this->_modelFolders->id_owner = $_SESSION['id'];
 
-        if(isset($_POST['old']) && isset($_POST['new']) && isset($_POST['path'])) {
-            $path = urldecode($_POST['path']);
-            if(!empty($path))
-                $path .= '/';
+        if(isset($_POST['old']) && isset($_POST['new']) && isset($_POST['folder_id'])) {
+            $folder_id = urldecode($_POST['folder_id']);
+            if(!is_numeric($folder_id))
+                return false;
             $old = urldecode($_POST['old']);
             $new = urldecode($_POST['new']);
 
@@ -647,6 +646,10 @@ class User extends l\Languages {
                 }
 
                 if($f == 0) {
+                    $path = $this->_modelFolders->getFullPath($folder_id);
+                    if($path != '')
+            			$path .= '/';
+                        
                     if(is_dir(NOVA.'/'.$_SESSION['id'].'/'.$path.$old) && !is_dir(NOVA.'/'.$_SESSION['id'].'/'.$path.$new)) {
                         if(strlen($new) > 64) // max folder length 64 chars
                             $new = substr($new, 0, 64);
@@ -656,20 +659,15 @@ class User extends l\Languages {
                     elseif(file_exists(NOVA.'/'.$_SESSION['id'].'/'.$path.$old) && !file_exists(NOVA.'/'.$_SESSION['id'].'/'.$path.$new)) {
                         if(strlen($new) > 128) // max file length 128 chars
                             $new = substr($new, 0, 128);
-                        // Rename file in db
-                        $folder_id = 0;
-                        if(!empty($path)) {
-                            $folder_id = $this->_modelFolders->getId($path);
-                            if($folder_id === false)
-                                return false;
-                        }
 
+                        // Rename file in db
 						if(isset($_SESSION['upload'][$folder_id]['files'][$old]))
 							unset($_SESSION['upload'][$folder_id]['files'][$old]);
                         $this->_modelFiles->rename($folder_id, $old, $new);
                     }
-                    else
+                    else {
                         return false;
+                    }
 
                     rename(NOVA.'/'.$_SESSION['id'].'/'.$path.$old, NOVA.'/'.$_SESSION['id'].'/'.$path.$new);
 					echo 'ok';

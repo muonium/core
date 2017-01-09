@@ -63,7 +63,7 @@ var Move = (function() {
                                 Folders.open(Folders.id);
         				    }
         				}
-        				xhr.send("path="+path+"&old="+encodeURIComponent(name)+"&new="+encodeURIComponent(document.querySelector("#nRename").value));
+        				xhr.send("folder_id="+Folders.id+"&old="+encodeURIComponent(name)+"&new="+encodeURIComponent(document.querySelector("#nRename").value));
         			}
         			else {
                         Box.box_more = true;

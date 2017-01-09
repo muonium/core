@@ -27,6 +27,7 @@
             <div id="avatar"><p><img src="<?php echo MVC_ROOT; ?>/public/pictures/register/user.svg" /></p></div>
             <div id="text"><p><?php echo_h($this->txt->Global->validate); ?></p></div>
 
+			<br /><br /><br />
             <p>
                 <?php echo_h($this->txt->Validate->sendmess); ?><br />
                 <a href="<?php echo $_SERVER['REQUEST_URI']; ?>/SendMail"><?php echo_h($this->txt->Validate->sendmail); ?></a>

@@ -5,6 +5,13 @@ use \application\models as m;
 
 class Favorites extends l\Languages {
 
+    function __construct() {
+        parent::__construct(array(
+            'mustBeLogged' => true,
+            'mustBeValidated' => true
+        ));
+    }
+
     function DefaultAction() {
         $mFiles = new m\Files();
         $mFiles->id_owner = $_SESSION['id'];

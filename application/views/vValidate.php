@@ -27,6 +27,7 @@
             <div id="avatar"><p><img src="<?php echo MVC_ROOT; ?>/public/pictures/register/user.svg" /></p></div>
             <div id="text"><p><?php echo_h($this->txt->Global->validate); ?></p></div>
 
+			<br /><br />
             <p>
                 <?php echo_h($this->err_msg); ?><br />
                 <a href="<?php echo MVC_ROOT; ?>/Login"><?php echo_h($this->txt->Global->login); ?></a> ||

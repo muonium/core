@@ -14,11 +14,10 @@ class Profile extends l\Languages
 	private $_modelUserValidation;
 
     function __construct() {
-        parent::__construct();
-        if(empty($_SESSION['id']))
-            exit(header('Location: '.MVC_ROOT.'/Error/Error/404'));
-        if(!empty($_SESSION['validate']))
-            exit(header('Location: '.MVC_ROOT.'/Validate'));
+        parent::__construct(array(
+            'mustBeLogged' => true,
+            'mustBeValidated' => true
+        ));
     }
 
     function DefaultAction() {

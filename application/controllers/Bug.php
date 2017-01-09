@@ -9,11 +9,11 @@ class Bug extends l\Languages {
     private $_bruteforce;
     private $_mail;
     private $_message;
-    
+
     // Values tables //
-    
+
     // Different possible values for select tag
-    
+
     private $values = array(
         "os" => array(
             "Linux" => "Linux/Unix/BSD",
@@ -21,7 +21,7 @@ class Bug extends l\Languages {
             "Win" => "Windows",
             "Android" => "Android",
             "iOS" => "iOS",
-            "other" => ""          
+            "other" => ""
         ),
         "browser" => array(
             "Chrome" => "Google Chrome/Chromium",
@@ -33,20 +33,22 @@ class Bug extends l\Languages {
             "other" => ""
         )
     );
-    
+
     ///////////////////
-    
+
     function __construct() {
-        parent::__construct();
-        if(!isset($_SESSION['id']))
-            exit(header('Location: '.MVC_ROOT.'/Error/Error/404'));
+        parent::__construct(array(
+            'mustBeLogged' => true,
+            'mustBeValidated' => false
+        ));
+
         // Initialize the anti-bruteforce class
         $this->_bruteforce = new l\AntiBruteforce();
         $this->_bruteforce->setFolder(ROOT.DS."tmp");
         $this->_bruteforce->setSID('Bug');
         $this->_bruteforce->setNbMaxAttemptsPerHour(20);
     }
-    
+
     function printValues($key) {
         // Print values from values array for the selected key
         if(array_key_exists($key, $this->values)) {
@@ -57,14 +59,14 @@ class Bug extends l\Languages {
             }
         }
     }
-    
+
     function checkValue($value, $key) {
         // Check if the entered value is in the array
         if(array_key_exists($value, $this->values[$key]))
             return htmlentities($this->values[$key][$value]);
         return false;
     }
-    
+
     function FormAction() {
         if(!empty($_POST['os']) && !empty($_POST['browser']) && !empty($_POST['message'])) {
             // Sleep during 2s to avoid a big number of requests (bruteforce)
@@ -74,11 +76,11 @@ class Bug extends l\Languages {
                 if(strlen($_POST['message']) > 50) {
                     if(($os = $this->checkValue($_POST['os'], 'os')) && ($browser = $this->checkValue($_POST['browser'], 'browser'))) {
                         // get User's mail
-                        
+
                         $this->_modelUser = new m\Users();
                         $this->_modelUser->id = $_SESSION['id'];
                         if($mail = $this->_modelUser->getEmail()) {
-                        
+
                             $message = htmlentities($_POST['message']);
                             // Send the mail
 
@@ -99,9 +101,9 @@ class Bug extends l\Languages {
                             $this->_message = $this->txt->Bug->sent;
                         }
                         else {
-                            
+
                         }
-                        
+
                     }
                     else {
                         $this->_message = $this->txt->Bug->form;

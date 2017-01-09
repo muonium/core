@@ -26,6 +26,7 @@
 
             <div id="avatar"><p><img src="<?php echo MVC_ROOT; ?>/public/pictures/register/user.svg" /></p></div>
 
+			<br /><br />
             <p>
                 <?php
                 if(!empty($this->_message)) { echo_h($this->_message); }
