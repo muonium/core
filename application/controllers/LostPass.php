@@ -17,7 +17,7 @@ class LostPass extends l\Languages {
 
     function __construct() {
         parent::__construct(array(
-            'mustBeLogged' => true,
+            'mustBeLogged' => false,
             'mustBeValidated' => false
         ));
     }
