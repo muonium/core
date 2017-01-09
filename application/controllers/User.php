@@ -360,7 +360,13 @@ class User extends l\Languages {
             foreach($subdirs as $subdir)
 		$subfoldernum=$this->_modelFolders->getSubfoldernum($subdir['0']);
        			 $filenum=$this->_modelFiles->getFilesnum($subdir['0']);
-                echo '<span class="folder" id="d'.$subdir['0'].'" name="'.htmlentities($subdir['1']).'" data-folder="'.htmlentities($subdir['3']).'" data-path="'.htmlentities($subdir['4']).'" onclick="Selection.addFolder(this.id)" ondblclick="Folders.open('.$subdir['0'].')"><img src="'.IMG.'desktop/extensions/folder.svg" class="icon"> <strong>'.htmlentities($subdir['1']).'</strong> ['.$this->showSize($subdir['2']).']['.$subfoldernum.'Folder]['.$filenum.'File]</span>';
+       			 $elementnum=$subfoldernum+$filenum;
+                echo '<span class="folder" id="d'.$subdir['0'].'" name="'.htmlentities($subdir['1']).'" data-folder="'.htmlentities($subdir['3']).'" data-path="'.htmlentities($subdir['4']).'" onclick="Selection.addFolder(this.id)" ondblclick="Folders.open('.$subdir['0'].')"><img src="'.IMG.'desktop/extensions/folder.svg" class="icon"> <strong>'.htmlentities($subdir['1']).'</strong> ['.$this->showSize($subdir['2']).'][';
+                if ($elementnum>1){
+					echo $elementnum.$this->txt->User->PlurialElement.']</span>';
+				}else{
+					echo $elementnum.$this->txt->User->element.']</span>';
+				}
         }
         if($files = $this->_modelFiles->getFiles($this->_folderId, $this->trash)) {
             foreach($files as $file) {
