@@ -18,8 +18,9 @@ window.onload = function() {
 var changePass = function() {
     var new_pwd = document.querySelector("#pwd").value;
     var pwd_confirm = document.querySelector("#pwd_confirm").value;
-    var new_pp = document.querySelector("#pp").value;
-    var pp_confirm = document.querySelector("#pp_confirm").value;
+    //var new_pp = document.querySelector("#pp").value;
+    //var pp_confirm = document.querySelector("#pp_confirm").value;
+    var new_pp = '', pp_confirm = '';
 
     var returnArea = document.querySelector("#returnArea");
 

@@ -26,8 +26,8 @@ class Register extends l\Languages {
     }
 
     function AddUserAction() {
-        // Sleep during 3s to avoid a big number of requests (bruteforce)
-        sleep(3);
+        // Sleep during 2s to avoid a big number of requests (bruteforce)
+        sleep(2);
         $this->_bruteforce->Control();
         if($this->_bruteforce->getError() == 0)
         {

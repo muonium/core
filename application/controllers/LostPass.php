@@ -26,7 +26,6 @@ class LostPass extends l\Languages {
         if(!empty($_SESSION['changePassId']) && !empty($_SESSION['changePassKey'])) {
             $this->_modelUser = new m\Users();
             $this->_modelUser->id = $_SESSION['changePassId'];
-            $this->ppCounter = $this->_modelUser->getPpCounter();
             require_once(DIR_VIEW."vLostPassForm.php");
         }
         else
@@ -47,7 +46,6 @@ class LostPass extends l\Languages {
                         if($this->_modelUserLostPass->getKey() == $_SESSION['changePassKey'] && $this->_modelUserLostPass->getExpire() >= time()) {
                             $this->_modelUser = new m\Users();
                             $this->_modelUser->id = $_SESSION['changePassId'];
-                            $this->ppCounter = $this->_modelUser->getPpCounter();
 
                             if(!empty($_POST['pwd'])) {
                                 // change password
@@ -64,7 +62,7 @@ class LostPass extends l\Languages {
                                 else
                                     echo $this->txt->LostPass->updateErr;
                             }
-                            if(!empty($_POST['pp'])) {
+                            /*if(!empty($_POST['pp'])) {
                                 // change passphrase
 
                                 $this->_modelUser->passphrase = urldecode($_POST['pp']);
@@ -84,7 +82,7 @@ class LostPass extends l\Languages {
                                 }
                                 else
                                     echo $this->txt->LostPass->updateErr;
-                            }
+                            }*/
                         }
                         else {
                             unset($_SESSION['changePassId']);

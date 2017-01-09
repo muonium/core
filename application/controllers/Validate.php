@@ -42,13 +42,13 @@ class Validate extends l\Languages {
                     unset($_SESSION['validate']);
 				//all is good, his account is validated
 				//now we disconnect him, he have to log in himself
-                header('Location: '.MVC_ROOT.'Logout');
+                header('Location: '.MVC_ROOT.'/Logout');
             }
         }
 
         function SendMailAction() {
         // Send AGAIN registration mail with validation key
-            sleep(1000);
+            sleep(1);
             if(!empty($_SESSION['id'])) {
                 // If logged
 
