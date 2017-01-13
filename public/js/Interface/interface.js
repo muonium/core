@@ -256,6 +256,7 @@ var cleanPath = function(p) {
 }
 
 var logout = function() {
+	sessionStorage.clear();
     window.location.href=root+"Logout";
     return false;
 }
