@@ -34,7 +34,7 @@ var Rm = (function() {
 				    }
 				    else if(del.substr(0, 1) == 'd') {
 				        // folder
-				        if(confirm(txt.User.questiond)) {
+				        if(confirm(txt.User.questiond) === true) {
 				            xhr.open("POST", "User/RmFolders", true);
 				            xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
