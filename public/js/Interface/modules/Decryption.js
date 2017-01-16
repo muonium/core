@@ -88,6 +88,7 @@ var Decryption = (function() {
 
 	Decryption.prototype.decryptChk = function(line) {
 		var me = this;
+		console.log(me);
 
 		if(this.halt)
 			return false;
@@ -100,7 +101,8 @@ var Decryption = (function() {
 		var pct = line/this.nb_chk*100;
 		if(pct > 100)
 			pct = 100;
-		document.querySelector("#span_download"+(this.i)).innerHTML = this.filename+' : '+pct.toFixed(2)+'%';
+		if(document.querySelector("#span_download"+(this.i)))
+			document.querySelector("#span_download"+(this.i)).innerHTML = this.filename+' : '+pct.toFixed(2)+'%';
 
 		time_chunk = new Time();
 		var xhr = new XMLHttpRequest();
@@ -196,7 +198,7 @@ var Decryption = (function() {
 									}, errorHandler);
 								}, function() {
 									// If we can't write to filesystem, request a quota
-									me.requestQuota(me.decryptChk, me.filename, largeQuota);
+									me.requestQuota(me.decryptChk, 0, largeQuota);
 								});
 							},
 							errorHandler
@@ -210,6 +212,7 @@ var Decryption = (function() {
 
 	Decryption.prototype.requestQuota = function(fc, arg, quota) {
 		// Usually for Google Chrome
+		var me = this;
 		console.log("Mui cannot download contents for now. Requesting quota...");
 		if(navigator.webkitPersistentStorage === undefined) {
 			console.log("Your web browser is currently not supported by Mui app");
@@ -221,11 +224,16 @@ var Decryption = (function() {
 			navigator.webkitPersistentStorage.requestQuota(
 				quota,
 				function(grantedBytes) {
-					console.log("Allowed quota");
-					fc(arg);
+					if(grantedBytes > 0) {
+						console.log("Allowed quota");
+						fc.bind(me, arg)();
+					}
+					else {
+						console.log("Denied quota");
+					}
 				},
 				function() {
-					console.log("Denied quota");
+					console.log("Error while requesting quota");
 				}
 			);
 		}
