@@ -74,7 +74,6 @@ var sendConnectionRequest = function()
 						return false;
                     }
                     else if(z[0] == "va") {
-						// TODO: cek decryption at the Validate view page, for Dylan
 						window.location.href = root+"Validate";
 						return false;
                     }
