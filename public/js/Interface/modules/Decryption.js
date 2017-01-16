@@ -163,9 +163,16 @@ var Decryption = (function() {
 												// Try to download the file (move from filesystem to download folder)
 												if(typeof fileEntry.file === 'function') {
 													fileEntry.file(function(file) {
-															file = new File([file], me.filename);
-															console.log("Creating temp url");
-															me.dl(window.URL.createObjectURL(file));
+															if(window.navigator.msSaveBlob) {
+																// Microsoft
+																var blobObject = new Blob([file]);
+   																window.navigator.msSaveBlob(blobObject, me.filename);
+															}
+															else {
+																file = new File([file], me.filename);
+																console.log("Creating temp url");
+																me.dl(window.URL.createObjectURL(file));
+															}
 														},
 														function() {
 															me.dl(fileEntry.toURL(), true);
