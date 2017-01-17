@@ -16,6 +16,10 @@ Read the license please : [here](https://raw.githubusercontent.com/muonium/core/
 If you are a security expert, you can help us to build more securely Muonium.
 Or, if you see a security issue or several in the code, do not hesitate to contribute.
 
+### Cryptography
+
+Take a look at [our cryptography details](https://github.com/muonium/core/wiki/Cryptography-details).
+
 # Contributing
 
 ### Core
