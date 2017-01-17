@@ -43,7 +43,7 @@ var Encryption = (function() {
 		this.salt = sjcl.random.randomWords(2);
 
 		//key derivation
-		this.key = sjcl.misc.pbkdf2(cek, this.salt, 2000, 256);
+		this.key = sjcl.misc.pbkdf2(cek, this.salt, 7000, 256);
 		this.enc = new sjcl.cipher.aes(this.key);
 
 		// Check status before uploading
