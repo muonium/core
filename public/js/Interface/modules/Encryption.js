@@ -39,7 +39,6 @@ var Encryption = (function() {
 		this.halt = false;
 
 		//crypto parameters
-		this.aDATA = sjcl.random.randomWords(4);
 		this.salt = sjcl.random.randomWords(2);
 
 		//key derivation
@@ -225,6 +224,7 @@ var Encryption = (function() {
 
 		//crypto parameter
 		var initVector = sjcl.random.randomWords(4);
+		var aDATA = sjcl.random.randomWords(4);
 
 		//chunk encryption
 		var s = sjcl.mode.gcm.encrypt(this.enc, chk, initVector, this.aDATA, 128);
