@@ -27,6 +27,19 @@ window.onload = function() {
     });
 }
 
+
+//Thanks to Nimphious
+//Code found on stackoverflow (sometimes it's good to be lazy)
+var randomString = function (length, chars) {
+    var mask = '';
+    if (chars.indexOf('a') > -1) mask += 'abcdefghijklmn!@#$%^&*()_+-={}[]";\'<>?,opqrstuvwxyz';
+    if (chars.indexOf('A') > -1) mask += 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    if (chars.indexOf('#') > -1) mask += '0123456789';
+    if (chars.indexOf('!') > -1) mask += '~`!@#$%^&*()_+-={}[]";\'<>?,';
+    var result = '';
+    for (var i = length; i > 0; --i) result += mask[Math.floor(Math.random() * mask.length)];
+    return result;
+}
 /**
 ** @name         :  cek
 ** @description: generate & encrypt cek
@@ -44,8 +57,7 @@ cek.encrypt = function(key, y){
 	return key;
 }
 cek.gen = function(y){
-	var t = sjcl.random.randomWords(4); //4*4 = 16B <=> 4*4*8 = 128 bits
-	var t = sjcl.codec.base64.fromBits(t); //this string will be the user's CEK
+	var t = randomString(32, '#A!');
 	return cek.encrypt(t, y); //encrypt it
 }
 
