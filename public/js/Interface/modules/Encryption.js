@@ -227,8 +227,8 @@ var Encryption = (function() {
 		var aDATA = sjcl.random.randomWords(4);
 
 		//chunk encryption
-		var s = sjcl.mode.gcm.encrypt(this.enc, chk, initVector, this.aDATA, 128);
-		s = pack(s, this.salt, this.aDATA, initVector);
+		var s = sjcl.mode.gcm.encrypt(this.enc, chk, initVector, aDATA, 128);
+		s = pack(s, this.salt, aDATA, initVector);
 
 		var xhr = new XMLHttpRequest();
 		xhr.open("POST", target+'/writeChunk', true);
