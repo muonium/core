@@ -38,7 +38,8 @@ section#header div#logo
 
 section#header div#logo img
 {
-    height: 13vh;
+    height: 8vh;
+    padding-left: 1vw;
 }
 
 section#content
