@@ -124,9 +124,10 @@ Your code must be tested before to be merged in the master branch.
         - There is a method getJSON() which gets the user's language json and store it in var txt.
     - **All strings must be in all json files.** By default, you can put english string value for all other json files.
         - Example
-        ```php
+        ```javascript
         console.log(txt.Global.back);
         ```
+    - **Don't use any framework.** You have to code in pure JavaScript.
 
 ## Comments
 Comments must be written in English.
