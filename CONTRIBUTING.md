@@ -60,7 +60,7 @@ Your code must be tested before to be merged in the master branch.
 
 ## More precisely
 - cloud.sql is the current database structure (relational database, we plan to move to a NoSQL database)
-![database structure](http://image.noelshack.com/fichiers/2016/50/1481576596-mui.png)
+![database structure](http://image.noelshack.com/fichiers/2017/03/1484992294-687474703a2f2f696d6167652e6e6f656c736861636b2e636f6d2f66696368696572732f323031362f35302f313438313537363539362d6d75692e706e67.png)
 
 - For the PHP side, we use a MVC architecture :
     - Controllers (application/controllers) : Filename must be the same as class name inside this file (one class per file).
@@ -94,11 +94,10 @@ Your code must be tested before to be merged in the master branch.
     - An example of constructor when the user must be logged :
     ```php
     function __construct() {
-        parent::__construct();
-        if(empty($_SESSION['id']))
-            exit(header('Location: '.MVC_ROOT.'/Error/Error/404'));
-        if(!empty($_SESSION['validate']))
-            exit(header('Location: '.MVC_ROOT.'/Validate'));
+        parent::__construct(array(
+            'mustBeLogged' => true,
+            'mustBeValidated' => true
+        ));
     }
     ```
 
@@ -119,6 +118,7 @@ Your code must be tested before to be merged in the master branch.
 - JS details
     - JS files are in public/js folder
     - We use the "classical" JavaScript with some Ajax requests.
+    - For the user interface we use "module pattern" (public/js/Interface/modules folder); Time.js, Encryption.js and Decryption.js are a little bit different because they can have multiple instances, we use prototypes for them.
     - When you pass data with Ajax, you must use encodeURIComponent() and in the PHP side urldecode()
     - the file "language.js" is always called.
         - There is a method getJSON() which gets the user's language json and store it in var txt.
@@ -137,7 +137,7 @@ Comments must be written in English.
 We're using PHP version 5.6
 
 # Support
-- We do not support IE.
+- We do not support IE and Safari.
 - We support only the recent web browsers.
 
 # Directories
