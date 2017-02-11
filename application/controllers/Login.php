@@ -64,8 +64,10 @@ class Login extends l\Languages {
 
             if(filter_var($_POST['username'], FILTER_VALIDATE_EMAIL) === false){
                 $new_user->login = urldecode($_POST['username']);
+				$e = $new_user->getEmail();
             }else{
                 $new_user->email = urldecode($_POST['username']);
+				$e = $_POST['username'];
 			}
 
             $new_user->password = urldecode($_POST['pass']);
@@ -97,7 +99,7 @@ class Login extends l\Languages {
                                 $code = $this->generateCode();
                                 $new_user->updateCode($code);
                                 $mail = new l\Mail();
-                                $mail->_to = $_POST['mail'];
+                                $mail->_to = $e;
                                 $mail->_subject = "Muonium - ".$this->txt->Profile->doubleAuth;
                                 $mail->_message = str_replace("[key]", $code, $this->txt->Login->doubleAuthMessage);
                                 $mail->send();
