@@ -174,9 +174,9 @@ class User extends l\Languages {
 					$this->_modelFiles->last_modification = time();
 
 					if($this->_modelFiles->exists($filename, $folder_id))
-						$this->_modelFiles->updateFile($folder_id);
+						$this->_modelFiles->updateFile($folder_id, false);
 					else
-						$this->_modelFiles->addNewFile($folder_id);
+						$this->_modelFiles->addNewFile($folder_id, false);
 
 					$this->_modelFolders->updateFoldersSize($folder_id, $this->_modelFiles->size);
 

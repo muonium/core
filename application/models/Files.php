@@ -153,9 +153,15 @@ class Files extends l\Model {
 
         //
 
-        function addNewFile($folder_id) {
-            $req = self::$_sql->prepare("INSERT INTO files VALUES (NULL, ?, ?, ?, ?, ?, '0', '0')");
-            $ret = $req->execute(array($_SESSION['id'], $folder_id, $this->name, $this->size, $this->last_modification));
+        function addNewFile($folder_id, $expires = true) {
+            if(!$expires) {
+                $expires = NULL;
+            }
+            else {
+                $expires = time()+86400;
+            }
+            $req = self::$_sql->prepare("INSERT INTO files VALUES (NULL, ?, ?, ?, ?, ?, '0', '0', ?)");
+            $ret = $req->execute(array($_SESSION['id'], $folder_id, $this->name, $this->size, $this->last_modification, $expires));
             return $ret;
         }
 
@@ -164,11 +170,16 @@ class Files extends l\Model {
             return $req->execute(array($trash, $_SESSION['id'], $id));
         }
 
-        function updateFile($folder_id) {
+        function updateFile($folder_id, $expires = true) {
             // returns the difference beetween the size of the new file and the size of the old file
             $this->folder_id = $folder_id;
             $old_size = $this->getSize();
-            $req = self::$_sql->prepare("UPDATE files SET size = ?, last_modification = ? WHERE id_owner = ? AND name = ? AND folder_id = ?");
+            if(!$expires) {
+                $req = self::$_sql->prepare("UPDATE files SET size = ?, last_modification = ?, expires = NULL WHERE id_owner = ? AND name = ? AND folder_id = ?");
+            }
+            else {
+                $req = self::$_sql->prepare("UPDATE files SET size = ?, last_modification = ? WHERE id_owner = ? AND name = ? AND folder_id = ?");
+            }
             $ret = $req->execute(array($this->size, $this->last_modification, $_SESSION['id'], $this->name, $folder_id));
             return (($this->size)-$old_size);
         }
