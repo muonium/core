@@ -658,7 +658,7 @@ class User extends l\Languages {
                     $path = $this->_modelFolders->getFullPath($folder_id);
                     if($path != '')
             			$path .= '/';
-                        
+
                     if(is_dir(NOVA.'/'.$_SESSION['id'].'/'.$path.$old) && !is_dir(NOVA.'/'.$_SESSION['id'].'/'.$path.$new)) {
                         if(strlen($new) > 64) // max folder length 64 chars
                             $new = substr($new, 0, 64);
@@ -746,7 +746,7 @@ class User extends l\Languages {
         }
 
         // Folder copies support
-        $dst_foldername = $this->checkMultiple(NOVA.'/'.$_SESSION['id'].'/'.$dst_parent_path, $src_foldername, 'folder');
+        $dst_foldername = $this->checkMultiple(NOVA.'/'.$_SESSION['id'].'/'.$dst_parent_path.$dst_parent_name, $src_foldername, 'folder');
         if($dst_foldername === false)
             return false;
         //
