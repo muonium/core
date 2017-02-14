@@ -9,10 +9,11 @@ class Files extends l\Model {
             2   id_owner            int(11)
             3   folder_id           bigint(20)
             4   name                varchar(128)
-            5   size	              bigint(20)
-            6   last_modification	  int(11)
+            5   size	            bigint(20)
+            6   last_modification	int(11)
             7   favorite            tinyint(1)
             8   trash               tinyint(1)
+            9   expires             int(11)
         */
 
         protected $id;

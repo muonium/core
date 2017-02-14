@@ -47,7 +47,8 @@ CREATE TABLE `files` (
   `size` bigint(20) NOT NULL,
   `last_modification` int(11) NOT NULL,
   `favorite` tinyint(1) NOT NULL,
-  `trash` tinyint(1) NOT NULL
+  `trash` tinyint(1) NOT NULL,
+  `expires` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
