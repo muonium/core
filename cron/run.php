@@ -115,7 +115,12 @@ class cron {
 			if($path === false)
 				continue;
 			$size = @filesize(NOVA.'/'.$file['id_owner'].'/'.$path.$file['name']);
+			if(file_exists(NOVA.'/'.$file['id_owner'].'/'.$path.$file['name']) && is_numeric($size)) {
 				unlink(NOVA.'/'.$file['id_owner'].'/'.$path.$file['name']);
+				// update size stored
+				$req = self::$_sql->prepare("UPDATE storage SET size_stored = size_stored-? WHERE id_user = ?");
+				$req->execute(array($size, $file['id_owner']));
+			}
 		}
 
 		$req = self::$_sql->prepare("DELETE FROM files WHERE size = -1 AND expires <= ?");
