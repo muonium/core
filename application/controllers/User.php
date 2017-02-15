@@ -85,7 +85,6 @@ class User extends l\Languages {
 
 	function writeChunkAction() {
 		// SESSION upload contains path for a folder id and its files uploaded during this session but only which doesn't exist or not complete
-		// TODO : Storage management (quota, size stored), insert file in DB
 
 		function write($fpath, $data) {
 			$data_length = strlen($data);

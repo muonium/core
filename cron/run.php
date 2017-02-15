@@ -1,4 +1,6 @@
 <?php
+define('NOVA', dirname(dirname(dirname(__FILE__))).'/nova');
+
 require_once("config/confDB.php");
 require_once("config/Mail.php");
 
@@ -85,6 +87,39 @@ class cron {
 			if($this->_mail->send())
 				$i++;
 		}
+	}
+
+	function getFullPath($folder_id, $user_id) {
+		if(!is_numeric($folder_id))
+			return false;
+		elseif($folder_id != 0) {
+			$req = self::$_sql->prepare("SELECT `path`, name FROM folders WHERE id_owner = ? AND id = ?");
+			$ret = $req->execute(array($user_id, $folder_id));
+			if($ret) {
+				$res = $req->fetch();
+				return $res['0'].$res['1'];
+			}
+			return false;
+		}
+		else
+			return '';
+	}
+
+	function deleteNotCompletedFiles() {
+		$req = self::$_sql->prepare("SELECT id_owner, folder_id, name FROM files WHERE size = -1 AND expires <= ?");
+		$req->execute(array(time()));
+		$res = $req->fetchAll(\PDO::FETCH_ASSOC);
+
+		foreach($res as $file) {
+			$path = $this->getFullPath($file['folder_id'], $file['id_owner']);
+			if($path === false)
+				continue;
+			$size = @filesize(NOVA.'/'.$file['id_owner'].'/'.$path.$file['name']);
+				unlink(NOVA.'/'.$file['id_owner'].'/'.$path.$file['name']);
+		}
+
+		$req = self::$_sql->prepare("DELETE FROM files WHERE size = -1 AND expires <= ?");
+		$req->execute(array(time()));
 	}
 };
 ?>
