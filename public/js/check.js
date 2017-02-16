@@ -4,3 +4,10 @@ if (cek == null || kek == null) {
 	sessionStorage.clear();
 	window.location.href = root+"Logout";
 }
+
+var firstTime = localStorage.getItem("firstTime");
+if (firstTime == null) {
+	alert("Use the right click to use features");
+}else {
+	localStorage.setItem("firstTime", "nope");
+}
