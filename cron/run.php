@@ -114,8 +114,12 @@ class cron {
 			$path = $this->getFullPath($file['folder_id'], $file['id_owner']);
 			if($path === false)
 				continue;
+			if($path != '')
+				$path = $path.'/';
 			$size = @filesize(NOVA.'/'.$file['id_owner'].'/'.$path.$file['name']);
+			//echo 'found '.NOVA.'/'.$file['id_owner'].'/'.$path.$file['name'].' size : '.$size.'<br />';
 			if(file_exists(NOVA.'/'.$file['id_owner'].'/'.$path.$file['name']) && is_numeric($size)) {
+				//echo 'deleted '.NOVA.'/'.$file['id_owner'].'/'.$path.$file['name'].'<br />';
 				unlink(NOVA.'/'.$file['id_owner'].'/'.$path.$file['name']);
 				// update size stored
 				$req = self::$_sql->prepare("UPDATE storage SET size_stored = size_stored-? WHERE id_user = ?");
