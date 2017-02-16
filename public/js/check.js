@@ -8,6 +8,5 @@ if (cek == null || kek == null) {
 var firstTime = localStorage.getItem("firstTime");
 if (firstTime == null) {
 	alert("Use the right click to use features");
-}else {
 	localStorage.setItem("firstTime", "nope");
 }
