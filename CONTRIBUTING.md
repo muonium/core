@@ -56,7 +56,7 @@ Your code must be tested before to be merged in the master branch.
 - Verify data sent and use prepare statement for queries
 - Useful "defines" can be found in index.php
 - JSON folder (translations) : public/translations
-- CEK and passphrase are base64 encoded in a cookie, you have to decode it internally to use them
+- CEK and passphrase are base64 encoded in sessionStorage, you have to decode it internally to use them
 
 ## More precisely
 - cloud.sql is the current database structure (relational database, we plan to move to a NoSQL database)
