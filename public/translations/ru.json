@@ -95,13 +95,13 @@
         "bruteforceErr0": "Invalid email or password",
         "bruteforceErr1": "Warning: following a large number of requests from you, you have only 3 attempts still",
         "bruteforceErr2": "You reached the maximum allowed number of requests.",
-        "doubleAuthMessage": "Hi, your authentification code is [key]<br />Best regards,<br />Muonium Team<br /><br />This email was automatically generated, please do not answer.",
+        "doubleAuthMessage": "Hi, your authentication code is [key]<br />Best regards,<br />Muonium Team<br /><br />This email was automatically generated, please do not answer.",
         "codeMail": "Code received by email",
         "expired": "The code is expired, please login again",
         "invalidCode": "The code entered is invalid",
         "username": "Email or login",
 		"badPassphrase": "Error: bad passphrase",
-        "doubleAuth": "A mail with an authentification code was sent to you. Copy this code in the field above.<br />If you received nothing from now until 5 mn and the mail is not in the Spam folder, please follow this <a href='https://photon.muonium.ch/neutron/Logout'>link</a> to perform a new connection attempt."
+        "doubleAuth": "A mail with an authentication code was sent to you. Copy this code in the field above.<br />If you received nothing from now until 5 mn and the mail is not in the Spam folder, please follow this <a href='https://photon.muonium.ch/neutron/Logout'>link</a> to perform a new connection attempt."
     },
 
     "Validate": {
@@ -127,7 +127,7 @@
         "badOldPassphrase": "Your old passphrase does not match",
         "getpwd": "Unable to get your password",
         "getpp": "Unable to get your passphrase",
-        "doubleAuth": "Double authentification",
+        "doubleAuth": "Double authentication",
         "changemail" : "Change Email",
         "mailFormat": "Mail format is incorrect.",
         "emptymail": "Please, fill this field",
