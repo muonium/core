@@ -63,7 +63,7 @@
                             <textarea name="message" cols="50" rows="5"><?php if(!empty($_POST['message'])) { echo_h($_POST['message']); } ?></textarea>
                         </td><td></td>
                     </tr>
-					<tr><td><input type="submit"></td><td></td></tr>
+					<tr><td><input type="submit" value="OK"></td><td></td></tr>
                 </table>
             </form>
         </section>

@@ -39,7 +39,7 @@
                     <p>
                         <input type="text" name="login" id="login" placeholder="<?php echo_h($this->txt->Profile->newlogin); ?>">
                     </p>
-                    <input type="submit" onclick="changeLogin()">
+                    <input type="submit" onclick="changeLogin()" value="OK">
                     <div id="changeLoginReturn"></div>
                 </fieldset>
                 <br />
@@ -52,7 +52,7 @@
                     <p>
                         <input type="text" name="changemail" id="changemail" placeholder="<?php echo_h($this->txt->Profile->changemail); ?>">
                     </p>
-                    <input type="submit" onclick="changeMail()">
+                    <input type="submit" onclick="changeMail()" value="OK">
                     <div id="changeMailReturn"></div>
                 </fieldset>
                 <br />
@@ -62,7 +62,7 @@
             <p>
 				<fieldset>
 					<legend><?php echo_h($this->txt->Profile->deleteAccount); ?></legend>
-					<input type="submit" onclick="ConfirmDelete()">
+					<input type="submit" onclick="ConfirmDelete()" value="OK">
 					<div id="deleteUserReturn"></div>
 				</fieldset>
 				<br />
@@ -82,7 +82,7 @@
                     <p>
                         <input type="password" name="pwd_confirm" id="pwd_confirm" placeholder="<?php echo_h($this->txt->Register->confirm); ?>">
                     </p>
-                    <input type="submit" onclick="changePassword()">
+                    <input type="submit" onclick="changePassword()" value="OK">
                     <div id="changePasswordReturn"></div>
                 </fieldset>
                 <br />
@@ -100,7 +100,7 @@
                     <p>
                         <input type="password" name="ppconfirm" id="ppconfirm" placeholder="<?php echo_h($this->txt->Register->confirm); ?>">
                     </p>
-                    <input type="submit" onclick="changeCek()">
+                    <input type="submit" onclick="changeCek()" value="OK">
                     <div id="changePassPhraseReturn"></div>
                 </fieldset>
                 <br />
@@ -114,7 +114,7 @@
                         <?php echo_h($this->txt->Register->doubleAuth); ?>
                         <input type="checkbox" name="doubleAuth" id="doubleAuth"<?php if($this->_modelUser->getDoubleAuth()) { echo ' checked'; } ?>>
                     </p>
-                    <input type="submit" onclick="changeAuth()">
+                    <input type="submit" onclick="changeAuth()" value="OK">
                     <div id="changeAuthReturn"></div>
                 </fieldset>
             </p>
