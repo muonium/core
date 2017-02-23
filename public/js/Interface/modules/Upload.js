@@ -15,6 +15,11 @@ var Upload = (function() {
 			f_enc[i].abort();
         },
 
+		read : function(i) {
+			console.log("read "+i);
+			f_enc[i].read();
+		},
+
         upFiles : function(files) {
 			var up, btn, spn;
             document.querySelector("#progress").innerHTML = ' ';
