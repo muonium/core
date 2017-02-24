@@ -91,8 +91,8 @@ class User extends l\Languages {
 			if($_SESSION['size_stored']+$data_length > $_SESSION['user_quota'])
 				echo 'error';
 			else {
-				$f = fopen($fpath, "a");
-				if(fwrite($f, $data) === false)
+				$f = @fopen($fpath, "a");
+				if($f === false || fwrite($f, $data) === false)
 					echo 'error';
 				else {
 					$Storage = new m\Storage();
@@ -284,6 +284,7 @@ class User extends l\Languages {
 		if(file_exists($f)) {
 		    $file = new \SplFileObject($f, 'r');
 		    $file->seek(PHP_INT_MAX);
+            $file->seek($file->key()); // Point to the last line
 
             if($file->current() == '')
                 return 'err';
