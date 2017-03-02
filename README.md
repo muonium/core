@@ -11,6 +11,8 @@ Read the license please : [here](https://raw.githubusercontent.com/muonium/core/
 
 **Feel free to contribute :)**
 
+Artworks: license is [this one](https://creativecommons.org/licenses/by-sa/4.0/legalcode).
+
 # Security
 
 If you are a security expert, you can help us to build more securely Muonium.
