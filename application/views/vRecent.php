@@ -10,6 +10,7 @@
 	$_t->addCss("home_global");
     $_t->addCss("Interface/new_design");
     $_t->addCss("Interface/box");
+	$_t->addCss("Interface/MessageBox");
 
 	// JS Modules
 	$_t->addJs("Interface/modules/Arrows");
@@ -20,6 +21,7 @@
 	$_t->addJs("Interface/modules/Favorites");
 	$_t->addJs("Interface/modules/Files");
 	$_t->addJs("Interface/modules/Folders");
+	$_t->addJs("Interface/modules/MessageBox");
 	$_t->addJs("Interface/modules/Move");
 	$_t->addJs("Interface/modules/Rm");
 	$_t->addJs("Interface/modules/Selection");

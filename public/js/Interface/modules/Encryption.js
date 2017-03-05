@@ -59,27 +59,40 @@ var Encryption = (function() {
 				}
 				else if(xhr.responseText == '1') { // File exists and not completed
 					// TODO complete it ?
-					if(confirm('The file '+f.name+' exists and is not completed, do you want to replace it ?')) {
-						var file_id = document.querySelector('span.file[data-title="'+f.name+'"]').id;
-						if(file_id) {
-							Rm.rm(file_id, function(){Upload.read(me.i)}, false);
-						} else { alert('Error'); }
-					}
-					else {
-						// Remove file from uploading files
-						me.abort();
-					}
+					var m = new MessageBox('The file '+f.name+' exists and is not completed, do you want to replace it ?')
+						.addButton('Yes', function() {
+							var file_id = document.querySelector('span.file[data-title="'+f.name+'"]').id;
+							if(file_id) {
+								Rm.rm(file_id, function(){Upload.read(me.i)}, false);
+							} else { alert('Error'); }
+					    })
+					    .addButton('Yes for all', function() {
+					    })
+					    .addButton('No', function() {
+							// Remove file from uploading files
+							me.abort();
+					    })
+					    .addButton('No for all', function() {
+					    })
+					    .show();
 				}
 				else if(xhr.responseText == '2') { // File exists
-					if(confirm('The file '+f.name+' exists, do you want to replace it ?')) {
-						var file_id = document.querySelector('span.file[data-title="'+f.name+'"]').id;
-						if(file_id) {
-							Rm.rm(file_id, function(){Upload.read(me.i)}, false);
-						} else { alert('Error'); }
-					}
-					else {
-						me.abort();
-					}
+					var m = new MessageBox('The file '+f.name+' exists, do you want to replace it ?')
+						.addButton('Yes', function() {
+							var file_id = document.querySelector('span.file[data-title="'+f.name+'"]').id;
+							if(file_id) {
+								Rm.rm(file_id, function(){Upload.read(me.i)}, false);
+							} else { alert('Error'); }
+					    })
+					    .addButton('Yes for all', function() {
+					    })
+					    .addButton('No', function() {
+							// Remove file from uploading files
+							me.abort();
+					    })
+					    .addButton('No for all', function() {
+					    })
+					    .show();
 				}
 				else if(xhr.responseText == 'quota') {
 					alert('Quota exceeded !');
