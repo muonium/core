@@ -20,15 +20,11 @@ var Encryption = (function() {
 	var time;
 
 	// Constructor
-	function Encryption(f, f_id, i, reload) {
+	function Encryption(f, f_id, i, callback) {
 		var me = this;
 		document.querySelector("#span_upload"+i).innerHTML = f.name+' : 0%';
 
-		if(reload === true)
-			this.reload = true;
-		else
-			this.reload = false;
-
+		this.callback = callback;
 		this.folder_id = f_id;
 		this.file = f;	// file.name, file.size
 		this.est_size = Math.round(f.size*(1+est/100)); // Estimation of encrypted file size
@@ -124,6 +120,10 @@ var Encryption = (function() {
 			while(node.firstChild) // remove all children
 				node.removeChild(node.firstChild);
 		}
+
+		if(typeof callback == 'function') {
+			callback();
+		}
 	};
 
 	Encryption.prototype.toBitArrayCodec = function(bytes) {
@@ -143,6 +143,10 @@ var Encryption = (function() {
 
 	Encryption.prototype.read = function() {
 		var me = this;
+
+		if(typeof me.callback == 'function') {
+			me.callback();
+		}
 
 		time = new Time();
 		if(debug) {
@@ -178,8 +182,9 @@ var Encryption = (function() {
 									console.log("Split + encryption : "+time.elapsed()+" ms");//
 									console.log("Splitted in "+me.j+" chunks !");
 								}
-								if(me.reload)
+								if(typeof me.callback !== 'function') {
 									Folders.open(me.folder_id);
+								}
 							}
 						}
 						xhr.send("filename="+me.file.name+"&data=EOF&folder_id="+me.folder_id);

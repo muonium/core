@@ -90,7 +90,6 @@ var MessageBox = (function() {
 	};
 
     MessageBox.prototype.close = function() {
-        console.log('close');
         $elem.parentNode.removeChild($elem);
 	};
 
