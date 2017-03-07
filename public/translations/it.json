@@ -59,7 +59,15 @@
         "file": "File",
         "folder": "Folder",
 		"element": "Element",
-		"PlurialElement": "Elements"
+		"PlurialElement": "Elements",
+        "replaceFile": "The file [filename] exists, do you want to replace it ?",
+        "replaceCompleteFile": "The file [filename] exists and is not completed, do you want to replace it ?",
+        "quotaExceeded": "Quota exceeded !",
+        "fileAPI": "The File APIs are not fully supported by your browser. Fallback required.",
+        "yes": "Sì",
+        "no": "No",
+        "yesAll": "Sì per tutti",
+        "noAll": "No per tutti"
     },
 
     "Register": {
