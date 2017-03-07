@@ -59,7 +59,15 @@
         "file": "Fichier",
         "folder": "Dossier",
 		"element": "Élément",
-		"PlurialElement": "Éléments"
+		"PlurialElement": "Éléments",
+        "replaceFile": "Le fichier [filename] existe, voulez-vous le remplacer ?",
+        "replaceCompleteFile": "Le fichier [filename] existe et il n'est pas complet, voulez-vous le remplacer ?",
+        "quotaExceeded": "Quota dépassé !",
+        "fileAPI": "Les APIs File ne sont pas totalement supportées par votre navigateur.",
+        "yes": "Oui",
+        "no": "Non",
+        "yesAll": "Oui pour tous",
+        "noAll": "Non pour tous"
     },
 
     "Register": {

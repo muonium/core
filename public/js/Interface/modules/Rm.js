@@ -3,7 +3,7 @@ var Rm = (function() {
 
 	// Public
 	return {
-		rm : function(del) {
+		rm : function(del, callback = false, showConfirm = true) {
 			Box.hide();
 			var id = 0;
 			if(del.length > 1) {
@@ -16,7 +16,7 @@ var Rm = (function() {
 				    var xhr = new XMLHttpRequest();
 				    if(del.substr(0, 1) == 'f') {
 				        // file
-				        if(confirm(txt.User.questionf)) {
+				        if(showConfirm === false || confirm(txt.User.questionf)) {
 				            console.log("removing file");
 				            xhr.open("POST", "User/RmFiles", true);
 				            xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -26,7 +26,12 @@ var Rm = (function() {
 				                if(xhr.status == 200 && xhr.readyState == 4)
 				                {
 				                    console.log(xhr.responseText);
-				                    Folders.open(Folders.id);
+									if(callback !== false) {
+										callback();
+									}
+									else {
+				                    	Folders.open(Folders.id);
+									}
 				                }
 				            }
 				            xhr.send("ids="+folder_id+"&files="+id);
@@ -34,7 +39,7 @@ var Rm = (function() {
 				    }
 				    else if(del.substr(0, 1) == 'd') {
 				        // folder
-				        if(confirm(txt.User.questiond)) {
+				        if(showConfirm === false || confirm(txt.User.questiond)) {
 				            xhr.open("POST", "User/RmFolders", true);
 				            xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
@@ -43,7 +48,12 @@ var Rm = (function() {
 				                if(xhr.status == 200 && xhr.readyState == 4)
 				                {
 				                    console.log(xhr.responseText);
-				                    Folders.open(Folders.id);
+									if(callback !== false) {
+										callback();
+									}
+									else {
+				                    	Folders.open(Folders.id);
+									}
 				                }
 				            }
 				            xhr.send("ids="+folder_id+"&folders="+id);

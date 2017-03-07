@@ -20,15 +20,11 @@ var Encryption = (function() {
 	var time;
 
 	// Constructor
-	function Encryption(f, f_id, i, reload) {
+	function Encryption(f, f_id, i, callback) {
 		var me = this;
 		document.querySelector("#span_upload"+i).innerHTML = f.name+' : 0%';
 
-		if(reload === true)
-			this.reload = true;
-		else
-			this.reload = false;
-
+		this.callback = callback;
 		this.folder_id = f_id;
 		this.file = f;	// file.name, file.size
 		this.est_size = Math.round(f.size*(1+est/100)); // Estimation of encrypted file size
@@ -53,15 +49,53 @@ var Encryption = (function() {
 		xhr.onreadystatechange = function() {
 			// TODO : improve alert (only one) and confirm (yes, no, yes for all, no for all)
 			if(xhr.status == 200 && xhr.readyState == 4) {
-				if(xhr.responseText == '0') // File doesn't exist, it's ok
+				console.log('file status : '+xhr.responseText);
+				if(xhr.responseText == '0') { // File doesn't exist, it's ok
 					me.read();
-				else if(xhr.responseText == '1' || xhr.responseText == '2') // File exists
-					if(confirm('The file '+f.name+' exists, do you want to replace it ?'))
-						console.log('replace it'); //me.read(); // TODO
-				else if(xhr.responseText == 'quota')
-					alert('Quota exceeded !');
-				else
+				}
+				else if(xhr.responseText == '1') { // File exists and not completed
+					// TODO complete it ?
+					var m = new MessageBox(txt.User.replaceCompleteFile.replace('[filename]', f.name))
+						.addButton('Yes', function() {
+							var file_id = document.querySelector('span.file[data-title="'+f.name+'"]').id;
+							if(file_id) {
+								Rm.rm(file_id, function(){Upload.read(me.i)}, false);
+							} else { alert('Error'); }
+					    })
+					    .addButton('Yes for all', function() {
+					    })
+					    .addButton('No', function() {
+							// Remove file from uploading files
+							me.abort();
+					    })
+					    .addButton('No for all', function() {
+					    })
+					    .show();
+				}
+				else if(xhr.responseText == '2') { // File exists
+					var m = new MessageBox(txt.User.replaceFile.replace('[filename]', f.name))
+						.addButton(txt.User.yes, function() {
+							var file_id = document.querySelector('span.file[data-title="'+f.name+'"]').id;
+							if(file_id) {
+								Rm.rm(file_id, function(){Upload.read(me.i)}, false);
+							} else { alert('Error'); }
+					    })
+					    .addButton(txt.User.yesAll, function() {
+					    })
+					    .addButton(txt.User.no, function() {
+							// Remove file from uploading files
+							me.abort();
+					    })
+					    .addButton(txt.User.noAll, function() {
+					    })
+					    .show();
+				}
+				else if(xhr.responseText == 'quota') {
+					alert(txt.User.quotaExceeded);
+				}
+				else {
 					alert('Error');
+				}
 			}
 		}
 		xhr.send("filename="+f.name+"&filesize="+f.size+"&folder_id="+f_id);
@@ -74,7 +108,7 @@ var Encryption = (function() {
 			return true;
 		}
 		else {
-			alert('The File APIs are not fully supported by your browser. Fallback required.');
+			alert(txt.User.fileAPI);
 			return false;
 		}
 	};
@@ -85,6 +119,10 @@ var Encryption = (function() {
 		if(node = document.querySelector("#div_upload"+(this.i))) {
 			while(node.firstChild) // remove all children
 				node.removeChild(node.firstChild);
+		}
+
+		if(typeof callback == 'function') {
+			callback();
 		}
 	};
 
@@ -105,6 +143,10 @@ var Encryption = (function() {
 
 	Encryption.prototype.read = function() {
 		var me = this;
+
+		if(typeof me.callback == 'function') {
+			me.callback();
+		}
 
 		time = new Time();
 		if(debug) {
@@ -140,8 +182,9 @@ var Encryption = (function() {
 									console.log("Split + encryption : "+time.elapsed()+" ms");//
 									console.log("Splitted in "+me.j+" chunks !");
 								}
-								if(me.reload)
+								if(typeof me.callback !== 'function') {
 									Folders.open(me.folder_id);
+								}
 							}
 						}
 						xhr.send("filename="+me.file.name+"&data=EOF&folder_id="+me.folder_id);
@@ -236,6 +279,7 @@ var Encryption = (function() {
 
 		xhr.onreadystatechange = function() {
 			if(xhr.status == 200 && xhr.readyState == 4) {
+				console.log(xhr.responseText);
 				me.l += s.length;
 				var pct = me.l/me.est_size*100;
 				if(pct > 100)

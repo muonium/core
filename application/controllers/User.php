@@ -91,8 +91,8 @@ class User extends l\Languages {
 			if($_SESSION['size_stored']+$data_length > $_SESSION['user_quota'])
 				echo 'error';
 			else {
-				$f = fopen($fpath, "a");
-				if(fwrite($f, $data) === false)
+				$f = @fopen($fpath, "a");
+				if($f === false || fwrite($f, $data) === false)
 					echo 'error';
 				else {
 					$Storage = new m\Storage();
@@ -133,10 +133,10 @@ class User extends l\Languages {
 					$_SESSION['upload'][$folder_id]['files'][$filename] = $filestatus;
 					$_SESSION['upload'][$folder_id]['path'] = $path;
 
-					if($filestatus == 2) {
-						// The file is complete, replace it ?
-						// TODO action
-					}
+                    if($filestatus == 1 || $filestatus == 2) {
+                        // The file exists, exit
+                        return;
+                    }
 					else {
 						// The file doesn't exist or is not complete
 
@@ -243,7 +243,8 @@ class User extends l\Languages {
 	}
 
 	function getFileStatusAction() {
-		// If the file exists, ask the user if he wants to replace it
+        // Return a message/code according to file status
+		// Client side : If the file exists, ask the user if he wants to replace it
 		// Also check the quota
 		if(isset($_POST['filesize']) && isset($_POST['filename']) && isset($_POST['folder_id'])) {
 			// size_stored_tmp includes files currently uploading (new session variable because we can't trust a value sent by the client)
@@ -283,8 +284,11 @@ class User extends l\Languages {
 		if(file_exists($f)) {
 		    $file = new \SplFileObject($f, 'r');
 		    $file->seek(PHP_INT_MAX);
+            $file->seek($file->key()); // Point to the last line
 
-			if($file->current() === "EOF") // A line with "EOF" at the end of the file when the file is complete
+            if($file->current() == '')
+                return 'err';
+			elseif($file->current() === "EOF") // A line with "EOF" at the end of the file when the file is complete
 				return 2;
 			else
 				return 1;

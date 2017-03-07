@@ -49,6 +49,7 @@ var UserLoader = function(folder_id) {
     	Rm = Rm();
         Favorites = Favorites();
     	ExtIcons = ExtIcons();
+        MessageBox = MessageBox();
         Request.modulesLoaded = true;
     }
     else {
