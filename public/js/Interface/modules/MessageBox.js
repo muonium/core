@@ -63,12 +63,12 @@ var MessageBox = (function() {
 
 	// Public
     MessageBox.prototype.addButton = function(value, callback) {
-        var that = this;
+        var me = this;
         var button = document.createElement("input");
         button.type = 'button';
         button.value = value;
         button.addEventListener("click", function() {
-            that.close();
+            me.close();
             if(typeof callback === 'function') {
                 callback();
             }

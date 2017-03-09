@@ -41,6 +41,18 @@ var Encryption = (function() {
 		this.key = sjcl.misc.pbkdf2(cek, this.salt, 7000, 256);
 		this.enc = new sjcl.cipher.aes(this.key);
 
+		var replaceYesAction = function() {
+			var file_id = document.querySelector('span.file[data-title="'+f.name+'"]').id;
+			if(file_id) {
+				Rm.rm(file_id, function(){Upload.read(me.i)}, false);
+			} else { alert('Error'); }
+		}
+
+		var noAction = function() {
+			// Remove file from uploading files
+			me.abort();
+		}
+
 		// Check status before uploading
 		var xhr = new XMLHttpRequest();
 		xhr.open("POST", target+'/getFileStatus', true);
@@ -53,42 +65,40 @@ var Encryption = (function() {
 				if(xhr.responseText == '0') { // File doesn't exist, it's ok
 					me.read();
 				}
+				else if((xhr.responseText == '1' || xhr.responseText == '2') && Upload.yesAll === true) {
+					replaceYesAction();
+				}
+				else if((xhr.responseText == '1' || xhr.responseText == '2') && Upload.noAll === true) {
+					noAction();
+				}
 				else if(xhr.responseText == '1') { // File exists and not completed
 					// TODO complete it ?
 					var m = new MessageBox(txt.User.replaceCompleteFile.replace('[filename]', f.name))
-						.addButton('Yes', function() {
-							var file_id = document.querySelector('span.file[data-title="'+f.name+'"]').id;
-							if(file_id) {
-								Rm.rm(file_id, function(){Upload.read(me.i)}, false);
-							} else { alert('Error'); }
-					    })
+						.addButton('Yes', replaceYesAction)
 					    .addButton('Yes for all', function() {
+							Upload.yesAll = true;
+							replaceYesAction();
 					    })
-					    .addButton('No', function() {
-							// Remove file from uploading files
-							me.abort();
-					    })
+					    .addButton('No', noAction)
 					    .addButton('No for all', function() {
+							Upload.noAll = true;
+							noAction();
 					    })
 					    .show();
 				}
 				else if(xhr.responseText == '2') { // File exists
 					var m = new MessageBox(txt.User.replaceFile.replace('[filename]', f.name))
-						.addButton(txt.User.yes, function() {
-							var file_id = document.querySelector('span.file[data-title="'+f.name+'"]').id;
-							if(file_id) {
-								Rm.rm(file_id, function(){Upload.read(me.i)}, false);
-							} else { alert('Error'); }
-					    })
-					    .addButton(txt.User.yesAll, function() {
-					    })
-					    .addButton(txt.User.no, function() {
-							// Remove file from uploading files
-							me.abort();
-					    })
-					    .addButton(txt.User.noAll, function() {
-					    })
-					    .show();
+						.addButton('Yes', replaceYesAction)
+						.addButton('Yes for all', function() {
+							Upload.yesAll = true;
+							replaceYesAction();
+						})
+						.addButton('No', noAction)
+						.addButton('No for all', function() {
+							Upload.noAll = true;
+							noAction();
+						})
+						.show();
 				}
 				else if(xhr.responseText == 'quota') {
 					alert(txt.User.quotaExceeded);
@@ -114,15 +124,17 @@ var Encryption = (function() {
 	};
 
 	Encryption.prototype.abort = function() {
-		this.halt = true;
-		var node;
-		if(node = document.querySelector("#div_upload"+(this.i))) {
+		var me = this;
+
+		me.halt = true;
+		var node = document.querySelector("#div_upload"+(me.i));
+		if(node) {
 			while(node.firstChild) // remove all children
 				node.removeChild(node.firstChild);
 		}
 
-		if(typeof callback == 'function') {
-			callback();
+		if(typeof me.callback == 'function') {
+			me.callback();
 		}
 	};
 

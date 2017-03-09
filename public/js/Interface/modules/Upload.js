@@ -54,7 +54,12 @@ var Upload = (function() {
         upFiles : function(files) {
 			f_files = files;
             document.querySelector("#progress").innerHTML = ' ';
+			Upload.yesAll = false;
+			Upload.noAll = false;
             Upload.upFile(0);
-        }
+        },
+
+		yesAll: false,
+		noAll: false
     }
 });
