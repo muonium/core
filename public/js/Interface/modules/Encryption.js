@@ -74,6 +74,7 @@ var Encryption = (function() {
 				else if(xhr.responseText == '1') { // File exists and not completed
 					// TODO complete it ?
 					var m = new MessageBox(txt.User.replaceCompleteFile.replace('[filename]', f.name))
+						.addToggle('completeOrReplace', txt.User.complete, txt.User.replace)
 						.addButton('Yes', replaceYesAction)
 					    .addButton('Yes for all', function() {
 							Upload.yesAll = true;

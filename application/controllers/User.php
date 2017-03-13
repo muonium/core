@@ -287,7 +287,7 @@ class User extends l\Languages {
             $file->seek($file->key()); // Point to the last line
 
             if($file->current() == '')
-                return 'err';
+                return 1;
 			elseif($file->current() === "EOF") // A line with "EOF" at the end of the file when the file is complete
 				return 2;
 			else

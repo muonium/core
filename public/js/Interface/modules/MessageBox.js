@@ -5,6 +5,7 @@ var MessageBox = (function() {
     var $elemClose;
     var $elemMsg;
     var $elemBtns;
+    var $elemToggle;
 
     var $drag = null;
     var $diffLeft = 0;
@@ -53,11 +54,15 @@ var MessageBox = (function() {
         $elemMsg.className = 'MessageBoxMsg';
         $elemMsg.innerHTML = $msg;
 
+        $elemToggle = document.createElement("div");
+        $elemToggle.className = 'MessageBoxToggle';
+
         $elemBtns = document.createElement("div");
         $elemBtns.className = 'MessageBoxBtns';
 
         $elem.appendChild($elemClose);
         $elem.appendChild($elemMsg);
+        $elem.appendChild($elemToggle);
         $elem.appendChild($elemBtns);
 	};
 
@@ -74,6 +79,36 @@ var MessageBox = (function() {
             }
         });
         $elemBtns.appendChild(button);
+        return this;
+	};
+
+    MessageBox.prototype.addToggle = function(id, leftText, rightText) {
+        var me = this;
+        var lblLeft = document.createElement("span");
+        lblLeft.innerHTML = leftText;
+        $elemToggle.appendChild(lblLeft);
+
+        var lswitch = document.createElement("label");
+        lswitch.className = 'switch';
+
+        var toggle = document.createElement("input");
+        toggle.type = 'checkbox';
+        toggle.id = id;
+        /*toggle.addEventListener("click", function() {
+            console.log(this.checked);
+        });*/
+
+        var slider = document.createElement("div");
+        slider.className = 'slider';
+
+        lswitch.appendChild(toggle);
+        lswitch.appendChild(slider);
+        $elemToggle.appendChild(lswitch);
+
+        var lblRight = document.createElement("span");
+        lblRight.innerHTML = rightText;
+        $elemToggle.appendChild(lblRight);
+
         return this;
 	};
 
