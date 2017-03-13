@@ -54,12 +54,14 @@ var Upload = (function() {
         upFiles : function(files) {
 			f_files = files;
             document.querySelector("#progress").innerHTML = ' ';
-			Upload.yesAll = false;
+			Upload.yesReplaceAll = false;
+			Upload.yesCompleteAll = false;
 			Upload.noAll = false;
             Upload.upFile(0);
         },
 
-		yesAll: false,
+		yesReplaceAll: false,
+		yesCompleteAll: false,
 		noAll: false
     }
 });

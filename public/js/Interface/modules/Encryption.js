@@ -48,6 +48,14 @@ var Encryption = (function() {
 			} else { alert('Error'); }
 		}
 
+		var completeYesAction = function() {
+			var file_id = document.querySelector('span.file[data-title="'+f.name+'"]').id;
+			if(file_id) {
+				alert('Completing files feature is not available for now');
+			} else { alert('Error'); }
+			noAction();
+		}
+
 		var noAction = function() {
 			// Remove file from uploading files
 			me.abort();
@@ -65,7 +73,10 @@ var Encryption = (function() {
 				if(xhr.responseText == '0') { // File doesn't exist, it's ok
 					me.read();
 				}
-				else if((xhr.responseText == '1' || xhr.responseText == '2') && Upload.yesAll === true) {
+				else if(xhr.responseText == '1' && Upload.yesCompleteAll === true) {
+					completeYesAction();
+				}
+				else if((xhr.responseText == '1' || xhr.responseText == '2') && Upload.yesReplaceAll === true) {
 					replaceYesAction();
 				}
 				else if((xhr.responseText == '1' || xhr.responseText == '2') && Upload.noAll === true) {
@@ -73,12 +84,26 @@ var Encryption = (function() {
 				}
 				else if(xhr.responseText == '1') { // File exists and not completed
 					// TODO complete it ?
+					var c = false;
 					var m = new MessageBox(txt.User.replaceCompleteFile.replace('[filename]', f.name))
-						.addToggle('completeOrReplace', txt.User.complete, txt.User.replace)
-						.addButton('Yes', replaceYesAction)
+						.addToggle(txt.User.complete, txt.User.replace, function() {
+							c = true;
+						})
+						.addButton('Yes', function() {
+							if(c)
+								replaceYesAction();
+							else
+								completeYesAction();
+						})
 					    .addButton('Yes for all', function() {
-							Upload.yesAll = true;
-							replaceYesAction();
+							if(c) {
+								Upload.yesReplaceAll = true;
+								replaceYesAction();
+							}
+							else {
+								Upload.yesCompleteAll = true;
+								completeYesAction();
+							}
 					    })
 					    .addButton('No', noAction)
 					    .addButton('No for all', function() {
@@ -91,7 +116,7 @@ var Encryption = (function() {
 					var m = new MessageBox(txt.User.replaceFile.replace('[filename]', f.name))
 						.addButton('Yes', replaceYesAction)
 						.addButton('Yes for all', function() {
-							Upload.yesAll = true;
+							Upload.yesReplaceAll = true;
 							replaceYesAction();
 						})
 						.addButton('No', noAction)

@@ -82,7 +82,7 @@ var MessageBox = (function() {
         return this;
 	};
 
-    MessageBox.prototype.addToggle = function(id, leftText, rightText) {
+    MessageBox.prototype.addToggle = function(leftText, rightText, callback) {
         var me = this;
         var lblLeft = document.createElement("span");
         lblLeft.innerHTML = leftText;
@@ -93,10 +93,11 @@ var MessageBox = (function() {
 
         var toggle = document.createElement("input");
         toggle.type = 'checkbox';
-        toggle.id = id;
-        /*toggle.addEventListener("click", function() {
-            console.log(this.checked);
-        });*/
+        toggle.addEventListener("click", function() {
+            if(this.checked) {
+                callback();
+            }
+        });
 
         var slider = document.createElement("div");
         slider.className = 'slider';
