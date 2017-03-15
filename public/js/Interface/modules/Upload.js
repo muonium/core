@@ -16,9 +16,9 @@ var Upload = (function() {
 			f_enc[i].abort();
         },
 
-		read : function(i) {
+		read : function(i, chkNb = 0) {
 			console.log("read "+i);
-			f_enc[i].read();
+			f_enc[i].read(chkNb);
 		},
 
 		upFile : function(file_id) {

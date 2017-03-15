@@ -286,12 +286,10 @@ class User extends l\Languages {
 		    $file->seek(PHP_INT_MAX);
             $file->seek($file->key()); // Point to the last line
 
-            if($file->current() == '')
-                return 1;
-			elseif($file->current() === "EOF") // A line with "EOF" at the end of the file when the file is complete
+			if($file->current() === "EOF") // A line with "EOF" at the end of the file when the file is complete
 				return 2;
 			else
-				return 1;
+				return '1@'.$file->key(); // Returns 1 (not complete) + last line number
 		}
 		else
 			return 0;
