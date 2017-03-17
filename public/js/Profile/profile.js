@@ -96,7 +96,7 @@ var changeCek = function() {
 		var salt = sjcl.random.randomWords(2);
 
 		//we encrypt the CEK under the new passphrase (alias "KEK" -Key Encryption Key)
-		var encryptedCek = sjcl.encrypt(new_pp, cek, {mode:'gcm', iter:2000, iv:initVector, ks:256, adata:aDATA, ts:128, salt:salt});
+		var encryptedCek = sjcl.encrypt(new_pp, cek, {mode:'gcm', iter:7000, iv:initVector, ks:256, adata:aDATA, ts:128, salt:salt});
 		var encryptedCek = base64.encode(encryptedCek); //we b64encode it to store it in the DB
 
 		var xhr = new XMLHttpRequest();
