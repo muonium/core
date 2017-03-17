@@ -52,7 +52,7 @@ cek.encrypt = function(key, y){
 	var i = sjcl.random.randomWords(4);
 	var s = sjcl.random.randomWords(2);
 	//encrypt it
-	var key = sjcl.encrypt(y, key, {mode:'gcm', iv:i, salt:s, iter:2000, ks:256, adata:a, ts:128});
+	var key = sjcl.encrypt(y, key, {mode:'gcm', iv:i, salt:s, iter:7000, ks:256, adata:a, ts:128});
 	var key = base64.encode(key); //don't store a Json in mongoDB...
 	return key;
 }
