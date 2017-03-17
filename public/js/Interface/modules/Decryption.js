@@ -33,6 +33,7 @@ var Decryption = (function() {
 		this.filename = fname;
 		this.nb_chk = 0;
 		this.enc;
+		this.prev_s;
 		this.i = i; // Id of file, used only for displaying progress, different from database !
 		this.halt = false;
 		this.getNbChunks();
@@ -126,11 +127,13 @@ var Decryption = (function() {
 					var a = sjcl.codec.base64.toBits(split[2]);
 					var i = sjcl.codec.base64.toBits(split[3]);
 
-					if(me.enc === undefined) {
+					if(me.enc === undefined || me.prev_s != split[1]) {
 						console.log("Key derivation process...");
 						var key = sjcl.misc.pbkdf2(cek, s, 7000, 256);
 						me.enc = new sjcl.cipher.aes(key);
 					}
+
+					me.prev_s = split[1];
 
 					chk = sjcl.mode.gcm.decrypt(me.enc, c, i, a, 128);
 

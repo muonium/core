@@ -115,7 +115,7 @@ class User extends l\Languages {
 			if($filename !== false && is_numeric($folder_id)) {
 				if(isset($_SESSION['upload'][$folder_id]['files'][$filename]) && isset($_SESSION['upload'][$folder_id]['path'])) {
 					// We have already write into this file in this session
-					if($_SESSION['upload'][$folder_id]['files'][$filename] == 0) { // For now we write only in not created files TODO update soon
+					if($_SESSION['upload'][$folder_id]['files'][$filename] == 0 || $_SESSION['upload'][$folder_id]['files'][$filename] == 1) {
 						$filepath = NOVA.'/'.$_SESSION['id'].'/'.$_SESSION['upload'][$folder_id]['path'].$filename;
 						write($filepath, $data);
 					}
@@ -133,7 +133,7 @@ class User extends l\Languages {
 					$_SESSION['upload'][$folder_id]['files'][$filename] = $filestatus;
 					$_SESSION['upload'][$folder_id]['path'] = $path;
 
-                    if($filestatus == 1 || $filestatus == 2) {
+                    if($filestatus == 2) {
                         // The file exists, exit
                         return;
                     }

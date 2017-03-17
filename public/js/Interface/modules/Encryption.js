@@ -52,10 +52,8 @@ var Encryption = (function() {
 		var completeYesAction = function(chkNb) {
 			var file_id = document.querySelector('span.file[data-title="'+f.name+'"]').id;
 			if(file_id) {
-				alert('Completing files feature is not available for now');
 				Upload.read(me.i, chkNb);
 			} else { alert('Error'); }
-			noAction();
 		}
 
 		var noAction = function() {
@@ -157,6 +155,7 @@ var Encryption = (function() {
 	Encryption.prototype.abort = function() {
 		var me = this;
 
+		console.log('abort');
 		me.halt = true;
 		var node = document.querySelector("#div_upload"+(me.i));
 		if(node) {
@@ -185,6 +184,7 @@ var Encryption = (function() {
 	};
 
 	Encryption.prototype.read = function(chkNb = 0) {
+		console.log(chkNb);
 		this.m = chkNb;
 		var me = this;
 
@@ -246,6 +246,10 @@ var Encryption = (function() {
 					var chk_length = me.encryptChk(chk);
 					if(debug)
 						console.log(me.file.name+' - Part '+me.j+' size : '+chk_length);
+				}
+				else {
+					me.k++;
+					console.log('Did not write part '+me.j);
 				}
 			},
 			error_callback: errorHandler
@@ -334,6 +338,7 @@ var Encryption = (function() {
 
 				if(xhr.responseText == 'error') {
 					// Quota exceeded or unable to write
+					console.log('unable to write');
 					me.halt = true;
 					return false;
 				}
