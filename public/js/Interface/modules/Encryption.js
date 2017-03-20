@@ -270,6 +270,11 @@ var Encryption = (function() {
 				}
 				else {
 					me.k++;
+					me.l += Math.round(chunkSize*(1+est/100));
+					var pct = me.l/me.est_size*100;
+					if(pct > 100)
+						pct = 100;
+					document.querySelector("#span_upload"+(me.i)).innerHTML = me.file.name+' : '+pct.toFixed(2)+'%';
 					console.log('Did not write part '+me.j);
 				}
 			},
