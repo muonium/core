@@ -87,47 +87,68 @@ var Encryption = (function() {
 				else if(filestatus[0] == '1' && filestatus.length === 2) { // File exists and not completed
 					if(isNumeric(filestatus[1])) {
 						var c = false;
-						var m = new MessageBox(txt.User.replaceCompleteFile.replace('[filename]', f.name))
-							.addToggle(txt.User.complete, txt.User.replace, function() {
-								c = true;
-							})
-							.addButton('Yes', function() {
-								if(c)
-									replaceYesAction();
-								else
-									completeYesAction(filestatus[1]);
-							})
-						    .addButton('Yes for all', function() {
-								if(c) {
-									Upload.yesReplaceAll = true;
-									replaceYesAction();
-								}
-								else {
-									Upload.yesCompleteAll = true;
-									completeYesAction(filestatus[1]);
-								}
-						    })
-						    .addButton('No', noAction)
-						    .addButton('No for all', function() {
-								Upload.noAll = true;
-								noAction();
-						    })
-						    .show();
+						if(typeof me.callback != 'function') { // Only one file or this is the last file
+							var m = new MessageBox(txt.User.replaceFile.replace('[filename]', f.name))
+								.addToggle(txt.User.complete, txt.User.replace, function() {
+									c = true;
+								})
+								.addButton('Yes', function() {
+									if(c)
+										replaceYesAction();
+									else
+										completeYesAction(filestatus[1]);
+								})
+								.addButton('No', noAction)
+								.show();
+						}
+						else {
+							var m = new MessageBox(txt.User.replaceCompleteFile.replace('[filename]', f.name))
+								.addToggle(txt.User.complete, txt.User.replace, function() {
+									c = true;
+								})
+								.addButton('Yes', function() {
+									if(c)
+										replaceYesAction();
+									else
+										completeYesAction(filestatus[1]);
+								})
+							    .addButton('Yes for all', function() {
+									if(c) {
+										Upload.yesReplaceAll = true;
+										replaceYesAction();
+									}
+									else {
+										Upload.yesCompleteAll = true;
+										completeYesAction(filestatus[1]);
+									}
+							    })
+							    .addButton('No', noAction)
+							    .addButton('No for all', function() {
+									Upload.noAll = true;
+									noAction();
+							    })
+							    .show();
+						}
 					}
 				}
 				else if(filestatus[0] == '2') { // File exists
-					var m = new MessageBox(txt.User.replaceFile.replace('[filename]', f.name))
-						.addButton('Yes', replaceYesAction)
-						.addButton('Yes for all', function() {
-							Upload.yesReplaceAll = true;
-							replaceYesAction();
-						})
-						.addButton('No', noAction)
-						.addButton('No for all', function() {
-							Upload.noAll = true;
-							noAction();
-						})
-						.show();
+					if(typeof me.callback != 'function') { // Only one file or this is the last file
+						var m = new MessageBox(txt.User.replaceFile.replace('[filename]', f.name)).addButton('Yes', replaceYesAction).addButton('No', noAction).show();
+					}
+					else {
+						var m = new MessageBox(txt.User.replaceFile.replace('[filename]', f.name))
+							.addButton('Yes', replaceYesAction)
+							.addButton('Yes for all', function() {
+								Upload.yesReplaceAll = true;
+								replaceYesAction();
+							})
+							.addButton('No', noAction)
+							.addButton('No for all', function() {
+								Upload.noAll = true;
+								noAction();
+							})
+							.show();
+					}
 				}
 				else if(filestatus[0] == 'quota') {
 					alert(txt.User.quotaExceeded);
@@ -226,7 +247,7 @@ var Encryption = (function() {
 									console.log("Split + encryption : "+time.elapsed()+" ms");//
 									console.log("Splitted in "+me.j+" chunks !");
 								}
-								if(typeof me.callback !== 'function') {
+								if(typeof me.callback != 'function') {
 									Folders.open(me.folder_id);
 								}
 							}
