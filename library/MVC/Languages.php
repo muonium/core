@@ -15,7 +15,8 @@ class Languages {
         array('en', 'English'),
         array('fr', 'Français'),
         array('it', 'Italiano'),
-        array('ru', 'Русский')
+        array('ru', 'Русский'),
+		array('de','Deutsch')
     );
 
     // Constructor loads user language json

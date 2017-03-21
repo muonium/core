@@ -1,0 +1,182 @@
+{
+    "Global": {
+        "home": "Home",
+        "register": "Registrieren",
+        "back": "Zurück zu Muonium",
+        "favorites": "Favoriten",
+        "login": "Login",
+        "notready": "Geschlossene Beta, willkommen zum Königreich der Wale",
+        "recents": "Mui :: Letzte",
+        "sharing": "Mui :: Teilen",
+        "transfer": "Mui :: Transferieren",
+        "user": "Mui :: Allgemein",
+        "validate": "Email-Adresse bestätign",
+        "refresh": "Erneuern",
+        "profile": "Profil",
+        "mail_sent": "Eine Email wurde an Dich gesendet, bitte überprüfe Deinen Posteingang und Deine Spams. Falls Du nach 5 Minuten nichts erhalten hast, versuche es noch mal:",
+        "submit": "Absenden",
+        "bug": "Melde einen Fehler",
+        "loading": "Lädt..."
+    },
+
+    "UserMenu": {
+        "bug": "Fehler",
+        "help": "Hilfe",
+        "settings": "Einstellungen",
+        "profile": "Profil",
+        "logout": "Logout"
+    },
+
+    "Toolbar": {
+        "recents": "Letzte",
+        "favorites": "Favoriten",
+        "general": "Allgemein",
+        "shared": "Geteilt",
+        "transfers": "Transfere"
+    },
+
+    "Error": {
+        "e404": "Fehler: Seite wurde nicht gefunden",
+        "default": "Ein Fehler ist aufgetreten",
+        "form": "Fehler im Formular",
+        "pp": "Das Ändern der Passphrase ist gerade nicht verfügbar",
+        "bannedSession": "Du hast das Maximum an Anfragen erreicht"
+    },
+
+    "User": {
+        "lastmod": "Letzte Veränderung",
+        "loaded": "Geladen in",
+        "foldername": "Ordnername",
+        "questiond": "Willst Du diesen Ordner entfernen?",
+        "questionf": "Willst Du diese Datei entfernen?",
+        "questionrm": "Willst Du diese Ordner/Dateien entfernen?",
+        "trash_0": "Zeige Gelöschtes",
+        "trash_1": "Verlasse Gelöschtes",
+        "path": "Pfad",
+        "name": "Name",
+        "type": "Dateityp",
+        "size": "Size",
+        "file": "Datei",
+        "folder": "Ordner",
+	"element": "Element",
+	"PlurialElement": "Elemente"
+    },
+
+    "Register": {
+        "email": "Email-Adresse",
+        "login": "Benutzername",
+        "password": "Passwort",
+        "confirm": "Bestätigen",
+        "passphrase": "Passphrase",
+        "doubleAuth": "Willst Du die doppelte Authentifizierung aktivieren?",
+        "alreadyregistered": "Bereits registriert?",
+        "impossible": "Registrierung gerade nicht möglich",
+        "ok": "Registrierung erledigt!",
+        "mailExists": "Deine Email-Adresse ist bereits in unserer Datenbank gespeichert. Konnte keinen Account dazu erstellen.",
+        "loginExists": "Dein Benutzername ist bereits in unserer Datenbank gespeichert. Konnte keinen Account dazu erstellen.",
+        "badPassConfirm": "Die Passwörter stimmen nicht überein.",
+        "badPassphraseConfirm": "Die Passphrasen stimmen nicht überein.",
+        "passEqualPassphrase": "Das Passwort und die Passphrase müssen verschieden sein.",
+        "form": "Alle Felder müssen ausgefüllt sein.",
+        "passLength": "Das Passwort oder die Passphrase muss mindestens aus 6 Zeichen bestehen.",
+        "loginFormat": "Format des Benutzernamen fehlerhaft (zwischen 2 and 20 alphanumerischen Zeichen, -_. erlaubt).",
+        "mailFormat": "Format der Email fehlerhaft.",
+        "error": "Beim Erstellen des Accounts ist ein Fehler aufgetreten.",
+        "bruteforceErr0": "",
+        "bruteforceErr1": "Warnung: nach einer großen Anzahl Anfragen von Dir, hast Du nur noch 3 Versuche",
+        "bruteforceErr2": "Du hast das Maximum an Anfragen erreicht.",
+        "subject": "Muonium - Accountverifizierung",
+        "message": "Willkommen bei Muonium !<br />Um Deinen Account zu verifizieren, klicke auf diesen Link: <a href='https://photon.muonium.ch/neutron/Validate/Key/[id_user]/[key]'>https://photon.muonium.ch/neutron/Validate/Key/[id_user]/[key]</a><br />Mit freundlichen Grüßen,<br />das Muonium Team<br /><br />Diese Email wurde automatisch generiert, bitte antworte nicht darauf."
+    },
+
+    "Login": {
+        "forgot": "Passwort vergessen?",
+        "register": "Noch nicht registriert?",
+        "bruteforceErr0": "Ungültige Email-Adresse oder ungültiges Passwort",
+        "bruteforceErr1": "Warnung: nach einer großen Anzahl Anfragen von Dir, hast Du nur noch 3 Versuche",
+        "bruteforceErr2": "Du hast das Maximum an Anfragen erreicht.",
+        "doubleAuthMessage": "Hi, Dein Authentifizierungscode ist [key]<br />Mit freundlichen Grüßen,<br />Diese Email wurde automatisch generiert, bitte antworte nicht darauf.",
+        "codeMail": "Code per Email empfangen",
+        "expired": "Der Code ist abgelaufen, bitte wieder einloggen",
+        "invalidCode": "Der eingegebene Code ist ungültig",
+        "username": "Email oder Login",
+		"badPassphrase": "Fehler: falsche Passphrase",
+        "doubleAuth": "Eine Email mit einem Authentifizierungscode wurde an Dich gesendet. Kopiere diesen Code in das Feld unten. <br />Falls Du nach 5 Minuten von jetzt an nichts erhalten hast und die Email nicht im Spamordner ist, klicke bitte auf diesen <a href='https://photon.muonium.ch/neutron/Logout'>Link</a>, um einen neuen Verbíndungsversuch durchzuführen."
+    },
+
+    "Validate": {
+        "message": "Fehler: Der Verifizierungscode ist falsch, bitte logge Dich ein, um eine neue Verifizierungsemail abzusenden",
+        "wait": "Bitte warte eine Minute, bevor Du eine neue Verifizierungsemail abschickst",
+        "sendmess": "Bitte klicke auf den Link in der Email um Deinen Account zu aktievieren",
+        "sendmail": "Neue Email senden"
+    },
+
+    "Profile": {
+        "changelogin": "Meinen Benutzernamen ändern",
+        "changepwd": "Mein Passwort ändern",
+        "changepp": "Meine Passphrase ändern",
+        "newlogin": "Neuer Benutzername",
+        "oldpwd": "Altes Passwort",
+        "newpwd": "Neues Passwort",
+        "oldpp": "Alte Passphrase",
+        "newpp": "Neue Passphrase",
+        "updateErr": "Konnte Dein Profil nicht aktualisieren",
+        "updateOk": "Dein Profil wurde erfolgreich aktualisiert",
+        "loginExists": "Dieser Benutzername ist bereits",
+        "badOldPass": "Dein altes Passwort passt nicht",
+        "badOldPassphrase": "Deine alte Passphrase passt nicht",
+        "getpwd": "Konnte Dein Passwort nicht holen",
+        "getpp": "Konnte Deine Passphrase nicht holen",
+        "doubleAuth": "Doppelte Authentifizierung",
+        "changemail" : "Email-Adresse ändern",
+        "mailFormat": "Format der Email-Adresse ist nicht korrekt.",
+        "emptymail": "Bitte fülle dieses Feld aus",
+        "accountDeletionConfirm": "Willst Du Deinen Account wirklich löschen?",
+        "accountDeletionOk": "Dein Account wurde erfolgreich gelöscht!",
+        "deleteAccount": "Account löschen"
+    },
+
+    "LostPass": {
+        "updateErr": "Konnte Deine Accountinformationen nicht aktualisieren",
+        "updateOk": "Deine Accountinformationen wurden erfolgreich aktualisiert",
+        "errmessage": "Fehler: Der Verifizierungscode ist falsch oder abgelaufen, bitte <a href='LostPass'>mache eine neue Anfrage</a> und gib wieder Deinen Benutzernamen oder Deine Email-Adresse ein.",
+        "user": "Deine Email-Adresse oder Dein Benutzername",
+        "subject": "Muonium - Passwort vergessen",
+        "message": "Hi,<br />Um Dein Passwort oder Deine Passphrase zu aktualisieren, klicke bitte auf folgenden Link: <a href='https://photon.muonium.ch/neutron/LostPass/Key/[id_user]/[key]'>https://photon.muonium.ch/neutron/LostPass/Key/[id_user]/[key]</a><br />Mit freundlichen Grüßen,<br />das Muonium Team.<br /><br />Diese Email wurde automatisch generiert, bitte antworte nicht darauf.",
+        "reset": "Achtung! Wenn Du Deine Passphrase änderst, wird Dein Account zurückgesetzt und Du verlierst alle Deine Daten!"
+    },
+
+    "RightClick": {
+        "dl": "Herunterladen",
+        "rm": "Löschen",
+        "star": "Stern",
+        "cut": "Ausschneiden",
+        "copy": "Kopieren",
+        "paste": "Einfügen",
+        "mvLocate": "Verschieben nach...",
+        "mvItem": "Umbenennen",
+        "vDetails": "Details zeigen",
+        "open": "Öffnen",
+        "nFolder": "Neuer Ordner...",
+        "upFiles": "Dateien hochladen...",
+        "logOut": "Ausloggen",
+        "trash": "Gelöschtes",
+        "restore": "Wiederherstellen"
+    },
+
+    "Bug": {
+        "os": "Betriebssystem",
+        "other": "Andere (in der Mitteliung spezifizieren)",
+        "browser": "Webbrowser",
+        "browserVersion": "Browserversion",
+        "message": "Mitteilung",
+        "messageLength": "Die Mitteilung muss mindestens 50 Zeichen enthalten",
+        "form": "Fehler im Formular",
+        "sent": "Deine Mitteilung wurde erfolgreich abgesendet. Wir werden so schnell wie möglich per Email darauf antworten"
+    },
+
+	"cek": {
+		"updateErr": "Fehler: Content-Encryption Key kann nicht aktualisiert werden",
+		"empty": "Fehler: Content-Encryption Key ist leer"
+	}
+}
