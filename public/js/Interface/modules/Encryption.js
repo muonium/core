@@ -32,6 +32,7 @@ var Encryption = (function() {
 		this.j = 0; // Number of chunks read
 		this.k = 0; // Number of chunks written
 		this.l = 0; // Number of B written
+		this.m = 0; // Start to write at chunk x
 		this.halt = false;
 
 		//crypto parameters
@@ -41,6 +42,25 @@ var Encryption = (function() {
 		this.key = sjcl.misc.pbkdf2(cek, this.salt, 7000, 256);
 		this.enc = new sjcl.cipher.aes(this.key);
 
+		var replaceYesAction = function() {
+			var file_id = document.querySelector('span.file[data-title="'+f.name+'"]').id;
+			if(file_id) {
+				Rm.rm(file_id, function(){Upload.read(me.i)}, false);
+			} else { alert('Error'); }
+		}
+
+		var completeYesAction = function(chkNb) {
+			var file_id = document.querySelector('span.file[data-title="'+f.name+'"]').id;
+			if(file_id) {
+				Upload.read(me.i, chkNb);
+			} else { alert('Error'); }
+		}
+
+		var noAction = function() {
+			// Remove file from uploading files
+			me.abort();
+		}
+
 		// Check status before uploading
 		var xhr = new XMLHttpRequest();
 		xhr.open("POST", target+'/getFileStatus', true);
@@ -49,48 +69,88 @@ var Encryption = (function() {
 		xhr.onreadystatechange = function() {
 			// TODO : improve alert (only one) and confirm (yes, no, yes for all, no for all)
 			if(xhr.status == 200 && xhr.readyState == 4) {
-				console.log('file status : '+xhr.responseText);
-				if(xhr.responseText == '0') { // File doesn't exist, it's ok
+				var filestatus = xhr.responseText.split('@');
+				console.log(filestatus);
+				if(filestatus[0] == '0') { // File doesn't exist, it's ok
 					me.read();
 				}
-				else if(xhr.responseText == '1') { // File exists and not completed
-					// TODO complete it ?
-					var m = new MessageBox(txt.User.replaceCompleteFile.replace('[filename]', f.name))
-						.addButton('Yes', function() {
-							var file_id = document.querySelector('span.file[data-title="'+f.name+'"]').id;
-							if(file_id) {
-								Rm.rm(file_id, function(){Upload.read(me.i)}, false);
-							} else { alert('Error'); }
-					    })
-					    .addButton('Yes for all', function() {
-					    })
-					    .addButton('No', function() {
-							// Remove file from uploading files
-							me.abort();
-					    })
-					    .addButton('No for all', function() {
-					    })
-					    .show();
+				else if(filestatus[0] == '1' && filestatus.length === 2 && Upload.yesCompleteAll === true) {
+					if(isNumeric(filestatus[1]))
+						completeYesAction(filestatus[1]);
 				}
-				else if(xhr.responseText == '2') { // File exists
-					var m = new MessageBox(txt.User.replaceFile.replace('[filename]', f.name))
-						.addButton(txt.User.yes, function() {
-							var file_id = document.querySelector('span.file[data-title="'+f.name+'"]').id;
-							if(file_id) {
-								Rm.rm(file_id, function(){Upload.read(me.i)}, false);
-							} else { alert('Error'); }
-					    })
-					    .addButton(txt.User.yesAll, function() {
-					    })
-					    .addButton(txt.User.no, function() {
-							// Remove file from uploading files
-							me.abort();
-					    })
-					    .addButton(txt.User.noAll, function() {
-					    })
-					    .show();
+				else if((filestatus[0] == '1' || filestatus[0] == '2') && Upload.yesReplaceAll === true) {
+					replaceYesAction();
 				}
-				else if(xhr.responseText == 'quota') {
+				else if((filestatus[0] == '1' || filestatus[0] == '2') && Upload.noAll === true) {
+					noAction();
+				}
+				else if(filestatus[0] == '1' && filestatus.length === 2) { // File exists and not completed
+					if(isNumeric(filestatus[1])) {
+						var c = false;
+						if(typeof me.callback != 'function') { // Only one file or this is the last file
+							var m = new MessageBox(txt.User.replaceFile.replace('[filename]', f.name))
+								.addToggle(txt.User.complete, txt.User.replace, function() {
+									c = true;
+								})
+								.addButton('Yes', function() {
+									if(c)
+										replaceYesAction();
+									else
+										completeYesAction(filestatus[1]);
+								})
+								.addButton('No', noAction)
+								.show();
+						}
+						else {
+							var m = new MessageBox(txt.User.replaceCompleteFile.replace('[filename]', f.name))
+								.addToggle(txt.User.complete, txt.User.replace, function() {
+									c = true;
+								})
+								.addButton('Yes', function() {
+									if(c)
+										replaceYesAction();
+									else
+										completeYesAction(filestatus[1]);
+								})
+							    .addButton('Yes for all', function() {
+									if(c) {
+										Upload.yesReplaceAll = true;
+										replaceYesAction();
+									}
+									else {
+										Upload.yesCompleteAll = true;
+										completeYesAction(filestatus[1]);
+									}
+							    })
+							    .addButton('No', noAction)
+							    .addButton('No for all', function() {
+									Upload.noAll = true;
+									noAction();
+							    })
+							    .show();
+						}
+					}
+				}
+				else if(filestatus[0] == '2') { // File exists
+					if(typeof me.callback != 'function') { // Only one file or this is the last file
+						var m = new MessageBox(txt.User.replaceFile.replace('[filename]', f.name)).addButton('Yes', replaceYesAction).addButton('No', noAction).show();
+					}
+					else {
+						var m = new MessageBox(txt.User.replaceFile.replace('[filename]', f.name))
+							.addButton('Yes', replaceYesAction)
+							.addButton('Yes for all', function() {
+								Upload.yesReplaceAll = true;
+								replaceYesAction();
+							})
+							.addButton('No', noAction)
+							.addButton('No for all', function() {
+								Upload.noAll = true;
+								noAction();
+							})
+							.show();
+					}
+				}
+				else if(filestatus[0] == 'quota') {
 					alert(txt.User.quotaExceeded);
 				}
 				else {
@@ -114,15 +174,18 @@ var Encryption = (function() {
 	};
 
 	Encryption.prototype.abort = function() {
-		this.halt = true;
-		var node;
-		if(node = document.querySelector("#div_upload"+(this.i))) {
+		var me = this;
+
+		console.log('abort');
+		me.halt = true;
+		var node = document.querySelector("#div_upload"+(me.i));
+		if(node) {
 			while(node.firstChild) // remove all children
 				node.removeChild(node.firstChild);
 		}
 
-		if(typeof callback == 'function') {
-			callback();
+		if(typeof me.callback == 'function') {
+			me.callback();
 		}
 	};
 
@@ -141,7 +204,9 @@ var Encryption = (function() {
 		return out;
 	};
 
-	Encryption.prototype.read = function() {
+	Encryption.prototype.read = function(chkNb = 0) {
+		console.log(chkNb);
+		this.m = chkNb;
 		var me = this;
 
 		if(typeof me.callback == 'function') {
@@ -182,7 +247,7 @@ var Encryption = (function() {
 									console.log("Split + encryption : "+time.elapsed()+" ms");//
 									console.log("Splitted in "+me.j+" chunks !");
 								}
-								if(typeof me.callback !== 'function') {
+								if(typeof me.callback != 'function') {
 									Folders.open(me.folder_id);
 								}
 							}
@@ -196,11 +261,22 @@ var Encryption = (function() {
 				if(me.halt)
 					return false;
 				me.j++;
-				chk = new Uint8Array(chk);
-				chk = me.toBitArrayCodec(chk);
-				var chk_length = me.encryptChk(chk);
-				if(debug)
-					console.log(me.file.name+' - Part '+me.j+' size : '+chk_length);
+				if(me.m < me.j) {
+					chk = new Uint8Array(chk);
+					chk = me.toBitArrayCodec(chk);
+					var chk_length = me.encryptChk(chk);
+					if(debug)
+						console.log(me.file.name+' - Part '+me.j+' size : '+chk_length);
+				}
+				else {
+					me.k++;
+					me.l += Math.round(chunkSize*(1+est/100));
+					var pct = me.l/me.est_size*100;
+					if(pct > 100)
+						pct = 100;
+					document.querySelector("#span_upload"+(me.i)).innerHTML = me.file.name+' : '+pct.toFixed(2)+'%';
+					console.log('Did not write part '+me.j);
+				}
 			},
 			error_callback: errorHandler
 		});
@@ -288,6 +364,7 @@ var Encryption = (function() {
 
 				if(xhr.responseText == 'error') {
 					// Quota exceeded or unable to write
+					console.log('unable to write');
 					me.halt = true;
 					return false;
 				}

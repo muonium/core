@@ -5,6 +5,7 @@ var MessageBox = (function() {
     var $elemClose;
     var $elemMsg;
     var $elemBtns;
+    var $elemToggle;
 
     var $drag = null;
     var $diffLeft = 0;
@@ -53,27 +54,62 @@ var MessageBox = (function() {
         $elemMsg.className = 'MessageBoxMsg';
         $elemMsg.innerHTML = $msg;
 
+        $elemToggle = document.createElement("div");
+        $elemToggle.className = 'MessageBoxToggle';
+
         $elemBtns = document.createElement("div");
         $elemBtns.className = 'MessageBoxBtns';
 
         $elem.appendChild($elemClose);
         $elem.appendChild($elemMsg);
+        $elem.appendChild($elemToggle);
         $elem.appendChild($elemBtns);
 	};
 
 	// Public
     MessageBox.prototype.addButton = function(value, callback) {
-        var that = this;
+        var me = this;
         var button = document.createElement("input");
         button.type = 'button';
         button.value = value;
         button.addEventListener("click", function() {
-            that.close();
+            me.close();
             if(typeof callback === 'function') {
                 callback();
             }
         });
         $elemBtns.appendChild(button);
+        return this;
+	};
+
+    MessageBox.prototype.addToggle = function(leftText, rightText, callback) {
+        var me = this;
+        var lblLeft = document.createElement("span");
+        lblLeft.innerHTML = leftText;
+        $elemToggle.appendChild(lblLeft);
+
+        var lswitch = document.createElement("label");
+        lswitch.className = 'switch';
+
+        var toggle = document.createElement("input");
+        toggle.type = 'checkbox';
+        toggle.addEventListener("click", function() {
+            if(this.checked) {
+                callback();
+            }
+        });
+
+        var slider = document.createElement("div");
+        slider.className = 'slider';
+
+        lswitch.appendChild(toggle);
+        lswitch.appendChild(slider);
+        $elemToggle.appendChild(lswitch);
+
+        var lblRight = document.createElement("span");
+        lblRight.innerHTML = rightText;
+        $elemToggle.appendChild(lblRight);
+
         return this;
 	};
 

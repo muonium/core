@@ -16,9 +16,9 @@ var Upload = (function() {
 			f_enc[i].abort();
         },
 
-		read : function(i) {
+		read : function(i, chkNb = 0) {
 			console.log("read "+i);
-			f_enc[i].read();
+			f_enc[i].read(chkNb);
 		},
 
 		upFile : function(file_id) {
@@ -54,7 +54,14 @@ var Upload = (function() {
         upFiles : function(files) {
 			f_files = files;
             document.querySelector("#progress").innerHTML = ' ';
+			Upload.yesReplaceAll = false;
+			Upload.yesCompleteAll = false;
+			Upload.noAll = false;
             Upload.upFile(0);
-        }
+        },
+
+		yesReplaceAll: false,
+		yesCompleteAll: false,
+		noAll: false
     }
 });

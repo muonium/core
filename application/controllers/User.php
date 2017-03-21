@@ -115,7 +115,7 @@ class User extends l\Languages {
 			if($filename !== false && is_numeric($folder_id)) {
 				if(isset($_SESSION['upload'][$folder_id]['files'][$filename]) && isset($_SESSION['upload'][$folder_id]['path'])) {
 					// We have already write into this file in this session
-					if($_SESSION['upload'][$folder_id]['files'][$filename] == 0) { // For now we write only in not created files TODO update soon
+					if($_SESSION['upload'][$folder_id]['files'][$filename] == 0 || $_SESSION['upload'][$folder_id]['files'][$filename] == 1) {
 						$filepath = NOVA.'/'.$_SESSION['id'].'/'.$_SESSION['upload'][$folder_id]['path'].$filename;
 						write($filepath, $data);
 					}
@@ -133,7 +133,7 @@ class User extends l\Languages {
 					$_SESSION['upload'][$folder_id]['files'][$filename] = $filestatus;
 					$_SESSION['upload'][$folder_id]['path'] = $path;
 
-                    if($filestatus == 1 || $filestatus == 2) {
+                    if($filestatus == 2) {
                         // The file exists, exit
                         return;
                     }
@@ -286,12 +286,10 @@ class User extends l\Languages {
 		    $file->seek(PHP_INT_MAX);
             $file->seek($file->key()); // Point to the last line
 
-            if($file->current() == '')
-                return 'err';
-			elseif($file->current() === "EOF") // A line with "EOF" at the end of the file when the file is complete
+			if($file->current() === "EOF") // A line with "EOF" at the end of the file when the file is complete
 				return 2;
 			else
-				return 1;
+				return '1@'.$file->key(); // Returns 1 (not complete) + last line number
 		}
 		else
 			return 0;

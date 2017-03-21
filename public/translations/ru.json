@@ -61,13 +61,15 @@
 		"element": "Element",
 		"PlurialElement": "Elements",
         "replaceFile": "The file [filename] exists, do you want to replace it ?",
-        "replaceCompleteFile": "The file [filename] exists and is not completed, do you want to replace it ?",
+        "replaceCompleteFile": "The file [filename] exists and is not completed, what do you want to do ?",
         "quotaExceeded": "Quota exceeded !",
         "fileAPI": "The File APIs are not fully supported by your browser. Fallback required.",
         "yes": "Да",
         "no": "Нет",
         "yesAll": "Да для всех",
-        "noAll": "Нет для всех"
+        "noAll": "Нет для всех",
+        "complete": "Complete",
+        "replace": "Replace"
     },
 
     "Register": {
