@@ -114,8 +114,6 @@ var changeCek = function() {
 			        if(xhr.responseText.substr(0, 3) == "ok@") {
 						sessionStorage.setItem("kek", new_pp);
 						returnArea.innerHTML = xhr.responseText.substr(3);
-			            //window.location.href=root+"Profile";
-			            //return false;
 			        }
 			        else {
 			            // error
