@@ -36,9 +36,6 @@ Like you know, we use SJCL, which is a JavaScript implementation of AES.
 
 If you are a scientist, you can contribute [here](https://github.com/bitwiseshiftleft/sjcl) !
 
-# Release
-Our method is the rolling release.
-
 # Install
 We haven't really packaged Muonium, but you can modify the code to run it on your own server. Also, do not hesitate to create a wiki page for this.
 We created a wiki page [here](https://github.com/muonium/core/wiki/Installation). Feel free to contribute ! :)
