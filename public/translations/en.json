@@ -186,7 +186,7 @@
     },
 
 	"cek": {
-		"updateErr": "Error: cannot update cek",
-		"empty": "Error: cek is empty"
+		"updateErr": "Error: cannot update the content encryption key",
+		"empty": "Error: The content encryption key is empty"
 	}
 }

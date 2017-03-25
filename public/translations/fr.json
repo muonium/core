@@ -188,7 +188,7 @@
     },
 
 	"cek": {
-		"updateErr": "Erreur: Impossible de mettre à jour cek",
-		"empty": "Erreur: cek est vide"
+		"updateErr": "Erreur: Impossible de mettre à jour la clé de chiffrement",
+		"empty": "Erreur: La clé de chiffrement est vide"
 	}
 }
