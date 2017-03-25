@@ -58,8 +58,18 @@
         "size": "Size",
         "file": "Datei",
         "folder": "Ordner",
-	"element": "Element",
-	"PlurialElement": "Elemente"
+	    "element": "Element",
+	   "PlurialElement": "Elemente",
+        "replaceFile": "The file [filename] exists, do you want to replace it ?",
+        "replaceCompleteFile": "The file [filename] exists and is not completed, what do you want to do ?",
+        "quotaExceeded": "Quota exceeded !",
+        "fileAPI": "The File APIs are not fully supported by your browser. Fallback required.",
+        "yes": "Yes",
+        "no": "No",
+        "yesAll": "Yes for all",
+        "noAll": "No for all",
+        "complete": "Complete",
+        "replace": "Replace"
     },
 
     "Register": {
