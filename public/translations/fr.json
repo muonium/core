@@ -15,7 +15,7 @@
         "profile": "Profil",
         "mail_sent": "Un email vous a été envoyé, veuillez vérifier votre boîte de réception et vos spams. Si vous n'avez rien reçu au bout de 5mn, tentez à nouveau :",
         "submit": "Valider",
-        "bug": "Envoyer un rapport de bug",
+        "bug": "Rapport de bug",
         "loading": "Chargement..."
     },
 
@@ -24,7 +24,12 @@
         "help": "Aide",
         "settings": "Options",
         "profile": "Profil",
-        "logout": "Déconnexion"
+        "logout": "Déconnexion",
+        "upload": "Upload",
+        "smallIcons": "Petites icônes",
+        "largeIcons": "Grandes icônes",
+        "multiSelection": "Sélection multiple",
+        "selectAll": "Sélectionner tout"
     },
 
     "Toolbar": {
@@ -40,7 +45,8 @@
         "default": "Une erreur est survenue",
         "form": "Erreur dans le formulaire",
         "pp": "Impossible de modifier votre phrase secrète pour le moment",
-        "bannedSession": "Vous avez atteint le nombre maximum autorisé de requêtes"
+        "bannedSession": "Vous avez atteint le nombre maximum autorisé de requêtes",
+        "dl": "Le téléchargement de fichiers n'est pas disponible dans votre navigateur."
 	},
 
     "User": {
@@ -69,7 +75,14 @@
         "yesAll": "Oui pour tous",
         "noAll": "Non pour tous",
         "complete": "Compléter",
-        "replace": "Remplacer"
+        "replace": "Remplacer",
+        "details": "Détails",
+        "folderSelected": "dossier(s) sélectionné(s)",
+        "fileSelected": "fichier(s) sélectionné(s)",
+        "notCompleted": "Incomplet",
+        "nothing": "Rien du tout...",
+        "uploading": "Envois",
+        "downloading": "Téléchargements"
     },
 
     "Register": {
@@ -190,5 +203,33 @@
 	"cek": {
 		"updateErr": "Erreur: Impossible de mettre à jour cek",
 		"empty": "Erreur: cek est vide"
-	}
+	},
+
+    "Help": {
+        "shortcuts": [
+            "<strong>Version pour ordinateur de bureau</strong><ul>",
+            "<li>Clic gauche sur un fichier/dossier : Sélectionner un fichier/dossier - Voir les détails</li>",
+            "<li>Clic gauche autre part : Désélectionner</li>",
+            "<li>Ctrl + Clic gauche : Sélectionner plusieurs fichiers</li>",
+            "<li>Clic droit : Voir les actions</li>",
+            "<li>Flèche haut : Sélectionner fichier précédent</li>",
+            "<li>Flèche bas : Sélectionner fichier suivant</li>",
+            "<li>Ctrl + Flèche haut : Ajouter fichier précédent à la sélection</li>",
+            "<li>Ctrl + Arrow down : Ajouter fichier suivant à la sélection</li>",
+            "<li>Ctrl + A : Sélectionner tout</li>",
+            "<li>Ctrl + C : Copier</li>",
+            "<li>Ctrl + D : Déconnection</li>",
+            "<li>Ctrl + I : Inverser sélection</li>",
+            "<li>Ctrl + R : Mettre à la corbeille</li>",
+            "<li>Ctrl + S : Sauvegarder sélection</li>",
+            "<li>Ctrl + V : Coller</li>",
+            "<li>Ctrl + X : Couper</li>",
+            "<li>Retour Arrière : Aller au dossier parent</li>",
+            "<li>Suppr : Supprimer sélection</li>",
+            "<li>Echap : Masquer les actions</li>",
+            "<li>Entrée (sur un fichier) : Télécharger</li>",
+            "<li>Entrée (sur un dossier) : Ouvrir dossier</li>",
+            "<li>F1 : Aide</li></ul>"
+        ]
+    }
 }

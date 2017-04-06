@@ -67,7 +67,7 @@ var changePass = function() {
                 {
                     // success message
                     if(xhr.responseText.substr(0, 3) == "ok@") {
-                        window.location.href=root+"Login";
+                        window.location.href=ROOT+"Login";
                         return false;
                     }
                     else {

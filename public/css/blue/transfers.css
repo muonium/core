@@ -1,0 +1,96 @@
+#transfers {
+    display: none;
+    width: 100%;
+    min-height: 20px;
+    position: fixed;
+    bottom: 50px;
+    overflow: hidden;
+    z-index: 9999;
+    box-shadow: -2px 0px 8px 1px #ccc;
+}
+
+#transfers > #top {
+    background: #333333;
+    color: white;
+}
+
+#transfers > #toggle {
+    background: #D2D2D2;
+    color: #333333;
+}
+
+#transfers > #toggle li:hover, #transfers > #toggle li:active {
+    background: #E4E4E4;
+}
+
+#transfers > #toggle li.selected {
+    background: #DDDDDD;
+    border-bottom: 2px solid #3BAEDA;
+}
+
+#transfers > #top, #transfers > #toggle {
+    width: 100%;
+    height: 32px;
+}
+
+#transfers > #top ul, #transfers > #toggle ul {
+    list-style-type: none;
+    display: flex;
+}
+
+#transfers > #top > ul > li:first-child, #transfers > #toggle li {
+    flex-grow: 1;
+}
+
+#transfers > #top > ul > li:first-child {
+    text-align: left;
+    padding-left: 36px;
+}
+
+#transfers > #top > ul > li:not(first-child) {
+    width: 36px;
+}
+
+#transfers > #top li, #transfers > #toggle li {
+    padding: 5px;
+    cursor: pointer;
+    text-align: center;
+}
+
+#transfers > #content {
+    background: white;
+}
+
+#transfers #transfers_upload, #transfers #transfers_download {
+    padding: 5px 10px 20px 10px;
+}
+
+#transfers #transfers_upload {
+    display: block;
+}
+
+#transfers #transfers_download {
+    display: none;
+}
+
+.transfers-circle, .transfers-up-circle, .transfers-dl-circle {
+    vertical-align: middle;
+    margin-left: 5px;
+    display: inline-block;
+    height: 16px;
+    width: 18px;
+    border-radius: 50%;
+    background: #E64D63;
+    color: white;
+    text-align: center;
+    font-size: 8px;
+    line-height: 16px;
+}
+
+@media screen and (min-width: 700px) {
+    #transfers {
+        width: 400px;
+        right: 0;
+        bottom: 0;
+    }
+}

@@ -27,24 +27,23 @@ var Upload = (function() {
 			up = document.createElement('div');
 			up.id = 'div_upload'+file_id;
 
-			btn = document.createElement('button');
+			btn = document.createElement('i');
 			btn.setAttribute('data-id', file_id);
 			btn.onclick = Upload.abort;
-			btn.innerHTML = '- X -';
+			btn.className = 'fa fa-minus-circle btn-abort';
+			btn.setAttribute('aria-hidden', true);
 
 			spn = document.createElement('span');
 			spn.id = 'span_upload'+file_id;
 
 			up.appendChild(btn);
 			up.appendChild(spn);
-			document.querySelector("#progress").appendChild(up);
+			document.querySelector("#transfers_upload").appendChild(up);
 
 			if(file_id == f_files.length-1) {
-				console.log("stop");
 				f_enc[file_id] = new Encryption(f_files[file_id], Folders.id, file_id, null);
 			}
 			else {
-				console.log("next");
 				f_enc[file_id] = new Encryption(f_files[file_id], Folders.id, file_id, function() {
 					Upload.upFile(file_id+1);
 				});
@@ -53,7 +52,9 @@ var Upload = (function() {
 
         upFiles : function(files) {
 			f_files = files;
-            document.querySelector("#progress").innerHTML = ' ';
+			document.querySelector("#transfers_upload").innerHTML = ' ';
+			Transfers.open();
+			Transfers.showUp();
 			Upload.yesReplaceAll = false;
 			Upload.yesCompleteAll = false;
 			Upload.noAll = false;

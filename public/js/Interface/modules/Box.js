@@ -12,6 +12,7 @@ var Box = (function() {
     return {
         Area : 0,
         box_more : false,
+        selected : '',
 
         init : function() {
             box_div = document.querySelector("#box");
@@ -19,28 +20,24 @@ var Box = (function() {
         },
 
         hide : function() {
-            //console.log("box hide");
             if(!init)
                 return false;
             box_div.style.display = 'none';
         },
 
         show : function() {
-            //console.log("box show");
             if(!init)
                 return false;
             box_div.style.display = 'block';
         },
 
         reset : function() {
-            //console.log("box reset");
             if(!init)
                 return false;
             box_div.innerHTML = ' ';
         },
 
         set : function(content) {
-            //console.log("box set");
             if(!init)
                 return false;
             box_div.innerHTML = content;
@@ -51,12 +48,12 @@ var Box = (function() {
                 return false;
             // If the user uses left click inside the 'box'
             if((cx >= x && cx <= (x + box_div.clientWidth)) && (cy >= y && cy <= (y + box_div.clientHeight)) || Box.box_more) {
-                //console.log("left click action");
                 // Action
                 Box.box_more = false;
             }
             else { // Otherwise, hide 'box'
-                //console.log("left click hide box");
+                if(Box.selected != '') Selection.unselect(Box.selected);
+                Box.selected = '';
                 Box.hide();
                 Box.Area = 0;
             }
@@ -65,13 +62,11 @@ var Box = (function() {
         right_click : function(cx, cy, id) {
             if(!init)
                 return false;
+            if(Box.selected != '') Selection.unselect(Box.selected);
+            Box.selected = '';
             // Show box at position x, y
-            //console.log("right click");
             x = cx;
             y = cy;
-
-            box_div.style.left = x+'px';
-            box_div.style.top = y+'px';
 
             if(id === undefined) //when there isn't anything under the mouse
                 Box.Area = 0;
@@ -80,35 +75,60 @@ var Box = (function() {
                 //over nothing
                 case 0:
                     if(Trash.State == 0) {
-                        box_div.innerHTML = '<p onclick="Folders.create()"><img src="'+img+'desktop/actions/create_folder.svg" class="icon"> '+txt.RightClick.nFolder+'</p><p onclick="Upload.dialog()"><img src="'+img+'desktop/actions/upload.svg" class="icon"> '+txt.RightClick.upFiles+'</p>';
+                        box_div.innerHTML = '<p onclick="Folders.create()"><img src="'+IMG+'desktop/actions/create_folder.svg" class="icon"> '+txt.RightClick.nFolder+'</p>';
+                        box_div.innerHTML += '<p onclick="Upload.dialog()"><i class="fa fa-upload" aria-hidden="true"></i> '+txt.RightClick.upFiles+'</p>';
                         if(Move.Files.length > 0 || Move.Folders.length > 0)
-                            box_div.innerHTML += '<hr><p onclick="Move.paste(\''+id+'\')"><img src="'+img+'index/actions/paste.svg" class="icon"> '+txt.RightClick.paste+'</p>';
-                        box_div.innerHTML += '<hr><p onclick="logout()">'+txt.RightClick.logOut+'</p>';
+                            box_div.innerHTML += '<hr><p onclick="Move.paste(\''+id+'\')"><i class="fa fa-clipboard" aria-hidden="true"></i> '+txt.RightClick.paste+'</p>';
+                        box_div.innerHTML += '<hr><p onclick="logout()"><i class="fa fa-sign-out" aria-hidden="true"></i> '+txt.RightClick.logOut+'</p>';
                     }
                     break;
                 //mouse over a file
                 case 1:
-                    box_div.innerHTML = '<p onclick="Files.dl(\''+id+'\')"><img src="'+img+'index/actions/download.svg" class="icon"> '+txt.RightClick.dl+'</p><hr>';
+                    Box.selected = id;
+                    Selection.select(id);
+                    box_div.innerHTML = '<p onclick="Selection.dl(\''+id+'\')"><i class="fa fa-download" aria-hidden="true"></i> '+txt.RightClick.dl+'</p><hr>';
                     if(Trash.State == 0) {
-                        box_div.innerHTML += '<p onclick="Favorites.update(\''+id+'\')"><img src="'+img+'index/actions/putInFavorites.svg" class="icon"> '+txt.RightClick.star+'</p><hr><p onclick="Move.cut(\''+id+'\')"><img src="'+img+'index/actions/cut.svg" class="icon"> '+txt.RightClick.cut+'</p><p onclick="Move.copy(\''+id+'\')"><img src="'+img+'index/actions/copy.svg" class="icon"> '+txt.RightClick.copy+'</p><p onclick="Move.paste(\''+id+'\')"><img src="'+img+'index/actions/paste.svg" class="icon"> '+txt.RightClick.paste+'</p>';
-                        box_div.innerHTML += '<p onclick="Move.trash(\''+id+'\')"><img src="'+img+'index/actions/trash.svg" class="icon"> '+txt.RightClick.trash+'</p>';
-                    } else { box_div.innerHTML += '<p onclick="Move.trash(\''+id+'\')">'+txt.RightClick.restore+'</p><p onclick="Rm.rm(\''+id+'\')">'+txt.RightClick.rm+'</p>'; }
-                    if(Trash.State == 0)
-                        box_div.innerHTML += '<hr><p onclick="Move.rename(\''+id+'\')"><img src="'+img+'index/actions/rename.svg" class="icon"> '+txt.RightClick.mvItem+'</p><p><img src="'+img+'index/actions/paste.svg" class="icon">'+txt.RightClick.mvLocate+'</p>';
-                    box_div.innerHTML += '<hr><p onclick="Files.details(\''+id+'\')">'+txt.RightClick.vDetails+'</p>';
+                        box_div.innerHTML += '<p onclick="Favorites.update(\''+id+'\')"><i class="fa fa-star" aria-hidden="true"></i> '+txt.RightClick.star+'</p><hr>';
+                        box_div.innerHTML += '<p onclick="Move.cut(\''+id+'\')"><i class="fa fa-scissors" aria-hidden="true"></i> '+txt.RightClick.cut+'</p>';
+                        box_div.innerHTML += '<p onclick="Move.copy(\''+id+'\')"><i class="fa fa-clone" aria-hidden="true"></i> '+txt.RightClick.copy+'</p>';
+                        box_div.innerHTML += '<p onclick="Move.trashMultiple(\''+id+'\')"><i class="fa fa-trash" aria-hidden="true"></i> '+txt.RightClick.trash+'</p>';
+                    } else {
+                        box_div.innerHTML += '<p onclick="Move.trashMultiple(\''+id+'\')"><i class="fa fa-undo" aria-hidden="true"></i> '+txt.RightClick.restore+'</p>';
+                        box_div.innerHTML += '<p onclick="Rm.multiple(\''+id+'\')"><i class="fa fa-trash" aria-hidden="true"></i> '+txt.RightClick.rm+'</p>';
+                    }
+                    if(Trash.State == 0) {
+                        box_div.innerHTML += '<hr><p onclick="Move.rename(\''+id+'\')"><i class="fa fa-pencil" aria-hidden="true"></i> '+txt.RightClick.mvItem+'</p>';
+                    }
+                    box_div.innerHTML += '<hr><p onclick="Files.details(\''+id+'\')"><i class="fa fa-info" aria-hidden="true"></i> '+txt.RightClick.vDetails+'</p>';
                     break;
                 //mouse over a folder
                 case 2:
-                    box_div.innerHTML = '<p onclick="Folders.open(\''+id.substr(1)+'\')"><img src="'+img+'index/actions/view.svg" class="icon"> '+txt.RightClick.open+'</p><hr>';
+                    Box.selected = id;
+                    Selection.select(id);
+                    box_div.innerHTML = '<p onclick="Folders.open(\''+id.substr(1)+'\')"><i class="fa fa-folder-open" aria-hidden="true"></i> '+txt.RightClick.open+'</p><hr>';
                     if(Trash.State == 0) {
-                        box_div.innerHTML += '<p onclick="Move.cut(\''+id+'\')"><img src="'+img+'index/actions/cut.svg" class="icon"> '+txt.RightClick.cut+'</p><p onclick="Move.copy(\''+id+'\')"><img src="'+img+'index/actions/copy.svg" class="icon"> '+txt.RightClick.copy+'</p><p onclick="Move.paste(\''+id+'\')"><img src="'+img+'index/actions/paste.svg" class="icon"> '+txt.RightClick.paste+'</p>';
-                        box_div.innerHTML += '<p onclick="Move.trash(\''+id+'\')"><img src="'+img+'index/actions/trash.svg" class="icon"> '+txt.RightClick.trash+'</p>';
-                    } else { box_div.innerHTML += '<p onclick="Move.trash(\''+id+'\')">'+txt.RightClick.restore+'</p><p onclick="Rm.rm(\''+id+'\')">'+txt.RightClick.rm+'</p>'; }
-                    if(Trash.State == 0)
-                        box_div.innerHTML += '<hr><p onclick="Move.rename(\''+id+'\')"><img src="'+img+'index/actions/rename.svg" class="icon"> '+txt.RightClick.mvItem+'</p><p>'+txt.RightClick.mvLocate+'</p>';
-                    box_div.innerHTML += '<hr><p onclick="Folders.details(\''+id+'\')">'+txt.RightClick.vDetails+'</p>';
+                        box_div.innerHTML += '<p onclick="Move.cut(\''+id+'\')"><i class="fa fa-scissors" aria-hidden="true"></i> '+txt.RightClick.cut+'</p>';
+                        box_div.innerHTML += '<p onclick="Move.copy(\''+id+'\')"><i class="fa fa-clone" aria-hidden="true"></i> '+txt.RightClick.copy+'</p>';
+                        box_div.innerHTML += '<p onclick="Move.trashMultiple(\''+id+'\')"><i class="fa fa-trash" aria-hidden="true"></i> '+txt.RightClick.trash+'</p>';
+                    } else {
+                        box_div.innerHTML += '<p onclick="Move.trashMultiple(\''+id+'\')"><i class="fa fa-undo" aria-hidden="true"></i> '+txt.RightClick.restore+'</p>';
+                        box_div.innerHTML += '<p onclick="Rm.multiple(\''+id+'\')"><i class="fa fa-trash" aria-hidden="true"></i> '+txt.RightClick.rm+'</p>';
+                    }
+                    if(Trash.State == 0) {
+                        box_div.innerHTML += '<hr><p onclick="Move.rename(\''+id+'\')"><i class="fa fa-pencil" aria-hidden="true"></i> '+txt.RightClick.mvItem+'</p>';
+                    }
+                    box_div.innerHTML += '<hr><p onclick="Folders.details(\''+id+'\')"><i class="fa fa-info" aria-hidden="true"></i> '+txt.RightClick.vDetails+'</p>';
             }
+
             Box.show();
+
+            if(x < 2) x = 2;
+            if(x + box_div.clientWidth > document.body.clientWidth) x = document.body.clientWidth - box_div.clientWidth - 2;
+            if(y < 5) y = 5;
+            if(y + box_div.clientHeight > document.body.clientHeight) y = document.body.clientHeight - box_div.clientHeight - 5;
+
+            box_div.style.left = x+'px';
+            box_div.style.top = y+'px';
         }
     }
 });

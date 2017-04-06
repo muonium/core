@@ -25,7 +25,7 @@ var changeLogin = function() {
             {
                 // success message
                 if(xhr.responseText.substr(0, 3) == "ok@") {
-                    window.location.href=root+"Profile";
+                    window.location.href=ROOT+"Profile";
                     return false;
                 }
                 else {
@@ -80,7 +80,7 @@ var changeCek = function() {
 
 	var cek = sessionStorage.getItem("cek"); ///we get the CEK from sessionStorage
 	if (cek == null || current_pp == null) {
-		window.location.href = root+"Logout";
+		window.location.href = ROOT+"Logout";
 	}
 
 	if (old_pp != current_pp) {
@@ -114,7 +114,7 @@ var changeCek = function() {
 			        if(xhr.responseText.substr(0, 3) == "ok@") {
 						sessionStorage.setItem("kek", new_pp);
 						returnArea.innerHTML = xhr.responseText.substr(3);
-			            //window.location.href=root+"Profile";
+			            //window.location.href=ROOT+"Profile";
 			            //return false;
 			        }
 			        else {
@@ -166,7 +166,7 @@ var changeMail = function() {
                 // success message
                 if(xhr.responseText.substr(0, 3) == "ok@") {
 					returnArea.innerHTML = xhr.responseText.substr(3);
-                    //window.location.href=root+"Profile";
+                    //window.location.href=ROOT+"Profile";
                     //return false;
                 }
                 else {
@@ -191,7 +191,7 @@ var deleteUser = function() {
     {
       if(xhr.status == 200 && xhr.readyState == 4) {
 			if(xhr.responseText.substr(0, 3) == "ok@") {
-				window.location.href=root+"Logout";
+				window.location.href=ROOT+"Logout";
 				return false;
 			}
 			else {

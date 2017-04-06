@@ -345,26 +345,36 @@ class User extends l\Languages {
         $time_start = microtime(true);
 
         // Link to parent folder
-        echo '<p>';
+        echo '<div class="quota">';
         if($this->_folderId != 0) {
             $parent = $this->_modelFolders->getParent($this->_folderId);
-            echo '<a id="parent-'.$parent.'" ondblclick="Folders.open('.$parent.')"><img src="'.IMG.'desktop/arrow.svg" class="icon"></a> ';
+            echo '<a id="parent-'.$parent.'" onclick="Folders.open('.$parent.')"><img src="'.IMG.'desktop/arrow.svg" class="icon"></a> ';
         }
-        echo ' ['.$this->showSize($stored).'/'.$this->showSize($quota).']</p>';
+        $pct = round($stored/$quota*100, 2);
+        echo ' ['.$this->showSize($stored).'/'.$this->showSize($quota).' - '.$pct.'%]';
+        echo '<div class="progress_bar">';
+        echo '<div class="used" style="width:'.$pct.'%"></div>';
+        echo '</div></div>';
 
         echo '<hr><div id="tree"> ';
 
-        // New way
         $path = $this->_modelFolders->getFullPath($this->_folderId);
 
         if($subdirs = $this->_modelFolders->getChildren($this->_folderId, $this->trash)) {
             foreach($subdirs as $subdir) {
                 $elementnum = count(glob(NOVA.'/'.$_SESSION['id'].'/'.$subdir['4'].$subdir['1']."/*"));
 
-                echo '<span class="folder" id="d'.$subdir['0'].'" name="'.htmlentities($subdir['1']).'" data-folder="'.htmlentities($subdir['3']).'" data-path="'.htmlentities($subdir['4']).'" onclick="Selection.addFolder(this.id)" ondblclick="Folders.open('.$subdir['0'].')"><img src="'.IMG.'desktop/extensions/folder.svg" class="icon"> <strong>'.htmlentities($subdir['1']).'</strong> ['.$this->showSize($subdir['2']).'][';
-                if ($elementnum>1){
-    				echo $elementnum.' '.$this->txt->User->PlurialElement.']</span>';
-    			}else{
+                echo '<span class="folder" id="d'.$subdir['0'].'" name="'.htmlentities($subdir['1']).'"
+                title="'.$this->showSize($subdir['2']).'"
+                data-folder="'.htmlentities($subdir['3']).'"
+                data-path="'.htmlentities($subdir['4']).'"
+                data-title="'.htmlentities($subdir['1']).'"
+                onclick="Selection.addFolder(event, this.id)"
+                ondblclick="Folders.open('.$subdir['0'].')">
+                <img src="'.IMG.'desktop/extensions/folder.svg" class="icon"> <strong>'.htmlentities($subdir['1']).'</strong> [';
+                if($elementnum > 1) {
+    			    echo $elementnum.' '.$this->txt->User->PlurialElement.']</span>';
+    			} else {
     				echo $elementnum.' '.$this->txt->User->element.']</span>';
     			}
             }
@@ -372,11 +382,24 @@ class User extends l\Languages {
         if($files = $this->_modelFiles->getFiles($this->_folderId, $this->trash)) {
             foreach($files as $file) {
                 $fpath = $path;
-                if(array_key_exists(7, $file) && array_key_exists(8, $file))
+                if(array_key_exists(7, $file) && array_key_exists(8, $file)) {
                     $fpath = $file['7'].$file['8'];
-                echo '<span class="file" id="f'.$file['1'].'" title="'.$this->txt->User->lastmod.' : '.date('d/m/Y G:i', $file['3']).'" onclick="Selection.addFile(this.id)" data-folder="'.htmlentities($file['6']).'" data-path="'.htmlentities($fpath).'" data-title="'.htmlentities($file['0']).'">';
+                }
+                if($file['2'] < 0) {
+                    $filesize = '['.$this->txt->User->notCompleted.'] '.$this->showSize(@filesize(NOVA.'/'.$_SESSION['id'].'/'.$fpath.'/'.$file['0']));
+                }
+                else {
+                    $filesize = $this->showSize($file['2']);
+                }
+                echo '<span class="file" id="f'.$file['1'].'"';
+                if($file['2'] < 0) { echo ' style="color:red" '; }
+                echo 'title="'.$filesize.'&#10;'.$this->txt->User->lastmod.' : '.date('d/m/Y G:i', $file['3']).'"
+                onclick="Selection.addFile(event, this.id)"
+                data-folder="'.htmlentities($file['6']).'"
+                data-path="'.htmlentities($fpath).'"
+                data-title="'.htmlentities($file['0']).'">';
 				// showSize with an array containing path and file name because the size in database can be -1 (file currently uploading), in this case showSize will display size with filesize()
-				echo htmlentities($file['0']).' ['.$this->showSize($file['2'], array($file['0'], $fpath)).']</span>';
+				echo htmlentities($file['0']).'</span>';
             }
         }
 
@@ -616,12 +639,10 @@ class User extends l\Languages {
         echo 'done';
     }
 
-    function showSize($size, $file_info = null, $precision = 2) {
+    function showSize($size, $precision = 2) {
         // $size => size in bytes
         if(!is_numeric($size))
             return 0;
-        if($size < 0 && is_array($file_info)) // File not completely uploaded
-            return '<span style="display:inline;color:red">'.$this->showSize(@filesize(NOVA.'/'.$_SESSION['id'].'/'.$file_info['1'].'/'.$file_info['0'])).'</span>';
 		if($size <= 0)
 			return 0;
         $base = log($size, 1024);

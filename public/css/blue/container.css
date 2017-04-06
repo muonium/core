@@ -1,0 +1,17 @@
+#container {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    width: 100%;
+
+	/* Mobile */
+	flex-direction: column;
+}
+
+@media screen and (min-width: 700px) {
+	#container {
+        flex-direction: row;
+        height: calc(100% - 64px);
+        overflow: hidden;
+    }
+}

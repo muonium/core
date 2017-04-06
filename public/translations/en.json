@@ -15,7 +15,7 @@
         "profile": "Profile",
         "mail_sent": "An email was sent to you, please check your mailbox and your spams. If you received nothing after 5mn, try again :",
         "submit": "Submit",
-        "bug": "Send a bug report",
+        "bug": "Bug report",
         "loading": "Loading..."
     },
 
@@ -24,7 +24,12 @@
         "help": "Help",
         "settings": "Settings",
         "profile": "Profile",
-        "logout": "Logout"
+        "logout": "Logout",
+        "upload": "Upload",
+        "smallIcons": "Small icons",
+        "largeIcons": "Large icons",
+        "multiSelection": "Multi-selection",
+        "selectAll": "Select all"
     },
 
     "Toolbar": {
@@ -40,7 +45,8 @@
         "default": "An error occurred",
         "form": "Error in the form",
         "pp": "Editing the passphrase is not currently available",
-        "bannedSession": "You reached the maximum allowed number of requests"
+        "bannedSession": "You reached the maximum allowed number of requests",
+        "dl": "The file downloading feature is not available in your browser."
     },
 
     "User": {
@@ -69,7 +75,14 @@
         "yesAll": "Yes for all",
         "noAll": "No for all",
         "complete": "Complete",
-        "replace": "Replace"
+        "replace": "Replace",
+        "details": "Details",
+        "folderSelected": "folder(s) selected",
+        "fileSelected": "file(s) selected",
+        "notCompleted": "Not completed",
+        "nothing": "Nothing...",
+        "uploading": "Uploading",
+        "downloading": "Downloading"
     },
 
     "Register": {
@@ -188,5 +201,33 @@
 	"cek": {
 		"updateErr": "Error: cannot update cek",
 		"empty": "Error: cek is empty"
-	}
+	},
+
+    "Help": {
+        "shortcuts": [
+            "<strong>Desktop version</strong><ul>",
+            "<li>Left click on a file/folder : Select a file/folder - View details</li>",
+            "<li>Left click somewhere else : Remove selection</li>",
+            "<li>Ctrl + Left click : Select multiple files</li>",
+            "<li>Right click : Show actions</li>",
+            "<li>Arrow up : Select previous file</li>",
+            "<li>Arrow down : Select next file</li>",
+            "<li>Ctrl + Arrow up : Add previous file to selection</li>",
+            "<li>Ctrl + Arrow down : Add next file to selection</li>",
+            "<li>Ctrl + A : Select all</li>",
+            "<li>Ctrl + C : Copy</li>",
+            "<li>Ctrl + D : Logout</li>",
+            "<li>Ctrl + I : Invert selection</li>",
+            "<li>Ctrl + R : Move to trash</li>",
+            "<li>Ctrl + S : Save selection</li>",
+            "<li>Ctrl + V : Paste</li>",
+            "<li>Ctrl + X : Cut</li>",
+            "<li>Backspace : Go to parent folder</li>",
+            "<li>Delete : Delete selection</li>",
+            "<li>Esc : Hide actions box</li>",
+            "<li>Enter (on a file) : Download</li>",
+            "<li>Enter (on a folder) : Open folder</li>",
+            "<li>F1 : Help</li></ul>"
+        ]
+    }
 }

@@ -63,7 +63,7 @@ var Rm = (function() {
 			}
 		},
 
-		multiple : function() {
+		multiple : function(rm_id) {
 			var id = 0;
 			var folderName;
             var folder_id;
@@ -150,6 +150,9 @@ var Rm = (function() {
 				        }
 				    }, 250);
 				}
+			}
+			else if(rm_id !== undefined) {
+				Rm.rm(rm_id);
 			}
 		}
 	}

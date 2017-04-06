@@ -1,0 +1,14 @@
+section#large-content {
+    width: 100%;
+    text-align: center;
+    background: #F0F0F0;
+    padding-top: 10px;
+    overflow: auto;
+    flex-grow: 1;
+}
+
+section#large-content h2 {
+    font-size: 28px;
+    font-weight: normal;
+    color: #28535c;
+}

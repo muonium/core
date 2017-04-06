@@ -1,0 +1,53 @@
+#toolbar {
+    z-index:9999;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+    height: 50px;
+    background: #4FC0E8;
+    color: white;
+    text-align: center;
+}
+
+#toolbar ul {
+    width: 100%;
+    height: 50px;
+    list-style-type: none;
+    display: flex;
+	flex-direction: row;
+}
+
+#toolbar li {
+    flex-grow: 1;
+    cursor: pointer;
+    line-height: 50px;
+}
+
+#toolbar li.select {
+    line-height: normal;
+    text-align: left;
+    padding-left: 15px;
+}
+
+#toolbar li.select input[type="radio"] + label:before, #toolbar li.select input[type="checkbox"] + label:before {
+    margin-top: 3px;
+}
+
+#toolbar img {
+    margin-top: 11px;
+}
+
+#toolbar .fa {
+    color: white;
+    font-size: 20px;
+}
+
+#toolbar .icon {
+    height: 22px;
+}
+
+@media screen and (min-width: 700px) {
+    #toolbar {
+        display: none;
+    }
+}

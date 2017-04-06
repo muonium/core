@@ -6,9 +6,10 @@ var Folders = (function() {
 	return {
 		id : 0,
 		create : function() {
-			if(document.querySelector("#nFolder")) {
-				Box.hide();
+			Box.hide();
 
+			var validate = function() {
+				var folder_name = this.$inputs.folder_name.value;
 				var xhr = new XMLHttpRequest();
 				xhr.open("POST", "User/AddFolder", true);
 				xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -20,24 +21,29 @@ var Folders = (function() {
 				        // Add the folder in tree without reloading
 				        if(isNumeric(xhr.response)) {
 				            var first;
-				            var content = '<img src="'+img+'desktop/extensions/folder.svg" class="icon"> <strong>'+document.querySelector("#nFolder").value+'</strong> [0]';
-				            // Check if there is already file or folder
-				            if(document.querySelector(".folder") || document.querySelector(".file")) {
-				                if(!(first = document.querySelector(".folder")))
-				                    if(!(first = document.querySelector(".file")))
-				                        window.location.href=root+"User";
-				                var span = document.createElement('span');
-				                span.className = 'folder';
-				                span.id = 'd'+xhr.response;
-				                span.name = document.querySelector("#nFolder").value;
-				                span.onclick = function(){ Selection.addFolder(this.id); };
-				                span.ondblclick = function(){ Folders.open(this.id.substr(1)); };
-				                span.innerHTML = content;
+				            var content = '<img src="'+IMG+'desktop/extensions/folder.svg" class="icon"> <strong>'+folder_name+'</strong> [0 '+txt.User.element+']';
+
+							var span = document.createElement('span');
+							span.className = 'folder';
+							span.id = 'd'+xhr.response;
+							span.name = folder_name;
+							span.title = '0';
+							span.dataset.folder = Folders.id;
+							span.dataset.path = '?';
+							span.dataset.title = folder_name;
+							span.onclick = function(){ Selection.addFolder(event, this.id); };
+							span.ondblclick = function(){ Folders.open(this.id.substr(1)); };
+							span.innerHTML = content;
+
+							// Check if there is already file or folder
+				            if(!(first = document.querySelector(".folder"))) {
+				                if(!(first = document.querySelector(".file"))) {
+									document.querySelector("#tree").appendChild(span);
+								}
+							}
+
+							if(first !== null && first !== undefined) {
 				                first.parentNode.insertBefore(span, first);
-				            }
-				            else {
-				                var span = '<span class="folder" id="d'+xhr.response+'" name="'+document.querySelector("#nFolder").value+'" onclick="Selection.addFolder(this.id)" ondblclick="Folders.open('+xhr.response+')">'+content+'</span>';
-				                document.querySelector("#tree").innerHTML = span + document.querySelector("#tree").innerHTML;
 				            }
 
 				            document.querySelector("#d"+xhr.response).addEventListener("contextmenu", function(event) {
@@ -50,12 +56,21 @@ var Folders = (function() {
 				        }
 				    }
 				}
-				xhr.send("folder_id="+Folders.id+"&folder="+encodeURIComponent(document.querySelector("#nFolder").value));
-			}
-			else {
-				document.querySelector("#box").innerHTML = txt.User.foldername+' : <input type="text" id="nFolder" autocomplete="off" onkeypress="return Folders.verif(event);" autofocus>';
-                document.querySelector("#nFolder").focus();
-			}
+				xhr.send("folder_id="+Folders.id+"&folder="+encodeURIComponent(this.$inputs.folder_name.value));
+			};
+
+			var m = new MessageBox(txt.User.foldername).addInput('folder_name', {
+				id: "nFolder",
+				autocomplete: "off",
+				onkeypress: function(event) {
+					if(event.keyCode == 13) {
+						validate.bind(this)();
+						return this.close();
+					}
+					return Folders.verif(event);
+				},
+				autofocus: "autofocus"
+			}).addButton("Ok", validate).show();
 		},
 
 		open : function(folder_id) {
@@ -84,6 +99,8 @@ var Folders = (function() {
 
 				        // Put icons
 						ExtIcons.set();
+
+						Files.display(Files.style);
 				    }
 				}
 			}
@@ -129,7 +146,7 @@ var Folders = (function() {
                 Box.Area = 2;
 
                 Box.set("<p style='padding:5px'>\
-                <button onclick=\"Box.right_click(event.clientX, event.clientY, '"+el+"')\"><</button> &nbsp;&nbsp;<strong>Details</strong>\
+                <button onclick=\"Box.right_click(event.clientX, event.clientY, '"+el+"')\"><</button> &nbsp;&nbsp;<strong>"+txt.User.details+"</strong>\
                 <hr><ul><li>"+txt.User.name+" : "+elem.getAttribute("name")+"</li>\
                 <li>"+txt.User.path+" : "+elem.getAttribute("data-path")+"/</li>\
                 <li>"+txt.User.type+" : "+txt.User.folder+" <span class='ext_icon'></span></li>\

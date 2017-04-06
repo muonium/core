@@ -6,7 +6,7 @@ var Encryption = (function() {
 	var cek = sessionStorage.getItem("cek");
 	if (cek == null) { //check if the cek is there
 		sessionStorage.clear();
-		window.location.href = root+"Logout"; //doesn't exist ? Then logout the user
+		window.location.href = ROOT+"Logout"; //doesn't exist ? Then logout the user
 	}
 	var target = 'User';
 	var est = 33.5; // Estimation of the difference between the file and encrypted file in %
@@ -92,13 +92,13 @@ var Encryption = (function() {
 								.addToggle(txt.User.complete, txt.User.replace, function() {
 									c = true;
 								})
-								.addButton('Yes', function() {
+								.addButton(txt.User.yes, function() {
 									if(c)
 										replaceYesAction();
 									else
 										completeYesAction(filestatus[1]);
 								})
-								.addButton('No', noAction)
+								.addButton(txt.User.no, noAction)
 								.show();
 						}
 						else {
@@ -106,13 +106,13 @@ var Encryption = (function() {
 								.addToggle(txt.User.complete, txt.User.replace, function() {
 									c = true;
 								})
-								.addButton('Yes', function() {
+								.addButton(txt.User.yes, function() {
 									if(c)
 										replaceYesAction();
 									else
 										completeYesAction(filestatus[1]);
 								})
-							    .addButton('Yes for all', function() {
+							    .addButton(txt.User.yesAll, function() {
 									if(c) {
 										Upload.yesReplaceAll = true;
 										replaceYesAction();
@@ -122,8 +122,8 @@ var Encryption = (function() {
 										completeYesAction(filestatus[1]);
 									}
 							    })
-							    .addButton('No', noAction)
-							    .addButton('No for all', function() {
+							    .addButton(txt.User.no, noAction)
+							    .addButton(txt.User.noAll, function() {
 									Upload.noAll = true;
 									noAction();
 							    })
@@ -137,13 +137,13 @@ var Encryption = (function() {
 					}
 					else {
 						var m = new MessageBox(txt.User.replaceFile.replace('[filename]', f.name))
-							.addButton('Yes', replaceYesAction)
-							.addButton('Yes for all', function() {
+							.addButton(txt.User.yes, replaceYesAction)
+							.addButton(txt.User.yesAll, function() {
 								Upload.yesReplaceAll = true;
 								replaceYesAction();
 							})
-							.addButton('No', noAction)
-							.addButton('No for all', function() {
+							.addButton(txt.User.no, noAction)
+							.addButton(txt.User.noAll, function() {
 								Upload.noAll = true;
 								noAction();
 							})
@@ -175,8 +175,9 @@ var Encryption = (function() {
 
 	Encryption.prototype.abort = function() {
 		var me = this;
+		Transfers.number--;
+		Transfers.numberUp--;
 
-		console.log('abort');
 		me.halt = true;
 		var node = document.querySelector("#div_upload"+(me.i));
 		if(node) {
@@ -208,6 +209,8 @@ var Encryption = (function() {
 		console.log(chkNb);
 		this.m = chkNb;
 		var me = this;
+		Transfers.number++;
+		Transfers.numberUp++;
 
 		if(typeof me.callback == 'function') {
 			me.callback();
@@ -240,6 +243,8 @@ var Encryption = (function() {
 						xhr.onreadystatechange = function() {
 							if(xhr.status == 200 && xhr.readyState == 4) {
 								time.stop();//
+								Transfers.number--;
+								Transfers.numberUp--;
 								var node = document.querySelector("#div_upload"+(me.i));
 								while(node.firstChild) // remove all children
 									node.removeChild(node.firstChild);
@@ -354,7 +359,7 @@ var Encryption = (function() {
 		xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
 		xhr.onreadystatechange = function() {
-			if(xhr.status == 200 && xhr.readyState == 4) {
+			if(xhr.status == 200 && xhr.readyState == 4 && me.halt === false) {
 				console.log(xhr.responseText);
 				me.l += s.length;
 				var pct = me.l/me.est_size*100;

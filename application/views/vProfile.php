@@ -6,38 +6,47 @@
 	*/
     use \library\MVC as l;
     $_t = new l\Template($this->txt->Global->profile);
-    $_t->addCss("home_global");
-    $_t->addCss("Interface/new_design");
+    $_t->addCss("fonts/roboto");
+    $_t->addCss("blue/blue");
+    $_t->addCss("blue/container");
+    $_t->addCss("blue/header");
+    $_t->addCss("blue/inputs");
+    $_t->addCss("blue/menu");
+    $_t->addCss("blue/section-large-content");
+
 	$_t->addJs("check");
     $_t->addJs("Interface/interface");
     $_t->addJs("Interface/Request");
     $_t->addJs("Profile/profile");
-    $_t->addJs("Login/sha512");
+    $_t->addJs("sha512");
 	$_t->addJs("mui_hash");
 	$_t->addJs("src/crypto/sjcl");
 	$_t->addJs("base64");
     $_t->getHeader();
 ?>
-<body>
-        <header>
-            <div id="logo"></div>
-            <?php $_t->getRegisteredMenu($this->txt->UserMenu); ?>
-        </header>
-
+<body class="grey">
+    <header>
+        <div id="logo"><img src="public/pictures/logos/muonium_H_06.png"></div>
+        <ul>
+            <li><a href="https://muonium.ch/photon/"><?php echo $this->txt->Global->back; ?></a></li>
+        </ul>
         <section id="language">
             <div>
                 <?php $this->getLanguageSelector(); ?>
             </div>
         </section>
+    </header>
 
-        <section id="desktop">
+    <div id="container">
+        <section id="large-content">
 			<p><a href="<?php echo MVC_ROOT; ?>/User"><< <?php echo_h($this->txt->Global->back); ?></a></p><br />
             <p>
                 ID : <?php echo $_SESSION['id']; ?>
                 <fieldset>
                     <legend><?php echo_h($this->txt->Profile->changelogin); ?></legend>
                     <p>
-                        <input type="text" name="login" id="login" placeholder="<?php echo_h($this->txt->Profile->newlogin); ?>">
+                        <label class="fa fa-user" for="login" aria-hidden="true"></label><!--
+                        --><input type="text" name="login" id="login" placeholder="<?php echo_h($this->txt->Profile->newlogin); ?>">
                     </p>
                     <input type="submit" onclick="changeLogin()" value="OK">
                     <div id="changeLoginReturn"></div>
@@ -50,7 +59,8 @@
                 <fieldset>
                     <legend><?php echo_h($this->txt->Profile->changemail); ?></legend>
                     <p>
-                        <input type="text" name="changemail" id="changemail" placeholder="<?php echo_h($this->txt->Profile->changemail); ?>">
+                        <label class="fa fa-envelope" for="changemail" aria-hidden="true"></label><!--
+                        --><input type="text" name="changemail" id="changemail" placeholder="<?php echo_h($this->txt->Profile->changemail); ?>">
                     </p>
                     <input type="submit" onclick="changeMail()" value="OK">
                     <div id="changeMailReturn"></div>
@@ -74,13 +84,16 @@
                     <legend><?php echo_h($this->txt->Profile->changepwd); ?></legend>
 
                     <p>
-                        <input type="password" name="old_pwd" id="old_pwd" placeholder="<?php echo_h($this->txt->Profile->oldpwd); ?>">
+                        <label class="fa fa-key" for="old_pwd" aria-hidden="true"></label><!--
+                        --><input type="password" name="old_pwd" id="old_pwd" placeholder="<?php echo_h($this->txt->Profile->oldpwd); ?>">
                     </p>
                     <p>
-                        <input type="password" name="new_pwd" id="new_pwd" placeholder="<?php echo_h($this->txt->Profile->newpwd); ?>">
+                        <label class="fa fa-key" for="new_pwd" aria-hidden="true"></label><!--
+                        --><input type="password" name="new_pwd" id="new_pwd" placeholder="<?php echo_h($this->txt->Profile->newpwd); ?>">
                     </p>
                     <p>
-                        <input type="password" name="pwd_confirm" id="pwd_confirm" placeholder="<?php echo_h($this->txt->Register->confirm); ?>">
+                        <label class="fa fa-key" for="pwd_confirm" aria-hidden="true"></label><!--
+                        --><input type="password" name="pwd_confirm" id="pwd_confirm" placeholder="<?php echo_h($this->txt->Register->confirm); ?>">
                     </p>
                     <input type="submit" onclick="changePassword()" value="OK">
                     <div id="changePasswordReturn"></div>
@@ -119,6 +132,7 @@
                 </fieldset>
             </p>
         </section>
+    </div>
 </body>
 <?php
     $_t->getFooter();

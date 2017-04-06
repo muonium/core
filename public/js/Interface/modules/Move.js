@@ -10,7 +10,7 @@ var Move = (function() {
         Move.Folders = [];
 
         if(Selection.Files.length == 0 && Selection.Folders.length == 0) {
-            // cut only the file/folder selected
+            // move only the file/folder selected
             if(id.length > 0) {
                 if(id.substr(0, 1) == 'd') {
                     Move.Folders.push(id.substr(1));
@@ -20,7 +20,7 @@ var Move = (function() {
             }
         }
         else {
-            // cut all selected files/folders
+            // move all selected files/folders
             Move.Files = Selection.Files;
             Move.Folders = Selection.Folders;
         }
@@ -35,54 +35,61 @@ var Move = (function() {
         Folders : [],
 
         rename : function(id) {
-            var elem = document.querySelector("#"+id);
-            var name;
-            var path;
+            var elem = document.querySelector("#"+id), name, path;
             if(elem) {
                 if(elem.hasAttribute("data-path")) {
+                    Box.hide();
                     path = elem.getAttribute("data-path");
-                    if(elem.hasAttribute("data-title"))
-                        name = elem.getAttribute("data-title");
-                    else
-                        name = elem.getAttribute("name");
+                    name = elem.hasAttribute("data-title") ? elem.getAttribute("data-title") : elem.getAttribute("name");
 
-                    if(document.querySelector("#nRename")) {
-                        console.log("rename");
-        				Box.hide();
-
+                    var validate = function() {
+                        var elem_name = this.$inputs.elem_name.value;
         				var xhr = new XMLHttpRequest();
         				xhr.open("POST", "User/Rename", true);
         				xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
-        				xhr.onreadystatechange = function()
-        				{
-        				    if(xhr.status == 200 && xhr.readyState == 4)
-        				    {
-        				        // To do : rename without reloading
-                                console.log(xhr.responseText);
-                                Folders.open(Folders.id);
+        				xhr.onreadystatechange = function() {
+        				    if(xhr.status == 200 && xhr.readyState == 4) {
+                                if(elem.hasAttribute("name")) {
+                                    elem.setAttribute("name", elem_name);
+                                }
+
+                                if(elem.hasAttribute("data-title")) {
+                                    elem.setAttribute("data-title", elem_name);
+                                }
+
+                                if(elem.className == 'folder') {
+                                    elem.querySelector("strong").innerHTML = elem_name;
+                                }
+                                else if(elem.lastChild.nodeType === 3) {
+                                    elem.lastChild.data = ' '+elem_name;
+                                }
         				    }
         				}
-        				xhr.send("folder_id="+Folders.id+"&old="+encodeURIComponent(name)+"&new="+encodeURIComponent(document.querySelector("#nRename").value));
-        			}
-        			else {
-                        Box.box_more = true;
-        				document.querySelector("#box").innerHTML = txt.RightClick.mvItem+' : <input type="text" id="nRename" value="'+name+'" autocomplete="off" onkeypress="return Move.renameVerif(\''+id+'\', event);" autofocus>';
-                        document.querySelector("#nRename").focus();
-                        Box.show();
-        			}
+        				xhr.send("folder_id="+Folders.id+"&old="+encodeURIComponent(name)+"&new="+encodeURIComponent(elem_name));
+                    };
+
+                    var m = new MessageBox(txt.RightClick.mvItem).addInput('elem_name', {
+        				id: "nRename",
+        				autocomplete: "off",
+                        value: name,
+        				onkeypress: function(event) {
+        					if(event.keyCode == 13) {
+        						validate.bind(this)();
+        						return this.close();
+        					}
+        					return Move.renameVerif(event);
+        				},
+        				autofocus: "autofocus"
+        			}).addButton("Ok", validate).show();
                 }
             }
         },
 
-        renameVerif : function(id, evt) {
+        renameVerif : function(evt) {
 			var keyCode = evt.which ? evt.which : evt.keyCode;
-			if(keyCode == 13) { // Submit
-				Move.rename(id);
-				return false;
-			}
-			var interdit = '/\\:*?<>|"';
-			if (interdit.indexOf(String.fromCharCode(keyCode)) >= 0)
+			var forbidden = '/\\:*?<>|"';
+			if (forbidden.indexOf(String.fromCharCode(keyCode)) >= 0)
 				return false;
 			return true;
 		},
@@ -171,20 +178,25 @@ var Move = (function() {
             }
         },
 
-        trashMultiple : function() {
-            var xhr = new XMLHttpRequest();
-            xhr.open("POST", "User/MvTrash", true);
-            xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-
-            xhr.onreadystatechange = function()
-            {
-                if(xhr.status == 200 && xhr.readyState == 4)
-                {
-                    console.log(xhr.responseText);
-                    Folders.open(Folders.id);
-                }
+        trashMultiple : function(id) {
+            if(Selection.Files.length == 0 && Selection.Folders.length == 0 && id !== undefined) {
+                Move.trash(id);
             }
-            xhr.send("folders="+Selection.Folders.join('|')+"&files="+Selection.Files.join('|')+"&trash="+Math.abs(Trash.State-1));
+            else {
+                var xhr = new XMLHttpRequest();
+                xhr.open("POST", "User/MvTrash", true);
+                xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+                xhr.onreadystatechange = function()
+                {
+                    if(xhr.status == 200 && xhr.readyState == 4)
+                    {
+                        console.log(xhr.responseText);
+                        Folders.open(Folders.id);
+                    }
+                }
+                xhr.send("folders="+Selection.Folders.join('|')+"&files="+Selection.Files.join('|')+"&trash="+Math.abs(Trash.State-1));
+            }
         }
     }
 });
