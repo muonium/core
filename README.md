@@ -11,6 +11,8 @@ Read the license please : [here](https://raw.githubusercontent.com/muonium/core/
 
 **Feel free to contribute :)**
 
+Artworks: license is [this one](https://creativecommons.org/licenses/by-sa/4.0/legalcode).
+
 # Security
 
 If you are a security expert, you can help us to build more securely Muonium.
@@ -33,9 +35,6 @@ Check our rules [here](https://github.com/muonium/core/blob/master/CONTRIBUTING.
 Like you know, we use SJCL, which is a JavaScript implementation of AES.
 
 If you are a scientist, you can contribute [here](https://github.com/bitwiseshiftleft/sjcl) !
-
-# Release
-Our method is the rolling release.
 
 # Install
 We haven't really packaged Muonium, but you can modify the code to run it on your own server. Also, do not hesitate to create a wiki page for this.
