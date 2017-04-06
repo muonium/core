@@ -199,9 +199,8 @@
     },
 
 	"cek": {
-<<<<<<< HEAD
-		"updateErr": "Error: cannot update cek",
-		"empty": "Error: cek is empty"
+		"updateErr": "Error: cannot update the content encryption key",
+		"empty": "Error: The content encryption key is empty"
 	},
 
     "Help": {
@@ -231,9 +230,4 @@
             "<li>F1 : Help</li></ul>"
         ]
     }
-=======
-		"updateErr": "Error: cannot update the content encryption key",
-		"empty": "Error: The content encryption key is empty"
-	}
->>>>>>> refs/remotes/origin/master
 }

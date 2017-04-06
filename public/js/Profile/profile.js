@@ -114,11 +114,6 @@ var changeCek = function() {
 			        if(xhr.responseText.substr(0, 3) == "ok@") {
 						sessionStorage.setItem("kek", new_pp);
 						returnArea.innerHTML = xhr.responseText.substr(3);
-<<<<<<< HEAD
-			            //window.location.href=ROOT+"Profile";
-			            //return false;
-=======
->>>>>>> refs/remotes/origin/master
 			        }
 			        else {
 			            // error
