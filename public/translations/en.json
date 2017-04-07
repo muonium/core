@@ -90,7 +90,7 @@
         "login": "Username",
         "password": "Password",
         "confirm": "Confirm",
-        "secrete password": "Secrete password",
+        "passphrase": "Secrete password",
         "doubleAuth": "Do you want to active the double authentication ?",
         "alreadyregistered": "Already registered ?",
         "impossible": "Registration impossible for now",
