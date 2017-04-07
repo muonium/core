@@ -3,7 +3,7 @@ namespace library\MVC;
 
 class Mail
 {
-    protected $_from = "muonium@protonmail.ch";
+    protected $_from = "muonium@muonium.ch";
     protected $_to;
     protected $_subject;
     protected $_message;
