@@ -158,7 +158,8 @@
         "emptymail": "Complétez ce champ",
         "accountDeletionConfirm": "Voulez-vous vraiment supprimer votre compte ?",
         "accountDeletionOk": "Votre compte a bien été supprimé !",
-        "deleteAccount": "Supprimer votre compte"
+        "deleteAccount": "Supprimer votre compte",
+        "details": "Voulez-vous afficher les détails lorsqu'un fichier ou dossier est sélectionné ?"
     },
 
     "LostPass": {

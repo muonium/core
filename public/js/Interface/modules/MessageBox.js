@@ -11,6 +11,7 @@ var MessageBox = (function() {
 
     document.onmousemove = function(e) {
         if($drag !== null) {
+            $drag.style.transform = 'none';
             var left = e.pageX - $diffLeft;
             var top = e.pageY - $diffTop;
 
@@ -42,8 +43,9 @@ var MessageBox = (function() {
         this.$elem.id = 'MessageBox';
         this.$elem.addEventListener("mousedown", function(e) {
             $drag = me.$elem;
-            $diffLeft = e.pageX - parseInt($drag.style.left.replace('px', ''));
-            $diffTop = e.pageY - parseInt($drag.style.top.replace('px', ''));
+            var rect = $drag.getBoundingClientRect();
+            $diffLeft = e.pageX - rect.left;
+            $diffTop = e.pageY - rect.top;
         });
 
         this.$elemClose = document.createElement("div");
@@ -157,8 +159,8 @@ var MessageBox = (function() {
 
 	MessageBox.prototype.show = function() {
         if(this.$elemBtns.innerHTML == '') {
-            // If there is no button, add a "Ok" button
-            this.addButton('Ok');
+            // If there is no button, add a "OK" button
+            this.addButton('OK');
         }
 
         if(document.querySelector("#MessageBox")) {
@@ -169,6 +171,10 @@ var MessageBox = (function() {
         }
 
         document.querySelector("#MessageBox").style.display = 'block';
+
+        if(this.$elemInput.firstChild !== null) {
+            this.$elemInput.firstChild.focus();
+        }
 	};
 
 	return MessageBox;

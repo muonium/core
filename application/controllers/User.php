@@ -491,15 +491,22 @@ class User extends l\Languages {
             $filename = $this->_modelFiles->getFilename($id);
             if($filename !== false) {
                 if(file_exists(NOVA.'/'.$_SESSION['id'].'/'.$path.$filename)) {
-					if(isset($_SESSION['upload'][$folder_id]['files'][$filename]))
+					if(isset($_SESSION['upload'][$folder_id]['files'][$filename])) {
 						unset($_SESSION['upload'][$folder_id]['files'][$filename]);
-                    unlink(NOVA.'/'.$_SESSION['id'].'/'.$path.$filename);
+                    }
                     // deleteFile() returns file size
-                    return $this->_modelFiles->deleteFile($id);
+                    $fsize = $this->_modelFiles->deleteFile($id);
+                    $completed = true;
+                    if($fsize == -1) {
+                        $completed = false;
+                        $fsize = @filesize(NOVA.'/'.$_SESSION['id'].'/'.$path.$filename);
+                    }
+                    unlink(NOVA.'/'.$_SESSION['id'].'/'.$path.$filename);
+                    return array($fsize, $completed);
                 }
             }
         }
-        return 0;
+        return array(0, true);
     }
 
     function RmFilesAction() {
@@ -533,9 +540,19 @@ class User extends l\Languages {
                         $tab_folders[$folder_id][1] = 0;
                     }
 
-                    $size = $this->rmFile($files[$i], $path.'/', $folder_id);
-                    $total_size += $size;
-                    $tab_folders[$folder_id][1] += $size;
+                    $fsize = $this->rmFile($files[$i], $path.'/', $folder_id);
+                    if(count($fsize) != 2) {
+                        continue;
+                    }
+                    $size = $fsize[0];
+                    if($fsize[1] === false) {
+                        $total_size += $size;
+                        // It's not necessary here to update folder size because when the file is not completed, the folder size wasn't updated
+                    }
+                    else {
+                        $total_size += $size;
+                        $tab_folders[$folder_id][1] += $size;
+                    }
                 }
 
                 // Decrement storage counter

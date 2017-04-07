@@ -120,13 +120,19 @@
     max-width: 680px;
 }
 
+@media screen and (max-width: 699px) {
+    #MessageBox {
+        left: auto !important;
+        top: auto !important;
+    }
+}
+
 @media screen and (min-width: 700px) {
     #MessageBox {
         position: absolute;
         min-width: 20%;
         width: auto;
         bottom: auto;
-
         left: 50%;
         top: 50%;
         transform: translate(-50%, -50%);

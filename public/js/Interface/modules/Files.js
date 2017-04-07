@@ -51,7 +51,7 @@ var Files = (function() {
                 Box.reset();
                 Box.Area = 1;
                 Box.set("<p style='padding:5px'>\
-                <button onclick=\"Box.right_click(event.clientX, event.clientY, '"+el+"')\"><</button> &nbsp;&nbsp;<strong>"+txt.User.details+"</strong>\
+                <i class='fa fa-chevron-left' aria-hidden='true' onclick=\"Box.right_click(event.clientX, event.clientY, '"+el+"')\"></i> &nbsp;&nbsp;<strong>"+txt.User.details+"</strong>\
                 <hr><ul><li>"+txt.User.name+" : "+elem.getAttribute("data-title")+"</li>\
                 <li>"+txt.User.path+" : "+elem.getAttribute("data-path")+"/</li>\
                 <li>"+txt.User.type+" : "+txt.User.file+" <span class='ext_icon'></span></li>\

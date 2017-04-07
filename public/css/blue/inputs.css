@@ -1,3 +1,10 @@
+label, input, textarea {
+    -webkit-user-select: auto;
+	-moz-user-select: auto;
+	-ms-user-select: auto;
+	user-select: auto;
+}
+
 section#large-content input {
     margin-top: 10px;
 }

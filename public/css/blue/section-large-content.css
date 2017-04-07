@@ -8,7 +8,16 @@ section#large-content {
 }
 
 section#large-content h2 {
+    margin-top: 20px;
     font-size: 28px;
     font-weight: normal;
     color: #28535c;
+}
+
+section#large-content.spaced p {
+    margin-bottom: 20px;
+}
+
+section#large-content.spaced #return {
+    margin-top: 20px;
 }

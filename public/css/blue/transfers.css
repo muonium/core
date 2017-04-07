@@ -44,10 +44,11 @@
 
 #transfers > #top > ul > li:first-child {
     text-align: left;
-    padding-left: 36px;
+    padding-left: 24px;
 }
 
-#transfers > #top > ul > li:not(first-child) {
+#transfers > #top > ul > li:not(:first-child) {
+    font-size: 12px;
     width: 36px;
 }
 

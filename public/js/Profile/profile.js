@@ -4,6 +4,7 @@ window.onload = function() {
 
     // Get txt from user's language json (language.js)
     getJSON();
+    document.querySelector("#details").checked = (localStorage.getItem('details') == 'false') ? false : true;
 }
 
 var changeLogin = function() {
@@ -141,6 +142,14 @@ var changeAuth = function() {
         }
     }
     xhr.send("doubleAuth="+doubleAuth);
+}
+
+var changeDetails = function() {
+    /* Choose to view or not the file/folder details in desktop version */
+    var returnArea = document.querySelector("#changeDetailsReturn");
+    var details = document.querySelector("#details").checked;
+    localStorage.setItem('details', details);
+    returnArea.innerHTML = txt.Profile.updateOk;
 }
 
 //change user email

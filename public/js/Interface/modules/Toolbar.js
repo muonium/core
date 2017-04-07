@@ -19,7 +19,7 @@ var Toolbar = (function() {
                 case 1:
                     data += '<li onclick="Selection.dl(\''+id+'\')"><i class="fa fa-download" aria-hidden="true"></i></li>';
                     if(Trash.State == 0) {
-                        data += '<li onclick="Favorites.update(\''+id+'\')"><i class="fa fa-star" aria-hidden="true"></i></li>';
+                        //data += '<li onclick="Favorites.update(\''+id+'\')"><i class="fa fa-star" aria-hidden="true"></i></li>';
                         data += '<li onclick="Move.cut(\''+id+'\')"><i class="fa fa-scissors" aria-hidden="true"></i></li>';
                         data += '<li onclick="Move.copy(\''+id+'\')"><i class="fa fa-clone" aria-hidden="true"></i></li>';
                         data += '<li onclick="Move.trashMultiple(\''+id+'\')"><i class="fa fa-trash" aria-hidden="true"></i></li>';

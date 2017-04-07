@@ -22,19 +22,21 @@
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    display: block;
 }
 
 .icon {
     height: 25px;
     width: 25px;
+    vertical-align: text-bottom;
 }
 
-.mosaic span {
+#tree.mosaic > span {
     padding-bottom: 20px;
     text-align: center;
 }
 
-.mosaic .icon {
+#tree.mosaic .icon {
     display: block;
     height: 100px;
     width: 100px;
@@ -58,5 +60,7 @@ a[id^="parent-"] {
         flex-basis: 250px;
         padding-left: 0.5%;
         padding-right: 0.5%;
+        padding-top: 2px;
+        padding-bottom: 2px;
     }
 }

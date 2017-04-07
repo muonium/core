@@ -131,8 +131,8 @@
         <section id="top">
             <ul>
                 <li><?php echo_h($this->txt->Toolbar->transfers); ?> <span class="transfers-circle">0</span></li>
-                <li onclick="Transfers.minimize()">-</li>
-                <li onclick="Transfers.close()">x</li>
+                <li onclick="Transfers.minimize()"><i class="fa fa-window-minimize" aria-hidden="true"></i></li>
+                <li onclick="Transfers.close()"><i class="fa fa-times" aria-hidden="true"></i></li>
             </ul>
         </section>
 

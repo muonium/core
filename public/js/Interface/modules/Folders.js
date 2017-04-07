@@ -70,7 +70,7 @@ var Folders = (function() {
 					return Folders.verif(event);
 				},
 				autofocus: "autofocus"
-			}).addButton("Ok", validate).show();
+			}).addButton("OK", validate).show();
 		},
 
 		open : function(folder_id) {
@@ -146,7 +146,7 @@ var Folders = (function() {
                 Box.Area = 2;
 
                 Box.set("<p style='padding:5px'>\
-                <button onclick=\"Box.right_click(event.clientX, event.clientY, '"+el+"')\"><</button> &nbsp;&nbsp;<strong>"+txt.User.details+"</strong>\
+                <i class='fa fa-chevron-left' aria-hidden='true' onclick=\"Box.right_click(event.clientX, event.clientY, '"+el+"')\"></i> &nbsp;&nbsp;<strong>"+txt.User.details+"</strong>\
                 <hr><ul><li>"+txt.User.name+" : "+elem.getAttribute("name")+"</li>\
                 <li>"+txt.User.path+" : "+elem.getAttribute("data-path")+"/</li>\
                 <li>"+txt.User.type+" : "+txt.User.folder+" <span class='ext_icon'></span></li>\

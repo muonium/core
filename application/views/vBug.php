@@ -21,7 +21,7 @@
     <header>
         <div id="logo"><img src="public/pictures/logos/muonium_H_06.png"></div>
         <ul>
-            <li><a href="https://muonium.ch/photon/"><?php echo $this->txt->Global->back; ?></a></li>
+            <li><a href="User"><?php echo $this->txt->Global->back; ?></a></li>
         </ul>
         <section id="language">
             <div>
@@ -37,25 +37,33 @@
             <p><strong><?php if(!empty($this->_message)) { echo_h($this->_message); } ?></strong></p>
 
             <form method="post" action="<?php echo MVC_ROOT; ?>/Bug/Form" class="block">
-                <label for="os"><?php echo_h($this->txt->Bug->os); ?>* :</label>
-                <select name="os" id="os" required>
-                    <option value="">-------</option>
-                    <?php $this->printValues('os'); ?>
-                </select>
+                <p>
+                    <label for="os"><?php echo_h($this->txt->Bug->os); ?>* :</label>
+                    <select name="os" id="os" required>
+                        <option value="">-------</option>
+                        <?php $this->printValues('os'); ?>
+                    </select>
+                </p>
 
-                <label for="browser"><?php echo_h($this->txt->Bug->browser); ?>* :</label>
-                <select name="browser" id="browser" required>
-                    <option value="">-------</option>
-                    <?php $this->printValues('browser'); ?>
-                </select>
+                <p>
+                    <label for="browser"><?php echo_h($this->txt->Bug->browser); ?>* :</label>
+                    <select name="browser" id="browser" required>
+                        <option value="">-------</option>
+                        <?php $this->printValues('browser'); ?>
+                    </select>
+                </p>
 
-                <label for="browserVersion"><?php echo_h($this->txt->Bug->browserVersion); ?> :</label>
-                <input type="text" name="browserVersion" id="browserVersion" value="<?php if(!empty($_POST['browserVersion'])) { echo_h($_POST['browserVersion']); } ?>">
+                <p>
+                    <label for="browserVersion"><?php echo_h($this->txt->Bug->browserVersion); ?> :</label>
+                    <input type="text" name="browserVersion" id="browserVersion" value="<?php if(!empty($_POST['browserVersion'])) { echo_h($_POST['browserVersion']); } ?>">
+                </p>
 
-                <label for="message"><?php echo_h($this->txt->Bug->message); ?>* :</label>
-                <textarea name="message" id="message" cols="50" rows="5"><?php if(!empty($_POST['message'])) { echo_h($_POST['message']); } ?></textarea>
+                <p>
+                    <label for="message"><?php echo_h($this->txt->Bug->message); ?>* :</label>
+                    <textarea name="message" id="message" cols="50" rows="5"><?php if(!empty($_POST['message'])) { echo_h($_POST['message']); } ?></textarea>
+                </p>
 
-				<input type="submit" value="Ok">
+				<input type="submit" value="OK">
             </form>
         </section>
     </div>

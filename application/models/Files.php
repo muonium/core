@@ -248,15 +248,12 @@ class Files extends l\Model {
 	/*  This method as a result from delete user  */
 
 	function deleteFilesfinal() {
-			if(!empty($this->id_owner)) {
-
-				if(is_numeric($this->id_owner)) {
-					 $req2 = self::$_sql->prepare("DELETE FROM files WHERE id_owner = ?");
-					return $req2->execute(array($this->id_owner));
-				}
+		if(!empty($this->id_owner)) {
+			if(is_numeric($this->id_owner)) {
+				$req2 = self::$_sql->prepare("DELETE FROM files WHERE id_owner = ?");
+				return $req2->execute(array($this->id_owner));
 			}
-			return false;
 		}
-
-	/*                                 */
-    }
+		return false;
+	}
+}

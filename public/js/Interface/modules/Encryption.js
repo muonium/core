@@ -185,6 +185,9 @@ var Encryption = (function() {
 				node.removeChild(node.firstChild);
 		}
 
+		/* Reload current folder to show aborted file in tree */
+		Folders.open(Folders.id);
+
 		if(typeof me.callback == 'function') {
 			me.callback();
 		}

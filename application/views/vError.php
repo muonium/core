@@ -19,7 +19,7 @@
     <header>
         <div id="logo"><img src="public/pictures/logos/muonium_H_06.png"></div>
         <ul>
-            <li><a href="https://muonium.ch/photon/"><?php echo $this->txt->Global->back; ?></a></li>
+            <li><a href="User"><?php echo $this->txt->Global->back; ?></a></li>
         </ul>
         <section id="language">
             <div>
@@ -30,8 +30,6 @@
 
     <div id="container">
         <section id="large-content">
-            <div id="back"><p><a href="javascript:history.go(-1);"><?php echo_h($this->txt->Global->back); ?></a></p></div>
-
             <div id="return">
                 <p class="error"><?php echo $this->_error; ?></p>
             </div>

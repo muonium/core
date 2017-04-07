@@ -50,6 +50,9 @@ function getLanguage() {
 
 function getJSON(DEFAULT_LANGUAGE = false) {
     // Get txt from user's language json
+    if(typeof(txt) === 'object') {
+        return true;
+    }
     var clang;
     if(DEFAULT_LANGUAGE) {
         clang = LANG;

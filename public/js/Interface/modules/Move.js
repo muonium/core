@@ -81,7 +81,7 @@ var Move = (function() {
         					return Move.renameVerif(event);
         				},
         				autofocus: "autofocus"
-        			}).addButton("Ok", validate).show();
+        			}).addButton("OK", validate).show();
                 }
             }
         },
@@ -169,6 +169,7 @@ var Move = (function() {
                     {
                         if(xhr.status == 200 && xhr.readyState == 4)
                         {
+                            document.querySelector("section#selection").className = '';
                             console.log(xhr.responseText);
                             Folders.open(Folders.id);
                         }
@@ -191,6 +192,7 @@ var Move = (function() {
                 {
                     if(xhr.status == 200 && xhr.readyState == 4)
                     {
+                        document.querySelector("section#selection").className = '';
                         console.log(xhr.responseText);
                         Folders.open(Folders.id);
                     }

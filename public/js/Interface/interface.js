@@ -189,14 +189,21 @@ var setEvents = function() {
     document.querySelector("#multisel").addEventListener("click", function() { Selection.multipleSwitch('multisel'); });
 
     document.querySelector("#display_list").addEventListener("click", function() {
+        localStorage.setItem('display', 'list');
         Files.style = 'list';
         Files.display();
     });
 
     document.querySelector("#display_mosaic").addEventListener("click", function() {
+        localStorage.setItem('display', 'mosaic');
         Files.style = 'mosaic';
         Files.display();
     });
+
+    var display = localStorage.getItem('display');
+    if(display == 'list' || display == 'mosaic') {
+        document.querySelector("#display_"+display).click();
+    }
 
     // Right click inside divs with file's class (these divs are children of 'desktop')
     // After the execution of the function below, the function for 'desktop' above will be

@@ -156,7 +156,8 @@
         "emptymail": "Please, fill this field",
         "accountDeletionConfirm": "Do you really want to delete your account ?",
         "accountDeletionOk": "Your account was successfully deleted!",
-        "deleteAccount": "Delete account"
+        "deleteAccount": "Delete account",
+        "details": "Do you want to show details when a file/folder is selected ?"
     },
 
     "LostPass": {

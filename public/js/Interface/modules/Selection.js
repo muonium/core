@@ -1,6 +1,7 @@
 // Selection module. Loaded in window.onload()
 var Selection = (function() {
     // Private
+    var showDetails = (localStorage.getItem('details') == 'false') ? false : true;
 
     // Public
     // addSel : 1 => add a new selection
@@ -15,10 +16,14 @@ var Selection = (function() {
         select : function(id, putDetails = true) {
             if(document.querySelector("#"+id)) {
                 document.querySelector("#"+id).style.backgroundColor='#E0F0FA';
-                document.querySelector("section#selection").className = 'selected';
+                if(showDetails || (window.innerWidth || document.body.clientWidth) < 700) {
+                    document.querySelector("section#selection").className = 'selected';
+                }
             }
             if(putDetails === true)  {
-                Selection.putDetails(id);
+                if(showDetails || (window.innerWidth || document.body.clientWidth) < 700) {
+                    Selection.putDetails(id);
+                }
                 Toolbar.display(id);
             }
         },
