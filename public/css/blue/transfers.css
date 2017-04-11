@@ -52,9 +52,12 @@
     width: 36px;
 }
 
+#transfers > #top li, #transfers > #top li *, #transfers > #toggle li {
+    cursor: pointer;
+}
+
 #transfers > #top li, #transfers > #toggle li {
     padding: 5px;
-    cursor: pointer;
     text-align: center;
 }
 
@@ -86,6 +89,21 @@
     text-align: center;
     font-size: 8px;
     line-height: 16px;
+}
+
+#transfers > #top .fa-window-minimize, #transfers > #top .fa-times {
+    display: block;
+    height: 22px;
+}
+
+#transfers > #top .fa-window-minimize {
+    font-size: 10px;
+    padding-top: 2px;
+}
+
+#transfers > #top .fa-times {
+    font-size: 12px;
+    padding-top: 4px;
 }
 
 @media screen and (min-width: 700px) {

@@ -135,45 +135,44 @@ class Profile extends l\Languages
 
 /*     add function to change email of user  */
 
- function ChangeMailAction() {
+    function ChangeMailAction() {
         // Called by profile.js
 
         if(!empty($_POST['changemail'])) {
-
-
-            if(filter_var($_POST['changemail'], FILTER_VALIDATE_EMAIL))
-               {
+            if(filter_var($_POST['changemail'], FILTER_VALIDATE_EMAIL)) {
                 $this->_modelUser = new m\Users();
 
                 $this->_modelUser->id = $_SESSION['id'];
                 $this->_modelUser->email = $_POST['changemail'];
 
-                if(!($this->_modelUser->LoginExists())) {
-                    if($this->_modelUser->updateMail()) {
-                        echo $this->txt->Profile->updateOk;
+                if(!($this->_modelUser->EmailExists())) {
+                    if(!($this->_modelUser->LoginExists())) {
+                        if($this->_modelUser->updateMail()) {
+                            echo $this->txt->Profile->updateOk;
+                        }
+                        else {
+                            echo $this->txt->Profile->updateErr;
+                        }
                     }
                     else {
-                        echo $this->txt->Profile->updateErr;
+                        echo $this->txt->Profile->loginExists;
                     }
                 }
                 else {
-                    echo $this->txt->Profile->loginExists;
+                    echo htmlentities($this->txt->Register->mailExists);
                 }
-             }
-				else {
-					// "mailFormat" response
-					echo htmlentities($this->txt->Profile->mailFormat);
-				}
+            }
+			else {
+				// "mailFormat" response
+				echo htmlentities($this->txt->Profile->mailFormat);
+			}
         }
         else {
             echo $this->txt->Profile->emptymail;
         }
     }
 
-/*                                               */
-
-		/*   Add delete user function */
-
+	/* Delete user function */
 	function DeleteUserAction() {
 		// Called by profile.js
 
@@ -248,7 +247,4 @@ class Profile extends l\Languages
 			echo $this->txt->Profile->loginExists;
 		}
 	}
-
-/*                             */
 };
-?>

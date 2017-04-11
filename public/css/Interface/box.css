@@ -17,6 +17,10 @@
     padding-bottom: 8px;
 }
 
+#box p, #box p * {
+    cursor: pointer;
+}
+
 #box p:hover {
     background: #E0F0FA;
 }

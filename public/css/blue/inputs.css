@@ -1,8 +1,17 @@
 label, input, textarea {
-    -webkit-user-select: auto;
-	-moz-user-select: auto;
-	-ms-user-select: auto;
-	user-select: auto;
+    -webkit-user-select: text;
+	-moz-user-select: text;
+	-ms-user-select: text;
+	user-select: text;
+}
+
+label, select, button, input[type='button'] {
+    cursor: pointer;
+}
+
+input:not([type='button']), textarea {
+    cursor: text;
+    font-size: 14px;
 }
 
 section#large-content input {

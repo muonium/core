@@ -104,13 +104,16 @@
                 <fieldset>
                     <legend><?php echo_h($this->txt->Profile->changepp); ?></legend>
                     <p>
-                        <input type="password" name="oldpp" id="oldpp" placeholder="<?php echo_h($this->txt->Profile->oldpp); ?>">
+                        <label class="fa fa-key" for="oldpp" aria-hidden="true"></label><!--
+                        --><input type="password" name="oldpp" id="oldpp" placeholder="<?php echo_h($this->txt->Profile->oldpp); ?>">
                     </p>
                     <p>
-                        <input type="password" name="newpp" id="newpp" placeholder="<?php echo_h($this->txt->Profile->newpp); ?>">
+                        <label class="fa fa-key" for="newpp" aria-hidden="true"></label><!--
+                        --><input type="password" name="newpp" id="newpp" placeholder="<?php echo_h($this->txt->Profile->newpp); ?>">
                     </p>
                     <p>
-                        <input type="password" name="ppconfirm" id="ppconfirm" placeholder="<?php echo_h($this->txt->Register->confirm); ?>">
+                        <label class="fa fa-key" for="ppconfirm" aria-hidden="true"></label><!--
+                        --><input type="password" name="ppconfirm" id="ppconfirm" placeholder="<?php echo_h($this->txt->Register->confirm); ?>">
                     </p>
                     <input type="submit" onclick="changeCek()" value="OK">
                     <div id="changePassPhraseReturn"></div>

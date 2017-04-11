@@ -50,13 +50,13 @@ var Files = (function() {
                 Box.box_more = true;
                 Box.reset();
                 Box.Area = 1;
-                Box.set("<p style='padding:5px'>\
-                <i class='fa fa-chevron-left' aria-hidden='true' onclick=\"Box.right_click(event.clientX, event.clientY, '"+el+"')\"></i> &nbsp;&nbsp;<strong>"+txt.User.details+"</strong>\
+                Box.set("<div>\
+                <p onclick=\"Box.right_click(event.clientX, event.clientY, '"+el+"')\"><i class='fa fa-chevron-left' aria-hidden='true'></i> &nbsp;&nbsp;<strong>"+txt.User.details+"</strong></p>\
                 <hr><ul><li>"+txt.User.name+" : "+elem.getAttribute("data-title")+"</li>\
                 <li>"+txt.User.path+" : "+elem.getAttribute("data-path")+"/</li>\
                 <li>"+txt.User.type+" : "+txt.User.file+" <span class='ext_icon'></span></li>\
                 <li>"+txt.User.size+" : "+title[0]+"</li>\
-                <li>"+title[1]+"</li></ul></p>");
+                <li>"+title[1]+"</li></ul></div>");
 
                 var newNode = document.importNode(elem.getElementsByTagName('img')[0], true);
                 document.querySelector(".ext_icon").appendChild(newNode);

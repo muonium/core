@@ -68,8 +68,7 @@ var Folders = (function() {
 						return this.close();
 					}
 					return Folders.verif(event);
-				},
-				autofocus: "autofocus"
+				}
 			}).addButton("OK", validate).show();
 		},
 
@@ -145,13 +144,13 @@ var Folders = (function() {
                 Box.reset();
                 Box.Area = 2;
 
-                Box.set("<p style='padding:5px'>\
-                <i class='fa fa-chevron-left' aria-hidden='true' onclick=\"Box.right_click(event.clientX, event.clientY, '"+el+"')\"></i> &nbsp;&nbsp;<strong>"+txt.User.details+"</strong>\
+                Box.set("<div>\
+                <p onclick=\"Box.right_click(event.clientX, event.clientY, '"+el+"')\"><i class='fa fa-chevron-left' aria-hidden='true'></i> &nbsp;&nbsp;<strong>"+txt.User.details+"</strong></p>\
                 <hr><ul><li>"+txt.User.name+" : "+elem.getAttribute("name")+"</li>\
                 <li>"+txt.User.path+" : "+elem.getAttribute("data-path")+"/</li>\
                 <li>"+txt.User.type+" : "+txt.User.folder+" <span class='ext_icon'></span></li>\
                 <li>"+txt.User.size+" : "+elem.innerHTML.substr(elem.innerHTML.lastIndexOf("["))+"</li>\
-                </ul></p>");
+                </ul></div>");
 
                 var newNode = document.importNode(elem.getElementsByTagName('img')[0], true);
                 document.querySelector(".ext_icon").appendChild(newNode);

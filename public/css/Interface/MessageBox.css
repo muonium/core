@@ -41,7 +41,8 @@
     background: white;
     border: 1px solid #3E7EF8;
     border-radius: 1px;
-    padding: 5px 10px 5px 10px;
+    padding-left: 10px;
+    padding-right: 10px;
     font-weight: bold;
     outline: none;
     height: 36px;

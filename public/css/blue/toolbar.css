@@ -17,9 +17,12 @@
 	flex-direction: row;
 }
 
+#toolbar li, #toolbar li * {
+    cursor: pointer;
+}
+
 #toolbar li {
     flex-grow: 1;
-    cursor: pointer;
     line-height: 50px;
 }
 

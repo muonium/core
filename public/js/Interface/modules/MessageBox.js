@@ -42,10 +42,12 @@ var MessageBox = (function() {
         this.$elem = document.createElement("div");
         this.$elem.id = 'MessageBox';
         this.$elem.addEventListener("mousedown", function(e) {
-            $drag = me.$elem;
-            var rect = $drag.getBoundingClientRect();
-            $diffLeft = e.pageX - rect.left;
-            $diffTop = e.pageY - rect.top;
+            if(document.activeElement.tagName != 'INPUT' && document.activeElement.tagName != 'TEXTAREA') {
+                $drag = me.$elem;
+                var rect = $drag.getBoundingClientRect();
+                $diffLeft = e.pageX - rect.left;
+                $diffTop = e.pageY - rect.top;
+            }
         });
 
         this.$elemClose = document.createElement("div");
@@ -174,6 +176,10 @@ var MessageBox = (function() {
 
         if(this.$elemInput.firstChild !== null) {
             this.$elemInput.firstChild.focus();
+            // small hack to place cursor at the end of value
+            var content = this.$elemInput.firstChild.value;
+            this.$elemInput.firstChild.value = '';
+            this.$elemInput.firstChild.value = content;
         }
 	};
 
