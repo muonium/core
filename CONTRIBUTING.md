@@ -152,7 +152,7 @@ Our method is the rolling release.
 ### Milestones
 We don't work with the GitHub milestones because Muonium is on a rolling release.
 
-But if you want to know where we go, check [here](https://muonium.ch/photon/Adventure) ! :)
+But if you want to know where we go, check [here](https://muonium.ch/photon/#!/achievement) ! :)
 
 # AUTHORS file
 
