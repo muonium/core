@@ -13,7 +13,7 @@
         "validate": "Validate email",
         "refresh": "Refresh",
         "profile": "Profile",
-        "mail_sent": "An email was sent to you, please check your mailbox and your spams. If you received nothing after 5mn, try again :",
+        "mail_sent": "An email was sent to you, please check your mailbox and your spams. If you received nothing after 5 minutes, please try again :",
         "submit": "Submit",
         "bug": "Bug report",
         "loading": "Loading..."
@@ -45,7 +45,7 @@
         "default": "An error occurred",
         "form": "Error in the form",
         "pp": "Editing the secret password is not currently available",
-        "bannedSession": "You reached the maximum allowed number of requests",
+        "bannedSession": "You've reached the maximum allowed number of requests",
         "dl": "The file downloading feature is not available in your browser."
     },
 
@@ -53,9 +53,9 @@
         "lastmod": "Last modification",
         "loaded": "Loaded in",
         "foldername": "Folder name",
-        "questiond": "Do you want to remove this folder ?",
-        "questionf": "Do you want to remove this file ?",
-        "questionrm": "Do you want to remove these files/folders ?",
+        "questiond": "Do you want to remove this folder?",
+        "questionf": "Do you want to remove this file?",
+        "questionrm": "Do you want to remove these files/folders?",
         "trash_0": "View trash",
         "trash_1": "Exit trash",
         "path": "Location",
@@ -66,8 +66,8 @@
         "folder": "Folder",
 		"element": "Element",
 		"PlurialElement": "Elements",
-        "replaceFile": "The file [filename] exists, do you want to replace it ?",
-        "replaceCompleteFile": "The file [filename] exists and is not completed, what do you want to do ?",
+        "replaceFile": "The file [filename] exists, do you want to replace it?",
+        "replaceCompleteFile": "The file [filename] exists but it's not completed, what do you want to do?",
         "quotaExceeded": "Quota exceeded !",
         "fileAPI": "The File APIs are not fully supported by your browser. Fallback required.",
         "yes": "Yes",
@@ -90,23 +90,24 @@
         "login": "Username",
         "password": "Password",
         "confirm": "Confirm",
-        "passphrase": "secret password",
-        "doubleAuth": "Do you want to active the double authentication ?",
-        "alreadyregistered": "Already registered ?",
-        "impossible": "Registration impossible for now",
-        "ok": "Registration done !",
-        "mailExists": "Your email address is already saved in our database. Unable to create an account from it.",
-        "loginExists": "Your username is already saved in our database. Unable to create an account from it.",
-        "badPassConfirm": "The both passwords are different.",
-        "badsecrete passwordConfirm": "The both secret password are different.",
-        "passEqualsecrete password": "The password and the secret password must be different.",
+
+        "passphrase": "Secret password",
+        "doubleAuth": "Do you want to enable dual authentication ?",
+        "alreadyregistered": "Already registered?",
+        "impossible": "Registration temporarily unavailable",
+        "ok": "Registration done!",
+        "mailExists": "Your email address is already saved in our database. Unable to create using this account.",
+        "loginExists": "Your username is already saved in our database. Unable to create using this account.",
+        "badPassConfirm": "Both passwords are different.",
+        "badsecrete passwordConfirm": "Both secret password are different.",
+        "passEqualsecrete password": "The password and the secrete password must be different.",
         "form": "All fields must be filled.",
         "passLength": "The password or the secret password must be at least 6 chars.",
         "loginFormat": "Username format is incorrect (between 2 and 20 alphanumeric characters, -_. allowed).",
         "mailFormat": "Mail format is incorrect.",
         "error": "An error occurred when creating the account.",
         "bruteforceErr0": "",
-        "bruteforceErr1": "Warning: following a large number of requests from you, you have only 3 attempts still",
+        "bruteforceErr1": "Warning: You only have 3 attempts left.",
         "bruteforceErr2": "You reached the maximum allowed number of requests.",
         "subject": "Muonium - Account validation",
         "message": "Welcome to Muonium !<br />To validate your account, follow this link : <a href='https://photon.muonium.ch/neutron/Validate/Key/[id_user]/[key]'>https://photon.muonium.ch/neutron/Validate/Key/[id_user]/[key]</a><br />Best regards,<br />Muonium Team<br /><br />This email was automatically generated, please do not answer."
@@ -114,10 +115,10 @@
 
     "Login": {
         "forgot": "Forgot your password ?",
-        "register": "Not already registered ?",
+        "register": "Sign Up",
         "bruteforceErr0": "Invalid email address or password",
-        "bruteforceErr1": "Warning: following a large number of requests from you, you have only 3 attempts still",
-        "bruteforceErr2": "You reached the maximum allowed number of requests.",
+        "bruteforceErr1": "Warning: You only have 3 attempts left.",
+        "bruteforceErr2": "You've reached the maximum allowed number of requests.",
         "doubleAuthMessage": "Hi, your authentication code is [key]<br />Best regards,<br />Muonium Team<br /><br />This email was automatically generated, please do not answer.",
         "codeMail": "Code received by email",
         "expired": "The code is expired, please login again",
@@ -129,7 +130,7 @@
 
     "Validate": {
         "message": "Error : The validation key is wrong, please log in to send a new validation mail",
-        "wait": "Please wait a minute before send again a validation mail",
+        "wait": "Please wait a minute before requesting again a validation mail",
         "sendmess": "Please follow the link in the email to activate your account",
         "sendmail": "Send a new mail"
     },
@@ -154,10 +155,10 @@
         "changemail" : "Change Email",
         "mailFormat": "Mail format is incorrect.",
         "emptymail": "Please, fill this field",
-        "accountDeletionConfirm": "Do you really want to delete your account ?",
+        "accountDeletionConfirm": "Do you really want to delete your account?",
         "accountDeletionOk": "Your account was successfully deleted!",
         "deleteAccount": "Delete account",
-        "details": "Do you want to show details when a file/folder is selected ?"
+        "details": "Do you want to show details when a file/folder is selected?"
     },
 
     "LostPass": {
@@ -167,7 +168,7 @@
         "user": "Your email or your username",
         "subject": "Muonium - Forgot your password",
         "message": "Hi,<br />To update your password or secret password, please follow this link : <a href='https://photon.muonium.ch/neutron/LostPass/Key/[id_user]/[key]'>https://photon.muonium.ch/neutron/LostPass/Key/[id_user]/[key]</a><br />Best regards,<br />Muonium Team.<br /><br />This email was automatically generated, please do not answer.",
-        "reset": "Warning ! If you change your secret password, your account will be resetted and you will loose all your data !"
+        "reset": "Warning ! If you change your secret password, your account will be reset and all your data will be lost!"
     },
 
     "RightClick": {
