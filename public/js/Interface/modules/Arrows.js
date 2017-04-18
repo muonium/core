@@ -23,7 +23,7 @@ var Arrows = (function() {
             init = true;
         },
 
-        up : function(ctrl) {
+        up : function(ctrl = null) {
             if(!init)
                 return false;
             if(Selection.Files.length === 0 && Selection.Folders.length === 0 && lastSelected === '')
@@ -34,12 +34,14 @@ var Arrows = (function() {
                 i--;
             lastSelected = span[i].id;
 
-            if(ctrl === undefined) // remove previous selected element(s)
+            if(ctrl === null) // remove previous selected element(s)
                 Selection.remove();
-            Selection.add(lastSelected);
+            Selection.add(lastSelected, ctrl);
+
+            Arrows.scroll(span[i]);
         },
 
-        down : function(ctrl) {
+        down : function(ctrl = null) {
             if(!init)
                 return false;
             if(Selection.Files.length === 0 && Selection.Folders.length === 0 && lastSelected === '')
@@ -52,7 +54,16 @@ var Arrows = (function() {
 
             if(ctrl === undefined) // remove previous selected element(s)
                 Selection.remove();
-            Selection.add(lastSelected);
+            Selection.add(lastSelected, ctrl);
+
+            Arrows.scroll(span[i]);
+        },
+
+        scroll : function(el) {
+            // Autoscroll
+            var l = window.innerWidth || document.body.clientWidth;
+            var context = l < 700 ? document.body : document.querySelector("#desktop");
+            context.scrollTop = el.offsetTop - 50;
         }
     }
 });

@@ -4,6 +4,7 @@ window.onload = function() {
 
     // Get txt from user's language json (language.js)
     getJSON();
+    document.querySelector("#details").checked = (localStorage.getItem('details') == 'false') ? false : true;
 }
 
 var changeLogin = function() {
@@ -25,7 +26,7 @@ var changeLogin = function() {
             {
                 // success message
                 if(xhr.responseText.substr(0, 3) == "ok@") {
-                    window.location.href=root+"Profile";
+                    window.location.href=ROOT+"Profile";
                     return false;
                 }
                 else {
@@ -80,7 +81,7 @@ var changeCek = function() {
 
 	var cek = sessionStorage.getItem("cek"); ///we get the CEK from sessionStorage
 	if (cek == null || current_pp == null) {
-		window.location.href = root+"Logout";
+		window.location.href = ROOT+"Logout";
 	}
 
 	if (old_pp != current_pp) {
@@ -143,6 +144,14 @@ var changeAuth = function() {
     xhr.send("doubleAuth="+doubleAuth);
 }
 
+var changeDetails = function() {
+    /* Choose to view or not the file/folder details in desktop version */
+    var returnArea = document.querySelector("#changeDetailsReturn");
+    var details = document.querySelector("#details").checked;
+    localStorage.setItem('details', details);
+    returnArea.innerHTML = txt.Profile.updateOk;
+}
+
 //change user email
 var changeMail = function() {
     var changemail = document.querySelector("#changemail").value;
@@ -164,7 +173,7 @@ var changeMail = function() {
                 // success message
                 if(xhr.responseText.substr(0, 3) == "ok@") {
 					returnArea.innerHTML = xhr.responseText.substr(3);
-                    //window.location.href=root+"Profile";
+                    //window.location.href=ROOT+"Profile";
                     //return false;
                 }
                 else {
@@ -189,7 +198,7 @@ var deleteUser = function() {
     {
       if(xhr.status == 200 && xhr.readyState == 4) {
 			if(xhr.responseText.substr(0, 3) == "ok@") {
-				window.location.href=root+"Logout";
+				window.location.href=ROOT+"Logout";
 				return false;
 			}
 			else {

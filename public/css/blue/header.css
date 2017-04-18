@@ -1,0 +1,99 @@
+header {
+    position: relative;
+    z-index: 2;
+    background: #4FC0E8;
+    color: white;
+    display: flex;
+    box-shadow: 0px -3px 12px 3px #808080;
+
+    /* Mobile */
+	flex-direction: column;
+}
+
+header #logo {
+    position: relative;
+    text-align: center;
+}
+
+header #logo img {
+    height: 60px;
+}
+
+header #language {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+}
+
+header ul {
+    list-style-type: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    /* Mobile */
+	flex-direction: column;
+}
+
+header a, header a:hover, #menu a:hover {
+    color: white;
+}
+
+header select {
+    background-color: transparent;
+    border: none;
+    font-weight: bold;
+    margin: 0 auto;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    padding-right: 20px;
+    background: url(data:image/gif;base64,R0lGODlhCwALAJEAAAAAAP///xUVFf///yH5BAEAAAMALAAAAAALAAsAAAIPnI+py+0/hJzz0IruwjsVADs=);
+    background-repeat: no-repeat;
+    background-position: right top;
+}
+
+header option {
+    background: white;
+    font-weight: normal;
+    color: black;
+}
+
+header select:hover {
+    color: #004B7D;
+}
+
+header li {
+    flex-grow: 1;
+    padding: 5px;
+    cursor: pointer;
+}
+
+@media screen and (min-width: 400px) {
+    header {
+        flex-direction: column;
+    }
+
+    header ul {
+        padding-left: 50px;
+        flex-direction: row;
+        flex-grow: 1;
+    }
+}
+
+@media screen and (min-width: 700px) {
+    header {
+        flex-direction: row;
+    }
+
+    header #logo {
+        padding-left: 20px;
+    }
+
+    header ul {
+        padding-left: 50px;
+        padding-right: 90px;
+        flex-direction: row;
+        flex-grow: 1;
+    }
+}

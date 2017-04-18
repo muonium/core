@@ -1,0 +1,66 @@
+#tree {
+    display: flex;
+    flex-wrap: wrap;
+    -webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+
+    /* Mobile */
+	flex-direction: column;
+}
+
+#mui, #tree {
+    width: 100%;
+}
+
+#tree span, #tree a {
+    cursor: pointer;
+}
+
+#tree > span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: block;
+}
+
+.icon {
+    height: 25px;
+    width: 25px;
+    vertical-align: text-bottom;
+}
+
+#tree.mosaic > span {
+    padding-bottom: 20px;
+    text-align: center;
+}
+
+#tree.mosaic .icon {
+    display: block;
+    height: 100px;
+    width: 100px;
+    margin: auto;
+}
+
+a[id^="parent-"] {
+    cursor: pointer;
+}
+
+@media screen and (min-width: 400px) {
+    #tree {
+        flex-direction: row;
+    }
+
+    #tree.mosaic > span {
+        flex-basis: 200px;
+    }
+
+    #tree > span {
+        flex-basis: 250px;
+        padding-left: 0.5%;
+        padding-right: 0.5%;
+        padding-top: 2px;
+        padding-bottom: 2px;
+    }
+}

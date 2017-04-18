@@ -17,7 +17,8 @@ var Rm = (function() {
 				    if(del.substr(0, 1) == 'f') {
 				        // file
 				        if(showConfirm === false || confirm(txt.User.questionf)) {
-				            console.log("removing file");
+							//document.querySelector("section#selection").className = '';
+							Selection.closeDetails();
 				            xhr.open("POST", "User/RmFiles", true);
 				            xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
@@ -40,6 +41,8 @@ var Rm = (function() {
 				    else if(del.substr(0, 1) == 'd') {
 				        // folder
 				        if(showConfirm === false || confirm(txt.User.questiond)) {
+							//document.querySelector("section#selection").className = '';
+							Selection.closeDetails();
 				            xhr.open("POST", "User/RmFolders", true);
 				            xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
@@ -63,7 +66,7 @@ var Rm = (function() {
 			}
 		},
 
-		multiple : function() {
+		multiple : function(rm_id) {
 			var id = 0;
 			var folderName;
             var folder_id;
@@ -73,6 +76,8 @@ var Rm = (function() {
 
 			if(Selection.Files.length > 0 || Selection.Folders.length > 0) {
 				if(confirm(txt.User.questionrm)) {
+					//document.querySelector("section#selection").className = '';
+					Selection.closeDetails();
 				    var wait = 2;
 				    if(Selection.Folders.length > 0) {
 
@@ -150,6 +155,9 @@ var Rm = (function() {
 				        }
 				    }, 250);
 				}
+			}
+			else if(rm_id !== undefined) {
+				Rm.rm(rm_id);
 			}
 		}
 	}

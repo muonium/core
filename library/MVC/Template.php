@@ -4,30 +4,11 @@ namespace library\MVC;
 class Template
 {
 	private $_title;
-	/*
-	 * Contient le titre de la page
-	 * @var string
-	 * */
 	private $_tabCss = "";
-	/*
-	 * Variable contenant le nom du fichier css
-	 * @var string
-	 * */
 	private $_tabJs = "";
-	/*
-	 * Variable contenant le nom du fichier js
-	 * @var string
-	 * */
 	private $_pathCss = "/public/css/";
-	/*
-	 * Chemin des fichiers javascript
-	* @var string
-	* */
 	private $_pathJs = "/public/js/";
-	/*
-	 * chemin des fichiers CSS
-	* @var string
-	* */
+
 	private $_script = "";
     private $_meta = "";
 
@@ -55,26 +36,29 @@ class Template
     }
 
 	function getHeader() {
-
 		echo '
 		<!DOCTYPE html>
-		<html lang="fr">
+		<html>
 			<head>
 				<meta charset="utf-8">
+				<meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
 				<title>'.$this->_title.'</title>
                 <link rel="icon" type="image/x-icon" href="'.MVC_ROOT.'/public/pictures/favicon_small.ico" />
-                <link rel="icon" type="image/png" href="'.MVC_ROOT.'/public/pictures/favicon_small.png" />
+				<link rel="icon" type="image/png" href="'.MVC_ROOT.'/public/pictures/favicon_small.png" />
+				<base href="'.MVC_ROOT.'/">
 		'."\n";
 
+		echo '<link rel="stylesheet" type="text/css" href="'.MVC_ROOT.$this->_pathCss.'font-awesome/css/font-awesome.min.css" />';
 		if(!empty($this->_tabCss)) {
             foreach($this->_tabCss as $id => $fichier)
-                echo "\t".'<link rel="stylesheet" type="text/css" href="'.$fichier['Fichier'].'" />'."\n";
+                echo "\t".'<link rel="stylesheet" type="text/css" href="'.$fichier['Fichier'].'?v='.VERSION.'" />'."\n";
 		}
 
-		echo '<script type="text/javascript" src="'.MVC_ROOT.$this->_pathJs.'language.js"></script>'."\n";
+		echo '<script type="text/javascript" src="'.MVC_ROOT.$this->_pathJs.'jquery-3.2.1.min.js"></script>'."\n";
+		echo '<script type="text/javascript" id="language-js" src="'.MVC_ROOT.$this->_pathJs.'language.js?v='.VERSION.'"></script>'."\n";
 		if(!empty($this->_tabJs)) {
             foreach($this->_tabJs as $id => $fichier)
-                echo '<script type="text/javascript" src="'.$fichier['Fichier'].'"></script>'."\n";
+                echo '<script type="text/javascript" src="'.$fichier['Fichier'].'?v='.VERSION.'"></script>'."\n";
 		}
 
         if(!empty($this->_script)) {

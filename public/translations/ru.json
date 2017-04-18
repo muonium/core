@@ -15,7 +15,7 @@
         "profile": "Аккаунт",
         "mail_sent": "An email was sent to you, please check your mailbox and your spams. If you received nothing after 5mn, try again :",
         "submit": "Submit",
-        "bug": "Send a bug report",
+        "bug": "Bug report",
         "loading": "Loading..."
     },
 
@@ -24,7 +24,12 @@
         "help": "Помощь",
         "settings": "Настройки",
         "profile": "Аккаунт",
-        "logout": "Выйти"
+        "logout": "Выйти",
+        "upload": "Upload",
+        "smallIcons": "Small icons",
+        "largeIcons": "Large icons",
+        "multiSelection": "Multi-selection",
+        "selectAll": "Select all"
     },
 
     "Toolbar": {
@@ -39,8 +44,9 @@
         "e404": "Ошибка 404 : Страница не найдена",
         "default": "Произошла ошибка",
         "form": "Error in the form",
-        "pp": "Edit the passphrase is not available for now",
-        "bannedSession": "You reached the maximum allowed number of requests"
+        "pp": "Edit the secrete password is not available for now",
+        "bannedSession": "You reached the maximum allowed number of requests",
+        "dl": "The file downloading feature is not available in your browser."
     },
 
     "User": {
@@ -69,7 +75,14 @@
         "yesAll": "Да для всех",
         "noAll": "Нет для всех",
         "complete": "Complete",
-        "replace": "Replace"
+        "replace": "Replace",
+        "details": "Details",
+        "folderSelected": "folder(s) selected",
+        "fileSelected": "file(s) selected",
+        "notCompleted": "Not completed",
+        "nothing": "Nothing...",
+        "uploading": "Uploading",
+        "downloading": "Downloading"
     },
 
     "Register": {
@@ -77,7 +90,7 @@
         "login": "Логин",
         "password": "Пароль",
         "confirm": "Пароль еще раз",
-        "passphrase": "Passphrase",
+        "passphrase": "secrete password",
         "doubleAuth": "Do you want to active the double authentication ?",
         "alreadyregistered": "Уже зарегистрирован ?",
         "impossible": "Регистрация невозможна сейчас",
@@ -85,10 +98,10 @@
         "mailExists": "Your mail is already saved in our database. Impossible to create an account again.",
         "loginExists": "Your login is already saved in our database. Impossible to create an account again.",
         "badPassConfirm": "The both passwords are different.",
-        "badPassphraseConfirm": "The both passphrase are different.",
-        "passEqualPassphrase": "The password and the passphrase must be different.",
+        "badPassphraseConfirm": "The both secrete password are different.",
+        "passEqualPassphrase": "The password and the secrete password must be different.",
         "form": "All fields should be filled.",
-        "passLength": "The password or the passphrase must be at least 6 chars.",
+        "passLength": "The password or the secrete password must be at least 6 chars.",
         "loginFormat": "Login format is incorrect (between 2 and 20 alphanumeric characters, -_. allowed).",
         "mailFormat": "Mail format is incorrect.",
         "error": "An error occured when creating the account.",
@@ -110,7 +123,7 @@
         "expired": "The code is expired, please login again",
         "invalidCode": "The code entered is invalid",
         "username": "Email or login",
-		"badPassphrase": "Error: bad passphrase",
+		"badPassphrase": "Error: bad secrete password",
         "doubleAuth": "A mail with an authentication code was sent to you. Copy this code in the field above.<br />If you received nothing from now until 5 mn and the mail is not in the Spam folder, please follow this <a href='https://photon.muonium.ch/neutron/Logout'>link</a> to perform a new connection attempt."
     },
 
@@ -124,26 +137,27 @@
     "Profile": {
         "changelogin": "Change login",
         "changepwd": "Change password",
-        "changepp": "Change passphrase",
+        "changepp": "Change secrete password",
         "newlogin": "New login",
         "oldpwd": "Old password",
         "newpwd": "New password",
-        "oldpp": "Old passPhrase",
-        "newpp": "New passPhrase",
+        "oldpp": "Old secrete password",
+        "newpp": "New secrete password",
         "updateErr": "Unable to update your profile",
         "updateOk": "Your profile has been successfully updated",
         "loginExists": "This login is already used",
         "badOldPass": "Your old password does not match",
-        "badOldPassphrase": "Your old passphrase does not match",
+        "badOldPassphrase": "Your old secrete password does not match",
         "getpwd": "Unable to get your password",
-        "getpp": "Unable to get your passphrase",
+        "getpp": "Unable to get your secrete password",
         "doubleAuth": "Double authentication",
         "changemail" : "Change Email",
         "mailFormat": "Mail format is incorrect.",
         "emptymail": "Please, fill this field",
         "accountDeletionConfirm": "Do you really want to delete your account ?",
         "accountDeletionOk": "Your account was successfully deleted!",
-        "deleteAccount": "Delete account"
+        "deleteAccount": "Delete account",
+        "details": "Do you want to show details when a file/folder is selected ?"
     },
 
     "LostPass": {
@@ -152,8 +166,8 @@
         "errmessage": "Error : The validation key is wrong or it expired, <a href='LostPass'>please make a new request</a> and retype your username or email.",
         "user": "Your email or your username",
         "subject": "Muonium - Forgot your password",
-        "message": "Hi,<br />To update your password or passphrase, please follow this link : <a href='https://photon.muonium.ch/neutron/LostPass/Key/[id_user]/[key]'>https://photon.muonium.ch/neutron/LostPass/Key/[id_user]/[key]</a><br />Best regards,<br />Muonium Team.<br /><br />This email was automatically generated, please do not answer.",
-        "reset": "Warning ! If you change your passphrase, your account will be resetted and you will loose all your data !"
+        "message": "Hi,<br />To update your password or secrete password, please follow this link : <a href='https://photon.muonium.ch/neutron/LostPass/Key/[id_user]/[key]'>https://photon.muonium.ch/neutron/LostPass/Key/[id_user]/[key]</a><br />Best regards,<br />Muonium Team.<br /><br />This email was automatically generated, please do not answer.",
+        "reset": "Warning ! If you change your secrete password, your account will be resetted and you will loose all your data !"
     },
 
     "RightClick": {
@@ -186,7 +200,35 @@
     },
 
 	"cek": {
-		"updateErr": "Error: cannot update the content encryption key",
-		"empty": "Error: encryption key is empty"
-	}
+        "updateErr": "Error: cannot update the content encryption key",
+        "empty": "Error: the content encryption key is empty"
+	},
+
+    "Help": {
+        "shortcuts": [
+            "<strong>Desktop version</strong><ul>",
+            "<li>Left click on a file/folder : Select a file/folder - View details</li>",
+            "<li>Left click somewhere else : Remove selection</li>",
+            "<li>Ctrl + Left click : Select multiple files</li>",
+            "<li>Right click : Show actions</li>",
+            "<li>Arrow up : Select previous file</li>",
+            "<li>Arrow down : Select next file</li>",
+            "<li>Ctrl + Arrow up : Add previous file to selection</li>",
+            "<li>Ctrl + Arrow down : Add next file to selection</li>",
+            "<li>Ctrl + A : Select all</li>",
+            "<li>Ctrl + C : Copy</li>",
+            "<li>Ctrl + D : Logout</li>",
+            "<li>Ctrl + I : Invert selection</li>",
+            "<li>Ctrl + R : Move to trash</li>",
+            "<li>Ctrl + S : Save selection</li>",
+            "<li>Ctrl + V : Paste</li>",
+            "<li>Ctrl + X : Cut</li>",
+            "<li>Backspace : Go to parent folder</li>",
+            "<li>Delete : Delete selection</li>",
+            "<li>Esc : Hide actions box</li>",
+            "<li>Enter (on a file) : Download</li>",
+            "<li>Enter (on a folder) : Open folder</li>",
+            "<li>F1 : Help</li></ul>"
+        ]
+    }
 }

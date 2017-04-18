@@ -1,18 +1,41 @@
 #box {
     background : white;
     padding : 0px;
-    position:absolute;
+    position: absolute;
     z-index:9999;
     border: 1px solid #DDDDDD;
+    -webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
 }
 
 #box p {
     padding-left: 10px;
     padding-right: 10px;
-    padding-top: 5px;
-    padding-bottom: 5px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+
+#box p, #box p * {
+    cursor: pointer;
 }
 
 #box p:hover {
     background: #E0F0FA;
+}
+
+#box ul {
+    list-style-type: none;
+    padding: 10px;
+}
+
+#box .fa {
+    color: #2391BA;
+    padding-right: 5px;
+}
+
+#box .icon {
+    height: 18px;
+    margin-left: -5px;
 }

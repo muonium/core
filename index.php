@@ -1,16 +1,14 @@
 <?php
 // This file is always called
-/*
-use \application\controllers as c;
-use \application\models as m;
-use \application\views as v;
-use \config as conf;*/
 use \library\MVC as l;
 //
 session_start();
 require_once("./config/autoload.php");
 
 // Defines
+
+// Mui Version
+define('VERSION', '2017.04.18.0');
 
 define('DS', DIRECTORY_SEPARATOR);
 define('ROOT', __DIR__);
@@ -26,7 +24,7 @@ define ('DEFAULT_FUNCTION', 'DefaultAction');
 // Error controller
 define ('ERROR_CONTROLLER', 'Error');
 define ('ERROR_FUNCTION', 'Error');
- 
+
 define ('DIR_CLASS', __DIR__.'/application/controllers/');
 define ('DIR_MODEL', __DIR__.'/application/models/');
 define ('DIR_VIEW',  __DIR__.'/application/views/');

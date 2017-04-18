@@ -7,7 +7,7 @@ var Decryption = (function() {
 	var cek = sessionStorage.getItem("cek");
 	if (cek == null) { //check if the cek is there
 		sessionStorage.clear();
-		window.location.href = root+"Logout"; //doesn't exist ? Then logout the user
+		window.location.href = ROOT+"Logout"; //doesn't exist ? Then logout the user
 	}
 	var target = 'User';
 
@@ -18,7 +18,7 @@ var Decryption = (function() {
 		console.log("Error");
 		console.log(e);
 		if(e.constructor.name == "FileError" || e == "SecurityError: It was determined that certain files are unsafe for access within a Web application, or that too many calls are being made on file resources.") {
-			alert('The file downloading feature is not available in your browser.');
+			alert(txt.Error.dl);
 		}
 	};
 
@@ -54,6 +54,8 @@ var Decryption = (function() {
 
 	Decryption.prototype.abort = function() {
 		this.halt = true;
+		Transfers.number--;
+		Transfers.numberDl--;
 		var node;
 		if(node = document.querySelector("#div_download"+(this.i))) {
 			while(node.firstChild) // remove all children
@@ -63,6 +65,15 @@ var Decryption = (function() {
 
 	Decryption.prototype.getNbChunks = function() {
 		var me = this;
+
+		var isSafari = /constructor/i.test(window.HTMLElement) || (function (p) { return p.toString() === "[object SafariRemoteNotification]"; })(!window['safari'] || safari.pushNotification);
+		if(isSafari) {
+			alert('File downloading feature is currently not available on Safari');
+			Transfers.number++;
+			Transfers.numberDl++;
+			this.abort();
+			return false;
+		}
 
 		if(this.halt)
 			return false;
@@ -79,6 +90,8 @@ var Decryption = (function() {
 					if(xhr.responseText > 0) {
 						me.nb_chk = xhr.responseText;
 						console.log("File splitted in "+me.nb_chk+" chunks");
+						Transfers.number++;
+						Transfers.numberDl++;
 						me.decryptChk(0);
 					}
 				}
@@ -89,7 +102,6 @@ var Decryption = (function() {
 
 	Decryption.prototype.decryptChk = function(line) {
 		var me = this;
-		console.log(me);
 
 		if(this.halt)
 			return false;
@@ -160,6 +172,8 @@ var Decryption = (function() {
 												// All chunks are written
 												console.log("Done !");
 												time.stop();//
+												Transfers.number--;
+												Transfers.numberDl--;
 												console.log("decryption + download : "+time.elapsed()+" ms");//
 												var node = document.querySelector("#div_download"+(me.i));
 												while(node.firstChild) // remove all children

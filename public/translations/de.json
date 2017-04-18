@@ -24,7 +24,12 @@
         "help": "Hilfe",
         "settings": "Einstellungen",
         "profile": "Profil",
-        "logout": "Logout"
+        "logout": "Logout",
+        "upload": "Upload",
+        "smallIcons": "Small icons",
+        "largeIcons": "Large icons",
+        "multiSelection": "Multi-selection",
+        "selectAll": "Select all"
     },
 
     "Toolbar": {
@@ -39,8 +44,9 @@
         "e404": "Fehler: Seite wurde nicht gefunden",
         "default": "Ein Fehler ist aufgetreten",
         "form": "Fehler im Formular",
-        "pp": "Das Ändern der Passphrase ist gerade nicht verfügbar",
-        "bannedSession": "Du hast das Maximum an Anfragen erreicht"
+        "pp": "Das Ändern der secrete password ist gerade nicht verfügbar",
+        "bannedSession": "Du hast das Maximum an Anfragen erreicht",
+        "dl": "The file downloading feature is not available in your browser."
     },
 
     "User": {
@@ -59,7 +65,7 @@
         "file": "Datei",
         "folder": "Ordner",
 	    "element": "Element",
-	   "PlurialElement": "Elemente",
+	    "PlurialElement": "Elemente",
         "replaceFile": "The file [filename] exists, do you want to replace it ?",
         "replaceCompleteFile": "The file [filename] exists and is not completed, what do you want to do ?",
         "quotaExceeded": "Quota exceeded !",
@@ -69,7 +75,14 @@
         "yesAll": "Yes for all",
         "noAll": "No for all",
         "complete": "Complete",
-        "replace": "Replace"
+        "replace": "Replace",
+        "details": "Details",
+        "folderSelected": "folder(s) selected",
+        "fileSelected": "file(s) selected",
+        "notCompleted": "Not completed",
+        "nothing": "Nothing...",
+        "uploading": "Uploading",
+        "downloading": "Downloading"
     },
 
     "Register": {
@@ -77,7 +90,7 @@
         "login": "Benutzername",
         "password": "Passwort",
         "confirm": "Bestätigen",
-        "passphrase": "Passphrase",
+        "passphrase": "Secrete password",
         "doubleAuth": "Willst Du die doppelte Authentifizierung aktivieren?",
         "alreadyregistered": "Bereits registriert?",
         "impossible": "Registrierung gerade nicht möglich",
@@ -85,10 +98,10 @@
         "mailExists": "Deine Email-Adresse ist bereits in unserer Datenbank gespeichert. Konnte keinen Account dazu erstellen.",
         "loginExists": "Dein Benutzername ist bereits in unserer Datenbank gespeichert. Konnte keinen Account dazu erstellen.",
         "badPassConfirm": "Die Passwörter stimmen nicht überein.",
-        "badPassphraseConfirm": "Die Passphrasen stimmen nicht überein.",
-        "passEqualPassphrase": "Das Passwort und die Passphrase müssen verschieden sein.",
+        "badsecrete passwordConfirm": "Die Passphrasen stimmen nicht überein.",
+        "passEqualPassphrase": "Das Passwort und die secrete password müssen verschieden sein.",
         "form": "Alle Felder müssen ausgefüllt sein.",
-        "passLength": "Das Passwort oder die Passphrase muss mindestens aus 6 Zeichen bestehen.",
+        "passLength": "Das Passwort oder die secrete password muss mindestens aus 6 Zeichen bestehen.",
         "loginFormat": "Format des Benutzernamen fehlerhaft (zwischen 2 and 20 alphanumerischen Zeichen, -_. erlaubt).",
         "mailFormat": "Format der Email fehlerhaft.",
         "error": "Beim Erstellen des Accounts ist ein Fehler aufgetreten.",
@@ -110,7 +123,7 @@
         "expired": "Der Code ist abgelaufen, bitte wieder einloggen",
         "invalidCode": "Der eingegebene Code ist ungültig",
         "username": "Email oder Login",
-		"badPassphrase": "Fehler: falsche Passphrase",
+		"badPassphrase": "Fehler: falsche secrete password",
         "doubleAuth": "Eine Email mit einem Authentifizierungscode wurde an Dich gesendet. Kopiere diesen Code in das Feld unten. <br />Falls Du nach 5 Minuten von jetzt an nichts erhalten hast und die Email nicht im Spamordner ist, klicke bitte auf diesen <a href='https://photon.muonium.ch/neutron/Logout'>Link</a>, um einen neuen Verbíndungsversuch durchzuführen."
     },
 
@@ -124,26 +137,27 @@
     "Profile": {
         "changelogin": "Meinen Benutzernamen ändern",
         "changepwd": "Mein Passwort ändern",
-        "changepp": "Meine Passphrase ändern",
+        "changepp": "Meine secrete password ändern",
         "newlogin": "Neuer Benutzername",
         "oldpwd": "Altes Passwort",
         "newpwd": "Neues Passwort",
-        "oldpp": "Alte Passphrase",
-        "newpp": "Neue Passphrase",
+        "oldpp": "Alte secrete password",
+        "newpp": "Neue secrete password",
         "updateErr": "Konnte Dein Profil nicht aktualisieren",
         "updateOk": "Dein Profil wurde erfolgreich aktualisiert",
         "loginExists": "Dieser Benutzername ist bereits",
         "badOldPass": "Dein altes Passwort passt nicht",
-        "badOldPassphrase": "Deine alte Passphrase passt nicht",
+        "badOldPassphrase": "Deine alte secrete password passt nicht",
         "getpwd": "Konnte Dein Passwort nicht holen",
-        "getpp": "Konnte Deine Passphrase nicht holen",
+        "getpp": "Konnte Deine secrete password nicht holen",
         "doubleAuth": "Doppelte Authentifizierung",
         "changemail" : "Email-Adresse ändern",
         "mailFormat": "Format der Email-Adresse ist nicht korrekt.",
         "emptymail": "Bitte fülle dieses Feld aus",
         "accountDeletionConfirm": "Willst Du Deinen Account wirklich löschen?",
         "accountDeletionOk": "Dein Account wurde erfolgreich gelöscht!",
-        "deleteAccount": "Account löschen"
+        "deleteAccount": "Account löschen",
+        "details": "Do you want to show details when a file/folder is selected ?"
     },
 
     "LostPass": {
@@ -152,8 +166,8 @@
         "errmessage": "Fehler: Der Verifizierungscode ist falsch oder abgelaufen, bitte <a href='LostPass'>mache eine neue Anfrage</a> und gib wieder Deinen Benutzernamen oder Deine Email-Adresse ein.",
         "user": "Deine Email-Adresse oder Dein Benutzername",
         "subject": "Muonium - Passwort vergessen",
-        "message": "Hi,<br />Um Dein Passwort oder Deine Passphrase zu aktualisieren, klicke bitte auf folgenden Link: <a href='https://photon.muonium.ch/neutron/LostPass/Key/[id_user]/[key]'>https://photon.muonium.ch/neutron/LostPass/Key/[id_user]/[key]</a><br />Mit freundlichen Grüßen,<br />das Muonium Team.<br /><br />Diese Email wurde automatisch generiert, bitte antworte nicht darauf.",
-        "reset": "Achtung! Wenn Du Deine Passphrase änderst, wird Dein Account zurückgesetzt und Du verlierst alle Deine Daten!"
+        "message": "Hi,<br />Um Dein Passwort oder Deine secrete password zu aktualisieren, klicke bitte auf folgenden Link: <a href='https://photon.muonium.ch/neutron/LostPass/Key/[id_user]/[key]'>https://photon.muonium.ch/neutron/LostPass/Key/[id_user]/[key]</a><br />Mit freundlichen Grüßen,<br />das Muonium Team.<br /><br />Diese Email wurde automatisch generiert, bitte antworte nicht darauf.",
+        "reset": "Achtung! Wenn Du Deine secrete password änderst, wird Dein Account zurückgesetzt und Du verlierst alle Deine Daten!"
     },
 
     "RightClick": {
@@ -188,5 +202,33 @@
 	"cek": {
 		"updateErr": "Fehler: Content-Encryption Key kann nicht aktualisiert werden",
 		"empty": "Fehler: Content-Encryption Key ist leer"
-	}
+	},
+
+    "Help": {
+        "shortcuts": [
+            "<strong>Desktop version</strong><ul>",
+            "<li>Left click on a file/folder : Select a file/folder - View details</li>",
+            "<li>Left click somewhere else : Remove selection</li>",
+            "<li>Ctrl + Left click : Select multiple files</li>",
+            "<li>Right click : Show actions</li>",
+            "<li>Arrow up : Select previous file</li>",
+            "<li>Arrow down : Select next file</li>",
+            "<li>Ctrl + Arrow up : Add previous file to selection</li>",
+            "<li>Ctrl + Arrow down : Add next file to selection</li>",
+            "<li>Ctrl + A : Select all</li>",
+            "<li>Ctrl + C : Copy</li>",
+            "<li>Ctrl + D : Logout</li>",
+            "<li>Ctrl + I : Invert selection</li>",
+            "<li>Ctrl + R : Move to trash</li>",
+            "<li>Ctrl + S : Save selection</li>",
+            "<li>Ctrl + V : Paste</li>",
+            "<li>Ctrl + X : Cut</li>",
+            "<li>Backspace : Go to parent folder</li>",
+            "<li>Delete : Delete selection</li>",
+            "<li>Esc : Hide actions box</li>",
+            "<li>Enter (on a file) : Download</li>",
+            "<li>Enter (on a folder) : Open folder</li>",
+            "<li>F1 : Help</li></ul>"
+        ]
+    }
 }

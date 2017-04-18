@@ -1,12 +1,6 @@
 var MessageBox = (function() {
 	// Private
-    var $msg;
     var $elem;
-    var $elemClose;
-    var $elemMsg;
-    var $elemBtns;
-    var $elemToggle;
-
     var $drag = null;
     var $diffLeft = 0;
     var $diffTop = 0;
@@ -17,13 +11,14 @@ var MessageBox = (function() {
 
     document.onmousemove = function(e) {
         if($drag !== null) {
+            $drag.style.transform = 'none';
             var left = e.pageX - $diffLeft;
             var top = e.pageY - $diffTop;
 
             if(left < 0) left = 0;
-            if(left + $drag.clientWidth > window.innerWidth) left = window.innerWidth - $drag.clientWidth - 2;
+            if(left + $drag.clientWidth > document.body.clientWidth) left = document.body.clientWidth - $drag.clientWidth - 2;
             if(top < 0) top = 0;
-            if(top + $drag.clientHeight > window.innerHeight) top = window.innerHeight - $drag.clientHeight - 5;
+            if(top + $drag.clientHeight > document.body.clientHeight) top = document.body.clientHeight - $drag.clientHeight - 5;
 
             $drag.style.left = left +"px";
             $drag.style.top = top +"px";
@@ -32,38 +27,52 @@ var MessageBox = (function() {
 
 	// Constructor
 	function MessageBox(msg) {
-        $msg = msg;
+        var me = this;
+        this.$msg = msg;
+        this.$inputs = [];
+        this.coordsSetted = false;
 
-        $elem = document.createElement("div");
-        $elem.id = 'MessageBox';
-        $elem.style.left = Math.round((window.innerWidth - $elem.clientWidth) / 2)+'px';
-        $elem.style.top = Math.round((window.innerHeight - $elem.clientHeight) / 2)+'px';
-        $elem.addEventListener("mousedown", function(e) {
-            $drag = $elem;
-            $diffLeft = e.pageX - parseInt($drag.style.left.replace('px', ''));
-            $diffTop = e.pageY - parseInt($drag.style.top.replace('px', ''));
-            e.preventDefault();
+        // No support of multiples messages box without callback from previous message box for now
+        if(document.querySelector("#MessageBox")) {
+            if(document.querySelector("#MessageBox").style.display == 'block') {
+                return false;
+            }
+        }
+
+        this.$elem = document.createElement("div");
+        this.$elem.id = 'MessageBox';
+        this.$elem.addEventListener("mousedown", function(e) {
+            if(document.activeElement.tagName != 'INPUT' && document.activeElement.tagName != 'TEXTAREA') {
+                $drag = me.$elem;
+                var rect = $drag.getBoundingClientRect();
+                $diffLeft = e.pageX - rect.left;
+                $diffTop = e.pageY - rect.top;
+            }
         });
 
-        $elemClose = document.createElement("div");
-        $elemClose.className = 'MessageBoxClose';
-        $elemClose.innerHTML = 'x';
-        $elemClose.addEventListener("click", this.close);
+        this.$elemClose = document.createElement("div");
+        this.$elemClose.className = 'MessageBoxClose';
+        this.$elemClose.innerHTML = 'x';
+        this.$elemClose.addEventListener("click", this.close.bind(me));
 
-        $elemMsg = document.createElement("div");
-        $elemMsg.className = 'MessageBoxMsg';
-        $elemMsg.innerHTML = $msg;
+        this.$elemMsg = document.createElement("div");
+        this.$elemMsg.className = 'MessageBoxMsg';
+        this.$elemMsg.innerHTML = this.$msg;
 
-        $elemToggle = document.createElement("div");
-        $elemToggle.className = 'MessageBoxToggle';
+        this.$elemToggle = document.createElement("div");
+        this.$elemToggle.className = 'MessageBoxToggle';
 
-        $elemBtns = document.createElement("div");
-        $elemBtns.className = 'MessageBoxBtns';
+        this.$elemInput = document.createElement("div");
+        this.$elemInput.className = 'MessageBoxInput';
 
-        $elem.appendChild($elemClose);
-        $elem.appendChild($elemMsg);
-        $elem.appendChild($elemToggle);
-        $elem.appendChild($elemBtns);
+        this.$elemBtns = document.createElement("div");
+        this.$elemBtns.className = 'MessageBoxBtns';
+
+        this.$elem.appendChild(this.$elemClose);
+        this.$elem.appendChild(this.$elemMsg);
+        this.$elem.appendChild(this.$elemToggle);
+        this.$elem.appendChild(this.$elemInput);
+        this.$elem.appendChild(this.$elemBtns);
 	};
 
 	// Public
@@ -73,12 +82,12 @@ var MessageBox = (function() {
         button.type = 'button';
         button.value = value;
         button.addEventListener("click", function() {
-            me.close();
+            me.close.bind(me)();
             if(typeof callback === 'function') {
-                callback();
+                callback.bind(me)();
             }
         });
-        $elemBtns.appendChild(button);
+        this.$elemBtns.appendChild(button);
         return this;
 	};
 
@@ -86,7 +95,7 @@ var MessageBox = (function() {
         var me = this;
         var lblLeft = document.createElement("span");
         lblLeft.innerHTML = leftText;
-        $elemToggle.appendChild(lblLeft);
+        this.$elemToggle.appendChild(lblLeft);
 
         var lswitch = document.createElement("label");
         lswitch.className = 'switch';
@@ -95,7 +104,7 @@ var MessageBox = (function() {
         toggle.type = 'checkbox';
         toggle.addEventListener("click", function() {
             if(this.checked) {
-                callback();
+                callback.bind(me)();
             }
         });
 
@@ -104,44 +113,79 @@ var MessageBox = (function() {
 
         lswitch.appendChild(toggle);
         lswitch.appendChild(slider);
-        $elemToggle.appendChild(lswitch);
+        this.$elemToggle.appendChild(lswitch);
 
         var lblRight = document.createElement("span");
         lblRight.innerHTML = rightText;
-        $elemToggle.appendChild(lblRight);
+        this.$elemToggle.appendChild(lblRight);
 
+        return this;
+	};
+
+    MessageBox.prototype.addInput = function(name, params = null) {
+        var me = this;
+
+        var input = document.createElement("input");
+        input.type = 'text';
+
+        if(params !== null && typeof params === 'object') {
+            for(var i in params) {
+                if(typeof(params[i]) === 'function') {
+                    params[i] = params[i].bind(me);
+                }
+                input[i] = params[i];
+            }
+        }
+
+        this.$elemInput.appendChild(input);
+        this.$inputs[name] = input;
         return this;
 	};
 
     MessageBox.prototype.setCoords = function(x, y) {
-        $elem.style.left = x+'px';
-        $elem.style.top = y+'px';
+        this.$elem.style.left = x+'px';
+        this.$elem.style.top = y+'px';
+        this.coordsSetted = true;
         return this;
 	};
 
     MessageBox.prototype.setSize = function(width, height) {
-        $elem.style.width = width+'px';
-        $elem.style.height = height+'px';
+        this.$elem.style.width = width+'px';
+        this.$elem.style.height = height+'px';
         return this;
 	};
 
     MessageBox.prototype.close = function() {
-        $elem.parentNode.removeChild($elem);
+        $('#MessageBox').fadeOut(200, function() {
+            $(this).remove();
+        });
+        //this.$elem.parentNode.removeChild(this.$elem);
 	};
 
 	MessageBox.prototype.show = function() {
-        if($elemBtns.innerHTML == '') {
-            // If there is no button, add a "Ok" button
-            this.addButton('Ok');
+        if(this.$elemBtns === undefined) return false;
+        else if(this.$elemBtns.innerHTML == '') {
+            // If there is no button, add a "OK" button
+            this.addButton('OK');
         }
 
         if(document.querySelector("#MessageBox")) {
-            document.querySelector("#MessageBox").innerHTML = $elem.innerHTML;
+            document.querySelector("#MessageBox").innerHTML = this.$elem.innerHTML;
         }
         else {
-            document.querySelector("body").insertBefore($elem, document.querySelector("body").firstChild);
+            document.querySelector("body").insertBefore(this.$elem, document.querySelector("body").firstChild);
         }
-        document.querySelector("#MessageBox").style.display = 'block';
+
+        //document.querySelector("#MessageBox").style.display = 'block';
+        $('#MessageBox').fadeIn(400);
+
+        if(this.$elemInput.firstChild !== null) {
+            this.$elemInput.firstChild.focus();
+            // small hack to place cursor at the end of value
+            var content = this.$elemInput.firstChild.value;
+            this.$elemInput.firstChild.value = '';
+            this.$elemInput.firstChild.value = content;
+        }
 	};
 
 	return MessageBox;

@@ -6,6 +6,8 @@ var Files = (function() {
 
 	// Public
 	return {
+		style : 'list',
+
 		dl : function(id) {
 			var dwl, btn, spn;
 			Box.hide();
@@ -15,17 +17,20 @@ var Files = (function() {
 					dwl = document.createElement('div');
 					dwl.id = 'div_download'+i;
 
-					btn = document.createElement('button');
+					btn = document.createElement('i');
 					btn.setAttribute('data-id', i);
 					btn.onclick = Files.abort;
-					btn.innerHTML = '- X -';
+					btn.className = 'fa fa-minus-circle btn-abort';
+					btn.setAttribute('aria-hidden', true);
 
 					spn = document.createElement('span');
 					spn.id = 'span_download'+i;
 
 					dwl.appendChild(btn);
 					dwl.appendChild(spn);
-					document.querySelector("#progress").appendChild(dwl);
+					document.querySelector("#transfers_download").appendChild(dwl);
+					Transfers.open();
+					Transfers.showDl();
 					f_dec[i] = new Decryption(f.getAttribute("data-title"), f.getAttribute("data-folder"), i);
 					i++;
 				}
@@ -41,21 +46,31 @@ var Files = (function() {
         details : function(el) {
             var elem;
             if(elem = document.querySelector("#"+el)) {
+				var title = elem.getAttribute("title").split("\n");
                 Box.box_more = true;
                 Box.reset();
                 Box.Area = 1;
-                Box.set("<p style='padding:5px'>\
-                <button onclick=\"Box.right_click(event.clientX, event.clientY, '"+el+"')\"><</button> &nbsp;&nbsp;<strong>Details</strong>\
+                Box.set("<div>\
+                <p onclick=\"Box.right_click(event.clientX, event.clientY, '"+el+"')\"><i class='fa fa-chevron-left' aria-hidden='true'></i> &nbsp;&nbsp;<strong>"+txt.User.details+"</strong></p>\
                 <hr><ul><li>"+txt.User.name+" : "+elem.getAttribute("data-title")+"</li>\
                 <li>"+txt.User.path+" : "+elem.getAttribute("data-path")+"/</li>\
                 <li>"+txt.User.type+" : "+txt.User.file+" <span class='ext_icon'></span></li>\
-                <li>"+txt.User.size+" : "+elem.innerHTML.substr(elem.innerHTML.lastIndexOf("["))+"</li>\
-                <li>"+elem.title+"</li></ul></p>");
+                <li>"+txt.User.size+" : "+title[0]+"</li>\
+                <li>"+title[1]+"</li></ul></div>");
 
                 var newNode = document.importNode(elem.getElementsByTagName('img')[0], true);
                 document.querySelector(".ext_icon").appendChild(newNode);
                 Box.show();
             }
-        }
+        },
+
+		display : function() {
+			if(Files.style == 'mosaic') {
+				document.querySelector("#tree").className = 'mosaic';
+			}
+			else {
+				document.querySelector("#tree").className = '';
+			}
+		}
 	}
 });

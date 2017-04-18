@@ -1,10 +1,29 @@
 // language.js
-
 var txt; // All strings of user's language
-var lang = 'en'; // User's language
+var LANG = 'en'; // User's language
 
-var root = '/core/';
-var img = root+'public/pictures/';
+// Default
+var ROOT = '/core/';
+var VERSION = '';
+
+// Override default variables if it's possible
+if(document.querySelector("script#language-js")) {
+    var urlpart = document.querySelector("script#language-js").src.split("/public/js");
+    if(urlpart.length == 2) {
+        urlpart[0] = urlpart[0].replace(/https?:\/\//i, '');
+        urlpart[1] = urlpart[1].replace('/language.js?v=', '');
+        if(typeof(urlpart[0]) === 'string') {
+            var pos = urlpart[0].indexOf('/');
+            if(pos === -1) ROOT = '/';
+            else ROOT = urlpart[0].substr(pos)+'/';
+        }
+        if(typeof(urlpart[1]) === 'string') VERSION = urlpart[1];
+    }
+}
+
+var IMG = ROOT+'public/pictures/';
+//console.log(ROOT);
+//console.log(VERSION);
 
 function changeLanguage(lang)
 {
@@ -29,20 +48,40 @@ function getLanguage() {
     return "";
 }
 
-function getJSON() {
+function getJSON(DEFAULT_LANGUAGE = false) {
     // Get txt from user's language json
-    
-    var clang = getLanguage();
-    if(clang != '') {
-        lang = clang;
+    if(typeof(txt) === 'object') {
+        return true;
     }
-    
+    var clang;
+    if(DEFAULT_LANGUAGE) {
+        clang = LANG;
+    }
+    else {
+        clang = getLanguage();
+        if(clang == '') {
+            clang = LANG;
+        }
+    }
+
     var xmlhttp = new XMLHttpRequest();
-    var url = root+"public/translations/"+lang+".json";
+    var url = ROOT+"public/translations/"+clang+".json?v="+VERSION;
 
     xmlhttp.onreadystatechange = function() {
-        if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-            setJSON(JSON.parse(xmlhttp.responseText));
+        if(xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+            try {
+                var json = JSON.parse(xmlhttp.responseText);
+            } catch(e) {
+                console.log("Errors found in "+clang+".json, loading "+LANG+".json");
+                if(clang != LANG) {
+                    getJSON(true);
+                }
+                else {
+                    window.location.href=ROOT+"Error/404";
+                }
+            }
+            setJSON(json);
+            LANG = clang;
         }
     };
     xmlhttp.open("GET", url, true);

@@ -1,18 +1,4 @@
 /* interface.js : User's interface */
-/*
-    Modules (modules folder) :
-- Box
-- Arrows
-- Selection
-- Move      (Move files and folders, also from/to trash)
-- Upload
-- Files
-- Folders
-- Rm        (Remove files and folders)
-- Trash
-- Favorites
-- ExtIcons  (Icons according to extensions)
-*/
 
 //      Global Vars     //
 var returnArea;
@@ -31,7 +17,7 @@ var UserLoader = function(folder_id) {
 
     returnArea = document.querySelector("#returnArea");
 
-    console.log(Request.modulesLoaded);
+    //console.log(Request.modulesLoaded);
     if(Request.modulesLoaded === undefined || Request.modulesLoaded === false) {
         // Load modules
         console.log("Loading modules.");
@@ -50,6 +36,8 @@ var UserLoader = function(folder_id) {
         Favorites = Favorites();
     	ExtIcons = ExtIcons();
         MessageBox = MessageBox();
+        Toolbar = Toolbar();
+        Transfers = Transfers();
         Request.modulesLoaded = true;
     }
     else {
@@ -69,60 +57,56 @@ var UserLoader = function(folder_id) {
         // Left click
         Box.left_click(event.clientX, event.clientY);
         // reset selected folders/files
-        if(Selection.addSel == 0)
+        if(Selection.addSel == 0) {
             Selection.remove();
+            Selection.closeDetails();
+        }
         else
             Selection.addSel = 0;
     }
 
     window.addEventListener("keydown", function(event) {
-        if(event.ctrlKey && event.keyCode == 68) {
+        if(event.ctrlKey && event.keyCode == 68) { // CTRL + D
             event.preventDefault(); // disable the hotkey in web browser
             logout();
         }
-        else if(event.ctrlKey && event.keyCode == 65) {
+        else if(event.ctrlKey && event.keyCode == 65) { // CTRL + A
             event.preventDefault(); // disable the hotkey in web browser
             Selection.all();
         }
-        else if(event.ctrlKey && event.keyCode == 73) {
+        else if(event.ctrlKey && event.keyCode == 73) { // CTRL + I
             event.preventDefault(); // disable the hotkey in web browser
             Selection.invert();
         }
-        else if(event.ctrlKey && event.keyCode == 82) {
+        else if(event.ctrlKey && event.keyCode == 82) { // CTRL + R
             event.preventDefault(); // disable the hotkey in web browser
             Move.trashMultiple();
         }
-        else if(event.ctrlKey && event.keyCode == 38) {
+        else if(event.ctrlKey && event.keyCode == 38) { // CTRL + Arrow Up
             event.preventDefault(); // disable the hotkey in web browser
             Arrows.up('ctrl');
         }
-        else if(event.ctrlKey && event.keyCode == 40) {
+        else if(event.ctrlKey && event.keyCode == 40) { // CTRL + Arrow down
             event.preventDefault(); // disable the hotkey in web browser
             Arrows.down('ctrl');
         }
-        else if(event.ctrlKey && event.keyCode == 67) {
+        else if(event.ctrlKey && event.keyCode == 67) { // CTRL + C
             event.preventDefault(); // disable the hotkey in web browser
             Move.copy();
         }
-        else if(event.ctrlKey && event.keyCode == 88) {
+        else if(event.ctrlKey && event.keyCode == 88) { // CTRL + X
             event.preventDefault(); // disable the hotkey in web browser
             Move.cut();
         }
-        else if(event.ctrlKey && event.keyCode == 86) {
+        else if(event.ctrlKey && event.keyCode == 86) { // CTRL + V
             event.preventDefault(); // disable the hotkey in web browser
             Move.paste();
         }
-        else if(event.ctrlKey && event.keyCode == 83) {
+        else if(event.ctrlKey && event.keyCode == 83) { // CTRL + S
             event.preventDefault(); // disable the hotkey in web browser
             if(Selection.Files.length > 0) {
                 // Start download for one file per second
-                var i = 0;
-                var timer = setInterval(function() {
-                    Files.dl("f"+Selection.Files[i]);
-                    i++;
-                    if(i >= Selection.Files.length)
-                        clearInterval(timer);
-                }, 1000);
+                Selection.dl();
             }
         }
         else {
@@ -135,7 +119,7 @@ var UserLoader = function(folder_id) {
 					}
                     break;
                 case 46:
-                    // suppr
+                    // delete
 					if(document.activeElement.tagName != 'INPUT' && document.activeElement.tagName != 'TEXTAREA') {
                     	Rm.multiple();
 					}
@@ -143,14 +127,17 @@ var UserLoader = function(folder_id) {
                 case 27:
                     // esc
                     Box.hide();
+                    if($('#MessageBox').length && $('#MessageBox').css('display') == 'block') { $('#MessageBox').remove(); }
                     break;
                 case 38:
                     // up arrow
                     Arrows.up();
+                    event.preventDefault();
                     break;
                 case 40:
                     // down arrow
                     Arrows.down();
+                    event.preventDefault();
                     break;
                 case 13:
                     // enter
@@ -160,6 +147,11 @@ var UserLoader = function(folder_id) {
 	                    else if(Selection.Files.length == 0 && Selection.Folders.length == 1)
 	                        Folders.open(Selection.Folders[0]);
 					}
+                    break;
+                case 112:
+                    // f1
+                    showHelp();
+                    event.preventDefault();
                     break;
             }
         }
@@ -195,6 +187,27 @@ var setEvents = function() {
     // Init Box
     Box.init();
 
+    Toolbar.display();
+
+    document.querySelector("#multisel").addEventListener("click", function() { Selection.multipleSwitch('multisel'); });
+
+    document.querySelector("#display_list").addEventListener("click", function() {
+        localStorage.setItem('display', 'list');
+        Files.style = 'list';
+        Files.display();
+    });
+
+    document.querySelector("#display_mosaic").addEventListener("click", function() {
+        localStorage.setItem('display', 'mosaic');
+        Files.style = 'mosaic';
+        Files.display();
+    });
+
+    var display = localStorage.getItem('display');
+    if(display == 'list' || display == 'mosaic') {
+        document.querySelector("#display_"+display).click();
+    }
+
     // Right click inside divs with file's class (these divs are children of 'desktop')
     // After the execution of the function below, the function for 'desktop' above will be
     //called automatically (because we are inside desktop) and will set Area to 0 without displaying a new 'box'
@@ -226,6 +239,51 @@ var setEvents = function() {
             return false;
         });
     }
+
+    // Dragbars
+    var dragbars = document.querySelectorAll(".dragbar");
+    document.querySelector("div#container").onmouseup = function(event) {
+        document.querySelector("div#container").onmousemove = null;
+    };
+    for(var i = 0; i < dragbars.length; i++) {
+        var min = dragbars[i].parentNode.clientWidth;
+        dragbars[i].addEventListener("mousedown", function(event) {
+            var me = this;
+            event.preventDefault();
+            window.onresize = function() {
+                me.parentNode.style['min-width'] = min + 'px';
+            };
+            document.querySelector("div#container").onmousemove = function(event) {
+                var max = document.body.clientWidth - 175;
+                var pos = event.pageX + 2;
+                if(pos < min) pos = min;
+                if(pos > max) pos = max;
+                me.parentNode.style['min-width'] = pos + 'px';
+            };
+        });
+    }
+
+    var transfers_circles = document.querySelectorAll(".transfers-circle");
+    Transfers.watch('number', function(prop, oldval, newval) { // watch and trigger property changes thanks to Object.prototype.watch() and object-watch.js polyfill
+        for(var i = 0; i < transfers_circles.length; i++) {
+            transfers_circles[i].innerHTML = newval;
+        }
+        return newval;
+    });
+    var transfers_up_circles = document.querySelectorAll(".transfers-up-circle");
+    Transfers.watch('numberUp', function(prop, oldval, newval) { // watch and trigger property changes thanks to Object.prototype.watch() and object-watch.js polyfill
+        for(var i = 0; i < transfers_up_circles.length; i++) {
+            transfers_up_circles[i].innerHTML = newval;
+        }
+        return newval;
+    });
+    var transfers_dl_circles = document.querySelectorAll(".transfers-dl-circle");
+    Transfers.watch('numberDl', function(prop, oldval, newval) { // watch and trigger property changes thanks to Object.prototype.watch() and object-watch.js polyfill
+        for(var i = 0; i < transfers_dl_circles.length; i++) {
+            transfers_dl_circles[i].innerHTML = newval;
+        }
+        return newval;
+    });
 }
 
 var reset = function() {
@@ -256,8 +314,12 @@ var cleanPath = function(p) {
     return p;
 }
 
+var showHelp = function() {
+    var m = new MessageBox(txt.Help.shortcuts.join('\n')).show();
+}
+
 var logout = function() {
 	sessionStorage.clear();
-    window.location.href=root+"Logout";
+    window.location.href=ROOT+"Logout";
     return false;
 }

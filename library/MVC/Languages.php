@@ -22,6 +22,28 @@ class Languages {
     // Constructor loads user language json
     function __construct($tab = '')
     {
+        function loadLanguage($t, $lang) {
+            if(file_exists(DIR_LANGUAGE.$lang.".json")) {
+                $_json = file_get_contents(DIR_LANGUAGE.$lang.".json");
+				$t->userLanguage = $lang;
+            }
+            elseif($lang === DEFAULT_LANGUAGE) {
+                exit('Unable to load DEFAULT_LANGUAGE JSON !');
+            }
+            else {
+                loadLanguage($t, DEFAULT_LANGUAGE);
+            }
+
+            $t->txt = json_decode($_json);
+            if(json_last_error() !== 0) {
+                if($lang === DEFAULT_LANGUAGE) {
+                    exit('Error in the DEFAULT_LANGUAGE JSON !');
+                }
+                loadLanguage($t, DEFAULT_LANGUAGE);
+            }
+            return true;
+        }
+
         if(is_array($tab)) {
             if(array_key_exists('mustBeLogged', $tab)) {
                 if($tab['mustBeLogged'] == true && empty($_SESSION['id'])) {
@@ -36,15 +58,12 @@ class Languages {
         }
 
         // Get user language
-        $_json = file_get_contents(DIR_LANGUAGE.$this->userLanguage.".json");
-
         if(!empty($_COOKIE['lang'])) {
-            if(file_exists(DIR_LANGUAGE.htmlentities($_COOKIE['lang']).".json")) {
-				$_json = file_get_contents(DIR_LANGUAGE.htmlentities($_COOKIE['lang']).".json");
-				$this->userLanguage = htmlentities($_COOKIE['lang']);
-            }
+            loadLanguage($this, htmlentities($_COOKIE['lang']));
         }
-        $this->txt = json_decode($_json);
+        else {
+            loadLanguage($this, DEFAULT_LANGUAGE);
+        }
     }
 
     // Generate a language selector (select)

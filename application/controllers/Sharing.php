@@ -2,7 +2,7 @@
 namespace application\controllers;
 use \library\MVC as l;
 
-class Sharing extends l\Languages {
+/*class Sharing extends l\Languages {
 
     function __construct() {
         parent::__construct(array(
@@ -14,4 +14,4 @@ class Sharing extends l\Languages {
     function DefaultAction() {
         require_once(DIR_VIEW.'vSharing.php');
     }
-}
+}*/

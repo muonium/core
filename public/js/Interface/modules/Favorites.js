@@ -2,7 +2,7 @@ var Favorites = (function() {
     return {
         update : function(fav) {
             Box.hide();
-            if(fav.length > 1) {
+            /*if(fav.length > 1) {
                 var id = fav.substr(1);
                 if(isNumeric(id)) {
                     var xhr = new XMLHttpRequest();
@@ -18,7 +18,7 @@ var Favorites = (function() {
                     }
                     xhr.send("id="+id);
                 }
-            }
+            }*/
         }
     }
 });

@@ -6,30 +6,36 @@
 	*/
     use \library\MVC as l;
 	$_t = new l\Template($this->txt->Login->forgot);
-    $_t->addCss("home_global");
-    $_t->addCss("Register/home_register");
+	$_t->addCss("fonts/roboto");
+	$_t->addCss("blue/blue");
+    $_t->addCss("blue/container");
+    $_t->addCss("blue/header");
+    $_t->addCss("blue/inputs");
+    $_t->addCss("blue/menu");
+    $_t->addCss("blue/section-large-content");
+
     $_t->addJs("base64");
     $_t->addJs("sha512");
     $_t->addJs("mui_hash");
     $_t->addJs("LostPass/lostpass");
     $_t->getHeader();
 ?>
-<body>
+<body class="grey">
+	<header>
+        <div id="logo"><img src="public/pictures/logos/muonium_H_06.png"></div>
+        <ul>
+            <li><a href="User"><?php echo $this->txt->Global->back; ?></a></li>
+        </ul>
         <section id="language">
             <div>
                 <?php $this->getLanguageSelector(); ?>
             </div>
         </section>
+    </header>
 
-        <section id="header">
-            <div id="logo"><img src="<?php echo MVC_ROOT; ?>/public/pictures/register/logo_anime.svg" /></div>
-        </section>
-
-        <section id="content">
-            <div id="back"><p><a href="http://muonium.ch/photon/"><?php echo_h($this->txt->Global->back); ?></a></p></div>
-
-            <div id="avatar"><p><img src="<?php echo MVC_ROOT; ?>/public/pictures/register/user.svg" /></p></div>
-            <div id="text"><p><?php echo_h($this->txt->Login->forgot); ?></p></div>
+	<div id="container">
+        <section id="large-content">
+            <h2><?php echo_h($this->txt->Login->forgot); ?></h2>
 
             <br /><br />
 			<div>
@@ -61,6 +67,7 @@
                 <input type="button" onclick="changePass()" value="<?php echo_h($this->txt->Global->submit); ?>">
             </div>
         </section>
+	</div>
 </body>
 <?php
    $_t->getFooter();
