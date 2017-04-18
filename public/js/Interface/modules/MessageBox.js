@@ -156,11 +156,15 @@ var MessageBox = (function() {
 	};
 
     MessageBox.prototype.close = function() {
-        this.$elem.parentNode.removeChild(this.$elem);
+        $('#MessageBox').fadeOut(200, function() {
+            $(this).remove();
+        });
+        //this.$elem.parentNode.removeChild(this.$elem);
 	};
 
 	MessageBox.prototype.show = function() {
-        if(this.$elemBtns.innerHTML == '') {
+        if(this.$elemBtns === undefined) return false;
+        else if(this.$elemBtns.innerHTML == '') {
             // If there is no button, add a "OK" button
             this.addButton('OK');
         }
@@ -172,7 +176,8 @@ var MessageBox = (function() {
             document.querySelector("body").insertBefore(this.$elem, document.querySelector("body").firstChild);
         }
 
-        document.querySelector("#MessageBox").style.display = 'block';
+        //document.querySelector("#MessageBox").style.display = 'block';
+        $('#MessageBox').fadeIn(400);
 
         if(this.$elemInput.firstChild !== null) {
             this.$elemInput.firstChild.focus();

@@ -22,13 +22,15 @@ var Box = (function() {
         hide : function() {
             if(!init)
                 return false;
-            box_div.style.display = 'none';
+            //box_div.style.display = 'none';
+            $(box_div).fadeOut(200);
         },
 
         show : function() {
             if(!init)
                 return false;
-            box_div.style.display = 'block';
+            //box_div.style.display = 'block';
+            $(box_div).fadeIn(300);
         },
 
         reset : function() {

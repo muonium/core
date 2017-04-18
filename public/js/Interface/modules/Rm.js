@@ -17,7 +17,8 @@ var Rm = (function() {
 				    if(del.substr(0, 1) == 'f') {
 				        // file
 				        if(showConfirm === false || confirm(txt.User.questionf)) {
-							document.querySelector("section#selection").className = '';
+							//document.querySelector("section#selection").className = '';
+							Selection.closeDetails();
 				            xhr.open("POST", "User/RmFiles", true);
 				            xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
@@ -40,7 +41,8 @@ var Rm = (function() {
 				    else if(del.substr(0, 1) == 'd') {
 				        // folder
 				        if(showConfirm === false || confirm(txt.User.questiond)) {
-							document.querySelector("section#selection").className = '';
+							//document.querySelector("section#selection").className = '';
+							Selection.closeDetails();
 				            xhr.open("POST", "User/RmFolders", true);
 				            xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
@@ -74,7 +76,8 @@ var Rm = (function() {
 
 			if(Selection.Files.length > 0 || Selection.Folders.length > 0) {
 				if(confirm(txt.User.questionrm)) {
-					document.querySelector("section#selection").className = '';
+					//document.querySelector("section#selection").className = '';
+					Selection.closeDetails();
 				    var wait = 2;
 				    if(Selection.Folders.length > 0) {
 

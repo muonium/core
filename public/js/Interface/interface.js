@@ -57,8 +57,10 @@ var UserLoader = function(folder_id) {
         // Left click
         Box.left_click(event.clientX, event.clientY);
         // reset selected folders/files
-        if(Selection.addSel == 0)
+        if(Selection.addSel == 0) {
             Selection.remove();
+            Selection.closeDetails();
+        }
         else
             Selection.addSel = 0;
     }
@@ -125,6 +127,7 @@ var UserLoader = function(folder_id) {
                 case 27:
                     // esc
                     Box.hide();
+                    if($('#MessageBox').length && $('#MessageBox').css('display') == 'block') { $('#MessageBox').remove(); }
                     break;
                 case 38:
                     // up arrow

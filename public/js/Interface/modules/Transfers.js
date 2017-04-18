@@ -19,11 +19,13 @@ var Transfers = (function() {
         },
 
         open : function() {
-            document.querySelector("#transfers").style.display = 'block';
+            //document.querySelector("#transfers").style.display = 'block';
+            $('#transfers').fadeIn(400);
         },
 
         close : function() {
-            document.querySelector("#transfers").style.display = 'none';
+            //document.querySelector("#transfers").style.display = 'none';
+            $('#transfers').fadeOut('fast');
         },
 
         minimize : function() {

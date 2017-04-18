@@ -17,7 +17,8 @@ var Selection = (function() {
             if(document.querySelector("#"+id)) {
                 document.querySelector("#"+id).style.backgroundColor='#E0F0FA';
                 if(showDetails || (window.innerWidth || document.body.clientWidth) < 700) {
-                    document.querySelector("section#selection").className = 'selected';
+                    //document.querySelector("section#selection").className = 'selected';
+                    Selection.openDetails();
                 }
             }
             if(putDetails === true)  {
@@ -31,7 +32,7 @@ var Selection = (function() {
         unselect : function(id, putDetails = true) {
             if(document.querySelector("#"+id)) {
                 document.querySelector("#"+id).style.backgroundColor='white';
-                document.querySelector("section#selection").className = '';
+                //document.querySelector("section#selection").className = '';
             }
             if(putDetails === true)  {
                 Toolbar.display();
@@ -134,6 +135,22 @@ var Selection = (function() {
                 Selection.unselect("d"+Selection.Folders[i]);
             Selection.Files = [];
             Selection.Folders = [];
+        },
+
+        openDetails : function() {
+            if(!($("section#selection").hasClass("selected"))) {
+                $("section#selection").fadeIn(400, function() {
+                    $(this).addClass("selected");
+                });
+            }
+        },
+
+        closeDetails : function() {
+            if($("section#selection").hasClass('selected')) {
+                $("section#selection").fadeOut('fast', function() {
+                    $(this).removeClass("selected");
+                });
+            }
         },
 
         dl : function(id) {

@@ -169,7 +169,8 @@ var Move = (function() {
                     {
                         if(xhr.status == 200 && xhr.readyState == 4)
                         {
-                            document.querySelector("section#selection").className = '';
+                            //document.querySelector("section#selection").className = '';
+                            Selection.closeDetails();
                             console.log(xhr.responseText);
                             Folders.open(Folders.id);
                         }
@@ -192,7 +193,8 @@ var Move = (function() {
                 {
                     if(xhr.status == 200 && xhr.readyState == 4)
                     {
-                        document.querySelector("section#selection").className = '';
+                        //document.querySelector("section#selection").className = '';
+                        Selection.closeDetails();
                         console.log(xhr.responseText);
                         Folders.open(Folders.id);
                     }

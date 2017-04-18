@@ -54,6 +54,7 @@ class Template
                 echo "\t".'<link rel="stylesheet" type="text/css" href="'.$fichier['Fichier'].'?v='.VERSION.'" />'."\n";
 		}
 
+		echo '<script type="text/javascript" src="'.MVC_ROOT.$this->_pathJs.'jquery-3.2.1.min.js"></script>'."\n";
 		echo '<script type="text/javascript" id="language-js" src="'.MVC_ROOT.$this->_pathJs.'language.js?v='.VERSION.'"></script>'."\n";
 		if(!empty($this->_tabJs)) {
             foreach($this->_tabJs as $id => $fichier)

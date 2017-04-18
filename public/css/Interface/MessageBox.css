@@ -14,6 +14,7 @@
 	-ms-user-select: none;
 	user-select: none;
     bottom: 50px;
+    display: none;
 }
 
 #MessageBox .MessageBoxClose {

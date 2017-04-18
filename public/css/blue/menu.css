@@ -39,12 +39,14 @@
     #menu ul {
         flex-direction: row;
         flex-grow: 1;
+        flex-wrap: wrap;
         white-space: normal;
         padding: .5rem 1rem .5rem 1rem;
     }
 
     #menu li {
         flex-grow: 1;
+        white-space: nowrap;
     }
 
     #menu li#display {
