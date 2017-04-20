@@ -8,10 +8,10 @@ var VERSION = '';
 
 // Override default variables if it's possible
 if(document.querySelector("script#language-js")) {
-    var urlpart = document.querySelector("script#language-js").src.split("/public/js");
+    var urlpart = document.querySelector("script#language-js").src.split("/public/version/");
     if(urlpart.length == 2) {
         urlpart[0] = urlpart[0].replace(/https?:\/\//i, '');
-        urlpart[1] = urlpart[1].replace('/language.js?v=', '');
+        urlpart[1] = urlpart[1].split('/').shift();
         if(typeof(urlpart[0]) === 'string') {
             var pos = urlpart[0].indexOf('/');
             if(pos === -1) ROOT = '/';

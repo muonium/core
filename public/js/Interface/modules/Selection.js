@@ -143,6 +143,9 @@ var Selection = (function() {
                     $(this).addClass("selected");
                 });
             }
+            if((window.innerWidth || document.body.clientWidth) < 700 && Transfers.isOpened()) {
+                Transfers.close();
+            }
         },
 
         closeDetails : function() {
