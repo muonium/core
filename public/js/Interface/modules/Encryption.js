@@ -133,7 +133,7 @@ var Encryption = (function() {
 				}
 				else if(filestatus[0] == '2') { // File exists
 					if(typeof me.callback != 'function') { // Only one file or this is the last file
-						var m = new MessageBox(txt.User.replaceFile.replace('[filename]', f.name)).addButton('Yes', replaceYesAction).addButton('No', noAction).show();
+						var m = new MessageBox(txt.User.replaceFile.replace('[filename]', f.name)).addButton(txt.User.yes, replaceYesAction).addButton(txt.User.no, noAction).show();
 					}
 					else {
 						var m = new MessageBox(txt.User.replaceFile.replace('[filename]', f.name))

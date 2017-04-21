@@ -6,7 +6,6 @@
 	*/
     use \library\MVC as l;
     $_t = new l\Template($this->txt->Global->favorites);
-	$_t->addCss("fonts/roboto");
 	$_t->addCss("blue/blue");
     $_t->addCss("blue/container");
     $_t->addCss("blue/dragbar");

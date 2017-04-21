@@ -28,6 +28,10 @@ var Transfers = (function() {
             $('#transfers').fadeOut('fast');
         },
 
+        isOpened : function() {
+            return $('#transfers').css('display') === 'block' ? true : false;
+        },
+
         minimize : function() {
             if(minimized) {
                 document.querySelector("#transfers #toggle").style.display = 'block';

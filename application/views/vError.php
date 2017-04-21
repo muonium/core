@@ -5,8 +5,7 @@
 	* @authors         : Romain Claveau <romain.claveau@protonmail.ch>, Dylan Clement <dylanclement7@protonmail.ch>
 	*/
     use \library\MVC as l;
-    $_t = new l\Template("Error");
-    $_t->addCss("fonts/roboto");
+    $_t = new l\Template("Error");    
     $_t->addCss("blue/blue");
     $_t->addCss("blue/container");
     $_t->addCss("blue/header");
