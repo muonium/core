@@ -5,7 +5,7 @@
 	* @authors         : Romain Claveau <romain.claveau@protonmail.ch>, Dylan Clement <dylanclement7@protonmail.ch>
 	*/
     use \library\MVC as l;
-    $_t = new l\Template("Error");    
+    $_t = new l\Template("Error");
     $_t->addCss("blue/blue");
     $_t->addCss("blue/container");
     $_t->addCss("blue/header");
@@ -16,7 +16,11 @@
 ?>
 <body class="grey">
     <header>
-        <div id="logo"><img src="public/pictures/logos/muonium_H_06.png"></div>
+        <div id="logo">
+            <a href="https://www.muonium.ch" target="_blank">
+                <img src="public/pictures/logos/muonium_H_06.png">
+            </a>
+        </div>
         <ul>
             <li><a href="User"><?php echo $this->txt->Global->back; ?></a></li>
         </ul>

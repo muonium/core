@@ -17,6 +17,7 @@ header #logo {
 
 header #logo img {
     height: 60px;
+    cursor: pointer;
 }
 
 header #language {

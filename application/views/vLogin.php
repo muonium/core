@@ -22,7 +22,11 @@
 ?>
 <body class="grey">
     <header>
-        <div id="logo"><img src="public/pictures/logos/muonium_H_06.png"></div>
+        <div id="logo">
+            <a href="https://www.muonium.ch" target="_blank">
+                <img src="public/pictures/logos/muonium_H_06.png">
+            </a>
+        </div>
         <section id="language">
             <div>
                 <?php $this->getLanguageSelector(); ?>
