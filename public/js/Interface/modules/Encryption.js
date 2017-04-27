@@ -36,7 +36,7 @@ var Encryption = (function() {
 		this.halt = false;
 
 		//crypto parameter: salt
-		this.salt = sjcl.random.randomWords(4); //256 bits long
+		this.salt = sjcl.random.randomWords(4); //128 bits long
 
 		//key derivation
 		this.key = sjcl.misc.pbkdf2(cek, this.salt, 7000, 256);

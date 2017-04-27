@@ -94,7 +94,7 @@ var changeCek = function() {
 		//crypto parameters, don't touch
 		var aDATA = sjcl.random.randomWords(4); //authentication data - 128 bits
 		var initVector = sjcl.random.randomWords(4); //initialization vector - 128 bits
-		var salt = sjcl.random.randomWords(4); //salt - 256 bits
+		var salt = sjcl.random.randomWords(4); //salt - 128 bits
 
 		//we encrypt the CEK under the new passphrase (alias "KEK" -Key Encryption Key)
 		var encryptedCek = sjcl.encrypt(new_pp, cek, {mode:'gcm', iter:7000, iv:initVector, ks:256, adata:aDATA, ts:128, salt:salt});
