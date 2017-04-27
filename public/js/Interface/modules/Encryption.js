@@ -35,8 +35,8 @@ var Encryption = (function() {
 		this.m = 0; // Start to write at chunk x
 		this.halt = false;
 
-		//crypto parameters
-		this.salt = sjcl.random.randomWords(2);
+		//crypto parameter: salt
+		this.salt = sjcl.random.randomWords(8); //256 bits long
 
 		//key derivation
 		this.key = sjcl.misc.pbkdf2(cek, this.salt, 7000, 256);
