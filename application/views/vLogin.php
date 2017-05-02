@@ -63,7 +63,7 @@
             </div>
 
             <div id="return">
-                <p class="error"><?php echo_h($this->txt->Global->notready); ?> :)</p>
+                <p class="error"></p>
             </div>
         </section>
     </div>
