@@ -22,7 +22,7 @@
 <body class="grey">
 	<header>
 		<div id="logo">
-            <a href="https://www.muonium.ch" target="_blank">
+            <a href="https://muonium.io" target="_blank">
                 <img src="public/pictures/logos/muonium_H_06.png">
             </a>
         </div>
