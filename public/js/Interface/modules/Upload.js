@@ -17,7 +17,6 @@ var Upload = (function() {
         },
 
 		read : function(i, chkNb = 0) {
-			console.log("read "+i);
 			f_enc[i].read(chkNb);
 		},
 

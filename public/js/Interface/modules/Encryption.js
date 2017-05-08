@@ -70,7 +70,8 @@ var Encryption = (function() {
 			// TODO : improve alert (only one) and confirm (yes, no, yes for all, no for all)
 			if(xhr.status == 200 && xhr.readyState == 4) {
 				var filestatus = xhr.responseText.split('@');
-				console.log(filestatus);
+				if(debug)
+					console.log(filestatus);
 				if(filestatus[0] == '0') { // File doesn't exist, it's ok
 					me.read();
 				}
@@ -209,7 +210,8 @@ var Encryption = (function() {
 	};
 
 	Encryption.prototype.read = function(chkNb = 0) {
-		console.log(chkNb);
+		if(debug)
+			console.log("reading "+chkNb);
 		this.m = chkNb;
 		var me = this;
 		Transfers.number++;
@@ -252,7 +254,7 @@ var Encryption = (function() {
 								while(node.firstChild) // remove all children
 									node.removeChild(node.firstChild);
 								if(debug) {
-									console.log("Split + encryption : "+time.elapsed()+" ms");//
+									console.log("Split + encryption : "+time.elapsed()+" ms");
 									console.log("Splitted in "+me.j+" chunks !");
 								}
 								if(typeof me.callback != 'function') {
@@ -272,7 +274,7 @@ var Encryption = (function() {
 				if(me.m < me.j) {
 					chk = new Uint8Array(chk);
 					chk = me.toBitArrayCodec(chk);
-					var chk_length = me.encryptChk(chk);
+					var chk_length = me.encryptChk(chk, me.j);
 					if(debug)
 						console.log(me.file.name+' - Part '+me.j+' size : '+chk_length);
 				}
@@ -335,7 +337,7 @@ var Encryption = (function() {
 		readBlock(offset, chunkSize, file);
 	};
 
-	Encryption.prototype.encryptChk = function(chk) {
+	Encryption.prototype.encryptChk = function(chk, chkNb) {
 		if(this.halt)
 			return false;
 		var me = this;
@@ -363,7 +365,8 @@ var Encryption = (function() {
 
 		xhr.onreadystatechange = function() {
 			if(xhr.status == 200 && xhr.readyState == 4 && me.halt === false) {
-				console.log(xhr.responseText);
+				if(debug)
+					console.log('Wrote part '+chkNb + ' : ' + xhr.responseText);
 				me.l += s.length;
 				var pct = me.l/me.est_size*100;
 				if(pct > 100)
@@ -372,7 +375,6 @@ var Encryption = (function() {
 
 				if(xhr.responseText == 'error') {
 					// Quota exceeded or unable to write
-					console.log('unable to write');
 					me.halt = true;
 					return false;
 				}
