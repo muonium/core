@@ -340,6 +340,8 @@ var Encryption = (function() {
 	Encryption.prototype.encryptChk = function(chk, chkNb) {
 		if(this.halt)
 			return false;
+		if(debug)
+			console.log('Starting encryption of part '+chkNb);
 		var me = this;
 
 		var pack = function(c, s, a, i){ //ciphered_chk, salt, authentification data, initialization vector
@@ -359,29 +361,35 @@ var Encryption = (function() {
 		var s = sjcl.mode.gcm.encrypt(this.enc, chk, initVector, aDATA, 128);
 		s = pack(s, this.salt, aDATA, initVector);
 
-		var xhr = new XMLHttpRequest();
-		xhr.open("POST", target+'/writeChunk', true);
-		xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+		// Avoiding chunk sent before previous chunk if encryption is faster
+		var timer = setInterval(function() {
+			if(chkNb === me.k + 1) {
+				clearInterval(timer);
+				var xhr = new XMLHttpRequest();
+				xhr.open("POST", target+'/writeChunk', true);
+				xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
-		xhr.onreadystatechange = function() {
-			if(xhr.status == 200 && xhr.readyState == 4 && me.halt === false) {
-				if(debug)
-					console.log('Wrote part '+chkNb + ' : ' + xhr.responseText);
-				me.l += s.length;
-				var pct = me.l/me.est_size*100;
-				if(pct > 100)
-					pct = 100;
-				document.querySelector("#span_upload"+(me.i)).innerHTML = me.file.name+' : '+pct.toFixed(2)+'%';
+				xhr.onreadystatechange = function() {
+					if(xhr.status == 200 && xhr.readyState == 4 && me.halt === false) {
+						if(debug)
+							console.log('Wrote part '+chkNb + ', k: '+me.k+' : ' + xhr.responseText);
+						me.l += s.length;
+						var pct = me.l/me.est_size*100;
+						if(pct > 100)
+							pct = 100;
+						document.querySelector("#span_upload"+(me.i)).innerHTML = me.file.name+' : '+pct.toFixed(2)+'%';
 
-				if(xhr.responseText == 'error') {
-					// Quota exceeded or unable to write
-					me.halt = true;
-					return false;
+						if(xhr.responseText == 'error') {
+							// Quota exceeded or unable to write
+							me.halt = true;
+							return false;
+						}
+						me.k++;
+					}
 				}
-				me.k++;
+				xhr.send("filename="+me.file.name+"&data="+encodeURIComponent(s)+"&folder_id="+me.folder_id);
 			}
-		}
-		xhr.send("filename="+this.file.name+"&data="+encodeURIComponent(s)+"&folder_id="+this.folder_id);
+		}, 250);
 		return s.length;
 	};
 

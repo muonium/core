@@ -10,6 +10,7 @@ var Decryption = (function() {
 		window.location.href = ROOT+"Logout"; //doesn't exist ? Then logout the user
 	}
 	var target = 'User';
+	var debug = false;
 
 	var smallQuota = 1024*1024;
 	var largeQuota = 1024*1024*1024*100;
@@ -89,7 +90,8 @@ var Decryption = (function() {
 				if(xhr.status == 200 && xhr.readyState == 4) {
 					if(xhr.responseText > 0) {
 						me.nb_chk = xhr.responseText;
-						console.log("File splitted in "+me.nb_chk+" chunks");
+						if(debug)
+							console.log("File splitted in "+me.nb_chk+" chunks");
 						Transfers.number++;
 						Transfers.numberDl++;
 						me.decryptChk(0);
@@ -110,7 +112,8 @@ var Decryption = (function() {
 		if(line === undefined)
 			line = 0;
 
-		console.log("Decrypting chunk "+(line+1));
+		if(debug)
+			console.log("Decrypting chunk "+(line+1));
 		var pct = line/this.nb_chk*100;
 		if(pct > 100)
 			pct = 100;
@@ -126,7 +129,8 @@ var Decryption = (function() {
 			if(xhr.status == 200 && xhr.readyState == 4) {
 				if(xhr.responseText != '') {
 					time_chunk.stop();
-					console.log("Got chunk "+(line+1)+" contents in "+time_chunk.elapsed()+" ms");
+					if(debug)
+						console.log("Got chunk "+(line+1)+" contents in "+time_chunk.elapsed()+" ms");
 
 					chk = decodeURIComponent(xhr.responseText);
 
@@ -140,7 +144,8 @@ var Decryption = (function() {
 					var i = sjcl.codec.base64.toBits(split[3]);
 
 					if(me.enc === undefined || me.prev_s != split[1]) {
-						console.log("Key derivation process...");
+						if(debug)
+							console.log("Key derivation process...");
 						var key = sjcl.misc.pbkdf2(cek, s, 7000, 256);
 						me.enc = new sjcl.cipher.aes(key);
 					}
@@ -166,15 +171,18 @@ var Decryption = (function() {
 									fileEntry.createWriter(function(fileWriter) {
 										fileWriter.onwriteend = function(e) {
 											// Chunk written
-											console.log('Chunk '+(line+1)+'/'+me.nb_chk+' : Write completed.');
+											if(debug)
+												console.log('Chunk '+(line+1)+'/'+me.nb_chk+' : Write completed.');
 
 											if((line+1) >= me.nb_chk) {
 												// All chunks are written
-												console.log("Done !");
+												if(debug)
+													console.log("Done !");
 												time.stop();//
 												Transfers.number--;
 												Transfers.numberDl--;
-												console.log("decryption + download : "+time.elapsed()+" ms");//
+												if(debug)
+													console.log("decryption + download : "+time.elapsed()+" ms");//
 												var node = document.querySelector("#div_download"+(me.i));
 												while(node.firstChild) // remove all children
 													node.removeChild(node.firstChild);
@@ -258,7 +266,8 @@ var Decryption = (function() {
 
 	Decryption.prototype.dl = function(url, feUrl) {
 		var me = this;
-		console.log("File name : "+this.filename+", url : "+url);
+		if(debug)
+			console.log("File name : "+this.filename+", url : "+url);
 
 		document.querySelector("#dl_decrypted").href = url;
 		document.querySelector("#dl_decrypted").download = this.filename;
@@ -268,7 +277,8 @@ var Decryption = (function() {
 		setTimeout(function() {
 			me.rm(me.filename);
 			if(feUrl === undefined) {
-				console.log("Removing temp url");
+				if(debug)
+					console.log("Removing temp url");
 				window.URL.revokeObjectURL(url);
 			}
 		}, 2000);
@@ -283,7 +293,8 @@ var Decryption = (function() {
 			function(fs) {
 				fs.root.getFile(filename, {create: false}, function(fileEntry) {
 					fileEntry.remove(function() {
-						console.log('File removed.');
+						if(debug)
+							console.log('File removed.');
 					}, errorHandler);
 				}, function() {
 					// If we can't delete to filesystem, request a quota
