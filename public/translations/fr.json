@@ -108,7 +108,7 @@
         "bruteforceErr1": "Attention : Suite à un grand nombre de requêtes de votre part, il ne vous reste plus que 3 tentatives",
         "bruteforceErr2": "Vous avez atteint le nombre maximal de requêtes autorisées.",
         "subject": "Muonium - Validez votre compte",
-        "message": "Bienvenue sur Muonium !<br />Afin de valider votre compte, suivez ce lien : <a href='https://photon.muonium.ch/neutron/Validate/Key/[id_user]/[key]'>https://photon.muonium.ch/neutron/Validate/Key/[id_user]/[key]</a><br />Cordialement,<br />L'équipe Muonium<br /><br />Ce mail a été généré automatiquement, merci de ne pas y répondre."
+        "message": "Bienvenue sur Muonium !<br />Afin de valider votre compte, suivez ce lien : <a href='[url_app]/Validate/Key/[id_user]/[key]'>[url_app]/Validate/Key/[id_user]/[key]</a><br />Cordialement,<br />L'équipe Muonium<br /><br />Ce mail a été généré automatiquement, merci de ne pas y répondre."
     },
 
     "Login": {
@@ -123,7 +123,7 @@
         "invalidCode": "Le code entré est invalide",
         "username": "Email ou nom d'utilisateur",
 		"badPassphrase": "Erreur : phrase secrète incorrecte",
-        "doubleAuth": "Un email avec un code d'authentification vous a été envoyé. Copiez ce code dans le champ ci-dessus.<br />Si vous n'avez rien reçu d'ici 5 mn et que le mail n'est pas présent dans le dossier Spam, suivez ce <a href='https://photon.muonium.ch/neutron/Logout'>lien</a> pour effectuer une nouvelle tentative de connexion."
+        "doubleAuth": "Un email avec un code d'authentification vous a été envoyé. Copiez ce code dans le champ ci-dessus.<br />Si vous n'avez rien reçu d'ici 5 mn et que le mail n'est pas présent dans le dossier Spam, suivez ce <a href='[url_app]/Logout'>lien</a> pour effectuer une nouvelle tentative de connexion."
     },
 
     "Validate": {
@@ -167,7 +167,7 @@
         "errmessage": "Erreur : La clé de validation est incorrecte ou est expirée, veuillez <a href='LostPass'>refaire une demande de mot de passe perdu</a> et saisir votre nom d'utilisateur ou votre email.",
         "user": "Votre adresse email ou nom d'utilisateur",
         "subject": "Muonium - Mot de passe oublié",
-        "message": "Bonjour,<br />Afin de modifier votre mot de passe ou votre phrase secrète, veuillez suivre ce lien : <a href='https://photon.muonium.ch/neutron/LostPass/Key/[id_user]/[key]'>https://photon.muonium.ch/neutron/LostPass/Key/[id_user]/[key]</a><br />Cordialement,<br />L'équipe Muonium.<br /><br />Ce mail a été généré automatiquement, merci de ne pas y répondre.",
+        "message": "Bonjour,<br />Afin de modifier votre mot de passe ou votre phrase secrète, veuillez suivre ce lien : <a href='[url_app]/LostPass/Key/[id_user]/[key]'>[url_app]/LostPass/Key/[id_user]/[key]</a><br />Cordialement,<br />L'équipe Muonium.<br /><br />Ce mail a été généré automatiquement, merci de ne pas y répondre.",
         "reset": "Attention ! Si vous changez votre phrase secrète, votre compte sera réinitialisé et vous perdrez vos données !"
     },
 

@@ -67,7 +67,11 @@ class Register extends l\Languages {
                                                 $this->_mail = new l\Mail();
                                                 $this->_mail->_to = $_POST['mail'];
                                                 $this->_mail->_subject = $this->txt->Register->subject;
-                                                $this->_mail->_message = str_replace("[id_user]", $id_user, str_replace("[key]", $key, $this->txt->Register->message));
+                                                $this->_mail->_message = str_replace(
+                                                    array("[id_user]", "[key]", "[url_app]"),
+                                                    array($id_user, $key, URL_APP),
+                                                    $this->txt->Register->message
+                                                );
                                                 $this->_mail->send();
                                                 // Create user folder
                                                 mkdir(NOVA.'/'.$id_user, 0770);

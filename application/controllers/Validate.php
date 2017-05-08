@@ -82,7 +82,11 @@ class Validate extends l\Languages {
                     $this->_mail = new l\Mail();
                     $this->_mail->_to = $user_mail;
                     $this->_mail->_subject = $this->txt->Register->subject;
-                    $this->_mail->_message = str_replace("[id_user]", $_SESSION['id'], str_replace("[key]", $key, $this->txt->Register->message));
+                    $this->_mail->_message = str_replace(
+                        array("[id_user]", "[key]", "[url_app]"),
+                        array($_SESSION['id'], $key, URL_APP),
+                        $this->txt->Register->message
+                    );
                     $this->_mail->send();
                     $_SESSION['sendMail'] = time();
 

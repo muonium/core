@@ -8,13 +8,13 @@ require_once("./config/autoload.php");
 // Defines
 
 // Mui Version
-define('VERSION', '2017.04.27.1');
+define('VERSION', '2017.05.08.0');
 
 define('DS', DIRECTORY_SEPARATOR);
 define('ROOT', __DIR__);
-
-define('MVC_ROOT', '/core');
-define('IMG', '/core/public/pictures/');
+define('MVC_ROOT', str_replace('/index.php', '', $_SERVER['SCRIPT_NAME']));
+define('URL_APP', $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['SERVER_NAME'] . MVC_ROOT);
+define('IMG', MVC_ROOT.'/public/pictures/');
 define('NOVA', dirname(dirname(__FILE__)).'/nova');
 
 // Default controller
@@ -25,12 +25,12 @@ define ('DEFAULT_FUNCTION', 'DefaultAction');
 define ('ERROR_CONTROLLER', 'Error');
 define ('ERROR_FUNCTION', 'Error');
 
-define ('DIR_CLASS', __DIR__.'/application/controllers/');
-define ('DIR_MODEL', __DIR__.'/application/models/');
-define ('DIR_VIEW',  __DIR__.'/application/views/');
+define ('DIR_CLASS', ROOT.'/application/controllers/');
+define ('DIR_MODEL', ROOT.'/application/models/');
+define ('DIR_VIEW',  ROOT.'/application/views/');
 
 define ('DEFAULT_LANGUAGE', 'en');
-define ('DIR_LANGUAGE', __DIR__.'/public/translations/');
+define ('DIR_LANGUAGE', ROOT.'/public/translations/');
 
 // Functions
 

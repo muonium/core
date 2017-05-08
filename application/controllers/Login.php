@@ -133,7 +133,7 @@ class Login extends l\Languages {
             exit(header('Location: '.MVC_ROOT.'/Error/Error/404'));
         elseif(!empty($_SESSION['tmp_id'])) {
             // Double auth
-            $this->_message = $this->txt->Login->doubleAuth;
+            $this->_message = str_replace("[url_app]", URL_APP, $this->txt->Login->doubleAuth);
             require_once(DIR_VIEW."vDoubleAuth.php");
         }
         else

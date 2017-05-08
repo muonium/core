@@ -108,7 +108,7 @@
         "bruteforceErr1": "Attenzione: in seguito a un grosso numero di richieste da parte tua, ti restano solo 3 tentativi",
         "bruteforceErr2": "Hai raggiunto il limite massimo consentito di richieste.",
         "subject": "Muonium - Validazione account",
-        "message": "Benvenuto in Muonium !<br />Per convalidare il tuo account, segui questo link: <a href='https://photon.muonium.ch/core/Validate/Key/[id_user]/[key]'>https://photon.muonium.ch/core/Validate/Key/[id_user]/[key]</a><br />Cordiali saluti,<br />il Team Muonium<br /><br />Questa mail è stata generata automaticamente, si prega di non rispondere."
+        "message": "Benvenuto in Muonium !<br />Per convalidare il tuo account, segui questo link: <a href='[url_app]/Validate/Key/[id_user]/[key]'>[url_app]/Validate/Key/[id_user]/[key]</a><br />Cordiali saluti,<br />il Team Muonium<br /><br />Questa mail è stata generata automaticamente, si prega di non rispondere."
     },
 
     "Login": {
@@ -123,7 +123,7 @@
         "invalidCode": "Il codice inserito non è valido",
         "username": "Email o login",
 		"badPassphrase": "Error: bad passphrase",
-        "doubleAuth": "Ti è stata inviata una mail con un codice identificativo. Copia il codice nel campo qui sopra.<br />Se non ricevi nulla entro 5 minuti e la mail non è presente nella tua cartella di spam, <a href='https://photon.muonium.ch/core/Logout'>clicca qui</a> per effettuare un nuovo tentativo di connessione."
+        "doubleAuth": "Ti è stata inviata una mail con un codice identificativo. Copia il codice nel campo qui sopra.<br />Se non ricevi nulla entro 5 minuti e la mail non è presente nella tua cartella di spam, <a href='[url_app]/Logout'>clicca qui</a> per effettuare un nuovo tentativo di connessione."
     },
 
     "Validate": {
@@ -165,7 +165,7 @@
         "errmessage": "Errore: The la chiave di convalida è errata o scaduta, ti chiediamo di <a href='LostPass'>effettuare una nuova richiesta</a> e riscrivi il tuo username o la tua email.",
         "user": "La tua email o il tuo username",
         "subject": "Muonium - Password dimenticata",
-        "message": "Hi,<br />Per aggiornare la tua password o la frase di sicurezza, segui questo link: <a href='https://photon.muonium.ch/core/LostPass/Key/[id_user]/[key]'>https://photon.muonium.ch/core/LostPass/Key/[id_user]/[key]</a><br />Cordiali saluti,<br />il Team Muonium.<br /><br />Questa mail è stata generata automaticamente, si prega di non rispondere.",
+        "message": "Hi,<br />Per aggiornare la tua password o la frase di sicurezza, segui questo link: <a href='[url_app]/LostPass/Key/[id_user]/[key]'>[url_app]/LostPass/Key/[id_user]/[key]</a><br />Cordiali saluti,<br />il Team Muonium.<br /><br />Questa mail è stata generata automaticamente, si prega di non rispondere.",
         "reset": "Attenzione! Se cambi la tua frase di sicurezza, il tuo account sarà azzerato e perderai tutti i tuoi dati!"
     },
 
