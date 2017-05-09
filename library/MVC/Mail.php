@@ -36,13 +36,21 @@ class Mail
         $mail->SMTPSecure = conf\confMail::smtp_secure;
         $mail->Port = conf\confMail::port;
 
-        $mail->setFrom($this->_from, $this->_fromName);
+        $mail->setFrom(conf\confMail::user, conf\confMail::username);
+        $mail->AddReplyTo(conf\confMail::user, conf\confMail::username);
         $mail->addAddress($this->_to);
         $mail->isHTML(true);
         $mail->Subject = $this->_subject;
         $mail->Body    = $message_html;
         $mail->AltBody = $message_txt;
 
+        /*$mail->SMTPOptions = array(
+            'ssl' => array(
+                'verify_peer' => false,
+                'verify_peer_name' => false,
+                'allow_self_signed' => true
+            )
+        );*/
         $mail->send();
     }
 };
