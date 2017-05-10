@@ -44,13 +44,13 @@ class Mail
         $mail->Body    = $message_html;
         $mail->AltBody = $message_txt;
 
-        /*$mail->SMTPOptions = array(
+        $mail->SMTPOptions = array(
             'ssl' => array(
                 'verify_peer' => false,
                 'verify_peer_name' => false,
                 'allow_self_signed' => true
             )
-        );*/
+        );
         $mail->send();
     }
 };
