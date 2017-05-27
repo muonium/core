@@ -1,7 +1,3 @@
-**NOT COMPLETED**
-
-//@TODO : finish this documentation
-
 # Code of conduct
 
 ## Standards ([from](http://contributor-covenant.org/version/1/4/))
