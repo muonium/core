@@ -1,0 +1,216 @@
+*
+{
+    margin: 0;
+    padding: 0;
+
+    font-family: Tahoma;
+
+    font-size: 14px;
+}
+
+a
+{
+    text-decoration: none;
+    color: inherit;
+}
+
+body
+{
+    background:  rgba(40, 68, 92, 0.9);
+    align-content: center;
+    font-family:  sans-serif;
+    display: block;
+    margin: 8px;
+}
+
+section#header
+{
+    position: absolute;
+    top: calc(5% - 1px);
+    left: 0;
+    background: #0000000;
+    height: calc(10% + 1px);
+    width: 100%;
+}
+
+section#header div#logo
+{
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+}
+
+section#header div#logo img
+{
+    height: 8vh;
+    padding-left: 1vw;
+}
+section#content
+{
+width: 400px;
+position: absolute;
+  top: 15%;
+  left: 30%;
+  right: 30%;
+  bottom: 15%;
+  height: 500px;
+  background-color: rgb(240, 240, 240);
+  display: block;
+
+}
+section#content div#back
+{
+    display: table;
+    position: absolute;
+    top: 3%;
+    left:4%;
+    width: 20%;
+    height: 5%;
+}
+
+section#content div#back p
+{
+    transition: all .3s ease;
+    -webkit-transition: all .3s ease;
+    -ms-transition: all .3s ease;
+    -o-transition: all .3s ease;
+    display: table-cell;
+    vertical-align: middle;
+    text-align: left;
+    cursor: pointer;
+}
+section#content div#back p:hover
+{
+    transition: all .3s ease;
+    -webkit-transition: all .3s ease;
+    -ms-transition: all .3s ease;
+    -o-transition: all .3s ease;
+    color: #28535c;
+}
+
+section#content div#avatar
+{
+    display: table;
+    position: absolute;
+    top: 10%;
+    left: calc(50% - 5vh);
+    width: 10vh;
+    height: 10vh;
+    border-radius: 10vh;
+    border: 5px solid #28535c;
+}
+
+section#content div#avatar p
+{
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+}
+section#content div#avatar p img
+{
+    height: 10vh;
+    width: 10vh;
+}
+section#content div#text
+{
+    display: table;
+    position: absolute;
+    top: calc(10% + 12vh);
+    left: 25%;
+    width: 50%;
+    height: 5vh;
+}
+section#content div#text p
+{
+    display:block;
+    font-style: italic;
+    font-family: monospace;
+    background-color:  rgba(0, 0, 0, 0.2);
+    vertical-align: middle;
+    text-align: center;
+    color: #28535c;
+    font-size: 5vh;
+}
+
+section#content div#form
+{
+  position:relative;;
+
+    background: #FFFFFF;
+    max-width: 360px;
+    padding: 45px;
+    top: calc(10% + 19vh);
+    left: 20%;
+    right: 50% ;
+    text-align: center;
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+}
+
+section#content div#form input[type="text"], section#content div#form input[type="password"]
+{
+  font-family:  sans-serif;
+    width: 100%;
+    box-sizing: border-box;
+    font-size: 14px;
+    outline: 0px;
+    background: rgb(242, 242, 242);
+    border-width: 0px;
+    border-style: initial;
+    border-color: initial;
+    border-image: initial;
+    margin: 0px 0px 15px;
+    padding: 15px;
+}
+section#content div#form input[type="submit"]
+{
+  font-family:  sans-serif;
+  text-transform: uppercase;
+  width: 100%;
+  color: rgb(255, 255, 255);
+  font-size: 14px;
+  cursor: pointer;
+  outline: 0px;
+  background:  rgba(40, 68, 92, 0.9);
+  border-width: 0px;
+  border-style: initial;
+  border-color:inherit;;
+  border-image: initial;
+  padding: 19px;
+}
+section#content div#form input[type="submit"]:hover
+{
+    transition: all .3s ease;
+    -webkit-transition: all .3s ease;
+    -ms-transition: all .3s ease;
+    -o-transition: all .3s ease;
+
+    background-color: #28535c;
+    color: white;
+}
+
+section#content div#return
+{
+    position: absolute;
+    top: 90%;
+    left: 20%;
+    height: 25%;
+    width: 60%;
+font-size: 15px;
+color:  #28535c;
+    text-align: center;
+}
+
+section#content div#return p.error
+{
+    color: red;
+}
+
+section#content div#return p.warning
+{
+    color: orange;
+}
+
+section#content div#return p.success
+{
+    color: green;
+}
