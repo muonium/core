@@ -1,6 +1,8 @@
 
 # Muonium
 
+Please take a look at our wiki, there's some interesting stuff out there.
+
 wiki : [here](https://github.com/muonium/core/wiki)
 
 Muonium is a project of Kantum Technologies (this is our future company).
