@@ -108,7 +108,7 @@
         "bruteforceErr1": "Warning: You only have 3 attempts left.",
         "bruteforceErr2": "You reached the maximum allowed number of requests.",
         "subject": "Muonium - Account validation",
-        "message": "Welcome to Muonium !<br />To validate your account, follow this link : <a href='https://photon.muonium.ch/neutron/Validate/Key/[id_user]/[key]'>https://photon.muonium.ch/neutron/Validate/Key/[id_user]/[key]</a><br />Best regards,<br />Muonium Team<br /><br />This email was automatically generated, please do not answer."
+        "message": "Welcome to Muonium !<br />To validate your account, follow this link : <a href='[url_app]/Validate/Key/[id_user]/[key]'>[url_app]/Validate/Key/[id_user]/[key]</a><br />Best regards,<br />Muonium Team<br /><br />This email was automatically generated, please do not answer."
     },
 
     "Login": {
@@ -123,7 +123,7 @@
         "invalidCode": "The code entered is invalid",
         "username": "Email or login",
 		"badPassphrase": "Error: bad secret password",
-        "doubleAuth": "A mail with an authentication code was sent to you. Copy this code in the field above.<br />If you received nothing from now until 5 mn and the mail is not in the Spam folder, please follow this <a href='https://photon.muonium.ch/neutron/Logout'>link</a> to perform a new connection attempt."
+        "doubleAuth": "A mail with an authentication code was sent to you. Copy this code in the field above.<br />If you received nothing from now until 5 mn and the mail is not in the Spam folder, please follow this <a href='[url_app]/Logout'>link</a> to perform a new connection attempt."
     },
 
     "Validate": {
@@ -165,7 +165,7 @@
         "errmessage": "Error : The validation key is wrong or it expired, please <a href='LostPass'>make a new request</a> and retype your username or email.",
         "user": "Your email or your username",
         "subject": "Muonium - Forgot your password",
-        "message": "Hi,<br />To update your password or secret password, please follow this link : <a href='https://photon.muonium.ch/neutron/LostPass/Key/[id_user]/[key]'>https://photon.muonium.ch/neutron/LostPass/Key/[id_user]/[key]</a><br />Best regards,<br />Muonium Team.<br /><br />This email was automatically generated, please do not answer.",
+        "message": "Hi,<br />To update your password or secret password, please follow this link : <a href='[url_app]/LostPass/Key/[id_user]/[key]'>[url_app]/LostPass/Key/[id_user]/[key]</a><br />Best regards,<br />Muonium Team.<br /><br />This email was automatically generated, please do not answer.",
         "reset": "Warning ! If you change your secret password, your account will be reset and all your data will be lost!"
     },
 
