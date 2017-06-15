@@ -395,6 +395,7 @@ class User extends l\Languages {
                 if($file['2'] < 0) { echo ' style="color:red" '; }
                 echo 'title="'.$filesize.'&#10;'.$this->txt->User->lastmod.' : '.date('d/m/Y G:i', $file['3']).'"
                 onclick="Selection.addFile(event, this.id)"
+		ondblclick="Selection.dl(this.id)"
                 data-folder="'.htmlentities($file['6']).'"
                 data-path="'.htmlentities($fpath).'"
                 data-title="'.htmlentities($file['0']).'">';
