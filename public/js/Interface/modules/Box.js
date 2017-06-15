@@ -93,6 +93,7 @@ var Box = (function() {
                         //box_div.innerHTML += '<p onclick="Favorites.update(\''+id+'\')"><i class="fa fa-star" aria-hidden="true"></i> '+txt.RightClick.star+'</p><hr>';
                         box_div.innerHTML += '<p onclick="Move.cut(\''+id+'\')"><i class="fa fa-scissors" aria-hidden="true"></i> '+txt.RightClick.cut+'</p>';
                         box_div.innerHTML += '<p onclick="Move.copy(\''+id+'\')"><i class="fa fa-clone" aria-hidden="true"></i> '+txt.RightClick.copy+'</p>';
+                        box_div.innerHTML += '<p onclick="Selection.triggerFav(\''+id+'\')"><i class="fa fa-star" aria-hidden="true"></i> '+txt.RightClick.star+'</p>';
                         box_div.innerHTML += '<p onclick="Move.trashMultiple(\''+id+'\')"><i class="fa fa-trash" aria-hidden="true"></i> '+txt.RightClick.trash+'</p>';
                     } else {
                         box_div.innerHTML += '<p onclick="Move.trashMultiple(\''+id+'\')"><i class="fa fa-undo" aria-hidden="true"></i> '+txt.RightClick.restore+'</p>';
