@@ -207,6 +207,17 @@ var Selection = (function() {
                 }
                 document.querySelector("section#selection").innerHTML = content + "</ul>";
             }
-        }
+        },
+		
+		triggerFav: function(id)
+		{
+			if(document.querySelector("#" + id) != undefined && id.indexOf("f") == 0)
+			{
+				var fav_status = document.querySelector("#" + id).getAttribute("data-fav");
+				var new_status = (fav_status === 0) ? 1 : 0;
+				
+				Favorites.update(parseInt(id.replace("f", "")), new_status);
+			}
+		}
     }
 });
