@@ -1,24 +1,26 @@
 var Favorites = (function() {
     return {
-        update : function(fav) {
+        update : function(id)
+		{
             Box.hide();
-            /*if(fav.length > 1) {
-                var id = fav.substr(1);
-                if(isNumeric(id)) {
-                    var xhr = new XMLHttpRequest();
-                    xhr.open("POST", "User/Favorites", true);
-                    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+			
+			console.log(id);
+			
+            if(isNumeric(id))
+			{
+				var xhr = new XMLHttpRequest();
+				xhr.open("POST", "User/Favorites", true);
+				xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
-                    xhr.onreadystatechange = function()
-                    {
-                        if(xhr.status == 200 && xhr.readyState == 4)
-                        {
-                            //
-                        }
-                    }
-                    xhr.send("id="+id);
-                }
-            }*/
+				xhr.onreadystatechange = function()
+				{
+					if(xhr.status == 200 && xhr.readyState == 4)
+					{
+						console.log(xhr.responseText);
+					}
+				}
+				xhr.send("id=" + id);
+            }
         }
     }
 });

@@ -395,8 +395,10 @@ class User extends l\Languages {
                 if($file['2'] < 0) { echo ' style="color:red" '; }
                 echo 'title="'.$filesize.'&#10;'.$this->txt->User->lastmod.' : '.date('d/m/Y G:i', $file['3']).'"
                 onclick="Selection.addFile(event, this.id)"
+                ondblclick="Selection.dl(this.id)"
                 data-folder="'.htmlentities($file['6']).'"
                 data-path="'.htmlentities($fpath).'"
+                data-fav="'.htmlentities($file[5]).'"
                 data-title="'.htmlentities($file['0']).'">';
 				// showSize with an array containing path and file name because the size in database can be -1 (file currently uploading), in this case showSize will display size with filesize()
 				echo htmlentities($file['0']).'</span>';

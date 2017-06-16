@@ -49,7 +49,7 @@
 	$_t->addJs("Interface/interface");
     $_t->getHeader();
 ?>
-<body onload="UserLoader()">
+<body onload="UserLoader();">
     <header>
         <div id="logo">
             <a href="https://muonium.io" target="_blank">
@@ -107,7 +107,7 @@
                     <input type="checkbox" id="multisel" />
                     <label for="multisel"><?php echo_h($this->txt->UserMenu->multiSelection); ?></label>
                 </li>
-                <!--<li>Stared</li>-->
+                <li><a href="Favorites"><i class="fa fa-star"></i> <?php echo_h($this->txt->Toolbar->shared); ?></a></li>
                 <!--<li>Shared</li>-->
             </ul>
             <div class="dragbar"></div>

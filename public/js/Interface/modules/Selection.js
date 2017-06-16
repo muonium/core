@@ -207,6 +207,14 @@ var Selection = (function() {
                 }
                 document.querySelector("section#selection").innerHTML = content + "</ul>";
             }
-        }
+        },
+		
+		triggerFav: function(id)
+		{
+			if(document.querySelector("#" + id) != undefined && id.indexOf("f") == 0)
+			{				
+				Favorites.update(parseInt(id.replace("f", "")));
+			}
+		}
     }
 });
