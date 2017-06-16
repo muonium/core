@@ -3,7 +3,7 @@ namespace application\controllers;
 use \library\MVC as l;
 use \application\models as m;
 
-/*class Favorites extends l\Languages {
+class Favorites extends l\Languages {
 
     function __construct() {
         parent::__construct(array(
@@ -34,4 +34,4 @@ use \application\models as m;
 
         return round(pow(1024, $base - floor($base)), $precision) .' '. $suffixes[floor($base)];
     }
-}*/
+}

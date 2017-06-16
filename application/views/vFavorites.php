@@ -49,7 +49,7 @@
 	$_t->addJs("Interface/interface");
     $_t->getHeader();
 ?>
-<body>
+<body onload="ExtIcons().set();">
 	<header>
 		<div id="logo">
             <a href="https://muonium.io" target="_blank">
@@ -85,6 +85,10 @@
                     <a href="Profile"><i class="fa fa-cog" aria-hidden="true"></i>&nbsp;
                     <?php echo_h($this->txt->UserMenu->settings); ?></a>
                 </li>
+				<li>
+                    <a href="Bug"><i class="fa fa-bug" aria-hidden="true"></i>&nbsp;
+                    <?php echo_h($this->txt->Global->bug); ?></a>
+                </li>
                 <li>
                     <span>
                         <input type="radio" id="display_list" name="display" checked>
@@ -99,7 +103,7 @@
                     <input type="checkbox" id="multisel" />
                     <label for="multisel"><?php echo_h($this->txt->UserMenu->multiSelection); ?></label>
                 </li>
-                <!--<li>Stared</li>-->
+				<li><a href="User"><i class="fa fa-folder"></i> <?php echo_h($this->txt->Toolbar->general); ?></a></li>
                 <!--<li>Shared</li>-->
             </ul>
             <div class="dragbar"></div>
@@ -110,7 +114,7 @@
 				<?php echo $favorites; ?>
             </div>
 
-            <img src="<?php echo MVC_ROOT; ?>/public/pictures/desktop/arrow.svg" class="arrow favorites" />
+			<a href="User"><img src="<?php echo MVC_ROOT; ?>/public/pictures/desktop/arrow.svg" class="arrow favorites" /></a>
         </section>
 	</div>
 </body>
