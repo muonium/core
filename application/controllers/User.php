@@ -55,13 +55,9 @@ class User extends l\Languages {
     }
 
 	function parseFilename($f) {
-		$f = str_replace("|", "", $f); // | is not allowed
+        $f = str_replace(['|', '/', '\\', ':', '*', '?', '<', '>', '"'], "", $f); // not allowed chars
 		if(strlen($f) > 128) // max length 128 chars
 			$f = substr($f, 0, 128);
-		$forbidden = '/\\:*?<>|"';
-		for($i=0;$i<count($forbidden);$i++)
-			if(strpos($f, $forbidden[$i]))
-				return false;
 		return $f;
 	}
 
@@ -299,29 +295,18 @@ class User extends l\Languages {
         $this->getFolderVars();
         if(!empty($_POST['folder'])) {
             $folder = urldecode($_POST['folder']);
+            $folder = $this->parseFilename($folder);
             if(strlen($folder) > 64) // max length 64 chars
                 $folder = substr($folder, 0, 64);
 
-            $forbidden = '/\\:*?<>|"';
-
-            $f = 0;
-            for($i=0;$i<count($forbidden);$i++) {
-                if(strpos($folder, $forbidden[$i])) {
-                    $f = 1; // Forbidden char found
-                    break;
-                }
-            }
-
-            if($f == 0) {
-                if(is_dir(NOVA.'/'.$_SESSION['id'].'/'.$this->_path) && !is_dir(NOVA.'/'.$_SESSION['id'].'/'.$this->_path.$folder)) {
-                    $this->_modelFolders->name = $folder;
-                    $this->_modelFolders->parent = $this->_folderId;
-                    $this->_modelFolders->path = $this->_path;
-                    $this->_modelFolders->insert();
-                    echo $this->_modelFolders->getLastInsertedId();
-                    mkdir(NOVA.'/'.$_SESSION['id'].'/'.$this->_path.$folder, 0770);
-                    return;
-                }
+            if(is_dir(NOVA.'/'.$_SESSION['id'].'/'.$this->_path) && !is_dir(NOVA.'/'.$_SESSION['id'].'/'.$this->_path.$folder)) {
+                $this->_modelFolders->name = $folder;
+                $this->_modelFolders->parent = $this->_folderId;
+                $this->_modelFolders->path = $this->_path;
+                $this->_modelFolders->insert();
+                echo $this->_modelFolders->getLastInsertedId();
+                mkdir(NOVA.'/'.$_SESSION['id'].'/'.$this->_path.$folder, 0770);
+                return;
             }
         }
         echo 'error';
@@ -363,6 +348,7 @@ class User extends l\Languages {
         if($subdirs = $this->_modelFolders->getChildren($this->_folderId, $this->trash)) {
             foreach($subdirs as $subdir) {
                 $elementnum = count(glob(NOVA.'/'.$_SESSION['id'].'/'.$subdir['4'].$subdir['1']."/*"));
+                $subdir['1'] = $this->parseFilename($subdir['1']);
 
                 echo '<span class="folder" id="d'.$subdir['0'].'" name="'.htmlentities($subdir['1']).'"
                 title="'.$this->showSize($subdir['2']).'"
@@ -382,6 +368,7 @@ class User extends l\Languages {
         if($files = $this->_modelFiles->getFiles($this->_folderId, $this->trash)) {
             foreach($files as $file) {
                 $fpath = $path;
+                $file['0'] = $this->parseFilename($file['0']);
                 if(array_key_exists(7, $file) && array_key_exists(8, $file)) {
                     $fpath = $file['7'].$file['8'];
                 }
@@ -681,45 +668,34 @@ class User extends l\Languages {
                 return false;
             $old = urldecode($_POST['old']);
             $new = urldecode($_POST['new']);
+            $new = $this->parseFilename($new);
 
             if($old != $new && !empty($old) && !empty($new)) {
-                $forbidden = '/\\:*?<>|"';
+                $path = $this->_modelFolders->getFullPath($folder_id);
+                if($path != '')
+            		$path .= '/';
 
-                $f = 0;
-                for($i=0;$i<count($forbidden);$i++) {
-                    if(strpos($new, $forbidden[$i])) {
-                        $f = 1; // Forbidden char found
-                        break;
-                    }
+                if(is_dir(NOVA.'/'.$_SESSION['id'].'/'.$path.$old) && !is_dir(NOVA.'/'.$_SESSION['id'].'/'.$path.$new)) {
+                    if(strlen($new) > 64) // max folder length 64 chars
+                        $new = substr($new, 0, 64);
+                    // Rename folder in db
+                    $this->_modelFolders->rename($path, $old, $new);
+                }
+                elseif(file_exists(NOVA.'/'.$_SESSION['id'].'/'.$path.$old) && !file_exists(NOVA.'/'.$_SESSION['id'].'/'.$path.$new)) {
+                    if(strlen($new) > 128) // max file length 128 chars
+                        $new = substr($new, 0, 128);
+
+                    // Rename file in db
+					if(isset($_SESSION['upload'][$folder_id]['files'][$old]))
+						unset($_SESSION['upload'][$folder_id]['files'][$old]);
+                    $this->_modelFiles->rename($folder_id, $old, $new);
+                }
+                else {
+                    return false;
                 }
 
-                if($f == 0) {
-                    $path = $this->_modelFolders->getFullPath($folder_id);
-                    if($path != '')
-            			$path .= '/';
-
-                    if(is_dir(NOVA.'/'.$_SESSION['id'].'/'.$path.$old) && !is_dir(NOVA.'/'.$_SESSION['id'].'/'.$path.$new)) {
-                        if(strlen($new) > 64) // max folder length 64 chars
-                            $new = substr($new, 0, 64);
-                        // Rename folder in db
-                        $this->_modelFolders->rename($path, $old, $new);
-                    }
-                    elseif(file_exists(NOVA.'/'.$_SESSION['id'].'/'.$path.$old) && !file_exists(NOVA.'/'.$_SESSION['id'].'/'.$path.$new)) {
-                        if(strlen($new) > 128) // max file length 128 chars
-                            $new = substr($new, 0, 128);
-
-                        // Rename file in db
-						if(isset($_SESSION['upload'][$folder_id]['files'][$old]))
-							unset($_SESSION['upload'][$folder_id]['files'][$old]);
-                        $this->_modelFiles->rename($folder_id, $old, $new);
-                    }
-                    else {
-                        return false;
-                    }
-
-                    rename(NOVA.'/'.$_SESSION['id'].'/'.$path.$old, NOVA.'/'.$_SESSION['id'].'/'.$path.$new);
-					echo 'ok';
-                }
+                rename(NOVA.'/'.$_SESSION['id'].'/'.$path.$old, NOVA.'/'.$_SESSION['id'].'/'.$path.$new);
+				echo 'ok';
             }
         }
     }

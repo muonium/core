@@ -22,11 +22,13 @@ var Encryption = (function() {
 	// Constructor
 	function Encryption(f, f_id, i, callback) {
 		var me = this;
-		document.querySelector("#span_upload"+i).innerHTML = f.name+' : 0%';
+		var fname = f.name.replace(/<\/?[^>]+(>|$)/g, "");
+		document.querySelector("#span_upload"+i).innerHTML = fname+' : 0%';
 
 		this.callback = callback;
 		this.folder_id = f_id;
 		this.file = f;	// file.name, file.size
+		this.fname = fname;
 		this.est_size = Math.round(f.size*(1+est/100)); // Estimation of encrypted file size
 		this.i = i; // Id of file, used only for displaying progress, different from database !
 		this.j = 0; // Number of chunks read
@@ -43,14 +45,14 @@ var Encryption = (function() {
 		this.enc = new sjcl.cipher.aes(this.key);
 
 		var replaceYesAction = function() {
-			var file_id = document.querySelector('span.file[data-title="'+f.name+'"]').id;
+			var file_id = document.querySelector('span.file[data-title="'+fname+'"]').id;
 			if(file_id) {
 				Rm.rm(file_id, function(){Upload.read(me.i)}, false);
 			} else { alert('Error'); }
 		}
 
 		var completeYesAction = function(chkNb) {
-			var file_id = document.querySelector('span.file[data-title="'+f.name+'"]').id;
+			var file_id = document.querySelector('span.file[data-title="'+fname+'"]').id;
 			if(file_id) {
 				Upload.read(me.i, chkNb);
 			} else { alert('Error'); }
@@ -89,7 +91,7 @@ var Encryption = (function() {
 					if(isNumeric(filestatus[1])) {
 						var c = false;
 						if(typeof me.callback != 'function') { // Only one file or this is the last file
-							var m = new MessageBox(txt.User.replaceFile.replace('[filename]', f.name))
+							var m = new MessageBox(txt.User.replaceFile.replace('[filename]', fname))
 								.addToggle(txt.User.complete, txt.User.replace, function() {
 									c = true;
 								})
@@ -103,7 +105,7 @@ var Encryption = (function() {
 								.show();
 						}
 						else {
-							var m = new MessageBox(txt.User.replaceCompleteFile.replace('[filename]', f.name))
+							var m = new MessageBox(txt.User.replaceCompleteFile.replace('[filename]', fname))
 								.addToggle(txt.User.complete, txt.User.replace, function() {
 									c = true;
 								})
@@ -134,10 +136,10 @@ var Encryption = (function() {
 				}
 				else if(filestatus[0] == '2') { // File exists
 					if(typeof me.callback != 'function') { // Only one file or this is the last file
-						var m = new MessageBox(txt.User.replaceFile.replace('[filename]', f.name)).addButton(txt.User.yes, replaceYesAction).addButton(txt.User.no, noAction).show();
+						var m = new MessageBox(txt.User.replaceFile.replace('[filename]', fname)).addButton(txt.User.yes, replaceYesAction).addButton(txt.User.no, noAction).show();
 					}
 					else {
-						var m = new MessageBox(txt.User.replaceFile.replace('[filename]', f.name))
+						var m = new MessageBox(txt.User.replaceFile.replace('[filename]', fname))
 							.addButton(txt.User.yes, replaceYesAction)
 							.addButton(txt.User.yesAll, function() {
 								Upload.yesReplaceAll = true;
@@ -159,7 +161,7 @@ var Encryption = (function() {
 				}
 			}
 		}
-		xhr.send("filename="+f.name+"&filesize="+f.size+"&folder_id="+f_id);
+		xhr.send("filename="+fname+"&filesize="+f.size+"&folder_id="+f_id);
 	}
 
 	// Public
