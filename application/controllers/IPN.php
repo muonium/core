@@ -21,11 +21,11 @@ class IPN extends l\Languages {
     }
 
     function DefaultAction() {
-		if($_POST !== []) {
+		if(count($_POST) > 0) {
 			// Send back request to PayPal to check if it's correct
-			$vrf = @file_get_contents('https://www.paypal.com/cgi-bin/webscr?cmd=_notify-validate', false, stream_context_create(array(
+			$vrf = file_get_contents('https://www.paypal.com/cgi-bin/webscr?cmd=_notify-validate', false, stream_context_create(array(
 	    		'http' => array(
-	        		'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
+	        		'header'  => "Content-type: application/x-www-form-urlencoded\r\nUser-Agent: Muonium\r\n",
 	        		'method'  => 'POST',
 	        		'content' => http_build_query($_POST)
 	    		)
@@ -40,11 +40,11 @@ class IPN extends l\Languages {
 					$price = floatval($_POST['mc_gross']);
 					$currency = $_POST['mc_currency'];
 					// Verify if transaction id already exists
-					if(!($_modelUpgrade->transactionExists($txn_id))) {
-						$plans = $_modelStoragePlans->getPlans();
+					if(!($this->_modelUpgrade->transactionExists($txn_id))) {
+						$plans = $this->_modelStoragePlans->getPlans();
 						foreach($plans as $plan) {
 							if($plan['paypal_button_id'] === $paypal_button_id) {
-								$user_mail = $_modelUsers->getEmail($user_id);
+								$user_mail = $this->_modelUsers->getEmail($user_id);
 								if($user_mail !== false) {
 									$this->_modelUpgrade->addUpgrade($plan['size'], $price, $currency, $plan['duration'], $txn_id, $user_id);
 								}
@@ -53,8 +53,8 @@ class IPN extends l\Languages {
 						}
 					}
 				}
-				exit;
 			}
+			exit;
 		}
 		header('Location: Upgrade');
 	}
