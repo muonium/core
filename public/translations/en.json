@@ -208,6 +208,11 @@
 		"price": "Price",
 		"start_date": "Start date",
 		"end_date": "End date",
+		"month": "month",
+		"months": "months",
+		"year": "year",
+		"years": "years",
+		"lifetime": "lifetime",
 		"buy": "Buy"
 	},
 
