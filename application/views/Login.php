@@ -1,6 +1,6 @@
 <?php
 /*
-	* @name            : vLogin.php
+	* @name            : Login.php
 	* @description     : Login view
 	* @authors         : Romain Claveau <romain.claveau@protonmail.ch>, Dylan Clement <dylanclement7@protonmail.ch>
 */
@@ -24,7 +24,7 @@
     <header>
         <div id="logo">
             <a href="https://muonium.io" target="_blank">
-                <img src="public/pictures/logos/muonium_H_06.png">
+                <img src="public/pictures/logos/muonium_H_06.png" title="<?php echo $this->txt->Global->home; ?>" alt="<?php echo $this->txt->Global->home; ?>">
             </a>
         </div>
         <section id="language">

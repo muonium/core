@@ -1,12 +1,11 @@
 <?php
-
 	/*
-	* @name            : vRecent.php
-	* @description     : Recent view
+	* @name            : Sharing.php
+	* @description     : Sharing view
 	* @authors         : Romain Claveau <romain.claveau@protonmail.ch>, Dylan Clement <dylanclement7@protonmail.ch>
 	*/
-    use \library\MVC as l;
-    $_t = new l\Template($this->txt->Global->recents);
+	use \library\MVC as l;
+	$_t = new l\Template($this->txt->Global->sharing);
 	$_t->addCss("blue/blue");
     $_t->addCss("blue/container");
     $_t->addCss("blue/dragbar");
@@ -19,8 +18,8 @@
     $_t->addCss("blue/toolbar");
     $_t->addCss("blue/transfers");
     $_t->addCss("blue/tree");
-    $_t->addCss("Interface/box");
-    $_t->addCss("Interface/MessageBox");
+	$_t->addCss("Interface/box");
+	$_t->addCss("Interface/MessageBox");
 	$_t->addCss("Interface/progress_bar");
 
 	// JS Modules
@@ -32,13 +31,13 @@
 	$_t->addJs("Interface/modules/Favorites");
 	$_t->addJs("Interface/modules/Files");
 	$_t->addJs("Interface/modules/Folders");
-    $_t->addJs("Interface/modules/MessageBox");
+	$_t->addJs("Interface/modules/MessageBox");
 	$_t->addJs("Interface/modules/Move");
 	$_t->addJs("Interface/modules/Rm");
 	$_t->addJs("Interface/modules/Selection");
 	$_t->addJs("Interface/modules/Time");
-    $_t->addJs("Interface/modules/Toolbar");
 	$_t->addJs("Interface/modules/Transfers");
+	$_t->addJs("Interface/modules/Toolbar");
 	$_t->addJs("Interface/modules/Trash");
 	$_t->addJs("Interface/modules/Upload");
 
@@ -46,15 +45,15 @@
 	$_t->addJs("object-watch");
 	$_t->addJs("src/crypto/sjcl");
 	$_t->addJs("Interface/idb.filesystem.min");
-    $_t->addJs("Interface/Request");
+	$_t->addJs("Interface/Request");
 	$_t->addJs("Interface/interface");
-    $_t->getHeader();
+	$_t->getHeader();
 ?>
 <body>
 	<header>
 		<div id="logo">
             <a href="https://muonium.io" target="_blank">
-                <img src="public/pictures/logos/muonium_H_06.png">
+                <img src="public/pictures/logos/muonium_H_06.png" title="<?php echo $this->txt->Global->home; ?>" alt="<?php echo $this->txt->Global->home; ?>">
             </a>
         </div>
         <ul>
@@ -107,10 +106,10 @@
         </section>
 
 		<section id="desktop">
-            <img src="<?php echo MVC_ROOT; ?>/public/pictures/desktop/arrow.svg" class="arrow recents" />
-        </section>
+			<img src="<?php echo MVC_ROOT; ?>/public/pictures/desktop/arrow.svg" class="arrow shares" />
+		</section>
 	</div>
 </body>
 <?php
-    $_t->getFooter();
+$_t->getFooter();
 ?>

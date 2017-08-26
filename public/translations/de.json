@@ -28,7 +28,8 @@
         "smallIcons": "Kleine Icons",
         "largeIcons": "Große Icons",
         "multiSelection": "Mehrfachauswahl",
-        "selectAll": "Alle auswählen"
+        "selectAll": "Alle auswählen",
+		"moreStorage": "Buy more storage"
     },
 
     "Toolbar": {
@@ -81,7 +82,8 @@
         "notCompleted": "Nicht fertiggestellt",
         "nothing": "Nichts...",
         "uploading": "Lädt hoch",
-        "downloading": "Lädt herunter"
+        "downloading": "Lädt herunter",
+		"quota_of": "[used] of [total] used"
     },
 
     "Register": {
@@ -203,6 +205,22 @@
 		"empty": "Fehler: Content-Encryption Key ist leer"
 	},
 
+	"Upgrade": {
+		"offers": "Offers",
+		"history": "History",
+		"expired": "Expired",
+		"duration": "Duration",
+		"price": "Price",
+		"start_date": "Start date",
+		"end_date": "End date",
+		"month": "month",
+		"months": "months",
+		"year": "year",
+		"years": "years",
+		"lifetime": "lifetime",
+		"buy": "Buy"
+	},
+
     "Help": {
         "shortcuts": [
             "<strong>Desktopversion</strong><ul>",
@@ -229,5 +247,13 @@
             "<li>Enter (auf einen Ordner): Ordner öffnen</li>",
             "<li>F1: Hilfe</li></ul>"
         ]
-    }
+    },
+
+	"Units": {
+		"o": "",
+		"k": "KB",
+		"m": "MB",
+		"g": "GB",
+		"t": "TB"
+	}
 }

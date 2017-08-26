@@ -1,6 +1,6 @@
 <?php
     /*
-	* @name            : vError.php
+	* @name            : Error.php
 	* @description     : Error view
 	* @authors         : Romain Claveau <romain.claveau@protonmail.ch>, Dylan Clement <dylanclement7@protonmail.ch>
 	*/

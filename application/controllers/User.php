@@ -24,7 +24,7 @@ class User extends l\Languages {
     }
 
     function DefaultAction() {
-        require_once(DIR_VIEW."vUser.php");
+        require_once(DIR_VIEW."User.php");
     }
 
     function getFolderVars() {
@@ -327,8 +327,6 @@ class User extends l\Languages {
         $quota = $this->_modelStorage->getUserQuota();
         $stored = $this->_modelStorage->getSizeStored();
 
-        $time_start = microtime(true);
-
         // Link to parent folder
         echo '<div class="quota">';
         if($this->_folderId != 0) {
@@ -336,7 +334,7 @@ class User extends l\Languages {
             echo '<a id="parent-'.$parent.'" onclick="Folders.open('.$parent.')"><img src="'.IMG.'desktop/arrow.svg" class="icon"></a> ';
         }
         $pct = round($stored/$quota*100, 2);
-        echo ' ['.$this->showSize($stored).'/'.$this->showSize($quota).' - '.$pct.'%]';
+        echo str_replace(['[used]', '[total]'], [$this->showSize($stored), $this->showSize($quota)], $this->txt->User->quota_of).' - '.$pct.'%';
         echo '<div class="progress_bar">';
         echo '<div class="used" style="width:'.$pct.'%"></div>';
         echo '</div></div>';
@@ -386,14 +384,12 @@ class User extends l\Languages {
                 data-folder="'.htmlentities($file['6']).'"
                 data-path="'.htmlentities($fpath).'"
                 data-title="'.htmlentities($file['0']).'">';
-				// showSize with an array containing path and file name because the size in database can be -1 (file currently uploading), in this case showSize will display size with filesize()
+
 				echo htmlentities($file['0']).'</span>';
             }
         }
 
-        $time_end = microtime(true);
         echo '</div>';
-		//echo '<br />'.$this->txt->User->loaded.' '.($time_end-$time_start).' s';
     }
 
     function ChangePathAction() {
@@ -642,18 +638,6 @@ class User extends l\Languages {
             }
         }
         echo 'done';
-    }
-
-    function showSize($size, $precision = 2) {
-        // $size => size in bytes
-        if(!is_numeric($size))
-            return 0;
-		if($size <= 0)
-			return 0;
-        $base = log($size, 1024);
-        $suffixes = array('', 'K', 'M', 'G', 'T');
-
-        return round(pow(1024, $base - floor($base)), $precision) .' '. $suffixes[floor($base)];
     }
 
     function RenameAction() {

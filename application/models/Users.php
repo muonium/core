@@ -58,8 +58,12 @@ class Users extends l\Model {
             return $res['id'];
         }
 
-        function getEmail() {
+        function getEmail($id = null) {
             // Get email with user id or login or email
+			if(is_numeric($id)) {
+				$req = self::$_sql->prepare("SELECT email FROM users WHERE id = ?");
+                $req->execute(array($id));
+			}
             if(!empty($this->id)) {
                 $req = self::$_sql->prepare("SELECT email FROM users WHERE id = ?");
                 $req->execute(array($this->id));
@@ -75,8 +79,9 @@ class Users extends l\Model {
             else
                 return false;
 
-            if($req->rowCount() == 0)
+            if($req->rowCount() == 0) {
                 return false;
+			}
             $res = $req->fetch();
             return $res['email'];
         }

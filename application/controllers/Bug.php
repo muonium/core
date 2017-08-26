@@ -118,11 +118,11 @@ class Bug extends l\Languages {
                 $this->_message = $this->txt->Register->{"bruteforceErr".$this->_bruteforce->getError()};
             }
         }
-        require_once(DIR_VIEW.'vBug.php');
+        require_once(DIR_VIEW.'Bug.php');
     }
 
     function DefaultAction() {
-        require_once(DIR_VIEW.'vBug.php');
+        require_once(DIR_VIEW.'Bug.php');
     }
 };
 ?>

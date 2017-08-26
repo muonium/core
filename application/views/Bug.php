@@ -1,6 +1,6 @@
 <?php
     /*
-	* @name            : vBug.php
+	* @name            : Bug.php
 	* @description     : Notify a bug view
 	* @authors         : Dylan Clement <dylanclement7@protonmail.ch>
 	*/

@@ -10,12 +10,12 @@ class Login extends l\Languages {
         sleep(1);
         if(!isset($_SESSION['tmp_id'])) {
             $this->_message = htmlentities($this->txt->Login->expired);
-            require_once(DIR_VIEW."vLogin.php");
+            require_once(DIR_VIEW."Login.php");
         }
 
         elseif(strlen($_POST['code']) != 8) {
             $this->_message = htmlentities($this->txt->Login->invalidCode);
-            require_once(DIR_VIEW."vDoubleAuth.php");
+            require_once(DIR_VIEW."DoubleAuth.php");
         }
         else {
             $brute = new l\AntiBruteforce();
@@ -45,7 +45,7 @@ class Login extends l\Languages {
                         $brute->setSID('doubleAuth');
                         $brute->Control();
                         $this->_message = htmlentities($this->txt->Login->invalidCode).'<br />'.htmlentities($this->txt->Register->{"bruteforceErr".$brute->getError()});
-                        require_once(DIR_VIEW."vDoubleAuth.php");
+                        require_once(DIR_VIEW."DoubleAuth.php");
                     }
                 }
                 else // Unable to get code
@@ -134,10 +134,10 @@ class Login extends l\Languages {
         elseif(!empty($_SESSION['tmp_id'])) {
             // Double auth
             $this->_message = str_replace("[url_app]", URL_APP, $this->txt->Login->doubleAuth);
-            require_once(DIR_VIEW."vDoubleAuth.php");
+            require_once(DIR_VIEW."DoubleAuth.php");
         }
         else
-            require_once(DIR_VIEW."vLogin.php");
+            require_once(DIR_VIEW."Login.php");
     }
 
     function generateCode() {

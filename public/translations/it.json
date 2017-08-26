@@ -28,7 +28,8 @@
         "smallIcons": "Small icons",
         "largeIcons": "Large icons",
         "multiSelection": "Multi-selection",
-        "selectAll": "Select all"
+        "selectAll": "Select all",
+		"moreStorage": "Buy more storage"
     },
 
     "Toolbar": {
@@ -81,7 +82,8 @@
         "notCompleted": "Not completed",
         "nothing": "Nothing...",
         "uploading": "Uploading",
-        "downloading": "Downloading"
+        "downloading": "Downloading",
+		"quota_of": "[used] of [total] used"
     },
 
     "Register": {
@@ -203,6 +205,22 @@
         "empty": "Error: the content encryption key is empty"
 	},
 
+	"Upgrade": {
+		"offers": "Offers",
+		"history": "History",
+		"expired": "Expired",
+		"duration": "Duration",
+		"price": "Price",
+		"start_date": "Start date",
+		"end_date": "End date",
+		"month": "month",
+		"months": "months",
+		"year": "year",
+		"years": "years",
+		"lifetime": "lifetime",
+		"buy": "Buy"
+	},
+
     "Help": {
         "shortcuts": [
             "<strong>Desktop version</strong><ul>",
@@ -229,5 +247,13 @@
             "<li>Enter (on a folder) : Open folder</li>",
             "<li>F1 : Help</li></ul>"
         ]
-    }
+    },
+
+	"Units": {
+		"o": "",
+		"k": "KB",
+		"m": "MB",
+		"g": "GB",
+		"t": "TB"
+	}
 }

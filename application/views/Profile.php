@@ -1,6 +1,6 @@
 <?php
     /*
-	* @name            : vProfile.php
+	* @name            : Profile.php
 	* @description     : Profile view (edit profile)
 	* @authors         : Dylan Clement <dylanclement7@protonmail.ch>
 	*/
@@ -27,7 +27,7 @@
     <header>
         <div id="logo">
             <a href="https://muonium.io" target="_blank">
-                <img src="public/pictures/logos/muonium_H_06.png">
+                <img src="public/pictures/logos/muonium_H_06.png" title="<?php echo $this->txt->Global->home; ?>" alt="<?php echo $this->txt->Global->home; ?>">
             </a>
         </div>
         <ul>

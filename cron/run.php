@@ -130,5 +130,20 @@ class cron {
 		$req = self::$_sql->prepare("DELETE FROM files WHERE size = -1 AND expires <= ?");
 		$req->execute(array(time()));
 	}
+
+	function updateUpgrades() {
+		// Remove upgrades from user storage quota when date is expired but keep them in DB in order to show history
+		$time = time();
+		$req = self::$_sql->prepare("SELECT id_user, size FROM upgrade WHERE `end` <= ? AND `end` >= 0 AND removed = 0");
+		$req->execute(array($time));
+		$res = $req->fetchAll(\PDO::FETCH_ASSOC);
+
+		foreach($res as $up) {
+			$req = self::$_sql->prepare("UPDATE storage SET user_quota = user_quota-? WHERE id_user = ?");
+			$req->execute(array($up['size'], $up['id_user']));
+		}
+		$req = self::$_sql->prepare("UPDATE upgrade SET removed = 1 WHERE `end` <= ? AND `end` >= 0 AND removed = 0");
+		$req->execute(array($time));
+	}
 };
 ?>

@@ -14,7 +14,7 @@ class Validate extends l\Languages {
         private $_mail;
 
         function DefaultAction() {
-            require_once(DIR_VIEW."vSendMail.php");
+            require_once(DIR_VIEW."SendMail.php");
         }
 
         function KeyAction($id_user, $key) {
@@ -32,7 +32,7 @@ class Validate extends l\Languages {
             if($this->_modelUserVal->getKey() != $this->val_key) {
                 // Different key, send a new mail ?
                 $this->err_msg = $this->txt->Validate->message;
-                require_once(DIR_VIEW."vValidate.php");
+                require_once(DIR_VIEW."Validate.php");
             }
             else {
                 // Same keys, validate account
@@ -58,7 +58,7 @@ class Validate extends l\Languages {
                     if($_SESSION['sendMail']+60 < time()) {
                         $w = 1;
                         $this->err_msg = $this->txt->Validate->wait;
-                        require_once(DIR_VIEW."vValidate.php");
+                        require_once(DIR_VIEW."Validate.php");
                     }
                 }
 
@@ -91,7 +91,7 @@ class Validate extends l\Languages {
                     $_SESSION['sendMail'] = time();
 
                     $this->err_msg = $this->txt->Global->mail_sent;
-                    require_once(DIR_VIEW."vValidate.php");
+                    require_once(DIR_VIEW."Validate.php");
                 }
             }
             else {
