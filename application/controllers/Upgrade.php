@@ -26,7 +26,7 @@ class Upgrade extends l\Languages {
 			if($plan['paypal_button_id'] !== null) {
 				$offers .= '<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
 					<input type="hidden" name="cmd" value="_s-xclick"><input type="hidden" name="hosted_button_id" value="'.$plan['paypal_button_id'].'">
-					<input name="return" type="hidden" value="'.URL_APP.'/Upgrade/Validation" />
+					<input name="return" type="hidden" value="'.URL_APP.'/Upgrade" />
 					<input name="cancel_return" type="hidden" value="'.URL_APP.'/Upgrade" />
 					<input name="notify_url" type="hidden" value="'.URL_APP.'/IPN" />
 					<input name="custom" type="hidden" value="'.$_SESSION['id'].'" />

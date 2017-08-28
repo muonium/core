@@ -47,6 +47,7 @@
     font-weight: bold;
     outline: none;
     height: 36px;
+	color: black;
 }
 
 #MessageBox .MessageBoxBtns input[type="button"]:active {

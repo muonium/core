@@ -64,7 +64,7 @@ class Users extends l\Model {
 				$req = self::$_sql->prepare("SELECT email FROM users WHERE id = ?");
                 $req->execute(array($id));
 			}
-            if(!empty($this->id)) {
+            elseif(!empty($this->id)) {
                 $req = self::$_sql->prepare("SELECT email FROM users WHERE id = ?");
                 $req->execute(array($this->id));
             }
@@ -76,8 +76,9 @@ class Users extends l\Model {
                 $req = self::$_sql->prepare("SELECT email FROM users WHERE email = ?");
                 $req->execute(array($this->email));
             }
-            else
+            else {
                 return false;
+			}
 
             if($req->rowCount() == 0) {
                 return false;
