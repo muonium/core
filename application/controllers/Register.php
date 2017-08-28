@@ -22,7 +22,7 @@ class Register extends l\Languages {
     }
 
     function DefaultAction() {
-        require_once(DIR_VIEW.'vRegister.php');
+        require_once(DIR_VIEW.'Register.php');
     }
 
     function AddUserAction() {

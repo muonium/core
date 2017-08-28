@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jan 08, 2017 at 11:16 PM
+-- Generation Time: Aug 24, 2017 at 10:40 PM
 -- Server version: 5.7.11
 -- PHP Version: 5.6.18
 
@@ -83,6 +83,39 @@ CREATE TABLE `storage` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `storage_plans`
+--
+
+CREATE TABLE `storage_plans` (
+  `id` int(11) NOT NULL,
+  `size` bigint(20) NOT NULL,
+  `price` float NOT NULL,
+  `currency` varchar(10) DEFAULT NULL,
+  `duration` int(11) NOT NULL,
+  `paypal_button_id` varchar(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `upgrade`
+--
+
+CREATE TABLE `upgrade` (
+  `id` int(11) NOT NULL,
+  `id_user` int(11) NOT NULL,
+  `txn_id` varchar(64) NOT NULL,
+  `size` bigint(20) NOT NULL,
+  `price` float NOT NULL,
+  `currency` varchar(10) DEFAULT NULL,
+  `start` int(11) NOT NULL,
+  `end` int(11) NOT NULL,
+  `removed` tinyint(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `users`
 --
 
@@ -152,6 +185,19 @@ ALTER TABLE `storage`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `storage_plans`
+--
+ALTER TABLE `storage_plans`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `upgrade`
+--
+ALTER TABLE `upgrade`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `txn_id` (`txn_id`);
+
+--
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
@@ -182,7 +228,7 @@ ALTER TABLE `ban`
 -- AUTO_INCREMENT for table `files`
 --
 ALTER TABLE `files`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=449;
 --
 -- AUTO_INCREMENT for table `folders`
 --
@@ -192,12 +238,22 @@ ALTER TABLE `folders`
 -- AUTO_INCREMENT for table `storage`
 --
 ALTER TABLE `storage`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+--
+-- AUTO_INCREMENT for table `storage_plans`
+--
+ALTER TABLE `storage_plans`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT for table `upgrade`
+--
+ALTER TABLE `upgrade`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `user_lostpass`
 --

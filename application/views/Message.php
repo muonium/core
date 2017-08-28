@@ -1,7 +1,7 @@
 <?php
 	/*
-	* @name            : vValidate.php
-	* @description     : Validate view
+	* @name            : Message.php
+	* @description     : View with a message defined in controller
 	* @authors         : Dylan Clement <dylanclement7@protonmail.ch>
 	*/
     use \library\MVC as l;
@@ -18,7 +18,7 @@
 	<header>
 		<div id="logo">
             <a href="https://muonium.io" target="_blank">
-                <img src="public/pictures/logos/muonium_H_06.png">
+                <img src="public/pictures/logos/muonium_H_06.png" title="<?php echo $this->txt->Global->home; ?>" alt="<?php echo $this->txt->Global->home; ?>">
             </a>
         </div>
         <ul>
@@ -33,13 +33,11 @@
 
 	<div id="container">
         <section id="large-content">
-            <h2><?php echo_h($this->txt->Global->validate); ?></h2>
-
-			<br /><br />
             <p>
-                <?php echo_h($this->err_msg); ?><br />
-                <a href="Login"><?php echo_h($this->txt->Global->login); ?></a> ||
-                <a href="<?php echo $_SERVER['REQUEST_URI']; ?>"><?php echo_h($this->txt->Global->refresh); ?></a>
+                <?php
+                if(!empty($this->_message)) { echo_h($this->_message); }
+                ?>
+                <br />
             </p>
         </section>
 	</div>

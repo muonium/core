@@ -28,7 +28,8 @@
         "smallIcons": "Petites icônes",
         "largeIcons": "Grandes icônes",
         "multiSelection": "Sélection multiple",
-        "selectAll": "Sélectionner tout"
+        "selectAll": "Sélectionner tout",
+		"moreStorage": "Acheter plus de stockage"
     },
 
     "Toolbar": {
@@ -81,7 +82,8 @@
         "notCompleted": "Incomplet",
         "nothing": "Rien du tout...",
         "uploading": "Envois",
-        "downloading": "Téléchargements"
+        "downloading": "Téléchargements",
+		"quota_of": "[used] utilisés sur [total]"
     },
 
     "Register": {
@@ -200,6 +202,22 @@
         "sent": "Votre message a été envoyé avec succès. Nous vous répondrons dès que possible par e-mail"
     },
 
+	"Upgrade": {
+		"offers": "Offres",
+		"history": "Historique",
+		"expired": "Expiré",
+		"duration": "Durée",
+		"price": "Prix",
+		"start_date": "Date de début",
+		"end_date": "Date de fin",
+		"month": "mois",
+		"months": "mois",
+		"year": "an",
+		"years": "ans",
+		"lifetime": "à vie",
+		"buy": "Acheter"
+	},
+
 	"cek": {
 		"updateErr": "Erreur: Impossible de mettre à jour la clé de chiffrement",
 		"empty": "Erreur: La clé de chiffrement est vide"
@@ -231,5 +249,13 @@
             "<li>Entrée (sur un dossier) : Ouvrir dossier</li>",
             "<li>F1 : Aide</li></ul>"
         ]
-    }
+    },
+
+	"Units": {
+		"o": "",
+		"k": "Ko",
+		"m": "Mo",
+		"g": "Go",
+		"t": "To"
+	}
 }

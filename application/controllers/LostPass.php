@@ -26,10 +26,10 @@ class LostPass extends l\Languages {
         if(!empty($_SESSION['changePassId']) && !empty($_SESSION['changePassKey'])) {
             $this->_modelUser = new m\Users();
             $this->_modelUser->id = $_SESSION['changePassId'];
-            require_once(DIR_VIEW."vLostPassForm.php");
+            require_once(DIR_VIEW."LostPassForm.php");
         }
         else
-            require_once(DIR_VIEW."vLostPass.php");
+            require_once(DIR_VIEW."LostPass.php");
     }
 
     function ResetPassAction() {
@@ -126,7 +126,7 @@ class LostPass extends l\Languages {
         if($this->_modelUserLostPass->getKey() != $this->val_key || $this->_modelUserLostPass->getExpire() < time()) {
             // Different key, send a new mail ?
             $this->err_msg = $this->txt->LostPass->errmessage;
-            require_once(DIR_VIEW."vLostPass.php");
+            require_once(DIR_VIEW."LostPass.php");
         }
         else {
             // Same keys, redirect and show form to change password or passphrase
@@ -141,7 +141,7 @@ class LostPass extends l\Languages {
         sleep(1);
 
         if(!isset($_POST['user']))
-            require_once(DIR_VIEW."vLostPass.php");
+            require_once(DIR_VIEW."LostPass.php");
         else {
             $user = $_POST['user'];
 
@@ -153,7 +153,7 @@ class LostPass extends l\Languages {
                 if($_SESSION['sendMail']+60 > time()) {
                     $w = 1;
                     $this->err_msg = $this->txt->Validate->wait;
-                    require_once(DIR_VIEW."vLostPass.php");
+                    require_once(DIR_VIEW."LostPass.php");
                 }
             }
 
@@ -199,7 +199,7 @@ class LostPass extends l\Languages {
                 $_SESSION['sendMail'] = time();
 
                 $this->err_msg = $this->txt->Global->mail_sent;
-                require_once(DIR_VIEW."vLostPass.php");
+                require_once(DIR_VIEW."LostPass.php");
             }
         }
     }

@@ -79,6 +79,18 @@ class Languages {
         echo '</select>';
     }
 
+	function showSize($size, $precision = 2) {
+		// $size => size in bytes
+		if(!is_numeric($size))
+			return 0;
+		if($size <= 0)
+			return 0;
+		$base = log($size, 1000);
+		$suffixes = array_values((array)$this->txt->Units);
+
+		return round(pow(1000, $base - floor($base)), $precision) .' '. $suffixes[floor($base)];
+	}
+
     public function __get($attr) {
         return $this->$attr;
     }

@@ -23,7 +23,7 @@ class Profile extends l\Languages
     function DefaultAction() {
         $this->_modelUser = new m\Users();
         $this->_modelUser->id = $_SESSION['id'];
-        require_once(DIR_VIEW."vProfile.php");
+        require_once(DIR_VIEW."Profile.php");
     }
 
     function ChangeLoginAction() {

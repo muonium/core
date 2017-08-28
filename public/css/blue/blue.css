@@ -76,3 +76,22 @@ hr {
     border: 0;
     border-top: 1px solid #9A9A9A;
 }
+
+.bloc {
+	width: calc(100% - 30px);
+	margin: auto;
+	background-color: #E5E5E5;
+	border: 1px solid #D2D2D2;
+	border-radius: 4px;
+	padding: 10px;
+}
+
+.bloc table { width: 100%; }
+.bloc table td, .bloc table th { border-bottom: 1px solid #D2D2D2; padding: 5px; text-align: left; }
+.bloc table td.fit-width { width: 1%; white-space: nowrap; }
+.bloc ul { list-style-type: none; text-align: left; }
+.bloc ul li { padding: 10px; border-bottom: 1px solid #D2D2D2; }
+
+.red { color: red; }
+.green { color: green; }
+.orange { color: orange; }

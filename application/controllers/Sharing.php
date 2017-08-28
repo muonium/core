@@ -12,6 +12,6 @@ use \library\MVC as l;
     }
 
     function DefaultAction() {
-        require_once(DIR_VIEW.'vSharing.php');
+        require_once(DIR_VIEW.'Sharing.php');
     }
 }*/

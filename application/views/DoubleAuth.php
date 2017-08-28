@@ -1,6 +1,6 @@
 <?php
 /*
-	* @name            : vDoubleAuth.php
+	* @name            : DoubleAuth.php
 	* @description     : Double auth view
 	* @authors         : Dylan Clement <dylanclement7@protonmail.ch>
 */
