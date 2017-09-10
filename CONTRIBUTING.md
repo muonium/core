@@ -23,6 +23,10 @@ Examples of unacceptable behavior by participants include:
 - If you're coding a new feature, then create a new branch
 - When the feature is coded, you can merge and delete the feature branch
 
+## Issue
+
+Please, do not open an issue if it is not relevant. Think about what you want to report, and check if it has been answered.
+
 ## Pull requests
 
 Your code must be tested.
