@@ -106,7 +106,12 @@ class Users extends l\Model {
         }
 
         function getLogin() {
-             return $this->login;
+			$req = self::$_sql->prepare("SELECT login FROM users WHERE id = ?");
+            $req->execute(array($this->id));
+            if($req->rowCount() == 0)
+                return false;
+            $res = $req->fetch();
+            return $res['login'];
         }
 
         function getDoubleAuth() {

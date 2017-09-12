@@ -29,7 +29,7 @@
         "largeIcons": "Große Icons",
         "multiSelection": "Mehrfachauswahl",
         "selectAll": "Alle auswählen",
-		"moreStorage": "Buy more storage"
+        "moreStorage": "Kaufe mehr Speicher"
     },
 
     "Toolbar": {
@@ -37,7 +37,7 @@
         "favorites": "Favoriten",
         "general": "Allgemein",
         "shared": "Geteilt",
-        "transfers": "Transfere"
+        "transfers": "Transferiere"
     },
 
     "Error": {
@@ -83,7 +83,7 @@
         "nothing": "Nichts...",
         "uploading": "Lädt hoch",
         "downloading": "Lädt herunter",
-		"quota_of": "[used] of [total] used"
+        "quota_of": "[used] von [total] gebraucht"
     },
 
     "Register": {
@@ -200,26 +200,26 @@
         "sent": "Deine Mitteilung wurde erfolgreich abgesendet. Wir werden so schnell wie möglich per Email darauf antworten"
     },
 
-	"cek": {
-		"updateErr": "Fehler: Content-Encryption Key kann nicht aktualisiert werden",
-		"empty": "Fehler: Content-Encryption Key ist leer"
-	},
+    "cek": {
+        "updateErr": "Fehler: Content-Encryption Key kann nicht aktualisiert werden",
+        "empty": "Fehler: Content-Encryption Key ist leer"
+    },
 
-	"Upgrade": {
-		"offers": "Offers",
-		"history": "History",
-		"expired": "Expired",
-		"duration": "Duration",
-		"price": "Price",
-		"start_date": "Start date",
-		"end_date": "End date",
-		"month": "month",
-		"months": "months",
-		"year": "year",
-		"years": "years",
-		"lifetime": "lifetime",
-		"buy": "Buy"
-	},
+    "Upgrade": {
+        "offers": "Angebote",
+        "history": "Geschichte",
+        "expired": "Abgelaufen",
+        "duration": "Dauer",
+        "price": "Preis",
+        "start_date": "Anfangsdatum",
+        "end_date": "Enddatum",
+        "month": "Monat",
+        "months": "Monate",
+        "year": "Jahr",
+        "years": "Jahre",
+        "lifetime": "Lebenszeit",
+        "buy": "Kaufen"
+    },
 
     "Help": {
         "shortcuts": [
@@ -249,11 +249,11 @@
         ]
     },
 
-	"Units": {
-		"o": "",
-		"k": "KB",
-		"m": "MB",
-		"g": "GB",
-		"t": "TB"
-	}
+    "Units": {
+        "o": "",
+        "k": "KB",
+        "m": "MB",
+        "g": "GB",
+        "t": "TB"
+    }
 }

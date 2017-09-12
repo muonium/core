@@ -39,7 +39,7 @@
 
 	<div id="container">
         <section id="large-content">
-            <h2><?php echo $this->txt->Global->register; ?></h2>
+            <h1><?php echo $this->txt->Global->register; ?></h1>
 
             <div id="form">
                 <p>

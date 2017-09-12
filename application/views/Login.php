@@ -36,24 +36,24 @@
 
     <div id="container">
         <section id="large-content" class="spaced">
-            <h2><?php echo_h($this->txt->Global->login); ?></h2>
+            <h1><?php echo_h($this->txt->Global->login); ?></h1>
 
             <div id="form">
-                <p style="color:red"><?php if(!empty($this->_message)) { echo $this->_message; } ?></p>
+                <p class="red"><?php if(!empty($this->_message)) { echo $this->_message; } ?></p>
 
                 <p>
                     <label class="fa fa-user" for="field_username" aria-hidden="true"></label><!--
-                    --><input type="text" name="username" id="field_username" placeholder="<?php echo_h($this->txt->Login->username); ?>..." required="required" autofocus>
+                    --><input type="text" name="username" id="field_username" placeholder="<?php echo_h($this->txt->Login->username); ?>..." required autofocus>
                 </p>
 
                 <p>
                     <label class="fa fa-key" for="field_password" aria-hidden="true"></label><!--
-                    --><input type="password" name="pass" id="field_password" placeholder="<?php echo_h($this->txt->Register->password); ?>..." required="required" />
+                    --><input type="password" name="pass" id="field_password" placeholder="<?php echo_h($this->txt->Register->password); ?>..." required>
                 </p>
 
                 <p>
                     <label class="fa fa-key" for="field_passphrase" aria-hidden="true"></label><!--
-                    --><input type="password" name="passphrase" id="field_passphrase" placeholder="<?php echo_h($this->txt->Register->passphrase); ?>..." required="required" />
+                    --><input type="password" name="passphrase" id="field_passphrase" placeholder="<?php echo_h($this->txt->Register->passphrase); ?>..." required>
                 </p>
 
                 <a href="<?php echo MVC_ROOT; ?>/LostPass"><?php echo_h($this->txt->Login->forgot); ?></a> &nbsp;&nbsp;

@@ -33,10 +33,9 @@
 
 	<div id="container">
         <section id="large-content">
-            <h2><?php echo_h($this->txt->Global->validate); ?></h2>
+            <h1><?php echo_h($this->txt->Global->validate); ?></h1>
 
-			<br /><br />
-            <p>
+            <p class="space">
                 <?php echo_h($this->err_msg); ?><br />
                 <a href="Login"><?php echo_h($this->txt->Global->login); ?></a> ||
                 <a href="<?php echo $_SERVER['REQUEST_URI']; ?>"><?php echo_h($this->txt->Global->refresh); ?></a>

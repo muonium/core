@@ -35,7 +35,7 @@
 
     <div id="container">
         <section id="large-content">
-            <h2><?php echo_h($this->txt->Global->bug); ?></h2>
+            <h1><?php echo_h($this->txt->Global->bug); ?></h1>
 
             <p><strong><?php if(!empty($this->_message)) { echo_h($this->_message); } ?></strong></p>
 

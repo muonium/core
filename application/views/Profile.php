@@ -42,8 +42,15 @@
 
     <div id="container">
         <section id="large-content">
-            <p>
-                ID : <?php echo $_SESSION['id']; ?>
+			<fieldset>
+				<legend><?php echo_h($this->txt->Global->profile); ?></legend>
+	            <ul class="list">
+					<li><?php echo $this->txt->Register->login.'&nbsp;: '.htmlentities($_SESSION['login']); ?></li>
+					<li><?php echo $this->txt->Register->email.'&nbsp;: '.$this->_modelUser->getEmail(); ?></li>
+					<li>ID&nbsp;: <?php echo $_SESSION['id']; ?></li>
+				</ul>
+			</fieldset>
+			<p>
                 <fieldset>
                     <legend><?php echo_h($this->txt->Profile->changelogin); ?></legend>
                     <p>

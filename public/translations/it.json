@@ -64,8 +64,8 @@
         "size": "Size",
         "file": "File",
         "folder": "Folder",
-		"element": "Element",
-		"PlurialElement": "Elements",
+        "element": "Element",
+        "PlurialElement": "Elements",
         "replaceFile": "The file [filename] exists, do you want to replace it ?",
         "replaceCompleteFile": "The file [filename] exists and is not completed, what do you want to do ?",
         "quotaExceeded": "Quota exceeded !",
@@ -124,7 +124,7 @@
         "expired": "Il codice è scaduto, ti preghiamo di effettuare nuovamente il login",
         "invalidCode": "Il codice inserito non è valido",
         "username": "Email o login",
-		"badPassphrase": "Error: bad passphrase",
+        "badPassphrase": "Error: bad passphrase",
         "doubleAuth": "Ti è stata inviata una mail con un codice identificativo. Copia il codice nel campo qui sopra.<br />Se non ricevi nulla entro 5 minuti e la mail non è presente nella tua cartella di spam, <a href='[url_app]/Logout'>clicca qui</a> per effettuare un nuovo tentativo di connessione."
     },
 
@@ -200,10 +200,10 @@
         "sent": "Il tuo messaggio è stato inviato con successo. Ti risponderemo via mail il prima possibile."
     },
 
-	"cek": {
+    "cek": {
         "updateErr": "Error: cannot update the content encryption key",
         "empty": "Error: the content encryption key is empty"
-	},
+    },
 
 	"Upgrade": {
 		"offers": "Offers",

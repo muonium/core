@@ -33,14 +33,12 @@
 
 	<div id="container">
         <section id="large-content">
-            <h2><?php echo_h($this->txt->Login->forgot); ?></h2>
+            <h1><?php echo_h($this->txt->Login->forgot); ?></h1>
 
-            <br /><br />
 			<form method="post" action="<?php echo MVC_ROOT; ?>/LostPass/SendMail">
                 <?php echo $this->err_msg; ?><br />
-                <label for="user"><?php echo_h($this->txt->LostPass->user); ?> :</label>
-                <input type="text" name="user" id="user" required="required" value="<?php if(!empty($_POST['user'])) { echo_h($_POST['user']); } ?>">
-                <input type="submit">
+                <input type="text" name="user" id="user" placeholder="<?php echo_h($this->txt->LostPass->user); ?>" value="<?php if(!empty($_POST['user'])) { echo_h($_POST['user']); } ?>">
+                <input type="submit" value="<?php echo_h($this->txt->Global->submit); ?>">
             </form>
         </section>
 	</div>

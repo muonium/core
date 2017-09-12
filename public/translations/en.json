@@ -64,8 +64,8 @@
         "size": "Size",
         "file": "File",
         "folder": "Folder",
-		"element": "Element",
-		"PlurialElement": "Elements",
+        "element": "Element",
+        "PlurialElement": "Elements",
         "replaceFile": "The file [filename] exists, do you want to replace it?",
         "replaceCompleteFile": "The file [filename] exists but it's not completed, what do you want to do?",
         "quotaExceeded": "Quota exceeded !",
@@ -124,7 +124,7 @@
         "expired": "The code is expired, please login again",
         "invalidCode": "The code entered is invalid",
         "username": "Email or login",
-		"badPassphrase": "Error: bad secret password",
+        "badPassphrase": "Error: bad secret password",
         "doubleAuth": "A mail with an authentication code was sent to you. Copy this code in the field above.<br />If you received nothing from now until 5 mn and the mail is not in the Spam folder, please follow this <a href='[url_app]/Logout'>link</a> to perform a new connection attempt."
     },
 
@@ -200,26 +200,26 @@
         "sent": "Your message has been sent successfully. We will respond as soon as possible by email"
     },
 
-	"Upgrade": {
-		"offers": "Offers",
-		"history": "History",
-		"expired": "Expired",
-		"duration": "Duration",
-		"price": "Price",
-		"start_date": "Start date",
-		"end_date": "End date",
-		"month": "month",
-		"months": "months",
-		"year": "year",
-		"years": "years",
-		"lifetime": "lifetime",
-		"buy": "Buy"
-	},
+    "Upgrade": {
+        "offers": "Offers",
+        "history": "History",
+        "expired": "Expired",
+        "duration": "Duration",
+        "price": "Price",
+        "start_date": "Start date",
+        "end_date": "End date",
+        "month": "month",
+        "months": "months",
+        "year": "year",
+        "years": "years",
+        "lifetime": "lifetime",
+        "buy": "Buy"
+    },
 
-	"cek": {
-		"updateErr": "Error: cannot update the content encryption key",
-		"empty": "Error: The content encryption key is empty"
-	},
+    "cek": {
+        "updateErr": "Error: cannot update the content encryption key",
+        "empty": "Error: The content encryption key is empty"
+    },
 
     "Help": {
         "shortcuts": [

@@ -33,7 +33,7 @@
 
 	<div id="container">
         <section id="large-content">
-			<h2><?php echo_h($this->txt->Upgrade->offers); ?></h2>
+			<h1><?php echo_h($this->txt->Upgrade->offers); ?></h1>
 			<div class="bloc">
 				<ul>
 					<?php echo $offers; ?>

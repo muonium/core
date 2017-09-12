@@ -81,6 +81,9 @@
     <div id="container">
         <section id="menu">
             <ul>
+				<li><i class="fa fa-user" aria-hidden="true"></i>&nbsp;
+					<?php echo_h($_SESSION['login']); ?>
+				</li>
                 <li>
                     <a href="Profile"><i class="fa fa-cog" aria-hidden="true"></i>&nbsp;
                     <?php echo_h($this->txt->UserMenu->settings); ?></a>

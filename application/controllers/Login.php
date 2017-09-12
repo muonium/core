@@ -82,6 +82,7 @@ class Login extends l\Languages {
             }
             else {
                 $new_user->id = $id;
+				$login = $new_user->getLogin();
                 $pass = $new_user->getPassword();
 				$cek = $new_user->getCek();
 
@@ -104,13 +105,16 @@ class Login extends l\Languages {
                                 $mail->_message = str_replace("[key]", $code, $this->txt->Login->doubleAuthMessage);
                                 $mail->send();
                             }
-                            else // Logged
+                            else { // Logged
                                 $_SESSION['id'] = $id;
+								$_SESSION['login'] = $login;
+							}
                             echo 'ok@'.$cek; //the CEK is already url encoded in the database
                         }
                         else {
                             // Key found - User needs to validate its account (double auth only for validated accounts)
                             $_SESSION['id'] = $id;
+							$_SESSION['login'] = $login;
                             $_SESSION['validate'] = 1;
                             echo 'va@';
                         }

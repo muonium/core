@@ -36,8 +36,11 @@ header ul {
 	flex-direction: column;
 }
 
-header a, header a:hover, #menu a:hover {
-    color: white;
+header a, header a:visited, header li {
+    color: #E1EFF4;
+}
+header a:hover, header a:active, header a:focus, #menu a:hover, header li:hover, header li:active, header li:focus {
+	color: white;
 }
 
 header select {

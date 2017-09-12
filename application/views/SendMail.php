@@ -33,10 +33,9 @@
 
 	<div id="container">
         <section id="large-content">
-            <h2><?php echo_h($this->txt->Global->validate); ?></h2>
+            <h1><?php echo_h($this->txt->Global->validate); ?></h1>
 
-			<br /><br /><br />
-            <p>
+            <p class="space">
                 <?php echo_h($this->txt->Validate->sendmess); ?><br />
                 <a href="SendMail"><?php echo_h($this->txt->Validate->sendmail); ?></a>
             </p>

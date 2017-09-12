@@ -5,13 +5,16 @@ label, input, textarea {
 	user-select: text;
 }
 
-label, select, button, input[type='button'] {
+label, select, button, input[type="button"] {
     cursor: pointer;
 }
 
-input:not([type='button']), textarea {
+input:not([type="button"]):not([type="submit"]), textarea {
     cursor: text;
     font-size: 14px;
+}
+input:not([type="button"]):not([type="submit"]):not([type="radio"]):not([type="checkbox"]):focus, textarea:focus {
+	box-shadow:inset 0px 0px 0px 1px #4FC0E8;
 }
 
 section#large-content input {
@@ -53,6 +56,9 @@ section#large-content label.fa ~ input[type="text"], section#large-content label
     max-width: calc(680px - 40px);
 }
 
+section#large-content input[type="submit"] {
+	margin-top: 20px;
+}
 section#large-content input[type="submit"]:hover {
     background: #3BAEDA;
     color: white;

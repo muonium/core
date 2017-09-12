@@ -47,7 +47,7 @@
         "pp": "Impossible de modifier votre phrase secrète pour le moment",
         "bannedSession": "Vous avez atteint le nombre maximum autorisé de requêtes",
         "dl": "Le téléchargement de fichiers n'est pas disponible dans votre navigateur."
-	},
+    },
 
     "User": {
         "lastmod": "Dernière modification",
@@ -64,8 +64,8 @@
         "size": "Taille",
         "file": "Fichier",
         "folder": "Dossier",
-		"element": "Élément",
-		"PlurialElement": "Éléments",
+        "element": "Élément",
+        "PlurialElement": "Éléments",
         "replaceFile": "Le fichier [filename] existe, voulez-vous le remplacer ?",
         "replaceCompleteFile": "Le fichier [filename] existe et il n'est pas complet, que voulez-vous faire ?",
         "quotaExceeded": "Quota dépassé !",
@@ -124,7 +124,7 @@
         "expired": "Le code est expiré, veuillez vous connecter à nouveau",
         "invalidCode": "Le code entré est invalide",
         "username": "Email ou nom d'utilisateur",
-		"badPassphrase": "Erreur : phrase secrète incorrecte",
+        "badPassphrase": "Erreur : phrase secrète incorrecte",
         "doubleAuth": "Un email avec un code d'authentification vous a été envoyé. Copiez ce code dans le champ ci-dessus.<br />Si vous n'avez rien reçu d'ici 5 mn et que le mail n'est pas présent dans le dossier Spam, suivez ce <a href='[url_app]/Logout'>lien</a> pour effectuer une nouvelle tentative de connexion."
     },
 
@@ -132,8 +132,6 @@
         "message": "Erreur : La clé de validation est incorrecte, connectez-vous pour envoyer un nouveau mail de validation",
         "wait": "Veuillez patienter une minute avant d'envoyer un nouveau mail de validation",
         "sendmess": "Suivez le lien donné dans l'email pour activer votre compte",
-        "sendmail": "Envoyer un nouvel email",
-        "sendmess": "Suivez le lien présent dans l'email pour activer votre compte",
         "sendmail": "Envoyer un nouvel email"
     },
 
@@ -202,26 +200,26 @@
         "sent": "Votre message a été envoyé avec succès. Nous vous répondrons dès que possible par e-mail"
     },
 
-	"Upgrade": {
-		"offers": "Offres",
-		"history": "Historique",
-		"expired": "Expiré",
-		"duration": "Durée",
-		"price": "Prix",
-		"start_date": "Date de début",
-		"end_date": "Date de fin",
-		"month": "mois",
-		"months": "mois",
-		"year": "an",
-		"years": "ans",
-		"lifetime": "à vie",
-		"buy": "Acheter"
-	},
+    "Upgrade": {
+        "offers": "Offres",
+        "history": "Historique",
+        "expired": "Expiré",
+        "duration": "Durée",
+        "price": "Prix",
+        "start_date": "Date de début",
+        "end_date": "Date de fin",
+        "month": "mois",
+        "months": "mois",
+        "year": "an",
+        "years": "ans",
+        "lifetime": "à vie",
+        "buy": "Acheter"
+    },
 
-	"cek": {
-		"updateErr": "Erreur: Impossible de mettre à jour la clé de chiffrement",
-		"empty": "Erreur: La clé de chiffrement est vide"
-	},
+    "cek": {
+        "updateErr": "Erreur: Impossible de mettre à jour la clé de chiffrement",
+        "empty": "Erreur: La clé de chiffrement est vide"
+    },
 
     "Help": {
         "shortcuts": [

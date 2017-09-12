@@ -37,6 +37,13 @@ body.mui_bg {
 
 body.mui_bg section#large-content { background: transparent; }
 
+h1, h2 {
+    margin-top: 20px;
+    font-size: 28px;
+    font-weight: normal;
+    color: #28535c;
+}
+
 #button_trash { cursor: pointer; }
 
 .undefined { font-style: italic; }
@@ -52,11 +59,12 @@ body.mui_bg section#large-content { background: transparent; }
     margin-right: 10px;
 }
 
-a {
+a, a:visited {
     cursor: pointer;
     color: #333333;
     text-decoration: none;
 }
+a:active, a:hover, a:focus { color: #1a8da5; }
 
 fieldset {
     margin: auto;
@@ -91,6 +99,8 @@ hr {
 .bloc table td.fit-width { width: 1%; white-space: nowrap; }
 .bloc ul { list-style-type: none; text-align: left; }
 .bloc ul li { padding: 10px; border-bottom: 1px solid #D2D2D2; }
+ul.list { text-align: left; margin: 10px auto 20px auto; padding-left: 15px; padding-right: 15px; display: inline-block; }
+p.space { margin-top: 30px; }
 
 .red { color: red; }
 .green { color: green; }

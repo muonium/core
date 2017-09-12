@@ -40,7 +40,7 @@
                 <form method="post" action="<?php echo MVC_ROOT; ?>/Login/AuthCode">
                     <p style="color:red"><?php if(!empty($this->_message)) { echo $this->_message; } ?></p>
                     <input type="text" name="code" placeholder="<?php echo_h($this->txt->Login->codeMail); ?>" required>
-                    <input type="submit">
+                    <input type="submit" value="<?php echo_h($this->txt->Global->submit); ?>">
                 </form>
             </div>
         </section>
