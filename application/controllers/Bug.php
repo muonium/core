@@ -85,8 +85,7 @@ class Bug extends l\Languages {
                             // Send the mail
 
                             $this->_mail = new l\Mail();
-                            //$this->_mail->_to = "muonium@protonmail.ch";
-                            $this->_mail->_to = "dylanclement7@gmail.com";
+                            $this->_mail->_to = "bug@muonium.ee";
                             $this->_mail->_subject = "[Bug report] ".$mail." - ".substr($message, 0, 20);
                             $this->_mail->_message = "====================<br />
                             <strong>User mail :</strong> ".$mail."<br />
