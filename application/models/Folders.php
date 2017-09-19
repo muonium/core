@@ -176,7 +176,7 @@ class Folders extends l\Model {
             return $req->execute(array($parent, $this->name, $_SESSION['id'], $id));
         }
 
-        function insert() {
+        function insertV() {
             $req = self::$_sql->prepare("INSERT INTO  folders VALUES (NULL, ?, ?, ?, ?, ?, ?)");
             return $req->execute(array($_SESSION['id'], $this->name, $this->size, $this->parent, 0, $this->path));
         }

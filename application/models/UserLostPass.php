@@ -48,7 +48,7 @@ class UserLostPass extends l\Model {
             return $req->execute(array($this->id_user));
         }
 
-        function Insert() {
+        function InsertV() {
             $req = self::$_sql->prepare("INSERT INTO user_lostpass VALUES (NULL, ?, ?, ?)");
             return $req->execute(array($this->id_user, $this->val_key, $this->expire));
         }

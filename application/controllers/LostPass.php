@@ -161,31 +161,32 @@ class LostPass extends l\Languages {
                 // Allowed to send a new mail
                 $this->_modelUser = new m\Users();
 
-                if(strpos($user, '@'))
+                if(strpos($user, '@')) {
                     $this->_modelUser->email = $user;
-                else
+                } else {
                     $this->_modelUser->login = $user;
+				}
 
-                if(!($user_mail = $this->_modelUser->getEmail()))
-                    exit(header('Location: '.MVC_ROOT.'/Error/Error/404'));
+				$user_mail = $this->_modelUser->getEmail();
+                if($user_mail === false) exit(header('Location: '.MVC_ROOT.'/Error/Error/404'));
 
-                if(!($id_user = $this->_modelUser->getId()))
-                    exit(header('Location: '.MVC_ROOT.'/Error/Error/404'));
+				$id_user = $this->_modelUser->getId();
+                if($id_user === false) exit(header('Location: '.MVC_ROOT.'/Error/Error/404'));
 
                 $this->_modelUserLostPass = new m\UserLostPass();
                 $this->_modelUserLostPass->id_user = $id_user;
-                if(!($this->_modelUserLostPass->getKey()))
-                    $new = 1;
+                if(!($this->_modelUserLostPass->getKey())) $new = 1;
 
                 $key = hash('sha512', uniqid(rand(), true));
 
                 $this->_modelUserLostPass->val_key = $key;
                 $this->_modelUserLostPass->expire = time()+3600;
 
-                if($new == 0)
+                if($new == 0) {
                     $this->_modelUserLostPass->Update();
-                else
-                    $this->_modelUserLostPass->Insert();
+                } else {
+                    $this->_modelUserLostPass->InsertV();
+				}
 
                 $this->_mail = new l\Mail();
                 $this->_mail->_to = $user_mail;

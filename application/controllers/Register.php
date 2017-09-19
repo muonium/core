@@ -63,7 +63,7 @@ class Register extends l\Languages {
                                                 $this->_modelUserVal = new m\UserValidation();
                                                 $this->_modelUserVal->id_user = $id_user;
                                                 $this->_modelUserVal->val_key = $key;
-                                                $this->_modelUserVal->Insert();
+                                                $this->_modelUserVal->InsertV();
                                                 $this->_mail = new l\Mail();
                                                 $this->_mail->_to = $_POST['mail'];
                                                 $this->_mail->_subject = $this->txt->Register->subject;

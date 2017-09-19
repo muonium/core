@@ -1,8 +1,5 @@
 // Folders module. Loaded in window.onload()
 var Folders = (function() {
-	// Private
-
-	// Public
 	return {
 		id : 0,
 		create : function() {
@@ -14,45 +11,10 @@ var Folders = (function() {
 				xhr.open("POST", "User/AddFolder", true);
 				xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
-				xhr.onreadystatechange = function()
-				{
-				    if(xhr.status == 200 && xhr.readyState == 4)
-				    {
-				        // Add the folder in tree without reloading
+				xhr.onreadystatechange = function() {
+				    if(xhr.status == 200 && xhr.readyState == 4) {
 				        if(isNumeric(xhr.response)) {
-				            var first;
-				            var content = '<img src="'+IMG+'desktop/extensions/folder.svg" class="icon"> <strong>'+folder_name+'</strong> [0 '+txt.User.element+']';
-
-							var span = document.createElement('span');
-							span.className = 'folder';
-							span.id = 'd'+xhr.response;
-							span.name = folder_name;
-							span.title = '0';
-							span.dataset.folder = Folders.id;
-							span.dataset.path = '?';
-							span.dataset.title = folder_name;
-							span.onclick = function(){ Selection.addFolder(event, this.id); };
-							span.ondblclick = function(){ Folders.open(this.id.substr(1)); };
-							span.innerHTML = content;
-
-							// Check if there is already file or folder
-				            if(!(first = document.querySelector(".folder"))) {
-				                if(!(first = document.querySelector(".file"))) {
-									document.querySelector("#tree").appendChild(span);
-								}
-							}
-
-							if(first !== null && first !== undefined) {
-				                first.parentNode.insertBefore(span, first);
-				            }
-
-				            document.querySelector("#d"+xhr.response).addEventListener("contextmenu", function(event) {
-				                Box.Area = 2;
-				                Box.right_click(event.clientX, event.clientY, this.id);
-				                return false;
-				            });
-
-                            Arrows.init();
+							Folders.open(Folders.id);
 				        }
 				    }
 				}
@@ -80,10 +42,8 @@ var Folders = (function() {
 			xhr.open("POST", "User/ChangePath", true);
 			xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
-			xhr.onreadystatechange = function()
-			{
-				if(xhr.status == 200 && xhr.readyState == 4)
-				{
+			xhr.onreadystatechange = function() {
+				if(xhr.status == 200 && xhr.readyState == 4) {
 				    if(xhr.responseText != '') {
 				        // Hide box
 				        Box.hide();
