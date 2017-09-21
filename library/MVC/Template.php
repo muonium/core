@@ -52,23 +52,27 @@ class Template
 		echo "\t".'<script type="text/javascript" id="language-js" src="'.$this->_path.'js/language.js"></script>'."\n";
 
 		if(count($this->_tabCss) > 0) {
-            foreach($this->_tabCss as $file)
+            foreach($this->_tabCss as $file) {
                 echo "\t".'<link rel="stylesheet" type="text/css" href="'.$this->_path.'css/'.$file.'.css" />'."\n";
+			}
 		}
 
 		if(count($this->_tabJs) > 0) {
-            foreach($this->_tabJs as $file)
+            foreach($this->_tabJs as $file) {
                 echo "\t".'<script type="text/javascript" src="'.$this->_path.'js/'.$file.'.js"></script>'."\n";
+			}
 		}
 
         if(count($this->_script) > 0) {
-            foreach($this->_script as $script)
+            foreach($this->_script as $script) {
                 echo "\t".'<script type="'.$script['type'].'"> '.$script['content'].'</script> '."\n";
+			}
         }
 
         if(count($this->_meta) > 0) {
-            foreach($this->_meta as $meta)
+            foreach($this->_meta as $meta) {
                 echo "\t".'<meta name="'.$meta['name'].'" content="'.$meta['content'].'" /> '."\n";
+			}
         }
 
 		echo '</head>'."\n";

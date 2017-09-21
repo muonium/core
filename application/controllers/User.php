@@ -29,8 +29,7 @@ class User extends l\Languages {
 
     function getFolderVars() {
         // User sent folder_id, initialize model folders, check if folder exists and set folder_id and path in class attributes
-        $this->_modelFolders = new m\Folders();
-        $this->_modelFolders->id_owner = $_SESSION['id'];
+        $this->_modelFolders = new m\Folders($_SESSION['id']);
 
         if(empty($_POST['folder_id'])) {
             $this->_path = '';
@@ -66,8 +65,7 @@ class User extends l\Languages {
 			return $_SESSION['upload'][$folder_id]['path'];
 		}
 
-		$this->_modelFolders = new m\Folders();
-		$this->_modelFolders->id_owner = $_SESSION['id'];
+		$this->_modelFolders = new m\Folders($_SESSION['id']);
 
 		$path = $this->_modelFolders->getFullPath($folder_id);
 		if($path === false || !is_dir(NOVA.'/'.$_SESSION['id'].'/'.$path)) {
@@ -157,8 +155,7 @@ class User extends l\Languages {
 					}
 
 					if(!isset($this->_modelFolders)) {
-						$this->_modelFolders = new m\Folders();
-						$this->_modelFolders->id_owner = $_SESSION['id'];
+						$this->_modelFolders = new m\Folders($_SESSION['id']);
 					}
 
 					$this->_modelFiles->name = $filename;
@@ -319,8 +316,7 @@ class User extends l\Languages {
         $this->_modelFiles = new m\Files($_SESSION['id']);
 
         if(empty($this->_modelFolders)) {
-            $this->_modelFolders = new m\Folders();
-            $this->_modelFolders->id_owner = $_SESSION['id'];
+            $this->_modelFolders = new m\Folders($_SESSION['id']);
         }
 
         $this->_modelStorage = new m\Storage();
@@ -346,17 +342,17 @@ class User extends l\Languages {
 
         if($subdirs = $this->_modelFolders->getChildren($this->_folderId, $this->trash)) {
             foreach($subdirs as $subdir) {
-                $elementnum = count(glob(NOVA.'/'.$_SESSION['id'].'/'.$subdir['4'].$subdir['1']."/*"));
-                $subdir['1'] = $this->parseFilename($subdir['1']);
+                $elementnum = count(glob(NOVA.'/'.$_SESSION['id'].'/'.$subdir['path'].$subdir['name']."/*"));
+                $subdir['name'] = $this->parseFilename($subdir['name']);
 
-                echo '<span class="folder" id="d'.$subdir['0'].'" name="'.htmlentities($subdir['1']).'"
-                title="'.$this->showSize($subdir['2']).'"
-                data-folder="'.htmlentities($subdir['3']).'"
-                data-path="'.htmlentities($subdir['4']).'"
-                data-title="'.htmlentities($subdir['1']).'"
+                echo '<span class="folder" id="d'.$subdir['id'].'" name="'.htmlentities($subdir['name']).'"
+                title="'.$this->showSize($subdir['size']).'"
+                data-folder="'.htmlentities($subdir['parent']).'"
+                data-path="'.htmlentities($subdir['path']).'"
+                data-title="'.htmlentities($subdir['name']).'"
                 onclick="Selection.addFolder(event, this.id)"
-                ondblclick="Folders.open('.$subdir['0'].')">
-                <img src="'.IMG.'desktop/extensions/folder.svg" class="icon"> <strong>'.htmlentities($subdir['1']).'</strong> [';
+                ondblclick="Folders.open('.$subdir['id'].')">
+                <img src="'.IMG.'desktop/extensions/folder.svg" class="icon"> <strong>'.htmlentities($subdir['name']).'</strong> [';
                 if($elementnum > 1) {
     			    echo $elementnum.' '.$this->txt->User->PlurialElement.']</span>';
     			} else {
@@ -367,26 +363,26 @@ class User extends l\Languages {
         if($files = $this->_modelFiles->getFiles($this->_folderId, $this->trash)) {
             foreach($files as $file) {
                 $fpath = $path;
-                $file['0'] = $this->parseFilename($file['0']);
-                if(array_key_exists(7, $file) && array_key_exists(8, $file)) {
-                    $fpath = $file['7'].$file['8'];
+                $file['name'] = $this->parseFilename($file['name']);
+                if(array_key_exists('path', $file) && array_key_exists('dname', $file)) {
+                    $fpath = $file['path'].$file['dname'];
                 }
-                if($file['2'] < 0) {
-                    $filesize = '['.$this->txt->User->notCompleted.'] '.$this->showSize(@filesize(NOVA.'/'.$_SESSION['id'].'/'.$fpath.'/'.$file['0']));
+                if($file['size'] < 0) {
+                    $filesize = '['.$this->txt->User->notCompleted.'] '.$this->showSize(@filesize(NOVA.'/'.$_SESSION['id'].'/'.$fpath.'/'.$file['name']));
                 }
                 else {
-                    $filesize = $this->showSize($file['2']);
+                    $filesize = $this->showSize($file['size']);
                 }
-                echo '<span class="file" id="f'.$file['1'].'"';
-                if($file['2'] < 0) { echo ' style="color:red" '; }
-                echo 'title="'.$filesize.'&#10;'.$this->txt->User->lastmod.' : '.date('d/m/Y G:i', $file['3']).'"
+                echo '<span class="file" id="f'.$file['id'].'"';
+                if($file['size'] < 0) { echo ' style="color:red" '; }
+                echo 'title="'.$filesize.'&#10;'.$this->txt->User->lastmod.' : '.date('d/m/Y G:i', $file['last_modification']).'"
                 onclick="Selection.addFile(event, this.id)"
 				ondblclick="Selection.dl(this.id)"
-                data-folder="'.htmlentities($file['6']).'"
+                data-folder="'.htmlentities($file['folder_id']).'"
                 data-path="'.htmlentities($fpath).'"
-                data-title="'.htmlentities($file['0']).'">';
+                data-title="'.htmlentities($file['name']).'">';
 
-				echo htmlentities($file['0']).'</span>';
+				echo htmlentities($file['name']).'</span>';
             }
         }
 
@@ -411,8 +407,7 @@ class User extends l\Languages {
             $this->getTree();
         }
         else {
-            $this->_modelFolders = new m\Folders();
-            $this->_modelFolders->id_owner = $_SESSION['id'];
+            $this->_modelFolders = new m\Folders($_SESSION['id']);
 
             $path = $this->_modelFolders->getPath($folder_id);
             if($path === false) return false;
@@ -436,8 +431,7 @@ class User extends l\Languages {
 
     function MvTrashAction() {
         $this->_modelFiles = new m\Files($_SESSION['id']);
-        $this->_modelFolders = new m\Folders();
-        $this->_modelFolders->id_owner = $_SESSION['id'];
+        $this->_modelFolders = new m\Folders($_SESSION['id']);
 
         $trash = 1;
         if(isset($_POST['trash']) && $_POST['trash'] == 0) $trash = 0;
@@ -482,8 +476,7 @@ class User extends l\Languages {
     }
 
     function RmFilesAction() {
-        $this->_modelFolders = new m\Folders();
-        $this->_modelFolders->id_owner = $_SESSION['id'];
+        $this->_modelFolders = new m\Folders($_SESSION['id']);
         $this->_modelFiles = new m\Files($_SESSION['id']);
 
         $total_size = 0;
@@ -548,7 +541,7 @@ class User extends l\Languages {
                     // Delete subfolders
                     if($subdirs = $this->_modelFolders->getChildren($id)) {
                         foreach($subdirs as $subdir) {
-                            $this->rmRdir($subdir['0']);
+                            $this->rmRdir($subdir['id']);
 						}
                     }
 
@@ -582,8 +575,7 @@ class User extends l\Languages {
     }
 
     function RmFoldersAction() {
-        $this->_modelFolders = new m\Folders();
-        $this->_modelFolders->id_owner = $_SESSION['id'];
+        $this->_modelFolders = new m\Folders($_SESSION['id']);
         $this->_modelFiles = new m\Files($_SESSION['id']);
 
         $total_size = 0;
@@ -622,8 +614,7 @@ class User extends l\Languages {
 
     function RenameAction() {
         $this->_modelFiles = new m\Files($_SESSION['id']);
-        $this->_modelFolders = new m\Folders();
-        $this->_modelFolders->id_owner = $_SESSION['id'];
+        $this->_modelFolders = new m\Folders($_SESSION['id']);
 
         if(isset($_POST['old']) && isset($_POST['new']) && isset($_POST['folder_id'])) {
             $folder_id = urldecode($_POST['folder_id']);
@@ -731,16 +722,16 @@ class User extends l\Languages {
 
         if($subdirs = $this->_modelFolders->getChildren($src)) {
             foreach($subdirs as $subdir) {
-                $this->recurse_copy($subdir['0'], $folder_id);
+                $this->recurse_copy($subdir['id'], $folder_id);
 			}
         }
         if($files = $this->_modelFiles->getFiles($src)) {
             foreach($files as $file) {
-                copy(NOVA.'/'.$_SESSION['id'].'/'.$src_path.$file['0'], NOVA.'/'.$_SESSION['id'].'/'.$dst_path.'/'.$file['0']);
+                copy(NOVA.'/'.$_SESSION['id'].'/'.$src_path.$file['name'], NOVA.'/'.$_SESSION['id'].'/'.$dst_path.'/'.$file['name']);
                 // Add the new file in db
-                $this->_modelFiles->name = $file['0'];
+                $this->_modelFiles->name = $file['name'];
                 $this->_modelFiles->last_modification = time();
-                $this->_modelFiles->size = filesize(NOVA.'/'.$_SESSION['id'].'/'.$dst_path.'/'.$file['0']);
+                $this->_modelFiles->size = filesize(NOVA.'/'.$_SESSION['id'].'/'.$dst_path.'/'.$file['name']);
                 $this->_modelFiles->addNewFile($folder_id, false);
             }
         }

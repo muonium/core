@@ -40,7 +40,7 @@ class Mail
         $mail->AddReplyTo(conf\confMail::user, conf\confMail::username);
         $mail->addAddress($this->_to);
         $mail->isHTML(true);
-	$mail->CharSet = "utf-8";
+		$mail->CharSet = "utf-8";
         $mail->Subject = $this->_subject;
         $mail->Body    = $message_html;
         $mail->AltBody = $message_txt;

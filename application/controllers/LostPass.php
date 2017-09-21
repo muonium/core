@@ -28,8 +28,9 @@ class LostPass extends l\Languages {
             $this->_modelUser->id = $_SESSION['changePassId'];
             require_once(DIR_VIEW."LostPassForm.php");
         }
-        else
+        else {
             require_once(DIR_VIEW."LostPass.php");
+		}
     }
 
     function ResetPassAction() {
@@ -49,7 +50,6 @@ class LostPass extends l\Languages {
 
                             if(!empty($_POST['pwd'])) {
                                 // change password
-
                                 $this->_modelUser->password = password_hash(urldecode($_POST['pwd']), PASSWORD_BCRYPT);
 
                                 if($this->_modelUser->updatePassword()) {
@@ -59,8 +59,9 @@ class LostPass extends l\Languages {
                                     $this->_modelUserLostPass->Delete();
                                     echo 'ok@'.$this->txt->LostPass->updateOk;
                                 }
-                                else
+                                else {
                                     echo $this->txt->LostPass->updateErr;
+								}
                             }
                             /*if(!empty($_POST['pp'])) {
                                 // change passphrase
@@ -80,8 +81,9 @@ class LostPass extends l\Languages {
                                     $this->_modelUserLostPass->Delete();
                                     echo 'ok@'.$this->txt->LostPass->updateOk;
                                 }
-                                else
+                                else {
                                     echo $this->txt->LostPass->updateErr;
+								}
                             }*/
                         }
                         else {
@@ -112,16 +114,17 @@ class LostPass extends l\Languages {
     }
 
     function KeyAction($id_user, $key) {
-        if(!is_numeric($id_user) || strlen($key) < 128)
-            exit(header('Location: '.MVC_ROOT.'/Error/Error/404'));
+        if(!is_numeric($id_user) || strlen($key) < 128) exit(header('Location: '.MVC_ROOT.'/Error/Error/404'));
+
         $this->id_user = $id_user;
         $this->val_key = $key;
 
         $this->_modelUserLostPass = new m\UserLostPass();
         $this->_modelUserLostPass->id_user = $this->id_user;
 
-        if(!($this->_modelUserLostPass->getKey())) // Unable to find key
+        if(!($this->_modelUserLostPass->getKey())) { // Unable to find key
             exit(header('Location: '.MVC_ROOT.'/Error/Error/404'));
+		}
 
         if($this->_modelUserLostPass->getKey() != $this->val_key || $this->_modelUserLostPass->getExpire() < time()) {
             // Different key, send a new mail ?
@@ -140,8 +143,9 @@ class LostPass extends l\Languages {
         // Send AGAIN lost pass mail with validation key
         sleep(1);
 
-        if(!isset($_POST['user']))
+        if(!isset($_POST['user'])) {
             require_once(DIR_VIEW."LostPass.php");
+		}
         else {
             $user = $_POST['user'];
 

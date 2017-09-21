@@ -109,10 +109,10 @@ class Profile extends l\Languages
 			$this->_modelUser->cek = $_POST['cek']; //set the 'cek' value for the MySQL request
 			if ($this->_modelUser->updateCek()) { //try to update
 				echo "ok@".$this->txt->Profile->updateOk; //all is okay, return that request went fine
-			}else { //error, cannot update
+			} else { //error, cannot update
 				echo $this->txt->cek->updateErr;
 			}
-		}else { //CEK value was sent empty
+		} else { //CEK value was sent empty
 			echo $this->txt->cek->empty;
 		}
 	}
@@ -124,13 +124,13 @@ class Profile extends l\Languages
         $this->_modelUser->id = $_SESSION['id'];
 
         $s = 0;
-        if($_POST['doubleAuth'] == 'true')
-            $s = 1;
+        if($_POST['doubleAuth'] == 'true') $s = 1;
 
-        if($this->_modelUser->updateDoubleAuth($s))
+        if($this->_modelUser->updateDoubleAuth($s)) {
             echo $this->txt->Profile->updateOk;
-        else
+        } else {
             echo $this->txt->Profile->updateErr;
+		}
     }
 
 /*     add function to change email of user  */
@@ -190,10 +190,8 @@ class Profile extends l\Languages
 		$this->_modelUser->id = $_SESSION['id'];
         $this->_modelStorage = new m\Storage();
         $this->_modelStorage->id_user = $_SESSION['id'];
-        $this->_modelFiles = new m\Files();
-        $this->_modelFiles->id_owner = $_SESSION['id'];
-        $this->_modelFolders = new m\Folders();
-        $this->_modelFolders->id_owner = $_SESSION['id'];
+        $this->_modelFiles = new m\Files($_SESSION['id']);
+        $this->_modelFolders = new m\Folders($_SESSION['id']);
         $this->_modelBan = new m\Ban();
         $this->_modelBan->id_user = $_SESSION['id'];
         $this->_modelUserValidation = new m\UserValidation();

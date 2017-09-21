@@ -133,15 +133,16 @@ class Login extends l\Languages {
         }
     }
     function DefaultAction() {
-        if(!empty($_SESSION['id']))
-            exit(header('Location: '.MVC_ROOT.'/Error/Error/404'));
-        elseif(!empty($_SESSION['tmp_id'])) {
+        if(!empty($_SESSION['id'])) exit(header('Location: '.MVC_ROOT.'/Error/Error/404'));
+
+        if(!empty($_SESSION['tmp_id'])) {
             // Double auth
             $this->_message = str_replace("[url_app]", URL_APP, $this->txt->Login->doubleAuth);
             require_once(DIR_VIEW."DoubleAuth.php");
         }
-        else
+        else {
             require_once(DIR_VIEW."Login.php");
+		}
     }
 
     function generateCode() {
