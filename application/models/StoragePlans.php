@@ -3,8 +3,7 @@ namespace application\models;
 use \library\MVC as l;
 
 class StoragePlans extends l\Model {
-
-    /*
+    /* storage_plans table
         1	id        			int(11)			AUTO_INCREMENT
         2	size      			bigint(20)
         3	price     			float

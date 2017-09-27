@@ -22,21 +22,25 @@ class Login extends l\Languages {
             $brute->setFolder(ROOT.DS."tmp");
             $brute->setNbMaxAttemptsPerHour(50);
 
-            $user = new m\Users();
-            $user->id = $_SESSION['tmp_id'];
+            $user = new m\Users($_SESSION['tmp_id']);
 
             if($user->getDoubleAuth()) {
                 if($code = $user->getCode()) {
                     if($code == $_POST['code']) {
                         // Code is correct
                         $_SESSION['id'] = $_SESSION['tmp_id'];
+						$storage = new m\Storage($_SESSION['id']);
 
-						$storage = new m\Storage();
-						$storage->id_user = $_SESSION['id'];
-						// getSizeStored() and getUserQuota() initialize session vars about size stored and quota
-						$storage->getSizeStored();
-						$storage->getUserQuota();
+						// getSizeStored() and getUserQuota() are used to initialize session vars about size stored and quota
+						$size_stored = $storage->getSizeStored();
+						$user_quota = $storage->getUserQuota();
 
+						if($size_stored === false || $user_quota === false) {
+							exit(header('Location: '.MVC_ROOT.'/Logout'));
+						}
+
+						$_SESSION['size_stored'] = $size_stored;
+						$_SESSION['user_quota'] = $user_quota;
                         unset($_SESSION['tmp_id']);
                         exit(header('Location: '.MVC_ROOT.'/User'));
                     }
@@ -65,7 +69,7 @@ class Login extends l\Languages {
             if(filter_var($_POST['username'], FILTER_VALIDATE_EMAIL) === false){
                 $new_user->login = urldecode($_POST['username']);
 				$e = $new_user->getEmail();
-            }else{
+            } else {
                 $new_user->email = urldecode($_POST['username']);
 				$e = $_POST['username'];
 			}
@@ -89,8 +93,7 @@ class Login extends l\Languages {
                 if($pass !== false) {
                     if(password_verify($new_user->password, $pass)) {
                         // Mail, password ok, connection
-                        $mUserVal = new m\UserValidation();
-                        $mUserVal->id_user = $id;
+                        $mUserVal = new m\UserValidation($id);
                         if(!($mUserVal->getKey())) {
                             // Unable to find key - Validation is done
                             if($new_user->getDoubleAuth()) {

@@ -17,10 +17,10 @@ class User extends l\Languages {
     private $trash = 0; // 0 : view contents not in the trash || 1 : view contents in the trash
 
     function __construct() {
-        parent::__construct(array(
+        parent::__construct([
             'mustBeLogged' => true,
             'mustBeValidated' => true
-        ));
+        ]);
     }
 
     function DefaultAction() {
@@ -89,9 +89,10 @@ class User extends l\Languages {
 				if($f === false || fwrite($f, $data) === false) {
 					echo 'error';
 				} else {
-					$Storage = new m\Storage();
-	                $Storage->id_user = $_SESSION['id'];
-					$Storage->incrementSizeStored($data_length); // SESSION size_stored is also incremented
+					$storage = new m\Storage($_SESSION['id']);
+					if($storage->incrementSizeStored($data_length)) {
+						$_SESSION['size_stored'] += $data_length;
+					}
 					echo 'ok';
 				}
 				fclose($f);
@@ -117,8 +118,7 @@ class User extends l\Languages {
 					// Write into a new file (which exists or not)
 					$path = $this->getUploadFolderPath($folder_id);
 					if($path === false) {
-						echo 'error';
-						exit;
+						echo 'error'; exit;
 					}
 
 					$filepath = NOVA.'/'.$_SESSION['id'].'/'.$path.$filename;
@@ -126,13 +126,11 @@ class User extends l\Languages {
 					$_SESSION['upload'][$folder_id]['files'][$filename] = $filestatus;
 					$_SESSION['upload'][$folder_id]['path'] = $path;
 
-                    if($filestatus == 2) {
-                        // The file exists, exit
+                    if($filestatus == 2) { // The file exists, exit
                         return;
                     }
 					else {
 						// The file doesn't exist or is not complete
-
 						// Insert into files table if this file is not present
 						$this->_modelFiles = new m\Files($_SESSION['id']);
 
@@ -153,7 +151,6 @@ class User extends l\Languages {
 					if(!isset($this->_modelFiles)) {
 						$this->_modelFiles = new m\Files($_SESSION['id']);
 					}
-
 					if(!isset($this->_modelFolders)) {
 						$this->_modelFolders = new m\Folders($_SESSION['id']);
 					}
@@ -319,10 +316,14 @@ class User extends l\Languages {
             $this->_modelFolders = new m\Folders($_SESSION['id']);
         }
 
-        $this->_modelStorage = new m\Storage();
-        $this->_modelStorage->id_user = $_SESSION['id'];
+        $this->_modelStorage = new m\Storage($_SESSION['id']);
         $quota = $this->_modelStorage->getUserQuota();
         $stored = $this->_modelStorage->getSizeStored();
+
+		if($quota !== false && $stored !== false) {
+			$_SESSION['size_stored'] = $stored;
+			$_SESSION['user_quota'] = $quota;
+		}
 
         // Link to parent folder
         echo '<div class="quota">';
@@ -468,11 +469,11 @@ class User extends l\Languages {
                         $fsize = @filesize(NOVA.'/'.$_SESSION['id'].'/'.$path.$filename);
                     }
                     unlink(NOVA.'/'.$_SESSION['id'].'/'.$path.$filename);
-                    return array($fsize, $completed);
+                    return [$fsize, $completed];
                 }
             }
         }
-        return array(0, true);
+        return [0, true];
     }
 
     function RmFilesAction() {
@@ -480,7 +481,7 @@ class User extends l\Languages {
         $this->_modelFiles = new m\Files($_SESSION['id']);
 
         $total_size = 0;
-        $tab_folders = array(); // key : folder id, value : array ( path to folder, updated size )
+        $tab_folders = []; // key : folder id, value : array ( path to folder, updated size )
         $path = '';
 
         if(isset($_POST['files']) && isset($_POST['ids'])) {
@@ -517,9 +518,10 @@ class User extends l\Languages {
                 }
 
                 // Decrement storage counter
-                $this->_modelStorage = new m\Storage();
-                $this->_modelStorage->id_user = $_SESSION['id'];
-                $this->_modelStorage->decrementSizeStored($total_size);
+                $this->_modelStorage = new m\Storage($_SESSION['id']);
+                if($this->_modelStorage->decrementSizeStored($total_size)) {
+					$_SESSION['size_stored'] -= $total_size;
+				}
 
                 // Update folders size
                 foreach($tab_folders as $key => $val) {
@@ -579,7 +581,7 @@ class User extends l\Languages {
         $this->_modelFiles = new m\Files($_SESSION['id']);
 
         $total_size = 0;
-        $tab_folders = array(); // key : folder id, value : updated size
+        $tab_folders = []; // key : folder id, value : updated size
         $path = '';
 
         if(isset($_POST['folders']) && isset($_POST['ids'])) {
@@ -599,9 +601,10 @@ class User extends l\Languages {
                 }
 
                 // Decrement storage counter
-                $this->_modelStorage = new m\Storage();
-                $this->_modelStorage->id_user = $_SESSION['id'];
-                $this->_modelStorage->decrementSizeStored($total_size);
+                $this->_modelStorage = new m\Storage($_SESSION['id']);
+                if($this->_modelStorage->decrementSizeStored($total_size)) {
+					$_SESSION['size_stored'] -= $total_size;
+				}
 
                 // Update folders size
                 foreach($tab_folders as $key => $val) {
@@ -738,9 +741,7 @@ class User extends l\Languages {
     }
 
     function addSuffixe($file, $suffixe) {
-        $double_extensions = array(
-            'tar.gz', 'tar.bz', 'tar.xz', 'tar.bz2'
-        );
+        $double_extensions = ['tar.gz', 'tar.bz', 'tar.xz', 'tar.bz2'];
 
         $pos = strpos($file, '.');
         if($pos === false) return $file.$suffixe;
@@ -788,10 +789,12 @@ class User extends l\Languages {
             $old_path .= $this->_modelFolders->getFoldername($old_folder_id).'/';
         }
 
-        $this->_modelStorage = new m\Storage();
-        $this->_modelStorage->id_user = $_SESSION['id'];
+        $this->_modelStorage = new m\Storage($_SESSION['id']);
         $quota = $this->_modelStorage->getUserQuota();
         $stored = $this->_modelStorage->getSizeStored();
+		if($quota === false || $stored === false) return false;
+		$_SESSION['size_stored'] = $stored;
+		$_SESSION['user_quota'] = $quota;
         $uploaded = 0;
 
         if(is_dir(NOVA.'/'.$_SESSION['id'].'/'.$this->_path) && is_dir(NOVA.'/'.$_SESSION['id'].'/'.$old_path)) {
@@ -904,7 +907,9 @@ class User extends l\Languages {
                 }
             }
 
-            $this->_modelStorage->updateSizeStored($stored);
+            if($this->_modelStorage->updateSizeStored($stored)) {
+				$_SESSION['size_stored'] = $stored;
+			}
             if($uploaded != 0) $this->_modelFolders->updateFoldersSize($this->_folderId, $uploaded);
         }
     }

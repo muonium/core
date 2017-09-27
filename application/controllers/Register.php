@@ -49,19 +49,20 @@ class Register extends l\Languages {
                                         $id_user = $this->_modelUser->getLastInsertedId();
                                         $_SESSION['id'] = $id_user;
                                         $key = hash('sha512', uniqid(rand(), true));
-                                        $this->_modelStorage = new m\Storage();
-                                        $this->_modelStorage->id_user = $id_user;
+
+                                        $this->_modelStorage = new m\Storage($id_user);
                                         $this->_modelStorage->Insertion();
-                                        $this->_modelUserVal = new m\UserValidation();
-                                        $this->_modelUserVal->id_user = $id_user;
+
+                                        $this->_modelUserVal = new m\UserValidation($id_user);
                                         $this->_modelUserVal->val_key = $key;
                                         $this->_modelUserVal->InsertV();
+
                                         $this->_mail = new l\Mail();
                                         $this->_mail->_to = $_POST['mail'];
                                         $this->_mail->_subject = $this->txt->Register->subject;
                                         $this->_mail->_message = str_replace(
-                                            array("[id_user]", "[key]", "[url_app]"),
-                                            array($id_user, $key, URL_APP),
+                                            ["[id_user]", "[key]", "[url_app]"],
+                                            [$id_user, $key, URL_APP],
                                             $this->txt->Register->message
                                         );
                                         $this->_mail->send();

@@ -23,8 +23,7 @@ class Validate extends l\Languages {
             $this->id_user = $id_user;
             $this->val_key = $key;
 
-            $this->_modelUserVal = new m\UserValidation();
-            $this->_modelUserVal->id_user = $this->id_user;
+            $this->_modelUserVal = new m\UserValidation($this->id_user);
 
             if(!($this->_modelUserVal->getKey())) { // Unable to find key
                 exit(header('Location: '.MVC_ROOT.'/Error/Error/404'));
@@ -65,12 +64,10 @@ class Validate extends l\Languages {
 
                 if($w == 0) {
                     // Allowed to send a new mail
-                    $this->_modelUserVal = new m\UserValidation();
-                    $this->_modelUserVal->id_user = $_SESSION['id'];
+                    $this->_modelUserVal = new m\UserValidation($_SESSION['id']);
                     if(!($this->_modelUserVal->getKey())) exit(header('Location: '.MVC_ROOT.'/Error/Error/404'));
 
-                    $this->_modelUser = new m\Users();
-                    $this->_modelUser->id = $_SESSION['id'];
+                    $this->_modelUser = new m\Users($_SESSION['id']);
                     if(!($user_mail = $this->_modelUser->getEmail())) exit(header('Location: '.MVC_ROOT.'/Error/Error/404'));
 
                     $key = hash('sha512', uniqid(rand(), true));

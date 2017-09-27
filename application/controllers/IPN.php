@@ -11,10 +11,10 @@ class IPN extends l\Languages {
 	private $_modelUsers;
 
     function __construct() {
-        parent::__construct(array(
+        parent::__construct([
             'mustBeLogged' => false,
             'mustBeValidated' => false
-        ));
+        ]);
 		$this->_modelUpgrade = new m\Upgrade();
 		$this->_modelStoragePlans = new m\StoragePlans();
 		$this->_modelUsers = new m\Users();
@@ -23,13 +23,13 @@ class IPN extends l\Languages {
     function DefaultAction() {
 		if(count($_POST) > 0) {
 			// Send back request to PayPal to check if it's correct
-			$vrf = file_get_contents('https://www.paypal.com/cgi-bin/webscr?cmd=_notify-validate', false, stream_context_create(array(
-	    		'http' => array(
+			$vrf = file_get_contents('https://www.paypal.com/cgi-bin/webscr?cmd=_notify-validate', false, stream_context_create([
+	    		'http' => [
 	        		'header'  => "Content-type: application/x-www-form-urlencoded\r\nUser-Agent: Muonium\r\n",
 	        		'method'  => 'POST',
 	        		'content' => http_build_query($_POST)
-	    		)
-			)));
+	    		]
+			]));
 
 			if((bool)strstr($vrf, 'VERIFIED')) {
 				// Verified by PayPal, now check if it's completed and retrieve upgrade plan with item number
@@ -39,6 +39,9 @@ class IPN extends l\Languages {
 					$user_id = intval($_POST['custom']);
 					$price = floatval($_POST['mc_gross']);
 					$currency = $_POST['mc_currency'];
+
+					$this->_modelUpgrade->id_user = $user_id;
+
 					// Verify if transaction id already exists
 					if(!($this->_modelUpgrade->transactionExists($txn_id))) {
 						$plans = $this->_modelStoragePlans->getPlans();

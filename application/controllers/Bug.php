@@ -10,20 +10,18 @@ class Bug extends l\Languages {
     private $_mail;
     private $_message;
 
-    // Values tables //
-
     // Different possible values for select tag
 
-    private $values = array(
-        "os" => array(
+    private $values = [
+        "os" => [
             "Linux" => "Linux/Unix/BSD",
             "Mac" => "Mac",
             "Win" => "Windows",
             "Android" => "Android",
             "iOS" => "iOS",
             "other" => ""
-        ),
-        "browser" => array(
+        ],
+        "browser" => [
             "Chrome" => "Google Chrome/Chromium",
             "Firefox" => "Firefox",
             "Edge" => "Microsoft Edge",
@@ -31,16 +29,16 @@ class Bug extends l\Languages {
             "Opera" => "Opera",
             "Explorer" => "Internet Explorer",
             "other" => ""
-        )
-    );
+        ]
+    ];
 
     ///////////////////
 
     function __construct() {
-        parent::__construct(array(
+        parent::__construct([
             'mustBeLogged' => true,
             'mustBeValidated' => false
-        ));
+        ]);
 
         // Initialize the anti-bruteforce class
         $this->_bruteforce = new l\AntiBruteforce();
@@ -76,8 +74,7 @@ class Bug extends l\Languages {
                     if(($os = $this->checkValue($_POST['os'], 'os')) && ($browser = $this->checkValue($_POST['browser'], 'browser'))) {
                         // get User's mail
 
-                        $this->_modelUser = new m\Users();
-                        $this->_modelUser->id = $_SESSION['id'];
+                        $this->_modelUser = new m\Users($_SESSION['id']);
                         if($mail = $this->_modelUser->getEmail()) {
 
                             $message = htmlentities($_POST['message']);

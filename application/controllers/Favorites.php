@@ -6,15 +6,14 @@ use \application\models as m;
 /*class Favorites extends l\Languages {
 
     function __construct() {
-        parent::__construct(array(
+        parent::__construct([
             'mustBeLogged' => true,
             'mustBeValidated' => true
-        ));
+        ]);
     }
 
     function DefaultAction() {
-        $mFiles = new m\Files();
-        $mFiles->id_owner = $_SESSION['id'];
+        $mFiles = new m\Files($_SESSION['id']);
         $tabFavorites = $mFiles->getFavorites();
         $favorites = '';
         foreach($tabFavorites as $fav) {

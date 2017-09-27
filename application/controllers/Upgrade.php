@@ -9,10 +9,10 @@ class Upgrade extends l\Languages {
 	private $_modelStoragePlans;
 
     function __construct() {
-        parent::__construct(array(
+        parent::__construct([
             'mustBeLogged' => true,
             'mustBeValidated' => true
-        ));
+        ]);
 		$this->_modelUpgrade = new m\Upgrade();
 		$this->_modelStorage = new m\Storage();
 		$this->_modelStoragePlans = new m\StoragePlans();

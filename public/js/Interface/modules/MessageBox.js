@@ -30,7 +30,7 @@ var MessageBox = (function() {
         var me = this;
         this.$msg = msg;
         this.$inputs = [];
-        this.coordsSetted = false;
+        this.coordsSet = false;
 
         // No support of multiples messages box without callback from previous message box for now
         if(document.querySelector("#MessageBox")) {
@@ -145,7 +145,7 @@ var MessageBox = (function() {
     MessageBox.prototype.setCoords = function(x, y) {
         this.$elem.style.left = x+'px';
         this.$elem.style.top = y+'px';
-        this.coordsSetted = true;
+        this.coordsSet = true;
         return this;
 	};
 

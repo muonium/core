@@ -101,11 +101,11 @@ class Files extends l\Model {
             $req = self::$_sql->prepare("SELECT name, id, size, last_modification, favorite, trash, folder_id FROM files WHERE id_owner = ? AND folder_id = ? ORDER BY name ASC");
             $req->execute([$this->id_owner, $folder_id]);
         }
-        elseif($trash === 0 || ($trash === 1 && $folder_id !== 0)) {
+        elseif($trash == 0 || ($trash == 1 && $folder_id !== 0)) {
             $req = self::$_sql->prepare("SELECT name, id, size, last_modification, favorite, trash, folder_id FROM files WHERE id_owner = ? AND folder_id = ? AND trash = 0 ORDER BY name ASC");
             $req->execute([$this->id_owner, $folder_id]);
         }
-        else { // trash === 1 && $folder_id === 0
+        else { // trash == 1 && $folder_id == 0
             $req = self::$_sql->prepare("SELECT files.name, files.id, files.size, files.last_modification, files.favorite, files.trash, files.folder_id, folders.path, folders.name AS dname
 				FROM files LEFT JOIN folders ON files.folder_id = folders.id WHERE files.id_owner = ? AND files.trash = 1 ORDER BY files.name ASC");
             $req->execute([$this->id_owner]);

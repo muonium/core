@@ -60,6 +60,7 @@ class Folders extends l\Model {
     function getFullPath($id) {
         // id (int) - Returns folder path with folder name included
 		if($this->id_owner === null) return false;
+		$id = intval($id);
 		if($id === 0) return '';
         $req = self::$_sql->prepare("SELECT `path`, name FROM folders WHERE id_owner = ? AND id = ?");
         $req->execute([$this->id_owner, $id]);
@@ -95,11 +96,11 @@ class Folders extends l\Model {
             $req = self::$_sql->prepare("SELECT id, name, size, parent, `path` FROM folders WHERE id_owner = ? AND parent = ? ORDER BY name ASC");
             $req->execute([$this->id_owner, $id]);
         }
-        elseif($trash === 0 || ($trash === 1 && $id !== 0)) {
+        elseif($trash == 0 || ($trash == 1 && $id !== 0)) {
             $req = self::$_sql->prepare("SELECT id, name, size, parent, `path` FROM folders WHERE id_owner = ? AND parent = ? AND trash = 0 ORDER BY name ASC");
             $req->execute([$this->id_owner, $id]);
         }
-        else { // trash === 1 && $id === 0
+        else { // trash == 1 && $id == 0
             $req = self::$_sql->prepare("SELECT id, name, size, parent, `path` FROM folders WHERE id_owner = ? AND trash = 1 ORDER BY name ASC");
             $req->execute([$this->id_owner]);
         }
