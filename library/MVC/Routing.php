@@ -10,20 +10,16 @@ class Routing {
 			$c = __CLASS__;
 			self::$instance = new $c;
 		}
-
 		return self::$instance;
 	}
 
 	function route() {
-
 		$appel_url = addslashes($_SERVER['REQUEST_URI']);
-        $appel_url = str_replace(MVC_ROOT, "", $appel_url);
+        $appel_url = str_replace(MVC_ROOT, '', $appel_url);
         if($appel_url[0] == "/") $appel_url = substr($appel_url, 1);
 
 		$arguments = explode('/', $appel_url);
-		//var_dump($arguments);
-		// We remove useless "/"
-		$this->clear_empty_value($arguments);
+		$this->clear_empty_value($arguments); // Remove useless "/"
 		// Number of arguments
 		$nb_args = count($arguments);
 
@@ -83,35 +79,7 @@ class Routing {
 							header('Location: '.MVC_ROOT.'/Error/Error/404');
 						}
 						else {
-							switch($nb_params) {
-                                case 1:
-                                    $_class->$_method($params['0']);
-                                    break;
-                                case 2:
-                                    $_class->$_method($params['0'], $params['1']);
-                                    break;
-                                case 3:
-                                    $_class->$_method($params['0'], $params['1'], $params['2']);
-                                    break;
-                                case 4:
-                                    $_class->$_method($params['0'], $params['1'], $params['2'], $params['3']);
-                                    break;
-                                case 5:
-                                    $_class->$_method($params['0'], $params['1'], $params['2'], $params['3'], $params['4']);
-                                    break;
-                                case 6:
-                                    $_class->$_method($params['0'], $params['1'], $params['2'], $params['3'], $params['4'], $params['5']);
-                                    break;
-                                case 7:
-                                    $_class->$_method($params['0'], $params['1'], $params['2'], $params['3'], $params['4'], $params['5'], $params['6']);
-                                    break;
-                                case 8:
-                                    $_class->$_method($params['0'], $params['1'], $params['2'], $params['3'], $params['4'], $params['5'], $params['6'], $params['7']);
-                                    break;
-                                default:
-                                    // Error : Routing doesn't support more than 8 parameters
-                                    header('Location: '.MVC_ROOT.'/Error/Error/404');
-                            }
+							call_user_func_array([$_class, $_method], $params);
                         }
 					}
 					else {
@@ -129,7 +97,9 @@ class Routing {
 			else {
                 // No method called
 				// "DefaultAction" is the default method, if "DefaultAction" exists, we call it
-				if(method_exists($_class, "DefaultAction")) $_class->DefaultAction();
+				if(method_exists($_class, "DefaultAction")) {
+					$_class->DefaultAction();
+				}
 			}
 		}
 
@@ -142,4 +112,4 @@ class Routing {
 		}
 		$array = array_values($array);
 	}
-};
+}

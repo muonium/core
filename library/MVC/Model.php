@@ -42,4 +42,4 @@ class Model {
     public function __set($attr, $val) {
         $this->$attr = $val;
     }
-};
+}

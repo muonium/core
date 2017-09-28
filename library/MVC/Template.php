@@ -1,8 +1,7 @@
 <?php
 namespace library\MVC;
 
-class Template
-{
+class Template {
 	private $_title;
 	private $_tabCss = [];
 	private $_tabJs = [];
@@ -81,4 +80,4 @@ class Template
 	function getFooter() {
         echo '</html>';
     }
-};
+}

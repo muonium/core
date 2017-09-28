@@ -2,11 +2,7 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-
-    -webkit-user-select: none;
-	-moz-user-select: none;
-	-ms-user-select: none;
-	user-select: none;
+    -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;
     cursor: default;
 }
 
@@ -14,7 +10,6 @@ html, body {
     height: 100%;
     max-width: 100%;
 }
-
 body {
     min-height: 100%;
     min-width: 260px;
@@ -23,18 +18,11 @@ body {
     padding: 0;
     font-family: Roboto, Helvetica, sans-serif;
 }
-
 body.grey { background: #F0F0F0; }
-
 body.mui_bg {
-    background: #22689B;
-    background-image: url("../pictures/muonium_bg.jpg");
-    background-attachment: fixed;
-    background-repeat: no-repeat;
-    background-position: center bottom;
-    background-size: 100%;
+    background-color: #22689B; background-image: url("../pictures/muonium_bg.jpg"); background-attachment: fixed;
+    background-repeat: no-repeat; background-position: center bottom; background-size: 100%;
 }
-
 body.mui_bg section#large-content { background: transparent; }
 
 h1, h2 {
@@ -45,52 +33,27 @@ h1, h2 {
 }
 
 #button_trash { cursor: pointer; }
-
 .undefined { font-style: italic; }
+.error { margin-top: 10px; color: red; }
 
-.error {
-    margin-top: 10px;
-    color: red;
-}
+.btn-abort { cursor: pointer; color: red; margin-right: 10px; }
 
-.btn-abort {
-    cursor: pointer;
-    color: red;
-    margin-right: 10px;
-}
-
-a, a:visited {
-    cursor: pointer;
-    color: #333333;
-    text-decoration: none;
-}
+a, a:visited { cursor: pointer; color: #333333; text-decoration: none; }
 a:active, a:hover, a:focus { color: #1a8da5; }
 
 fieldset {
-    margin: auto;
-    margin-bottom: 20px;
+    margin: auto; margin-bottom: 20px;
     padding: 10px;
     width: 95%;
 }
-
-legend {
-    padding-left: 5px;
-    padding-right: 5px;
-}
-
-hr {
-    display: block;
-    height: 1px;
-    border: 0;
-    border-top: 1px solid #9A9A9A;
-}
+legend { padding-left: 5px; padding-right: 5px; }
+hr { display: block; height: 1px; border: 0; border-top: 1px solid #9A9A9A; }
 
 .bloc {
 	width: calc(100% - 30px);
 	margin: auto;
 	background-color: #E5E5E5;
-	border: 1px solid #D2D2D2;
-	border-radius: 4px;
+	border: 1px solid #D2D2D2; border-radius: 4px;
 	padding: 10px;
 }
 

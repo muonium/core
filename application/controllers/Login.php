@@ -151,7 +151,7 @@ class Login extends l\Languages {
     function generateCode() {
         $code = '';
         $chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
-        for($i=0;$i<8;$i++) {
+        for($i = 0; $i < 8; $i++) {
             $code .= $chars[rand(0, strlen($chars)-1)];
         }
         return $code;

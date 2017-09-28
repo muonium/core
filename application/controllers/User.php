@@ -31,11 +31,7 @@ class User extends l\Languages {
         // User sent folder_id, initialize model folders, check if folder exists and set folder_id and path in class attributes
         $this->_modelFolders = new m\Folders($_SESSION['id']);
 
-        if(empty($_POST['folder_id'])) {
-            $this->_path = '';
-            $this->_folderId = 0;
-        }
-        else if($_POST['folder_id'] === 0) {
+        if(empty($_POST['folder_id']) || $_POST['folder_id'] == 0) {
             $this->_path = '';
             $this->_folderId = 0;
         }
@@ -831,7 +827,7 @@ class User extends l\Languages {
                     //
                     // copy and paste files
                     //
-                    for($i=0; $i < count($files); $i++) {
+                    for($i = 0; $i < count($files); $i++) {
                         if(is_numeric($files[$i])) {
 							$filename = $this->_modelFiles->getFilename($files[$i]);
                             if($filename === false) continue;
@@ -863,7 +859,7 @@ class User extends l\Languages {
                     //
                     // cut and paste folders
                     //
-                    for($i=0; $i < count($folders); $i++) {
+                    for($i = 0; $i < count($folders); $i++) {
                         $foldername = $this->_modelFolders->getFolderName($folders[$i]);
                         if($foldername === false) continue;
                         if(is_dir(NOVA.'/'.$_SESSION['id'].'/'.$old_path.$foldername)) {
@@ -891,7 +887,7 @@ class User extends l\Languages {
                     //
                     // copy and paste folders
                     //
-                    for($i=0; $i < count($folders); $i++) {
+                    for($i = 0; $i < count($folders); $i++) {
                         $foldername = $this->_modelFolders->getFolderName($folders[$i]);
                         if($foldername === false) continue;
                         if(is_dir(NOVA.'/'.$_SESSION['id'].'/'.$old_path.$foldername)) {

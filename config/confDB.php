@@ -6,4 +6,4 @@ class confDB {
 	const user = "root";
 	const password = "root";
 	const db = "cloud";
-};
+}

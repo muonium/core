@@ -291,25 +291,27 @@ var reset = function() {
 }
 
 var isNumeric = function(n) {
-    if(typeof(n) == "string")
-        n = n.replace(",", ".");
+    if(typeof(n) === "string") n = n.replace(",", ".");
     return !isNaN(parseFloat(n)) && isFinite(n);
 }
 
 var cleanPath = function(p) {
     // format : dir1/dir2/
-    if(p == '/')
-        return '';
+    if(p == '/') return '';
     if(p.length > 1) {
-        if(p.substr(0, 1) == '/')
-            p = p.substr(1);
+        if(p.substr(0, 1) === '/') {
+			p = p.substr(1);
+		}
         var p0 = p.split("/");
-        for(var i=0;i<p0.length;i++)
-            if(p0[i] == '')
+        for(var i = 0; i < p0.length; i++) {
+            if(p0[i] === '') {
                 p0.splice(i, 1);
+			}
+		}
         p = p0.join('/');
-        if(p.substr(-1) != '/')
+        if(p.substr(-1) !== '/') {
             p = p+'/';
+		}
     }
     return p;
 }

@@ -117,14 +117,16 @@ var Move = (function() {
             var p_files = [];
 
             if(Move.Files.length > 0 || Move.Folders.length > 0) {
-                for(var i=0; i<Move.Files.length; i++) {
-                    if(Move.Files[i].length > 0 && isNumeric(Move.Files[i]))
+                for(var i = 0; i < Move.Files.length; i++) {
+                    if(Move.Files[i].length > 0 && isNumeric(Move.Files[i])) {
                         p_files.push(Move.Files[i]);
+					}
                 }
 
-                for(var i=0; i<Move.Folders.length; i++) {
-                    if(Move.Folders[i].length > 0 && isNumeric(Move.Folders[i]))
+                for(var i = 0; i < Move.Folders.length; i++) {
+                    if(Move.Folders[i].length > 0 && isNumeric(Move.Folders[i])) {
                         p_folders.push(Move.Folders[i]);
+					}
                 }
 
                 p_folders = encodeURIComponent(p_folders.join('|'));

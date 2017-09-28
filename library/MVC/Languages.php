@@ -11,17 +11,16 @@ class Languages {
     protected $userLanguage = DEFAULT_LANGUAGE;
 
     // Available languages
-    protected $languages = array(
-        array('en', 'English'),
-        array('fr', 'Français'),
-        array('it', 'Italiano'),
-        array('ru', 'Русский'),
-		array('de','Deutsch')
-    );
+    protected $languages = [
+        ['en', 'English'],
+		['de', 'Deutsch'],
+        ['fr', 'Français'],
+        ['it', 'Italiano'],
+        ['ru', 'Русский']
+    ];
 
     // Constructor loads user language json
-    function __construct($tab = '')
-    {
+    function __construct($tab = '') {
         function loadLanguage($t, $lang) {
             if(file_exists(DIR_LANGUAGE.$lang.".json")) {
                 $_json = file_get_contents(DIR_LANGUAGE.$lang.".json");
@@ -67,13 +66,11 @@ class Languages {
     }
 
     // Generate a language selector (select)
-    function getLanguageSelector()
-    {
+    function getLanguageSelector() {
         echo '<select onchange="changeLanguage(this.value)">';
-        for($i=0;$i<count($this->languages);$i++) {
+        for($i = 0; $i < count($this->languages); $i++) {
             echo '<option value="'.$this->languages[$i][0].'"';
-            if($this->languages[$i][0] == $this->userLanguage)
-                echo ' selected';
+            if($this->languages[$i][0] == $this->userLanguage) echo ' selected';
             echo '>'.$this->languages[$i][1].'</option>';
         }
         echo '</select>';
@@ -85,7 +82,6 @@ class Languages {
 		if($size <= 0) return 0;
 		$base = log($size, 1000);
 		$suffixes = array_values((array)$this->txt->Units);
-
 		return round(pow(1000, $base - floor($base)), $precision) .' '. $suffixes[floor($base)];
 	}
 

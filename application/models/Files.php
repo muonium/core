@@ -36,7 +36,7 @@ class Files extends l\Model {
 		if($this->id_owner === null) return false;
         $req = self::$_sql->prepare("SELECT id FROM files WHERE id_owner = ? AND name = ? AND folder_id = ?");
         $req->execute([$this->id_owner, $name, $folder_id]);
-        if($req->rowCount() == 0) return false;
+        if($req->rowCount() === 0) return false;
         return true;
     }
 
@@ -48,7 +48,7 @@ class Files extends l\Model {
 		if(!is_numeric($id)) return false;
         $req = self::$_sql->prepare("SELECT name FROM files WHERE id_owner = ? AND id = ?");
         $req->execute([$this->id_owner, $id]);
-        if($req->rowCount() == 0) return false;
+        if($req->rowCount() === 0) return false;
         $res = $req->fetch(\PDO::FETCH_ASSOC);
         return $res['name'];
     }
@@ -61,7 +61,7 @@ class Files extends l\Model {
 		if(!is_numeric($id)) return false;
         $req = self::$_sql->prepare("SELECT folder_id FROM files WHERE id_owner = ? AND id = ?");
         $req->execute([$this->id_owner, $id]);
-        if($req->rowCount() == 0) return false;
+        if($req->rowCount() === 0) return false;
         $res = $req->fetch(\PDO::FETCH_ASSOC);
         return $res['folder_id'];
     }
@@ -80,7 +80,7 @@ class Files extends l\Model {
         	$req = self::$_sql->prepare("SELECT size FROM files WHERE id_owner = ? AND id = ?");
         	$req->execute([$this->id_owner, $id]);
 		}
-        if($req->rowCount() == 0) return 0;
+        if($req->rowCount() === 0) return 0;
         $res = $req->fetch(\PDO::FETCH_ASSOC);
         return $res['size'];
     }

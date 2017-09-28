@@ -41,10 +41,12 @@ var Selection = (function() {
 
         add : function(id, m = null) {
             if(id.length > 1) {
-                if(id.substr(0, 1) == 'd')
+                if(id.substr(0, 1) == 'd') {
                     Selection.addFolder(m, id);
-                else if(id.substr(0, 1) == 'f')
+				}
+                else if(id.substr(0, 1) == 'f') {
                     Selection.addFile(m, id);
+				}
             }
         },
 
@@ -93,22 +95,22 @@ var Selection = (function() {
         },
 
         invert : function() {
-            Selection.addSel = 1; //
-            var i = 0;
+            Selection.addSel = 1;
             var files = document.querySelectorAll(".file");
-            for(i=0;i<files.length;i++)
+            for(var i = 0; i < files.length; i++) {
                 Selection.addFile('ctrl', files[i].id, false);
+			}
 
             var folders = document.querySelectorAll(".folder");
-            for(i=0;i<folders.length;i++)
+            for(var i = 0; i < folders.length; i++) {
                 Selection.addFolder('ctrl', folders[i].id, false);
+			}
         },
 
         all : function() {
             Selection.addSel = 1;
-            var i = 0;
             var files = document.querySelectorAll(".file");
-            for(i=0;i<files.length;i++) {
+            for(var i = 0; i < files.length; i++) {
                 if(document.querySelector("#"+files[i].id)) {
                     if(Selection.Files.indexOf((files[i].id).substr(1)) == -1) {
                         Selection.Files.push((files[i].id).substr(1));
@@ -118,7 +120,7 @@ var Selection = (function() {
             }
 
             var folders = document.querySelectorAll(".folder");
-            for(i=0;i<folders.length;i++) {
+            for(var i = 0; i < folders.length; i++) {
                 if(document.querySelector("#"+folders[i].id)) {
                     if(Selection.Folders.indexOf(folders[i].id.substr(1)) == -1) {
                         Selection.Folders.push(folders[i].id.substr(1));
@@ -129,10 +131,12 @@ var Selection = (function() {
         },
 
         remove : function() {
-            for(var i=0;i<Selection.Files.length;i++)
+            for(var i = 0; i < Selection.Files.length; i++) {
                 Selection.unselect("f"+Selection.Files[i]);
-            for(var i=0;i<Selection.Folders.length;i++)
+			}
+            for(var i = 0; i < Selection.Folders.length; i++) {
                 Selection.unselect("d"+Selection.Folders[i]);
+			}
             Selection.Files = [];
             Selection.Folders = [];
         },
@@ -163,8 +167,7 @@ var Selection = (function() {
                 var timer = setInterval(function() {
                     Files.dl("f"+sel[i]);
                     i++;
-                    if(i >= sel.length)
-                        clearInterval(timer);
+                    if(i >= sel.length) clearInterval(timer);
                 }, 1000);
             }
             else if(id !== undefined) {
@@ -173,11 +176,9 @@ var Selection = (function() {
         },
 
         multipleSwitch : function(el) {
+			Selection.multiple = false;
             if(document.querySelector("#"+el).checked) {
                 Selection.multiple = true;
-            }
-            else {
-                Selection.multiple = false;
             }
         },
 
@@ -195,10 +196,11 @@ var Selection = (function() {
             if(elem = document.querySelector("#"+id)) {
     			var title = elem.getAttribute("title").split("\n");
                 var content = "<strong>"+txt.User.details+"</strong>\
-                <hr><ul><li><strong>"+txt.User.name+"</strong> : "+elem.getAttribute("data-title")+"</li>\
-                <li><strong>"+txt.User.path+"</strong> : "+ (elem.getAttribute("data-path") == '' ? "/" : elem.getAttribute("data-path")) +"</li>\
+            	<hr><ul><li><strong>"+txt.User.name+"</strong> : "+elem.getAttribute("data-title")+"</li>\
+            	<li><strong>"+txt.User.path+"</strong> : "+ (elem.getAttribute("data-path") == '' ? "/" : elem.getAttribute("data-path")) +"</li>\
                 <li><strong>"+txt.User.type+"</strong> : "+ (title[1] ? txt.User.file : txt.User.folder) +"</li>\
                 <li><strong>"+txt.User.size+"</strong> : "+title[0]+"</li>";
+
                 if(title[1] !== undefined) content += "<li>"+title[1]+"</li>"; // File
                 content += '</ul>';
                 if(title[1] !== undefined) content += '<span class="btn_download" onclick="Selection.dl(\''+id+'\')"><i class="fa fa-download" aria-hidden="true"></i> '+txt.RightClick.dl+'</span>';

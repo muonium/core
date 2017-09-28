@@ -12,8 +12,7 @@ class Register extends l\Languages {
 
     function __construct() {
         parent::__construct();
-        if(!empty($_SESSION['id']))
-            exit(header('Location: '.MVC_ROOT.'/Error/Error/404'));
+        if(!empty($_SESSION['id'])) exit(header('Location: '.MVC_ROOT.'/Error/Error/404'));
         // Initialize the anti-bruteforce class
         $this->_bruteforce = new l\AntiBruteforce();
         $this->_bruteforce->setFolder(ROOT.DS."tmp");

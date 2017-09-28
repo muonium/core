@@ -5,29 +5,27 @@ class Mail
     private $_to;
     private $_subject;
     private $_message;
-    
+
     function setFrom($from) {
         $this->_from = $from;
     }
-    
+
     function setTo($to) {
         $this->_to = $to;
     }
-    
+
     function setSubject($subject) {
         $this->_subject = $subject;
     }
-    
+
     function setMessage($message) {
         $this->_message = $message;
     }
-    
+
     function send() {
-    
         $passage_line = "\n";
         // We filter servers that encounter bugs.
-        if (!preg_match("#^[a-z0-9._-]+@(hotmail|live|msn).[a-z]{2,4}$#", $this->_to))
-            $passage_line = "\r\n";
+        if (!preg_match("#^[a-z0-9._-]+@(hotmail|live|msn).[a-z]{2,4}$#", $this->_to)) $passage_line = "\r\n";
 
         //=====Message in txt format and in HTML format
         $message_txt = strip_tags(str_replace("<br />", $passage_line, str_replace("<br>", $passage_line, $this->_message)));
@@ -63,8 +61,7 @@ class Mail
         //==========
 
         //=====Send the mail
-        if(mail($this->_to, $this->_subject, $message, $header))
-			return true;
+        if(mail($this->_to, $this->_subject, $message, $header)) return true;
 		return false;
     }
 };

@@ -1,66 +1,36 @@
 #tree {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    flex-wrap: wrap;
-    -webkit-user-select: none;
-	-moz-user-select: none;
-	-ms-user-select: none;
-	user-select: none;
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+    -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;
 
     /* Mobile */
-	flex-direction: column;
+	-webkit-box-orient: vertical;
+	-webkit-box-direction: normal;
+	    -ms-flex-direction: column;
+	        flex-direction: column;
 }
 
-#mui, #tree {
-    width: 100%;
-}
+#mui, #tree { width: 100%; }
 
-#tree span, #tree a {
-    cursor: pointer;
-}
+#tree span, #tree a { cursor: pointer; }
+#tree > span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; display: block; }
 
-#tree > span {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    display: block;
-}
+.icon { height: 25px; width: 25px; vertical-align: text-bottom; }
+#tree.mosaic > span { padding-bottom: 20px; text-align: center; }
+#tree.mosaic .icon { display: block; height: 100px; width: 100px; margin: auto; }
 
-.icon {
-    height: 25px;
-    width: 25px;
-    vertical-align: text-bottom;
-}
-
-#tree.mosaic > span {
-    padding-bottom: 20px;
-    text-align: center;
-}
-
-#tree.mosaic .icon {
-    display: block;
-    height: 100px;
-    width: 100px;
-    margin: auto;
-}
-
-a[id^="parent-"] {
-    cursor: pointer;
-}
+a[id^="parent-"] { cursor: pointer; }
 
 @media screen and (min-width: 400px) {
-    #tree {
-        flex-direction: row;
-    }
-
-    #tree.mosaic > span {
-        flex-basis: 200px;
-    }
+    #tree { -webkit-box-orient: horizontal; -webkit-box-direction: normal; -ms-flex-direction: row; flex-direction: row; }
+    #tree.mosaic > span { -ms-flex-preferred-size: 200px; flex-basis: 200px; }
 
     #tree > span {
-        flex-basis: 250px;
-        padding-left: 0.5%;
-        padding-right: 0.5%;
-        padding-top: 2px;
-        padding-bottom: 2px;
+        -ms-flex-preferred-size: 250px;
+            flex-basis: 250px;
+        padding-left: 0.5%; padding-right: 0.5%; padding-top: 2px; padding-bottom: 2px;
     }
 }

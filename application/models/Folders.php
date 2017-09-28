@@ -74,7 +74,7 @@ class Folders extends l\Model {
 		if($this->id_owner === null) return false;
         $req = self::$_sql->prepare("SELECT parent FROM folders WHERE id_owner = ? AND id = ?");
         $req->execute([$this->id_owner, $id]);
-        if($req->rowCount() == 0) return false;
+        if($req->rowCount() === 0) return false;
         $res = $req->fetch(\PDO::FETCH_ASSOC);
         return $res['parent'];
     }
@@ -84,7 +84,7 @@ class Folders extends l\Model {
 		if($this->id_owner === null) return false;
         $req = self::$_sql->prepare("SELECT COUNT(id) AS nb FROM folders WHERE id_owner = ? AND parent = ?");
         $req->execute([$this->id_owner, $id]);
-        if($req->rowCount() == 0) return false;
+        if($req->rowCount() === 0) return false;
         $res = $req->fetch(\PDO::FETCH_ASSOC);
         return $res['nb'];
     }
@@ -104,7 +104,7 @@ class Folders extends l\Model {
             $req = self::$_sql->prepare("SELECT id, name, size, parent, `path` FROM folders WHERE id_owner = ? AND trash = 1 ORDER BY name ASC");
             $req->execute([$this->id_owner]);
         }
-        if($req->rowCount() == 0) return false;
+        if($req->rowCount() === 0) return false;
         return $req->fetchAll(\PDO::FETCH_ASSOC);
     }
 
@@ -113,7 +113,7 @@ class Folders extends l\Model {
 		if($this->id_owner === null) return false;
         $req = self::$_sql->prepare("SELECT trash FROM folders WHERE id_owner = ? AND id = ?");
         $req->execute([$this->id_owner, $id]);
-        if($req->rowCount() == 0) return false;
+        if($req->rowCount() === 0) return false;
         $res = $req->fetch(\PDO::FETCH_ASSOC);
         return $res['trash'];
     }
@@ -123,7 +123,7 @@ class Folders extends l\Model {
 		if($this->id_owner === null) return false;
         $req = self::$_sql->prepare("SELECT size FROM folders WHERE id_owner = ? AND id = ?");
         $req->execute([$this->id_owner, $id]);
-        if($req->rowCount() == 0) return false;
+        if($req->rowCount() === 0) return false;
         $res = $req->fetch(\PDO::FETCH_ASSOC);
         return $res['size'];
     }

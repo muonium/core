@@ -9,58 +9,24 @@ section#selection {
     width: 100%;
 }
 
-section#selection ul {
-    list-style-type: none;
-    font-size: 12px;
-}
-
-section#selection strong {
-    font-weight: normal;
-    color: #777777;
-}
+section#selection ul { list-style-type: none; font-size: 12px; }
+section#selection strong { font-weight: normal; color: #777777; }
 
 section#selection.selected {
     display: block;
-    -webkit-user-select: none;
-	-moz-user-select: none;
-	-ms-user-select: none;
-	user-select: none;
+    -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;
     box-shadow: -2px 0px 8px 1px #ccc;
 }
 
-.multiselected_details {
-    display: block;
-    font-size: 14px;
-    margin-top: 10px;
-}
-
-li#multisel_desktop {
-    display: none;
-}
-
-.btn_download {
-    font-size: 14px;
-    cursor: pointer;
-}
-
-section#selection .btn_download {
-    display: none;
-}
+.multiselected_details { display: block; font-size: 14px; margin-top: 10px; }
+li#multisel_desktop { display: none; }
+.btn_download { font-size: 14px; cursor: pointer; }
+section#selection .btn_download { display: none; }
 
 @media screen and (min-width: 700px) {
-    section#selection {
-        position: static;
-        width: auto;
-    }
-
-    section#selection ul {
-        margin-top: 20px;
-    }
-
-    li#multisel_desktop {
-        display: block;
-    }
-
+    section#selection { position: static; width: auto; }
+    section#selection ul { margin-top: 20px; }
+    li#multisel_desktop { display: block; }
     section#selection .btn_download {
         display: block;
         font-size: 16px;

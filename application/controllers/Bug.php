@@ -96,10 +96,6 @@ class Bug extends l\Languages {
 
                             $this->_message = $this->txt->Bug->sent;
                         }
-                        else {
-
-                        }
-
                     }
                     else {
                         $this->_message = $this->txt->Bug->form;

@@ -25,7 +25,7 @@ class UserLostPass extends l\Model {
 		if($this->id_user === null) return false;
         $req = self::$_sql->prepare("SELECT val_key FROM user_lostpass WHERE id_user = ?");
         $req->execute([$this->id_user]);
-        if($req->rowCount() == 0) return false;
+        if($req->rowCount() === 0) return false;
         $res = $req->fetch(\PDO::FETCH_ASSOC);
         return $res['val_key'];
     }
@@ -34,7 +34,7 @@ class UserLostPass extends l\Model {
 		if($this->id_user === null) return false;
         $req = self::$_sql->prepare("SELECT expire FROM user_lostpass WHERE id_user = ?");
         $req->execute([$this->id_user]);
-        if($req->rowCount() == 0) return false;
+        if($req->rowCount() === 0) return false;
         $res = $req->fetch(\PDO::FETCH_ASSOC);
         return $res['expire'];
     }

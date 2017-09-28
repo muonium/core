@@ -50,7 +50,7 @@ class Users extends l\Model {
         else {
             return false;
 		}
-        if($req->rowCount() == 0) return false;
+        if($req->rowCount() === 0) return false;
         $res = $req->fetch(\PDO::FETCH_ASSOC);
         return $res['id'];
     }
@@ -73,7 +73,7 @@ class Users extends l\Model {
         else {
             return false;
 		}
-        if($req->rowCount() == 0) return false;
+        if($req->rowCount() === 0) return false;
         $res = $req->fetch(\PDO::FETCH_ASSOC);
         return $res['email'];
     }
@@ -83,7 +83,7 @@ class Users extends l\Model {
 		if($this->id === null) return false;
         $req = self::$_sql->prepare("SELECT password FROM users WHERE id = ?");
         $req->execute([$this->id]);
-        if($req->rowCount() == 0) return false;
+        if($req->rowCount() === 0) return false;
         $res = $req->fetch(\PDO::FETCH_ASSOC);
         return $res['password'];
     }
@@ -92,7 +92,7 @@ class Users extends l\Model {
 		if($this->id === null) return false;
         $req = self::$_sql->prepare("SELECT cek FROM users WHERE id = ?");
         $req->execute([$this->id]);
-        if($req->rowCount() == 0) return false;
+        if($req->rowCount() === 0) return false;
         $res = $req->fetch(\PDO::FETCH_ASSOC);
         return $res['cek'];
     }
@@ -102,7 +102,7 @@ class Users extends l\Model {
 		if(!is_numeric($id)) return false;
 		$req = self::$_sql->prepare("SELECT login FROM users WHERE id = ?");
         $req->execute([$id]);
-        if($req->rowCount() == 0) return false;
+        if($req->rowCount() === 0) return false;
         $res = $req->fetch(\PDO::FETCH_ASSOC);
         return $res['login'];
     }
@@ -111,7 +111,7 @@ class Users extends l\Model {
 		if($this->id === null) return false;
         $req = self::$_sql->prepare("SELECT double_auth FROM users WHERE id = ? AND double_auth = '1'");
         $req->execute([$this->id]);
-        if($req->rowCount() == 0) return false;
+        if($req->rowCount() === 0) return false;
         return true;
     }
 
@@ -119,7 +119,7 @@ class Users extends l\Model {
 		if($this->id === null) return false;
         $req = self::$_sql->prepare("SELECT auth_code FROM users WHERE id = ?");
         $req->execute([$this->id]);
-        if($req->rowCount() == 0) return false;
+        if($req->rowCount() === 0) return false;
         $res = $req->fetch(\PDO::FETCH_ASSOC);
         return $res['auth_code'];
     }

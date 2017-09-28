@@ -60,7 +60,7 @@ class Storage extends l\Model {
 		if($this->id_user === null) return false;
         $req = self::$_sql->prepare("SELECT user_quota FROM storage WHERE id_user = ?");
         $req->execute([$this->id_user]);
-        if($req->rowCount() == 0) return false;
+        if($req->rowCount() === 0) return false;
         $res = $req->fetch(\PDO::FETCH_ASSOC);
         return $res['user_quota'];
     }
@@ -71,7 +71,7 @@ class Storage extends l\Model {
 		if($this->id_user === null) return false;
         $req = self::$_sql->prepare("SELECT size_stored FROM storage WHERE id_user = ?");
         $req->execute([$this->id_user]);
-        if($req->rowCount() == 0) return false;
+        if($req->rowCount() === 0) return false;
         $res = $req->fetch(\PDO::FETCH_ASSOC);
         return $res['size_stored'];
     }

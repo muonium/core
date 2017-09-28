@@ -82,7 +82,7 @@ var Rm = (function() {
 				    if(Selection.Folders.length > 0) {
 
                         // Get folder id where folder is located for each folder
-                        for(var i=0; i<Selection.Folders.length; i++) {
+                        for(var i = 0; i < Selection.Folders.length; i++) {
                             folder_id = Folders.getDataFolder("d"+Selection.Folders[i]);
                             if(folder_id === false)
                                 return false;
@@ -116,7 +116,7 @@ var Rm = (function() {
 				    if(Selection.Files.length > 0) {
 
                         // Get folder id where file is located for each file
-                        for(var i=0; i<Selection.Files.length; i++) {
+                        for(var i = 0; i < Selection.Files.length; i++) {
                             folder_id = Folders.getDataFolder("f"+Selection.Files[i]);
                             if(folder_id === false)
                                 return false;

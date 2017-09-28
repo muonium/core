@@ -5,8 +5,7 @@ use \config as conf;
 require_once(ROOT.'/library/PHPMailer/class.phpmailer.php');
 require_once(ROOT.'/library/PHPMailer/class.smtp.php');
 
-class Mail
-{
+class Mail {
     protected $_to;
     protected $_subject;
     protected $_message;
@@ -45,13 +44,13 @@ class Mail
         $mail->Body    = $message_html;
         $mail->AltBody = $message_txt;
 
-        $mail->SMTPOptions = array(
-            'ssl' => array(
+        $mail->SMTPOptions = [
+            'ssl' => [
                 'verify_peer' => false,
                 'verify_peer_name' => false,
                 'allow_self_signed' => true
-            )
-        );
+            ]
+        ];
         $mail->send();
     }
-};
+}
