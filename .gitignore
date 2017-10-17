@@ -1,0 +1,4 @@
+config/confDB.php
+config/confMail.php
+config/confPayments.php
+tmp/*
