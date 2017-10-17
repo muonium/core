@@ -28,6 +28,11 @@ class Routing {
 			$_method = DEFAULT_FUNCTION;
 		}
 		else {
+			if(substr($arguments[$nb_args-1], 0, 1) === '?') {
+				// Query string support
+				array_pop($arguments);
+				$nb_args--;
+			}
             // Controller is the first argument
 			$_controller = $arguments[0];
 
