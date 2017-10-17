@@ -218,7 +218,8 @@
         "year": "Jahr",
         "years": "Jahre",
         "lifetime": "Lebenszeit",
-        "buy": "Kaufen"
+        "buy": "Kaufen",
+		"success_msg": "Your purchase has been made. It may take several minutes to refresh your disk space."
     },
 
     "Help": {

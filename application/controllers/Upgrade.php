@@ -37,7 +37,7 @@ class Upgrade extends l\Languages {
 					'currency' => strtolower($plan['currency']),
 					'amountf' => floatval($plan['price']),
 					'ipn_url' => $ipn_url,
-					'success_url' => '',
+					'success_url' => URL_APP.'/Upgrade/?success=ok',
 					'cancel_url' => '',
 					'custom'  => $_SESSION['id'],
 					'want_shipping' => '0'

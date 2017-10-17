@@ -213,7 +213,8 @@
         "year": "an",
         "years": "ans",
         "lifetime": "à vie",
-        "buy": "Acheter"
+        "buy": "Acheter",
+		"success_msg": "Votre achat a bien été effectué. Cela peut prendre plusieurs minutes pour actualiser votre espace disque."
     },
 
     "cek": {
