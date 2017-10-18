@@ -12,11 +12,9 @@ var Arrows = (function() {
     return {
         init : function() {
             tree = document.querySelector("#tree");
-            if(tree === null)
-                return false;
+            if(tree === null) return false;
             span = tree.querySelectorAll("span");
-            if(span === null || span.length === 0)
-                return false;
+            if(span === null || span.length === 0) return false;
             max = span.length-1;
             i = 0;
             lastSelected = '';
@@ -24,36 +22,42 @@ var Arrows = (function() {
         },
 
         up : function(ctrl = null) {
-            if(!init)
-                return false;
-            if(Selection.Files.length === 0 && Selection.Folders.length === 0 && lastSelected === '')
+            if(!init) return false;
+            if(Selection.Files.length === 0 && Selection.Folders.length === 0 && lastSelected === '') {
                 i = max; // last element
-            else if(i <= 0)
+			}
+            else if(i <= 0) {
                 i = max;
-            else
+			}
+            else {
                 i--;
+			}
             lastSelected = span[i].id;
 
-            if(ctrl === null) // remove previous selected element(s)
+            if(ctrl === null) { // remove previous selected element(s)
                 Selection.remove();
+			}
             Selection.add(lastSelected, ctrl);
 
             Arrows.scroll(span[i]);
         },
 
         down : function(ctrl = null) {
-            if(!init)
-                return false;
-            if(Selection.Files.length === 0 && Selection.Folders.length === 0 && lastSelected === '')
+            if(!init) return false;
+            if(Selection.Files.length === 0 && Selection.Folders.length === 0 && lastSelected === '') {
                 i = 0; // first element
-            else if(i >= max)
+			}
+            else if(i >= max) {
                 i = 0;
-            else
+			}
+            else {
                 i++;
+			}
             lastSelected = span[i].id;
 
-            if(ctrl === undefined) // remove previous selected element(s)
+            if(ctrl === undefined) { // remove previous selected element(s)
                 Selection.remove();
+			}
             Selection.add(lastSelected, ctrl);
 
             Arrows.scroll(span[i]);

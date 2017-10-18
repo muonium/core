@@ -37,6 +37,7 @@ class Profile extends l\Languages
 
                 if(!($this->_modelUser->LoginExists())) {
                     if($this->_modelUser->updateLogin()) {
+						$_SESSION['login'] = $this->_modelUser->login;
                         echo 'ok@'.$this->txt->Profile->updateOk;
                     }
                     else {

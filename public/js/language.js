@@ -9,13 +9,12 @@ var VERSION = '';
 // Override default variables if it's possible
 if(document.querySelector("script#language-js")) {
     var urlpart = document.querySelector("script#language-js").src.split("/public/version/");
-    if(urlpart.length == 2) {
+    if(urlpart.length === 2) {
         urlpart[0] = urlpart[0].replace(/https?:\/\//i, '');
         urlpart[1] = urlpart[1].split('/').shift();
         if(typeof(urlpart[0]) === 'string') {
             var pos = urlpart[0].indexOf('/');
-            if(pos === -1) ROOT = '/';
-            else ROOT = urlpart[0].substr(pos)+'/';
+            ROOT = (pos === -1) ? '/' : urlpart[0].substr(pos)+'/';
         }
         if(typeof(urlpart[1]) === 'string') VERSION = urlpart[1];
     }
@@ -23,8 +22,7 @@ if(document.querySelector("script#language-js")) {
 
 var IMG = ROOT+'public/pictures/';
 
-function changeLanguage(lang)
-{
+function changeLanguage(lang) {
     var date = new Date();
     date.setTime(date.getTime()+(365*24*3600*1000));
     document.cookie = "lang="+lang+"; expires="+date.toGMTString()+"; path=/";
@@ -48,9 +46,7 @@ function getLanguage() {
 
 function getJSON(DEFAULT_LANGUAGE = false) {
     // Get txt from user's language json
-    if(typeof(txt) === 'object') {
-        return true;
-    }
+    if(typeof(txt) === 'object') return true;
     var clang;
     if(DEFAULT_LANGUAGE) {
         clang = LANG;

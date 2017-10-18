@@ -41,8 +41,7 @@ var UserLoader = function(folder_id) {
         Request.modulesLoaded = true;
     }
     else {
-        if(Trash.State === 1)
-            document.querySelector("#button_trash").innerHTML = txt.User.trash_1;
+        if(Trash.state === 1) $("#button_trash").html(txt.User.trash_1);
         console.log("Modules already loaded.");
     }
 

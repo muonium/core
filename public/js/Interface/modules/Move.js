@@ -177,7 +177,7 @@ var Move = (function() {
                             Folders.open(Folders.id);
                         }
                     }
-                    xhr.send(request+"&trash="+Math.abs(Trash.State-1));
+                    xhr.send(request+"&trash="+Math.abs(Trash.state-1));
                 }
             }
         },
@@ -201,7 +201,7 @@ var Move = (function() {
                         Folders.open(Folders.id);
                     }
                 }
-                xhr.send("folders="+Selection.Folders.join('|')+"&files="+Selection.Files.join('|')+"&trash="+Math.abs(Trash.State-1));
+                xhr.send("folders="+Selection.Folders.join('|')+"&files="+Selection.Files.join('|')+"&trash="+Math.abs(Trash.state-1));
             }
         }
     }

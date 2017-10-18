@@ -15,39 +15,32 @@ var Box = (function() {
         selected : '',
 
         init : function() {
-            box_div = document.querySelector("#box");
+            box_div = $("#box")[0];
             init = true;
         },
 
         hide : function() {
-            if(!init)
-                return false;
-            //box_div.style.display = 'none';
+            if(!init) return false;
             $(box_div).fadeOut(200);
         },
 
         show : function() {
-            if(!init)
-                return false;
-            //box_div.style.display = 'block';
+            if(!init) return false;
             $(box_div).fadeIn(300);
         },
 
         reset : function() {
-            if(!init)
-                return false;
-            box_div.innerHTML = ' ';
+            if(!init) return false;
+            $(box_div).html(' ');
         },
 
         set : function(content) {
-            if(!init)
-                return false;
-            box_div.innerHTML = content;
+            if(!init) return false;
+            $(box_div).html(content);
         },
 
         left_click : function(cx, cy) {
-            if(!init)
-                return false;
+            if(!init) return false;
             // If the user uses left click inside the 'box'
             if((cx >= x && cx <= (x + box_div.clientWidth)) && (cy >= y && cy <= (y + box_div.clientHeight)) || Box.box_more) {
                 // Action
@@ -62,25 +55,27 @@ var Box = (function() {
         },
 
         right_click : function(cx, cy, id) {
-            if(!init)
-                return false;
+            if(!init) return false;
             if(Box.selected != '') Selection.unselect(Box.selected);
             Box.selected = '';
             // Show box at position x, y
             x = cx;
             y = cy;
 
-            if(id === undefined) //when there isn't anything under the mouse
+            if(id === undefined) { //when there isn't anything under the mouse
                 Box.Area = 0;
+			}
+
             // Content according to area
             switch(Box.Area) {
                 //over nothing
                 case 0:
-                    if(Trash.State == 0) {
+                    if(Trash.state == 0) {
                         box_div.innerHTML = '<p onclick="Folders.create()"><img src="'+IMG+'desktop/actions/create_folder.svg" class="icon"> '+txt.RightClick.nFolder+'</p>';
                         box_div.innerHTML += '<p onclick="Upload.dialog()"><i class="fa fa-upload" aria-hidden="true"></i> '+txt.RightClick.upFiles+'</p>';
-                        if(Move.Files.length > 0 || Move.Folders.length > 0)
+                        if(Move.Files.length > 0 || Move.Folders.length > 0) {
                             box_div.innerHTML += '<hr><p onclick="Move.paste(\''+id+'\')"><i class="fa fa-clipboard" aria-hidden="true"></i> '+txt.RightClick.paste+'</p>';
+						}
                         box_div.innerHTML += '<hr><p onclick="logout()"><i class="fa fa-sign-out" aria-hidden="true"></i> '+txt.RightClick.logOut+'</p>';
                     }
                     break;
@@ -89,7 +84,7 @@ var Box = (function() {
                     Box.selected = id;
                     Selection.select(id);
                     box_div.innerHTML = '<p onclick="Selection.dl(\''+id+'\')"><i class="fa fa-download" aria-hidden="true"></i> '+txt.RightClick.dl+'</p><hr>';
-                    if(Trash.State == 0) {
+                    if(Trash.state == 0) {
                         //box_div.innerHTML += '<p onclick="Favorites.update(\''+id+'\')"><i class="fa fa-star" aria-hidden="true"></i> '+txt.RightClick.star+'</p><hr>';
                         box_div.innerHTML += '<p onclick="Move.cut(\''+id+'\')"><i class="fa fa-scissors" aria-hidden="true"></i> '+txt.RightClick.cut+'</p>';
                         box_div.innerHTML += '<p onclick="Move.copy(\''+id+'\')"><i class="fa fa-clone" aria-hidden="true"></i> '+txt.RightClick.copy+'</p>';
@@ -98,7 +93,7 @@ var Box = (function() {
                         box_div.innerHTML += '<p onclick="Move.trashMultiple(\''+id+'\')"><i class="fa fa-undo" aria-hidden="true"></i> '+txt.RightClick.restore+'</p>';
                         box_div.innerHTML += '<p onclick="Rm.multiple(\''+id+'\')"><i class="fa fa-trash" aria-hidden="true"></i> '+txt.RightClick.rm+'</p>';
                     }
-                    if(Trash.State == 0) {
+                    if(Trash.state == 0) {
                         box_div.innerHTML += '<hr><p onclick="Move.rename(\''+id+'\')"><i class="fa fa-pencil" aria-hidden="true"></i> '+txt.RightClick.mvItem+'</p>';
                     }
                     box_div.innerHTML += '<hr><p onclick="Files.details(\''+id+'\')"><i class="fa fa-info" aria-hidden="true"></i> '+txt.RightClick.vDetails+'</p>';
@@ -108,7 +103,7 @@ var Box = (function() {
                     Box.selected = id;
                     Selection.select(id);
                     box_div.innerHTML = '<p onclick="Folders.open(\''+id.substr(1)+'\')"><i class="fa fa-folder-open" aria-hidden="true"></i> '+txt.RightClick.open+'</p><hr>';
-                    if(Trash.State == 0) {
+                    if(Trash.state == 0) {
                         box_div.innerHTML += '<p onclick="Move.cut(\''+id+'\')"><i class="fa fa-scissors" aria-hidden="true"></i> '+txt.RightClick.cut+'</p>';
                         box_div.innerHTML += '<p onclick="Move.copy(\''+id+'\')"><i class="fa fa-clone" aria-hidden="true"></i> '+txt.RightClick.copy+'</p>';
                         box_div.innerHTML += '<p onclick="Move.trashMultiple(\''+id+'\')"><i class="fa fa-trash" aria-hidden="true"></i> '+txt.RightClick.trash+'</p>';
@@ -116,7 +111,7 @@ var Box = (function() {
                         box_div.innerHTML += '<p onclick="Move.trashMultiple(\''+id+'\')"><i class="fa fa-undo" aria-hidden="true"></i> '+txt.RightClick.restore+'</p>';
                         box_div.innerHTML += '<p onclick="Rm.multiple(\''+id+'\')"><i class="fa fa-trash" aria-hidden="true"></i> '+txt.RightClick.rm+'</p>';
                     }
-                    if(Trash.State == 0) {
+                    if(Trash.state == 0) {
                         box_div.innerHTML += '<hr><p onclick="Move.rename(\''+id+'\')"><i class="fa fa-pencil" aria-hidden="true"></i> '+txt.RightClick.mvItem+'</p>';
                     }
                     box_div.innerHTML += '<hr><p onclick="Folders.details(\''+id+'\')"><i class="fa fa-info" aria-hidden="true"></i> '+txt.RightClick.vDetails+'</p>';

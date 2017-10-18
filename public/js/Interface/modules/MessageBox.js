@@ -33,10 +33,8 @@ var MessageBox = (function() {
         this.coordsSet = false;
 
         // No support of multiples messages box without callback from previous message box for now
-        if(document.querySelector("#MessageBox")) {
-            if(document.querySelector("#MessageBox").style.display == 'block') {
-                return false;
-            }
+        if($("#MessageBox").length) {
+            if($("#MessageBox").css('display') === 'block') return false;
         }
 
         this.$elem = document.createElement("div");
@@ -83,7 +81,7 @@ var MessageBox = (function() {
         button.value = value;
         button.addEventListener("click", function() {
             me.close.bind(me)();
-            if(typeof callback === 'function') {
+            if(typeof(callback) === 'function') {
                 callback.bind(me)();
             }
         });
@@ -93,6 +91,7 @@ var MessageBox = (function() {
 
     MessageBox.prototype.addToggle = function(leftText, rightText, callback) {
         var me = this;
+		console.log(me);
         var lblLeft = document.createElement("span");
         lblLeft.innerHTML = leftText;
         this.$elemToggle.appendChild(lblLeft);
@@ -128,7 +127,7 @@ var MessageBox = (function() {
         var input = document.createElement("input");
         input.type = 'text';
 
-        if(params !== null && typeof params === 'object') {
+        if(params !== null && typeof(params) === 'object') {
             for(var i in params) {
                 if(typeof(params[i]) === 'function') {
                     params[i] = params[i].bind(me);
@@ -159,7 +158,6 @@ var MessageBox = (function() {
         $('#MessageBox').fadeOut(200, function() {
             $(this).remove();
         });
-        //this.$elem.parentNode.removeChild(this.$elem);
 	};
 
 	MessageBox.prototype.show = function() {
@@ -169,14 +167,13 @@ var MessageBox = (function() {
             this.addButton('OK');
         }
 
-        if(document.querySelector("#MessageBox")) {
-            document.querySelector("#MessageBox").innerHTML = this.$elem.innerHTML;
+        if($("#MessageBox").length) {
+            $("#MessageBox").html(this.$elem.innerHTML);
         }
         else {
             document.querySelector("body").insertBefore(this.$elem, document.querySelector("body").firstChild);
         }
 
-        //document.querySelector("#MessageBox").style.display = 'block';
         $('#MessageBox').fadeIn(400);
 
         if(this.$elemInput.firstChild !== null) {

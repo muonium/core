@@ -63,7 +63,7 @@ var Folders = (function() {
 				    }
 				}
 			}
-			xhr.send("folder_id="+folder_id+"&trash="+Trash.State);
+			xhr.send("folder_id="+folder_id+"&trash="+Trash.state);
 		},
 
         back : function() {

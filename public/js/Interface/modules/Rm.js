@@ -11,8 +11,9 @@ var Rm = (function() {
 				if(isNumeric(id)) {
                     // Get folder id where file/folder is located, it can be different than current folder id in trash.
                     var folder_id = Folders.getDataFolder(del);
-                    if(folder_id === false)
+                    if(folder_id === false) {
                         return false;
+					}
 				    var xhr = new XMLHttpRequest();
 				    if(del.substr(0, 1) == 'f') {
 				        // file
@@ -84,12 +85,14 @@ var Rm = (function() {
                         // Get folder id where folder is located for each folder
                         for(var i = 0; i < Selection.Folders.length; i++) {
                             folder_id = Folders.getDataFolder("d"+Selection.Folders[i]);
-                            if(folder_id === false)
+                            if(folder_id === false) {
                                 return false;
+							}
                             foldersFolderId.push(folder_id);
                         }
-                        if(Selection.Folders.length != foldersFolderId.length)
+                        if(Selection.Folders.length != foldersFolderId.length) {
                             return false;
+						}
 
 				        var xhr = new XMLHttpRequest();
 				        console.log("deleting folders...");
@@ -110,20 +113,19 @@ var Rm = (function() {
 				        }
 				        xhr.send("ids="+encodeURIComponent(foldersFolderId.join("|"))+"&folders="+encodeURIComponent(Selection.Folders.join("|")));
 				    }
-				    else
+				    else {
 				        wait--;
+					}
 
 				    if(Selection.Files.length > 0) {
 
                         // Get folder id where file is located for each file
                         for(var i = 0; i < Selection.Files.length; i++) {
                             folder_id = Folders.getDataFolder("f"+Selection.Files[i]);
-                            if(folder_id === false)
-                                return false;
+                            if(folder_id === false) return false;
                             filesFolderId.push(folder_id);
                         }
-                        if(Selection.Files.length != filesFolderId.length)
-                            return false;
+                        if(Selection.Files.length != filesFolderId.length) return false;
 
 				        var xhr2 = new XMLHttpRequest();
 				        console.log("deleting files...");
@@ -135,17 +137,16 @@ var Rm = (function() {
 				            if(xhr2.status == 200 && xhr2.readyState == 4)
 				            {
 				                if(xhr2.responseText != '') {
-				                    //
 				                    wait--;
-				                    console.log(xhr2.responseText);
 				                    console.log("deleted selected files !");
 				                }
 				            }
 				        }
 				        xhr2.send("ids="+encodeURIComponent(filesFolderId.join("|"))+"&files="+encodeURIComponent(Selection.Files.join("|")));
 				    }
-				    else
+				    else {
 				        wait--;
+					}
 
 				    var timer = setInterval(function() {
 				        console.log("waiting...");

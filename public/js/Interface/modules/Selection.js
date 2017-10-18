@@ -17,7 +17,6 @@ var Selection = (function() {
             if(document.querySelector("#"+id)) {
                 document.querySelector("#"+id).style.backgroundColor='#E0F0FA';
                 if(showDetails || (window.innerWidth || document.body.clientWidth) < 700) {
-                    //document.querySelector("section#selection").className = 'selected';
                     Selection.openDetails();
                 }
             }
@@ -32,7 +31,6 @@ var Selection = (function() {
         unselect : function(id, putDetails = true) {
             if(document.querySelector("#"+id)) {
                 document.querySelector("#"+id).style.backgroundColor='white';
-                //document.querySelector("section#selection").className = '';
             }
             if(putDetails === true)  {
                 Toolbar.display();
