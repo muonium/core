@@ -33,7 +33,7 @@
 
 	<div id="container">
         <section id="large-content">
-			<?php if(isset($_GET['success'])) { echo '<p class="green">'.$this->txt->Upgrade->success_msg.'</p>'; } ?>
+			<?php echo $msg; ?>
 			<h1><?php echo_h($this->txt->Upgrade->offers); ?></h1>
 			<div class="bloc">
 				<ul>

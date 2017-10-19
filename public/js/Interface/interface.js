@@ -126,7 +126,7 @@ var UserLoader = function(folder_id) {
                 case 27:
                     // esc
                     Box.hide();
-                    if($('#MessageBox').length && $('#MessageBox').css('display') == 'block') { $('#MessageBox').remove(); }
+                    //if($('#MessageBox').length && $('#MessageBox').css('display') == 'block') { $('#MessageBox').remove(); }
                     break;
                 case 38:
                     // up arrow

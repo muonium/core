@@ -65,6 +65,7 @@ class Upgrade extends l\Languages {
 			if($upgrade['removed'] === 1) $history .= $this->txt->Upgrade->expired;
 			$history .= '</td></tr>';
 		}
+		$msg = isset($_GET['success']) ? '<p class="green">'.$this->txt->Upgrade->success_msg.'</p>' : '';
 
 		require_once(DIR_VIEW."Upgrade.php");
     }
