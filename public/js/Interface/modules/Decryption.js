@@ -55,12 +55,11 @@ var Decryption = (function() {
 
 	Decryption.prototype.abort = function() {
 		this.halt = true;
-		Transfers.number--;
-		Transfers.numberDl--;
-		var node;
-		if(node = document.querySelector("#div_download"+(this.i))) {
-			while(node.firstChild) // remove all children
-				node.removeChild(node.firstChild);
+		Transfers.number = Transfers.number <= 0 ? 0 : Transfers.number - 1;
+		Transfers.numberDl = Transfers.numberDl <= 0 ? 0 : Transfers.numberDl - 1;
+		$("#div_download"+(this.i)).remove();
+		if($('#transfers_download > div').length === 0) {
+			$('#transfers_download').html(txt.User.nothing);
 		}
 	};
 
@@ -76,8 +75,7 @@ var Decryption = (function() {
 			return false;
 		}
 
-		if(this.halt)
-			return false;
+		if(this.halt) return false;
 
 		time = new Time();
 		time.start();
@@ -90,8 +88,7 @@ var Decryption = (function() {
 				if(xhr.status == 200 && xhr.readyState == 4) {
 					if(xhr.responseText > 0) {
 						me.nb_chk = xhr.responseText;
-						if(debug)
-							console.log("File splitted in "+me.nb_chk+" chunks");
+						if(debug) console.log("File splitted in "+me.nb_chk+" chunks");
 						Transfers.number++;
 						Transfers.numberDl++;
 						me.decryptChk(0);
@@ -104,21 +101,17 @@ var Decryption = (function() {
 
 	Decryption.prototype.decryptChk = function(line) {
 		var me = this;
-
-		if(this.halt)
-			return false;
+		if(this.halt) return false;
 
 		var chk;
-		if(line === undefined)
-			line = 0;
+		if(line === undefined) line = 0;
+		if(debug) console.log("Decrypting chunk "+(line+1));
 
-		if(debug)
-			console.log("Decrypting chunk "+(line+1));
 		var pct = line/this.nb_chk*100;
-		if(pct > 100)
-			pct = 100;
-		if(document.querySelector("#span_download"+(this.i)))
+		if(pct > 100) pct = 100;
+		if(document.querySelector("#span_download"+(this.i))) {
 			document.querySelector("#span_download"+(this.i)).innerHTML = this.filename+' : '+pct.toFixed(2)+'%';
+		}
 
 		time_chunk = new Time();
 		var xhr = new XMLHttpRequest();
@@ -129,8 +122,7 @@ var Decryption = (function() {
 			if(xhr.status == 200 && xhr.readyState == 4) {
 				if(xhr.responseText != '') {
 					time_chunk.stop();
-					if(debug)
-						console.log("Got chunk "+(line+1)+" contents in "+time_chunk.elapsed()+" ms");
+					if(debug) console.log("Got chunk "+(line+1)+" contents in "+time_chunk.elapsed()+" ms");
 
 					chk = decodeURIComponent(xhr.responseText);
 
@@ -144,8 +136,7 @@ var Decryption = (function() {
 					var i = sjcl.codec.base64.toBits(split[3]);
 
 					if(me.enc === undefined || me.prev_s != split[1]) {
-						if(debug)
-							console.log("Key derivation process...");
+						if(debug) console.log("Key derivation process...");
 						var key = sjcl.misc.pbkdf2(cek, s, 7000, 256);
 						me.enc = new sjcl.cipher.aes(key);
 					}
@@ -153,7 +144,6 @@ var Decryption = (function() {
 					me.prev_s = split[1];
 
 					chk = sjcl.mode.gcm.decrypt(me.enc, c, i, a, 128);
-
 					chk = me.fromBitArrayCodec(chk);
 					chk = new Uint8Array(chk);
 
@@ -163,71 +153,57 @@ var Decryption = (function() {
 						console.log("Your web browser is currently not supported by Mui app");
 					}
 					else {
-						window.requestFileSystem(
-							window.PERSISTENT,
-							largeQuota,
-							function(fs) {
-								fs.root.getFile(me.filename, {create: true}, function(fileEntry) {
-									fileEntry.createWriter(function(fileWriter) {
-										fileWriter.onwriteend = function(e) {
-											// Chunk written
-											if(debug)
-												console.log('Chunk '+(line+1)+'/'+me.nb_chk+' : Write completed.');
+						window.requestFileSystem(window.PERSISTENT, largeQuota, function(fs) {
+							fs.root.getFile(me.filename, {create: true}, function(fileEntry) {
+								fileEntry.createWriter(function(fileWriter) {
+									fileWriter.onwriteend = function(e) {
+										// Chunk written
+										if(debug) console.log('Chunk '+(line+1)+'/'+me.nb_chk+' : Write completed.');
+										if((line+1) >= me.nb_chk) {
+											// All chunks are written
+											if(debug) console.log("Done !");
+											time.stop();//
+											Transfers.number = Transfers.number <= 0 ? 0 : Transfers.number - 1;
+											Transfers.numberDl = Transfers.numberDl <= 0 ? 0 : Transfers.numberDl - 1;
 
-											if((line+1) >= me.nb_chk) {
-												// All chunks are written
-												if(debug)
-													console.log("Done !");
-												time.stop();//
-												Transfers.number--;
-												Transfers.numberDl--;
-												if(debug)
-													console.log("decryption + download : "+time.elapsed()+" ms");//
-												var node = document.querySelector("#div_download"+(me.i));
-												while(node.firstChild) // remove all children
-													node.removeChild(node.firstChild);
-
-												// Try to download the file (move from filesystem to download folder)
-												if(typeof fileEntry.file === 'function') {
-													fileEntry.file(function(file) {
-															if(window.navigator.msSaveBlob) {
-																// Microsoft
-																var blobObject = new Blob([file]);
-   																window.navigator.msSaveBlob(blobObject, me.filename);
-															}
-															else {
-																file = new File([file], me.filename);
-																console.log("Creating temp url");
-																me.dl(window.URL.createObjectURL(file));
-															}
-														},
-														function() {
-															me.dl(fileEntry.toURL(), true);
-														}
-													);
-												}
-												else
+											if(debug) console.log("decryption + download : "+time.elapsed()+" ms");//
+											$("#div_download"+(me.i)).remove();
+											if($('#transfers_download > div').length === 0) {
+												$('#transfers_download').html(txt.User.nothing);
+											}
+											// Try to download the file (move from filesystem to download folder)
+											if(typeof fileEntry.file === 'function') {
+												fileEntry.file(function(file) {
+													if(window.navigator.msSaveBlob) { // Microsoft
+   														window.navigator.msSaveBlob(new Blob([file]), me.filename);
+													}
+													else {
+														file = new File([file], me.filename);
+														console.log("Creating temp url");
+														me.dl(window.URL.createObjectURL(file));
+													}
+												}, function() {
 													me.dl(fileEntry.toURL(), true);
+												});
 											}
 											else {
-												// Write next chunk
-												me.decryptChk(line+1);
+												me.dl(fileEntry.toURL(), true);
 											}
-										};
+										}
+										else { // Write next chunk
+											me.decryptChk(line+1);
+										}
+									};
 
-										// Write at the end of the file
-										fileWriter.seek(fileWriter.length);
-										var blob = new Blob([chk]);
-										fileWriter.write(blob);
-
-									}, errorHandler);
-								}, function() {
-									// If we can't write to filesystem, request a quota
-									me.requestQuota(me.decryptChk, 0, largeQuota);
-								});
-							},
-							errorHandler
-						);
+									// Write at the end of the file
+									fileWriter.seek(fileWriter.length);
+									fileWriter.write(new Blob([chk]));
+								}, errorHandler);
+							}, function() {
+								// If we can't write to filesystem, request a quota
+								me.requestQuota(me.decryptChk, 0, largeQuota);
+							});
+						}, errorHandler);
 					}
 				}
 			}
@@ -266,8 +242,7 @@ var Decryption = (function() {
 
 	Decryption.prototype.dl = function(url, feUrl) {
 		var me = this;
-		if(debug)
-			console.log("File name : "+this.filename+", url : "+url);
+		if(debug) console.log("File name : "+this.filename+", url : "+url);
 
 		document.querySelector("#dl_decrypted").href = url;
 		document.querySelector("#dl_decrypted").download = this.filename;
@@ -277,8 +252,7 @@ var Decryption = (function() {
 		setTimeout(function() {
 			me.rm(me.filename);
 			if(feUrl === undefined) {
-				if(debug)
-					console.log("Removing temp url");
+				if(debug) console.log("Removing temp url");
 				window.URL.revokeObjectURL(url);
 			}
 		}, 2000);
@@ -286,23 +260,16 @@ var Decryption = (function() {
 
 	Decryption.prototype.rm = function(filename) {
 		var me = this;
-
-		window.requestFileSystem(
-			window.PERSISTENT,
-			smallQuota,
-			function(fs) {
-				fs.root.getFile(filename, {create: false}, function(fileEntry) {
-					fileEntry.remove(function() {
-						if(debug)
-							console.log('File removed.');
-					}, errorHandler);
-				}, function() {
-					// If we can't delete to filesystem, request a quota
-					me.requestQuota(me.rm, filename, smallQuota);
-				});
-			},
-			errorHandler
-		);
+		window.requestFileSystem(window.PERSISTENT, smallQuota, function(fs) {
+			fs.root.getFile(filename, {create: false}, function(fileEntry) {
+				fileEntry.remove(function() {
+					if(debug) console.log('File removed.');
+				}, errorHandler);
+			}, function() {
+				// If we can't delete to filesystem, request a quota
+				me.requestQuota(me.rm, filename, smallQuota);
+			});
+		}, errorHandler);
 	};
 
 	return Decryption;

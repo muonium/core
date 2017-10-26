@@ -3,7 +3,7 @@ var hex2chars = function(input) {
     input = input.replace(/^(0x)?/g, '');
     input = input.replace(/[^A-Fa-f0-9]/g, '');
     input = input.split('');
-    for(var i=0; i<input.length; i+=2) {
+    for(var i = 0; i < input.length; i+=2) {
         output += String.fromCharCode(parseInt(input[i]+''+input[i+1], 16));
     }
     return output;

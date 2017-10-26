@@ -14,15 +14,14 @@ class Profile extends l\Languages
 	private $_modelUserValidation;
 
     function __construct() {
-        parent::__construct(array(
+        parent::__construct([
             'mustBeLogged' => true,
             'mustBeValidated' => true
-        ));
+        ]);
     }
 
     function DefaultAction() {
-        $this->_modelUser = new m\Users();
-        $this->_modelUser->id = $_SESSION['id'];
+        $this->_modelUser = new m\Users($_SESSION['id']);
         require_once(DIR_VIEW."Profile.php");
     }
 
@@ -33,13 +32,12 @@ class Profile extends l\Languages
             $login = urldecode($_POST['login']);
 
             if(preg_match("/^[A-Za-z0-9_.-]{2,19}$/", $login)) {
-                $this->_modelUser = new m\Users();
-
-                $this->_modelUser->id = $_SESSION['id'];
+                $this->_modelUser = new m\Users($_SESSION['id']);
                 $this->_modelUser->login = $_POST['login'];
 
                 if(!($this->_modelUser->LoginExists())) {
                     if($this->_modelUser->updateLogin()) {
+						$_SESSION['login'] = $this->_modelUser->login;
                         echo 'ok@'.$this->txt->Profile->updateOk;
                     }
                     else {
@@ -64,9 +62,8 @@ class Profile extends l\Languages
 
         if(!empty($_POST['old_pwd']) && !empty($_POST['new_pwd']) && !empty($_POST['pwd_confirm'])) {
             if($_POST['new_pwd'] == $_POST['pwd_confirm']) {
-                $this->_modelUser = new m\Users();
+                $this->_modelUser = new m\Users($_SESSION['id']);
 
-                $this->_modelUser->id = $_SESSION['id'];
                 if($user_pwd = $this->_modelUser->getPassword()) {
 					$old_pwd = urldecode($_POST['old_pwd']);
                     if(password_verify($old_pwd, $user_pwd)) {
@@ -104,33 +101,29 @@ class Profile extends l\Languages
 		- keep the cek as an urlencoded string, it's urldecoded at the frontend anyway
 		*/
 		if (!empty($_POST['cek'])) {
-			$this->_modelUser = new m\Users();
-			$this->_modelUser->id = $_SESSION['id']; //set the 'id' value for the MySQL request
-			$this->_modelUser->cek = $_POST['cek']; //set the 'cek' value for the MySQL request
-			if ($this->_modelUser->updateCek()) { //try to update
-				echo "ok@".$this->txt->Profile->updateOk; //all is okay, return that request went fine
-			}else { //error, cannot update
+			$this->_modelUser = new m\Users($_SESSION['id']);
+			$this->_modelUser->cek = $_POST['cek']; // set the 'cek' value for the MySQL request
+			if ($this->_modelUser->updateCek()) { // try to update
+				echo "ok@".$this->txt->Profile->updateOk; // all is okay, return that request went fine
+			} else { // error, cannot update
 				echo $this->txt->cek->updateErr;
 			}
-		}else { //CEK value was sent empty
+		} else { // CEK value was sent empty
 			echo $this->txt->cek->empty;
 		}
 	}
 
     function ChangeAuthAction() {
         // Called by profile.js
-
-        $this->_modelUser = new m\Users();
-        $this->_modelUser->id = $_SESSION['id'];
-
+        $this->_modelUser = new m\Users($_SESSION['id']);
         $s = 0;
-        if($_POST['doubleAuth'] == 'true')
-            $s = 1;
+        if($_POST['doubleAuth'] == 'true') $s = 1;
 
-        if($this->_modelUser->updateDoubleAuth($s))
+        if($this->_modelUser->updateDoubleAuth($s)) {
             echo $this->txt->Profile->updateOk;
-        else
+        } else {
             echo $this->txt->Profile->updateErr;
+		}
     }
 
 /*     add function to change email of user  */
@@ -140,9 +133,7 @@ class Profile extends l\Languages
 
         if(!empty($_POST['changemail'])) {
             if(filter_var($_POST['changemail'], FILTER_VALIDATE_EMAIL)) {
-                $this->_modelUser = new m\Users();
-
-                $this->_modelUser->id = $_SESSION['id'];
+                $this->_modelUser = new m\Users($_SESSION['id']);
                 $this->_modelUser->email = $_POST['changemail'];
 
                 if(!($this->_modelUser->EmailExists())) {
@@ -186,20 +177,13 @@ class Profile extends l\Languages
 			return;
 		}
 
-		$this->_modelUser = new m\Users();
-		$this->_modelUser->id = $_SESSION['id'];
-        $this->_modelStorage = new m\Storage();
-        $this->_modelStorage->id_user = $_SESSION['id'];
-        $this->_modelFiles = new m\Files();
-        $this->_modelFiles->id_owner = $_SESSION['id'];
-        $this->_modelFolders = new m\Folders();
-        $this->_modelFolders->id_owner = $_SESSION['id'];
-        $this->_modelBan = new m\Ban();
-        $this->_modelBan->id_user = $_SESSION['id'];
-        $this->_modelUserValidation = new m\UserValidation();
-        $this->_modelUserValidation->id_user = $_SESSION['id'];
-        $this->_modelUserLostPass = new m\UserLostPass();
-        $this->_modelUserLostPass->id_user = $_SESSION['id'];
+		$this->_modelUser = new m\Users($_SESSION['id']);
+        $this->_modelStorage = new m\Storage($_SESSION['id']);
+        $this->_modelFiles = new m\Files($_SESSION['id']);
+        $this->_modelFolders = new m\Folders($_SESSION['id']);
+        $this->_modelBan = new m\Ban($_SESSION['id']);
+        $this->_modelUserValidation = new m\UserValidation($_SESSION['id']);
+        $this->_modelUserLostPass = new m\UserLostPass($_SESSION['id']);
 
 		if(!($this->_modelUser->LoginExists())) {
 

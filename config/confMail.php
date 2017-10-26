@@ -8,4 +8,4 @@ class confMail {
 	const username = 'Muonium';
 	const smtp_secure = "tls"; // tls or ssl
 	const port = 587;
-};
+}

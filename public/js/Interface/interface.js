@@ -41,8 +41,7 @@ var UserLoader = function(folder_id) {
         Request.modulesLoaded = true;
     }
     else {
-        if(Trash.State === 1)
-            document.querySelector("#button_trash").innerHTML = txt.User.trash_1;
+        if(Trash.state === 1) $("#button_trash").html(txt.User.trash_1);
         console.log("Modules already loaded.");
     }
 
@@ -127,7 +126,7 @@ var UserLoader = function(folder_id) {
                 case 27:
                     // esc
                     Box.hide();
-                    if($('#MessageBox').length && $('#MessageBox').css('display') == 'block') { $('#MessageBox').remove(); }
+                    //if($('#MessageBox').length && $('#MessageBox').css('display') == 'block') { $('#MessageBox').remove(); }
                     break;
                 case 38:
                     // up arrow
@@ -291,25 +290,27 @@ var reset = function() {
 }
 
 var isNumeric = function(n) {
-    if(typeof(n) == "string")
-        n = n.replace(",", ".");
+    if(typeof(n) === "string") n = n.replace(",", ".");
     return !isNaN(parseFloat(n)) && isFinite(n);
 }
 
 var cleanPath = function(p) {
     // format : dir1/dir2/
-    if(p == '/')
-        return '';
+    if(p == '/') return '';
     if(p.length > 1) {
-        if(p.substr(0, 1) == '/')
-            p = p.substr(1);
+        if(p.substr(0, 1) === '/') {
+			p = p.substr(1);
+		}
         var p0 = p.split("/");
-        for(var i=0;i<p0.length;i++)
-            if(p0[i] == '')
+        for(var i = 0; i < p0.length; i++) {
+            if(p0[i] === '') {
                 p0.splice(i, 1);
+			}
+		}
         p = p0.join('/');
-        if(p.substr(-1) != '/')
+        if(p.substr(-1) !== '/') {
             p = p+'/';
+		}
     }
     return p;
 }

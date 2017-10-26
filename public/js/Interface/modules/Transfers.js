@@ -10,21 +10,18 @@ var Transfers = (function() {
         numberDl : 0,
 
         toggle : function() {
-            if(document.querySelector("#transfers").style.display == 'block') {
+            if($("#transfers").css('display') === 'block') {
                 Transfers.close();
-            }
-            else {
+            } else {
                 Transfers.open();
             }
         },
 
         open : function() {
-            //document.querySelector("#transfers").style.display = 'block';
             $('#transfers').fadeIn(400);
         },
 
         close : function() {
-            //document.querySelector("#transfers").style.display = 'none';
             $('#transfers').fadeOut('fast');
         },
 
@@ -34,28 +31,26 @@ var Transfers = (function() {
 
         minimize : function() {
             if(minimized) {
-                document.querySelector("#transfers #toggle").style.display = 'block';
-                document.querySelector("#transfers #content").style.display = 'block';
+                $("#transfers #toggle, #transfers #content").show();
             }
             else {
-                document.querySelector("#transfers #toggle").style.display = 'none';
-                document.querySelector("#transfers #content").style.display = 'none';
+                $("#transfers #toggle, #transfers #content").hide();
             }
             minimized = !minimized;
         },
 
         showUp : function() {
-            document.querySelector("#transfers #toggle ul > li:first-child").className = 'selected';
-            document.querySelector("#transfers #toggle ul > li:last-child").className = '';
-            document.querySelector("#transfers #content > #transfers_upload").style.display = 'block';
-            document.querySelector("#transfers #content > #transfers_download").style.display = 'none';
+            $("#transfers #toggle ul > li:first-child").addClass('selected');
+            $("#transfers #toggle ul > li:last-child").removeClass('selected');
+            $("#transfers #content > #transfers_upload").show();
+            $("#transfers #content > #transfers_download").hide();
         },
 
         showDl : function() {
-            document.querySelector("#transfers #toggle ul > li:first-child").className = '';
-            document.querySelector("#transfers #toggle ul > li:last-child").className = 'selected';
-            document.querySelector("#transfers #content > #transfers_upload").style.display = 'none';
-            document.querySelector("#transfers #content > #transfers_download").style.display = 'block';
+            $("#transfers #toggle ul > li:first-child").removeClass('selected');
+            $("#transfers #toggle ul > li:last-child").addClass('selected');
+            $("#transfers #content > #transfers_upload").hide();
+            $("#transfers #content > #transfers_download").show();
         }
     }
 });

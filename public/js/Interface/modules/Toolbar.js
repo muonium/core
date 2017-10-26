@@ -18,23 +18,23 @@ var Toolbar = (function() {
             switch(Toolbar.Area) {
                 case 1:
                     data += '<li onclick="Selection.dl(\''+id+'\')"><i class="fa fa-download" aria-hidden="true"></i></li>';
-                    if(Trash.State == 0) {
+                    if(Trash.state == 0) {
                         //data += '<li onclick="Favorites.update(\''+id+'\')"><i class="fa fa-star" aria-hidden="true"></i></li>';
                         data += '<li onclick="Move.cut(\''+id+'\')"><i class="fa fa-scissors" aria-hidden="true"></i></li>';
                         data += '<li onclick="Move.copy(\''+id+'\')"><i class="fa fa-clone" aria-hidden="true"></i></li>';
                         data += '<li onclick="Move.trashMultiple(\''+id+'\')"><i class="fa fa-trash" aria-hidden="true"></i></li>';
                     } else { data += '<li onclick="Move.trashMultiple(\''+id+'\')"><i class="fa fa-undo" aria-hidden="true"></i></li><li onclick="Rm.multiple(\''+id+'\')"><i class="fa fa-trash" aria-hidden="true"></i></li>'; }
-                    if(Trash.State == 0)
+                    if(Trash.state == 0)
                         data += '<li onclick="Move.rename(\''+id+'\')"><i class="fa fa-pencil" aria-hidden="true"></i></li>';
                     break;
                 case 2:
                     data += '<li onclick="Folders.open(\''+id.substr(1)+'\')"><i class="fa fa-folder-open" aria-hidden="true"></i></li>';
-                    if(Trash.State == 0) {
+                    if(Trash.state == 0) {
                         data += '<li onclick="Move.cut(\''+id+'\')"><i class="fa fa-scissors" aria-hidden="true"></i></li>';
                         data += '<li onclick="Move.copy(\''+id+'\')"><i class="fa fa-clone" aria-hidden="true"></i></li>';
                         data += '<li onclick="Move.trashMultiple(\''+id+'\')"><i class="fa fa-trash" aria-hidden="true"></i></li>';
                     } else { data += '<li onclick="Move.trashMultiple(\''+id+'\')"><i class="fa fa-undo" aria-hidden="true"></i></li><li onclick="Rm.multiple(\''+id+'\')"><i class="fa fa-trash" aria-hidden="true"></i></li>'; }
-                    if(Trash.State == 0)
+                    if(Trash.state == 0)
                         data += '<li onclick="Move.rename(\''+id+'\')"><i class="fa fa-pencil" aria-hidden="true"></i></li>';
                     break;
                 default:

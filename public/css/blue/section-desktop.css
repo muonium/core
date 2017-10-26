@@ -6,13 +6,8 @@ section#desktop {
     width: 100%;
 }
 
-section#desktop img.arrow {
-    height: 5vh;
-    width: 5vh;
-}
+section#desktop img.arrow { height: 5vh; width: 5vh; }
 
 @media screen and (min-width: 700px) {
-    section#desktop {
-        margin-bottom: 0;
-    }
+    section#desktop { margin-bottom: 0; }
 }

@@ -42,15 +42,13 @@ EventTarget.prototype.removeEventListener = function(type, listener)
 
 //
 
-var Request =
-{
+var Request = {
     modulesLoaded: false,
-    load: function(controller, action)
-    {
-        if(action === 'DefaultAction' || action === undefined)
-            var url = controller;
-        else
-            var url = controller+'/'+action;
+    load : function(controller, action) {
+		var url = controller+'/'+action;
+        if(action === 'DefaultAction' || action === undefined) {
+            url = controller;
+		}
         console.log("Loading "+url);
 
         if(url.length > 0) {

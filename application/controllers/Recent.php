@@ -5,10 +5,10 @@ use \library\MVC as l;
 /*class Recent extends l\Languages {
 
     function __construct() {
-        parent::__construct(array(
+        parent::__construct([
             'mustBeLogged' => true,
             'mustBeValidated' => true
-        ));
+        ]);
     }
 
     function DefaultAction() {

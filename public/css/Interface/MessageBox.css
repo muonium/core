@@ -1,6 +1,6 @@
-#MessageBox {
+.MessageBox {
     box-sizing: border-box;
-    background: #FBFBFB;
+    background-color: #FBFBFB;
     padding: 20px;
     position: fixed;
     z-index: 9999;
@@ -9,112 +9,96 @@
     box-shadow: 0 2px 5px #C5C5C5;
     font-family: Roboto, Helvetica, sans-serif;
     width: 100%;
-    -webkit-user-select: none;
-	-moz-user-select: none;
-	-ms-user-select: none;
-	user-select: none;
+    -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;
     bottom: 50px;
     display: none;
 }
 
-#MessageBox .MessageBoxClose {
+.MessageBox .MessageBoxClose {
     position: absolute;
     font-size: 24px;
     font-weight: bold;
     color: #727272;
-    top: 0;
-    right: 5px;
+    top: 0; right: 5px;
     cursor: pointer;
 }
 
-#MessageBox .MessageBoxMsg {
+.MessageBox .MessageBoxMsg {
     color: black;
     font-size: 14px;
 }
 
-#MessageBox .MessageBoxBtns {
+.MessageBox .MessageBoxBtns {
     text-align: right;
     margin-top: 5px;
 }
 
-#MessageBox .MessageBoxBtns input[type="button"] {
+.MessageBox .MessageBoxBtns input[type="button"] {
     margin: 0 5px 0 5px;
-    background: white;
+    background-color: white;
     border: 1px solid #3E7EF8;
     border-radius: 1px;
-    padding-left: 10px;
-    padding-right: 10px;
+    padding-left: 10px; padding-right: 10px;
     font-weight: bold;
     outline: none;
     height: 36px;
 	color: black;
 }
 
-#MessageBox .MessageBoxBtns input[type="button"]:active {
-    background: #E6E6E6;
+.MessageBox .MessageBoxBtns input[type="button"]:active {
+    background-color: #E6E6E6;
     border: 1px solid #3E7EF8;
     border-radius: 1px;
 }
 
-#MessageBox .MessageBoxToggle > span {
-    padding-left: 5px;
-    padding-right: 5px;
-    position:relative;
+.MessageBox .MessageBoxToggle > span {
+    padding-left: 5px; padding-right: 5px;
+    position: relative;
     top: -5px;
 }
 
-#MessageBox .MessageBoxToggle .switch {
+.MessageBox .MessageBoxToggle .switch {
     position: relative;
     display: inline-block;
     width: 45px;
     height: 26px;
 }
 
-#MessageBox .MessageBoxToggle .switch input { display:none; }
+.MessageBox .MessageBoxToggle .switch input { display: none; }
 
-#MessageBox .MessageBoxToggle .slider {
+.MessageBox .MessageBoxToggle .slider {
     position: absolute;
     cursor: pointer;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+    top: 0; left: 0; right: 0; bottom: 0;
     background-color: #ccc;
-    -webkit-transition: .4s;
-    transition: .4s;
+    -webkit-transition: .4s; transition: .4s;
     border-radius: 26px;
 }
 
-#MessageBox .MessageBoxToggle .slider:before {
+.MessageBox .MessageBoxToggle .slider:before {
     position: absolute;
     content: "";
-    height: 20px;
-    width: 20px;
-    left: 3px;
-    bottom: 3px;
+    height: 20px; width: 20px;
+    left: 3px; bottom: 3px;
     background-color: white;
-    -webkit-transition: .4s;
-    transition: .4s;
+    -webkit-transition: .4s; transition: .4s;
     border-radius: 50%;
 }
 
-#MessageBox .MessageBoxToggle input:checked + .slider {
+.MessageBox .MessageBoxToggle input:checked + .slider {
     background-color: #2196F3;
 }
 
-#MessageBox .MessageBoxToggle input:focus + .slider {
+.MessageBox .MessageBoxToggle input:focus + .slider {
     box-shadow: 0 0 1px #2196F3;
 }
 
-#MessageBox .MessageBoxToggle input:checked + .slider:before {
-    -webkit-transform: translateX(20px);
-    -ms-transform: translateX(20px);
-    transform: translateX(20px);
+.MessageBox .MessageBoxToggle input:checked + .slider:before {
+    -webkit-transform: translateX(20px); -ms-transform: translateX(20px); transform: translateX(20px);
 }
 
-#MessageBox .MessageBoxInput input {
-    width: 90%;
-    height: 36px;
+.MessageBox .MessageBoxInput input {
+    width: 90%; height: 36px;
     border: 1px solid rgba(40, 83, 92, 0.44);
     border-radius: 3px;
     outline: none;
@@ -124,30 +108,25 @@
 }
 
 @media screen and (max-width: 699px) {
-    #MessageBox {
+    .MessageBox {
         left: auto !important;
         top: auto !important;
     }
 }
 
 @media screen and (min-width: 700px) {
-    #MessageBox {
+    .MessageBox {
         position: absolute;
         min-width: 20%;
         width: auto;
-        bottom: auto;
-        left: 50%;
-        top: 50%;
+        bottom: auto; left: 50%; top: 50%;
         transform: translate(-50%, -50%);
     }
 
-    #MessageBox .MessageBoxBtns input[type="button"] {
-        height: 24px;
-    }
+    .MessageBox .MessageBoxBtns input[type="button"] { height: 24px; }
 
-    #MessageBox .MessageBoxInput input {
-        width: auto;
-        height: 28px;
+    .MessageBox .MessageBoxInput input {
+        width: auto; height: 28px;
         border: 1px solid rgba(40, 83, 92, 0.44);
         border-radius: 3px;
         outline: none;
@@ -155,7 +134,5 @@
         color: #28535c;
     }
 
-    #MessageBox .MessageBoxClose {
-        font-size: 13px;
-    }
+    .MessageBox .MessageBoxClose { font-size: 13px; }
 }

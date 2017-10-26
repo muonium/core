@@ -28,6 +28,9 @@ var Files = (function() {
 
 					dwl.appendChild(btn);
 					dwl.appendChild(spn);
+					if($('#transfers_download > div').length === 0) {
+						$('#transfers_download').html(' ');
+					}
 					document.querySelector("#transfers_download").appendChild(dwl);
 					Transfers.open();
 					Transfers.showDl();

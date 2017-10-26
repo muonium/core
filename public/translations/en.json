@@ -213,7 +213,8 @@
         "year": "year",
         "years": "years",
         "lifetime": "lifetime",
-        "buy": "Buy"
+        "buy": "Buy",
+		"success_msg": "Your purchase has been made. It may take several minutes to refresh your disk space."
     },
 
     "cek": {

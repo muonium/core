@@ -20,8 +20,8 @@ var MessageBox = (function() {
             if(top < 0) top = 0;
             if(top + $drag.clientHeight > document.body.clientHeight) top = document.body.clientHeight - $drag.clientHeight - 5;
 
-            $drag.style.left = left +"px";
-            $drag.style.top = top +"px";
+            $drag.style.left = left + "px";
+            $drag.style.top = top + "px";
         }
     };
 
@@ -30,19 +30,11 @@ var MessageBox = (function() {
         var me = this;
         this.$msg = msg;
         this.$inputs = [];
-        this.coordsSetted = false;
+        this.coordsSet = false;
 
-        // No support of multiples messages box without callback from previous message box for now
-        if(document.querySelector("#MessageBox")) {
-            if(document.querySelector("#MessageBox").style.display == 'block') {
-                return false;
-            }
-        }
-
-        this.$elem = document.createElement("div");
-        this.$elem.id = 'MessageBox';
-        this.$elem.addEventListener("mousedown", function(e) {
-            if(document.activeElement.tagName != 'INPUT' && document.activeElement.tagName != 'TEXTAREA') {
+        this.$elem = $('<div class="MessageBox"></div>')[0];
+        $(this.$elem).on("mousedown", function(e) {
+            if(document.activeElement.tagName !== 'INPUT' && document.activeElement.tagName !== 'TEXTAREA') {
                 $drag = me.$elem;
                 var rect = $drag.getBoundingClientRect();
                 $diffLeft = e.pageX - rect.left;
@@ -50,40 +42,29 @@ var MessageBox = (function() {
             }
         });
 
-        this.$elemClose = document.createElement("div");
-        this.$elemClose.className = 'MessageBoxClose';
-        this.$elemClose.innerHTML = 'x';
-        this.$elemClose.addEventListener("click", this.close.bind(me));
+        this.$elemClose = $('<div class="MessageBoxClose">x</div>')[0];
+        this.$elemMsg = $('<div class="MessageBoxMsg">'+ this.$msg +'</div>')[0];
+        this.$elemToggle = $('<div class="MessageBoxToggle"></div>')[0];
+        this.$elemInput = $('<div class="MessageBoxInput"></div>')[0];
+        this.$elemBtns = $('<div class="MessageBoxBtns"></div>')[0];
 
-        this.$elemMsg = document.createElement("div");
-        this.$elemMsg.className = 'MessageBoxMsg';
-        this.$elemMsg.innerHTML = this.$msg;
+		$(this.$elemClose).on("click", this.close.bind(me));
 
-        this.$elemToggle = document.createElement("div");
-        this.$elemToggle.className = 'MessageBoxToggle';
-
-        this.$elemInput = document.createElement("div");
-        this.$elemInput.className = 'MessageBoxInput';
-
-        this.$elemBtns = document.createElement("div");
-        this.$elemBtns.className = 'MessageBoxBtns';
-
-        this.$elem.appendChild(this.$elemClose);
-        this.$elem.appendChild(this.$elemMsg);
-        this.$elem.appendChild(this.$elemToggle);
-        this.$elem.appendChild(this.$elemInput);
-        this.$elem.appendChild(this.$elemBtns);
+        $(this.$elem).append(this.$elemClose);
+        $(this.$elem).append(this.$elemMsg);
+        $(this.$elem).append(this.$elemToggle);
+        $(this.$elem).append(this.$elemInput);
+        $(this.$elem).append(this.$elemBtns);
+		$('body').append(this.$elem);
 	};
 
 	// Public
     MessageBox.prototype.addButton = function(value, callback) {
         var me = this;
-        var button = document.createElement("input");
-        button.type = 'button';
-        button.value = value;
-        button.addEventListener("click", function() {
+        var button = $('<input type="button" value="'+ value +'">')[0];
+        $(button).on('click', function() {
             me.close.bind(me)();
-            if(typeof callback === 'function') {
+            if(typeof(callback) === 'function') {
                 callback.bind(me)();
             }
         });
@@ -93,42 +74,30 @@ var MessageBox = (function() {
 
     MessageBox.prototype.addToggle = function(leftText, rightText, callback) {
         var me = this;
-        var lblLeft = document.createElement("span");
-        lblLeft.innerHTML = leftText;
-        this.$elemToggle.appendChild(lblLeft);
-
-        var lswitch = document.createElement("label");
-        lswitch.className = 'switch';
-
-        var toggle = document.createElement("input");
-        toggle.type = 'checkbox';
-        toggle.addEventListener("click", function() {
-            if(this.checked) {
-                callback.bind(me)();
-            }
+        var lblLeft = $('<span>'+ leftText +'</span>')[0];
+		var lblRight = $('<span>'+ rightText +'</span>')[0];
+        var lswitch = $('<label class="switch"></label>')[0];
+        var toggle = $('<input type="checkbox">')[0];
+        $(toggle).on('click', function() {
+            if(this.checked) callback.bind(me)();
         });
 
-        var slider = document.createElement("div");
-        slider.className = 'slider';
+        var slider = $('<div class="slider"></div>')[0];
 
-        lswitch.appendChild(toggle);
-        lswitch.appendChild(slider);
-        this.$elemToggle.appendChild(lswitch);
-
-        var lblRight = document.createElement("span");
-        lblRight.innerHTML = rightText;
-        this.$elemToggle.appendChild(lblRight);
+		$(this.$elemToggle).append(lblLeft);
+        $(lswitch).append(toggle);
+        $(lswitch).append(slider);
+        $(this.$elemToggle).append(lswitch);
+        $(this.$elemToggle).append(lblRight);
 
         return this;
 	};
 
     MessageBox.prototype.addInput = function(name, params = null) {
         var me = this;
+        var input = $('<input type="text">')[0];
 
-        var input = document.createElement("input");
-        input.type = 'text';
-
-        if(params !== null && typeof params === 'object') {
+        if(params !== null && typeof(params) === 'object') {
             for(var i in params) {
                 if(typeof(params[i]) === 'function') {
                     params[i] = params[i].bind(me);
@@ -136,8 +105,7 @@ var MessageBox = (function() {
                 input[i] = params[i];
             }
         }
-
-        this.$elemInput.appendChild(input);
+        $(this.$elemInput).append(input);
         this.$inputs[name] = input;
         return this;
 	};
@@ -145,7 +113,7 @@ var MessageBox = (function() {
     MessageBox.prototype.setCoords = function(x, y) {
         this.$elem.style.left = x+'px';
         this.$elem.style.top = y+'px';
-        this.coordsSetted = true;
+        this.coordsSet = true;
         return this;
 	};
 
@@ -156,10 +124,9 @@ var MessageBox = (function() {
 	};
 
     MessageBox.prototype.close = function() {
-        $('#MessageBox').fadeOut(200, function() {
+        $(this.$elem).fadeOut(200, function() {
             $(this).remove();
         });
-        //this.$elem.parentNode.removeChild(this.$elem);
 	};
 
 	MessageBox.prototype.show = function() {
@@ -169,15 +136,7 @@ var MessageBox = (function() {
             this.addButton('OK');
         }
 
-        if(document.querySelector("#MessageBox")) {
-            document.querySelector("#MessageBox").innerHTML = this.$elem.innerHTML;
-        }
-        else {
-            document.querySelector("body").insertBefore(this.$elem, document.querySelector("body").firstChild);
-        }
-
-        //document.querySelector("#MessageBox").style.display = 'block';
-        $('#MessageBox').fadeIn(400);
+		$(this.$elem).fadeIn(400);
 
         if(this.$elemInput.firstChild !== null) {
             this.$elemInput.firstChild.focus();

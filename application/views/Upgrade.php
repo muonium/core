@@ -33,6 +33,7 @@
 
 	<div id="container">
         <section id="large-content">
+			<?php echo $msg; ?>
 			<h1><?php echo_h($this->txt->Upgrade->offers); ?></h1>
 			<div class="bloc">
 				<ul>

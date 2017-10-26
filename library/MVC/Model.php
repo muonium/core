@@ -25,6 +25,16 @@ class Model {
         return self::$_sql->lastInsertId();
     }
 
+	protected function insert($table, $data) {
+		if(!is_string($table) || !is_array($data) || count($data) < 1) return false;
+		$keys = array_keys($data);
+		$req = self::$_sql->prepare("INSERT INTO ".$table." (".implode(",", $keys).") VALUES (:".implode(",:", $keys).")");
+		foreach($data as $k => $v) {
+			$req->bindValue(':'.$k, $v);
+		}
+		return $req->execute();
+	}
+
     public function __get($attr) {
         return $this->$attr;
     }
@@ -32,4 +42,4 @@ class Model {
     public function __set($attr, $val) {
         $this->$attr = $val;
     }
-};
+}

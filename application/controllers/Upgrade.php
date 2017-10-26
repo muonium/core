@@ -2,47 +2,70 @@
 namespace application\controllers;
 use \library\MVC as l;
 use \application\models as m;
+use \config as conf;
 
 class Upgrade extends l\Languages {
-	private $_modelStorage;
 	private $_modelUpgrade;
 	private $_modelStoragePlans;
 
     function __construct() {
-        parent::__construct(array(
+        parent::__construct([
             'mustBeLogged' => true,
             'mustBeValidated' => true
-        ));
-		$this->_modelUpgrade = new m\Upgrade();
-		$this->_modelStorage = new m\Storage();
+        ]);
+		$this->_modelUpgrade = new m\Upgrade($_SESSION['id']);
 		$this->_modelStoragePlans = new m\StoragePlans();
     }
 
     function DefaultAction() {
 		$offers = '';
+		$endpoint = 'https://www.coinpayments.net/index.php';
+		$merchant_id = conf\confPayments::merchant_id;
+		$ipn_url = conf\confPayments::ipn_url;
+
 		$storage_plans = $this->_modelStoragePlans->getPlans();
 		foreach($storage_plans as $plan) {
-			$offers .= '<li>'.$this->showSize($plan['size']).' - <td>'.$plan['price'].' '.$plan['currency'].' - '.$this->duration($plan['duration']);
-			if($plan['paypal_button_id'] !== null) {
-				$offers .= '<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
-					<input type="hidden" name="cmd" value="_s-xclick"><input type="hidden" name="hosted_button_id" value="'.$plan['paypal_button_id'].'">
-					<input name="return" type="hidden" value="'.URL_APP.'/Upgrade" />
-					<input name="cancel_return" type="hidden" value="'.URL_APP.'/Upgrade" />
-					<input name="notify_url" type="hidden" value="'.URL_APP.'/IPN" />
-					<input name="custom" type="hidden" value="'.$_SESSION['id'].'" />
-					<button type="submit">'.$this->txt->Upgrade->buy.'</button>
-					</form></li>';
+			$product_name = $this->showSize($plan['size']).' - '.$plan['price'].' '.strtoupper($plan['currency']).' - '.$this->duration($plan['duration']);
+			$offers .= '<li>'.$product_name;
+			if($plan['product_id'] !== null) {
+
+				$fields = [
+					'cmd' => '_pay_simple',
+					'merchant' => $merchant_id,
+					'item_name' => $product_name,
+					'item_number' => $plan['product_id'],
+					'currency' => strtolower($plan['currency']),
+					'amountf' => floatval($plan['price']),
+					'ipn_url' => $ipn_url,
+					'success_url' => URL_APP.'/Upgrade/?success=ok',
+					'cancel_url' => '',
+					'custom'  => $_SESSION['id'],
+					'want_shipping' => '0'
+				];
+
+				$offers .= '<form action="'.$endpoint.'" method="post">';
+				foreach($fields as $name => $value) {
+					$offers .= '<input type="hidden" name="'.$name.'" value="'.$value.'">';
+				}
+				$offers .= '<button type="submit">'.$this->txt->Upgrade->buy.'</button>';
+				$offers .= '</form>';
 			}
+			$offers .= '</li>';
 		}
 
 		$history = '';
 		$upgrades = $this->_modelUpgrade->getUpgrades();
 		foreach($upgrades as $upgrade) {
-			$history .= '<tr><td>'.$this->showSize($upgrade['size']).'</td><td>'.$upgrade['price'].' '.$upgrade['currency'].'</td>
-			<td>'.date('Y-m-d G:i', $upgrade['start']).'</td><td>'.date('Y-m-d G:i', $upgrade['end']).'</td><td class="red fit-width">';
+			$history .= '<tr>';
+			$history .= '<td>'.$this->showSize($upgrade['size']).'</td>';
+			$history .= '<td>'.$upgrade['price'].' '.strtoupper($upgrade['currency']).'</td>';
+			$history .= '<td>'.date('Y-m-d G:i', $upgrade['start']).'</td>';
+			$history .= '<td>'.date('Y-m-d G:i', $upgrade['end']).'</td>';
+			$history .= '<td class="red fit-width">';
 			if($upgrade['removed'] === 1) $history .= $this->txt->Upgrade->expired;
 			$history .= '</td></tr>';
 		}
+		$msg = isset($_GET['success']) ? '<p class="green">'.$this->txt->Upgrade->success_msg.'</p>' : '';
 
 		require_once(DIR_VIEW."Upgrade.php");
     }

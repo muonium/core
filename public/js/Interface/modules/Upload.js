@@ -7,7 +7,7 @@ var Upload = (function() {
     // Public
     return {
         dialog : function() {
-            document.querySelector('#upFilesInput').click();
+            $('#upFilesInput').trigger('click');
         },
 
         abort : function() {
@@ -21,37 +21,31 @@ var Upload = (function() {
 		},
 
 		upFile : function(file_id) {
-			var up, btn, spn;
-			console.log("uploading file "+file_id+"/"+(f_files.length-1));
-			up = document.createElement('div');
-			up.id = 'div_upload'+file_id;
+			console.log("Uploading file "+file_id+"/"+(f_files.length-1));
 
-			btn = document.createElement('i');
-			btn.setAttribute('data-id', file_id);
-			btn.onclick = Upload.abort;
-			btn.className = 'fa fa-minus-circle btn-abort';
-			btn.setAttribute('aria-hidden', true);
+			$("#transfers_upload").contents().filter(function() {
+    			return (this.nodeType == 3);
+			}).remove();
+			$('#transfers_upload').append('<div id="div_upload'+ file_id +'">'+
+				'<i data-id="'+ file_id +'" class="fa fa-minus-circle btn-abort" aria-hidden="true"></i>'+
+				'<span id="span_upload'+ file_id +'"></span>'+
+			'</div>');
 
-			spn = document.createElement('span');
-			spn.id = 'span_upload'+file_id;
-
-			up.appendChild(btn);
-			up.appendChild(spn);
-			document.querySelector("#transfers_upload").appendChild(up);
+			$('.btn-abort').on('click', Upload.abort);
 
 			if(file_id == f_files.length-1) {
 				f_enc[file_id] = new Encryption(f_files[file_id], Folders.id, file_id, null);
 			}
 			else {
 				f_enc[file_id] = new Encryption(f_files[file_id], Folders.id, file_id, function() {
-					Upload.upFile(file_id+1);
+					Upload.upFile(file_id + 1);
 				});
 			}
 		},
 
         upFiles : function(files) {
 			f_files = files;
-			document.querySelector("#transfers_upload").innerHTML = ' ';
+			$("#transfers_upload").html(' ');
 			Transfers.open();
 			Transfers.showUp();
 			Upload.yesReplaceAll = false;

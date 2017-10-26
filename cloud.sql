@@ -92,7 +92,7 @@ CREATE TABLE `storage_plans` (
   `price` float NOT NULL,
   `currency` varchar(10) DEFAULT NULL,
   `duration` int(11) NOT NULL,
-  `paypal_button_id` varchar(20) DEFAULT NULL
+  `product_id` varchar(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------

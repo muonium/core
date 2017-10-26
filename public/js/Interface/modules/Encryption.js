@@ -69,17 +69,14 @@ var Encryption = (function() {
 		xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
 		xhr.onreadystatechange = function() {
-			// TODO : improve alert (only one) and confirm (yes, no, yes for all, no for all)
 			if(xhr.status == 200 && xhr.readyState == 4) {
 				var filestatus = xhr.responseText.split('@');
-				if(debug)
-					console.log(filestatus);
+				if(debug) console.log(filestatus);
 				if(filestatus[0] == '0') { // File doesn't exist, it's ok
 					me.read();
 				}
 				else if(filestatus[0] == '1' && filestatus.length === 2 && Upload.yesCompleteAll === true) {
-					if(isNumeric(filestatus[1]))
-						completeYesAction(filestatus[1]);
+					if(isNumeric(filestatus[1])) completeYesAction(filestatus[1]);
 				}
 				else if((filestatus[0] == '1' || filestatus[0] == '2') && Upload.yesReplaceAll === true) {
 					replaceYesAction();
@@ -90,16 +87,17 @@ var Encryption = (function() {
 				else if(filestatus[0] == '1' && filestatus.length === 2) { // File exists and not completed
 					if(isNumeric(filestatus[1])) {
 						var c = false;
-						if(typeof me.callback != 'function') { // Only one file or this is the last file
+						if(typeof(me.callback) !== 'function') { // Only one file or this is the last file
 							var m = new MessageBox(txt.User.replaceFile.replace('[filename]', fname))
 								.addToggle(txt.User.complete, txt.User.replace, function() {
 									c = true;
 								})
 								.addButton(txt.User.yes, function() {
-									if(c)
+									if(c) {
 										replaceYesAction();
-									else
+									} else {
 										completeYesAction(filestatus[1]);
+									}
 								})
 								.addButton(txt.User.no, noAction)
 								.show();
@@ -110,10 +108,11 @@ var Encryption = (function() {
 									c = true;
 								})
 								.addButton(txt.User.yes, function() {
-									if(c)
+									if(c) {
 										replaceYesAction();
-									else
+									} else {
 										completeYesAction(filestatus[1]);
+									}
 								})
 							    .addButton(txt.User.yesAll, function() {
 									if(c) {
@@ -135,7 +134,7 @@ var Encryption = (function() {
 					}
 				}
 				else if(filestatus[0] == '2') { // File exists
-					if(typeof me.callback != 'function') { // Only one file or this is the last file
+					if(typeof(me.callback) !== 'function') { // Only one file or this is the last file
 						var m = new MessageBox(txt.User.replaceFile.replace('[filename]', fname)).addButton(txt.User.yes, replaceYesAction).addButton(txt.User.no, noAction).show();
 					}
 					else {
@@ -178,20 +177,19 @@ var Encryption = (function() {
 
 	Encryption.prototype.abort = function() {
 		var me = this;
-		Transfers.number--;
-		Transfers.numberUp--;
+		Transfers.number = Transfers.number <= 0 ? 0 : Transfers.number - 1;
+		Transfers.numberUp = Transfers.numberUp <= 0 ? 0 : Transfers.numberUp - 1;
 
 		me.halt = true;
-		var node = document.querySelector("#div_upload"+(me.i));
-		if(node) {
-			while(node.firstChild) // remove all children
-				node.removeChild(node.firstChild);
+		$("#div_upload"+(me.i)).remove();
+		if($('#transfers_upload > div').length === 0) {
+			$('#transfers_upload').html(txt.User.nothing);
 		}
 
 		/* Reload current folder to show aborted file in tree */
 		Folders.open(Folders.id);
 
-		if(typeof me.callback == 'function') {
+		if(typeof(me.callback) === 'function') {
 			me.callback();
 		}
 	};
@@ -206,20 +204,20 @@ var Encryption = (function() {
 				tmp = 0;
 			}
 		}
-		if (i&3)
+		if (i&3) {
 			out.push(sjcl.bitArray.partial(8*(i&3), tmp));
+		}
 		return out;
 	};
 
 	Encryption.prototype.read = function(chkNb = 0) {
-		if(debug)
-			console.log("reading "+chkNb);
+		if(debug) console.log("reading "+chkNb);
 		this.m = chkNb;
 		var me = this;
 		Transfers.number++;
 		Transfers.numberUp++;
 
-		if(typeof me.callback == 'function') {
+		if(typeof(me.callback) === 'function') {
 			me.callback();
 		}
 
@@ -233,12 +231,10 @@ var Encryption = (function() {
 			binary: true,
 			chunk_size: chunkSize,
 			success: function(i) {
-				if(me.halt)
-					return false;
+				if(me.halt) return false;
 				// Waiting end of the uploading process
 				var timer = setInterval(function() {
-					if(debug)
-						console.log("Waiting...");
+					if(debug) console.log("Waiting...");
 					if(me.k >= me.j) {
 						// Done, write "EOF" at the end of file
 						clearInterval(timer);
@@ -250,16 +246,17 @@ var Encryption = (function() {
 						xhr.onreadystatechange = function() {
 							if(xhr.status == 200 && xhr.readyState == 4) {
 								time.stop();//
-								Transfers.number--;
-								Transfers.numberUp--;
-								var node = document.querySelector("#div_upload"+(me.i));
-								while(node.firstChild) // remove all children
-									node.removeChild(node.firstChild);
+								Transfers.number = Transfers.number <= 0 ? 0 : Transfers.number - 1;
+								Transfers.numberUp = Transfers.numberUp <= 0 ? 0 : Transfers.numberUp - 1;
+								$("#div_upload"+(me.i)).remove();
+								if($('#transfers_upload > div').length === 0) {
+									$('#transfers_upload').html(txt.User.nothing);
+								}
 								if(debug) {
 									console.log("Split + encryption : "+time.elapsed()+" ms");
 									console.log("Splitted in "+me.j+" chunks !");
 								}
-								if(typeof me.callback != 'function') {
+								if(typeof(me.callback) !== 'function') {
 									Folders.open(me.folder_id);
 								}
 							}
@@ -270,22 +267,19 @@ var Encryption = (function() {
 			},
 			chunk_read_callback: function(chk) {
 				// Reading a chunk
-				if(me.halt)
-					return false;
+				if(me.halt) return false;
 				me.j++;
 				if(me.m < me.j) {
 					chk = new Uint8Array(chk);
 					chk = me.toBitArrayCodec(chk);
 					var chk_length = me.encryptChk(chk, me.j);
-					if(debug)
-						console.log(me.file.name+' - Part '+me.j+' size : '+chk_length);
+					if(debug) console.log(me.file.name+' - Part '+me.j+' size : '+chk_length);
 				}
 				else {
 					me.k++;
 					me.l += Math.round(chunkSize*(1+est/100));
 					var pct = me.l/me.est_size*100;
-					if(pct > 100)
-						pct = 100;
+					if(pct > 100) pct = 100;
 					document.querySelector("#span_upload"+(me.i)).innerHTML = me.file.name+' : '+pct.toFixed(2)+'%';
 					console.log('Did not write part '+me.j);
 				}
@@ -340,10 +334,8 @@ var Encryption = (function() {
 	};
 
 	Encryption.prototype.encryptChk = function(chk, chkNb) {
-		if(this.halt)
-			return false;
-		if(debug)
-			console.log('Starting encryption of part '+chkNb);
+		if(this.halt) return false;
+		if(debug) console.log('Starting encryption of part '+chkNb);
 		var me = this;
 
 		var pack = function(c, s, a, i){ //ciphered_chk, salt, authentification data, initialization vector
@@ -373,12 +365,10 @@ var Encryption = (function() {
 
 				xhr.onreadystatechange = function() {
 					if(xhr.status == 200 && xhr.readyState == 4 && me.halt === false) {
-						if(debug)
-							console.log('Wrote part '+chkNb + ', k: '+me.k+' : ' + xhr.responseText);
+						if(debug) console.log('Wrote part '+chkNb + ', k: '+me.k+' : ' + xhr.responseText);
 						me.l += s.length;
 						var pct = me.l/me.est_size*100;
-						if(pct > 100)
-							pct = 100;
+						if(pct > 100) pct = 100;
 						document.querySelector("#span_upload"+(me.i)).innerHTML = me.file.name+' : '+pct.toFixed(2)+'%';
 
 						if(xhr.responseText == 'error') {
