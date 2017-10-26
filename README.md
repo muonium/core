@@ -34,7 +34,7 @@ Check our rules [here](https://github.com/muonium/core/blob/master/CONTRIBUTING.
 
 ### SJCL
 
-Like you know, we use SJCL, which is a JavaScript implementation of AES.
+As you know, we use SJCL, which is a JavaScript implementation of AES.
 
 If you are a scientist, you can contribute [here](https://github.com/bitwiseshiftleft/sjcl) !
 

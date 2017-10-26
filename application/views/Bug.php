@@ -13,7 +13,8 @@
     $_t->addCss("blue/menu");
     $_t->addCss("blue/section-large-content");
 
-	$_t->addJs("check");
+    $_t->addJs("Bug");
+    $_t->addJs("check");
     $_t->getHeader();
 ?>
 <body class="grey">
