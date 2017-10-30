@@ -214,7 +214,8 @@
         "years": "ans",
         "lifetime": "à vie",
         "buy": "Acheter",
-		"success_msg": "Votre achat a bien été effectué. Cela peut prendre plusieurs minutes pour actualiser votre espace disque."
+		"success_msg": "Votre achat a bien été effectué. Cela peut prendre plusieurs minutes pour actualiser votre espace disque.",
+		"mue": "30% de réduction avec MUE"
     },
 
     "cek": {

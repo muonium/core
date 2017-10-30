@@ -214,7 +214,8 @@
         "years": "years",
         "lifetime": "lifetime",
         "buy": "Buy",
-		"success_msg": "Your purchase has been made. It may take several minutes to refresh your disk space."
+		"success_msg": "Your purchase has been made. It may take several minutes to refresh your disk space.",
+		"mue": "30% off with MUE"
     },
 
     "cek": {

@@ -36,6 +36,7 @@
 			<?php echo $msg; ?>
 			<h1><?php echo_h($this->txt->Upgrade->offers); ?></h1>
 			<div class="bloc">
+				<div class="green"><?php echo $this->txt->Upgrade->mue; ?></div>
 				<ul>
 					<?php echo $offers; ?>
 				</ul>
