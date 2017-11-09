@@ -110,7 +110,7 @@
         "bruteforceErr1": "Warnung: nach einer großen Anzahl Anfragen von Dir, hast Du nur noch 3 Versuche",
         "bruteforceErr2": "Du hast das Maximum an Anfragen erreicht.",
         "subject": "Muonium - Accountverifizierung",
-        "message": "Willkommen bei Muonium !<br />Um Deinen Account zu verifizieren, klicke auf diesen Link: <a href='[url_app]/Validate/Key/[id_user]/[key]'>[url_app]/Validate/Key/[id_user]/[key]</a><br />Mit freundlichen Grüßen,<br />das Muonium Team<br /><br />Diese Email wurde automatisch generiert, bitte antworte nicht darauf."
+        "message": "Willkommen bei Muonium !<br>Um Deinen Account zu verifizieren, klicke auf diesen Link: <a href='[url_app]/Validate/Key/[id_user]/[key]'>[url_app]/Validate/Key/[id_user]/[key]</a><br>Mit freundlichen Grüßen,<br>das Muonium Team<br><br>Diese Email wurde automatisch generiert, bitte antworte nicht darauf."
     },
 
     "Login": {
@@ -119,13 +119,13 @@
         "bruteforceErr0": "Ungültige Email-Adresse oder ungültiges Passwort",
         "bruteforceErr1": "Warnung: nach einer großen Anzahl Anfragen von Dir, hast Du nur noch 3 Versuche",
         "bruteforceErr2": "Du hast das Maximum an Anfragen erreicht.",
-        "doubleAuthMessage": "Hi, Dein Authentifizierungscode ist [key]<br />Mit freundlichen Grüßen,<br />Diese Email wurde automatisch generiert, bitte antworte nicht darauf.",
+        "doubleAuthMessage": "Hi, Dein Authentifizierungscode ist [key]<br>Mit freundlichen Grüßen,<br>Diese Email wurde automatisch generiert, bitte antworte nicht darauf.",
         "codeMail": "Code per Email empfangen",
         "expired": "Der Code ist abgelaufen, bitte wieder einloggen",
         "invalidCode": "Der eingegebene Code ist ungültig",
         "username": "Email oder Login",
         "badPassphrase": "Fehler: falsches geheimes Passwort",
-        "doubleAuth": "Eine Email mit einem Authentifizierungscode wurde an Dich gesendet. Kopiere diesen Code in das Feld unten. <br />Falls Du nach 5 Minuten von jetzt an nichts erhalten hast und die Email nicht im Spamordner ist, klicke bitte auf diesen <a href='[url_app]/Logout'>Link</a>, um einen neuen Verbíndungsversuch durchzuführen."
+        "doubleAuth": "Eine Email mit einem Authentifizierungscode wurde an Dich gesendet. Kopiere diesen Code in das Feld unten. <br>Falls Du nach 5 Minuten von jetzt an nichts erhalten hast und die Email nicht im Spamordner ist, klicke bitte auf diesen <a href='[url_app]/Logout'>Link</a>, um einen neuen Verbíndungsversuch durchzuführen."
     },
 
     "Validate": {
@@ -167,7 +167,7 @@
         "errmessage": "Fehler: Der Verifizierungscode ist falsch oder abgelaufen, bitte <a href='LostPass'>mache eine neue Anfrage</a> und gib wieder Deinen Benutzernamen oder Deine Email-Adresse ein.",
         "user": "Deine Email-Adresse oder Dein Benutzername",
         "subject": "Muonium - Passwort vergessen",
-        "message": "Hi,<br />Um Dein Passwort oder Dein geheimes Passwort zu aktualisieren, klicke bitte auf folgenden Link: <a href='https://photon.muonium.ch/neutron/LostPass/Key/[id_user]/[key]'>https://photon.muonium.ch/neutron/LostPass/Key/[id_user]/[key]</a><br />Mit freundlichen Grüßen,<br />das Muonium Team.<br /><br />Diese Email wurde automatisch generiert, bitte antworte nicht darauf.",
+        "message": "Hi,<br>Um Dein Passwort oder Dein geheimes Passwort zu aktualisieren, klicke bitte auf folgenden Link: <a href='https://photon.muonium.ch/neutron/LostPass/Key/[id_user]/[key]'>https://photon.muonium.ch/neutron/LostPass/Key/[id_user]/[key]</a><br>Mit freundlichen Grüßen,<br>das Muonium Team.<br><br>Diese Email wurde automatisch generiert, bitte antworte nicht darauf.",
         "reset": "Achtung! Wenn Du Dein geheimes Passwort änderst, wird Dein Account zurückgesetzt und Du verlierst alle Deine Daten!"
     },
 

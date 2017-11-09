@@ -83,13 +83,13 @@ class Bug extends l\Languages {
                             $this->_mail = new l\Mail();
                             $this->_mail->_to = "bug@muonium.ee";
                             $this->_mail->_subject = "[Bug report] ".$mail." - ".substr($message, 0, 20);
-                            $this->_mail->_message = "====================<br />
-                            <strong>User mail :</strong> ".$mail."<br />
-                            <strong>User ID :</strong> ".$_SESSION['id']."<br />
-                            <strong>O.S :</strong> ".$os."<br />
-                            <strong>Browser :</strong> ".$browser."<br />
+                            $this->_mail->_message = "====================<br>
+                            <strong>User mail :</strong> ".$mail."<br>
+                            <strong>User ID :</strong> ".$_SESSION['id']."<br>
+                            <strong>O.S :</strong> ".$os."<br>
+                            <strong>Browser :</strong> ".$browser."<br>
                             <strong>Browser version :</strong> ".htmlentities($_POST['browserVersion'])."
-                            <br />====================<br />"
+                            <br>====================<br>"
                                 .nl2br($message);
                             $this->_mail->send();
 

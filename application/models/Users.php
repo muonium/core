@@ -203,6 +203,12 @@ class Users extends l\Model {
 	    return $req->execute([$this->email, $this->id]);
 	}
 
+	function updateLastConnection() {
+		if($this->id === null) return false;
+	    $req = self::$_sql->prepare("UPDATE users SET last_connection = ? WHERE id = ?");
+	    return $req->execute([time(), $this->id]);
+	}
+
 	function deleteUser() {
 		if($this->id === null) return false;
         $req = self::$_sql->prepare("DELETE FROM users WHERE id = ?");

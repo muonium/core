@@ -48,15 +48,17 @@ class Login extends l\Languages {
                         // Code is wrong
                         $brute->setSID('doubleAuth');
                         $brute->Control();
-                        $this->_message = htmlentities($this->txt->Login->invalidCode).'<br />'.htmlentities($this->txt->Register->{"bruteforceErr".$brute->getError()});
+                        $this->_message = htmlentities($this->txt->Login->invalidCode).'<br>'.htmlentities($this->txt->Register->{"bruteforceErr".$brute->getError()});
                         require_once(DIR_VIEW."DoubleAuth.php");
                     }
                 }
-                else // Unable to get code
+                else { // Unable to get code
                     exit(header('Location: '.MVC_ROOT.'/Logout'));
+				}
             }
-            else // Double auth disabled
+            else { // Double auth disabled
                 exit(header('Location: '.MVC_ROOT.'/Logout'));
+			}
         }
     }
 
@@ -93,6 +95,7 @@ class Login extends l\Languages {
                 if($pass !== false) {
                     if(password_verify($new_user->password, $pass)) {
                         // Mail, password ok, connection
+						$new_user->updateLastConnection();
                         $mUserVal = new m\UserValidation($id);
                         if(!($mUserVal->getKey())) {
                             // Unable to find key - Validation is done

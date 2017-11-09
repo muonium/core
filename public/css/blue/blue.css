@@ -42,7 +42,7 @@ a, a:visited { cursor: pointer; color: #333333; text-decoration: none; }
 a:active, a:hover, a:focus { color: #1a8da5; }
 
 fieldset {
-    margin: auto; margin-bottom: 20px;
+    margin: auto; margin-bottom: 30px;
     padding: 10px;
     width: 95%;
 }
@@ -64,6 +64,8 @@ hr { display: block; height: 1px; border: 0; border-top: 1px solid #9A9A9A; }
 .bloc ul li { padding: 10px; border-bottom: 1px solid #D2D2D2; }
 ul.list { text-align: left; margin: 10px auto 20px auto; padding-left: 15px; padding-right: 15px; display: inline-block; }
 p.space { margin-top: 30px; }
+
+.hide { display: none; }
 
 .red { color: red; }
 .green { color: green; }

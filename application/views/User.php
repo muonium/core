@@ -102,11 +102,11 @@
                 </li>
                 <li id="display">
                     <span>
-                        <input type="radio" id="display_list" name="display" checked>
+                        <input type="radio" id="display_list" name="display">
                         <label for="display_list"><?php echo_h($this->txt->UserMenu->smallIcons); ?></label>
                     </span>
                     <span>
-                        <input type="radio" id="display_mosaic" name="display">
+                        <input type="radio" id="display_mosaic" name="display" checked>
                         <label for="display_mosaic"><?php echo_h($this->txt->UserMenu->largeIcons); ?></label>
                     </span>
                 </li>
@@ -122,8 +122,8 @@
 
         <section id="desktop">
             <!-- Hidden upload form -->
-            <form style="display:none">
-                <input type="file" id="upFilesInput" name="files[]" multiple="multiple" style="display:none" onchange="Upload.upFiles(this.files);" onclick="reset();" />
+            <form class="hide">
+                <input type="file" id="upFilesInput" name="files[]" multiple="multiple" class="hide" onchange="Upload.upFiles(this.files);" onclick="reset();" />
             </form>
             <!-- End -->
 
@@ -137,7 +137,7 @@
         <section id="selection"></section>
     </div>
 
-    <div id="transfers" style="display:none">
+    <div id="transfers" class="hide">
         <section id="top">
             <ul>
                 <li><?php echo_h($this->txt->Toolbar->transfers); ?></li>
@@ -159,7 +159,7 @@
         </section>
     </div>
 
-    <div id="box" style="display:none"></div>
+    <div id="box" class="hide"></div>
     <div id="toolbar"></div> <!-- Box equivalent for mobile devices -->
 	<a href="#" id="dl_decrypted"></a>
 </body>

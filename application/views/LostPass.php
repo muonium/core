@@ -36,7 +36,7 @@
             <h1><?php echo_h($this->txt->Login->forgot); ?></h1>
 
 			<form method="post" action="<?php echo MVC_ROOT; ?>/LostPass/SendMail">
-                <?php echo $this->err_msg; ?><br />
+                <?php echo $this->err_msg; ?><br>
                 <input type="text" name="user" id="user" placeholder="<?php echo_h($this->txt->LostPass->user); ?>" value="<?php if(!empty($_POST['user'])) { echo_h($_POST['user']); } ?>">
                 <input type="submit" value="<?php echo_h($this->txt->Global->submit); ?>">
             </form>

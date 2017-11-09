@@ -57,7 +57,7 @@
                 </p>
 
                 <a href="<?php echo MVC_ROOT; ?>/LostPass"><?php echo_h($this->txt->Login->forgot); ?></a> &nbsp;&nbsp;
-                <a href="<?php echo MVC_ROOT; ?>/Register"><?php echo_h($this->txt->Login->register); ?></a><br />
+                <a href="<?php echo MVC_ROOT; ?>/Register"><?php echo_h($this->txt->Login->register); ?></a><br>
 
                 <input type="submit" value="<?php echo_h($this->txt->Global->login); ?>" onclick="sendConnectionRequest()"/>
             </div>

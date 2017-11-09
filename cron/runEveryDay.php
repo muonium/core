@@ -2,7 +2,7 @@
 require_once("run.php");
 
 $task = new cron();
-$task->deleteInactiveUsers();
+//$task->deleteInactiveUsers(); // Do not execute it for now
 $task->deleteNotCompletedFiles();
 $task->updateUpgrades();
 ?>

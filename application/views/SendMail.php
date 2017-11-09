@@ -36,7 +36,7 @@
             <h1><?php echo_h($this->txt->Global->validate); ?></h1>
 
             <p class="space">
-                <?php echo_h($this->txt->Validate->sendmess); ?><br />
+                <?php echo_h($this->txt->Validate->sendmess); ?><br>
                 <a href="SendMail"><?php echo_h($this->txt->Validate->sendmail); ?></a>
             </p>
         </section>

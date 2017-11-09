@@ -37,7 +37,7 @@
                 <?php
                 if(!empty($this->_message)) { echo_h($this->_message); }
                 ?>
-                <br />
+                <br>
             </p>
         </section>
 	</div>

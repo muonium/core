@@ -22,10 +22,10 @@ class Mail {
         }
 
         // Message in txt format and in HTML format
-        $message_txt = strip_tags(str_replace("<br />", $passage_line, str_replace("<br>", $passage_line, $this->_message)));
+        $message_txt = strip_tags(str_replace(['<br>','<br />','<br/>'], $passage_line, $this->_message));
         $message_html = $this->_message;
 
-        $mail = new \PHPMailer;
+        $mail = new \PHPMailer();
         //$mail->SMTPDebug = 3; // Debug
         $mail->isSMTP();
         $mail->Host = conf\confMail::smtp_host;
