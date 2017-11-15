@@ -13,6 +13,7 @@ class Files extends l\Model {
         7   favorite            tinyint(1)
         8   trash               tinyint(1)
         9   expires             int(11)
+		10  dk					varchar(330)
     */
 
     protected $id = null;
@@ -23,6 +24,7 @@ class Files extends l\Model {
     protected $last_modification;
     protected $favorite;
     protected $trash;
+	protected $dk;
 
 	function __construct($id_owner = null) {
 		parent::__construct();

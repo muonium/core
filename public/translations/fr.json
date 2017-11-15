@@ -173,6 +173,7 @@
 
     "RightClick": {
         "dl": "Télécharger",
+		"share": "Partager",
         "rm": "Supprimer",
         "star": "Favori",
         "cut": "Couper",

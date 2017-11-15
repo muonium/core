@@ -40,6 +40,10 @@ var Files = (function() {
 			}
 		},
 
+		share : function(id) {
+			Box.hide();
+		},
+
 		abort : function() {
 			var j = this.getAttribute('data-id');
 			console.log("Aborting "+j);

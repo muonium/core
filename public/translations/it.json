@@ -173,6 +173,7 @@
 
     "RightClick": {
         "dl": "Download",
+		"share": "Share",
         "rm": "Cancella",
         "star": "Star",
         "cut": "Taglia",

@@ -173,6 +173,7 @@
 
     "RightClick": {
         "dl": "Herunterladen",
+		"share": "Share",
         "rm": "Löschen",
         "star": "Stern",
         "cut": "Ausschneiden",

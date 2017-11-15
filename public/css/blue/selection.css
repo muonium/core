@@ -20,14 +20,14 @@ section#selection.selected {
 
 .multiselected_details { display: block; font-size: 14px; margin-top: 10px; }
 li#multisel_desktop { display: none; }
-.btn_download { font-size: 14px; cursor: pointer; }
-section#selection .btn_download { display: none; }
+.btn_download, .btn_share { font-size: 14px; cursor: pointer; }
+section#selection .btn_download, section#selection .btn_share { display: none; }
 
 @media screen and (min-width: 700px) {
     section#selection { position: static; width: auto; }
     section#selection ul { margin-top: 20px; }
     li#multisel_desktop { display: block; }
-    section#selection .btn_download {
+    section#selection .btn_download, section#selection .btn_share {
         display: block;
         font-size: 16px;
         color: #2391BA;

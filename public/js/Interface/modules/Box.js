@@ -83,7 +83,8 @@ var Box = (function() {
                 case 1:
                     Box.selected = id;
                     Selection.select(id);
-                    box_div.innerHTML = '<p onclick="Selection.dl(\''+id+'\')"><i class="fa fa-download" aria-hidden="true"></i> '+txt.RightClick.dl+'</p><hr>';
+                    box_div.innerHTML = '<p onclick="Selection.dl(\''+id+'\')"><i class="fa fa-download" aria-hidden="true"></i> '+txt.RightClick.dl+'</p>';
+					box_div.innerHTML += '<p onclick="Selection.share(\''+id+'\')"><i class="fa fa-share" aria-hidden="true"></i> '+txt.RightClick.share+'</p><hr>';
                     if(Trash.state == 0) {
                         //box_div.innerHTML += '<p onclick="Favorites.update(\''+id+'\')"><i class="fa fa-star" aria-hidden="true"></i> '+txt.RightClick.star+'</p><hr>';
                         box_div.innerHTML += '<p onclick="Move.cut(\''+id+'\')"><i class="fa fa-scissors" aria-hidden="true"></i> '+txt.RightClick.cut+'</p>';
