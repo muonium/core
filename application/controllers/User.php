@@ -227,6 +227,16 @@ class User extends l\Languages {
 		}
 	}
 
+	function shareFileAction() {
+		if(isset($_POST['id']) && is_numeric($_POST['id']) && isset($_POST['dk'])) {
+			$this->_modelFiles = new m\Files($_SESSION['id']);
+			if($this->_modelFiles->setDK(intval($_POST['id']), $_POST['dk'])) {
+				echo 'ok'; exit;
+			}
+		}
+		echo 'err';
+	}
+
 	function getFileStatusAction() {
         // Return a message/code according to file status
 		// Client side : If the file exists, ask the user if he wants to replace it

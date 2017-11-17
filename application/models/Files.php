@@ -224,6 +224,13 @@ class Files extends l\Model {
         return $req->execute([$this->id_owner, $id]);
     }
 
+	function setDK($id, $dk) {
+		// Set a DK for a file in order to share it
+		if($this->id_owner === null) return false;
+		$req = self::$_sql->prepare("UPDATE files SET dk = ? WHERE id_owner = ? AND id = ? AND trash = 0");
+        return $req->execute([$dk, $this->id_owner, $id]);
+	}
+
     function rename($folder_id, $old, $new) {
 		// Rename a file
 		// folder_id - Folder id (int), old - Old name (string), new - New name (string)

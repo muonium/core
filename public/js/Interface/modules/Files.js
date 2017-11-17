@@ -42,6 +42,37 @@ var Files = (function() {
 
 		share : function(id) {
 			Box.hide();
+			var cek = sessionStorage.getItem("cek");
+			if (cek == null) { //check if the cek is there
+				sessionStorage.clear();
+				window.location.href = ROOT+"Logout"; //doesn't exist ? Then logout the user
+				return false;
+			}
+			var filename = Files.getNameById(id);
+			if(filename === false) return false;
+			// Get first chunk
+			$.post('User/getChunk', {line: 0, filename: filename, folder_id: Folders.id}, function(chk) {
+				chk = chk.split(':'); //ciphered_chk, salt, authentification data, initialization vector
+				if(chk.length === 4 && typeof(chk) === 'object') {
+					var f_salt = chk[1];
+					var fek = sjcl.misc.pbkdf2(cek, f_salt, 7000, 256); // Key derivation
+					var pwd = 'test'; // TODO : Ask the user for a password
+
+					var salt = sjcl.random.randomWords(4);
+ 					var iv = sjcl.random.randomWords(4);
+ 					var aDATA = sjcl.random.randomWords(4);
+					//Password derivation to get dk
+ 					var dk = sjcl.misc.pbkdf2(pwd, salt, 7000, 256);
+					var enc = new sjcl.cipher.aes(dk);
+					// Ciphering `fek`
+ 					var enc_fek = sjcl.mode.gcm.encrypt(enc, fek, iv, aDATA, 128);
+					// Package
+					var packet = sjcl.codec.base64.fromBits(enc_fek)+":"+sjcl.codec.base64.fromBits(salt)+":"+sjcl.codec.base64.fromBits(aDATA)+":"+sjcl.codec.base64.fromBits(iv);
+					$.post('User/shareFile', {id: id, dk: packet}, function(resp) {
+						console.log(resp);
+					});
+				}
+			});
 		},
 
 		abort : function() {
@@ -49,6 +80,13 @@ var Files = (function() {
 			console.log("Aborting "+j);
 			f_dec[j].abort();
         },
+
+		getNameById : function(id) {
+			if($('#f'+id).length > 0 && $('#f'+id).data('title') !== undefined && $('#f'+id).data('title') !== null) {
+				return $('#f'+id).data('title');
+			}
+			return false;
+		},
 
         details : function(el) {
             var elem;
