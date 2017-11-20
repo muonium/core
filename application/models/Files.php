@@ -42,6 +42,15 @@ class Files extends l\Model {
         return true;
     }
 
+	function getInfos($id) {
+		// Get infos from a shared file
+		$req = self::$_sql->prepare("SELECT U.login, F.name, F.size, F.last_modification, F.dk
+			FROM files F, users U WHERE F.id = ? AND F.id_owner = U.id AND F.trash = 0 AND F.expires IS NULL AND F.dk IS NOT NULL");
+		$req->execute([$id]);
+		if($req->rowCount() === 0) return false;
+        return $req->fetch(\PDO::FETCH_ASSOC);
+	}
+
     function getFilename($id = null) {
 		// id (int) - File id
 		// Returns filename, or false if it doesn't exist
@@ -100,15 +109,15 @@ class Files extends l\Model {
 		// Returns an array of files for a folder id, from trash if trash = 1
 		if($this->id_owner === null) return false;
         if($trash === null || $trash === 'all') {
-            $req = self::$_sql->prepare("SELECT name, id, size, last_modification, favorite, trash, folder_id FROM files WHERE id_owner = ? AND folder_id = ? ORDER BY name ASC");
+            $req = self::$_sql->prepare("SELECT name, id, size, last_modification, favorite, trash, folder_id, dk FROM files WHERE id_owner = ? AND folder_id = ? ORDER BY name ASC");
             $req->execute([$this->id_owner, $folder_id]);
         }
         elseif($trash == 0 || ($trash == 1 && $folder_id !== 0)) {
-            $req = self::$_sql->prepare("SELECT name, id, size, last_modification, favorite, trash, folder_id FROM files WHERE id_owner = ? AND folder_id = ? AND trash = 0 ORDER BY name ASC");
+            $req = self::$_sql->prepare("SELECT name, id, size, last_modification, favorite, trash, folder_id, dk FROM files WHERE id_owner = ? AND folder_id = ? AND trash = 0 ORDER BY name ASC");
             $req->execute([$this->id_owner, $folder_id]);
         }
         else { // trash == 1 && $folder_id == 0
-            $req = self::$_sql->prepare("SELECT files.name, files.id, files.size, files.last_modification, files.favorite, files.trash, files.folder_id, folders.path, folders.name AS dname
+            $req = self::$_sql->prepare("SELECT files.name, files.id, files.size, files.last_modification, files.favorite, files.trash, files.folder_id, files.dk, folders.path, folders.name AS dname
 				FROM files LEFT JOIN folders ON files.folder_id = folders.id WHERE files.id_owner = ? AND files.trash = 1 ORDER BY files.name ASC");
             $req->execute([$this->id_owner]);
         }

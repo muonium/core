@@ -237,6 +237,16 @@ class User extends l\Languages {
 		echo 'err';
 	}
 
+	function unshareFileAction() {
+		if(isset($_POST['id']) && is_numeric($_POST['id'])) {
+			$this->_modelFiles = new m\Files($_SESSION['id']);
+			if($this->_modelFiles->setDK(intval($_POST['id']), null)) {
+				echo 'ok'; exit;
+			}
+		}
+		echo 'err';
+	}
+
 	function getFileStatusAction() {
         // Return a message/code according to file status
 		// Client side : If the file exists, ask the user if he wants to replace it
@@ -369,6 +379,7 @@ class User extends l\Languages {
         }
         if($files = $this->_modelFiles->getFiles($this->_folderId, $this->trash)) {
             foreach($files as $file) {
+				$is_shared = ($file['dk'] === null || strlen($file['dk']) === 0) ? 0 : 1;
                 $fpath = $path;
                 $file['name'] = $this->parseFilename($file['name']);
                 if(array_key_exists('path', $file) && array_key_exists('dname', $file)) {
@@ -387,7 +398,8 @@ class User extends l\Languages {
 				ondblclick="Selection.dl(this.id)"
                 data-folder="'.htmlentities($file['folder_id']).'"
                 data-path="'.htmlentities($fpath).'"
-                data-title="'.htmlentities($file['name']).'">';
+                data-title="'.htmlentities($file['name']).'"
+				data-shared="'.$is_shared.'">';
 
 				echo htmlentities($file['name']).'</span>';
             }
