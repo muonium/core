@@ -6,7 +6,7 @@ var ExtIcons = (function() {
 
 	// Types of files
 	var types = {
-		archive : ['zip', 'tar', 'gz', 'bz', 'bz2', 'xz', 'rar', 'jar', '7z'],
+		archive : ['zip', 'tar', 'gz', 'bz', 'bz2', 'xz', 'rar', 'jar', '7z', 'lzma'],
 		code : ['php', 'html', 'htm', 'php3', 'php4', 'php5', 'java', 'css', 'scss', 'xml', 'svg', 'sql', 'c', 'cpp', 'cs', 'js', 'au3', 'asm', 'h',
 			'ini', 'jav', 'p', 'pl', 'rb', 'sh', 'bat', 'py'],
 		image : ['jpg', 'jpeg', 'png', 'bmp', 'gif'],
