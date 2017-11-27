@@ -136,7 +136,7 @@ class Files extends l\Model {
 			return $this->insert('files', [
 				'id' => null,
 				'id_owner' => intval($this->id_owner),
-				'folder_id' => intval($this->folder_id),
+				'folder_id' => intval($folder_id),
 				'name' => $this->name,
 				'size' => intval($this->size),
 				'last_modification' => $this->last_modification,
