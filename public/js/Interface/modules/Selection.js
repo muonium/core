@@ -176,6 +176,7 @@ var Selection = (function() {
 		share : function(id) {
 			var validate = function() {
 				var passphrase = this.$inputs.passphrase.value;
+				if(typeof(passphrase) !== 'string') return false;// || passphrase.length < 6) return false;
 				if(Selection.Files.length > 0) {
 					for(var i = 0; i < Selection.Files.length; i++) {
 		                Files.share(Selection.Files[i], passphrase);
