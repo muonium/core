@@ -40,7 +40,7 @@ var Files = (function() {
 			}
 		},
 
-		share : function(id) {
+		share : function(id, passphrase) {
 			Box.hide();
 			var cek = sessionStorage.getItem("cek");
 			if (cek == null) { //check if the cek is there
@@ -49,14 +49,13 @@ var Files = (function() {
 				return false;
 			}
 			var filename = Files.getNameById(id);
-			if(filename === false) return false;
+			if(filename === false || typeof(passphrase) !== 'string') return false;// || passphrase.length < 6) return false;
 			// Get first chunk
 			$.post('User/getChunk', {line: 0, filename: filename, folder_id: Folders.id}, function(chk) {
 				chk = chk.split(':'); //ciphered_chk, salt, authentification data, initialization vector
 				if(chk.length === 4 && typeof(chk) === 'object') {
 					var f_salt = chk[1];
 					var fek = sjcl.misc.pbkdf2(cek, f_salt, 7000, 256); // Key derivation
-					var passphrase = 'test'; // TODO : Ask the user for a password
 
 					var salt = sjcl.random.randomWords(4);
  					var iv = sjcl.random.randomWords(4);

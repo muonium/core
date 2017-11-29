@@ -174,14 +174,29 @@ var Selection = (function() {
         },
 
 		share : function(id) {
-			if(Selection.Files.length > 0) {
-				for(var i = 0; i < Selection.Files.length; i++) {
-	                Files.share(Selection.Files[i]);
+			var validate = function() {
+				var passphrase = this.$inputs.passphrase.value;
+				if(Selection.Files.length > 0) {
+					for(var i = 0; i < Selection.Files.length; i++) {
+		                Files.share(Selection.Files[i], passphrase);
+					}
 				}
-			}
-			else if(id !== undefined) {
-				Files.share(id);
-			}
+				else if(id !== undefined) {
+					Files.share(id, passphrase);
+				}
+			};
+
+			var m = new MessageBox(txt.Register.passphrase).addInput('passphrase', {
+				id: "nShare",
+				autocomplete: "off",
+				onkeypress: function(event) {
+					if(event.keyCode == 13) {
+						validate.bind(this)();
+						return this.close();
+					}
+					return true;
+				}
+			}).addButton("OK", validate).show();
 		},
 
 		unshare : function(id) {
