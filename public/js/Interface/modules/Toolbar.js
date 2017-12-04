@@ -18,6 +18,11 @@ var Toolbar = (function() {
             switch(Toolbar.Area) {
                 case 1:
                     data += '<li onclick="Selection.dl(\''+id+'\')"><i class="fa fa-download" aria-hidden="true"></i></li>';
+					if(Files.isShared(id.substr(1))) {
+						data += '<li onclick="Selection.unshare(\''+id.substr(1)+'\')"><i class="fa fa-ban" aria-hidden="true"></i></li>';
+					} else {
+						data += '<li onclick="Selection.share(\''+id.substr(1)+'\')"><i class="fa fa-share" aria-hidden="true"></i></li>';
+					}
                     if(Trash.state == 0) {
                         //data += '<li onclick="Favorites.update(\''+id+'\')"><i class="fa fa-star" aria-hidden="true"></i></li>';
                         data += '<li onclick="Move.cut(\''+id+'\')"><i class="fa fa-scissors" aria-hidden="true"></i></li>';

@@ -69,7 +69,16 @@ var Files = (function() {
 					var packet = sjcl.codec.base64.fromBits(enc_fek)+":"+sjcl.codec.base64.fromBits(salt)+":"+sjcl.codec.base64.fromBits(aDATA)+":"+sjcl.codec.base64.fromBits(iv);
 					$.post('User/shareFile', {id: id, dk: packet}, function(resp) {
 						$('#f'+id).data('shared', '1');
-						console.log(resp);
+						if(resp.trim() !== 'error') {
+							var m = new MessageBox(txt.User.shared).setSize('35%','auto').addInput('url', {
+								autocomplete: "off",
+								value: resp,
+								style: 'width:100%'
+							}).addButton(txt.RightClick.copy, function() {
+								this.$inputs.url.select();
+								document.execCommand('copy');
+							}).show();
+						}
 					});
 				}
 			});
@@ -79,7 +88,6 @@ var Files = (function() {
 			Box.hide();
 			$.post('User/unshareFile', {id: id}, function(resp) {
 				$('#f'+id).data('shared', '0');
-				console.log(resp);
 			});
 		},
 

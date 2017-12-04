@@ -1,6 +1,6 @@
 <?php
 	use \library\MVC as l;
-	$_t = new l\Template($this->txt->Global->user);
+	$_t = new l\Template(self::$txt->Global->user);
 	$_t->addCss("blue/blue");
 	$_t->addCss("blue/container");
 	$_t->addCss("blue/dragbar");
@@ -44,7 +44,7 @@
             </a>
         </div>
         <ul>
-            <li><a href="User"><?php echo $this->txt->Global->back; ?></a></li>
+            <li><a href="User"><?php echo self::$txt->Global->back; ?></a></li>
         </ul>
         <section id="language">
             <div>

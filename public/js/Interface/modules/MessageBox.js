@@ -118,8 +118,8 @@ var MessageBox = (function() {
 	};
 
     MessageBox.prototype.setSize = function(width, height) {
-        this.$elem.style.width = width+'px';
-        this.$elem.style.height = height+'px';
+        this.$elem.style.width  = parseInt(width) == width ? width+'px' : width;
+        this.$elem.style.height = parseInt(height) == height ? height+'px' : height;
         return this;
 	};
 

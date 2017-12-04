@@ -9,12 +9,12 @@ class Login extends l\Languages {
         // User sent an auth code
         sleep(1);
         if(!isset($_SESSION['tmp_id'])) {
-            $this->_message = htmlentities($this->txt->Login->expired);
+            $this->_message = htmlentities(self::$txt->Login->expired);
             require_once(DIR_VIEW."Login.php");
         }
 
         elseif(strlen($_POST['code']) != 8) {
-            $this->_message = htmlentities($this->txt->Login->invalidCode);
+            $this->_message = htmlentities(self::$txt->Login->invalidCode);
             require_once(DIR_VIEW."DoubleAuth.php");
         }
         else {
@@ -48,7 +48,7 @@ class Login extends l\Languages {
                         // Code is wrong
                         $brute->setSID('doubleAuth');
                         $brute->Control();
-                        $this->_message = htmlentities($this->txt->Login->invalidCode).'<br>'.htmlentities($this->txt->Register->{"bruteforceErr".$brute->getError()});
+                        $this->_message = htmlentities(self::$txt->Login->invalidCode).'<br>'.htmlentities(self::$txt->Register->{"bruteforceErr".$brute->getError()});
                         require_once(DIR_VIEW."DoubleAuth.php");
                     }
                 }
@@ -84,7 +84,7 @@ class Login extends l\Languages {
                 // User doesn't exists - Anti bruteforce with session id
                 $brute->setSID();
                 $brute->Control();
-                echo htmlentities($this->txt->Login->{"bruteforceErr".$brute->getError()});
+                echo htmlentities(self::$txt->Login->{"bruteforceErr".$brute->getError()});
             }
             else {
                 $new_user->id = $id;
@@ -107,8 +107,8 @@ class Login extends l\Languages {
                                 $new_user->updateCode($code);
                                 $mail = new l\Mail();
                                 $mail->_to = $e;
-                                $mail->_subject = "Muonium - ".$this->txt->Profile->doubleAuth;
-                                $mail->_message = str_replace("[key]", $code, $this->txt->Login->doubleAuthMessage);
+                                $mail->_subject = "Muonium - ".self::$txt->Profile->doubleAuth;
+                                $mail->_message = str_replace("[key]", $code, self::$txt->Login->doubleAuthMessage);
                                 $mail->send();
                             }
                             else { // Logged
@@ -131,11 +131,11 @@ class Login extends l\Languages {
                 // User exists but incorrect password - Anti bruteforce with user id
                 $brute->setId($id);
                 $brute->Control();
-                echo htmlentities($this->txt->Login->{"bruteforceErr".$brute->getError()});
+                echo htmlentities(self::$txt->Login->{"bruteforceErr".$brute->getError()});
             }
         }
         else {
-            echo htmlentities($this->txt->Register->form);
+            echo htmlentities(self::$txt->Register->form);
         }
     }
     function DefaultAction() {
@@ -143,7 +143,7 @@ class Login extends l\Languages {
 
         if(!empty($_SESSION['tmp_id'])) {
             // Double auth
-            $this->_message = str_replace("[url_app]", URL_APP, $this->txt->Login->doubleAuth);
+            $this->_message = str_replace("[url_app]", URL_APP, self::$txt->Login->doubleAuth);
             require_once(DIR_VIEW."DoubleAuth.php");
         }
         else {

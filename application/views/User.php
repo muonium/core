@@ -2,10 +2,10 @@
     /*
 	* @name            : User.php
 	* @description     : User view (files management)
-	* @authors         : Romain Claveau <romain.claveau@protonmail.ch>, Dylan Clement <dylanclement7@protonmail.ch>
+	* @authors         : Romain Claveau <romain.claveau@protonmail.ch>, Dylan Clement <dylan@muonium.ee>
 	*/
     use \library\MVC as l;
-    $_t = new l\Template($this->txt->Global->user);
+    $_t = new l\Template(self::$txt->Global->user);
     $_t->addCss("blue/blue");
     $_t->addCss("blue/container");
     $_t->addCss("blue/dragbar");
@@ -53,21 +53,21 @@
     <header>
         <div id="logo">
             <a href="https://muonium.io" target="_blank">
-                <img src="public/pictures/logos/muonium_H_06.png" title="<?php echo $this->txt->Global->home; ?>" alt="<?php echo $this->txt->Global->home; ?>">
+                <img src="public/pictures/logos/muonium_H_06.png" title="<?php echo self::$txt->Global->home; ?>" alt="<?php echo self::$txt->Global->home; ?>">
             </a>
         </div>
         <ul>
             <li onclick="Trash.switch()">
                 <i class="fa fa-trash" aria-hidden="true"></i>&nbsp;
-                <span id="button_trash"><?php echo_h($this->txt->User->trash_0); ?></span>
+                <span id="button_trash"><?php echo_h(self::$txt->User->trash_0); ?></span>
             </li>
             <li onclick="Upload.dialog()">
                 <i class="fa fa-upload" aria-hidden="true"></i>&nbsp;
-                <?php echo_h($this->txt->UserMenu->upload); ?>
+                <?php echo_h(self::$txt->UserMenu->upload); ?>
             </li>
             <li>
                 <a href="Logout"><i class="fa fa-sign-out" aria-hidden="true"></i>&nbsp;
-                <?php echo_h($this->txt->UserMenu->logout); ?></a>
+                <?php echo_h(self::$txt->UserMenu->logout); ?></a>
             </li>
             <li onclick="showHelp()">?</li>
         </ul>
@@ -86,33 +86,33 @@
 				</li>
                 <li>
                     <a href="Profile"><i class="fa fa-cog" aria-hidden="true"></i>&nbsp;
-                    <?php echo_h($this->txt->UserMenu->settings); ?></a>
+                    <?php echo_h(self::$txt->UserMenu->settings); ?></a>
                 </li>
 				<li>
 					<a href="Upgrade"><i class="fa fa-hdd-o" aria-hidden="true"></i>&nbsp;
-					<?php echo_h($this->txt->UserMenu->moreStorage); ?></a>
+					<?php echo_h(self::$txt->UserMenu->moreStorage); ?></a>
 				</li>
                 <li>
                     <a href="Bug"><i class="fa fa-bug" aria-hidden="true"></i>&nbsp;
-                    <?php echo_h($this->txt->Global->bug); ?></a>
+                    <?php echo_h(self::$txt->Global->bug); ?></a>
                 </li>
                 <li>
                     <a onclick="Transfers.toggle()"><i class="fa fa-exchange" aria-hidden="true"></i>&nbsp;
-                    <?php echo_h($this->txt->Toolbar->transfers); ?></a> <span class="transfers-circle">0</span>
+                    <?php echo_h(self::$txt->Toolbar->transfers); ?></a> <span class="transfers-circle">0</span>
                 </li>
                 <li id="display">
                     <span>
                         <input type="radio" id="display_list" name="display">
-                        <label for="display_list"><?php echo_h($this->txt->UserMenu->smallIcons); ?></label>
+                        <label for="display_list"><?php echo_h(self::$txt->UserMenu->smallIcons); ?></label>
                     </span>
                     <span>
                         <input type="radio" id="display_mosaic" name="display" checked>
-                        <label for="display_mosaic"><?php echo_h($this->txt->UserMenu->largeIcons); ?></label>
+                        <label for="display_mosaic"><?php echo_h(self::$txt->UserMenu->largeIcons); ?></label>
                     </span>
                 </li>
                 <li id="multisel_desktop">
                     <input type="checkbox" id="multisel" />
-                    <label for="multisel"><?php echo_h($this->txt->UserMenu->multiSelection); ?></label>
+                    <label for="multisel"><?php echo_h(self::$txt->UserMenu->multiSelection); ?></label>
                 </li>
                 <!--<li>Stared</li>-->
                 <!--<li>Shared</li>-->
@@ -130,7 +130,7 @@
             <div id="returnArea"></div>
             <!-- mui contains all contents of interface : storage infos, link to parent folder, #tree (files and folders) ... -->
             <div id="mui">
-                <?php echo_h($this->txt->Global->loading); ?>
+                <?php echo_h(self::$txt->Global->loading); ?>
             </div>
         </section>
 
@@ -140,7 +140,7 @@
     <div id="transfers" class="hide">
         <section id="top">
             <ul>
-                <li><?php echo_h($this->txt->Toolbar->transfers); ?></li>
+                <li><?php echo_h(self::$txt->Toolbar->transfers); ?></li>
                 <li onclick="Transfers.minimize()"><i class="fa fa-window-minimize" aria-hidden="true"></i></li>
                 <li onclick="Transfers.close()"><i class="fa fa-times" aria-hidden="true"></i></li>
             </ul>
@@ -148,14 +148,14 @@
 
         <section id="toggle">
             <ul>
-                <li class="selected" onclick="Transfers.showUp()"><?php echo_h($this->txt->User->uploading); ?> <span class="transfers-up-circle">0</span></li>
-                <li onclick="Transfers.showDl()"><?php echo_h($this->txt->User->downloading); ?> <span class="transfers-dl-circle">0</span></li>
+                <li class="selected" onclick="Transfers.showUp()"><?php echo_h(self::$txt->User->uploading); ?> <span class="transfers-up-circle">0</span></li>
+                <li onclick="Transfers.showDl()"><?php echo_h(self::$txt->User->downloading); ?> <span class="transfers-dl-circle">0</span></li>
             </ul>
         </section>
 
         <section id="content">
-            <div id="transfers_upload"><?php echo_h($this->txt->User->nothing); ?></div>
-            <div id="transfers_download"><?php echo_h($this->txt->User->nothing); ?></div>
+            <div id="transfers_upload"><?php echo_h(self::$txt->User->nothing); ?></div>
+            <div id="transfers_download"><?php echo_h(self::$txt->User->nothing); ?></div>
         </section>
     </div>
 

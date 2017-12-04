@@ -174,6 +174,7 @@ var Selection = (function() {
         },
 
 		share : function(id) {
+			Box.hide();
 			var validate = function() {
 				var passphrase = this.$inputs.passphrase.value;
 				if(typeof(passphrase) !== 'string') return false;// || passphrase.length < 6) return false;
@@ -207,6 +208,7 @@ var Selection = (function() {
 		},
 
 		unshare : function(id) {
+			Box.hide();
 			if(Selection.Files.length > 0) {
 				for(var i = 0; i < Selection.Files.length; i++) {
 	                Files.unshare(Selection.Files[i]);
@@ -249,6 +251,8 @@ var Selection = (function() {
 					content += '<span class="btn_download" onclick="Selection.dl(\''+id+'\')"><i class="fa fa-download" aria-hidden="true"></i> '+txt.RightClick.dl+'</span>';
 					if(Files.isShared(id.substr(1))) {
 						content += '<span class="btn_share" onclick="Selection.unshare(\''+id.substr(1)+'\')"><i class="fa fa-ban" aria-hidden="true"></i> '+txt.RightClick.unshare+'</span>';
+						content += '<input type="text" value="'+elem.getAttribute("data-url")+'" class="copy_url">';
+						content += '<input type="button" value="'+txt.RightClick.copy+'" onclick="copy_url()">';
 					} else {
 						content += '<span class="btn_share" onclick="Selection.share(\''+id.substr(1)+'\')"><i class="fa fa-share" aria-hidden="true"></i> '+txt.RightClick.share+'</span>';
 					}

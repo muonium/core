@@ -2,10 +2,10 @@
 	/*
 	* @name            : Message.php
 	* @description     : View with a message defined in controller
-	* @authors         : Dylan Clement <dylanclement7@protonmail.ch>
+	* @authors         : Dylan Clement <dylan@muonium.ee>
 	*/
     use \library\MVC as l;
-	$_t = new l\Template($this->txt->Global->validate);
+	$_t = new l\Template(self::$txt->Global->validate);
 	$_t->addCss("blue/blue");
     $_t->addCss("blue/container");
     $_t->addCss("blue/header");
@@ -18,11 +18,11 @@
 	<header>
 		<div id="logo">
             <a href="https://muonium.io" target="_blank">
-                <img src="public/pictures/logos/muonium_H_06.png" title="<?php echo $this->txt->Global->home; ?>" alt="<?php echo $this->txt->Global->home; ?>">
+                <img src="public/pictures/logos/muonium_H_06.png" title="<?php echo self::$txt->Global->home; ?>" alt="<?php echo self::$txt->Global->home; ?>">
             </a>
         </div>
         <ul>
-            <li><a href="User"><?php echo $this->txt->Global->back; ?></a></li>
+            <li><a href="User"><?php echo self::$txt->Global->back; ?></a></li>
         </ul>
         <section id="language">
             <div>

@@ -58,56 +58,56 @@ class Register extends l\Languages {
 
                                         $this->_mail = new l\Mail();
                                         $this->_mail->_to = $_POST['mail'];
-                                        $this->_mail->_subject = $this->txt->Register->subject;
+                                        $this->_mail->_subject = self::$txt->Register->subject;
                                         $this->_mail->_message = str_replace(
                                             ["[id_user]", "[key]", "[url_app]"],
                                             [$id_user, $key, URL_APP],
-                                            $this->txt->Register->message
+                                            self::$txt->Register->message
                                         );
                                         $this->_mail->send();
                                         // Create user folder
                                         mkdir(NOVA.'/'.$id_user, 0770);
                                         $_SESSION['validate'] = 1;
-                                        echo "ok@".htmlentities($this->txt->Register->ok);
+                                        echo "ok@".htmlentities(self::$txt->Register->ok);
                                     }
                                     else {
                                         // "error" response
-                                        echo htmlentities($this->txt->Register->error);
+                                        echo htmlentities(self::$txt->Register->error);
                                     }
                                 }
                                 else {
                                     // "loginExists" response
-                                    echo htmlentities($this->txt->Register->loginExists);
+                                    echo htmlentities(self::$txt->Register->loginExists);
                                 }
                             }
                             else {
                                 // "mailExists" response
-                                echo htmlentities($this->txt->Register->mailExists);
+                                echo htmlentities(self::$txt->Register->mailExists);
                             }
                         }
                         else {
                             // "loginFormat" response
-                            echo htmlentities($this->txt->Register->loginFormat);
+                            echo htmlentities(self::$txt->Register->loginFormat);
                         }
                     }
                     else {
                         // "mailFormat" response
-                        echo htmlentities($this->txt->Register->mailFormat);
+                        echo htmlentities(self::$txt->Register->mailFormat);
                     }
                 }
             	else {
                     // "badPassConfirm" response
-                    echo htmlentities($this->txt->Register->badPassConfirm);
+                    echo htmlentities(self::$txt->Register->badPassConfirm);
                 }
             }
             else {
                 // "form" response
-                echo htmlentities($this->txt->Register->form);
+                echo htmlentities(self::$txt->Register->form);
             }
         }
         else {
             // Anti-bruteforce returns an error
-            echo htmlentities($this->txt->Register->{"bruteforceErr".$this->_bruteforce->getError()});
+            echo htmlentities(self::$txt->Register->{"bruteforceErr".$this->_bruteforce->getError()});
         }
     }
 };

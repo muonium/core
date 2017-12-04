@@ -2,10 +2,10 @@
     /*
 	* @name            : Bug.php
 	* @description     : Notify a bug view
-	* @authors         : Dylan Clement <dylanclement7@protonmail.ch>
+	* @authors         : Dylan Clement <dylan@muonium.ee>
 	*/
     use \library\MVC as l;
-    $_t = new l\Template($this->txt->Global->bug);
+    $_t = new l\Template(self::$txt->Global->bug);
     $_t->addCss("blue/blue");
     $_t->addCss("blue/container");
     $_t->addCss("blue/header");
@@ -25,7 +25,7 @@
             </a>
         </div>
         <ul>
-            <li><a href="User"><?php echo $this->txt->Global->back; ?></a></li>
+            <li><a href="User"><?php echo self::$txt->Global->back; ?></a></li>
         </ul>
         <section id="language">
             <div>
@@ -36,13 +36,13 @@
 
     <div id="container">
         <section id="large-content">
-            <h1><?php echo_h($this->txt->Global->bug); ?></h1>
+            <h1><?php echo_h(self::$txt->Global->bug); ?></h1>
 
             <p><strong><?php if(!empty($this->_message)) { echo_h($this->_message); } ?></strong></p>
 
             <form method="post" action="<?php echo MVC_ROOT; ?>/Bug/Form" class="block">
                 <p>
-                    <label for="os"><?php echo_h($this->txt->Bug->os); ?>* :</label>
+                    <label for="os"><?php echo_h(self::$txt->Bug->os); ?>* :</label>
                     <select name="os" id="os" required>
                         <option value="">-------</option>
                         <?php $this->printValues('os'); ?>
@@ -50,7 +50,7 @@
                 </p>
 
                 <p>
-                    <label for="browser"><?php echo_h($this->txt->Bug->browser); ?>* :</label>
+                    <label for="browser"><?php echo_h(self::$txt->Bug->browser); ?>* :</label>
                     <select name="browser" id="browser" required>
                         <option value="">-------</option>
                         <?php $this->printValues('browser'); ?>
@@ -58,12 +58,12 @@
                 </p>
 
                 <p>
-                    <label for="browserVersion"><?php echo_h($this->txt->Bug->browserVersion); ?> :</label>
+                    <label for="browserVersion"><?php echo_h(self::$txt->Bug->browserVersion); ?> :</label>
                     <input type="text" name="browserVersion" id="browserVersion" value="<?php if(!empty($_POST['browserVersion'])) { echo_h($_POST['browserVersion']); } ?>">
                 </p>
 
                 <p>
-                    <label for="message"><?php echo_h($this->txt->Bug->message); ?>* :</label>
+                    <label for="message"><?php echo_h(self::$txt->Bug->message); ?>* :</label>
                     <textarea name="message" id="message" cols="50" rows="5"><?php if(!empty($_POST['message'])) { echo_h($_POST['message']); } ?></textarea>
                 </p>
 

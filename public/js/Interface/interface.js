@@ -319,6 +319,11 @@ var showHelp = function() {
     var m = new MessageBox(txt.Help.shortcuts.join('\n')).show();
 }
 
+var copy_url = function() {
+	document.querySelector('section#selection .copy_url').select();
+	document.execCommand('copy');
+};
+
 var logout = function() {
 	sessionStorage.clear();
     window.location.href=ROOT+"Logout";

@@ -18,7 +18,7 @@ use \application\models as m;
         $favorites = '';
         foreach($tabFavorites as $fav) {
             $favorites .= '<span class="file" id="f'.$fav['id'].'" data-folder="'.htmlentities($fav['folder_id']).'" data-title="'.htmlentities($fav['name']).'">
-				'.htmlentities($fav['name']).' ['.$this->showSize($fav['size']).'] - '.$this->txt->User->lastmod.' : '.date('d/m/Y G:i', $fav['last_modification'])."</span>\n";
+				'.htmlentities($fav['name']).' ['.showSize($fav['size']).'] - '.self::$txt->User->lastmod.' : '.date('d/m/Y G:i', $fav['last_modification'])."</span>\n";
         }
         require_once(DIR_VIEW.'Favorites.php');
     }

@@ -38,22 +38,22 @@ class Profile extends l\Languages
                 if(!($this->_modelUser->LoginExists())) {
                     if($this->_modelUser->updateLogin()) {
 						$_SESSION['login'] = $this->_modelUser->login;
-                        echo 'ok@'.$this->txt->Profile->updateOk;
+                        echo 'ok@'.self::$txt->Profile->updateOk;
                     }
                     else {
-                        echo $this->txt->Profile->updateErr;
+                        echo self::$txt->Profile->updateErr;
                     }
                 }
                 else {
-                    echo $this->txt->Profile->loginExists;
+                    echo self::$txt->Profile->loginExists;
                 }
             }
             else {
-                echo $this->txt->Register->loginFormat;
+                echo self::$txt->Register->loginFormat;
             }
         }
         else {
-            echo $this->txt->Register->form;
+            echo self::$txt->Register->form;
         }
     }
 
@@ -69,26 +69,26 @@ class Profile extends l\Languages
                     if(password_verify($old_pwd, $user_pwd)) {
                         $this->_modelUser->password = password_hash(urldecode($_POST['new_pwd']), PASSWORD_BCRYPT);
                         if($this->_modelUser->updatePassword()) {
-                            echo $this->txt->Profile->updateOk;
+                            echo self::$txt->Profile->updateOk;
                         }
                         else {
-                            echo $this->txt->Profile->updateErr;
+                            echo self::$txt->Profile->updateErr;
                         }
                     }
                     else {
-                        echo $this->txt->Profile->badOldPass;
+                        echo self::$txt->Profile->badOldPass;
                     }
                 }
                 else {
-                    echo $this->txt->Profile->getpwd;
+                    echo self::$txt->Profile->getpwd;
                 }
             }
             else {
-                echo $this->txt->Register->badPassConfirm;
+                echo self::$txt->Register->badPassConfirm;
             }
         }
         else {
-            echo $this->txt->Register->form;
+            echo self::$txt->Register->form;
         }
     }
 
@@ -104,12 +104,12 @@ class Profile extends l\Languages
 			$this->_modelUser = new m\Users($_SESSION['id']);
 			$this->_modelUser->cek = $_POST['cek']; // set the 'cek' value for the MySQL request
 			if ($this->_modelUser->updateCek()) { // try to update
-				echo "ok@".$this->txt->Profile->updateOk; // all is okay, return that request went fine
+				echo "ok@".self::$txt->Profile->updateOk; // all is okay, return that request went fine
 			} else { // error, cannot update
-				echo $this->txt->cek->updateErr;
+				echo self::$txt->cek->updateErr;
 			}
 		} else { // CEK value was sent empty
-			echo $this->txt->cek->empty;
+			echo self::$txt->cek->empty;
 		}
 	}
 
@@ -120,9 +120,9 @@ class Profile extends l\Languages
         if($_POST['doubleAuth'] == 'true') $s = 1;
 
         if($this->_modelUser->updateDoubleAuth($s)) {
-            echo $this->txt->Profile->updateOk;
+            echo self::$txt->Profile->updateOk;
         } else {
-            echo $this->txt->Profile->updateErr;
+            echo self::$txt->Profile->updateErr;
 		}
     }
 
@@ -139,27 +139,27 @@ class Profile extends l\Languages
                 if(!($this->_modelUser->EmailExists())) {
                     if(!($this->_modelUser->LoginExists())) {
                         if($this->_modelUser->updateMail()) {
-                            echo $this->txt->Profile->updateOk;
+                            echo self::$txt->Profile->updateOk;
                         }
                         else {
-                            echo $this->txt->Profile->updateErr;
+                            echo self::$txt->Profile->updateErr;
                         }
                     }
                     else {
-                        echo $this->txt->Profile->loginExists;
+                        echo self::$txt->Profile->loginExists;
                     }
                 }
                 else {
-                    echo htmlentities($this->txt->Register->mailExists);
+                    echo htmlentities(self::$txt->Register->mailExists);
                 }
             }
 			else {
 				// "mailFormat" response
-				echo htmlentities($this->txt->Profile->mailFormat);
+				echo htmlentities(self::$txt->Profile->mailFormat);
 			}
         }
         else {
-            echo $this->txt->Profile->emptymail;
+            echo self::$txt->Profile->emptymail;
         }
     }
 
@@ -194,41 +194,41 @@ class Profile extends l\Languages
 			                if($this->_modelFolders->deleteFoldersfinal()) {
 			                    if($this->_modelStorage->deleteStorage()) {
 									if($this->_modelUser->deleteUser()) {
-										echo 'ok@'.$this->txt->Profile->accountDeletionOk;
+										echo 'ok@'.self::$txt->Profile->accountDeletionOk;
 										removeDirectory(NOVA.'/'.$_SESSION['id']);
 
 										session_destroy();
 									}
 									else {
-										echo $this->txt->Profile->updateErr;
+										echo self::$txt->Profile->updateErr;
 									}
 			                    }
 			                    else {
-			                        echo $this->txt->Profile->updateErr;
+			                        echo self::$txt->Profile->updateErr;
 			                    }
 			                }
 			            	else {
-			                    echo $this->txt->Profile->updateErr;
+			                    echo self::$txt->Profile->updateErr;
 			                }
 			            }
 			            else {
-			            	echo $this->txt->Profile->updateErr;
+			            	echo self::$txt->Profile->updateErr;
 			            }
 			        }
 			        else {
-			            echo $this->txt->Profile->updateErr;
+			            echo self::$txt->Profile->updateErr;
 			        }
 			    }
 			    else {
-			        echo $this->txt->Profile->updateErr;
+			        echo self::$txt->Profile->updateErr;
 			    }
 			}
 			else {
-			    echo $this->txt->Profile->updateErr;
+			    echo self::$txt->Profile->updateErr;
 			}
 		}
 		else {
-			echo $this->txt->Profile->loginExists;
+			echo self::$txt->Profile->loginExists;
 		}
 	}
 };

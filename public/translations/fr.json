@@ -83,7 +83,8 @@
         "nothing": "Rien du tout...",
         "uploading": "Envois",
         "downloading": "Téléchargements",
-		"quota_of": "[used] utilisés sur [total]"
+		"quota_of": "[used] utilisés sur [total]",
+		"shared": "Partage du fichier activé"
     },
 
     "Register": {

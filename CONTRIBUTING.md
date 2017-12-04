@@ -107,7 +107,7 @@ Your code must be tested before to be merged in the master branch.
     - **All strings must be in all json files.** By default, you can put english string value for all other json files.
         - Example
         ```php
-        echo $this->txt->Global->back;
+        echo self::$txt->Global->back;
         ```
 
 - Naming convention

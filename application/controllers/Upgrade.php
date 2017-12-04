@@ -25,7 +25,7 @@ class Upgrade extends l\Languages {
 
 		$storage_plans = $this->_modelStoragePlans->getPlans();
 		foreach($storage_plans as $plan) {
-			$product_name = $this->showSize($plan['size']).' - '.$plan['price'].' '.strtoupper($plan['currency']).' - '.$this->duration($plan['duration']);
+			$product_name = showSize($plan['size']).' - '.$plan['price'].' '.strtoupper($plan['currency']).' - '.$this->duration($plan['duration']);
 			$offers .= '<li>'.$product_name;
 			if($plan['product_id'] !== null) {
 
@@ -47,7 +47,7 @@ class Upgrade extends l\Languages {
 				foreach($fields as $name => $value) {
 					$offers .= '<input type="hidden" name="'.$name.'" value="'.$value.'">';
 				}
-				$offers .= '<button type="submit">'.$this->txt->Upgrade->buy.'</button>';
+				$offers .= '<button type="submit">'.self::$txt->Upgrade->buy.'</button>';
 				$offers .= '</form>';
 			}
 			$offers .= '</li>';
@@ -57,24 +57,24 @@ class Upgrade extends l\Languages {
 		$upgrades = $this->_modelUpgrade->getUpgrades();
 		foreach($upgrades as $upgrade) {
 			$history .= '<tr>';
-			$history .= '<td>'.$this->showSize($upgrade['size']).'</td>';
+			$history .= '<td>'.showSize($upgrade['size']).'</td>';
 			$history .= '<td>'.$upgrade['price'].' '.strtoupper($upgrade['currency']).'</td>';
 			$history .= '<td>'.date('Y-m-d G:i', $upgrade['start']).'</td>';
 			$history .= '<td>'.date('Y-m-d G:i', $upgrade['end']).'</td>';
 			$history .= '<td class="red fit-width">';
-			if($upgrade['removed'] === 1) $history .= $this->txt->Upgrade->expired;
+			if($upgrade['removed'] === 1) $history .= self::$txt->Upgrade->expired;
 			$history .= '</td></tr>';
 		}
-		$msg = isset($_GET['success']) ? '<p class="green">'.$this->txt->Upgrade->success_msg.'</p>' : '';
+		$msg = isset($_GET['success']) ? '<p class="green">'.self::$txt->Upgrade->success_msg.'</p>' : '';
 
 		require_once(DIR_VIEW."Upgrade.php");
     }
 
 	function duration($duration) {
-		if($duration < 0) return $this->txt->Upgrade->lifetime;
-		if($duration === 12) return $duration.' '.$this->txt->Upgrade->year;
-		if($duration % 12 === 0) return ($duration/12).' '.$this->txt->Upgrade->years;
-		if($duration === 1) return $duration.' '.$this->txt->Upgrade->month;
-		return $duration.' '.$this->txt->Upgrade->months;
+		if($duration < 0) return self::$txt->Upgrade->lifetime;
+		if($duration === 12) return $duration.' '.self::$txt->Upgrade->year;
+		if($duration % 12 === 0) return ($duration/12).' '.self::$txt->Upgrade->years;
+		if($duration === 1) return $duration.' '.self::$txt->Upgrade->month;
+		return $duration.' '.self::$txt->Upgrade->months;
 	}
 }

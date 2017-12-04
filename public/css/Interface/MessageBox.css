@@ -118,6 +118,7 @@
     .MessageBox {
         left: auto !important;
         top: auto !important;
+		width: 100% !important;
     }
 }
 

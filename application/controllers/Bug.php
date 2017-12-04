@@ -51,7 +51,7 @@ class Bug extends l\Languages {
         // Print values from values array for the selected key
         if(array_key_exists($key, $this->values)) {
             foreach($this->values[$key] as $key => $value) {
-                if($key == 'other') $value = $this->txt->Bug->other;
+                if($key == 'other') $value = self::$txt->Bug->other;
                 echo '\n<option value="'.htmlentities($key).'">'.htmlentities($value).'</option>';
             }
         }
@@ -93,20 +93,20 @@ class Bug extends l\Languages {
                                 .nl2br($message);
                             $this->_mail->send();
 
-                            $this->_message = $this->txt->Bug->sent;
+                            $this->_message = self::$txt->Bug->sent;
                         }
                     }
                     else {
-                        $this->_message = $this->txt->Bug->form;
+                        $this->_message = self::$txt->Bug->form;
                     }
                 }
                 else {
-                    $this->_message = $this->txt->Bug->messageLength;
+                    $this->_message = self::$txt->Bug->messageLength;
                 }
             }
             else {
                 // Anti-bruteforce returns an error
-                $this->_message = $this->txt->Register->{"bruteforceErr".$this->_bruteforce->getError()};
+                $this->_message = self::$txt->Register->{"bruteforceErr".$this->_bruteforce->getError()};
             }
         }
         require_once(DIR_VIEW.'Bug.php');

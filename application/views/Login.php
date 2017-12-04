@@ -2,10 +2,10 @@
 /*
 	* @name            : Login.php
 	* @description     : Login view
-	* @authors         : Romain Claveau <romain.claveau@protonmail.ch>, Dylan Clement <dylanclement7@protonmail.ch>
+	* @authors         : Romain Claveau <romain.claveau@protonmail.ch>, Dylan Clement <dylan@muonium.ee>
 */
     use \library\MVC as l;
-    $_t = new l\Template($this->txt->Global->login);
+    $_t = new l\Template(self::$txt->Global->login);
     $_t->addCss("blue/blue");
     $_t->addCss("blue/container");
     $_t->addCss("blue/header");
@@ -24,7 +24,7 @@
     <header>
         <div id="logo">
             <a href="https://muonium.io" target="_blank">
-                <img src="public/pictures/logos/muonium_H_06.png" title="<?php echo $this->txt->Global->home; ?>" alt="<?php echo $this->txt->Global->home; ?>">
+                <img src="public/pictures/logos/muonium_H_06.png" title="<?php echo self::$txt->Global->home; ?>" alt="<?php echo self::$txt->Global->home; ?>">
             </a>
         </div>
         <section id="language">
@@ -36,30 +36,30 @@
 
     <div id="container">
         <section id="large-content" class="spaced">
-            <h1><?php echo_h($this->txt->Global->login); ?></h1>
+            <h1><?php echo_h(self::$txt->Global->login); ?></h1>
 
             <div id="form">
                 <p class="red"><?php if(!empty($this->_message)) { echo $this->_message; } ?></p>
 
                 <p>
                     <label class="fa fa-user" for="field_username" aria-hidden="true"></label><!--
-                    --><input type="text" name="username" id="field_username" placeholder="<?php echo_h($this->txt->Login->username); ?>..." required autofocus>
+                    --><input type="text" name="username" id="field_username" placeholder="<?php echo_h(self::$txt->Login->username); ?>..." required autofocus>
                 </p>
 
                 <p>
                     <label class="fa fa-key" for="field_password" aria-hidden="true"></label><!--
-                    --><input type="password" name="pass" id="field_password" placeholder="<?php echo_h($this->txt->Register->password); ?>..." required>
+                    --><input type="password" name="pass" id="field_password" placeholder="<?php echo_h(self::$txt->Register->password); ?>..." required>
                 </p>
 
                 <p>
                     <label class="fa fa-key" for="field_passphrase" aria-hidden="true"></label><!--
-                    --><input type="password" name="passphrase" id="field_passphrase" placeholder="<?php echo_h($this->txt->Register->passphrase); ?>..." required>
+                    --><input type="password" name="passphrase" id="field_passphrase" placeholder="<?php echo_h(self::$txt->Register->passphrase); ?>..." required>
                 </p>
 
-                <a href="<?php echo MVC_ROOT; ?>/LostPass"><?php echo_h($this->txt->Login->forgot); ?></a> &nbsp;&nbsp;
-                <a href="<?php echo MVC_ROOT; ?>/Register"><?php echo_h($this->txt->Login->register); ?></a><br>
+                <a href="<?php echo MVC_ROOT; ?>/LostPass"><?php echo_h(self::$txt->Login->forgot); ?></a> &nbsp;&nbsp;
+                <a href="<?php echo MVC_ROOT; ?>/Register"><?php echo_h(self::$txt->Login->register); ?></a><br>
 
-                <input type="submit" value="<?php echo_h($this->txt->Global->login); ?>" onclick="sendConnectionRequest()"/>
+                <input type="submit" value="<?php echo_h(self::$txt->Global->login); ?>" onclick="sendConnectionRequest()"/>
             </div>
 
             <div id="return">

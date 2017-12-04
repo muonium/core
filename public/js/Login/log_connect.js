@@ -1,6 +1,6 @@
 /**
 ** @name        : log_connect.js
-** @authors     : Romain Claveau <romain.claveau@protonmail.ch>, Dylan CLEMENT <dylanclement7@protonmail.ch>
+** @authors     : Romain Claveau <romain.claveau@protonmail.ch>, Dylan CLEMENT <dylan@muonium.ee>
 ** @description : Method to connect the user to the servers
 **/
 

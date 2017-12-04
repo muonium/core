@@ -31,7 +31,7 @@ class Validate extends l\Languages {
 
             if($this->_modelUserVal->getKey() != $this->val_key) {
                 // Different key, send a new mail ?
-                $this->err_msg = $this->txt->Validate->message;
+                $this->err_msg = self::$txt->Validate->message;
                 require_once(DIR_VIEW."Validate.php");
             }
             else {
@@ -57,7 +57,7 @@ class Validate extends l\Languages {
                 if(!empty($_SESSION['sendMail'])) {
                     if($_SESSION['sendMail']+60 < time()) {
                         $w = 1;
-                        $this->err_msg = $this->txt->Validate->wait;
+                        $this->err_msg = self::$txt->Validate->wait;
                         require_once(DIR_VIEW."Validate.php");
                     }
                 }
@@ -77,16 +77,16 @@ class Validate extends l\Languages {
 
                     $this->_mail = new l\Mail();
                     $this->_mail->_to = $user_mail;
-                    $this->_mail->_subject = $this->txt->Register->subject;
+                    $this->_mail->_subject = self::$txt->Register->subject;
                     $this->_mail->_message = str_replace(
                         array("[id_user]", "[key]", "[url_app]"),
                         array($_SESSION['id'], $key, URL_APP),
-                        $this->txt->Register->message
+                        self::$txt->Register->message
                     );
                     $this->_mail->send();
                     $_SESSION['sendMail'] = time();
 
-                    $this->err_msg = $this->txt->Global->mail_sent;
+                    $this->err_msg = self::$txt->Global->mail_sent;
                     require_once(DIR_VIEW."Validate.php");
                 }
             }
