@@ -132,7 +132,7 @@ var MessageBox = (function() {
 	MessageBox.prototype.show = function() {
         if(this.$elemBtns === undefined) return false;
         else if(this.$elemBtns.innerHTML == '') {
-            // If there is no button, add a "OK" button
+			// If there is no button, add a "OK" button
             this.addButton('OK');
         }
 
@@ -145,6 +145,7 @@ var MessageBox = (function() {
             this.$elemInput.firstChild.value = '';
             this.$elemInput.firstChild.value = content;
         }
+		return this;
 	};
 
 	return MessageBox;

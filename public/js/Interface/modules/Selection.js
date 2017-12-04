@@ -190,14 +190,20 @@ var Selection = (function() {
 			var m = new MessageBox(txt.Register.passphrase).addInput('passphrase', {
 				id: "nShare",
 				autocomplete: "off",
-				onkeypress: function(event) {
-					if(event.keyCode == 13) {
-						validate.bind(this)();
-						return this.close();
+				oninput: function(event) {
+					if(this.$inputs.passphrase.value.length >= 6) {
+						$(this.$elemBtns).find('input,button').prop('disabled', false);
+						if(typeof(event) !== 'undefined' && event.keyCode == 13) {
+							validate.bind(this)();
+							return this.close();
+						}
+					} else {
+						$(this.$elemBtns).find('input,button').prop('disabled', true);
 					}
 					return true;
 				}
 			}).addButton("OK", validate).show();
+			$(m.$elemBtns).find('input,button').prop('disabled', true);
 		},
 
 		unshare : function(id) {
