@@ -34,7 +34,7 @@ class UserValidation extends l\Model {
         return $req->execute([$this->id_user]);
     }
 
-    function InsertV() {
+    function Insertion() {
 		if($this->id_user === null || !isset($this->val_key)) return false;
 		return $this->insert('user_validation', [
 			'id' => null,

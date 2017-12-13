@@ -1,0 +1,10 @@
+<?php
+namespace config;
+// Class used for Coinpayments
+class confPayments {
+    const public_key = '';
+    const private_key = '';
+    const merchant_id = '';
+    const ipn_url = '';
+    const ipn_secret = '';
+}

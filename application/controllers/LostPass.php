@@ -183,7 +183,7 @@ class LostPass extends l\Languages {
                 if($new == 0) {
                     $this->_modelUserLostPass->Update();
                 } else {
-                    $this->_modelUserLostPass->InsertV();
+                    $this->_modelUserLostPass->Insertion();
 				}
 
                 $this->_mail = new l\Mail();
