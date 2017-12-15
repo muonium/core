@@ -44,7 +44,7 @@ class Files extends l\Model {
 
 	function getInfos($id) {
 		// Get infos from a shared file
-		$req = self::$_sql->prepare("SELECT U.login, F.name, F.size, F.last_modification, F.dk
+		$req = self::$_sql->prepare("SELECT U.id, U.login, F.name, F.size, F.last_modification, F.dk
 			FROM files F, users U WHERE F.id = ? AND F.id_owner = U.id AND F.trash = 0 AND F.expires IS NULL AND F.dk IS NOT NULL");
 		$req->execute([$id]);
 		if($req->rowCount() === 0) return false;
@@ -73,6 +73,20 @@ class Files extends l\Model {
         $req = self::$_sql->prepare("SELECT folder_id FROM files WHERE id_owner = ? AND id = ?");
         $req->execute([$this->id_owner, $id]);
         if($req->rowCount() === 0) return false;
+        $res = $req->fetch(\PDO::FETCH_ASSOC);
+        return $res['folder_id'];
+    }
+    
+    function getFolderFromId($id = null) {
+		// id (int) - File id
+		// Returns folder id of the file, or false if it doesn't exist
+		$id = ($id === null) ? $this->id : $id;
+		if(!is_numeric($id))
+            return false;
+        $req = self::$_sql->prepare("SELECT folder_id FROM files WHERE id = ?");
+        $req->execute([$id]);
+        if($req->rowCount() === 0)
+            return false;
         $res = $req->fetch(\PDO::FETCH_ASSOC);
         return $res['folder_id'];
     }

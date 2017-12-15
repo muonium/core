@@ -232,7 +232,8 @@ class User extends l\Languages {
 			$file_id = intval($_POST['id']);
 			$this->_modelFiles = new m\Files($_SESSION['id']);
 			if($this->_modelFiles->setDK($file_id, $_POST['dk'])) {
-				echo URL_APP.'/dl/?'.setURL($file_id); exit;
+				echo URL_APP.'/dl/?'.setURL($file_id);
+                exit;
 			}
 		}
 		echo 'err';
@@ -242,7 +243,8 @@ class User extends l\Languages {
 		if(isset($_POST['id']) && is_numeric($_POST['id'])) {
 			$this->_modelFiles = new m\Files($_SESSION['id']);
 			if($this->_modelFiles->setDK(intval($_POST['id']), null)) {
-				echo 'ok'; exit;
+				echo 'ok';
+                exit;
 			}
 		}
 		echo 'err';
@@ -718,6 +720,7 @@ class User extends l\Languages {
         // Thank you "gimmicklessgpt at gmail dot com" from php.net for the base code
         // recurse_copy add also new files in db
         if($src == 0) return false;
+        if($src === $dst) return false;
         $src_foldername = $this->_modelFolders->getFoldername($src);
         if($src_foldername === false) return false;
         $size = $this->_modelFolders->getSize($src);
@@ -896,14 +899,24 @@ class User extends l\Languages {
                             //
 
 							if(isset($_SESSION['upload'][$folders[$i]])) unset($_SESSION['upload'][$folders[$i]]);
-                            rename(NOVA.'/'.$_SESSION['id'].'/'.$old_path.$foldername, NOVA.'/'.$_SESSION['id'].'/'.$this->_path.$dst_foldername);
-                            $this->_modelFolders->name = $dst_foldername;
-                            $this->_modelFolders->updateParent($folders[$i], $this->_folderId);
-                            $this->_modelFolders->updatePath($folders[$i], $this->_path, $dst_foldername);
+                            
+                            $basePath = NOVA.'/'.$_SESSION['id'].'/';
+                            $oldFolderName = $basePath.$old_path.$foldername.'/';
+                            $newFolderName = $basePath.$this->_path.$dst_foldername.'/';
+                            if(!($oldFolderName == substr($newFolderName, 0, strlen($oldFolderName)))) { //Check if it's not a child, improvable
+                                $resultRename = rename($oldFolderName, $newFolderName);
+                                if($resultRename) {
+                                    $this->_modelFolders->name = $dst_foldername;
+                                    $this->_modelFolders->updateParent($folders[$i], $this->_folderId);
+                                    $this->_modelFolders->updatePath($folders[$i], $this->_path, $dst_foldername);
 
-                            // Update parent folders size
-                            $this->_modelFolders->updateFoldersSize($old_parent, -1*$folderSize);
-                            $uploaded += $folderSize;
+                                    // Update parent folders size
+                                    $this->_modelFolders->updateFoldersSize($old_parent, -1*$folderSize);
+                                    $uploaded += $folderSize;
+                                } else
+                                    echo 'errorRenameCutPasteFolder';
+                            } else
+                                echo 'errorIsAChildCutPasteFolder';
                         }
                     }
                 }
@@ -915,13 +928,24 @@ class User extends l\Languages {
                         $foldername = $this->_modelFolders->getFolderName($folders[$i]);
                         if($foldername === false) continue;
                         if(is_dir(NOVA.'/'.$_SESSION['id'].'/'.$old_path.$foldername)) {
-                            $folderSize = $this->_modelFolders->getSize($folders[$i]);
-                            if($stored+$folderSize <= $quota) {
-                                $stored += $folderSize;
-                                $uploaded += $folderSize;
-                                // recurse_copy add also new files and subfolders in db
-                                $this->recurse_copy($folders[$i], $this->_folderId);
-                            }
+                            
+                            $dst_foldername = $this->checkMultiple(NOVA.'/'.$_SESSION['id'].'/'.$this->_path, $foldername, 'folder');
+                            $basePath = NOVA.'/'.$_SESSION['id'].'/';
+                            $oldFolderName = $basePath.$old_path.$foldername.'/';
+                            $newFolderName = $basePath.$this->_path.$dst_foldername.'/';
+                            
+                            if(!($oldFolderName == substr($newFolderName, 0, strlen($oldFolderName)))) { //Improvable
+                            
+                                $folderSize = $this->_modelFolders->getSize($folders[$i]);
+                                if($stored+$folderSize <= $quota) {
+                                    $stored += $folderSize;
+                                    $uploaded += $folderSize;
+                                    // recurse_copy add also new files and subfolders in db
+                                    $this->recurse_copy($folders[$i], $this->_folderId);
+                                } else
+                                        echo 'errorQuotaIsTooLow';
+                            } else
+                                echo 'errorIsAChildCopyPasteFolder';
                         }
                     }
                 }
