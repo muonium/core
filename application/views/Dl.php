@@ -13,25 +13,22 @@
 	$_t->addCss("blue/toolbar");
 	$_t->addCss("blue/transfers");
 	$_t->addCss("blue/tree");
-	$_t->addCss("Interface/box");
-	$_t->addCss("Interface/MessageBox");
 	$_t->addCss("Interface/progress_bar");
 
 	// JS Modules
-	//$_t->addJs("Interface/modules/Box");
 	$_t->addJs("Interface/modules/Decryption");
-	$_t->addJs("Interface/modules/Encryption");
 	$_t->addJs("Interface/modules/Files");
 	//$_t->addJs("Interface/modules/Folders");
-	//$_t->addJs("Interface/modules/MessageBox");
 	//$_t->addJs("Interface/modules/Selection");
 	//$_t->addJs("Interface/modules/Toolbar");
+	$_t->addJs("Interface/modules/Time");
 	$_t->addJs("Interface/modules/Transfers");
 
 	//$_t->addJs("check");
-	//$_t->addJs("object-watch");
+	$_t->addJs("object-watch");
 	$_t->addJs("src/crypto/sjcl");
 	$_t->addJs("Interface/idb.filesystem.min");
+	$_t->addJs("Dl");
 	//$_t->addJs("Interface/Request");
 	//$_t->addJs("Interface/interface");
 	$_t->getHeader();
@@ -56,16 +53,25 @@
     <div id="container">
         <section id="large-content">
             <h1><?php echo_h($infos['name']); ?></h1>
-			<p>Uploaded by <?php echo_h($infos['login']); echo ' on '.date('Y-m-d G:i', $infos['last_modification']); ?></p>
-			<p>Size : <?php echo $filesize; ?></p>
+			<p><?php echo_h(str_replace('[login]', $infos['login'], self::$txt->User->uploadedBy)); echo ' '.date('Y-m-d G:i', $infos['last_modification']); ?></p>
+			<p><?php echo_h(self::$txt->User->size); echo '&nbsp;: '.$filesize; ?></p>
 
-			<p>Password : <input type="text" id="password"></p>
-			<p><button id="dl">DL</button></p>
+			<p><?php echo_h(self::$txt->Register->password); ?>&nbsp;: <input type="text" id="password"></p>
+			<p>
+				<button id="dl"
+					data-dk="<?php echo $infos['dk']; ?>"
+					data-fname="<?php echo_h($infos['name']); ?>"
+					data-fid="<?php echo $infos['folder_id']; ?>"
+					data-uid="<?php echo $infos['id_owner']; ?>"
+				>
+				<?php echo_h(self::$txt->RightClick->dl); ?>
+				</button>
+			</p>
 
 			<p id="msg"></p>
         </section>
     </div>
-    
+
     <div id="transfers" class="hide">
         <section id="top">
             <ul>
@@ -88,68 +94,6 @@
         </section>
     </div>
 </body>
-<script type="text/javascript">
-    
-	var f_dec = [];
-    var i = 0;
-    
-	$(document).ready(function() {
-		$('#dl').click(function() {
-			var err = false;
-			var mdp = $('#password').val();
-			var packet = '<?php echo $infos['dk']; ?>';
-			var c = packet.split(':');
-		 	var enc_fek = sjcl.codec.base64.toBits(c[0]);
-		 	var salt = sjcl.codec.base64.toBits(c[1]);
-		 	var aDATA= sjcl.codec.base64.toBits(c[2]);
-		 	var iv = sjcl.codec.base64.toBits(c[3]);
-
-			//on recalcule la clé dérivée`dk` à partir du mdp `mdp`
-		 	var dk = sjcl.misc.pbkdf2(mdp, salt, 7000, 256);
-			var enc = new sjcl.cipher.aes(dk);
-			try {
-		 		var fek = sjcl.mode.gcm.decrypt(enc, enc_fek, iv, aDATA, 128);
-			} catch(e) {
-				err = true;
-				$('#msg').html('Bad password');
-			}
-
-			if(!err) {
-				$('#msg').html('Password ok');
-                
-                
-                dwl = document.createElement('div');
-				dwl.id = 'div_download'+i;
-
-				btn = document.createElement('i');
-				btn.setAttribute('data-id', i);
-				btn.onclick = Files.abort;
-				btn.className = 'fa fa-minus-circle btn-abort';
-				btn.setAttribute('aria-hidden', true);
-
-				spn = document.createElement('span');
-				spn.id = 'span_download'+i;
-                
-				dwl.appendChild(btn);
-				dwl.appendChild(spn);
-				if($('#transfers_download > div').length === 0) {
-					$('#transfers_download').html(' ');
-				}
-				document.querySelector("#transfers_download").appendChild(dwl);
-                //Transferts.open()
-                $('#transfers').fadeIn(400);
-                
-                //Transferts.showDL()
-                $("#transfers #toggle ul > li:first-child").removeClass('selected');
-                $("#transfers #toggle ul > li:last-child").addClass('selected');
-                $("#transfers #content > #transfers_upload").hide();
-                $("#transfers #content > #transfers_download").show();;
-				//f_dec[i] = new Decryption("<?php //echo_h($infos['name']); ?>", <?php //echo_h($folderID); ?>, i);
-				i++;
-			}
-		});
-	});
-</script>
 <?php
     $_t->getFooter();
 ?>

@@ -4,13 +4,9 @@
 var Decryption = (function() {
 	// Private
 	var chunkSize = 1024 * 1024; // Size of one chunk in B
-	var cek = sessionStorage.getItem("cek");
-	if (cek == null) { //check if the cek is there
-		sessionStorage.clear();
-		window.location.href = ROOT+"Logout"; //doesn't exist ? Then logout the user
-	}
+	var cek;
 	var target = 'User';
-	var debug = false;
+	var debug = true;
 
 	var smallQuota = 1024*1024;
 	var largeQuota = 1024*1024*1024*100;
@@ -29,13 +25,26 @@ var Decryption = (function() {
 	window.requestFileSystem  = window.requestFileSystem || window.webkitRequestFileSystem;
 
 	// Constructor
-	function Decryption(fname, f_id, i) {
+	function Decryption(fname, f_id, i, uid, fek) {
+		// uid and fek are used only when you are downloading a shared file from another user
+		if(uid !== undefined && fek !== undefined) {
+			target = 'dl';
+		} else {
+			// Otherwise, cek is needed
+			cek = sessionStorage.getItem('cek');
+			if(cek == null) { //check if the cek is there
+				sessionStorage.clear();
+				window.location.href = ROOT+'Logout'; //doesn't exist ? Then logout the user
+			}
+		}
 		this.folder_id = f_id;
 		this.filename = fname;
 		this.nb_chk = 0;
 		this.enc;
 		this.prev_s;
 		this.i = i; // Id of file, used only for displaying progress, different from database !
+		this.uid = uid;
+		this.fek = fek;
 		this.halt = false;
 		this.getNbChunks();
 	}
@@ -81,7 +90,7 @@ var Decryption = (function() {
 		time.start();
 		if(this.filename.length > 0) {
 			var xhr = new XMLHttpRequest();
-			xhr.open("POST", target+'/getNbChunks', true);
+			xhr.open("POST", target+'/getNbChunks'+(me.uid !== undefined ? '/'+me.uid : ''), true);
 			xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
 			xhr.onreadystatechange = function() {
@@ -115,7 +124,7 @@ var Decryption = (function() {
 
 		time_chunk = new Time();
 		var xhr = new XMLHttpRequest();
-		xhr.open("POST", target+'/getChunk', true);
+		xhr.open("POST", target+'/getChunk'+(me.uid !== undefined ? '/'+me.uid : ''), true);
 		xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
 		xhr.onreadystatechange = function() {
@@ -137,7 +146,8 @@ var Decryption = (function() {
 
 					if(me.enc === undefined || me.prev_s != split[1]) {
 						if(debug) console.log("Key derivation process...");
-						var key = sjcl.misc.pbkdf2(cek, s, 7000, 256);
+						// If uid and fek are set, then use fek instead
+						var key = (me.uid !== undefined && me.fek !== undefined) ? me.fek : sjcl.misc.pbkdf2(cek, s, 7000, 256);
 						me.enc = new sjcl.cipher.aes(key);
 					}
 

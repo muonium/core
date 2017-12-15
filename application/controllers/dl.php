@@ -6,6 +6,8 @@ use \application\models as m;
 class dl extends l\Languages {
 
     private $_modelFiles;
+	private $_modelFolders;
+	private $sharerID = null;
 
     function __construct() {
         parent::__construct([
@@ -30,8 +32,10 @@ class dl extends l\Languages {
 		}
 		header('Location: User');
     }
-    
+
     function getChunkAction($sharerID) {
+		if(!is_numeric($sharerID)) exit('error');
+		$this->sharerID = $sharerID;
 		if(isset($_POST['filename']) && isset($_POST['line']) && isset($_POST['folder_id'])) {
 			// Get a chunk with Ajax
 		    $line = $_POST['line'];
@@ -41,8 +45,7 @@ class dl extends l\Languages {
 			if($filename !== false && is_numeric($folder_id)) {
 				$path = $this->getUploadFolderPath($folder_id);
 				if($path === false) {
-					echo 'error';
-					exit;
+					echo 'error'; exit;
 				}
 
 				$filepath = NOVA.'/'.$sharerID.'/'.$path.$filename;
@@ -55,6 +58,8 @@ class dl extends l\Languages {
 	}
 
 	function getNbChunksAction($sharerID) {
+		if(!is_numeric($sharerID)) exit('0');
+		$this->sharerID = $sharerID;
 		if(isset($_POST['filename']) && isset($_POST['folder_id'])) {
 		    // Get number of chunks with Ajax
 		    $filename = $this->parseFilename($_POST['filename']);
@@ -63,8 +68,7 @@ class dl extends l\Languages {
 			if($filename !== false && is_numeric($folder_id)) {
 				$path = $this->getUploadFolderPath($folder_id);
 				if($path === false) {
-					echo '0';
-					exit;
+					echo '0'; exit;
 				}
 
 				$filepath = NOVA.'/'.$sharerID.'/'.$path.$filename;
@@ -77,8 +81,7 @@ class dl extends l\Languages {
 					} else {
 						echo $file->key();
 					}
-				}
-				else {
+				} else {
 					echo '0';
 				}
 			}
@@ -88,5 +91,31 @@ class dl extends l\Languages {
 		}
 	}
 
+	function parseFilename($f) {
+		$f = str_replace(['|', '/', '\\', ':', '*', '?', '<', '>', '"'], "", $f); // not allowed chars
+		if(strlen($f) > 128) { // max length 128 chars
+			$f = substr($f, 0, 128);
+		}
+		return $f;
+	}
+
+	function getUploadFolderPath($folder_id) {
+		if($this->sharerID === null || !is_numeric($this->sharerID)) return false;
+		// Get the full path of an uploaded file until its folder using SESSION
+		if(isset($_SESSION['upload'][$folder_id]['path'])) {
+			return $_SESSION['upload'][$folder_id]['path'];
+		}
+
+		$this->_modelFolders = new m\Folders($this->sharerID);
+
+		$path = $this->_modelFolders->getFullPath($folder_id);
+		if($path === false || !is_dir(NOVA.'/'.$this->sharerID.'/'.$path)) {
+			return false;
+		}
+
+		if($path != '') $path .= '/';
+		$_SESSION['upload'][$folder_id]['path'] = $path;
+		return $path;
+	}
 };
 ?>

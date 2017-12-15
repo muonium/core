@@ -84,7 +84,9 @@
         "uploading": "Выгрузка",
         "downloading": "Загрузка",
 		"quota_of": "[used] из [total] использовано",
-		"shared": "File sharing enabled"
+		"shared": "File sharing enabled",
+		"badPass": "Bad password !",
+		"uploadedBy": "Uploaded by [login] on"
     },
 
     "Register": {

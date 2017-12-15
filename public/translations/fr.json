@@ -84,7 +84,9 @@
         "uploading": "Envois",
         "downloading": "Téléchargements",
 		"quota_of": "[used] utilisés sur [total]",
-		"shared": "Partage du fichier activé"
+		"shared": "Partage du fichier activé",
+		"badPass": "Mauvais mot de passe !",
+		"uploadedBy": "Uploadé par [login] le"
     },
 
     "Register": {

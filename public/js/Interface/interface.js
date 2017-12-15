@@ -60,8 +60,9 @@ var UserLoader = function(folder_id) {
             Selection.remove();
             Selection.closeDetails();
         }
-        else
+        else {
             Selection.addSel = 0;
+		}
     }
 
     window.addEventListener("keydown", function(event) {
@@ -141,10 +142,11 @@ var UserLoader = function(folder_id) {
                 case 13:
                     // enter
 					if(document.activeElement.tagName != 'INPUT' && document.activeElement.tagName != 'TEXTAREA') {
-	                    if(Selection.Files.length == 1 && Selection.Folders.length == 0)
+	                    if(Selection.Files.length == 1 && Selection.Folders.length == 0) {
 	                        Files.dl("f"+Selection.Files[0]);
-	                    else if(Selection.Files.length == 0 && Selection.Folders.length == 1)
+	                    } else if(Selection.Files.length == 0 && Selection.Folders.length == 1) {
 	                        Folders.open(Selection.Folders[0]);
+						}
 					}
                     break;
                 case 112:
@@ -158,9 +160,9 @@ var UserLoader = function(folder_id) {
 
     // Right click inside desktop section
     document.querySelector("#desktop").addEventListener("contextmenu", function(event) {
-        if(Box.Area == 0) // If we are inside desktop but not inside its children
+        if(Box.Area == 0) { // If we are inside desktop but not inside its children
             Box.right_click(event.clientX, event.clientY);
-        else {
+        } else {
             // If we are inside its children, set Area to 0 because this function is always called when user call file's actions or folder's actions
             // Next, we will be able to use right click inside desktop div (area = 0) and when we
             // call file's actions or folder's actions, 'box' for 'desktop' area will not be displayed
@@ -170,10 +172,11 @@ var UserLoader = function(folder_id) {
     });
 
     // Open specified dir or root dir
-    if(folder_id === undefined || !isNumeric(folder_id))
+    if(folder_id === undefined || !isNumeric(folder_id)) {
         Folders.open(0);
-    else
+    } else {
         Folders.open(folder_id);
+	}
 
     console.log("Application loaded.");
 }
