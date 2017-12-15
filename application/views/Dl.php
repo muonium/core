@@ -93,12 +93,6 @@
 	var f_dec = [];
     var i = 0;
     
-    $(document).ready(function() {
-		$('#dl').click(function() {
-            new ShareDL();
-		});
-	});
-    
 	$(document).ready(function() {
 		$('#dl').click(function() {
 			var err = false;
