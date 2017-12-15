@@ -34,8 +34,6 @@ var Files = (function() {
 					document.querySelector("#transfers_download").appendChild(dwl);
 					Transfers.open();
 					Transfers.showDl();
-                    console.log(f.getAttribute("data-title"));
-                    console.log(f.getAttribute("data-folder"));
 					f_dec[i] = new Decryption(f.getAttribute("data-title"), f.getAttribute("data-folder"), i);
 					i++;
 				}
