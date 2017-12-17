@@ -54,7 +54,7 @@ var Files = (function() {
 			$.post('User/getChunk', {line: 0, filename: filename, folder_id: Folders.id}, function(chk) {
 				chk = chk.split(':'); //ciphered_chk, salt, authentification data, initialization vector
 				if(chk.length === 4 && typeof(chk) === 'object') {
-					var f_salt = chk[1];
+					var f_salt = sjcl.codec.base64.toBits(chk[1]);
 					var fek = sjcl.misc.pbkdf2(cek, f_salt, 7000, 256); // Key derivation
 
 					var salt = sjcl.random.randomWords(4);
