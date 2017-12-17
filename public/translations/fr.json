@@ -86,7 +86,7 @@
 		"quota_of": "[used] utilisés sur [total]",
 		"shared": "Partage du fichier activé",
 		"badPass": "Mauvais mot de passe !",
-		"uploadedBy": "Uploadé par [login] le"
+		"uploadedBy": "Téléversé par [login] le"
     },
 
     "Register": {
