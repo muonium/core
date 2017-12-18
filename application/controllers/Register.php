@@ -54,7 +54,7 @@ class Register extends l\Languages {
 
                                         $this->_modelUserVal = new m\UserValidation($id_user);
                                         $this->_modelUserVal->val_key = $key;
-                                        $this->_modelUserVal->InsertV();
+                                        $this->_modelUserVal->Insertion();
 
                                         $this->_mail = new l\Mail();
                                         $this->_mail->_to = $_POST['mail'];

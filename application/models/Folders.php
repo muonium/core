@@ -180,7 +180,7 @@ class Folders extends l\Model {
         return $req->execute([$parent, $this->name, $this->id_owner, $id]);
     }
 
-    function insertV() {
+    function addFolder() {
 		if($this->id_owner === null) return false;
 		if(isset($this->name) && isset($this->size) && isset($this->parent) && isset($this->path)) {
 			return $this->insert('folders', [

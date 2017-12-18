@@ -45,7 +45,7 @@ class UserLostPass extends l\Model {
         return $req->execute([$this->id_user]);
     }
 
-    function InsertV() {
+    function Insertion() {
 		if($this->id_user === null || !isset($this->val_key) || !isset($this->expire)) return false;
 		return $this->insert('user_lostpass', [
 			'id' => null,
