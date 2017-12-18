@@ -227,6 +227,29 @@ class User extends l\Languages {
 		}
 	}
 
+	function shareFileAction() {
+		if(isset($_POST['id']) && is_numeric($_POST['id']) && isset($_POST['dk'])) {
+			$file_id = intval($_POST['id']);
+			$this->_modelFiles = new m\Files($_SESSION['id']);
+			if($this->_modelFiles->setDK($file_id, $_POST['dk'])) {
+				echo URL_APP.'/dl/?'.setURL($file_id);
+                exit;
+			}
+		}
+		echo 'err';
+	}
+
+	function unshareFileAction() {
+		if(isset($_POST['id']) && is_numeric($_POST['id'])) {
+			$this->_modelFiles = new m\Files($_SESSION['id']);
+			if($this->_modelFiles->setDK(intval($_POST['id']), null)) {
+				echo 'ok';
+                exit;
+			}
+		}
+		echo 'err';
+	}
+
 	function getFileStatusAction() {
         // Return a message/code according to file status
 		// Client side : If the file exists, ask the user if he wants to replace it
@@ -328,7 +351,7 @@ class User extends l\Languages {
             echo '<a id="parent-'.$parent.'" onclick="Folders.open('.$parent.')"><img src="'.IMG.'desktop/arrow.svg" class="icon"></a> ';
         }
         $pct = round($stored/$quota*100, 2);
-        echo str_replace(['[used]', '[total]'], [$this->showSize($stored), $this->showSize($quota)], $this->txt->User->quota_of).' - '.$pct.'%';
+        echo str_replace(['[used]', '[total]'], [showSize($stored), showSize($quota)], self::$txt->User->quota_of).' - '.$pct.'%';
         echo '<div class="progress_bar">';
         echo '<div class="used" style="width:'.$pct.'%"></div>';
         echo '</div></div>';
@@ -343,7 +366,7 @@ class User extends l\Languages {
                 $subdir['name'] = $this->parseFilename($subdir['name']);
 
                 echo '<span class="folder" id="d'.$subdir['id'].'" name="'.htmlentities($subdir['name']).'"
-                title="'.$this->showSize($subdir['size']).'"
+                title="'.showSize($subdir['size']).'"
                 data-folder="'.htmlentities($subdir['parent']).'"
                 data-path="'.htmlentities($subdir['path']).'"
                 data-title="'.htmlentities($subdir['name']).'"
@@ -351,33 +374,36 @@ class User extends l\Languages {
                 ondblclick="Folders.open('.$subdir['id'].')">
                 <img src="'.IMG.'desktop/extensions/folder.svg" class="icon"> <strong>'.htmlentities($subdir['name']).'</strong> [';
                 if($elementnum > 1) {
-    			    echo $elementnum.' '.$this->txt->User->PlurialElement.']</span>';
+    			    echo $elementnum.' '.self::$txt->User->PlurialElement.']</span>';
     			} else {
-    				echo $elementnum.' '.$this->txt->User->element.']</span>';
+    				echo $elementnum.' '.self::$txt->User->element.']</span>';
     			}
             }
         }
         if($files = $this->_modelFiles->getFiles($this->_folderId, $this->trash)) {
             foreach($files as $file) {
+				$is_shared = ($file['dk'] === null || strlen($file['dk']) === 0) ? 0 : 1;
                 $fpath = $path;
                 $file['name'] = $this->parseFilename($file['name']);
                 if(array_key_exists('path', $file) && array_key_exists('dname', $file)) {
                     $fpath = $file['path'].$file['dname'];
                 }
                 if($file['size'] < 0) {
-                    $filesize = '['.$this->txt->User->notCompleted.'] '.$this->showSize(@filesize(NOVA.'/'.$_SESSION['id'].'/'.$fpath.'/'.$file['name']));
+                    $filesize = '['.self::$txt->User->notCompleted.'] '.showSize(@filesize(NOVA.'/'.$_SESSION['id'].'/'.$fpath.'/'.$file['name']));
                 }
                 else {
-                    $filesize = $this->showSize($file['size']);
+                    $filesize = showSize($file['size']);
                 }
                 echo '<span class="file" id="f'.$file['id'].'"';
                 if($file['size'] < 0) { echo ' style="color:red" '; }
-                echo 'title="'.$filesize.'&#10;'.$this->txt->User->lastmod.' : '.date('d/m/Y G:i', $file['last_modification']).'"
+                echo 'title="'.$filesize.'&#10;'.self::$txt->User->lastmod.' : '.date('d/m/Y G:i', $file['last_modification']).'"
                 onclick="Selection.addFile(event, this.id)"
 				ondblclick="Selection.dl(this.id)"
                 data-folder="'.htmlentities($file['folder_id']).'"
                 data-path="'.htmlentities($fpath).'"
-                data-title="'.htmlentities($file['name']).'">';
+                data-title="'.htmlentities($file['name']).'"
+				data-shared="'.$is_shared.'"
+				data-url="'.URL_APP.'/dl/?'.setURL($file['id']).'">';
 
 				echo htmlentities($file['name']).'</span>';
             }

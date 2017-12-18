@@ -83,7 +83,10 @@
         "nothing": "Rien du tout...",
         "uploading": "Envois",
         "downloading": "Téléchargements",
-		"quota_of": "[used] utilisés sur [total]"
+		"quota_of": "[used] utilisés sur [total]",
+		"shared": "Partage du fichier activé",
+		"badPass": "Mauvais mot de passe !",
+		"uploadedBy": "Téléversé par [login] le"
     },
 
     "Register": {
@@ -173,6 +176,8 @@
 
     "RightClick": {
         "dl": "Télécharger",
+		"share": "Partager",
+		"unshare": "Arrêter le partage",
         "rm": "Supprimer",
         "star": "Favori",
         "cut": "Couper",

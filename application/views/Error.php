@@ -2,7 +2,7 @@
     /*
 	* @name            : Error.php
 	* @description     : Error view
-	* @authors         : Romain Claveau <romain.claveau@protonmail.ch>, Dylan Clement <dylanclement7@protonmail.ch>
+	* @authors         : Romain Claveau <romain.claveau@protonmail.ch>, Dylan Clement <dylan@muonium.ee>
 	*/
     use \library\MVC as l;
     $_t = new l\Template("Error");
@@ -22,7 +22,7 @@
             </a>
         </div>
         <ul>
-            <li><a href="User"><?php echo $this->txt->Global->back; ?></a></li>
+            <li><a href="User"><?php echo self::$txt->Global->back; ?></a></li>
         </ul>
         <section id="language">
             <div>

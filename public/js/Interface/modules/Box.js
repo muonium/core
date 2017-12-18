@@ -83,8 +83,13 @@ var Box = (function() {
                 case 1:
                     Box.selected = id;
                     Selection.select(id);
-                    box_div.innerHTML = '<p onclick="Selection.dl(\''+id+'\')"><i class="fa fa-download" aria-hidden="true"></i> '+txt.RightClick.dl+'</p><hr>';
-                    if(Trash.state == 0) {
+                    box_div.innerHTML = '<p onclick="Selection.dl(\''+id+'\')"><i class="fa fa-download" aria-hidden="true"></i> '+txt.RightClick.dl+'</p>';
+					if(Files.isShared(id.substr(1))) {
+						box_div.innerHTML += '<p onclick="Selection.unshare(\''+id.substr(1)+'\')"><i class="fa fa-ban" aria-hidden="true"></i> '+txt.RightClick.unshare+'</p><hr>';
+					} else {
+						box_div.innerHTML += '<p onclick="Selection.share(\''+id.substr(1)+'\')"><i class="fa fa-share" aria-hidden="true"></i> '+txt.RightClick.share+'</p><hr>';
+					}
+					if(Trash.state == 0) {
                         //box_div.innerHTML += '<p onclick="Favorites.update(\''+id+'\')"><i class="fa fa-star" aria-hidden="true"></i> '+txt.RightClick.star+'</p><hr>';
                         box_div.innerHTML += '<p onclick="Move.cut(\''+id+'\')"><i class="fa fa-scissors" aria-hidden="true"></i> '+txt.RightClick.cut+'</p>';
                         box_div.innerHTML += '<p onclick="Move.copy(\''+id+'\')"><i class="fa fa-clone" aria-hidden="true"></i> '+txt.RightClick.copy+'</p>';

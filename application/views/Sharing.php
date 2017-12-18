@@ -2,10 +2,10 @@
 	/*
 	* @name            : Sharing.php
 	* @description     : Sharing view
-	* @authors         : Romain Claveau <romain.claveau@protonmail.ch>, Dylan Clement <dylanclement7@protonmail.ch>
+	* @authors         : Romain Claveau <romain.claveau@protonmail.ch>, Dylan Clement <dylan@muonium.ee>
 	*/
 	use \library\MVC as l;
-	$_t = new l\Template($this->txt->Global->sharing);
+	$_t = new l\Template(self::$txt->Global->sharing);
 	$_t->addCss("blue/blue");
     $_t->addCss("blue/container");
     $_t->addCss("blue/dragbar");
@@ -53,21 +53,21 @@
 	<header>
 		<div id="logo">
             <a href="https://muonium.io" target="_blank">
-                <img src="public/pictures/logos/muonium_H_06.png" title="<?php echo $this->txt->Global->home; ?>" alt="<?php echo $this->txt->Global->home; ?>">
+                <img src="public/pictures/logos/muonium_H_06.png" title="<?php echo self::$txt->Global->home; ?>" alt="<?php echo self::$txt->Global->home; ?>">
             </a>
         </div>
         <ul>
             <li onclick="Trash.switch()">
                 <i class="fa fa-trash" aria-hidden="true"></i>&nbsp;
-                <span id="button_trash"><?php echo_h($this->txt->User->trash_0); ?></span>
+                <span id="button_trash"><?php echo_h(self::$txt->User->trash_0); ?></span>
             </li>
             <li onclick="Upload.dialog()">
                 <i class="fa fa-upload" aria-hidden="true"></i>&nbsp;
-                <?php echo_h($this->txt->UserMenu->upload); ?>
+                <?php echo_h(self::$txt->UserMenu->upload); ?>
             </li>
             <li>
                 <a href="Logout"><i class="fa fa-sign-out" aria-hidden="true"></i>&nbsp;
-                <?php echo_h($this->txt->UserMenu->logout); ?></a>
+                <?php echo_h(self::$txt->UserMenu->logout); ?></a>
             </li>
             <li onclick="showHelp()">?</li>
         </ul>
@@ -83,21 +83,21 @@
             <ul>
                 <li>
                     <a href="Profile"><i class="fa fa-cog" aria-hidden="true"></i>&nbsp;
-                    <?php echo_h($this->txt->UserMenu->settings); ?></a>
+                    <?php echo_h(self::$txt->UserMenu->settings); ?></a>
                 </li>
                 <li>
                     <span>
                         <input type="radio" id="display_list" name="display" checked>
-                        <label for="display_list"><?php echo_h($this->txt->UserMenu->smallIcons); ?></label>
+                        <label for="display_list"><?php echo_h(self::$txt->UserMenu->smallIcons); ?></label>
                     </span>
                     <span>
                         <input type="radio" id="display_mosaic" name="display">
-                        <label for="display_mosaic"><?php echo_h($this->txt->UserMenu->largeIcons); ?></label>
+                        <label for="display_mosaic"><?php echo_h(self::$txt->UserMenu->largeIcons); ?></label>
                     </span>
                 </li>
                 <li id="multisel_desktop">
                     <input type="checkbox" id="multisel" />
-                    <label for="multisel"><?php echo_h($this->txt->UserMenu->multiSelection); ?></label>
+                    <label for="multisel"><?php echo_h(self::$txt->UserMenu->multiSelection); ?></label>
                 </li>
                 <!--<li>Stared</li>-->
                 <!--<li>Shared</li>-->

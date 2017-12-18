@@ -13,6 +13,7 @@ class Files extends l\Model {
         7   favorite            tinyint(1)
         8   trash               tinyint(1)
         9   expires             int(11)
+		10  dk					varchar(330)
     */
 
     protected $id = null;
@@ -23,6 +24,7 @@ class Files extends l\Model {
     protected $last_modification;
     protected $favorite;
     protected $trash;
+	protected $dk;
 
 	function __construct($id_owner = null) {
 		parent::__construct();
@@ -39,6 +41,25 @@ class Files extends l\Model {
         if($req->rowCount() === 0) return false;
         return true;
     }
+
+	function isShared($name, $folder_id) {
+		// name (string) - Filename, folder_id (int) - Folder id
+		// Returns true if the file is shared, otherwise false
+		if($this->id_owner === null) return false;
+		$req = self::$_sql->prepare("SELECT id FROM files WHERE id_owner = ? AND name = ? AND folder_id = ? AND dk IS NOT NULL");
+		$req->execute([$this->id_owner, $name, $folder_id]);
+		if($req->rowCount() === 0) return false;
+		return true;
+	}
+
+	function getInfos($id) {
+		// Get infos from a shared file
+		$req = self::$_sql->prepare("SELECT U.id, U.login, F.name, F.size, F.folder_id, F.id_owner, F.last_modification, F.dk
+			FROM files F, users U WHERE F.id = ? AND F.id_owner = U.id AND F.trash = 0 AND F.expires IS NULL AND F.dk IS NOT NULL");
+		$req->execute([$id]);
+		if($req->rowCount() === 0) return false;
+        return $req->fetch(\PDO::FETCH_ASSOC);
+	}
 
     function getFilename($id = null) {
 		// id (int) - File id
@@ -62,6 +83,20 @@ class Files extends l\Model {
         $req = self::$_sql->prepare("SELECT folder_id FROM files WHERE id_owner = ? AND id = ?");
         $req->execute([$this->id_owner, $id]);
         if($req->rowCount() === 0) return false;
+        $res = $req->fetch(\PDO::FETCH_ASSOC);
+        return $res['folder_id'];
+    }
+
+    function getFolderFromId($id = null) {
+		// id (int) - File id
+		// Returns folder id of the file, or false if it doesn't exist
+		$id = ($id === null) ? $this->id : $id;
+		if(!is_numeric($id))
+            return false;
+        $req = self::$_sql->prepare("SELECT folder_id FROM files WHERE id = ?");
+        $req->execute([$id]);
+        if($req->rowCount() === 0)
+            return false;
         $res = $req->fetch(\PDO::FETCH_ASSOC);
         return $res['folder_id'];
     }
@@ -98,15 +133,15 @@ class Files extends l\Model {
 		// Returns an array of files for a folder id, from trash if trash = 1
 		if($this->id_owner === null) return false;
         if($trash === null || $trash === 'all') {
-            $req = self::$_sql->prepare("SELECT name, id, size, last_modification, favorite, trash, folder_id FROM files WHERE id_owner = ? AND folder_id = ? ORDER BY name ASC");
+            $req = self::$_sql->prepare("SELECT name, id, size, last_modification, favorite, trash, folder_id, dk FROM files WHERE id_owner = ? AND folder_id = ? ORDER BY name ASC");
             $req->execute([$this->id_owner, $folder_id]);
         }
         elseif($trash == 0 || ($trash == 1 && $folder_id !== 0)) {
-            $req = self::$_sql->prepare("SELECT name, id, size, last_modification, favorite, trash, folder_id FROM files WHERE id_owner = ? AND folder_id = ? AND trash = 0 ORDER BY name ASC");
+            $req = self::$_sql->prepare("SELECT name, id, size, last_modification, favorite, trash, folder_id, dk FROM files WHERE id_owner = ? AND folder_id = ? AND trash = 0 ORDER BY name ASC");
             $req->execute([$this->id_owner, $folder_id]);
         }
         else { // trash == 1 && $folder_id == 0
-            $req = self::$_sql->prepare("SELECT files.name, files.id, files.size, files.last_modification, files.favorite, files.trash, files.folder_id, folders.path, folders.name AS dname
+            $req = self::$_sql->prepare("SELECT files.name, files.id, files.size, files.last_modification, files.favorite, files.trash, files.folder_id, files.dk, folders.path, folders.name AS dname
 				FROM files LEFT JOIN folders ON files.folder_id = folders.id WHERE files.id_owner = ? AND files.trash = 1 ORDER BY files.name ASC");
             $req->execute([$this->id_owner]);
         }
@@ -221,6 +256,13 @@ class Files extends l\Model {
         $req = self::$_sql->prepare("UPDATE files SET favorite = ABS(favorite-1) WHERE id_owner = ? AND id = ?");
         return $req->execute([$this->id_owner, $id]);
     }
+
+	function setDK($id, $dk) {
+		// Set a DK for a file in order to share it
+		if($this->id_owner === null) return false;
+		$req = self::$_sql->prepare("UPDATE files SET dk = ? WHERE id_owner = ? AND id = ? AND trash = 0");
+        return $req->execute([$dk, $this->id_owner, $id]);
+	}
 
     function rename($folder_id, $old, $new) {
 		// Rename a file

@@ -53,10 +53,10 @@ class LostPass extends l\Languages {
                                     unset($_SESSION['changePassKey']);
                                     unset($_SESSION['sendMail']);
                                     $this->_modelUserLostPass->Delete();
-                                    echo 'ok@'.$this->txt->LostPass->updateOk;
+                                    echo 'ok@'.self::$txt->LostPass->updateOk;
                                 }
                                 else {
-                                    echo $this->txt->LostPass->updateErr;
+                                    echo self::$txt->LostPass->updateErr;
 								}
                             }
                             /*if(!empty($_POST['pp'])) {
@@ -75,10 +75,10 @@ class LostPass extends l\Languages {
                                     unset($_SESSION['changePassKey']);
                                     unset($_SESSION['sendMail']);
                                     $this->_modelUserLostPass->Delete();
-                                    echo 'ok@'.$this->txt->LostPass->updateOk;
+                                    echo 'ok@'.self::$txt->LostPass->updateOk;
                                 }
                                 else {
-                                    echo $this->txt->LostPass->updateErr;
+                                    echo self::$txt->LostPass->updateErr;
 								}
                             }*/
                         }
@@ -86,26 +86,26 @@ class LostPass extends l\Languages {
                             unset($_SESSION['changePassId']);
                             unset($_SESSION['changePassKey']);
                             unset($_SESSION['sendMail']);
-                            echo $this->txt->LostPass->errmessage;
+                            echo self::$txt->LostPass->errmessage;
                         }
                     }
                     else {
                         unset($_SESSION['changePassId']);
                         unset($_SESSION['changePassKey']);
                         unset($_SESSION['sendMail']);
-                        echo $this->txt->LostPass->errmessage;
+                        echo self::$txt->LostPass->errmessage;
                     }
                 }
                 else {
-                    echo $this->txt->Register->form;
+                    echo self::$txt->Register->form;
                 }
             }
             else {
-                echo $this->txt->Error->{'default'};
+                echo self::$txt->Error->{'default'};
             }
         }
         else {
-            echo $this->txt->Error->{'default'};
+            echo self::$txt->Error->{'default'};
         }
     }
 
@@ -123,7 +123,7 @@ class LostPass extends l\Languages {
 
         if($this->_modelUserLostPass->getKey() != $this->val_key || $this->_modelUserLostPass->getExpire() < time()) {
             // Different key, send a new mail ?
-            $this->err_msg = $this->txt->LostPass->errmessage;
+            $this->err_msg = self::$txt->LostPass->errmessage;
             require_once(DIR_VIEW."LostPass.php");
         }
         else {
@@ -151,7 +151,7 @@ class LostPass extends l\Languages {
             if(!empty($_SESSION['sendMail'])) {
                 if($_SESSION['sendMail']+60 > time()) {
                     $w = 1;
-                    $this->err_msg = $this->txt->Validate->wait;
+                    $this->err_msg = self::$txt->Validate->wait;
                     require_once(DIR_VIEW."LostPass.php");
                 }
             }
@@ -188,16 +188,16 @@ class LostPass extends l\Languages {
 
                 $this->_mail = new l\Mail();
                 $this->_mail->_to = $user_mail;
-                $this->_mail->_subject = $this->txt->LostPass->subject;
+                $this->_mail->_subject = self::$txt->LostPass->subject;
                 $this->_mail->_message = str_replace(
                     ["[id_user]", "[key]", "[url_app]"],
                     [$id_user, $key, URL_APP],
-                    $this->txt->LostPass->message
+                    self::$txt->LostPass->message
                 );
                 $this->_mail->send();
                 $_SESSION['sendMail'] = time();
 
-                $this->err_msg = $this->txt->Global->mail_sent;
+                $this->err_msg = self::$txt->Global->mail_sent;
                 require_once(DIR_VIEW."LostPass.php");
             }
         }

@@ -45,6 +45,7 @@ if(!empty($_SESSION['banSID'])) {
     exit;
 }
 
+require_once("library/MVC/Functions.php");
 /* ROUTING */
 $_routing = l\Routing::getInstance();
 $_routing->route();

@@ -2,10 +2,10 @@
 /*
 	* @name            : DoubleAuth.php
 	* @description     : Double auth view
-	* @authors         : Dylan Clement <dylanclement7@protonmail.ch>
+	* @authors         : Dylan Clement <dylan@muonium.ee>
 */
     use \library\MVC as l;
-    $_t = new l\Template($this->txt->Global->login);
+    $_t = new l\Template(self::$txt->Global->login);
     $_t->addCss("blue/blue");
     $_t->addCss("blue/container");
     $_t->addCss("blue/header");
@@ -23,7 +23,7 @@
             </a>
         </div>
         <ul>
-            <li><a href="User"><?php echo $this->txt->Global->back; ?></a></li>
+            <li><a href="User"><?php echo self::$txt->Global->back; ?></a></li>
         </ul>
         <section id="language">
             <div>
@@ -34,13 +34,13 @@
 
     <div id="container">
         <section id="large-content">
-            <h2><?php echo_h($this->txt->Global->login); ?></h2>
+            <h2><?php echo_h(self::$txt->Global->login); ?></h2>
 
             <div id="form">
                 <form method="post" action="<?php echo MVC_ROOT; ?>/Login/AuthCode">
                     <p style="color:red"><?php if(!empty($this->_message)) { echo $this->_message; } ?></p>
-                    <input type="text" name="code" placeholder="<?php echo_h($this->txt->Login->codeMail); ?>" required>
-                    <input type="submit" value="<?php echo_h($this->txt->Global->submit); ?>">
+                    <input type="text" name="code" placeholder="<?php echo_h(self::$txt->Login->codeMail); ?>" required>
+                    <input type="submit" value="<?php echo_h(self::$txt->Global->submit); ?>">
                 </form>
             </div>
         </section>

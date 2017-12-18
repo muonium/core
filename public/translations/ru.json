@@ -83,7 +83,10 @@
         "nothing": "Пусто...",
         "uploading": "Выгрузка",
         "downloading": "Загрузка",
-		"quota_of": "[used] из [total] использовано"
+		"quota_of": "[used] из [total] использовано",
+		"shared": "File sharing enabled",
+		"badPass": "Bad password !",
+		"uploadedBy": "Uploaded by [login] on"
     },
 
     "Register": {
@@ -173,6 +176,8 @@
 
     "RightClick": {
         "dl": "Загрузить",
+		"share": "Share",
+		"unshare": "Stop sharing",
         "rm": "Удалить",
         "star": "Пометить",
         "cut": "Вырезать",

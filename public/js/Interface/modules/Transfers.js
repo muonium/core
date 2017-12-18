@@ -32,8 +32,7 @@ var Transfers = (function() {
         minimize : function() {
             if(minimized) {
                 $("#transfers #toggle, #transfers #content").show();
-            }
-            else {
+            } else {
                 $("#transfers #toggle, #transfers #content").hide();
             }
             minimized = !minimized;

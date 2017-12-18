@@ -83,7 +83,10 @@
         "nothing": "Nothing...",
         "uploading": "Uploading",
         "downloading": "Downloading",
-		"quota_of": "[used] of [total] used"
+		"quota_of": "[used] of [total] used",
+		"shared": "File sharing enabled",
+		"badPass": "Bad password !",
+		"uploadedBy": "Uploaded by [login] on"
     },
 
     "Register": {
@@ -173,6 +176,8 @@
 
     "RightClick": {
         "dl": "Download",
+		"share": "Share",
+		"unshare": "Stop sharing",
         "rm": "Cancella",
         "star": "Star",
         "cut": "Taglia",

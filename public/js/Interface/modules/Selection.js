@@ -173,6 +173,52 @@ var Selection = (function() {
             }
         },
 
+		share : function(id) {
+			Box.hide();
+			var validate = function() {
+				var passphrase = this.$inputs.passphrase.value;
+				if(typeof(passphrase) !== 'string') return false;// || passphrase.length < 6) return false;
+				if(Selection.Files.length > 0) {
+					for(var i = 0; i < Selection.Files.length; i++) {
+		                Files.share(Selection.Files[i], passphrase);
+					}
+				}
+				else if(id !== undefined) {
+					Files.share(id, passphrase);
+				}
+			};
+
+			var m = new MessageBox(txt.Register.passphrase).addInput('passphrase', {
+				id: "nShare",
+				autocomplete: "off",
+				oninput: function(event) {
+					if(this.$inputs.passphrase.value.length >= 6) {
+						$(this.$elemBtns).find('input,button').prop('disabled', false);
+						if(typeof(event) !== 'undefined' && event.keyCode == 13) {
+							validate.bind(this)();
+							return this.close();
+						}
+					} else {
+						$(this.$elemBtns).find('input,button').prop('disabled', true);
+					}
+					return true;
+				}
+			}).addButton("OK", validate).show();
+			$(m.$elemBtns).find('input,button').prop('disabled', true);
+		},
+
+		unshare : function(id) {
+			Box.hide();
+			if(Selection.Files.length > 0) {
+				for(var i = 0; i < Selection.Files.length; i++) {
+	                Files.unshare(Selection.Files[i]);
+				}
+			}
+			else if(id !== undefined) {
+				Files.unshare(id);
+			}
+		},
+
         multipleSwitch : function(el) {
 			Selection.multiple = false;
             if(document.querySelector("#"+el).checked) {
@@ -201,8 +247,17 @@ var Selection = (function() {
 
                 if(title[1] !== undefined) content += "<li>"+title[1]+"</li>"; // File
                 content += '</ul>';
-                if(title[1] !== undefined) content += '<span class="btn_download" onclick="Selection.dl(\''+id+'\')"><i class="fa fa-download" aria-hidden="true"></i> '+txt.RightClick.dl+'</span>';
-                if(Selection.Folders.length + Selection.Files.length > 1) {
+                if(title[1] !== undefined) {
+					content += '<span class="btn_download" onclick="Selection.dl(\''+id+'\')"><i class="fa fa-download" aria-hidden="true"></i> '+txt.RightClick.dl+'</span>';
+					if(Files.isShared(id.substr(1))) {
+						content += '<span class="btn_share" onclick="Selection.unshare(\''+id.substr(1)+'\')"><i class="fa fa-ban" aria-hidden="true"></i> '+txt.RightClick.unshare+'</span>';
+						content += '<input type="text" value="'+elem.getAttribute("data-url")+'" class="copy_url">';
+						content += '<input type="button" value="'+txt.RightClick.copy+'" onclick="copy_url()">';
+					} else {
+						content += '<span class="btn_share" onclick="Selection.share(\''+id.substr(1)+'\')"><i class="fa fa-share" aria-hidden="true"></i> '+txt.RightClick.share+'</span>';
+					}
+				}
+				if(Selection.Folders.length + Selection.Files.length > 1) {
                     content += "<hr><span class='multiselected_details'>"+Selection.Folders.length+" "+txt.User.folderSelected+", "+Selection.Files.length+" "+txt.User.fileSelected+"</span>";
                 }
                 document.querySelector("section#selection").innerHTML = content + "</ul>";
