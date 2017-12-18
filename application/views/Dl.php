@@ -93,6 +93,7 @@
             <div id="transfers_download"><?php echo_h(self::$txt->User->nothing); ?></div>
         </section>
     </div>
+	<a href="#" id="dl_decrypted"></a>
 </body>
 <?php
     $_t->getFooter();

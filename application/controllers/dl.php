@@ -8,6 +8,7 @@ class dl extends l\Languages {
     private $_modelFiles;
 	private $_modelFolders;
 	private $sharerID = null;
+	private $filename = null;
 
     function __construct() {
         parent::__construct([
@@ -43,6 +44,7 @@ class dl extends l\Languages {
 			$folder_id = $_POST['folder_id'];
 
 			if($filename !== false && is_numeric($folder_id)) {
+				$this->filename = $filename;
 				$path = $this->getUploadFolderPath($folder_id);
 				if($path === false) {
 					echo 'error'; exit;
@@ -66,6 +68,7 @@ class dl extends l\Languages {
 			$folder_id = $_POST['folder_id'];
 
 			if($filename !== false && is_numeric($folder_id)) {
+				$this->filename = $filename;
 				$path = $this->getUploadFolderPath($folder_id);
 				if($path === false) {
 					echo '0'; exit;
@@ -100,7 +103,11 @@ class dl extends l\Languages {
 	}
 
 	function getUploadFolderPath($folder_id) {
-		if($this->sharerID === null || !is_numeric($this->sharerID)) return false;
+		if($this->sharerID === null || !is_numeric($this->sharerID) || $this->filename === null) return false;
+		// Check if the file is shared
+		$this->_modelFiles = new m\Files($this->sharerID);
+		if(!($this->_modelFiles->isShared($this->filename, $folder_id))) return false;
+
 		// Get the full path of an uploaded file until its folder using SESSION
 		if(isset($_SESSION['upload'][$folder_id]['path'])) {
 			return $_SESSION['upload'][$folder_id]['path'];

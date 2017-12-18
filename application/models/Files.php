@@ -42,6 +42,16 @@ class Files extends l\Model {
         return true;
     }
 
+	function isShared($name, $folder_id) {
+		// name (string) - Filename, folder_id (int) - Folder id
+		// Returns true if the file is shared, otherwise false
+		if($this->id_owner === null) return false;
+		$req = self::$_sql->prepare("SELECT id FROM files WHERE id_owner = ? AND name = ? AND folder_id = ? AND dk IS NOT NULL");
+		$req->execute([$this->id_owner, $name, $folder_id]);
+		if($req->rowCount() === 0) return false;
+		return true;
+	}
+
 	function getInfos($id) {
 		// Get infos from a shared file
 		$req = self::$_sql->prepare("SELECT U.id, U.login, F.name, F.size, F.folder_id, F.id_owner, F.last_modification, F.dk
