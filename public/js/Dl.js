@@ -67,4 +67,10 @@ $(document).ready(function() {
 			i++;
 		}
 	});
+
+	$('body').on('keydown', function(event) {
+		if(event.keyCode === 13) {
+			$('#dl').click();
+		}
+	});
 });

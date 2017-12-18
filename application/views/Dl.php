@@ -56,7 +56,7 @@
 			<p><?php echo_h(str_replace('[login]', $infos['login'], self::$txt->User->uploadedBy)); echo ' '.date('Y-m-d G:i', $infos['last_modification']); ?></p>
 			<p><?php echo_h(self::$txt->User->size); echo '&nbsp;: '.$filesize; ?></p>
 
-			<p><?php echo_h(self::$txt->Register->password); ?>&nbsp;: <input type="text" id="password"></p>
+			<p><?php echo_h(self::$txt->Register->password); ?>&nbsp;: <input type="password" id="password"></p>
 			<p>
 				<button id="dl"
 					data-dk="<?php echo $infos['dk']; ?>"
