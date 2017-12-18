@@ -14,6 +14,8 @@ var f_dec = [];
 var i = 0;
 
 $(document).ready(function() {
+	$('#password').focus();
+
 	$('#dl').click(function() {
 		var fname = $(this).data('fname'),
 			fid = $(this).data('fid'),
