@@ -1,7 +1,7 @@
 Core team 
 ---------
 
-- [Dylan Clement](https://github.com/hitoshi54)
+- [Dylan Clement](https://github.com/dclement8)
 - [Paul Feuvraux](https://github.com/Super-Baleine)
 
 Individual contributors
