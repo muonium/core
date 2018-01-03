@@ -1,0 +1,266 @@
+{
+    "Global": {
+        "home": "Inicio",
+        "register": "Registrar",
+        "back": "Regresar a Muonium",
+        "favorites": "Favoritos",
+        "login": "Iniciar sesión",
+        "recents": "Mui :: Recientes",
+        "sharing": "Mui :: Compartiendo",
+        "transfer": "Mui :: Transferir",
+        "user": "Mui :: General",
+        "validate": "Validar correo electrónico",
+        "refresh": "Refrescar",
+        "profile": "Perfil",
+        "mail_sent": "Se le ha enviado un correo electrónico, por favor compruebe su bandeja de entrada y la bandeja de \"spam\". Si no ha recibido nada después de 5 minutos, por favor inténtelo de nuevo :",
+        "submit": "Enviar",
+        "bug": "Reportar error",
+        "loading": "Cargando..."
+    },
+
+    "UserMenu": {
+        "bug": "Error",
+        "help": "Ayuda",
+        "settings": "Ajustes",
+        "profile": "Perfil",
+        "logout": "Cerrar sesión",
+        "upload": "Subir",
+        "smallIcons": "Iconos pequeños",
+        "largeIcons": "Iconos grandes",
+        "multiSelection": "Multiselección",
+        "selectAll": "Seleccionar todo",
+		"moreStorage": "Comprar más almacenamiento"
+    },
+
+    "Toolbar": {
+        "recents": "Recientes",
+        "favorites": "Favoritos",
+        "general": "General",
+        "shared": "Compartido",
+        "transfers": "Transferencias"
+    },
+
+    "Error": {
+        "e404": "Error : Página no encontrada",
+        "default": "Ha ocurrido un error",
+        "form": "Error en el formulario",
+        "pp": "La edición de la contraseña secreta no está actualmente disponible",
+        "bannedSession": "Ha alcanzado el número máximo de peticiones disponibles",
+        "dl": "La característica de descarga de archivo no está disponible en su navegador."
+    },
+
+    "User": {
+        "lastmod": "Última modificación",
+        "loaded": "Cargado en",
+        "foldername": "Nombre de carpeta",
+        "questiond": "¿Quiere eliminar esta carpeta?",
+        "questionf": "¿Quiere eliminar este archivo?",
+        "questionrm": "¿Quiere eliminar estos archivos/carpetas?",
+        "trash_0": "Ver la papelera",
+        "trash_1": "Salir de la papelera",
+        "path": "Localización",
+        "name": "Nombre",
+        "type": "Tipo de archivo",
+        "size": "Tamaño",
+        "file": "Archivo",
+        "folder": "Carpeta",
+        "element": "Elemento",
+        "PlurialElement": "Elementos",
+        "replaceFile": "El archivo [filename] existe. ¿Quiere reemplazarlo?",
+        "replaceCompleteFile": "El archivo [filename] existe, pero no está completado. ¿Quiere hacerlo?",
+        "quotaExceeded": "¡Cuota excedida!",
+        "fileAPI": "Los \"File APIs\" no están completamente aprobados por su nevegador. Se necesita una vuelta atrás.",
+        "yes": "Sí",
+        "no": "No",
+        "yesAll": "Sí a todo",
+        "noAll": "No a todo",
+        "complete": "Completo",
+        "replace": "Reemplazar",
+        "details": "Detalles",
+        "folderSelected": "carpeta(s) seleccionada(s)",
+        "fileSelected": "archivo(s) seleccionado(s)",
+        "notCompleted": "No completado",
+        "nothing": "Nada...",
+        "uploading": "Subiendo",
+        "downloading": "Descargando",
+		"quota_of": "[used] del [total] usado",
+		"shared": "Compartición de archivos habilitado",
+		"badPass": "¡Contraseña erronea!",
+		"uploadedBy": "Subido por [login] en"
+    },
+
+    "Register": {
+        "email": "Dirección de correo electrónico",
+        "login": "Nombre de usuario",
+        "password": "Contraseña",
+        "confirm": "Confirmar",
+        "passphrase": "Contraseña secreta",
+        "doubleAuth": "¿Quiere habilitar la doble autentificación?",
+        "alreadyregistered": "¿Ya registrado?",
+        "impossible": "Registro temporalmente no disponible",
+        "ok": "¡Registro realizado!",
+        "mailExists": "Su dirección de correo electrónico ya está en la base de datos de nuestros servidores. Imposible crear utilizando esta cuenta.",
+        "loginExists": "Su nombre de usuario ya está almacenado en nuestra base de datos. Imposible crear utilizando esta cuenta.",
+        "badPassConfirm": "Ambas contraseñas son diferentes.",
+        "badPassphraseConfirm": "Ambas contraseñas secretas son diferentes.",
+        "passEqualPassphrase": "La contraseña y la contraseña secreta deben ser diferentes.",
+        "form": "Todos los campors deben estar rellenados.",
+        "passLength": "La contraseña o la contraseña secreta debe tener al menos 6 caracteres.",
+        "loginFormat": "Nombre de usuario con formato incorrecto (entre 2 y 20 caracteres alfanuméricos, -_. están permitidos).",
+        "mailFormat": "El formato del correo electrónico es incorrecto.",
+        "error": "Ha ocurrido un error mientras creaba la cuenta.",
+        "bruteforceErr0": "",
+        "bruteforceErr1": "Atención: sólo le quedan 3 intentos.",
+        "bruteforceErr2": "Ha alcanzado el número máximo permitido de peticiones.",
+        "subject": "Muonium - Validación de cuenta",
+        "message": "¡Bienvenido a Muonium !<br>Para validar su cuenta, siga este enlace: <a href='[url_app]/Validate/Key/[id_user]/[key]'>[url_app]/Validate/Key/[id_user]/[key]</a><br>Atentamente,<br>el equipo de Muonium<br><br>Este correo electrónico ha sido generado automáticamente, por favor no responder."
+    },
+
+    "Login": {
+        "forgot": "¿Olvidó su contraseña?",
+        "register": "Registrarse",
+        "bruteforceErr0": "Correo electrónico o contraseña inválida",
+        "bruteforceErr1": "Atención: sólo le quedan 3 intentos.",
+        "bruteforceErr2": "Ha alcanzado el número máximo permitido de peticiones.",
+        "doubleAuthMessage": "Hola, su código de autentificación es [key]<br>Atentamente,<br>el equipo de Muonium<br><br>Este correo electrónico ha sido generado automáticamente, por favor no responder.",
+        "codeMail": "Codigo recibido por correo electrónico",
+        "expired": "El código ha expirado, por favor inicie sesión de nuevo",
+        "invalidCode": "El código introducido es inválido",
+        "username": "Correo electrónico o inicio de sesión",
+        "badPassphrase": "Error: contraseña secreta incorrecta",
+        "doubleAuth": "Se le ha enviado un correo electrónico con el código de autentificación. Copie el código en el campo superior.<br> Si no ha recibido nada en los próximos 5 minutos y no tiene nada en la carpeta de \"Spam\", por favor siga este <a href='[url_app]/Logout'>enlace</a> para realizar un nuevo intento de conexión."
+    },
+
+    "Validate": {
+        "message": "Error : La llave de validación es errónea, por favor inicie sesión para enviar una nueva validación por correo electrónico",
+        "wait": "Por favor espere un minuto antes de realizar una nueva petición de un correo de validación",
+        "sendmess": "Por favor siga el enlace en el correo electrónico para activar su cuenta",
+        "sendmail": "Enviar un nuevo correo"
+    },
+
+    "Profile": {
+        "changelogin": "Cambiar mi nombre de usuario",
+        "changepwd": "Cambiar mi contraseña",
+        "changepp": "Cambiar mi contraseña secreta",
+        "newlogin": "Nuevo nombre de usuario",
+        "oldpwd": "Antigua contraseña",
+        "newpwd": "Nueva contraseña",
+        "oldpp": "Antigua contraseña secreta",
+        "newpp": "Nueva contraseña secreta",
+        "updateErr": "Imposible actualizar su perfil",
+        "updateOk": "YSu perfil ha sido actualizado con éxito",
+        "loginExists": "Este nombre de usuario ya está ocupado",
+        "badOldPass": "Su antigua contraseña no coincide",
+        "badOldPassphrase": "Su antigua contraseña secreta no coincide",
+        "getpwd": "Imposible obtener su contraseña",
+        "getpp": "Imposible obtener su contraseña secreta",
+        "doubleAuth": "Doble autentificación",
+        "changemail" : "Cambiar correo electrónico",
+        "mailFormat": "El formato del correo electrónico es incorrecto.",
+        "emptymail": "Por favor, rellene este campo",
+        "accountDeletionConfirm": "¿Realmente quiere eliminar su cuenta?",
+        "accountDeletionOk": "Your account was successfully deleted!",
+        "deleteAccount": "Borrar cuenta",
+        "details": "¿Quiere mostrar los detalles cuando un archivo o cuenta es seleccionada?"
+    },
+
+    "LostPass": {
+        "updateErr": "Imposible actualizar la información de su cuenta",
+        "updateOk": "La información de su cuenta ha sido actualizada con éxito",
+        "errmessage": "Error : La llave de validación es errónea o ha expirado, por favor <a href='LostPass'>haga una nueva petición</a> y vuelva a escribir su nombre de usuario o contraseña.",
+        "user": "Su correo electrónico o nombre de usuario",
+        "subject": "Muonium - Olvidar su contraseña",
+        "message": "Hola,<br> para actualizar su contraseña o contraseña secreta, por favor siga este enlace: <a href='[url_app]/LostPass/Key/[id_user]/[key]'>[url_app]/LostPass/Key/[id_user]/[key]</a><br>Atentamente,<br> el equipo de Muonium.<br><br>Este correo electrónico ha sido generado automáticamente, por favor no contestar.",
+        "reset": "¡Atención! Ai cambia su contraseña secreta ¡su cuenta será reinicializada y todos sus datos se perderán!"
+    },
+
+    "RightClick": {
+        "dl": "Descargar",
+		"share": "Compartir",
+		"unshare": "Dejar de compartir",
+        "rm": "Eliminar",
+        "star": "Marcar",
+        "cut": "Cortar",
+        "copy": "Copiar",
+        "paste": "Pegar",
+        "mvLocate": "Mover a...",
+        "mvItem": "Renombrar",
+        "vDetails": "Ver detalles",
+        "open": "Abrir",
+        "nFolder": "Nueva carpeta...",
+        "upFiles": "Subir archivos...",
+        "logOut": "Cerrar sesión",
+        "trash": "Mover a la papelera",
+        "restore": "Restaurar"
+    },
+
+    "Bug": {
+        "os": "Sistema operativo",
+        "other": "Otros (especificar en el mensaje)",
+        "browser": "Navegador web",
+        "browserVersion": "Versión del navegador",
+        "message": "Mensaje",
+        "messageLength": "El mensaje debe tener al menos 50 caracteres",
+        "form": "Error en el formulario",
+        "sent": "Su mensaje ha sido enviado con éxito. Le responderemos mediante correo electrónico tan pronto como nos sea posible"
+    },
+
+    "Upgrade": {
+        "offers": "Ofertas",
+        "history": "Historia",
+        "expired": "Caducado",
+        "duration": "Duración",
+        "price": "Precio",
+        "start_date": "Fecha de inicio",
+        "end_date": "Fecha final",
+        "month": "mes",
+        "months": "meses",
+        "year": "año",
+        "years": "años",
+        "lifetime": "tiempo de vida",
+        "buy": "Comprar",
+		"success_msg": "Su compra se ha realizado. Llevará algunos minutos refrescar el espacio de su disco.",
+		"mue": "30% de descuento con MUE"
+    },
+
+    "cek": {
+        "updateErr": "Error: no se puede actualizar el contenido de la llave de cifrado",
+        "empty": "Error: el contenido de la llave de cifrado está vacío"
+    },
+
+    "Help": {
+        "shortcuts": [
+            "<strong>Versión de escritorio</strong><ul>",
+            "<li>Clic izquierdo sobre un archivo/carpeta: Seleccionar un archivo/carpeta - Ver detalles</li>",
+            "<li>Clic izquierdo en cualquier otra parte: eliminar selección</li>",
+            "<li>Ctrl + clic inquierdo: selección múltiple</li>",
+            "<li>Clic derecho: mostrar acciones</li>",
+            "<li>Flecha hacia arriba: seleccionar archivo previo</li>",
+            "<li>Flecha hacia abajo: seleccionar el archivo siguiente</li>",
+            "<li>Ctrl + flecha hacia arriba: añadir el archivo previo a la selección</li>",
+            "<li>Ctrl + flecha hacia abajo: añadir archivo siguiente a la selección</li>",
+            "<li>Ctrl + A: seleccionar todo</li>",
+            "<li>Ctrl + C: copiar</li>",
+            "<li>Ctrl + D: cerrar sesión</li>",
+            "<li>Ctrl + I: invertir selección</li>",
+            "<li>Ctrl + R: mover a la papelera</li>",
+            "<li>Ctrl + S: guardar selección</li>",
+            "<li>Ctrl + V: pegar</li>",
+            "<li>Ctrl + X: cortar</li>",
+            "<li>Backspace: ir a la carpeta superior</li>",
+            "<li>Delete: eliminar selección</li>",
+            "<li>Esc: ocultar la caja de acciones</li>",
+            "<li>Intro (en un archivo): descargar</li>",
+            "<li>Intro (en una carpeta): abrir carpeta</li>",
+            "<li>F1: Ayuda</li></ul>"
+        ]
+    },
+
+	"Units": {
+		"o": "",
+		"k": "KB",
+		"m": "MB",
+		"g": "GB",
+		"t": "TB"
+	}
+}
