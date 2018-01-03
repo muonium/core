@@ -15,7 +15,8 @@ class Languages {
 		['de', 'Deutsch'],
         ['fr', 'Français'],
         ['it', 'Italiano'],
-        ['ru', 'Русский']
+        ['ru', 'Русский'],
+	['es', 'Español']
     ];
 
 	public static function loadLanguage($lang) {
