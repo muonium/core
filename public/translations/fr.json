@@ -117,8 +117,9 @@
     },
 
     "Login": {
+		"signin": "Se connecter",
         "forgot": "Mot de passe oublié ?",
-        "register": "Pas encore inscrit ?",
+        "register": "Créer un compte Muonium.",
         "bruteforceErr0": "Adresse email ou mot de passe invalide",
         "bruteforceErr1": "Attention : Suite à un grand nombre de requêtes de votre part, il ne vous reste plus que 3 tentatives",
         "bruteforceErr2": "Vous avez atteint le nombre maximal de requêtes autorisées.",

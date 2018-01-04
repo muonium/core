@@ -68,7 +68,7 @@
         "PlurialElement": "Elements",
         "replaceFile": "The file [filename] exists, do you want to replace it?",
         "replaceCompleteFile": "The file [filename] exists but it's not completed, what do you want to do?",
-        "quotaExceeded": "Quota exceeded !",
+        "quotaExceeded": "Quota exceeded!",
         "fileAPI": "The File APIs are not fully supported by your browser. Fallback required.",
         "yes": "Yes",
         "no": "No",
@@ -85,7 +85,7 @@
         "downloading": "Downloading",
 		"quota_of": "[used] of [total] used",
 		"shared": "File sharing enabled",
-		"badPass": "Bad password !",
+		"badPass": "Bad password!",
 		"uploadedBy": "Uploaded by [login] on"
     },
 
@@ -95,7 +95,7 @@
         "password": "Password",
         "confirm": "Confirm",
         "passphrase": "Secret password",
-        "doubleAuth": "Do you want to enable dual authentication ?",
+        "doubleAuth": "Do you want to enable dual authentication?",
         "alreadyregistered": "Already registered?",
         "impossible": "Registration temporarily unavailable",
         "ok": "Registration done!",
@@ -113,12 +113,13 @@
         "bruteforceErr1": "Warning: You only have 3 attempts left.",
         "bruteforceErr2": "You reached the maximum allowed number of requests.",
         "subject": "Muonium - Account validation",
-        "message": "Welcome to Muonium !<br>To validate your account, follow this link : <a href='[url_app]/Validate/Key/[id_user]/[key]'>[url_app]/Validate/Key/[id_user]/[key]</a><br>Best regards,<br>Muonium Team<br><br>This email was automatically generated, please do not answer."
+        "message": "Welcome to Muonium!<br>To validate your account, follow this link : <a href='[url_app]/Validate/Key/[id_user]/[key]'>[url_app]/Validate/Key/[id_user]/[key]</a><br>Best regards,<br>Muonium Team<br><br>This email was automatically generated, please do not answer."
     },
 
     "Login": {
-        "forgot": "Forgot your password ?",
-        "register": "Sign Up",
+		"signin": "Sign In",
+        "forgot": "Forgot password?",
+        "register": "Create a Muonium Account.",
         "bruteforceErr0": "Invalid email address or password",
         "bruteforceErr1": "Warning: You only have 3 attempts left.",
         "bruteforceErr2": "You've reached the maximum allowed number of requests.",
@@ -171,7 +172,7 @@
         "user": "Your email or your username",
         "subject": "Muonium - Forgot your password",
         "message": "Hi,<br>To update your password or secret password, please follow this link : <a href='[url_app]/LostPass/Key/[id_user]/[key]'>[url_app]/LostPass/Key/[id_user]/[key]</a><br>Best regards,<br>Muonium Team.<br><br>This email was automatically generated, please do not answer.",
-        "reset": "Warning ! If you change your secret password, your account will be reset and all your data will be lost!"
+        "reset": "Warning! If you change your secret password, your account will be reset and all your data will be lost!"
     },
 
     "RightClick": {

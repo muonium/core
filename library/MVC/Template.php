@@ -2,82 +2,129 @@
 namespace library\MVC;
 
 class Template {
-	private $_title;
-	private $_tabCss = [];
-	private $_tabJs = [];
-	/* Do not load version from cache when a new version is released */
+	private $_title = null;
+	private $_css = [];
+	private $_js = [];
+	private $_customHead = null;
+	private $_customHeader = null;
+
+	/* Avoid loading version from browser cache when a new version is released */
 	private $_path = MVC_ROOT.'/public/version/'.VERSION.'/';
 
 	private $_script = [];
     private $_meta = [];
 
-	function __construct($title) {
+	function __construct($title = null) {
+		// title (string) - Document title
 		$this->_title = $title;
 	}
 
-    function addCss($file) {
-        $this->_tabCss[] = $file;
+    public function addCss($files) {
+		// files (string or array) - CSS files needed
+        $this->_css = array_merge($this->_css, (array)$files);
+		return $this;
     }
 
-    function addJs($file) {
-        $this->_tabJs[] = $file;
+    public function addJs($files) {
+		// files (string or array) - JS files needed
+        $this->_js = array_merge($this->_js, (array)$files);
+		return $this;
     }
 
-    function addScript($type, $content) {
-        $this->_script[] = ["type" => $type, "content" => $content];
+    public function addScript($content) {
+		// content (string)
+        $this->_script[] = $content;
+		return $this;
     }
 
-    function addMeta($name, $content) {
-		$this->_meta[] = ["name" => $name, "content" => $content];
+    public function addMeta($name, $content) {
+		// name (string), content (string)
+		$this->_meta[] = ['name' => $name, 'content' => $content];
+		return $this;
     }
 
-	function getHeader() {
-		echo '
+	public function setCustomHead($content) {
+		// content (string)
+		$this->_customHead = $content;
+		return $this;
+	}
+
+	public function setCustomHeader($content) {
+		// content (string)
+		$this->_customHeader = $content;
+		return $this;
+	}
+
+	public function getHead() {
+		$html = '
 <!DOCTYPE html>
 <html>
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
 		<title>'.$this->_title.'</title>
-        <link rel="icon" type="image/x-icon" href="'.MVC_ROOT.'/public/pictures/favicon_small.ico" />
-		<link rel="icon" type="image/png" href="'.MVC_ROOT.'/public/pictures/favicon_small.png" />
+        <link rel="icon" type="image/x-icon" href="'.MVC_ROOT.'/public/pictures/favicon_small.ico">
+		<link rel="icon" type="image/png" href="'.MVC_ROOT.'/public/pictures/favicon_small.png">
 		<base href="'.MVC_ROOT.'/">
 ';
-
 		/* Necessary stuff - jQuery, Roboto font and font-awesome can be cached */
-		echo "\t".'<link rel="stylesheet" type="text/css" href="'.MVC_ROOT.'/public/css/font-awesome/css/font-awesome.min.css" />'."\n";
-		echo "\t".'<link rel="stylesheet" type="text/css" href="'.MVC_ROOT.'/public/css/fonts/roboto.css" />'."\n";
-		echo "\t".'<script type="text/javascript" src="'.MVC_ROOT.'/public/js/jquery-3.2.1.min.js"></script>'."\n";
-		echo "\t".'<script type="text/javascript" id="language-js" src="'.$this->_path.'js/language.js"></script>'."\n";
+		$html .= '
+		<link rel="stylesheet" type="text/css" href="'.MVC_ROOT.'/public/css/font-awesome/css/font-awesome.min.css">
+		<link rel="stylesheet" type="text/css" href="'.MVC_ROOT.'/public/css/fonts/Roboto.css">
+		<link rel="stylesheet" type="text/css" href="'.MVC_ROOT.'/public/css/fonts/RobotoMono.css">
+		<script src="'.MVC_ROOT.'/public/js/jquery-3.2.1.min.js"></script>
+		<script src="'.$this->_path.'js/language.js" id="language-js"></script>
+';
 
-		if(count($this->_tabCss) > 0) {
-            foreach($this->_tabCss as $file) {
-                echo "\t".'<link rel="stylesheet" type="text/css" href="'.$this->_path.'css/'.$file.'.css" />'."\n";
-			}
+		foreach($this->_meta as $meta) {
+			$html .= '
+		<meta name="'.$meta['name'].'" content="'.$meta['content'].'">';
 		}
 
-		if(count($this->_tabJs) > 0) {
-            foreach($this->_tabJs as $file) {
-                echo "\t".'<script type="text/javascript" src="'.$this->_path.'js/'.$file.'.js"></script>'."\n";
-			}
+        foreach($this->_css as $file) {
+            $html .= '
+		<link rel="stylesheet" type="text/css" href="'.$this->_path.'css/'.$file.'.css">';
 		}
 
-        if(count($this->_script) > 0) {
-            foreach($this->_script as $script) {
-                echo "\t".'<script type="'.$script['type'].'"> '.$script['content'].'</script> '."\n";
-			}
-        }
+        foreach($this->_js as $file) {
+            $html .= '
+		<script src="'.$this->_path.'js/'.$file.'.js"></script>';
+		}
 
-        if(count($this->_meta) > 0) {
-            foreach($this->_meta as $meta) {
-                echo "\t".'<meta name="'.$meta['name'].'" content="'.$meta['content'].'" /> '."\n";
-			}
-        }
+        foreach($this->_script as $script) {
+            $html .= '
+		<script>'.$script.'</script>';
+		}
 
-		echo '</head>'."\n";
+		$html .= '
+		'.$this->_customHead.'
+	</head>
+';
+		return $html;
 	}
 
-	function getFooter() {
-        echo '</html>';
+	public function getHeader() {
+		$html = '
+	<body>
+		<header>
+	        <div id="logo">
+	            <a href="'.URL_APP.'" target="_blank">
+	                <img src="public/pictures/logos/muonium_H_01.png" title="'.Languages::$txt->Global->home.'" alt="'.Languages::$txt->Global->home.'">
+	            </a>
+	        </div>
+	        <div id="language-selector">
+	            '.Languages::getLanguageSelector().'
+	        </div>
+	    </header>
+';
+		$html .= $this->_customHeader;
+		return $html;
+	}
+
+	public function getFooter() {
+        $html = '
+	</body>
+</html>';
+		return $html;
     }
 }

@@ -16,49 +16,44 @@ window.onload = function() {
     getJSON();
 	sessionStorage.clear();
 
-    window.addEventListener("keydown", function(event) {
-        switch(event.keyCode) {
+    window.addEventListener("keydown", function(e) {
+        switch(e.keyCode) {
             case 13:
                 // enter
-                sendConnectionRequest();
+                sendConnectionRequest(e);
                 break;
         }
     });
 }
 
-var sendConnectionRequest = function()
-{
+var sendConnectionRequest = function(e) {
+	e.preventDefault();
     var field_username = document.querySelector("#field_username").value;
     var field_password = document.querySelector("#field_password").value;
     var field_passphrase = document.querySelector("#field_passphrase").value;
 
     var returnArea = document.querySelector("#return");
 
-    returnArea.innerHTML = "<img src='./public/pictures/index/loader.gif' style='height: 3vh;' />";
+    returnArea.innerHTML = "<img src='./public/pictures/index/loader.gif' style='height: 3vh;'>";
 
-    if(field_password.length < 6 || field_passphrase.length < 1 || field_username.length < 3)
+    if(field_password.length < 6 || field_passphrase.length < 1 || field_username.length < 3) {
         returnArea.innerHTML = txt.Register.form;
+	}
     else {
 
         var xhr = new XMLHttpRequest();
         xhr.open("POST", "Login/Connection", true);
         xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
-        xhr.onreadystatechange = function()
-        {
-            if(xhr.status == 200 && xhr.readyState == 4)
-            {
-                console.log(xhr.responseText);
-                console.log("length :: "+xhr.responseText.length);
-                if(xhr.responseText.length > 2)
-                {
-					console.log("ok");
+        xhr.onreadystatechange = function() {
+            if(xhr.status == 200 && xhr.readyState == 4) {
+                if(xhr.responseText.length > 2) {
                     // success message
 					var rep = xhr.responseText;
 					//the responseText have to be: ok@$cek or val@$cek, where $cek is the urlencoded encrypted cek
 					var z = rep.split("@");
 					console.log(z[0]);
-                    if(z[0] == "ok") {
+                    if(z[0] === 'ok') {
 						var cek = z[1];
 						try { //we try to decrypt the CEK with the passphrase
 							var cek = decodeURIComponent(cek);
@@ -73,7 +68,7 @@ var sendConnectionRequest = function()
 						}
 						return false;
                     }
-                    else if(z[0] == "va") {
+                    else if(z[0] === 'va') {
 						window.location.href = ROOT+"Validate";
 						return false;
                     }

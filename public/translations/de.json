@@ -85,7 +85,7 @@
         "downloading": "Lädt herunter",
         "quota_of": "[used] von [total] gebraucht",
 		"shared": "File sharing enabled",
-		"badPass": "Bad password !",
+		"badPass": "Bad password!",
 		"uploadedBy": "Uploaded by [login] on"
     },
 
@@ -113,10 +113,11 @@
         "bruteforceErr1": "Warnung: nach einer großen Anzahl Anfragen von Dir, hast Du nur noch 3 Versuche",
         "bruteforceErr2": "Du hast das Maximum an Anfragen erreicht.",
         "subject": "Muonium - Accountverifizierung",
-        "message": "Willkommen bei Muonium !<br>Um Deinen Account zu verifizieren, klicke auf diesen Link: <a href='[url_app]/Validate/Key/[id_user]/[key]'>[url_app]/Validate/Key/[id_user]/[key]</a><br>Mit freundlichen Grüßen,<br>das Muonium Team<br><br>Diese Email wurde automatisch generiert, bitte antworte nicht darauf."
+        "message": "Willkommen bei Muonium!<br>Um Deinen Account zu verifizieren, klicke auf diesen Link: <a href='[url_app]/Validate/Key/[id_user]/[key]'>[url_app]/Validate/Key/[id_user]/[key]</a><br>Mit freundlichen Grüßen,<br>das Muonium Team<br><br>Diese Email wurde automatisch generiert, bitte antworte nicht darauf."
     },
 
     "Login": {
+		"signin": "Login",
         "forgot": "Passwort vergessen?",
         "register": "Noch nicht registriert?",
         "bruteforceErr0": "Ungültige Email-Adresse oder ungültiges Passwort",

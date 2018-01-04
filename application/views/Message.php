@@ -1,36 +1,20 @@
 <?php
-	/*
-	* @name            : Message.php
-	* @description     : View with a message defined in controller
-	* @authors         : Dylan Clement <dylan@muonium.ee>
-	*/
+	/* View with a message defined in the controller */
     use \library\MVC as l;
 	$_t = new l\Template(self::$txt->Global->validate);
-	$_t->addCss("blue/blue");
-    $_t->addCss("blue/container");
-    $_t->addCss("blue/header");
-    $_t->addCss("blue/inputs");
-    $_t->addCss("blue/menu");
-    $_t->addCss("blue/section-large-content");
-   	$_t->getHeader();
-?>
-<body class="grey">
-	<header>
-		<div id="logo">
-            <a href="https://muonium.io" target="_blank">
-                <img src="public/pictures/logos/muonium_H_06.png" title="<?php echo self::$txt->Global->home; ?>" alt="<?php echo self::$txt->Global->home; ?>">
-            </a>
-        </div>
-        <ul>
-            <li><a href="User"><?php echo self::$txt->Global->back; ?></a></li>
-        </ul>
-        <section id="language">
-            <div>
-                <?php $this->getLanguageSelector(); ?>
-            </div>
-        </section>
-    </header>
 
+	$_t->addCss([
+		'blue/blue',
+	    'blue/container',
+	    'blue/header',
+	    'blue/inputs',
+	    'blue/menu',
+	    'blue/section-large-content'
+	]);
+
+	echo $_t->getHead();
+	echo $_t->getHeader();
+?>
 	<div id="container">
         <section id="large-content">
             <p>
@@ -41,7 +25,6 @@
             </p>
         </section>
 	</div>
-</body>
 <?php
-   $_t->getFooter();
+   echo $_t->getFooter();
 ?>

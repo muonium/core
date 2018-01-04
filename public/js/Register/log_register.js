@@ -8,11 +8,11 @@ window.onload = function() {
     // Get txt from user's language json (language.js)
     getJSON();
 
-    window.addEventListener("keydown", function(event) {
-        switch(event.keyCode) {
+    window.addEventListener("keydown", function(e) {
+        switch(e.keyCode) {
             case 13:
                 // enter
-                sendRegisterRequest();
+                sendRegisterRequest(e);
                 break;
         }
     });
@@ -56,10 +56,8 @@ cek.gen = function(y){
 * @name         : sendRegisterRequest()
 * @description  : send the user's informations
 */
-var sendRegisterRequest = function()
-{
-    console.log("Start register");
-
+var sendRegisterRequest = function(e) {
+	e.preventDefault();
     var field_mail = document.querySelector("#field_mail").value;
     var field_login = document.querySelector("#field_login").value;
     var field_password = document.querySelector("#field_pass").value;
@@ -70,34 +68,28 @@ var sendRegisterRequest = function()
 
     var returnArea = document.querySelector("#return p");
 
-    returnArea.innerHTML = "<img src='./public/pictures/index/loader.gif' style='height: 3vh;' />";
+    returnArea.innerHTML = "<img src='./public/pictures/index/loader.gif' style='height: 3vh;'>";
 
-    if(field_mail.length < 6 || field_login.length < 2){
+    if(field_mail.length < 6 || field_login.length < 2) {
         returnArea.innerHTML = txt.Register.form;
-    }else if(field_password.length < 6 || field_password_confirm.length < 6 || field_passphrase.length < 6 || field_passphrase_confirm.length < 6){
+    } else if(field_password.length < 6 || field_password_confirm.length < 6 || field_passphrase.length < 6 || field_passphrase_confirm.length < 6) {
         returnArea.innerHTML = txt.Register.passLength;
-	}else if (field_password == field_passphrase) {
+	} else if(field_password === field_passphrase) {
 		returnArea.innerHTML = txt.Register.passEqualPassphrase;
-	}else {
-
+	} else {
         var xhr = new XMLHttpRequest();
         xhr.open("POST", "Register/AddUser", true);
         xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
-        xhr.onreadystatechange = function()
-        {
-            if(xhr.status == 200 && xhr.readyState == 4)
-            {
-                console.log(xhr.responseText);
-                if(xhr.responseText.length > 2)
-                {
+        xhr.onreadystatechange = function() {
+            if(xhr.status == 200 && xhr.readyState == 4) {
+                if(xhr.responseText.length > 2) {
                     // success message
-                    if(xhr.responseText.substr(0, 3) == "ok@") {
+                    if(xhr.responseText.substr(0, 3) === 'ok@') {
                         returnArea.innerHTML = xhr.responseText.substr(3);
                         window.location.href=ROOT+"Home";
                         return false;
-                    }
-                    else {
+                    } else {
                         // error
                         returnArea.innerHTML = xhr.responseText;
                     }

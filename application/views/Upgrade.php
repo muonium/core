@@ -1,40 +1,24 @@
 <?php
-	/*
-	* @name            : Upgrade.php
-	* @description     : Upgrade view
-	* @authors         : Dylan Clement <dylan@muonium.ee>
-	*/
+	/* Upgrade view */
     use \library\MVC as l;
 	$_t = new l\Template(self::$txt->UserMenu->moreStorage);
-	$_t->addCss("blue/blue");
-    $_t->addCss("blue/container");
-    $_t->addCss("blue/header");
-    $_t->addCss("blue/inputs");
-    $_t->addCss("blue/menu");
-    $_t->addCss("blue/section-large-content");
-   	$_t->getHeader();
-?>
-<body class="grey">
-	<header>
-		<div id="logo">
-            <a href="https://muonium.io" target="_blank">
-                <img src="public/pictures/logos/muonium_H_06.png" title="<?php echo self::$txt->Global->home; ?>" alt="<?php echo self::$txt->Global->home; ?>">
-            </a>
-        </div>
-        <ul>
-            <li><a href="User"><?php echo self::$txt->Global->back; ?></a></li>
-        </ul>
-        <section id="language">
-            <div>
-                <?php $this->getLanguageSelector(); ?>
-            </div>
-        </section>
-    </header>
 
+	$_t->addCss([
+		'blue/blue',
+	    'blue/container',
+	    'blue/header',
+	    'blue/inputs',
+	    'blue/menu',
+	    'blue/section-large-content'
+	]);
+
+	echo $_t->getHead();
+	echo $_t->getHeader();
+?>
 	<div id="container">
         <section id="large-content">
 			<?php echo $msg; ?>
-			<h1><?php echo_h(self::$txt->Upgrade->offers); ?></h1>
+			<h1><?php echo self::$txt->Upgrade->offers; ?></h1>
 			<div class="bloc">
 				<div class="green"><?php echo self::$txt->Upgrade->mue; ?></div>
 				<ul>
@@ -42,14 +26,14 @@
 				</ul>
 			</div>
 
-			<h2><?php echo_h(self::$txt->Upgrade->history); ?></h2>
+			<h2><?php echo self::$txt->Upgrade->history; ?></h2>
 			<div class="bloc">
 				<table>
 					<tr>
-						<th><?php echo_h(self::$txt->User->size); ?></th>
-						<th><?php echo_h(self::$txt->Upgrade->price); ?></th>
-						<th><?php echo_h(self::$txt->Upgrade->start_date); ?></th>
-						<th><?php echo_h(self::$txt->Upgrade->end_date); ?></th>
+						<th><?php echo self::$txt->User->size; ?></th>
+						<th><?php echo self::$txt->Upgrade->price; ?></th>
+						<th><?php echo self::$txt->Upgrade->start_date; ?></th>
+						<th><?php echo self::$txt->Upgrade->end_date; ?></th>
 						<th></th>
 					</tr>
 					<?php echo $history; ?>
@@ -57,7 +41,6 @@
 			</div>
         </section>
 	</div>
-</body>
 <?php
-   $_t->getFooter();
+   echo $_t->getFooter();
 ?>

@@ -1,56 +1,54 @@
 <?php
-    /*
-	* @name            : User.php
-	* @description     : User view (files management)
-	* @authors         : Romain Claveau <romain.claveau@protonmail.ch>, Dylan Clement <dylan@muonium.ee>
-	*/
+    /* User view - main page (files management) */
     use \library\MVC as l;
     $_t = new l\Template(self::$txt->Global->user);
-    $_t->addCss("blue/blue");
-    $_t->addCss("blue/container");
-    $_t->addCss("blue/dragbar");
-    $_t->addCss("blue/header");
-    $_t->addCss("blue/inputs");
-    $_t->addCss("blue/menu");
-    $_t->addCss("blue/section-desktop");
-    $_t->addCss("blue/section-large-content");
-    $_t->addCss("blue/selection");
-    $_t->addCss("blue/toolbar");
-    $_t->addCss("blue/transfers");
-    $_t->addCss("blue/tree");
-    $_t->addCss("Interface/box");
-    $_t->addCss("Interface/MessageBox");
-    $_t->addCss("Interface/progress_bar");
 
-	// JS Modules
-	$_t->addJs("Interface/modules/Arrows");
-	$_t->addJs("Interface/modules/Box");
-	$_t->addJs("Interface/modules/Decryption");
-	$_t->addJs("Interface/modules/Encryption");
-	$_t->addJs("Interface/modules/ExtIcons");
-	$_t->addJs("Interface/modules/Favorites");
-	$_t->addJs("Interface/modules/Files");
-	$_t->addJs("Interface/modules/Folders");
-    $_t->addJs("Interface/modules/MessageBox");
-	$_t->addJs("Interface/modules/Move");
-	$_t->addJs("Interface/modules/Rm");
-	$_t->addJs("Interface/modules/Selection");
-	$_t->addJs("Interface/modules/Time");
-    $_t->addJs("Interface/modules/Toolbar");
-    $_t->addJs("Interface/modules/Transfers");
-	$_t->addJs("Interface/modules/Trash");
-	$_t->addJs("Interface/modules/Upload");
+    $_t->addCss([
+		'blue/blue',
+	    'blue/container',
+	    'blue/dragbar',
+	    'blue/header',
+	    'blue/inputs',
+	    'blue/menu',
+	    'blue/section-desktop',
+	    'blue/section-large-content',
+	    'blue/selection',
+	    'blue/toolbar',
+	    'blue/transfers',
+	    'blue/tree',
+	    'Interface/box',
+	    'Interface/MessageBox',
+	    'Interface/progress_bar'
+	])->addJs([
+		'Interface/modules/Arrows',
+		'Interface/modules/Box',
+		'Interface/modules/Decryption',
+		'Interface/modules/Encryption',
+		'Interface/modules/ExtIcons',
+		'Interface/modules/Favorites',
+		'Interface/modules/Files',
+		'Interface/modules/Folders',
+	    'Interface/modules/MessageBox',
+		'Interface/modules/Move',
+		'Interface/modules/Rm',
+		'Interface/modules/Selection',
+		'Interface/modules/Time',
+	    'Interface/modules/Toolbar',
+	    'Interface/modules/Transfers',
+		'Interface/modules/Trash',
+		'Interface/modules/Upload',
+		'check',
+	    'object-watch',
+		'src/crypto/sjcl',
+		'Interface/idb.filesystem.min',
+	    'Interface/Request',
+		'Interface/interface'
+	]);
 
-	$_t->addJs("check");
-    $_t->addJs("object-watch");
-	$_t->addJs("src/crypto/sjcl");
-	$_t->addJs("Interface/idb.filesystem.min");
-    $_t->addJs("Interface/Request");
-	$_t->addJs("Interface/interface");
-    $_t->getHeader();
+	echo $_t->getHead();
+	echo $_t->getHeader();
 ?>
-<body onload="UserLoader()">
-    <header>
+    <!--<header>
         <div id="logo">
             <a href="https://muonium.io" target="_blank">
                 <img src="public/pictures/logos/muonium_H_06.png" title="<?php echo self::$txt->Global->home; ?>" alt="<?php echo self::$txt->Global->home; ?>">
@@ -59,15 +57,15 @@
         <ul>
             <li onclick="Trash.switch()">
                 <i class="fa fa-trash" aria-hidden="true"></i>&nbsp;
-                <span id="button_trash"><?php echo_h(self::$txt->User->trash_0); ?></span>
+                <span id="button_trash"><?php echo self::$txt->User->trash_0; ?></span>
             </li>
             <li onclick="Upload.dialog()">
                 <i class="fa fa-upload" aria-hidden="true"></i>&nbsp;
-                <?php echo_h(self::$txt->UserMenu->upload); ?>
+                <?php echo self::$txt->UserMenu->upload; ?>
             </li>
             <li>
                 <a href="Logout"><i class="fa fa-sign-out" aria-hidden="true"></i>&nbsp;
-                <?php echo_h(self::$txt->UserMenu->logout); ?></a>
+                <?php echo self::$txt->UserMenu->logout; ?></a>
             </li>
             <li onclick="showHelp()">?</li>
         </ul>
@@ -76,7 +74,7 @@
                 <?php $this->getLanguageSelector(); ?>
             </div>
         </section>
-    </header>
+    </header>-->
 
     <div id="container">
         <section id="menu">
@@ -86,33 +84,33 @@
 				</li>
                 <li>
                     <a href="Profile"><i class="fa fa-cog" aria-hidden="true"></i>&nbsp;
-                    <?php echo_h(self::$txt->UserMenu->settings); ?></a>
+                    <?php echo self::$txt->UserMenu->settings; ?></a>
                 </li>
 				<li>
 					<a href="Upgrade"><i class="fa fa-hdd-o" aria-hidden="true"></i>&nbsp;
-					<?php echo_h(self::$txt->UserMenu->moreStorage); ?></a>
+					<?php echo self::$txt->UserMenu->moreStorage; ?></a>
 				</li>
                 <li>
                     <a href="Bug"><i class="fa fa-bug" aria-hidden="true"></i>&nbsp;
-                    <?php echo_h(self::$txt->Global->bug); ?></a>
+                    <?php echo self::$txt->Global->bug; ?></a>
                 </li>
                 <li>
                     <a onclick="Transfers.toggle()"><i class="fa fa-exchange" aria-hidden="true"></i>&nbsp;
-                    <?php echo_h(self::$txt->Toolbar->transfers); ?></a> <span class="transfers-circle">0</span>
+                    <?php echo self::$txt->Toolbar->transfers; ?></a> <span class="transfers-circle">0</span>
                 </li>
                 <li id="display">
                     <span>
                         <input type="radio" id="display_list" name="display">
-                        <label for="display_list"><?php echo_h(self::$txt->UserMenu->smallIcons); ?></label>
+                        <label for="display_list"><?php echo self::$txt->UserMenu->smallIcons; ?></label>
                     </span>
                     <span>
                         <input type="radio" id="display_mosaic" name="display" checked>
-                        <label for="display_mosaic"><?php echo_h(self::$txt->UserMenu->largeIcons); ?></label>
+                        <label for="display_mosaic"><?php echo self::$txt->UserMenu->largeIcons; ?></label>
                     </span>
                 </li>
                 <li id="multisel_desktop">
                     <input type="checkbox" id="multisel" />
-                    <label for="multisel"><?php echo_h(self::$txt->UserMenu->multiSelection); ?></label>
+                    <label for="multisel"><?php echo self::$txt->UserMenu->multiSelection; ?></label>
                 </li>
                 <!--<li>Stared</li>-->
                 <!--<li>Shared</li>-->
@@ -130,7 +128,7 @@
             <div id="returnArea"></div>
             <!-- mui contains all contents of interface : storage infos, link to parent folder, #tree (files and folders) ... -->
             <div id="mui">
-                <?php echo_h(self::$txt->Global->loading); ?>
+                <?php echo self::$txt->Global->loading; ?>
             </div>
         </section>
 
@@ -140,7 +138,7 @@
     <div id="transfers" class="hide">
         <section id="top">
             <ul>
-                <li><?php echo_h(self::$txt->Toolbar->transfers); ?></li>
+                <li><?php echo self::$txt->Toolbar->transfers; ?></li>
                 <li onclick="Transfers.minimize()"><i class="fa fa-window-minimize" aria-hidden="true"></i></li>
                 <li onclick="Transfers.close()"><i class="fa fa-times" aria-hidden="true"></i></li>
             </ul>
@@ -148,21 +146,25 @@
 
         <section id="toggle">
             <ul>
-                <li class="selected" onclick="Transfers.showUp()"><?php echo_h(self::$txt->User->uploading); ?> <span class="transfers-up-circle">0</span></li>
-                <li onclick="Transfers.showDl()"><?php echo_h(self::$txt->User->downloading); ?> <span class="transfers-dl-circle">0</span></li>
+                <li class="selected" onclick="Transfers.showUp()"><?php echo self::$txt->User->uploading; ?> <span class="transfers-up-circle">0</span></li>
+                <li onclick="Transfers.showDl()"><?php echo self::$txt->User->downloading; ?> <span class="transfers-dl-circle">0</span></li>
             </ul>
         </section>
 
         <section id="content">
-            <div id="transfers_upload"><?php echo_h(self::$txt->User->nothing); ?></div>
-            <div id="transfers_download"><?php echo_h(self::$txt->User->nothing); ?></div>
+            <div id="transfers_upload"><?php echo self::$txt->User->nothing; ?></div>
+            <div id="transfers_download"><?php echo self::$txt->User->nothing; ?></div>
         </section>
     </div>
 
     <div id="box" class="hide"></div>
     <div id="toolbar"></div> <!-- Box equivalent for mobile devices -->
 	<a href="#" id="dl_decrypted"></a>
-</body>
+<script>
+	$(document).ready(function() {
+		UserLoader();
+	});
+</script>
 <?php
-    $_t->getFooter();
+    echo $_t->getFooter();
 ?>

@@ -66,9 +66,9 @@
         "folder": "Folder",
         "element": "Element",
         "PlurialElement": "Elements",
-        "replaceFile": "The file [filename] exists, do you want to replace it ?",
-        "replaceCompleteFile": "The file [filename] exists and is not completed, what do you want to do ?",
-        "quotaExceeded": "Quota exceeded !",
+        "replaceFile": "The file [filename] exists, do you want to replace it?",
+        "replaceCompleteFile": "The file [filename] exists and is not completed, what do you want to do?",
+        "quotaExceeded": "Quota exceeded!",
         "fileAPI": "The File APIs are not fully supported by your browser. Fallback required.",
         "yes": "Sì",
         "no": "No",
@@ -85,7 +85,7 @@
         "downloading": "Downloading",
 		"quota_of": "[used] of [total] used",
 		"shared": "File sharing enabled",
-		"badPass": "Bad password !",
+		"badPass": "Bad password!",
 		"uploadedBy": "Uploaded by [login] on"
     },
 
@@ -113,10 +113,11 @@
         "bruteforceErr1": "Attenzione: in seguito a un grosso numero di richieste da parte tua, ti restano solo 3 tentativi",
         "bruteforceErr2": "Hai raggiunto il limite massimo consentito di richieste.",
         "subject": "Muonium - Validazione account",
-        "message": "Benvenuto in Muonium !<br>Per convalidare il tuo account, segui questo link: <a href='[url_app]/Validate/Key/[id_user]/[key]'>[url_app]/Validate/Key/[id_user]/[key]</a><br>Cordiali saluti,<br>il Team Muonium<br><br>Questa mail è stata generata automaticamente, si prega di non rispondere."
+        "message": "Benvenuto in Muonium!<br>Per convalidare il tuo account, segui questo link: <a href='[url_app]/Validate/Key/[id_user]/[key]'>[url_app]/Validate/Key/[id_user]/[key]</a><br>Cordiali saluti,<br>il Team Muonium<br><br>Questa mail è stata generata automaticamente, si prega di non rispondere."
     },
 
     "Login": {
+		"signin": "Login",
         "forgot": "Dimenticato la password?",
         "register": "Non sei ancora registrato?",
         "bruteforceErr0": "Indirizzo mail o password non valida",
@@ -158,10 +159,10 @@
         "changemail" : "Change Email",
         "mailFormat": "Mail format is incorrect.",
         "emptymail": "Please, fill this field",
-        "accountDeletionConfirm": "Do you really want to delete your account ?",
+        "accountDeletionConfirm": "Do you really want to delete your account?",
         "accountDeletionOk": "Your account was successfully deleted!",
         "deleteAccount": "Delete account",
-        "details": "Do you want to show details when a file/folder is selected ?"
+        "details": "Do you want to show details when a file/folder is selected?"
     },
 
     "LostPass": {
