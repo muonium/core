@@ -2,13 +2,9 @@
 	/* Register page */
     use \library\MVC as l;
 	$_t = new l\Template(self::$txt->Global->register);
+
 	$_t->addCss([
-		'blue/blue',
-	    'blue/container',
-	    'blue/header',
-	    'blue/inputs',
-	    'blue/menu',
-	    'blue/section-large-content'
+		'2018/style'
 	])->addJS([
 		'src/crypto/sjcl',
     	'base64',
@@ -20,53 +16,54 @@
 	echo $_t->getHead();
 	echo $_t->getHeader();
 ?>
-	<div id="container">
-        <section id="large-content">
+	<div class="container-small">
+
+        <form class="form-register" action="" method="post">
             <h1><?php echo self::$txt->Global->register; ?></h1>
 
-            <div id="form">
-                <p>
-					<label class="fa fa-envelope" for="field_mail" aria-hidden="true"></label><!--
-                    --><input type="text" id="field_mail" placeholder="<?php echo self::$txt->Register->email; ?>..." autofocus>
-				</p>
+            <p class="input-large">
+				<input type="text" id="field_mail" placeholder="<?php echo self::$txt->Register->email; ?>" autofocus>
+				<label class="fa fa-envelope" for="field_mail" aria-hidden="true"></label>
+			</p>
 
-				<p>
-					<label class="fa fa-user" for="field_login" aria-hidden="true"></label><!--
-                    --><input type="text" id="field_login" placeholder="<?php echo self::$txt->Register->login; ?>..." />
-				</p>
+			<p class="input-large">
+				<input type="text" id="field_login" placeholder="<?php echo self::$txt->Register->login; ?>">
+				<label class="fa fa-user" for="field_login" aria-hidden="true"></label>
+			</p>
 
-				<p>
-					<label class="fa fa-key" for="field_pass" aria-hidden="true"></label><!--
-                    --><input type="password" id="field_pass" placeholder="<?php echo self::$txt->Register->password; ?>..." />
-				</p>
+			<p class="input-large">
+				<input type="password" id="field_pass" placeholder="<?php echo self::$txt->Register->password; ?>">
+				<label class="fa fa-lock" for="field_pass" aria-hidden="true"></label>
+			</p>
 
-				<p>
-					<label class="fa fa-key" for="field_pass_confirm" aria-hidden="true"></label><!--
-                    --><input type="password" id="field_pass_confirm" placeholder="<?php echo self::$txt->Register->confirm; ?>..." />
-				</p>
+			<p class="input-large">
+				<input type="password" id="field_pass_confirm" placeholder="<?php echo self::$txt->Register->confirm; ?>">
+				<label class="fa fa-lock" for="field_pass_confirm" aria-hidden="true"></label>
+			</p>
 
-				<p>
-					<label class="fa fa-key" for="field_passphrase" aria-hidden="true"></label><!--
-                    --><input type="password" id="field_passphrase" placeholder="<?php echo self::$txt->Register->passphrase; ?>..."/>
-				</p>
+			<p class="input-large">
+				<input type="password" id="field_passphrase" placeholder="<?php echo self::$txt->Register->passphrase; ?>">
+				<label class="fa fa-lock" for="field_passphrase" aria-hidden="true"></label>
+			</p>
 
-				<p>
-					<label class="fa fa-key" for="field_passphrase_confirm" aria-hidden="true"></label><!--
-                    --><input type="password" id="field_passphrase_confirm" placeholder="<?php echo self::$txt->Register->confirm; ?>..."/>
-				</p>
+			<p class="input-large">
+				<input type="password" id="field_passphrase_confirm" placeholder="<?php echo self::$txt->Register->confirm; ?>">
+				<label class="fa fa-lock" for="field_passphrase_confirm" aria-hidden="true"></label>
+			</p>
 
-                <p>
-					<input type="checkbox" id="doubleAuth" name="doubleAuth"> <label for="doubleAuth"><?php echo self::$txt->Register->doubleAuth; ?></label>
-                	&nbsp;&nbsp;<a href="<?php echo MVC_ROOT; ?>/Login"><?php echo self::$txt->Register->alreadyregistered; ?></a>
-				</p>
+            <p class="input-large">
+				<input type="checkbox" id="doubleAuth" name="doubleAuth"> <label for="doubleAuth"><?php echo self::$txt->Register->doubleAuth; ?></label>
+			</p>
 
-                <input type="submit" value="<?php echo self::$txt->Global->register; ?>" onclick="sendRegisterRequest(event)">
+			<div class="bloc-links">
+				<a href="<?php echo MVC_ROOT; ?>/Login" class="mono blue"><?php echo self::$txt->Register->alreadyregistered; ?></a>
+                <a href="#" class="btn" onclick="sendRegisterRequest(event)"><?php echo self::$txt->Global->register; ?></a>
             </div>
 
             <div id="return">
-                <p class="error"><?php //echo self::$txt->Register->impossible; ?></p>
+                <p class="error"></p>
             </div>
-        </section>
+        </form>
 	</div>
 <?php
    echo $_t->getFooter();
