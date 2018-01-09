@@ -72,6 +72,7 @@ class Template {
 		<link rel="stylesheet" type="text/css" href="'.MVC_ROOT.'/public/css/font-awesome/css/font-awesome.min.css">
 		<link rel="stylesheet" type="text/css" href="'.MVC_ROOT.'/public/css/fonts/Roboto.css">
 		<link rel="stylesheet" type="text/css" href="'.MVC_ROOT.'/public/css/fonts/RobotoMono.css">
+		<link rel="stylesheet" type="text/css" href="'.MVC_ROOT.'/public/css/fonts/OpenSans.css">
 		<script src="'.MVC_ROOT.'/public/js/jquery-3.2.1.min.js"></script>
 		<script src="'.$this->_path.'js/language.js" id="language-js"></script>
 ';

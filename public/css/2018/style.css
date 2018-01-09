@@ -45,16 +45,16 @@ header {
 
 #language-selector select {
 	background-color: transparent;
+	background: url(data:image/gif;base64,R0lGODlhDgAMAKoAAOzs7EdHRyEhIaOjo05OTv///wAAAAAAACH5BAEAAAUALAAAAAAOAAwAAAMlWLrc/vANAMEoQwTaQBDTtzGeRpVjgXKqCKyd6D6lGQEEwUZPAgA7);
+	background-repeat: no-repeat; background-position: right center;
+	font-weight: bold; font-family: OpenSans;
     border: none;
-    font-weight: bold;
     margin: 0 auto;
     -webkit-appearance: none; -moz-appearance: none; appearance: none;
     padding-right: 20px;
-    background: url(data:image/gif;base64,R0lGODlhCwALAJEAAAAAAP///xUVFf///yH5BAEAAAMALAAAAAALAAsAAAIPnI+py+0/hJzz0IruwjsVADs=);
-    background-repeat: no-repeat; background-position: right top;
-
 	cursor: pointer;
-	color: black;
+	color: #212121;
+	letter-spacing: .1px;
 }
 
 .container-small {
@@ -71,9 +71,9 @@ form.form-login, form.form-register {
 	margin: 30px auto 0px auto;
 	width: calc(100% - 30px);
 }
-form.form-err .input-large input {
+/*form.form-err .input-large input {
 	border-bottom-color: #ff9999;
-}
+}*/
 
 form h1 {
 	font-size: 24px; font-weight: bold;
@@ -139,8 +139,9 @@ a.blue:hover, a.blue:active, a.blue:focus { color: #0b9fcb; }
 	text-align: center;
 	letter-spacing: .5px;
 }
-.btn, .btn:visited { background-color: #8be0f9; }
-.btn:hover, .btn:active, .btn:focus { background-color: #5ad2f6; }
+.btn, .btn:visited { background-color: #16c1f3; }
+.btn:hover, .btn:active, .btn:focus { background-color: #0cb1e4; }
+.btn:disabled { background-color: #8be0f9; }
 
 .bloc-links {
 	flex-direction: column;
