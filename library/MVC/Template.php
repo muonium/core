@@ -76,7 +76,13 @@ class Template {
 		<script src="'.MVC_ROOT.'/public/js/jquery-3.2.1.min.js"></script>
 		<script src="'.$this->_path.'js/language.js" id="language-js"></script>
 ';
-
+/* For development purpose */
+if(isset($_GET['dark'])) {
+	$html .= '<link rel="stylesheet" type="text/css" href="'.$this->_path.'css/2018/dark.css">';
+} else {
+	$html .= '<link rel="stylesheet" type="text/css" href="'.$this->_path.'css/2018/light.css">';
+}
+/* */
 		foreach($this->_meta as $meta) {
 			$html .= '
 		<meta name="'.$meta['name'].'" content="'.$meta['content'].'">';

@@ -1,0 +1,40 @@
+body { background-color: #4a4a4a; color: #fff; }
+
+header { background-color: #3b3a3a; }
+
+#language-selector select {
+	color: #fff;
+	background: url(data:image/gif;base64,R0lGODlhDgAMAKoAAEtKSt3d3f///4uLi9fW1v//mQAAAAAAACH5BAEAAAUALAAAAAAOAAwAAAMlWLrc/vANAMEoQwTaQBDTtzGeRpVjgXKqCKyd6D6lGQEEwUZPAgA7);
+}
+
+.container-small {
+	background-color: #3b3a3a;
+}
+
+form h1 { color: #fff; }
+
+.input-large input {
+	background-color: #3b3a3a;
+	border-bottom-color: #4e4d4d;
+	color: #fff;
+}
+.input-large input:focus, .input-large input:active { border-bottom-color: #8be0f9; }
+.input-large input + label.fa {
+	color: #fff;
+}
+
+/* Yes, we need separate rules for each browser. Otherwise the whole group would be ignored by all browsers. */
+.input-large input::-webkit-input-placeholder { color: #aaa; }
+.input-large input:-moz-placeholder { color: #aaa; }
+.input-large input::-moz-placeholder { color: #aaa; }
+.input-large input:-ms-input-placeholder { color: #aaa; }
+
+a { color: #fff; }
+
+input[type="radio"] + label:before, input[type="checkbox"] + label:before {
+	background-color: transparent;
+}
+
+input[type="radio"]:checked + label:before, input[type="checkbox"]:checked + label:before {
+	color: #393c3d;
+}
