@@ -67,7 +67,7 @@ header {
 	padding: 20px;
 }
 
-form.form-login, form.form-register {
+form.form-login, form.form-register, .container-small > form {
 	margin: 30px auto 0px auto;
 	width: calc(100% - 30px);
 }
@@ -138,6 +138,7 @@ a.blue:hover, a.blue:active, a.blue:focus { color: #0b9fcb; }
 	text-decoration: none;
 	text-align: center;
 	letter-spacing: .5px;
+	border: none; outline: none;
 }
 .btn, .btn:visited { background-color: #16c1f3; }
 .btn:hover, .btn:active, .btn:focus { background-color: #0cb1e4; }
@@ -153,7 +154,7 @@ a.blue:hover, a.blue:active, a.blue:focus { color: #0b9fcb; }
 	align-items: center;
 	justify-content: space-between;
 }
-.bloc-links > a { margin-top: 10px; }
+.bloc-links > * { margin-top: 10px; }
 
 input[type="radio"], input[type="checkbox"] { display: none; }
 input[type="radio"] + label, input[type="checkbox"] + label {
@@ -190,9 +191,8 @@ input[type="radio"]:checked + label:before, input[type="checkbox"]:checked + lab
 	.input-large input { padding-left: 44px; }
 
 	.container-small {
-		width: 600px;
-		max-width: 600px;
-		margin: 140px auto auto auto;
+		width: 600px; max-width: 600px;
+		margin: 13vh auto auto auto;
 	}
 
 	form.form-login, form.form-register { width: 60%; }
@@ -202,7 +202,7 @@ input[type="radio"]:checked + label:before, input[type="checkbox"]:checked + lab
 		margin-top: 65px;
 		margin-bottom: 55px;
 	}
-	.bloc-links > a { margin-top: 0; }
+	.bloc-links > * { margin-top: 0; }
 
 	input[type="radio"] + label, input[type="checkbox"] + label { padding-left: 44px; }
 }
