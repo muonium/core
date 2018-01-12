@@ -34,7 +34,7 @@ var sendConnectionRequest = function(e) {
 
     var returnArea = document.querySelector("#return");
 
-    returnArea.innerHTML = "<img src='./public/pictures/index/loader.gif' style='height: 3vh;'>";
+    returnArea.innerHTML = '';
 
     if(field_password.length < 6 || field_passphrase.length < 1 || field_username.length < 3) {
         returnArea.innerHTML = txt.Register.form;

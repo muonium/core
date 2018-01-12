@@ -129,7 +129,8 @@
         "invalidCode": "Il codice inserito non è valido",
         "username": "Email o login",
         "badPassphrase": "Error: bad passphrase",
-        "doubleAuth": "Ti è stata inviata una mail con un codice identificativo. Copia il codice nel campo qui sopra.<br>Se non ricevi nulla entro 5 minuti e la mail non è presente nella tua cartella di spam, <a href='[url_app]/Logout'>clicca qui</a> per effettuare un nuovo tentativo di connessione."
+        "doubleAuth": "Ti è stata inviata una mail con un codice identificativo. Copia il codice nel campo qui sopra.<br>Se non ricevi nulla entro 5 minuti e la mail non è presente nella tua cartella di spam, <a href='[url_app]/Logout'>clicca qui</a> per effettuare un nuovo tentativo di connessione.",
+		"success": "Successfully logged in"
     },
 
     "Validate": {
@@ -162,7 +163,9 @@
         "accountDeletionConfirm": "Do you really want to delete your account?",
         "accountDeletionOk": "Your account was successfully deleted!",
         "deleteAccount": "Delete account",
-        "details": "Do you want to show details when a file/folder is selected?"
+        "details": "Do you want to show details when a file/folder is selected?",
+		"mailusername": "Email & Username",
+		"pwdpp": "Password & Secret Password"
     },
 
     "LostPass": {

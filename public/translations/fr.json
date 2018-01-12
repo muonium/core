@@ -129,8 +129,9 @@
         "invalidCode": "Le code entré est invalide",
         "username": "Email ou nom d'utilisateur",
         "badPassphrase": "Erreur : phrase secrète incorrecte",
-        "doubleAuth": "Un email avec un code d'authentification vous a été envoyé. Copiez ce code dans le champ ci-dessus.<br>Si vous n'avez rien reçu d'ici 5 mn et que le mail n'est pas présent dans le dossier Spam, suivez ce <a href='[url_app]/Logout'>lien</a> pour effectuer une nouvelle tentative de connexion."
-    },
+        "doubleAuth": "Un email avec un code d'authentification vous a été envoyé. Copiez ce code dans le champ ci-dessus.<br>Si vous n'avez rien reçu d'ici 5 mn et que le mail n'est pas présent dans le dossier Spam, suivez ce <a href='[url_app]/Logout'>lien</a> pour effectuer une nouvelle tentative de connexion.",
+		"success": "Connexion réussie"
+	},
 
     "Validate": {
         "message": "Erreur : La clé de validation est incorrecte, connectez-vous pour envoyer un nouveau mail de validation",
@@ -162,7 +163,9 @@
         "accountDeletionConfirm": "Voulez-vous vraiment supprimer votre compte ?",
         "accountDeletionOk": "Votre compte a bien été supprimé !",
         "deleteAccount": "Supprimer votre compte",
-        "details": "Voulez-vous afficher les détails lorsqu'un fichier ou dossier est sélectionné ?"
+        "details": "Voulez-vous afficher les détails lorsqu'un fichier ou dossier est sélectionné ?",
+		"mailusername": "Email & Nom d'utilisateur",
+		"pwdpp": "Mot de passe & Phrase secrète"
     },
 
     "LostPass": {

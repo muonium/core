@@ -68,7 +68,7 @@ var sendRegisterRequest = function(e) {
 
     var returnArea = document.querySelector("#return p");
 
-    returnArea.innerHTML = "<img src='./public/pictures/index/loader.gif' style='height: 3vh;'>";
+    returnArea.innerHTML = '';
 
     if(field_mail.length < 6 || field_login.length < 2) {
         returnArea.innerHTML = txt.Register.form;

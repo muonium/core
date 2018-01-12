@@ -7,6 +7,7 @@ class Template {
 	private $_js = [];
 	private $_customHead = null;
 	private $_customHeader = null;
+	private $_sidebar = false;
 
 	/* Avoid loading version from browser cache when a new version is released */
 	private $_path = MVC_ROOT.'/public/version/'.VERSION.'/';
@@ -129,9 +130,47 @@ if(isset($_GET['dark'])) {
 	}
 
 	public function getFooter() {
-        $html = '
+		$html = '';
+		if($this->_sidebar) $html .= '</div>';
+        $html .= '
 	</body>
 </html>';
 		return $html;
     }
+
+	public function getSidebar() {
+		$html = '
+		<div id="main">
+			<div class="sidebar">
+				<ul>
+	                <li>
+	                    <a href="User">
+							<i class="fa fa-file" aria-hidden="true"></i>
+	                    </a>
+	                </li>
+					<li>
+						<a href="User">
+							<i class="fa fa-trash" aria-hidden="true"></i>
+						</a>
+					</li>
+	                <li>
+	                    <a onclick="Transfers.toggle()">
+							<i class="fa fa-exchange" aria-hidden="true"></i>
+	                    </a>
+	                </li>
+					<li>
+	                    <a href="Bug">
+							<i class="fa fa-bug" aria-hidden="true"></i>
+						</a>
+	                </li>
+					<li>
+	                    <a href="Profile" class="selected">
+							<i class="fa fa-cog" aria-hidden="true"></i>
+						</a>
+	                </li>
+	            </ul>
+			</div>
+		';
+		return $html;
+	}
 }

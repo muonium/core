@@ -129,8 +129,9 @@
         "invalidCode": "Der eingegebene Code ist ungültig",
         "username": "Email oder Login",
         "badPassphrase": "Fehler: falsches geheimes Passwort",
-        "doubleAuth": "Eine Email mit einem Authentifizierungscode wurde an Dich gesendet. Kopiere diesen Code in das Feld unten. <br>Falls Du nach 5 Minuten von jetzt an nichts erhalten hast und die Email nicht im Spamordner ist, klicke bitte auf diesen <a href='[url_app]/Logout'>Link</a>, um einen neuen Verbíndungsversuch durchzuführen."
-    },
+        "doubleAuth": "Eine Email mit einem Authentifizierungscode wurde an Dich gesendet. Kopiere diesen Code in das Feld unten. <br>Falls Du nach 5 Minuten von jetzt an nichts erhalten hast und die Email nicht im Spamordner ist, klicke bitte auf diesen <a href='[url_app]/Logout'>Link</a>, um einen neuen Verbíndungsversuch durchzuführen.",
+		"success": "Successfully logged in"
+	},
 
     "Validate": {
         "message": "Fehler: Der Verifizierungscode ist falsch, bitte logge Dich ein, um eine neue Verifizierungsemail abzusenden",
@@ -162,7 +163,9 @@
         "accountDeletionConfirm": "Willst Du Deinen Account wirklich löschen?",
         "accountDeletionOk": "Dein Account wurde erfolgreich gelöscht!",
         "deleteAccount": "Account löschen",
-        "details": "Möchtest Du Details anzeigen, wenn eine Datei/ein Ordner ausgewählt ist?"
+        "details": "Möchtest Du Details anzeigen, wenn eine Datei/ein Ordner ausgewählt ist?",
+		"mailusername": "Email & Username",
+		"pwdpp": "Password & Secret Password"
     },
 
     "LostPass": {

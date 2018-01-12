@@ -4,12 +4,7 @@
     $_t = new l\Template(self::$txt->Global->profile);
 
     $_t->addCss([
-		'blue/blue',
-	    'blue/container',
-	    'blue/header',
-	    'blue/inputs',
-	    'blue/menu',
-	    'blue/section-large-content'
+		'2018/style'
 	])->addJs([
 		'check',
 	    'Interface/interface',
@@ -23,96 +18,121 @@
 
 	echo $_t->getHead();
 	echo $_t->getHeader();
+	echo $_t->getSidebar();
 ?>
-    <div id="container">
-        <section id="large-content">
-			<fieldset>
-				<legend><?php echo self::$txt->Global->profile; ?></legend>
-	            <ul class="list">
-					<li><?php echo self::$txt->Register->login.'&nbsp;: '.htmlentities($_SESSION['login']); ?></li>
-					<li><?php echo self::$txt->Register->email.'&nbsp;: '.$this->_modelUser->getEmail(); ?></li>
-					<li>ID&nbsp;: <?php echo $_SESSION['id']; ?></li>
-				</ul>
-			</fieldset>
+    <div class="container-large">
+		<div class="info">...</div><br>
 
-            <fieldset>
-                <legend><?php echo self::$txt->Profile->changelogin; ?></legend>
-                <p>
-                    <label class="fa fa-user" for="login" aria-hidden="true"></label><!--
-                    --><input type="text" name="login" id="login" placeholder="<?php echo self::$txt->Profile->newlogin; ?>">
-                </p>
-                <input type="submit" onclick="changeLogin()" value="OK">
-                <div id="changeLoginReturn"></div>
-            </fieldset>
+		<h1><?php echo self::$txt->UserMenu->settings; ?></h1>
+		<fieldset>
+			<legend><?php echo self::$txt->Global->profile; ?></legend>
 
-            <fieldset>
-                <legend><?php echo self::$txt->Profile->changemail; ?></legend>
-                <p>
-                    <label class="fa fa-envelope" for="changemail" aria-hidden="true"></label><!--
-                    --><input type="text" name="changemail" id="changemail" placeholder="<?php echo self::$txt->Profile->changemail; ?>">
-                </p>
-                <input type="submit" onclick="changeMail()" value="OK">
-                <div id="changeMailReturn"></div>
-            </fieldset>
+	        <p>
+				<span class="label"><?php echo self::$txt->Register->login.'&nbsp;:</span>
+				'.htmlentities($_SESSION['login']); ?>
+			</p>
+			<p>
+				<span class="label"><?php echo self::$txt->Register->email.'&nbsp;:</span>
+				'.htmlentities($this->_modelUser->getEmail()); ?>
+			</p>
+			<p>
+				<span class="label">ID&nbsp;:</span>
+				<?php echo $_SESSION['id']; ?>
+			</p>
+		</fieldset>
 
-			<fieldset>
-				<legend><?php echo self::$txt->Profile->deleteAccount; ?></legend>
-				<input type="submit" onclick="ConfirmDelete()" value="OK">
-				<div id="deleteUserReturn"></div>
-			</fieldset>
+        <fieldset>
+            <legend><?php echo self::$txt->Profile->mailusername; ?></legend>
+			<div class="bloc-input">
+				<div>
+					<h3 class="nowrap"><?php echo self::$txt->Profile->changelogin; ?></h3>
+		            <p class="input-large">
+						<input type="text" name="login" id="login" placeholder="<?php echo self::$txt->Profile->newlogin; ?>">
+		                <label class="fa fa-user" for="login" aria-hidden="true"></label>
+		            </p>
+		            <input type="submit" class="btn btn-profile" onclick="changeLogin()" value="<?php echo self::$txt->Global->submit; ?>">
+		            <div id="changeLoginReturn"></div>
+				</div>
+				<div>
+					<h3 class="nowrap"><?php echo self::$txt->Profile->changemail; ?></h3>
+		            <p class="input-large">
+		                <input type="text" name="changemail" id="changemail" placeholder="<?php echo self::$txt->Profile->changemail; ?>">
+						<label class="fa fa-envelope" for="changemail" aria-hidden="true"></label>
+		            </p>
+		            <input type="submit" class="btn btn-profile" onclick="changeMail()" value="<?php echo self::$txt->Global->submit; ?>">
+		            <div id="changeMailReturn"></div>
+				</div>
+			</div>
+        </fieldset>
 
-            <fieldset>
-                <legend><?php echo self::$txt->Profile->changepwd; ?></legend>
-                <p>
-                    <label class="fa fa-key" for="old_pwd" aria-hidden="true"></label><!--
-                    --><input type="password" name="old_pwd" id="old_pwd" placeholder="<?php echo self::$txt->Profile->oldpwd; ?>">
-                </p><p>
-                    <label class="fa fa-key" for="new_pwd" aria-hidden="true"></label><!--
-                    --><input type="password" name="new_pwd" id="new_pwd" placeholder="<?php echo self::$txt->Profile->newpwd; ?>">
-                </p><p>
-                    <label class="fa fa-key" for="pwd_confirm" aria-hidden="true"></label><!--
-                    --><input type="password" name="pwd_confirm" id="pwd_confirm" placeholder="<?php echo self::$txt->Register->confirm; ?>">
-                </p>
-                <input type="submit" onclick="changePassword()" value="OK">
-                <div id="changePasswordReturn"></div>
-            </fieldset>
+        <fieldset>
+            <legend><?php echo self::$txt->Profile->pwdpp; ?></legend>
+			<div class="bloc-input">
+				<div>
+					<h3><?php echo self::$txt->Profile->changepwd; ?></h3>
+	                <p class="input-large">
+						<input type="password" name="old_pwd" id="old_pwd" placeholder="<?php echo self::$txt->Profile->oldpwd; ?>">
+	                    <label class="fa fa-key" for="old_pwd" aria-hidden="true"></label>
+	                </p>
+					<p class="input-large">
+						<input type="password" name="new_pwd" id="new_pwd" placeholder="<?php echo self::$txt->Profile->newpwd; ?>">
+	                    <label class="fa fa-key" for="new_pwd" aria-hidden="true"></label>
+	                </p>
+					<p class="input-large">
+						<input type="password" name="pwd_confirm" id="pwd_confirm" placeholder="<?php echo self::$txt->Register->confirm; ?>">
+	                    <label class="fa fa-key" for="pwd_confirm" aria-hidden="true"></label>
+	                </p>
+                	<input type="submit" class="btn btn-profile" onclick="changePassword()" value="<?php echo self::$txt->Global->submit; ?>">
+                	<div id="changePasswordReturn"></div>
+				</div>
+				<div>
+	                <h3><?php echo self::$txt->Profile->changepp; ?></h3>
+	                <p class="input-large">
+						<input type="password" name="oldpp" id="oldpp" placeholder="<?php echo self::$txt->Profile->oldpp; ?>">
+	                    <label class="fa fa-key" for="oldpp" aria-hidden="true"></label>
+	                </p>
+					<p class="input-large">
+						<input type="password" name="newpp" id="newpp" placeholder="<?php echo self::$txt->Profile->newpp; ?>">
+	                    <label class="fa fa-key" for="newpp" aria-hidden="true"></label>
+	                </p>
+					<p class="input-large">
+						<input type="password" name="ppconfirm" id="ppconfirm" placeholder="<?php echo self::$txt->Register->confirm; ?>">
+	                    <label class="fa fa-key" for="ppconfirm" aria-hidden="true"></label>
+	                </p>
+	                <input type="submit" class="btn btn-profile" onclick="changeCek()" value="<?php echo self::$txt->Global->submit; ?>">
+	                <div id="changePassPhraseReturn"></div>
+				</div>
+            </div>
+		</fieldset>
 
-            <fieldset>
-                <legend><?php echo self::$txt->Profile->changepp; ?></legend>
-                <p>
-                    <label class="fa fa-key" for="oldpp" aria-hidden="true"></label><!--
-                    --><input type="password" name="oldpp" id="oldpp" placeholder="<?php echo self::$txt->Profile->oldpp; ?>">
-                </p><p>
-                    <label class="fa fa-key" for="newpp" aria-hidden="true"></label><!--
-                    --><input type="password" name="newpp" id="newpp" placeholder="<?php echo self::$txt->Profile->newpp; ?>">
-                </p><p>
-                    <label class="fa fa-key" for="ppconfirm" aria-hidden="true"></label><!--
-                    --><input type="password" name="ppconfirm" id="ppconfirm" placeholder="<?php echo self::$txt->Register->confirm; ?>">
-                </p>
-                <input type="submit" onclick="changeCek()" value="OK">
-                <div id="changePassPhraseReturn"></div>
-            </fieldset>
+        <fieldset>
+            <legend>Other Options</legend>
+			<h3>File Details</h3>
+            <p class="input-large">
+                <input type="checkbox" name="details" id="details"  onclick="changeDetails()">
+                <label for="details"><?php echo self::$txt->Profile->details; ?></label>
+            </p>
+            <div id="changeDetailsReturn"></div>
+        </fieldset>
 
-            <fieldset>
-                <legend>Details</legend>
-                <p>
-                    <input type="checkbox" name="details" id="details">
-                    <label for="details"><?php echo self::$txt->Profile->details; ?></label>
-                </p>
-                <input type="submit" onclick="changeDetails()" value="OK">
-                <div id="changeDetailsReturn"></div>
-            </fieldset>
+        <fieldset>
+            <h3><?php echo self::$txt->Profile->doubleAuth; ?></h3>
+            <p class="input-large">
+                <input type="checkbox" name="doubleAuth" onclick="changeAuth()" id="doubleAuth"<?php if($this->_modelUser->getDoubleAuth()) { echo ' checked'; } ?>>
+                <label for="doubleAuth"><?php echo self::$txt->Register->doubleAuth; ?></label>
+            </p>
+            <div id="changeAuthReturn"></div>
+        </fieldset>
 
-            <fieldset>
-                <legend><?php echo self::$txt->Profile->doubleAuth; ?></legend>
-                <p>
-                    <input type="checkbox" name="doubleAuth" id="doubleAuth"<?php if($this->_modelUser->getDoubleAuth()) { echo ' checked'; } ?>>
-                    <label for="doubleAuth"><?php echo self::$txt->Register->doubleAuth; ?></label>
-                </p>
-                <input type="submit" onclick="changeAuth()" value="OK">
-                <div id="changeAuthReturn"></div>
-            </fieldset>
-        </section>
+		<fieldset>
+			<h3><?php echo self::$txt->Profile->deleteAccount; ?></h3>
+			<p class="input-large">
+                <input type="checkbox" name="delete" id="delete">
+                <label for="delete">I really want to</label>
+            </p>
+			<input type="submit" class="btn btn-warning" onclick="ConfirmDelete()" value="<?php echo self::$txt->Profile->deleteAccount; ?>">
+			<div id="deleteUserReturn"></div>
+		</fieldset>
     </div>
 <?php
     echo $_t->getFooter();

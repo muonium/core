@@ -23,6 +23,10 @@ form h1 { color: #fff; }
 	color: #fff;
 }
 
+.input-large input[type="checkbox"] + label:not(.fa), .input-large input[type="radio"] + label:not(.fa) {
+	color: #aaa;
+	border-bottom-color: #4e4d4d;
+}
 /* Yes, we need separate rules for each browser. Otherwise the whole group would be ignored by all browsers. */
 .input-large input::-webkit-input-placeholder { color: #aaa; }
 .input-large input:-moz-placeholder { color: #aaa; }

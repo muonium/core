@@ -18,6 +18,11 @@ body {
 	font-size: 14px;
 }
 
+#main {
+	display: flex;
+	min-height: calc(100% - 70px);
+}
+
 input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
 	-webkit-box-shadow: 0 0 0 30px white inset;
 	-webkit-text-fill-color: #555 !important;
@@ -28,6 +33,13 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
 .right { text-align: right; }
 
 .mono { font-family: RobotoMono; }
+
+h3 {
+	font-size: 18px; font-family: RobotoMono;
+	letter-spacing: .4px;
+	text-align: left;
+	color: #212121;
+}
 
 header {
 	display: flex;
@@ -54,13 +66,47 @@ header {
 }
 #language-selector option { color: #212121; }
 
-.container-small {
-	margin: 40px auto auto auto;
+.sidebar {
+	width: 80px; min-width: 80px;
+	box-shadow: 1px 2px 4px 0 rgba(0, 0, 0, 0.1);
+}
+.sidebar ul {
+	list-style-type: none;
+	margin: 40px 0;
+	position: fixed;
+	width: 80px;
+}
+.sidebar li {
+	display: flex;
+	text-align: center;
+	height: 80px;
+}
+.sidebar li > a {
+	display: flex;
+	margin: 10px 0;
+	flex: 1;
+	align-items: center;
+	justify-content: center;
+	text-decoration: none;
+	font-size: 20px;
+}
+.sidebar li > a, .sidebar li > a:visited { color: #757575; }
+.sidebar li > a:hover, .sidebar li > a:active, .sidebar li > a:focus { color: #16c1f3; }
+.sidebar li > a.selected {
+	color: #16c1f3; border-right: 3px solid #16c1f3;
+}
+
+.container-small, .container-large {
+	margin: 40px auto;
 	width: 100%;
 	max-width: 100%;
 	border-radius: 5px;
   	box-shadow: 0 3px 10px 0 rgba(0, 0, 0, 0.1);
 	padding: 20px;
+	overflow: hidden;
+}
+.container-large {
+	margin-left: 15px; margin-right: 15px;
 }
 
 form.form-login, form.form-register, .container-small > form {
@@ -92,6 +138,12 @@ form h1 {
 	position: absolute;
 	bottom: 16px; left: 0;
 }
+.input-large input[type="checkbox"] + label:not(.fa), .input-large input[type="radio"] + label:not(.fa) {
+	font-family: RobotoMono; font-size: 14px; font-weight: 500; text-transform: uppercase;
+	padding-bottom: 16px;
+	border-width: 0 0 2px 0; border-style: solid;
+	outline: none;
+}
 /* Yes, we need separate rules for each browser. Otherwise the whole group would be ignored by all browsers. */
 .input-large input::-webkit-input-placeholder {
     opacity: 1; -webkit-appearance: textfield; appearance: textfield;
@@ -109,40 +161,6 @@ form h1 {
     opacity: 1; appearance: textfield;
     font-family: RobotoMono; font-size: 14px; font-weight: 500; text-transform: uppercase;
 }
-
-a { cursor: pointer; text-decoration: underline; }
-a.blue, a.blue:visited { color: #16c1f3; font-weight: 500; text-decoration: none; }
-a.blue:hover, a.blue:active, a.blue:focus { color: #0b9fcb; }
-
-.btn {
-	height: 35px;
-	padding : 0px 15px;
-	display: inline-flex !important;
-	align-items: center;
-	justify-content: center;
-	border-radius: 4px;
-	box-shadow: 0 4px 10px 0 rgba(22, 193, 243, 0.2);
-	color: #fff;
-	text-decoration: none;
-	text-align: center;
-	letter-spacing: .5px;
-	border: none; outline: none;
-}
-.btn, .btn:visited { background-color: #16c1f3; }
-.btn:hover, .btn:active, .btn:focus { background-color: #0cb1e4; }
-.btn:disabled { background-color: #8be0f9; }
-
-.bloc-links {
-	flex-direction: column;
-	margin-top: 35px;
-	margin-bottom: 35px;
-	text-align: center;
-	white-space: nowrap;
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
-}
-.bloc-links > * { margin-top: 10px; }
 
 input[type="radio"], input[type="checkbox"] { display: none; }
 input[type="radio"] + label, input[type="checkbox"] + label {
@@ -173,12 +191,97 @@ input[type="radio"]:checked + label:before, input[type="checkbox"]:checked + lab
 	content: "\f00c";
 }
 
+a { cursor: pointer; text-decoration: underline; }
+a.blue, a.blue:visited { color: #16c1f3; font-weight: 500; text-decoration: none; }
+a.blue:hover, a.blue:active, a.blue:focus { color: #0b9fcb; }
+
+.btn {
+	height: 35px;
+	padding : 0px 15px;
+	display: inline-flex !important;
+	align-items: center;
+	justify-content: center;
+	border-radius: 4px;
+	box-shadow: 0 4px 10px 0 rgba(22, 193, 243, 0.2);
+	color: #fff;
+	text-decoration: none;
+	text-align: center;
+	letter-spacing: .5px;
+	border: none; outline: none;
+	cursor: pointer;
+}
+.btn, .btn:visited { background-color: #16c1f3; }
+.btn:hover, .btn:active, .btn:focus { background-color: #0cb1e4; }
+.btn:disabled { background-color: #8be0f9; }
+.btn-profile { padding: 0 64px; float: right; }
+.btn-warning { background-color: #c62828 !important; }
+.btn-warning:disabled { opacity: .5; }
+
+.bloc-links {
+	flex-direction: column;
+	margin-top: 35px;
+	margin-bottom: 35px;
+	text-align: center;
+	white-space: nowrap;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+.bloc-links > * { margin-top: 10px; }
+
+.bloc-input {
+	flex-direction: column;
+	margin-bottom: 15px;
+	text-align: left;
+	display: flex;
+	align-items: center;
+	width: 100%; max-width: 100%;
+}
+.bloc-input > div { width: 100%; margin-bottom: 25px; }
+
+.info {
+	width: 100%;
+	padding: 10px 25px;
+	border-radius: 10px;
+	box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.1);
+	margin: 10px 0;
+}
+
+.nowrap {
+	white-space: nowrap;
+	overflow: hidden; text-overflow: ellipsis;
+}
+
+p { margin-bottom: 10px; }
+
+fieldset {
+	border: none;
+	margin-bottom: 10px;
+	font-size: 14px;
+	color: #212121;
+	font-weight: bold;
+}
+legend {
+	font-size: 16px;
+	text-align: left;
+	color: #757575;
+	letter-spacing: .6px;
+	font-weight: 500;
+	padding: 25px 0;
+}
+fieldset p { margin-bottom: 25px; }
+fieldset .label { font-family: RobotoMono; font-weight: 500; color: #757575; margin-right: 8px; }
+
 @media screen and (min-width: 600px) {
 	.input-large input { padding-left: 44px; }
 
 	.container-small {
 		width: 600px; max-width: 600px;
 		margin: 13vh auto auto auto;
+	}
+	.container-large {
+		margin: 48px 50px;
+		padding: 25px 50px;
 	}
 
 	form.form-login, form.form-register { width: 60%; }
@@ -190,5 +293,12 @@ input[type="radio"]:checked + label:before, input[type="checkbox"]:checked + lab
 	}
 	.bloc-links > * { margin-top: 0; }
 
+	.bloc-input { flex-direction: row; flex-wrap: wrap; }
+	.bloc-input > div { flex-basis: 400px; }
+
 	input[type="radio"] + label, input[type="checkbox"] + label { padding-left: 44px; }
+}
+
+@media screen and (min-width: 800px) {
+	.bloc-input > div:not(:last-child) { margin-right: 100px; }
 }
