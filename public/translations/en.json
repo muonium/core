@@ -95,7 +95,7 @@
         "password": "Password",
         "confirm": "Confirm",
         "passphrase": "Secret password",
-        "doubleAuth": "Do you want to enable dual authentication?",
+        "doubleAuth": "Enable (recommended)",
         "alreadyregistered": "Already registered?",
         "impossible": "Registration temporarily unavailable",
         "ok": "Registration done!",
@@ -156,16 +156,21 @@
         "badOldPassphrase": "Your old secret password does not match",
         "getpwd": "Unable to get your password",
         "getpp": "Unable to get your secret password",
-        "doubleAuth": "Double authentication",
+        "doubleAuth": "2-Step Verification",
         "changemail" : "Change Email",
         "mailFormat": "Mail format is incorrect.",
         "emptymail": "Please, fill this field",
         "accountDeletionConfirm": "Do you really want to delete your account?",
         "accountDeletionOk": "Your account was successfully deleted!",
         "deleteAccount": "Delete account",
-        "details": "Do you want to show details when a file/folder is selected?",
+        "details": "Show details when you select a file or folder",
 		"mailusername": "Email & Username",
-		"pwdpp": "Password & Secret Password"
+		"pwdpp": "Password & Secret Password",
+		"filedetails": "File Details",
+		"iwant": "I really want to",
+		"otheroptions": "Other options",
+		"upgrade": "Ready to upgrade Muonium?",
+		"getmore": "Get more storage"
     },
 
     "LostPass": {

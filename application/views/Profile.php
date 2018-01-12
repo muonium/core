@@ -21,7 +21,9 @@
 	echo $_t->getSidebar();
 ?>
     <div class="container-large">
-		<div class="info">...</div><br>
+		<div class="info mono">
+			<?php echo self::$txt->Profile->upgrade; ?> <a href="Upgrade"><?php echo self::$txt->Profile->getmore; ?></a>
+		</div><br>
 
 		<h1><?php echo self::$txt->UserMenu->settings; ?></h1>
 		<fieldset>
@@ -72,15 +74,15 @@
 					<h3><?php echo self::$txt->Profile->changepwd; ?></h3>
 	                <p class="input-large">
 						<input type="password" name="old_pwd" id="old_pwd" placeholder="<?php echo self::$txt->Profile->oldpwd; ?>">
-	                    <label class="fa fa-key" for="old_pwd" aria-hidden="true"></label>
+	                    <label class="fa fa-lock" for="old_pwd" aria-hidden="true"></label>
 	                </p>
 					<p class="input-large">
 						<input type="password" name="new_pwd" id="new_pwd" placeholder="<?php echo self::$txt->Profile->newpwd; ?>">
-	                    <label class="fa fa-key" for="new_pwd" aria-hidden="true"></label>
+	                    <label class="fa fa-lock" for="new_pwd" aria-hidden="true"></label>
 	                </p>
 					<p class="input-large">
 						<input type="password" name="pwd_confirm" id="pwd_confirm" placeholder="<?php echo self::$txt->Register->confirm; ?>">
-	                    <label class="fa fa-key" for="pwd_confirm" aria-hidden="true"></label>
+	                    <label class="fa fa-lock" for="pwd_confirm" aria-hidden="true"></label>
 	                </p>
                 	<input type="submit" class="btn btn-profile" onclick="changePassword()" value="<?php echo self::$txt->Global->submit; ?>">
                 	<div id="changePasswordReturn"></div>
@@ -89,15 +91,15 @@
 	                <h3><?php echo self::$txt->Profile->changepp; ?></h3>
 	                <p class="input-large">
 						<input type="password" name="oldpp" id="oldpp" placeholder="<?php echo self::$txt->Profile->oldpp; ?>">
-	                    <label class="fa fa-key" for="oldpp" aria-hidden="true"></label>
+	                    <label class="fa fa-lock" for="oldpp" aria-hidden="true"></label>
 	                </p>
 					<p class="input-large">
 						<input type="password" name="newpp" id="newpp" placeholder="<?php echo self::$txt->Profile->newpp; ?>">
-	                    <label class="fa fa-key" for="newpp" aria-hidden="true"></label>
+	                    <label class="fa fa-lock" for="newpp" aria-hidden="true"></label>
 	                </p>
 					<p class="input-large">
 						<input type="password" name="ppconfirm" id="ppconfirm" placeholder="<?php echo self::$txt->Register->confirm; ?>">
-	                    <label class="fa fa-key" for="ppconfirm" aria-hidden="true"></label>
+	                    <label class="fa fa-lock" for="ppconfirm" aria-hidden="true"></label>
 	                </p>
 	                <input type="submit" class="btn btn-profile" onclick="changeCek()" value="<?php echo self::$txt->Global->submit; ?>">
 	                <div id="changePassPhraseReturn"></div>
@@ -106,8 +108,8 @@
 		</fieldset>
 
         <fieldset>
-            <legend>Other Options</legend>
-			<h3>File Details</h3>
+            <legend><?php echo self::$txt->Profile->otheroptions; ?></legend>
+			<h3><?php echo self::$txt->Profile->filedetails; ?></h3>
             <p class="input-large">
                 <input type="checkbox" name="details" id="details"  onclick="changeDetails()">
                 <label for="details"><?php echo self::$txt->Profile->details; ?></label>
@@ -128,7 +130,7 @@
 			<h3><?php echo self::$txt->Profile->deleteAccount; ?></h3>
 			<p class="input-large">
                 <input type="checkbox" name="delete" id="delete">
-                <label for="delete">I really want to</label>
+                <label for="delete"><?php echo self::$txt->Profile->iwant; ?></label>
             </p>
 			<input type="submit" class="btn btn-warning" onclick="ConfirmDelete()" value="<?php echo self::$txt->Profile->deleteAccount; ?>">
 			<div id="deleteUserReturn"></div>

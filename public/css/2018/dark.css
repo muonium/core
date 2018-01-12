@@ -1,13 +1,17 @@
 body { background-color: #4a4a4a; color: #fff; }
 
-header { background-color: #3b3a3a; }
+h3 { color: #fff; }
+
+header { background-color: #3b3a3a; box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.4); }
 
 #language-selector select {
 	color: #fff;
 	background: url(data:image/gif;base64,R0lGODlhDgAMAKoAAEtKSt3d3f///4uLi9fW1v//mQAAAAAAACH5BAEAAAUALAAAAAAOAAwAAAMlWLrc/vANAMEoQwTaQBDTtzGeRpVjgXKqCKyd6D6lGQEEwUZPAgA7);
 }
 
-.container-small {
+.sidebar { background-color: #3b3a3a; }
+
+.container-small, .container-large {
 	background-color: #3b3a3a;
 }
 
@@ -42,3 +46,10 @@ input[type="radio"] + label:before, input[type="checkbox"] + label:before {
 input[type="radio"]:checked + label:before, input[type="checkbox"]:checked + label:before {
 	color: #393c3d;
 }
+
+.info { background-color: #212121; }
+
+.logout { color: #fff; }
+
+fieldset, legend { color: #fff; }
+fieldset .label { color: #fff; }

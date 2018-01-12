@@ -17,19 +17,15 @@ var changeLogin = function() {
     xhr.open("POST", "Profile/ChangeLogin", true);
     xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
-    xhr.onreadystatechange = function()
-    {
-        if(xhr.status == 200 && xhr.readyState == 4)
-        {
+    xhr.onreadystatechange = function() {
+        if(xhr.status == 200 && xhr.readyState == 4) {
             console.log(xhr.responseText);
-            if(xhr.responseText.length > 2)
-            {
+            if(xhr.responseText.length > 2) {
                 // success message
                 if(xhr.responseText.substr(0, 3) == "ok@") {
                     window.location.href=ROOT+"Profile";
                     return false;
-                }
-                else {
+                } else {
                     // error
                     returnArea.innerHTML = xhr.responseText;
                 }
@@ -47,21 +43,18 @@ var changePassword = function() {
     var new_pwd = document.querySelector("#new_pwd").value;
     var pwd_confirm = document.querySelector("#pwd_confirm").value;
 
-    if(new_pwd.length < 6 || pwd_confirm !== new_pwd)
+    if(new_pwd.length < 6 || pwd_confirm !== new_pwd) {
         returnArea.innerHTML = txt.Register.form;
-    else {
+    } else {
 
         var xhr = new XMLHttpRequest();
         xhr.open("POST", "Profile/ChangePassword", true);
         xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
-        xhr.onreadystatechange = function()
-        {
-            if(xhr.status == 200 && xhr.readyState == 4)
-            {
+        xhr.onreadystatechange = function() {
+            if(xhr.status == 200 && xhr.readyState == 4) {
                 console.log(xhr.responseText);
-                if(xhr.responseText.length > 2)
-                {
+                if(xhr.responseText.length > 2) {
                     returnArea.innerHTML = xhr.responseText;
                 }
             }
@@ -86,8 +79,7 @@ var changeCek = function() {
 
 	if (old_pp != current_pp) {
 		returnArea.innerHTML = txt.Profile.badOldPassphrase;
-	}
-	else if (new_pp.length < 6) {
+	} else if (new_pp.length < 6) {
 		returnArea.innerHTML = txt.Register.form;
 	}
 	else {
@@ -104,19 +96,15 @@ var changeCek = function() {
 		xhr.open("POST", "Profile/ChangeCek", true);
 		xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
-		xhr.onreadystatechange = function()
-		{
-			if(xhr.status == 200 && xhr.readyState == 4)
-			{
+		xhr.onreadystatechange = function() {
+			if(xhr.status == 200 && xhr.readyState == 4) {
 			    console.log(xhr.responseText);
-			    if(xhr.responseText.length > 2)
-			    {
+			    if(xhr.responseText.length > 2) {
 			        // success message
 			        if(xhr.responseText.substr(0, 3) == "ok@") {
 						sessionStorage.setItem("kek", new_pp);
 						returnArea.innerHTML = xhr.responseText.substr(3);
-			        }
-			        else {
+			        } else {
 			            // error
 			            returnArea.innerHTML = xhr.responseText;
 			        }
@@ -134,8 +122,7 @@ var changeAuth = function() {
     xhr.open("POST", "Profile/changeAuth", true);
     xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
-    xhr.onreadystatechange = function()
-    {
+    xhr.onreadystatechange = function() {
         if(xhr.status == 200 && xhr.readyState == 4) {
             console.log(xhr.responseText);
             returnArea.innerHTML = xhr.responseText;
@@ -161,22 +148,18 @@ var changeMail = function() {
 
     var xhr = new XMLHttpRequest();
     xhr.open("POST", "Profile/ChangeMail", true);
-  xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
-    xhr.onreadystatechange = function()
-    {
-      if(xhr.status == 200 && xhr.readyState == 4)
-        {
+    xhr.onreadystatechange = function() {
+    	if(xhr.status == 200 && xhr.readyState == 4) {
             console.log(xhr.responseText);
-            if(xhr.responseText.length > 2)
-            {
+            if(xhr.responseText.length > 2) {
                 // success message
                 if(xhr.responseText.substr(0, 3) == "ok@") {
 					returnArea.innerHTML = xhr.responseText.substr(3);
                     //window.location.href=ROOT+"Profile";
                     //return false;
-                }
-                else {
+                } else {
                     // error
                     returnArea.innerHTML = xhr.responseText;
                 }
@@ -192,16 +175,14 @@ var deleteUser = function() {
     var returnArea = document.querySelector("#deleteUserReturn");
     var xhr = new XMLHttpRequest();
     xhr.open("POST", "Profile/DeleteUser", true);
-  xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
-    xhr.onreadystatechange = function()
-    {
-      if(xhr.status == 200 && xhr.readyState == 4) {
+    xhr.onreadystatechange = function() {
+    	if(xhr.status == 200 && xhr.readyState == 4) {
 			if(xhr.responseText.substr(0, 3) == "ok@") {
 				window.location.href=ROOT+"Logout";
 				return false;
-			}
-			else {
+			} else {
 				// error
             	returnArea.innerHTML = xhr.responseText;
 			}

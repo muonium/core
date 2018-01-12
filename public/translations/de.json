@@ -95,7 +95,7 @@
         "password": "Passwort",
         "confirm": "Bestätigen",
         "passphrase": "Geheimes Passwort",
-        "doubleAuth": "Willst Du die doppelte Authentifizierung aktivieren?",
+        "doubleAuth": "Aktivieren (Empfohlen)",
         "alreadyregistered": "Bereits registriert?",
         "impossible": "Registrierung gerade nicht möglich",
         "ok": "Registrierung erledigt!",
@@ -163,9 +163,14 @@
         "accountDeletionConfirm": "Willst Du Deinen Account wirklich löschen?",
         "accountDeletionOk": "Dein Account wurde erfolgreich gelöscht!",
         "deleteAccount": "Account löschen",
-        "details": "Möchtest Du Details anzeigen, wenn eine Datei/ein Ordner ausgewählt ist?",
+        "details": "Details anzeigen wenn eine Datei/ein Ordner ausgewählt ist",
 		"mailusername": "Email & Username",
-		"pwdpp": "Password & Secret Password"
+		"pwdpp": "Password & Secret Password",
+		"filedetails": "File Details",
+		"iwant": "I really want to",
+		"otheroptions": "Other options",
+		"upgrade": "Ready to upgrade Muonium?",
+		"getmore": "Get more storage"
     },
 
     "LostPass": {

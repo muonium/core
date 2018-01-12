@@ -95,7 +95,7 @@
         "password": "Пароль",
         "confirm": "Подтвердить пароль",
         "passphrase": "Секретный пароль",
-        "doubleAuth": "Вы хотите активировать двухфакторную аутентификацию?",
+        "doubleAuth": "Включить (Рекомендуется)",
         "alreadyregistered": "Уже зарегистрированы?",
         "impossible": "Регистрация сейчас невозможна",
         "ok": "Регистрация выполнена!",
@@ -163,9 +163,14 @@
         "accountDeletionConfirm": "Вы действительно хотите удалить свою учетную запись?",
         "accountDeletionOk": "Учетная запись успешно удалена!",
         "deleteAccount": "Удалить аккаунт",
-        "details": "Вы хотите показать подробности при выборе файла / папки?",
+        "details": "Показать подробности при выборе файла / папки",
 		"mailusername": "Email & Username",
-		"pwdpp": "Password & Secret Password"
+		"pwdpp": "Password & Secret Password",
+		"filedetails": "File Details",
+		"iwant": "I really want to",
+		"otheroptions": "Other options",
+		"upgrade": "Ready to upgrade Muonium?",
+		"getmore": "Get more storage"
     },
 
     "LostPass": {

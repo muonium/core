@@ -51,9 +51,12 @@
 				<label class="fa fa-lock" for="field_passphrase_confirm" aria-hidden="true"></label>
 			</p>
 
-            <p class="input-large">
-				<input type="checkbox" id="doubleAuth" name="doubleAuth"> <label for="doubleAuth"><?php echo self::$txt->Register->doubleAuth; ?></label>
-			</p>
+			<fieldset class="nomargin">
+				<legend><?php echo self::$txt->Profile->doubleAuth; ?></legend>
+	            <p class="input-large">
+					<input type="checkbox" id="doubleAuth" name="doubleAuth"> <label for="doubleAuth"><?php echo self::$txt->Register->doubleAuth; ?></label>
+				</p>
+			</fieldset>
 
 			<div class="bloc-links">
 				<a href="<?php echo MVC_ROOT; ?>/Login" class="mono blue"><?php echo self::$txt->Register->alreadyregistered; ?></a>

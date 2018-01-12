@@ -123,7 +123,11 @@ if(isset($_GET['dark'])) {
 	        <div id="language-selector">
 	            '.Languages::getLanguageSelector().'
 	        </div>
-	    </header>
+		';
+		if(isset($_SESSION['id'])) {
+			$html .= '<a href="Logout" class="logout"><i class="fa fa-sign-out" aria-hidden="true"></i></a>';
+		}
+	    $html .= '</header>
 ';
 		$html .= $this->_customHeader;
 		return $html;
