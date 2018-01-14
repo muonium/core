@@ -1,0 +1,266 @@
+{
+    "Global": {
+        "home": "Home",
+        "register": "注册",
+        "back": "回到 Muonium",
+        "favorites": "喜欢",
+        "login": "登陆",
+        "recents": "Mui :: 最近",
+        "sharing": "Mui :: 共享",
+        "transfer": "Mui :: 传输",
+        "user": "Mui :: 总面板",
+        "validate": "验证电子邮件",
+        "refresh": "刷新",
+        "profile": "账户",
+        "mail_sent": "已发送给你一封邮件，请检查你的收件箱和垃圾邮件。 如果在5分钟后仍未收到邮件，请重试。:",
+        "submit": "提交",
+        "bug": "Bug反馈",
+        "loading": "加载中..."
+    },
+
+    "UserMenu": {
+        "bug": "错误",
+        "help": "帮助",
+        "settings": "设置",
+        "profile": "账户",
+        "logout": "退出账户",
+        "upload": "上传",
+        "smallIcons": "小图标",
+        "largeIcons": "大图标",
+        "multiSelection": "多项选择",
+        "selectAll": "选择全部",
+		"moreStorage": "购买更多的储存空间"
+    },
+
+    "Toolbar": {
+        "recents": "最近的文件",
+        "favorites": "喜爱的文件",
+        "general": "总面板",
+        "shared": "共享的文件",
+        "transfers": "传输"
+    },
+
+    "Error": {
+        "e404": "错误：页面不存在",
+        "default": "发生了一个错误",
+        "form": "表格中存在错误",
+        "pp": "私密密码现在不可编辑",
+        "bannedSession": "已达到最大请求的数量",
+        "dl": "你的浏览器不支持下载"
+    },
+
+    "User": {
+        "lastmod": "最后修改时间",
+        "loaded": "加载完成",
+        "foldername": "文件夹名称",
+        "questiond": "删除此文件夹？",
+        "questionf": "删除此文件？",
+        "questionrm": "删除这些文件/文件夹？",
+        "trash_0": "查看回收站",
+        "trash_1": "退出回收站",
+        "path": "位置",
+        "name": "名称",
+        "type": "文件类型",
+        "size": "大小",
+        "file": "文件",
+        "folder": "文件夹",
+        "element": "元素",
+        "PlurialElement": "元素",
+        "replaceFile": "这个文件 [filename] 已经存在，你想替换它吗？",
+        "replaceCompleteFile": "这个文件 [filename] 已经存在但是它不完整，你想怎么做？",
+        "quotaExceeded": "超出配额!",
+        "fileAPI": "你的浏览器并不完全支持文件API，需要回退。",
+        "yes": "是",
+        "no": "否",
+        "yesAll": "是（对全部文件）",
+        "noAll": "否（对全部文件）",
+        "complete": "完成",
+        "replace": "替换",
+        "details": "详细信息",
+        "folderSelected": "文件夹已选中",
+        "fileSelected": "文件已选中",
+        "notCompleted": "未完成",
+        "nothing": "空...",
+        "uploading": "上传中",
+        "downloading": "下载中",
+		"quota_of": "[used] 对于 [total] 总共",
+		"shared": "文件共享已启用",
+		"badPass": "密码错误！",
+		"uploadedBy": "由[login]上传"
+    },
+
+    "Register": {
+        "email": "邮件地址",
+        "login": "用户名",
+        "password": "密码",
+        "confirm": "确定",
+        "passphrase": "私密密码",
+        "doubleAuth": "你想开启两步验证吗？",
+        "alreadyregistered": "已经有账户了？",
+        "impossible": "暂时无法注册",
+        "ok": "注册完成！",
+        "mailExists": "你的邮箱已经在我们的数据库中存在，无法用它创建新账户。",
+        "loginExists": "你的用户名已经在我们的数据库中存在，无法用它创建新账户。",
+        "badPassConfirm": "密码应当不同。",
+        "badPassphraseConfirm": "私密密码应当不同。",
+        "passEqualPassphrase": "密码和私密密码必须是不同的。",
+        "form": "所有的项目都必须填写。",
+        "passLength": "密码或私密密码必须至少达到6个字符",
+        "loginFormat": "用户名格式不正确（2到20个数字或字母组成，-_.是允许的）。",
+        "mailFormat": "邮件格式不正确。",
+        "error": "在创建账户时发生了一个错误",
+        "bruteforceErr0": "",
+        "bruteforceErr1": "警告：你只剩下3次机会。",
+        "bruteforceErr2": "您已达到最大请求的数量。",
+        "subject": "Muonium - 账户验证",
+        "message": "欢迎来到 Muonium！<br>验证你的账户，请点击这个链接 : <a href='[url_app]/Validate/Key/[id_user]/[key]'>[url_app]/Validate/Key/[id_user]/[key]</a><br>敬上，<br>Muonium 团队<br><br>这个邮件是自动生成的，请不要回复。"
+    },
+
+    "Login": {
+        "forgot": "密码忘了？",
+        "register": "注册",
+        "bruteforceErr0": "无效的邮箱或密码",
+        "bruteforceErr1": "警告：你只有3次机会。",
+        "bruteforceErr2": "您已达到最大请求的数量。",
+        "doubleAuthMessage": "你好，你的验证码是 [key]<br>敬上，<br>Muonium 团队<br><br>这个邮件是自动生成的，请不要回复。",
+        "codeMail": "邮件接受了验证码",
+        "expired": "此验证码已经失效，请重新登陆",
+        "invalidCode": "无效的验证码",
+        "username": "邮箱或登陆",
+        "badPassphrase": "错误: 无效的私密密码",
+        "doubleAuth": "一个附带验证码的邮件已经发给你了，请把验证吗复制到以上的选框中。<br>如果你5分钟内什么也没收到（包括你的垃圾文件夹），请点击这个链接 <a href='[url_app]/Logout'>link</a> 再尝试一次。"
+    },
+
+    "Validate": {
+        "message": "错误 : 验证码错误，请登陆再发送一个新的验证邮件",
+        "wait": "请在请求新的验证邮件之前等待一分钟",
+        "sendmess": "请点击邮件中的链接来激活你的账户",
+        "sendmail": "发送一个新的邮件"
+    },
+
+    "Profile": {
+        "changelogin": "更改用户名",
+        "changepwd": "更改密码",
+        "changepp": "更改私密密码",
+        "newlogin": "新用户名",
+        "oldpwd": "旧密码",
+        "newpwd": "新密码",
+        "oldpp": "旧的私密密码",
+        "newpp": "新的私密密码",
+        "updateErr": "无法更新你的账户",
+        "updateOk": "你的账户已成功更新",
+        "loginExists": "此用户名已被占用",
+        "badOldPass": "你的旧密码不配对",
+        "badOldPassphrase": "你的旧私密密码不配对",
+        "getpwd": "无法得到你的密码",
+        "getpp": "无法得到你的私密密码",
+        "doubleAuth": "两步验证",
+        "changemail" : "更改邮箱",
+        "mailFormat": "邮箱格式不正确。",
+        "emptymail": "请填写此项",
+        "accountDeletionConfirm": "你想删除你的账户吗？",
+        "accountDeletionOk": "你的账户已成功被删除！",
+        "deleteAccount": "删除账户",
+        "details": "你想让文件/文件夹被选中时展示详细信息吗？"
+    },
+
+    "LostPass": {
+        "updateErr": "无法更新你的账户信息",
+        "updateOk": "你的账户信息已成功更新",
+        "errmessage": "错误 : 验证码错误或已失效，请 <a href='LostPass'>再试一次</a> 并且重新输入你的用户名和邮箱。",
+        "user": "你的邮箱或你的用户名",
+        "subject": "Muonium - 密码忘了",
+        "message": "Hi,<br>更新你的密码或私密密码，请点击这个链接： <a href='[url_app]/LostPass/Key/[id_user]/[key]'>[url_app]/LostPass/Key/[id_user]/[key]</a><br>敬上，<br>Muonium 团队。<br><br>这个邮件是自动生成的，请不要回复。",
+        "reset": "警告！如果你更改了你的私密密码，你的账户将被重置并且你会丢失该账户中的所有数据！"
+    },
+
+    "RightClick": {
+        "dl": "下载",
+		"share": "共享",
+		"unshare": "停止共享",
+        "rm": "删除",
+        "star": "加星",
+        "cut": "剪切",
+        "copy": "复制",
+        "paste": "粘贴",
+        "mvLocate": "移动到...",
+        "mvItem": "重命名",
+        "vDetails": "查看详细信息",
+        "open": "打开",
+        "nFolder": "新文件夹...",
+        "upFiles": "上传文件...",
+        "logOut": "退出账户",
+        "trash": "移到回收站",
+        "restore": "恢复"
+    },
+
+    "Bug": {
+        "os": "操作系统",
+        "other": "其他 (在详细信息中说明)",
+        "browser": "浏览器",
+        "browserVersion": "浏览器版本",
+        "message": "详细信息",
+        "messageLength": "详细信息至少需要50个字符",
+        "form": "表格填写有错误",
+        "sent": "你的反馈已经成功被发出， 我们将会尽快用邮件回复"
+    },
+
+    "Upgrade": {
+        "offers": "提供",
+        "history": "历史记录",
+        "expired": "已过期",
+        "duration": "时限",
+        "price": "价格",
+        "start_date": "开始日",
+        "end_date": "结束日",
+        "month": "月",
+        "months": "月",
+        "year": "年",
+        "years": "年",
+        "lifetime": "终生",
+        "buy": "购买",
+		"success_msg": "你的购买已完成，大概需要几分钟去更新你的储存空间。",
+		"mue": "用MUE购买获得30%优惠"
+    },
+
+    "cek": {
+        "updateErr": "错误: 无法更新加密密钥",
+        "empty": "错误: 加密密钥为空"
+    },
+
+    "Help": {
+        "shortcuts": [
+            "<strong>版本</strong><ul>",
+            "<li>左键 点击一个文件/文件夹 : 选择一个文件/文件夹 - 查看详细信息</li>",
+            "<li>左键点击其他地方 : 移除选择</li>",
+            "<li>Ctrl + 左键 : 多项选择</li>",
+            "<li>右键 : 展示操作s</li>",
+            "<li>向上箭头 : 选择之前的文件</li>",
+            "<li>向下箭头 : 选择下一个文件</li>",
+            "<li>Ctrl + 向上箭头 : 把之前的文件加入选择</li>",
+            "<li>Ctrl + 向下箭头 : 把下一个文件加入选择</li>",
+            "<li>Ctrl + A : 选择全部</li>",
+            "<li>Ctrl + C : 复制</li>",
+            "<li>Ctrl + D : 退出登录</li>",
+            "<li>Ctrl + I : 反向选择</li>",
+            "<li>Ctrl + R : 移至回收站</li>",
+            "<li>Ctrl + S : 保存选择</li>",
+            "<li>Ctrl + V : 粘贴</li>",
+            "<li>Ctrl + X : 剪切</li>",
+            "<li>Backspace : 回到母文件夹</li>",
+            "<li>Delete : 删除选项</li>",
+            "<li>Esc : 隐藏操作框</li>",
+            "<li>Enter (在一个文件上) : 下载</li>",
+            "<li>Enter (在一个文件夹上) : 打开文件夹</li>",
+            "<li>F1 : 帮助</li></ul>"
+        ]
+    },
+
+	"Units": {
+		"o": "",
+		"k": "KB",
+		"m": "MB",
+		"g": "GB",
+		"t": "TB"
+	}
+}
