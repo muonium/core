@@ -4,7 +4,7 @@ h3 { color: #fff; }
 
 header { background-color: #3b3a3a; box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.4); }
 
-#language-selector select {
+select {
 	color: #fff;
 	background: url(data:image/gif;base64,R0lGODlhDgAMAKoAAEtKSt3d3f///4uLi9fW1v//mQAAAAAAACH5BAEAAAUALAAAAAAOAAwAAAMlWLrc/vANAMEoQwTaQBDTtzGeRpVjgXKqCKyd6D6lGQEEwUZPAgA7);
 }
@@ -17,10 +17,12 @@ header { background-color: #3b3a3a; box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.4); 
 
 form h1 { color: #fff; }
 
-.input-large input {
+.input-large input, .input-large select, .input-large textarea {
 	background-color: #3b3a3a;
-	border-bottom-color: #4e4d4d;
 	color: #fff;
+}
+.input-large input, .input-large select {
+	border-bottom-color: #4e4d4d;
 }
 .input-large input:focus, .input-large input:active { border-bottom-color: #8be0f9; }
 .input-large input + label.fa {
@@ -46,6 +48,8 @@ input[type="radio"] + label:before, input[type="checkbox"] + label:before {
 input[type="radio"]:checked + label:before, input[type="checkbox"]:checked + label:before {
 	color: #393c3d;
 }
+
+textarea { border-color: #4e4d4d; }
 
 .info { background-color: #212121; }
 

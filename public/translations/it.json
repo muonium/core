@@ -211,7 +211,8 @@
         "message": "Messaggio",
         "messageLength": "Il messaggio deve essere di almeno 50 caratteri",
         "form": "Errore nel form",
-        "sent": "Il tuo messaggio è stato inviato con successo. Ti risponderemo via mail il prima possibile."
+        "sent": "Il tuo messaggio è stato inviato con successo. Ti risponderemo via mail il prima possibile.",
+		"send": "Send report"
     },
 
     "cek": {

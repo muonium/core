@@ -211,7 +211,8 @@
         "message": "Message",
         "messageLength": "Le message doit être composé de 50 caractères minimum",
         "form": "Erreur dans le formulaire",
-        "sent": "Votre message a été envoyé avec succès. Nous vous répondrons dès que possible par e-mail"
+        "sent": "Votre message a été envoyé avec succès. Nous vous répondrons dès que possible par e-mail",
+		"send": "Envoyer le rapport"
     },
 
     "Upgrade": {

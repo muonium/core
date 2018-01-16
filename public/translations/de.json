@@ -211,7 +211,8 @@
         "message": "Mitteilung",
         "messageLength": "Die Mitteilung muss mindestens 50 Zeichen enthalten",
         "form": "Fehler im Formular",
-        "sent": "Deine Mitteilung wurde erfolgreich abgesendet. Wir werden so schnell wie möglich per Email darauf antworten"
+        "sent": "Deine Mitteilung wurde erfolgreich abgesendet. Wir werden so schnell wie möglich per Email darauf antworten",
+		"send": "Send report"
     },
 
     "cek": {

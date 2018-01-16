@@ -211,7 +211,8 @@
         "message": "Message",
         "messageLength": "The message must be at least 50 characters",
         "form": "Error in the form",
-        "sent": "Your message has been sent successfully. We will respond as soon as possible by email"
+        "sent": "Your message has been sent successfully. We will respond as soon as possible by email",
+		"send": "Send report"
     },
 
     "Upgrade": {
