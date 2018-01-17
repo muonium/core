@@ -15,7 +15,8 @@
         "mail_sent": "Eine Email wurde an Dich gesendet, bitte überprüfe Deinen Posteingang und Deine Spams. Falls Du nach 5 Minuten nichts erhalten hast, versuche es noch mal:",
         "submit": "Absenden",
         "bug": "Melde einen Fehler",
-        "loading": "Lädt..."
+        "loading": "Lädt...",
+		"selected": "Currently selected"
     },
 
     "UserMenu": {
@@ -221,6 +222,8 @@
     },
 
     "Upgrade": {
+		"upgrade": "Upgrade",
+		"upgradeMui": "Upgrade Muonium",
         "offers": "Angebote",
         "history": "Geschichte",
         "expired": "Abgelaufen",
@@ -235,7 +238,7 @@
         "lifetime": "Lebenszeit",
         "buy": "Kaufen",
 		"success_msg": "Your purchase has been made. It may take several minutes to refresh your disk space.",
-		"mue": "30% off with MUE"
+		"mue": "Get 30% off when you pay with <u>Monetary Unit (MUE)</u>."
     },
 
     "Help": {

@@ -4,26 +4,16 @@
 	$_t = new l\Template(self::$txt->Global->validate);
 
 	$_t->addCss([
-		'blue/blue',
-	    'blue/container',
-	    'blue/header',
-	    'blue/inputs',
-	    'blue/menu',
-	    'blue/section-large-content'
+		'2018/style'
 	]);
 
 	echo $_t->getHead();
 	echo $_t->getHeader();
 ?>
-	<div id="container">
-        <section id="large-content">
-            <p>
-                <?php
-                if(!empty($this->_message)) { echo_h($this->_message); }
-                ?>
-                <br>
-            </p>
-        </section>
+	<div class="container-small">
+        <p>
+            <?php if(isset($this->_message)) { echo_h($this->_message); } ?>
+        </p>
 	</div>
 <?php
    echo $_t->getFooter();

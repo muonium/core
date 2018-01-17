@@ -249,6 +249,53 @@ a.blue:hover, a.blue:active, a.blue:focus { color: #0b9fcb; }
 }
 .bloc-input > div { width: 100%; margin-bottom: 25px; }
 
+.bloc-offers {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width: 100%; max-width: 100%;
+}
+.bloc-offers > div {
+	width: 100%; height: 340px;
+	margin-bottom: 24px;
+	position: relative;
+	overflow: hidden;
+	margin-right: 24px;
+	box-shadow: 0 8px 8px 0 rgba(0, 0, 0, 0.05);
+	padding: 55px 32px;
+	border: solid 4px transparent;
+	text-align: center;
+}
+.bloc-offers > div:hover, .bloc-offers > div:active, .bloc-offers > div:focus { border: solid 4px #16c1f3; }
+.bloc-offers > div > .most-popular {
+	position: absolute;
+	width: 160px; height: 48px; line-height: 48px;
+	font-family: RobotoMono;
+	font-size: 12px; font-weight: bold;
+	letter-spacing: .1px;
+  	transform: rotate(-45deg);
+	color: #fff;
+  	background-color: #16c1f3;
+	top: 15px; left: -40px;
+}
+.offer-size {
+	height: 29px;
+	font-family: RobotoMono; font-size: 22px; font-weight: bold;
+	letter-spacing: 2.8px;
+	margin-bottom: 24px;
+}
+.offer-price {
+	height: 74px;
+	font-family: RobotoMono; font-size: 56px; font-weight: 500;
+}
+.offer-price .currency { font-size: 20px; vertical-align: super; padding-right: 5px; }
+.offer-duration {
+	height: 16px;
+	font-family: RobotoMono; font-size: 12px; font-weight: bold;
+	letter-spacing: .1px;
+	margin-bottom: 45px;
+}
+
 .info {
 	width: 100%;
 	padding: 10px 25px;
@@ -263,10 +310,13 @@ a.blue:hover, a.blue:active, a.blue:focus { color: #0b9fcb; }
 }
 .nomargin { margin: 0 !important; }
 .nopadding { padding: 0 !important; }
+.red, .error { color: red; }
+.green, .success { color: green; }
 
 .logout { font-size: 20px; margin-left: 25px; }
 
 p { margin-bottom: 10px; }
+p.em { margin: 15px 0; }
 
 fieldset {
 	border: none;
@@ -283,6 +333,8 @@ legend {
 }
 fieldset p { margin-bottom: 25px; }
 fieldset .label { font-family: RobotoMono; font-weight: 500; margin-right: 8px; }
+
+table.table-large { width: 100%; max-width: 100%; }
 
 @media screen and (min-width: 600px) {
 	.input-large input { padding-left: 44px; }
@@ -308,6 +360,9 @@ fieldset .label { font-family: RobotoMono; font-weight: 500; margin-right: 8px; 
 
 	.bloc-input { flex-direction: row; flex-wrap: wrap; }
 	.bloc-input > div { flex-basis: 400px; }
+
+	.bloc-offers { flex-direction: row; flex-wrap: wrap; }
+	.bloc-offers > div { flex-basis: 240px; }
 
 	input[type="radio"] + label, input[type="checkbox"] + label { padding-left: 44px; }
 }

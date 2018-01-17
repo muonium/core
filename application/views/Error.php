@@ -4,23 +4,16 @@
     $_t = new l\Template("Error");
 
     $_t->addCss([
-		'blue/blue',
-	    'blue/container',
-	    'blue/header',
-	    'blue/inputs',
-	    'blue/menu',
-	    'blue/section-large-content'
+		'2018/style'
 	]);
 
 	echo $_t->getHead();
 	echo $_t->getHeader();
 ?>
-    <div id="container">
-        <section id="large-content">
-            <div id="return">
-                <p class="error"><?php echo $this->_error; ?></p>
-            </div>
-        </section>
+    <div class="container-small">
+        <div id="return">
+            <p class="error"><?php echo $this->_error; ?></p>
+        </div>
     </div>
 <?php
 	echo $_t->getFooter();

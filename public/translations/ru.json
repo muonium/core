@@ -15,7 +15,8 @@
         "mail_sent": "Вам было отправлено сообщение электронной почты, пожалуйста, проверьте свои входящие письма и спам. Если после 5 минут письмо не пришло - повторите запрос. :",
         "submit": "Принять",
         "bug": "Отчет об ошибке",
-        "loading": "Загрузка..."
+        "loading": "Загрузка...",
+		"selected": "Currently selected"
     },
 
     "UserMenu": {
@@ -216,6 +217,8 @@
     },
 
     "Upgrade": {
+		"upgrade": "Upgrade",
+		"upgradeMui": "Upgrade Muonium",
         "offers": "Предложения",
         "history": "История",
         "expired": "Истекшие",
@@ -230,7 +233,7 @@
         "lifetime": "продолжительность",
         "buy": "купить",
 		"success_msg": "Your purchase has been made. It may take several minutes to refresh your disk space.",
-		"mue": "30% off with MUE"
+		"mue": "Get 30% off when you pay with <u>Monetary Unit (MUE)</u>."
     },
 
     "cek": {

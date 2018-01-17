@@ -15,7 +15,8 @@
         "mail_sent": "Un email vous a été envoyé, veuillez vérifier votre boîte de réception et vos spams. Si vous n'avez rien reçu au bout de 5mn, tentez à nouveau :",
         "submit": "Valider",
         "bug": "Rapport de bug",
-        "loading": "Chargement..."
+        "loading": "Chargement...",
+		"selected": "Sélectionné"
     },
 
     "UserMenu": {
@@ -216,8 +217,10 @@
     },
 
     "Upgrade": {
+		"upgrade": "Upgrade",
+		"upgradeMui": "Upgrade Muonium",
         "offers": "Offres",
-        "history": "Historique",
+        "history": "Historique de paiement",
         "expired": "Expiré",
         "duration": "Durée",
         "price": "Prix",
@@ -230,7 +233,7 @@
         "lifetime": "à vie",
         "buy": "Acheter",
 		"success_msg": "Votre achat a bien été effectué. Cela peut prendre plusieurs minutes pour actualiser votre espace disque.",
-		"mue": "30% de réduction avec MUE"
+		"mue": "Obtenez 30% de réduction en payant avec <u>Monetary Unit (MUE)</u>."
     },
 
     "cek": {

@@ -51,6 +51,9 @@ input[type="radio"]:checked + label:before, input[type="checkbox"]:checked + lab
 
 textarea { border-color: #4e4d4d; }
 
+.bloc-offers > div { background-color: #212121; }
+.offer-size, .offer-price, .offer-duration { color: #fff; }
+
 .info { background-color: #212121; }
 
 .logout { color: #fff; }

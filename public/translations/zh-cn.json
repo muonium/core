@@ -15,7 +15,8 @@
         "mail_sent": "已发送给你一封邮件，请检查你的收件箱和垃圾邮件。 如果在5分钟后仍未收到邮件，请重试。:",
         "submit": "提交",
         "bug": "Bug反馈",
-        "loading": "加载中..."
+        "loading": "加载中...",
+		"selected": "Currently selected"
     },
 
     "UserMenu": {
@@ -206,6 +207,8 @@
     },
 
     "Upgrade": {
+		"upgrade": "Upgrade",
+		"upgradeMui": "Upgrade Muonium",
         "offers": "提供",
         "history": "历史记录",
         "expired": "已过期",
