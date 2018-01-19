@@ -17,27 +17,27 @@ select {
 
 form h1 { color: #212121; }
 
-.input-large input, .input-large select, .input-large textarea {
+[class^="input-"] input, [class^="input-"] select, [class^="input-"] textarea {
 	background-color: #fff;
 	color: #212121;
 }
-.input-large input, .input-large select {
+[class^="input-"] input, [class^="input-"] select {
 	border-bottom-color: #f4f4f4;
 }
-.input-large input:focus, .input-large input:active { border-bottom-color: #8be0f9; }
-.input-large input + label.fa {
+[class^="input-"] input:focus, [class^="input-"] input:active { border-bottom-color: #8be0f9; }
+[class^="input-"] input + label.fa {
 	color: #757575;
 }
 
-.input-large input[type="checkbox"] + label:not(.fa), .input-large input[type="radio"] + label:not(.fa) {
+[class^="input-"] input[type="checkbox"] + label:not(.fa), [class^="input-"] input[type="radio"] + label:not(.fa) {
 	color: #777;
 	border-bottom-color: #f4f4f4;
 }
 /* Yes, we need separate rules for each browser. Otherwise the whole group would be ignored by all browsers. */
-.input-large input::-webkit-input-placeholder { color: #777; }
-.input-large input:-moz-placeholder { color: #777; }
-.input-large input::-moz-placeholder { color: #777; }
-.input-large input:-ms-input-placeholder { color: #777; }
+[class^="input-"] input::-webkit-input-placeholder { color: #777; }
+[class^="input-"] input:-moz-placeholder { color: #777; }
+[class^="input-"] input::-moz-placeholder { color: #777; }
+[class^="input-"] input:-ms-input-placeholder { color: #777; }
 
 a { color: #757575; }
 

@@ -4,19 +4,7 @@
 	$_t = new l\Template(self::$txt->Global->user);
 
 	$_t->addCss([
-		'blue/blue',
-		'blue/container',
-		'blue/dragbar',
-		'blue/header',
-		'blue/inputs',
-		'blue/menu',
-		'blue/section-desktop',
-		'blue/section-large-content',
-		'blue/selection',
-		'blue/toolbar',
-		'blue/transfers',
-		'blue/tree',
-		'Interface/progress_bar'
+		'2018/style'
 	])->addJs([
 		'Interface/modules/Decryption',
 		'Interface/modules/Files',
@@ -31,15 +19,26 @@
 	echo $_t->getHead();
 	echo $_t->getHeader();
 ?>
-    <div id="container">
-        <section id="large-content">
-            <h1><?php echo_h($infos['name']); ?></h1>
-			<p><?php echo_h(str_replace('[login]', $infos['login'], self::$txt->User->uploadedBy)); echo ' '.date('Y-m-d G:i', $infos['last_modification']); ?></p>
-			<p><?php echo self::$txt->User->size; echo ': '.$filesize; ?></p>
+    <div class="container-large">
+		<?php if(!isset($_SESSION['id'])) { ?>
+			<div class="info">
+				<?php echo self::$txt->Register->donthaveaccount; ?>
+				<a href="<?php echo MVC_ROOT; ?>/Register"><?php echo self::$txt->Register->create; ?></a>
+			</div>
+		<?php } ?>
 
-			<p><?php echo self::$txt->Register->password; ?>: <input type="password" id="password"></p>
+		<div class="center mtop mono">
+	        <h1 class="dl-filename"><?php echo_h($infos['name']); ?></h1>
+
+			<p class="dl-info"><?php echo_h(str_replace('[login]', $infos['login'], self::$txt->User->uploadedBy)); echo ' '.date('Y-m-d G:i', $infos['last_modification']); ?></p>
+			<p class="dl-info"><?php echo self::$txt->User->size; echo ': '.$filesize; ?></p>
+
+			<p class="input-small">
+				<input type="password" id="password" placeholder="<?php echo self::$txt->Register->password; ?>">
+				<label class="fa fa-lock" for="password"></label>
+			</p>
 			<p>
-				<button id="dl"
+				<button id="dl" class="btn mtop"
 					data-dk="<?php echo $infos['dk']; ?>"
 					data-fname="<?php echo_h($infos['name']); ?>"
 					data-fid="<?php echo $infos['folder_id']; ?>"
@@ -50,7 +49,7 @@
 			</p>
 
 			<p id="msg"></p>
-        </section>
+		</div>
     </div>
 
     <div id="transfers" class="hide">

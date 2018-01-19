@@ -63,10 +63,6 @@
                 <i class="fa fa-upload" aria-hidden="true"></i>&nbsp;
                 <?php echo self::$txt->UserMenu->upload; ?>
             </li>
-            <li>
-                <a href="Logout"><i class="fa fa-sign-out" aria-hidden="true"></i>&nbsp;
-                <?php echo self::$txt->UserMenu->logout; ?></a>
-            </li>
             <li onclick="showHelp()">?</li>
         </ul>
         <section id="language">

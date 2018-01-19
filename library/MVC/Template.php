@@ -125,7 +125,7 @@ if(isset($_GET['dark'])) {
 	        </div>
 		';
 		if(isset($_SESSION['id'])) {
-			$html .= '<a href="Logout" class="logout"><i class="fa fa-sign-out" aria-hidden="true"></i></a>';
+			$html .= '<a href="Logout" class="logout" title="'.Languages::$txt->Global->logout.'"><i class="fa fa-sign-out" aria-hidden="true"></i></a>';
 		}
 	    $html .= '</header>
 ';

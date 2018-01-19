@@ -5,6 +5,7 @@
         "back": "Torna a Muonium",
         "favorites": "Preferiti",
         "login": "Login",
+		"logout": "Logout",
         "recents": "Recenti",
         "sharing": "Condivisione",
         "transfer": "Trasferimento",
@@ -24,7 +25,6 @@
         "help": "Aiuto",
         "settings": "Impostazioni",
         "profile": "Profilo",
-        "logout": "Logout",
         "upload": "Upload",
         "smallIcons": "Small icons",
         "largeIcons": "Large icons",
@@ -91,6 +91,8 @@
     },
 
     "Register": {
+		"donthaveaccount": "Don't have a Muonium account?",
+		"create": "Create one now.",
         "email": "Indirizzo email",
         "login": "Username",
         "password": "Password",

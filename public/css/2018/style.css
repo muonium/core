@@ -109,7 +109,7 @@ form.form-login, form.form-register, form.form-bug, .container-small > form {
 }
 form.form-bug input, form.form-bug select { padding-left: 16px; }
 form.form-bug fieldset { margin-bottom: 0; }
-/*form.form-err .input-large input {
+/*form.form-err [class^="input-"] input {
 	border-bottom-color: #ff9999;
 }*/
 
@@ -121,44 +121,44 @@ form h1 {
 
 input:not([type="radio"]):not([type="checkbox"]):not([type="button"]):not([type="submit"]), textarea { cursor: text; }
 
-.input-large { position: relative; }
-.input-large input, .input-large select, .input-large textarea {
+[class^="input-"] { position: relative; }
+[class^="input-"] input, [class^="input-"] select, [class^="input-"] textarea {
 	width: 100%;
 	font-family: RobotoMono; font-size: 14px; font-weight: 500;
 	text-align: left;
 	outline: none;
 }
-.input-large input, .input-large label { margin-top: 24px; }
-.input-large input, .input-large select {
+[class^="input-"] input, [class^="input-"] label { margin-top: 24px; }
+[class^="input-"] input, [class^="input-"] select {
 	height: 48px;
 	border-width: 0 0 2px 0; border-style: solid;
 	padding-left: 34px;
 }
-.input-large input + label.fa {
+[class^="input-"] input + label.fa {
 	font-size: 16px;
 	position: absolute;
 	bottom: 16px; left: 0;
 }
-.input-large input[type="checkbox"] + label:not(.fa), .input-large input[type="radio"] + label:not(.fa) {
+[class^="input-"] input[type="checkbox"] + label:not(.fa), [class^="input-"] input[type="radio"] + label:not(.fa) {
 	font-family: RobotoMono; font-size: 14px; font-weight: 500; text-transform: uppercase;
 	padding-bottom: 16px;
 	border-width: 0 0 2px 0; border-style: solid;
 	outline: none;
 }
 /* Yes, we need separate rules for each browser. Otherwise the whole group would be ignored by all browsers. */
-.input-large input::-webkit-input-placeholder {
+[class^="input-"] input::-webkit-input-placeholder {
     opacity: 1; -webkit-appearance: textfield; appearance: textfield;
 	font-family: RobotoMono; font-size: 14px; font-weight: 500; text-transform: uppercase;
 }
-.input-large input:-moz-placeholder {
+[class^="input-"] input:-moz-placeholder {
     opacity: 1; -moz-appearance: textfield; appearance: textfield;
 	font-family: RobotoMono; font-size: 14px; font-weight: 500; text-transform: uppercase;
 }
-.input-large input::-moz-placeholder {
+[class^="input-"] input::-moz-placeholder {
     opacity: 1; -moz-appearance: textfield; appearance: textfield;
     font-family: RobotoMono; font-size: 14px; font-weight: 500; text-transform: uppercase;
 }
-.input-large input:-ms-input-placeholder {
+[class^="input-"] input:-ms-input-placeholder {
     opacity: 1; appearance: textfield;
     font-family: RobotoMono; font-size: 14px; font-weight: 500; text-transform: uppercase;
 }
@@ -280,7 +280,7 @@ a.blue:hover, a.blue:active, a.blue:focus { color: #0b9fcb; }
   	background-color: #16c1f3;
 	top: 15px; left: -40px;
 }
-.offer-size {
+.offer-size, .dl-filename {
 	height: 29px;
 	font-family: RobotoMono; font-size: 22px; font-weight: bold;
 	letter-spacing: 2.8px;
@@ -297,6 +297,11 @@ a.blue:hover, a.blue:active, a.blue:focus { color: #0b9fcb; }
 	letter-spacing: .1px;
 	margin-bottom: 45px;
 }
+.dl-info {
+	font-family: RobotoMono; font-size: 15px; font-weight: bold;
+	letter-spacing: 1.9px;
+	margin-bottom: 24px;
+}
 
 .info {
 	width: 100%;
@@ -306,10 +311,9 @@ a.blue:hover, a.blue:active, a.blue:focus { color: #0b9fcb; }
 	margin: 10px 0;
 }
 
-.nowrap {
-	white-space: nowrap;
-	overflow: hidden; text-overflow: ellipsis;
-}
+.mtop { margin-top: 25px; }
+.hide { display: none; }
+.nowrap { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .nomargin { margin: 0 !important; }
 .nopadding { padding: 0 !important; }
 .red, .error { color: red; }
@@ -339,7 +343,7 @@ fieldset .label { font-family: RobotoMono; font-weight: 500; margin-right: 8px; 
 table.table-large { width: 100%; max-width: 100%; }
 
 @media screen and (min-width: 600px) {
-	.input-large input { padding-left: 44px; }
+	[class^="input-"] input { padding-left: 44px; }
 
 	.container-small {
 		width: 600px; max-width: 600px;
@@ -371,6 +375,9 @@ table.table-large { width: 100%; max-width: 100%; }
 
 @media screen and (min-width: 800px) {
 	.bloc-input > div:not(:last-child) { margin-right: 100px; }
+	[class^="input-"] { margin-left: auto; margin-right: auto; }
+	.input-small { max-width: 350px; }
+	.input-large { max-width: 600px; }
 }
 
 @media screen and (min-width: 1200px) {

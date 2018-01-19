@@ -5,6 +5,7 @@
         "back": "Retour à Muonium",
         "favorites": "Favoris",
         "login": "Connexion",
+		"logout": "Déconnexion",
         "recents": "Mui :: Récents",
         "sharing": "Mui :: Partage",
         "transfer": "Mui :: Transfert",
@@ -24,7 +25,6 @@
         "help": "Aide",
         "settings": "Options",
         "profile": "Profil",
-        "logout": "Déconnexion",
         "upload": "Téléverser",
         "smallIcons": "Petites icônes",
         "largeIcons": "Grandes icônes",
@@ -91,6 +91,8 @@
     },
 
     "Register": {
+		"donthaveaccount": "Pas de compte Muonium ?",
+		"create": "Créer maintenant.",
         "email": "Adresse email",
         "login": "Nom d'utilisateur",
         "password": "Mot de passe",

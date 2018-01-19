@@ -5,6 +5,7 @@
         "back": "回到 Muonium",
         "favorites": "喜欢",
         "login": "登陆",
+		"logout": "退出账户",
         "recents": "Mui :: 最近",
         "sharing": "Mui :: 共享",
         "transfer": "Mui :: 传输",
@@ -24,7 +25,6 @@
         "help": "帮助",
         "settings": "设置",
         "profile": "账户",
-        "logout": "退出账户",
         "upload": "上传",
         "smallIcons": "小图标",
         "largeIcons": "大图标",
@@ -91,6 +91,8 @@
     },
 
     "Register": {
+		"donthaveaccount": "Don't have a Muonium account?",
+		"create": "Create one now.",
         "email": "邮件地址",
         "login": "用户名",
         "password": "密码",

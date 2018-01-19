@@ -5,6 +5,7 @@
         "back": "Назад на Muonium",
         "favorites": "Закладки",
         "login": "Вход",
+		"logout": "Выйти",
         "recents": "Mui :: Принятые",
         "sharing": "Mui :: Общие",
         "transfer": "Mui :: Передача",
@@ -24,7 +25,6 @@
         "help": "Помощь",
         "settings": "Настройки",
         "profile": "Аккаунт",
-        "logout": "Выйти",
         "upload": "Загрузить",
         "smallIcons": "Маленькие иконки",
         "largeIcons": "Большие иконки",
@@ -91,6 +91,8 @@
     },
 
     "Register": {
+		"donthaveaccount": "Don't have a Muonium account?",
+		"create": "Create one now.",
         "email": "Адрес электронной почты",
         "login": "Логин",
         "password": "Пароль",
