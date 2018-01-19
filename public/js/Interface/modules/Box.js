@@ -76,7 +76,6 @@ var Box = (function() {
                         if(Move.Files.length > 0 || Move.Folders.length > 0) {
                             box_div.innerHTML += '<hr><p onclick="Move.paste(\''+id+'\')"><i class="fa fa-clipboard" aria-hidden="true"></i> '+txt.RightClick.paste+'</p>';
 						}
-                        box_div.innerHTML += '<hr><p onclick="logout()"><i class="fa fa-sign-out" aria-hidden="true"></i> '+txt.RightClick.logOut+'</p>';
                     }
                     break;
                 //mouse over a file

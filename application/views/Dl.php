@@ -35,9 +35,9 @@
         <section id="large-content">
             <h1><?php echo_h($infos['name']); ?></h1>
 			<p><?php echo_h(str_replace('[login]', $infos['login'], self::$txt->User->uploadedBy)); echo ' '.date('Y-m-d G:i', $infos['last_modification']); ?></p>
-			<p><?php echo self::$txt->User->size; echo '&nbsp;: '.$filesize; ?></p>
+			<p><?php echo self::$txt->User->size; echo ': '.$filesize; ?></p>
 
-			<p><?php echo self::$txt->Register->password; ?>&nbsp;: <input type="password" id="password"></p>
+			<p><?php echo self::$txt->Register->password; ?>: <input type="password" id="password"></p>
 			<p>
 				<button id="dl"
 					data-dk="<?php echo $infos['dk']; ?>"

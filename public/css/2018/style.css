@@ -119,6 +119,8 @@ form h1 {
 	text-align: left;
 }
 
+input:not([type="radio"]):not([type="checkbox"]):not([type="button"]):not([type="submit"]), textarea { cursor: text; }
+
 .input-large { position: relative; }
 .input-large input, .input-large select, .input-large textarea {
 	width: 100%;
@@ -316,7 +318,7 @@ a.blue:hover, a.blue:active, a.blue:focus { color: #0b9fcb; }
 .logout { font-size: 20px; margin-left: 25px; }
 
 p { margin-bottom: 10px; }
-p.em { margin: 15px 0; }
+.em { margin: 15px 0; }
 
 fieldset {
 	border: none;

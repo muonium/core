@@ -21,7 +21,7 @@
 			<?php echo $offers; ?>
 		</div>
 
-		<h2><?php echo self::$txt->Upgrade->history; ?></h2>
+		<h2 class="em"><?php echo self::$txt->Upgrade->history; ?></h2>
 		<table class="table-large">
 			<tr>
 				<th><?php echo self::$txt->User->size; ?></th>

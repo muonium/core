@@ -30,15 +30,15 @@
 			<legend><?php echo self::$txt->Global->profile; ?></legend>
 
 	        <p>
-				<span class="label"><?php echo self::$txt->Register->login.'&nbsp;:</span>
+				<span class="label"><?php echo self::$txt->Register->login.':</span>
 				'.htmlentities($_SESSION['login']); ?>
 			</p>
 			<p>
-				<span class="label"><?php echo self::$txt->Register->email.'&nbsp;:</span>
+				<span class="label"><?php echo self::$txt->Register->email.':</span>
 				'.htmlentities($this->_modelUser->getEmail()); ?>
 			</p>
 			<p>
-				<span class="label">ID&nbsp;:</span>
+				<span class="label">ID:</span>
 				<?php echo $_SESSION['id']; ?>
 			</p>
 		</fieldset>
