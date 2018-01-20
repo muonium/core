@@ -57,8 +57,13 @@ textarea { border-color: #f4f4f4; }
 .offer-duration { color: #757575; }
 
 .info { background-color: transparent; }
+.story { background-color: #fafafa; color: #757575; }
 
 .logout { color: #212121; }
+
+hr { background-color: #f0f0f0; }
 fieldset { color: #212121; }
 legend { color: #757575; }
 fieldset .label { color: #757575; }
+
+#selection { background-color: #fff; }

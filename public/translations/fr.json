@@ -199,12 +199,21 @@
         "mvItem": "Renommer",
         "vDetails": "Voir les détails",
         "open": "Ouvrir",
-        "nFolder": "Nouveau dossier...",
-        "upFiles": "Charger des fichiers...",
+        "nFolder": "Nouveau dossier",
+        "upFiles": "Charger des fichiers",
         "logOut": "Se déconnecter",
         "trash": "Corbeille",
         "restore": "Restaurer"
     },
+
+	"Story": {
+		"keep": "Keep Muonium <u>Free</u> and <u>Open</u>.",
+		"join": "Join our journey of keeping Muonium free, secure, and open source for everyone.",
+		"read": "Read Our Story",
+		"premium": "Go Premium",
+		"donate": "Faire un don",
+		"help": "How does my support help?"
+	},
 
     "Bug": {
         "os": "Système d'exploitation",

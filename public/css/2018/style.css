@@ -90,14 +90,15 @@ header {
 	color: #16c1f3; border-right: 3px solid #16c1f3;
 }
 
+.container-small, .container-large, .container-max {
+	width: 100%; max-width: 100%;
+	overflow: hidden;
+	padding: 20px;
+}
 .container-small, .container-large {
 	margin: 40px auto;
-	width: 100%;
-	max-width: 100%;
 	border-radius: 5px;
   	box-shadow: 0 3px 10px 0 rgba(0, 0, 0, 0.1);
-	padding: 20px;
-	overflow: hidden;
 }
 .container-large {
 	margin-left: 15px; margin-right: 15px;
@@ -228,6 +229,9 @@ a.blue:hover, a.blue:active, a.blue:focus { color: #0b9fcb; }
 .btn-profile { padding: 0 64px; float: right; }
 .btn-warning { background-color: #c62828 !important; box-shadow: none; }
 .btn-warning:disabled { opacity: .5; }
+.btn-large { width: 100%; }
+.btn-b {}
+.btn-c {}
 
 .bloc-links {
 	flex-direction: column;
@@ -304,14 +308,26 @@ a.blue:hover, a.blue:active, a.blue:focus { color: #0b9fcb; }
 }
 
 .info {
-	width: 100%;
+	width: 100%; max-width: 100%;
 	padding: 10px 25px;
 	border-radius: 10px;
 	box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.1);
 	margin: 10px 0;
 }
 
+.story {
+	width: 100%; max-width: 100%;
+	padding: 8px 13px;
+	box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
+	margin: 36px 0;
+}
+.story .keep { font-size: 15px; letter-spacing: .1px; }
+.story .join { font-size: 16px; font-weight: 500; letter-spacing: .6px; }
+
+.inline { display: inline; }
+.block { display: block; }
 .mtop { margin-top: 25px; }
+.mbottom { margin-bottom: 25px; }
 .hide { display: none; }
 .hidden { display: none !important; }
 .nowrap { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
@@ -324,6 +340,7 @@ a.blue:hover, a.blue:active, a.blue:focus { color: #0b9fcb; }
 
 p { margin-bottom: 10px; }
 .em { margin: 15px 0; }
+hr { margin-top: 10px; margin-bottom: 15px; border-width: 0; height: 2px; }
 
 fieldset {
 	border: none;
@@ -361,6 +378,7 @@ section#desktop img.arrow { height: 5vh; width: 5vh; }
 		margin: 48px 50px;
 		padding: 25px 50px;
 	}
+	.container-max { padding: 25px 50px; }
 
 	form.form-login, form.form-register { width: 60%; }
 	form.form-bug { width: 70%; margin-left: 0; }

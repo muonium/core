@@ -2,7 +2,8 @@
 var Folders = (function() {
 	return {
 		id : 0,
-		create : function() {
+		create : function(e) {
+			if(e !== undefined) e.preventDefault();
 			Box.hide();
 
 			var validate = function() {

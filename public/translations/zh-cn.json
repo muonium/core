@@ -190,12 +190,21 @@
         "mvItem": "重命名",
         "vDetails": "查看详细信息",
         "open": "打开",
-        "nFolder": "新文件夹...",
-        "upFiles": "上传文件...",
+        "nFolder": "新文件夹",
+        "upFiles": "上传文件",
         "logOut": "退出账户",
         "trash": "移到回收站",
         "restore": "恢复"
     },
+
+	"Story": {
+		"keep": "Keep Muonium <u>Free</u> and <u>Open</u>.",
+		"join": "Join our journey of keeping Muonium free, secure, and open source for everyone.",
+		"read": "Read Our Story",
+		"premium": "Go Premium",
+		"donate": "Give a donation",
+		"help": "How does my support help?"
+	},
 
     "Bug": {
         "os": "操作系统",

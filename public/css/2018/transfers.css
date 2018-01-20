@@ -9,10 +9,10 @@
     box-shadow: -2px 0px 8px 1px #ccc;
 }
 
-#transfers > #top { background-color: #333333; color: white; }
-#transfers > #toggle { background-color: #D2D2D2; color: #333333; }
-#transfers > #toggle li:hover, #transfers > #toggle li:active { background: #E4E4E4; }
-#transfers > #toggle li.selected { background-color: #DDDDDD; border-bottom: 2px solid #3BAEDA; }
+#transfers > #top { background-color: #333; color: #fff; }
+#transfers > #toggle { background-color: #d2d2d2; color: #333; }
+#transfers > #toggle li:hover, #transfers > #toggle li:active { background: #e4e4e4; }
+#transfers > #toggle li.selected { background-color: #ddd; border-bottom: 2px solid #3baeda; }
 
 #transfers > #top, #transfers > #toggle { width: 100%; height: 32px; }
 
@@ -34,7 +34,7 @@
 #transfers > #top li, #transfers > #top li *, #transfers > #toggle li { cursor: pointer; }
 
 #transfers > #top li, #transfers > #toggle li { padding: 5px; text-align: center; }
-#transfers > #content { background-color: white; }
+#transfers > #content { background-color: #fff; }
 #transfers #transfers_upload, #transfers #transfers_download { padding: 5px 10px 20px 10px; }
 #transfers #transfers_upload { display: block; }
 #transfers #transfers_download { display: none; }
@@ -45,8 +45,8 @@
     display: inline-block;
     height: 16px; width: 18px;
     border-radius: 50%;
-    background-color: #E64D63;
-    color: white;
+    background-color: #e64d63;
+    color: #fff;
     text-align: center;
     font-size: 8px;
     line-height: 16px;

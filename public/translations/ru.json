@@ -199,12 +199,21 @@
         "mvItem": "Переименовать",
         "vDetails": "Посмотреть детали",
         "open": "Открыть",
-        "nFolder": "Новая папка...",
-        "upFiles": "Выгрузить файлы...",
+        "nFolder": "Новая папка",
+        "upFiles": "Выгрузить файлы",
         "logOut": "Выход",
         "trash": "Корзина",
         "restore": "Восстановить"
     },
+
+	"Story": {
+		"keep": "Keep Muonium <u>Free</u> and <u>Open</u>.",
+		"join": "Join our journey of keeping Muonium free, secure, and open source for everyone.",
+		"read": "Read Our Story",
+		"premium": "Go Premium",
+		"donate": "Give a donation",
+		"help": "How does my support help?"
+	},
 
     "Bug": {
         "os": "Операционная система",

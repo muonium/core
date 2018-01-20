@@ -140,8 +140,8 @@ var Selection = (function() {
         },
 
         openDetails : function() {
-            if(!($("section#selection").hasClass("selected"))) {
-                $("section#selection").fadeIn(400, function() {
+            if(!($("section.selection").hasClass("selected"))) {
+                $("section.selection").fadeIn(400, function() {
                     $(this).addClass("selected");
                 });
             }
@@ -151,8 +151,8 @@ var Selection = (function() {
         },
 
         closeDetails : function() {
-            if($("section#selection").hasClass('selected')) {
-                $("section#selection").fadeOut('fast', function() {
+            if($("section.selection").hasClass('selected')) {
+                $("section.selection").fadeOut('fast', function() {
                     $(this).removeClass("selected");
                 });
             }
@@ -260,7 +260,7 @@ var Selection = (function() {
 				if(Selection.Folders.length + Selection.Files.length > 1) {
                     content += "<hr><span class='multiselected_details'>"+Selection.Folders.length+" "+txt.User.folderSelected+", "+Selection.Files.length+" "+txt.User.fileSelected+"</span>";
                 }
-                document.querySelector("section#selection").innerHTML = content + "</ul>";
+                document.querySelector("section.selection").innerHTML = content + "</ul>";
             }
         }
     }

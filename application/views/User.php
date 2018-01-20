@@ -52,7 +52,7 @@
 	echo $_t->getHeader();
 	echo $_t->getSidebar();
 ?>
-    <div class="container-large">
+    <div class="container-max">
 		<span>
 			<input type="radio" id="display_list" name="display">
 			<label for="display_list"><?php echo self::$txt->UserMenu->smallIcons; ?></label>
@@ -78,9 +78,27 @@
                 <?php echo self::$txt->Global->loading; ?>
             </div>
         </section>
-
-        <section id="selection"></section>
     </div>
+	<div id="selection">
+		<div class="center">
+			<button class="btn mbottom" onclick="Upload.dialog()"><?php echo self::$txt->RightClick->upFiles; ?></button>
+			<a href="#" class="blue block" onclick="Folders.create(event)"><i class="fa fa-folder-o" aria-hidden="true"></i> <?php echo self::$txt->RightClick->nFolder; ?></a>
+		</div>
+
+		<section class="selection"><!-- Temporary place where selection infos will be displayed --></section>
+
+		<!-- Box -->
+
+		<div class="story">
+			<p class="mono keep"><strong><?php echo self::$txt->Story->keep; ?></strong></p><hr>
+			<p class="join"><?php echo self::$txt->Story->join; ?></p>
+
+			<p><a href="#" class="mono"><?php echo self::$txt->Story->read; ?></a></p>
+
+			<p><button class="btn btn-large btn-b"><?php echo self::$txt->Story->premium; ?></button></p>
+			<p><button class="btn btn-large btn-c"><?php echo self::$txt->Story->donate; ?></button></p>
+		</div>
+	</div>
 
     <div id="transfers" class="hide">
         <section id="top">
