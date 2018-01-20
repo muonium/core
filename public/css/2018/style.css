@@ -313,6 +313,7 @@ a.blue:hover, a.blue:active, a.blue:focus { color: #0b9fcb; }
 
 .mtop { margin-top: 25px; }
 .hide { display: none; }
+.hidden { display: none !important; }
 .nowrap { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .nomargin { margin: 0 !important; }
 .nopadding { padding: 0 !important; }
@@ -341,6 +342,13 @@ fieldset p { margin-bottom: 25px; }
 fieldset .label { font-family: RobotoMono; font-weight: 500; margin-right: 8px; }
 
 table.table-large { width: 100%; max-width: 100%; }
+
+section#desktop {
+    overflow: auto;
+    width: 100%; height: 100%;
+}
+
+section#desktop img.arrow { height: 5vh; width: 5vh; }
 
 @media screen and (min-width: 600px) {
 	[class^="input-"] input { padding-left: 44px; }
@@ -371,6 +379,8 @@ table.table-large { width: 100%; max-width: 100%; }
 	.bloc-offers > div { flex-basis: 240px; }
 
 	input[type="radio"] + label, input[type="checkbox"] + label { padding-left: 44px; }
+
+	section#desktop { height: calc(100% - 200px); /* Display "selection" under it */ }
 }
 
 @media screen and (min-width: 800px) {

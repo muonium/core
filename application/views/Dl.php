@@ -10,7 +10,6 @@
 		'Interface/modules/Files',
 		'Interface/modules/Time',
 		'Interface/modules/Transfers',
-		'object-watch',
 		'src/crypto/sjcl',
 		'Interface/idb.filesystem.min',
 		'Dl'

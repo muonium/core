@@ -1,0 +1,50 @@
+section#selection {
+    background: #F2F2F2;
+    overflow: none;
+    padding: 1rem;
+    color: black;
+    display: none;
+    position: fixed;
+    bottom: 50px;
+    width: 100%;
+}
+
+section#selection ul { list-style-type: none; font-size: 12px; }
+section#selection strong { font-weight: normal; color: #777777; }
+
+section#selection.selected {
+    display: block;
+    -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;
+    box-shadow: -2px 0px 8px 1px #ccc;
+}
+
+section#selection input:not([type="checkbox"]):not([type="radio"]):not([type="button"]) {
+	margin-top: 10px;
+    width: 100%; height: 32px;
+	padding-left: 10px;
+    border: 1px solid rgba(40, 83, 92, 0.44);
+    border-radius: 3px;
+    outline: none;
+    color: #28535c;
+    max-width: 680px;
+}
+section#selection input[type="button"] {
+	width: 100%; height: 32px;
+}
+
+.multiselected_details { display: block; font-size: 14px; margin-top: 10px; }
+li#multisel_desktop { display: none; }
+.btn_download, .btn_share { font-size: 14px; cursor: pointer; }
+section#selection .btn_download, section#selection .btn_share { display: none; }
+
+@media screen and (min-width: 600px) {
+    section#selection { position: static; width: auto; }
+    section#selection ul { margin-top: 20px; }
+    li#multisel_desktop { display: block; }
+    section#selection .btn_download, section#selection .btn_share {
+        display: block;
+        font-size: 16px;
+        color: #2391BA;
+        padding-top: 8px;
+    }
+}

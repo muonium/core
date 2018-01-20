@@ -1,0 +1,61 @@
+#transfers {
+    display: none;
+    width: 100%;
+    min-height: 20px;
+    position: fixed;
+    bottom: 50px;
+    overflow: hidden;
+    z-index: 9999;
+    box-shadow: -2px 0px 8px 1px #ccc;
+}
+
+#transfers > #top { background-color: #333333; color: white; }
+#transfers > #toggle { background-color: #D2D2D2; color: #333333; }
+#transfers > #toggle li:hover, #transfers > #toggle li:active { background: #E4E4E4; }
+#transfers > #toggle li.selected { background-color: #DDDDDD; border-bottom: 2px solid #3BAEDA; }
+
+#transfers > #top, #transfers > #toggle { width: 100%; height: 32px; }
+
+#transfers > #top ul, #transfers > #toggle ul {
+	list-style-type: none;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+}
+
+#transfers > #top > ul > li:first-child, #transfers > #toggle li {
+    -webkit-box-flex: 1;
+        -ms-flex-positive: 1;
+            flex-grow: 1;
+}
+
+#transfers > #top > ul > li:first-child { text-align: left; padding-left: 24px; }
+#transfers > #top > ul > li:not(:first-child) { font-size: 12px; width: 36px; }
+#transfers > #top li, #transfers > #top li *, #transfers > #toggle li { cursor: pointer; }
+
+#transfers > #top li, #transfers > #toggle li { padding: 5px; text-align: center; }
+#transfers > #content { background-color: white; }
+#transfers #transfers_upload, #transfers #transfers_download { padding: 5px 10px 20px 10px; }
+#transfers #transfers_upload { display: block; }
+#transfers #transfers_download { display: none; }
+
+.transfers-circle, .transfers-up-circle, .transfers-dl-circle {
+    vertical-align: middle;
+    margin-left: 5px;
+    display: inline-block;
+    height: 16px; width: 18px;
+    border-radius: 50%;
+    background-color: #E64D63;
+    color: white;
+    text-align: center;
+    font-size: 8px;
+    line-height: 16px;
+}
+
+#transfers > #top .fa-window-minimize, #transfers > #top .fa-times { display: block; height: 22px; }
+#transfers > #top .fa-window-minimize { font-size: 10px; padding-top: 2px; }
+#transfers > #top .fa-times { font-size: 12px; padding-top: 4px; }
+
+@media screen and (min-width: 700px) {
+    #transfers { width: 400px; right: 0; bottom: 0; }
+}

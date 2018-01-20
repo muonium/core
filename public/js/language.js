@@ -22,6 +22,24 @@ if(document.querySelector("script#language-js")) {
 
 var IMG = ROOT+'public/pictures/';
 
+$(document).ready(function() {
+	var sidebar = $('.sidebar');
+	if($(sidebar).length) {
+		var current = document.location.href.replace(/https?:\/\//i, '').split(ROOT), link;
+		if(current.length > 1) current.shift();
+		current = current.join(ROOT).split('#').shift().split('?').shift();
+		if(current.substr(-1) === '/') current = current.substr(0, current.length - 1);
+
+		$(sidebar).find('li > a').removeClass('selected');
+		$(sidebar).find('li > a').each(function() {
+			link = this.href.replace(this.baseURI, '');
+			if(link === current) {
+				$(this).addClass('selected'); return false;
+			}
+		});
+	}
+});
+
 function changeLanguage(lang) {
     var date = new Date();
     date.setTime(date.getTime()+(365*24*3600*1000));
@@ -30,7 +48,7 @@ function changeLanguage(lang) {
 }
 
 function getLanguage() {
-    var name = "lang=";
+    var name = 'lang=';
     var ca = document.cookie.split(';');
     for(var i = 0; i < ca.length; i++) {
         var c = ca[i];
@@ -50,16 +68,13 @@ function getJSON(DEFAULT_LANGUAGE = false) {
     var clang;
     if(DEFAULT_LANGUAGE) {
         clang = LANG;
-    }
-    else {
+    } else {
         clang = getLanguage();
-        if(clang == '') {
-            clang = LANG;
-        }
+        clan = clang == '' ? LANG : clang;
     }
 
     var xmlhttp = new XMLHttpRequest();
-    var url = ROOT+"public/translations/"+clang+".json?v="+VERSION;
+    var url = ROOT+'public/translations/'+clang+'.json?v='+VERSION;
 
     xmlhttp.onreadystatechange = function() {
         if(xmlhttp.readyState == 4 && xmlhttp.status == 200) {

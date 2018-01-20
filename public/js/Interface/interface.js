@@ -59,8 +59,7 @@ var UserLoader = function(folder_id) {
         if(Selection.addSel == 0) {
             Selection.remove();
             Selection.closeDetails();
-        }
-        else {
+        } else {
             Selection.addSel = 0;
 		}
     }
@@ -69,47 +68,36 @@ var UserLoader = function(folder_id) {
         if(event.ctrlKey && event.keyCode == 68) { // CTRL + D
             event.preventDefault(); // disable the hotkey in web browser
             logout();
-        }
-        else if(event.ctrlKey && event.keyCode == 65) { // CTRL + A
+        } else if(event.ctrlKey && event.keyCode == 65) { // CTRL + A
             event.preventDefault(); // disable the hotkey in web browser
             Selection.all();
-        }
-        else if(event.ctrlKey && event.keyCode == 73) { // CTRL + I
+        } else if(event.ctrlKey && event.keyCode == 73) { // CTRL + I
             event.preventDefault(); // disable the hotkey in web browser
             Selection.invert();
-        }
-        else if(event.ctrlKey && event.keyCode == 82) { // CTRL + R
+        } else if(event.ctrlKey && event.keyCode == 82) { // CTRL + R
             event.preventDefault(); // disable the hotkey in web browser
             Move.trashMultiple();
-        }
-        else if(event.ctrlKey && event.keyCode == 38) { // CTRL + Arrow Up
+        } else if(event.ctrlKey && event.keyCode == 38) { // CTRL + Arrow Up
             event.preventDefault(); // disable the hotkey in web browser
             Arrows.up('ctrl');
-        }
-        else if(event.ctrlKey && event.keyCode == 40) { // CTRL + Arrow down
+        } else if(event.ctrlKey && event.keyCode == 40) { // CTRL + Arrow down
             event.preventDefault(); // disable the hotkey in web browser
             Arrows.down('ctrl');
-        }
-        else if(event.ctrlKey && event.keyCode == 67) { // CTRL + C
+        } else if(event.ctrlKey && event.keyCode == 67) { // CTRL + C
             event.preventDefault(); // disable the hotkey in web browser
             Move.copy();
-        }
-        else if(event.ctrlKey && event.keyCode == 88) { // CTRL + X
+        } else if(event.ctrlKey && event.keyCode == 88) { // CTRL + X
             event.preventDefault(); // disable the hotkey in web browser
             Move.cut();
-        }
-        else if(event.ctrlKey && event.keyCode == 86) { // CTRL + V
+        } else if(event.ctrlKey && event.keyCode == 86) { // CTRL + V
             event.preventDefault(); // disable the hotkey in web browser
             Move.paste();
-        }
-        else if(event.ctrlKey && event.keyCode == 83) { // CTRL + S
+        } else if(event.ctrlKey && event.keyCode == 83) { // CTRL + S
             event.preventDefault(); // disable the hotkey in web browser
-            if(Selection.Files.length > 0) {
-                // Start download for one file per second
+            if(Selection.Files.length > 0) { // Start download for one file per second
                 Selection.dl();
             }
-        }
-        else {
+        } else {
             switch(event.keyCode) {
                 case 8:
                     // backspace
@@ -217,8 +205,7 @@ var setEvents = function() {
     var files = document.querySelectorAll(".file");
     for (var i = 0; i < files.length; i++) {
         // For each file
-        files[i].addEventListener("contextmenu", function(event) {
-            // Right click
+        files[i].addEventListener("contextmenu", function(event) { // Right click
             Box.Area = 1;
             // Call right_click function with div's id
             Box.right_click(event.clientX, event.clientY, this.id);
@@ -233,8 +220,7 @@ var setEvents = function() {
     var folders = document.querySelectorAll(".folder");
     for (var i = 0; i < folders.length; i++) {
         // For each folder
-        folders[i].addEventListener("contextmenu", function(event) {
-            // Right click
+        folders[i].addEventListener("contextmenu", function(event) { // Right click
             Box.Area = 2;
             // Call right_click function with div's id
             Box.right_click(event.clientX, event.clientY, this.id);
@@ -243,7 +229,7 @@ var setEvents = function() {
     }
 
     // Dragbars
-    var dragbars = document.querySelectorAll(".dragbar");
+    /*var dragbars = document.querySelectorAll(".dragbar");
     document.querySelector("div#container").onmouseup = function(event) {
         document.querySelector("div#container").onmousemove = null;
     };
@@ -263,29 +249,7 @@ var setEvents = function() {
                 me.parentNode.style['min-width'] = pos + 'px';
             };
         });
-    }
-
-    var transfers_circles = document.querySelectorAll(".transfers-circle");
-    Transfers.watch('number', function(prop, oldval, newval) { // watch and trigger property changes thanks to Object.prototype.watch() and object-watch.js polyfill
-        for(var i = 0; i < transfers_circles.length; i++) {
-            transfers_circles[i].innerHTML = newval;
-        }
-        return newval;
-    });
-    var transfers_up_circles = document.querySelectorAll(".transfers-up-circle");
-    Transfers.watch('numberUp', function(prop, oldval, newval) { // watch and trigger property changes thanks to Object.prototype.watch() and object-watch.js polyfill
-        for(var i = 0; i < transfers_up_circles.length; i++) {
-            transfers_up_circles[i].innerHTML = newval;
-        }
-        return newval;
-    });
-    var transfers_dl_circles = document.querySelectorAll(".transfers-dl-circle");
-    Transfers.watch('numberDl', function(prop, oldval, newval) { // watch and trigger property changes thanks to Object.prototype.watch() and object-watch.js polyfill
-        for(var i = 0; i < transfers_dl_circles.length; i++) {
-            transfers_dl_circles[i].innerHTML = newval;
-        }
-        return newval;
-    });
+    }*/
 }
 
 var reset = function() {

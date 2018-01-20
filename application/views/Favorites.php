@@ -41,7 +41,6 @@
 		'Interface/modules/Trash',
 		'Interface/modules/Upload',
 		'check',
-		'object-watch',
 		'src/crypto/sjcl',
 		'Interface/idb.filesystem.min',
 	    'Interface/Request',
