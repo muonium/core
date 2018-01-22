@@ -1,36 +1,51 @@
+#mui, #tree { width: 100%; }
+#tree > div, #tree a { cursor: pointer; }
 #tree {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -ms-flex-wrap: wrap;
-        flex-wrap: wrap;
-    -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;
+    display: -webkit-box; display: -ms-flexbox; display: flex;
+    -ms-flex-wrap: wrap; flex-wrap: wrap;
 
-    /* Mobile */
-	-webkit-box-orient: vertical;
-	-webkit-box-direction: normal;
-	    -ms-flex-direction: column;
-	        flex-direction: column;
+	-webkit-box-orient: vertical; -webkit-box-direction: normal;
+	-ms-flex-direction: column; flex-direction: column;
+
+	justify-content: space-between;
+	margin-top: 25px;
 }
 
-#mui, #tree { width: 100%; }
+#tree > div {
+	overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+	position: relative;
+}
+#tree > div .folder_head, #tree > div .file_head { display: none; height: 34px; padding: 8px; }
+#tree > div .folder_body, #tree > div .file_body {
+	padding: 8px 11px;
+	height: 100%;
+	overflow: hidden; text-overflow: ellipsis;
+}
 
-#tree span, #tree a { cursor: pointer; }
-#tree > span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; display: block; }
+#tree.mosaic > div {
+	margin: 0 5px 48px 5px;
+	text-align: center;
+	border-radius: 6px;
+	box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.1);
+}
+#tree.mosaic > div.selected { box-shadow: 0 6px 10px 0 rgba(22, 193, 243, 0.1); }
+#tree.mosaic > div .folder_head, #tree.mosaic > div .file_head { display: flex; justify-content: space-between; }
+#tree.mosaic > div input[type="checkbox"] + label { display: block; position: absolute; top: 8px; left: 8px; }
+#tree.mosaic > div .folder_body, #tree.mosaic > div .file_body { height: calc(100% - 34px); }
 
-.icon { height: 25px; width: 25px; vertical-align: text-bottom; }
-#tree.mosaic > span { padding-bottom: 20px; text-align: center; }
-#tree.mosaic .icon { display: block; height: 100px; width: 100px; margin: auto; }
+#tree .icon { width: 18px; vertical-align: text-bottom; }
+#tree.mosaic .icon { display: block; width: 50%; margin: 0 auto 43px auto; }
+
+#tree > div .folder_head .btn-actions, #tree > div .file_head .btn-actions {
+	height: 18px; width: 39px;
+	border-radius: 2px;
+	box-shadow: 0 2px 4px 0 rgba(22, 193, 243, 0.1); border: 2px solid #16c1f3;
+	color: #16c1f3;
+}
 
 a[id^="parent-"] { cursor: pointer; }
 
 @media screen and (min-width: 400px) {
-    #tree { -webkit-box-orient: horizontal; -webkit-box-direction: normal; -ms-flex-direction: row; flex-direction: row; }
-    #tree.mosaic > span { -ms-flex-preferred-size: 200px; flex-basis: 200px; }
-
-    #tree > span {
-        -ms-flex-preferred-size: 250px;
-            flex-basis: 250px;
-        padding-left: 0.5%; padding-right: 0.5%; padding-top: 2px; padding-bottom: 2px;
-    }
+    #tree.mosaic { -webkit-box-orient: horizontal; -webkit-box-direction: normal; -ms-flex-direction: row; flex-direction: row; }
+    #tree.mosaic > div { -ms-flex-preferred-size: 184px; flex-basis: 184px; height: 229px; }
 }

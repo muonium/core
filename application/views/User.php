@@ -53,22 +53,18 @@
 	echo $_t->getSidebar();
 ?>
     <div class="container-max">
-		<span>
+		<div id="display">
 			<input type="radio" id="display_list" name="display">
-			<label for="display_list"><?php echo self::$txt->UserMenu->smallIcons; ?></label>
-		</span>
-		<span>
-			<input type="radio" id="display_mosaic" name="display" checked>
-			<label for="display_mosaic"><?php echo self::$txt->UserMenu->largeIcons; ?></label>
-		</span>
+			<label for="display_list"><i class="fa fa-th-list" aria-hidden="true"></i></label>
 
-		<input type="checkbox" id="multisel" />
-		<label for="multisel"><?php echo self::$txt->UserMenu->multiSelection; ?></label>
+			<input type="radio" id="display_mosaic" name="display" checked>
+			<label for="display_mosaic"><i class="fa fa-th-large" aria-hidden="true"></i></label>
+		</div>
 
         <section id="desktop">
             <!-- Hidden upload form -->
             <form class="hidden">
-                <input type="file" id="upFilesInput" name="files[]" multiple="multiple" class="hide" onchange="Upload.upFiles(this.files);" onclick="reset();" />
+                <input type="file" id="upFilesInput" name="files[]" multiple="multiple" class="hide" onchange="Upload.upFiles(this.files)" onclick="reset()">
             </form>
             <!-- End -->
 
@@ -78,25 +74,41 @@
                 <?php echo self::$txt->Global->loading; ?>
             </div>
         </section>
+
+		<input type="checkbox" id="multisel">
+		<label for="multisel"><?php echo self::$txt->UserMenu->multiSelection; ?></label>
     </div>
 	<div id="selection">
-		<div class="center">
-			<button class="btn mbottom" onclick="Upload.dialog()"><?php echo self::$txt->RightClick->upFiles; ?></button>
-			<a href="#" class="blue block" onclick="Folders.create(event)"><i class="fa fa-folder-o" aria-hidden="true"></i> <?php echo self::$txt->RightClick->nFolder; ?></a>
-		</div>
+		<div class="fixed">
+			<div class="center">
+				<button class="btn mbottom" onclick="Upload.dialog()"><?php echo self::$txt->RightClick->upFiles; ?></button>
+				<a href="#" class="blue block" onclick="Folders.create(event)"><i class="fa fa-folder-o" aria-hidden="true"></i> <?php echo self::$txt->RightClick->nFolder; ?></a>
+			</div>
 
-		<section class="selection"><!-- Temporary place where selection infos will be displayed --></section>
+			<section class="selection"><!-- Temporary place where selection infos will be displayed --></section>
 
-		<!-- Box -->
+			<!-- Box -->
 
-		<div class="story">
-			<p class="mono keep"><strong><?php echo self::$txt->Story->keep; ?></strong></p><hr>
-			<p class="join"><?php echo self::$txt->Story->join; ?></p>
+			<div class="story">
+				<p class="mono keep"><strong><?php echo self::$txt->Story->keep; ?></strong></p><hr>
+				<p class="join"><?php echo self::$txt->Story->join; ?></p>
 
-			<p><a href="#"><?php echo self::$txt->Story->read; ?></a></p>
+				<p><a href="#"><?php echo self::$txt->Story->read; ?></a></p>
 
-			<p><button class="btn btn-large btn-b"><?php echo self::$txt->Story->premium; ?></button></p>
-			<p><button class="btn btn-large btn-c"><?php echo self::$txt->Story->donate; ?></button></p>
+				<p><button class="btn btn-large btn-b"><?php echo self::$txt->Story->premium; ?></button></p>
+				<p><button class="btn btn-large btn-c"><?php echo self::$txt->Story->donate; ?></button></p>
+
+				<p class="help"><a href="#"><?php echo self::$txt->Story->help; ?></a></p>
+			</div>
+
+			<div id="quota_container"></div>
+
+			<p class="center"><a href="<?php echo MVC_ROOT; ?>/Upgrade" class="mono"><?php echo self::$txt->Profile->getmore; ?></a></p>
+
+			<div class="selection_bottom">
+				<a href="#" class="btn btn-actions"></a>
+				<a href="#" class="mono up">Privacy</a>
+			</div>
 		</div>
 	</div>
 

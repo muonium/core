@@ -154,8 +154,7 @@ var Encryption = (function() {
 				}
 				else if(filestatus[0] == 'quota') {
 					alert(txt.User.quotaExceeded);
-				}
-				else {
+				} else {
 					alert('Error');
 				}
 			}
@@ -168,8 +167,7 @@ var Encryption = (function() {
 		if(window.File && window.FileReader && window.FileList && window.Blob) {
 			reader = new FileReader();
 			return true;
-		}
-		else {
+		} else {
 			alert(txt.User.fileAPI);
 			return false;
 		}

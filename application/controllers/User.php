@@ -280,12 +280,10 @@ class User extends l\Languages {
 
 				$filepath = NOVA.'/'.$_SESSION['id'].'/'.$path.$filename;
 				echo $this->filestatus($filepath);
-			}
-			else {
+			} else {
 				echo 'err';
 			}
-		}
-		else {
+		} else {
 			echo 'err';
 		}
 	}
@@ -344,40 +342,49 @@ class User extends l\Languages {
 			$_SESSION['user_quota'] = $quota;
 		}
 
+		$path = $this->_modelFolders->getFullPath($this->_folderId);
+		$path_d = explode('/', $path);
+		echo '<h1 class="inline" title="'.$path.'">'.($path == '' ? self::$txt->Global->home : end($path_d)).'</h1>';
         // Link to parent folder
-        echo '<div class="quota">';
-        if($this->_folderId != 0) {
+		if($this->_folderId != 0) {
             $parent = $this->_modelFolders->getParent($this->_folderId);
-            echo '<a id="parent-'.$parent.'" onclick="Folders.open('.$parent.')"><img src="'.IMG.'desktop/arrow.svg" class="icon"></a> ';
+            echo '<a id="parent-'.$parent.'" onclick="Folders.open('.$parent.')"><img src="'.IMG.'desktop/arrow.svg" class="icon"></a>';
         }
-        $pct = round($stored/$quota*100, 2);
-        echo str_replace(['[used]', '[total]'], [showSize($stored), showSize($quota)], self::$txt->User->quota_of).' - '.$pct.'%';
-        echo '<div class="progress_bar">';
-        echo '<div class="used" style="width:'.$pct.'%"></div>';
-        echo '</div></div>';
 
-        echo '<hr><div id="tree"> ';
-
-        $path = $this->_modelFolders->getFullPath($this->_folderId);
+		$pct = round($stored/$quota*100, 2);
+        echo '
+			<div class="quota">
+				<div class="progress_bar">
+					<div class="used" style="width:'.$pct.'%"></div>
+				</div>
+        	'.str_replace(['[used]', '[total]'], ['<strong>'.showSize($stored).'</strong>', '<strong>'.showSize($quota).'</strong>'], self::$txt->User->quota_of).' - '.$pct.'%
+			</div>
+		';
+        echo '<div id="tree"> ';
 
         if($subdirs = $this->_modelFolders->getChildren($this->_folderId, $this->trash)) {
             foreach($subdirs as $subdir) {
                 $elementnum = count(glob(NOVA.'/'.$_SESSION['id'].'/'.$subdir['path'].$subdir['name']."/*"));
                 $subdir['name'] = $this->parseFilename($subdir['name']);
 
-                echo '<span class="folder" id="d'.$subdir['id'].'" name="'.htmlentities($subdir['name']).'"
-                title="'.showSize($subdir['size']).'"
-                data-folder="'.htmlentities($subdir['parent']).'"
-                data-path="'.htmlentities($subdir['path']).'"
-                data-title="'.htmlentities($subdir['name']).'"
-                onclick="Selection.addFolder(event, this.id)"
-                ondblclick="Folders.open('.$subdir['id'].')">
-                <img src="'.IMG.'desktop/extensions/folder.svg" class="icon"> <strong>'.htmlentities($subdir['name']).'</strong> [';
-                if($elementnum > 1) {
-    			    echo $elementnum.' '.self::$txt->User->PlurialElement.']</span>';
-    			} else {
-    				echo $elementnum.' '.self::$txt->User->element.']</span>';
-    			}
+                echo '
+				<div class="folder" id="d'.$subdir['id'].'" name="'.htmlentities($subdir['name']).'"
+	                title="'.showSize($subdir['size']).'"
+	                data-folder="'.htmlentities($subdir['parent']).'"
+	                data-path="'.htmlentities($subdir['path']).'"
+	                data-title="'.htmlentities($subdir['name']).'"
+				>
+					<div class="folder_head">
+						<span><input type="checkbox" id="sel_d'.$subdir['id'].'"><label for="sel_d'.$subdir['id'].'"></label></span>
+						<a href="#" class="btn btn-actions"></a>
+					</div>
+					<div class="folder_body" onclick="Selection.addFolder(event, \'d'.$subdir['id'].'\')" ondblclick="Folders.open('.$subdir['id'].')">
+	                	<img src="'.IMG.'desktop/extensions/folder.svg" class="icon">
+						<strong>'.htmlentities($subdir['name']).'</strong>
+						['.$elementnum.' '.($elementnum > 1 ? self::$txt->User->PlurialElement : self::$txt->User->element).']
+					</div>
+				</div>
+				';
             }
         }
         if($files = $this->_modelFiles->getFiles($this->_folderId, $this->trash)) {
@@ -388,24 +395,31 @@ class User extends l\Languages {
                 if(array_key_exists('path', $file) && array_key_exists('dname', $file)) {
                     $fpath = $file['path'].$file['dname'];
                 }
+
                 if($file['size'] < 0) {
                     $filesize = '['.self::$txt->User->notCompleted.'] '.showSize(@filesize(NOVA.'/'.$_SESSION['id'].'/'.$fpath.'/'.$file['name']));
-                }
-                else {
+                } else {
                     $filesize = showSize($file['size']);
                 }
-                echo '<span class="file" id="f'.$file['id'].'"';
-                if($file['size'] < 0) { echo ' style="color:red" '; }
-                echo 'title="'.$filesize.'&#10;'.self::$txt->User->lastmod.' : '.date('d/m/Y G:i', $file['last_modification']).'"
-                onclick="Selection.addFile(event, this.id)"
-				ondblclick="Selection.dl(this.id)"
-                data-folder="'.htmlentities($file['folder_id']).'"
-                data-path="'.htmlentities($fpath).'"
-                data-title="'.htmlentities($file['name']).'"
-				data-shared="'.$is_shared.'"
-				data-url="'.URL_APP.'/dl/?'.setURL($file['id']).'">';
 
-				echo htmlentities($file['name']).'</span>';
+                echo '
+				<div class="file" id="f'.$file['id'].'" '.($file['size'] < 0 ? 'style="color:red" ' : '').'
+                	title="'.$filesize.'&#10;'.self::$txt->User->lastmod.' : '.date('d/m/Y G:i', $file['last_modification']).'"
+	                data-folder="'.htmlentities($file['folder_id']).'"
+	                data-path="'.htmlentities($fpath).'"
+	                data-title="'.htmlentities($file['name']).'"
+					data-shared="'.$is_shared.'"
+					data-url="'.URL_APP.'/dl/?'.setURL($file['id']).'"
+				>
+					<div class="file_head">
+						<span><input type="checkbox" id="sel_f'.$file['id'].'"><label for="sel_f'.$file['id'].'"></label></span>
+						<a href="#" class="btn btn-actions"></a>
+					</div>
+					<div class="file_body" onclick="Selection.addFile(event, \'f'.$file['id'].'\')" ondblclick="Selection.dl(\'f'.$file['id'].'\')">
+						<strong>'.htmlentities($file['name']).'</strong>
+					</div>
+				</div>
+				';
             }
         }
 

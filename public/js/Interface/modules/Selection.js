@@ -14,8 +14,8 @@ var Selection = (function() {
         multiple : false,
 
         select : function(id, putDetails = true) {
-            if(document.querySelector("#"+id)) {
-                document.querySelector("#"+id).style.backgroundColor='#E0F0FA';
+            if($('#'+id).length) {
+                $('#'+id).addClass('selected');
                 if(showDetails || (window.innerWidth || document.body.clientWidth) < 700) {
                     Selection.openDetails();
                 }
@@ -29,8 +29,8 @@ var Selection = (function() {
         },
 
         unselect : function(id, putDetails = true) {
-            if(document.querySelector("#"+id)) {
-                document.querySelector("#"+id).style.backgroundColor='white';
+            if($('#'+id).length) {
+				$('#'+id).removeClass('selected');
             }
             if(putDetails === true)  {
                 Toolbar.display();
@@ -41,8 +41,7 @@ var Selection = (function() {
             if(id.length > 1) {
                 if(id.substr(0, 1) == 'd') {
                     Selection.addFolder(m, id);
-				}
-                else if(id.substr(0, 1) == 'f') {
+				} else if(id.substr(0, 1) == 'f') {
                     Selection.addFile(m, id);
 				}
             }
@@ -56,8 +55,7 @@ var Selection = (function() {
                     if(pos != -1) {
                         Selection.Files.splice(pos, 1);
                         Selection.unselect(id, putDetails);
-                    }
-                    else {
+                    } else {
                         Selection.Files.push(id.substr(1));
                         Selection.select(id, putDetails);
                     }
@@ -78,8 +76,7 @@ var Selection = (function() {
                     if(pos != -1) {
                         Selection.Folders.splice(pos, 1);
                         Selection.unselect(id, putDetails);
-                    }
-                    else {
+                    } else {
                         Selection.Folders.push(id.substr(1));
                         Selection.select(id, putDetails);
                     }
@@ -230,8 +227,7 @@ var Selection = (function() {
             Selection.all();
             if(Selection.Files.length > 0) {
                 Toolbar.display('f'+Selection.Files[0]);
-            }
-            else if(Selection.Folders.length > 0) {
+            } else if(Selection.Folders.length > 0) {
                 Toolbar.display('d'+Selection.Folders[0]);
             }
         },

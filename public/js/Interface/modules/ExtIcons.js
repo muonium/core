@@ -9,7 +9,7 @@ var ExtIcons = (function() {
 		archive : ['zip', 'tar', 'gz', 'bz', 'bz2', 'xz', 'rar', 'jar', '7z', 'lzma'],
 		code : ['php', 'html', 'htm', 'php3', 'php4', 'php5', 'java', 'css', 'scss', 'xml', 'svg', 'sql', 'c', 'cpp', 'cs', 'js', 'au3', 'asm', 'h',
 			'ini', 'jav', 'p', 'pl', 'rb', 'sh', 'bat', 'py'],
-		image : ['jpg', 'jpeg', 'png', 'bmp', 'gif'],
+		image : ['jpg', 'jpeg', 'png', 'bmp', 'gif', 'tiff'],
 		doc : ['docx', 'odt', 'doc', 'odp'],
 		pdf : ['pdf'],
 		sound : ['mp3', 'ogg', 'flac', 'wav', 'aac', 'm4a'],
@@ -39,15 +39,12 @@ var ExtIcons = (function() {
 				return '<img src="'+IMG+'desktop/extensions/'+icon+'.svg" class="icon">';
 			}
 			else {
-				var dir_files = document.querySelectorAll(".file");
-				for(var i = 0; i < dir_files.length; i++) {
-					icon = 'text';
-					filename = dir_files[i].getAttribute('data-title');
-					if(filename !== null) {
-						icon = getIcon(filename);
-					}
-					dir_files[i].innerHTML = '<img src="'+IMG+'desktop/extensions/'+icon+'.svg" class="icon"> '+dir_files[i].innerHTML;
-				}
+				$('.file').each(function() {
+					filename = $(this).attr('data-title');
+					icon = filename !== null && filename !== undefined ? getIcon(filename) : 'text';
+					$(this).find('.file_body .icon').remove();
+					$(this).find('.file_body').prepend('<img src="'+IMG+'desktop/extensions/'+icon+'.svg" class="icon">');
+				});
 			}
 		}
 	}

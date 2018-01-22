@@ -84,7 +84,7 @@
         "nothing": "Nichts...",
         "uploading": "Lädt hoch",
         "downloading": "Lädt herunter",
-        "quota_of": "[used] von [total] gebraucht",
+        "quota_of": "[used] von [total]",
 		"shared": "File sharing enabled",
 		"badPass": "Bad password!",
 		"uploadedBy": "Uploaded by [login] on"

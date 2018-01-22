@@ -22,7 +22,7 @@
 ?>
     <div class="container-large">
 		<div class="info mono">
-			<?php echo self::$txt->Profile->upgrade; ?> <a href="Upgrade"><?php echo self::$txt->Profile->getmore; ?></a>
+			<?php echo self::$txt->Profile->upgrade; ?> <a href="<?php echo MVC_ROOT; ?>/Upgrade"><?php echo self::$txt->Profile->getmore; ?></a>
 		</div><br>
 
 		<h1><?php echo self::$txt->UserMenu->settings; ?></h1>
@@ -111,7 +111,7 @@
             <legend><?php echo self::$txt->Profile->otheroptions; ?></legend>
 			<h3><?php echo self::$txt->Profile->filedetails; ?></h3>
             <p class="input-large">
-                <input type="checkbox" name="details" id="details"  onclick="changeDetails()">
+                <input type="checkbox" name="details" id="details" onclick="changeDetails()">
                 <label for="details"><?php echo self::$txt->Profile->details; ?></label>
             </p>
             <div id="changeDetailsReturn"></div>

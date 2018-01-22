@@ -84,7 +84,7 @@
         "nothing": "空...",
         "uploading": "上传中",
         "downloading": "下载中",
-		"quota_of": "[used] 对于 [total] 总共",
+		"quota_of": "[used] 对于 [total]",
 		"shared": "文件共享已启用",
 		"badPass": "密码错误！",
 		"uploadedBy": "由[login]上传"

@@ -8,18 +8,11 @@ var Folders = (function() {
 
 			var validate = function() {
 				var folder_name = this.$inputs.folder_name.value;
-				var xhr = new XMLHttpRequest();
-				xhr.open("POST", "User/AddFolder", true);
-				xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-
-				xhr.onreadystatechange = function() {
-				    if(xhr.status == 200 && xhr.readyState == 4) {
-				        if(isNumeric(xhr.response)) {
-							Folders.open(Folders.id);
-				        }
-				    }
-				}
-				xhr.send("folder_id="+Folders.id+"&folder="+encodeURIComponent(this.$inputs.folder_name.value));
+				$.post('User/AddFolder', {folder_id: Folders.id, folder: encodeURIComponent(this.$inputs.folder_name.value)}, function(data) {
+					if(isNumeric(data)) {
+						Folders.open(Folders.id);
+					}
+				});
 			};
 
 			var m = new MessageBox(txt.User.foldername).addInput('folder_name', {
@@ -36,42 +29,36 @@ var Folders = (function() {
 		},
 
 		open : function(folder_id) {
-			if(!isNumeric(folder_id))
-				return false;
+			if(!isNumeric(folder_id)) return false;
+			$.post('User/ChangePath', {folder_id: folder_id, trash: Trash.state}, function(data) {
+				$('#mui').hide().html(data);
+				// Later, use specific API method to get quota and stored
+				var quota = $('#mui').find('.quota');
+				$(quota).remove();
+				$('#quota_container').html($(quota).html());
 
-			var xhr = new XMLHttpRequest();
-			xhr.open("POST", "User/ChangePath", true);
-			xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+				$('#mui').show();
+				Folders.id = parseInt(folder_id);
+				Box.hide();
 
-			xhr.onreadystatechange = function() {
-				if(xhr.status == 200 && xhr.readyState == 4) {
-				    if(xhr.responseText != '') {
-				        // Hide box
-				        Box.hide();
+				// reset selected files/folders
+				Selection.Files = [];
+				Selection.Folders = [];
+				// Set events for all files and folders loaded
+				setEvents();
+				// Put icons
+				ExtIcons.set();
 
-				        document.querySelector("#mui").innerHTML = xhr.responseText;
-				        Folders.id = folder_id;
-				        // reset selected files/folders
-				        Selection.Files = [];
-				        Selection.Folders = [];
-				        // Set events for all files and folders loaded
-				        setEvents();
-
-				        // Put icons
-						ExtIcons.set();
-
-						Files.display(Files.style);
-				    }
-				}
-			}
-			xhr.send("folder_id="+folder_id+"&trash="+Trash.state);
+				Files.display(Files.style);
+			});
 		},
 
         back : function() {
             // Open parent folder
             var parent = document.querySelector("a[id^=parent-]");
-            if(parent)
+            if(parent) {
                 Folders.open(parent.id.substr(parent.id.lastIndexOf("-")+1));
+			}
         },
 
 		verif : function(evt) {
@@ -81,20 +68,23 @@ var Folders = (function() {
 				return false;
 			}
 			var interdit = '/\\:*?<>|"';
-			if (interdit.indexOf(String.fromCharCode(keyCode)) >= 0)
+			if(interdit.indexOf(String.fromCharCode(keyCode)) >= 0) {
 				return false;
+			}
 			return true;
 		},
 
 		getName : function(folder_id) {
-			if(document.getElementById(folder_id))
+			if(document.getElementById(folder_id)) {
 				return document.getElementById(folder_id).getAttribute("name");
+			}
 			return false;
 		},
 
         getDataFolder : function(elem_id) {
-            if(document.getElementById(elem_id))
+            if(document.getElementById(elem_id)) {
                 return document.getElementById(elem_id).getAttribute("data-folder");
+			}
             return false;
         },
 

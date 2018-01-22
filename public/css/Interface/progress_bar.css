@@ -6,13 +6,10 @@
 }
 
 .progress_bar {
-    margin-left: 10px;
+    margin-bottom: 10px;
     flex-grow: 1;
-    height: 3px;
-    background: #D2D2D2;
+    height: 6px;
+	border-radius: 3px;
 }
 
-.progress_bar .used {
-    background: #27A3D1;
-    height: 3px;
-}
+.progress_bar .used { height: 6px; }

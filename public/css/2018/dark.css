@@ -1,5 +1,7 @@
 body { background-color: #4a4a4a; color: #fff; }
 
+#display input:checked + label { color: #16c1f3; }
+
 h3 { color: #fff; }
 
 header { background-color: #3b3a3a; box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.4); }
@@ -61,7 +63,7 @@ textarea { border-color: #4e4d4d; }
 
 .info { background-color: #212121; }
 .story { background-color: #212121; color: #ccc; font-family: OpenSans; }
-.story .join { font-size: 14px; }
+.story .join, .story .help { font-size: 14px; }
 .story a { font-family: OpenSans; color: #ccc; }
 
 .logout { color: #fff; }
@@ -71,3 +73,9 @@ fieldset, legend { color: #fff; }
 fieldset .label { color: #fff; }
 
 #selection { background-color: #3b3a3a; }
+
+#tree > div { background-color: #3b3a3a; }
+#tree > div.selected { color: #16c1f3; }
+
+.progress_bar { background-color: #4a4a4a; }
+.progress_bar .used { background-color: #16c1f3; }

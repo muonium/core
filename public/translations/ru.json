@@ -84,7 +84,7 @@
         "nothing": "Пусто...",
         "uploading": "Выгрузка",
         "downloading": "Загрузка",
-		"quota_of": "[used] из [total] использовано",
+		"quota_of": "[used] из [total]",
 		"shared": "File sharing enabled",
 		"badPass": "Bad password!",
 		"uploadedBy": "Uploaded by [login] on"
