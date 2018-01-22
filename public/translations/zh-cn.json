@@ -120,6 +120,7 @@
     },
 
     "Login": {
+		"signin": "Sign In",
         "forgot": "密码忘了？",
         "register": "注册",
         "bruteforceErr0": "无效的邮箱或密码",
@@ -131,8 +132,9 @@
         "invalidCode": "无效的验证码",
         "username": "邮箱或登陆",
         "badPassphrase": "错误: 无效的私密密码",
-        "doubleAuth": "一个附带验证码的邮件已经发给你了，请把验证吗复制到以上的选框中。<br>如果你5分钟内什么也没收到（包括你的垃圾文件夹），请点击这个链接 <a href='[url_app]/Logout'>link</a> 再尝试一次。"
-    },
+        "doubleAuth": "一个附带验证码的邮件已经发给你了，请把验证吗复制到以上的选框中。<br>如果你5分钟内什么也没收到（包括你的垃圾文件夹），请点击这个链接 <a href='[url_app]/Logout'>link</a> 再尝试一次。",
+		"success": "Successfully logged in"
+	},
 
     "Validate": {
         "message": "错误 : 验证码错误，请登陆再发送一个新的验证邮件",
@@ -164,7 +166,14 @@
         "accountDeletionConfirm": "你想删除你的账户吗？",
         "accountDeletionOk": "你的账户已成功被删除！",
         "deleteAccount": "删除账户",
-        "details": "你想让文件/文件夹被选中时展示详细信息吗？"
+        "details": "你想让文件/文件夹被选中时展示详细信息吗？",
+		"mailusername": "Email & Username",
+		"pwdpp": "Password & Secret Password",
+		"filedetails": "File Details",
+		"iwant": "I really want to",
+		"otheroptions": "Other options",
+		"upgrade": "Ready to upgrade Muonium?",
+		"getmore": "Get more storage"
     },
 
     "LostPass": {
@@ -214,7 +223,8 @@
         "message": "详细信息",
         "messageLength": "详细信息至少需要50个字符",
         "form": "表格填写有错误",
-        "sent": "你的反馈已经成功被发出， 我们将会尽快用邮件回复"
+        "sent": "你的反馈已经成功被发出， 我们将会尽快用邮件回复",
+		"send": "Send report"
     },
 
     "Upgrade": {
