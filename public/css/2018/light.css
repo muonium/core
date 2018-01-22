@@ -6,7 +6,7 @@ header { background-color: #fff; box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1); }
 
 select {
 	color: #212121;
-	background: url(data:image/gif;base64,R0lGODlhDgAMAKoAAOzs7EdHRyEhIaOjo05OTv///wAAAAAAACH5BAEAAAUALAAAAAAOAAwAAAMlWLrc/vANAMEoQwTaQBDTtzGeRpVjgXKqCKyd6D6lGQEEwUZPAgA7);
+	background-image: url(data:image/gif;base64,R0lGODlhDgAMAKoAAOzs7EdHRyEhIaOjo05OTv///wAAAAAAACH5BAEAAAUALAAAAAAOAAwAAAMlWLrc/vANAMEoQwTaQBDTtzGeRpVjgXKqCKyd6D6lGQEEwUZPAgA7);
 }
 
 .sidebar { background-color: #fff; }
@@ -51,13 +51,19 @@ input[type="radio"]:checked + label:before, input[type="checkbox"]:checked + lab
 
 textarea { border-color: #f4f4f4; }
 
+.btn-b, .btn-c { font-family: Roboto; letter-spacing: .5px; box-shadow: 0 6px 15px 0 rgba(255, 136, 76, 0.2); }
+.btn-b { background-color: #ff874b !important; color: #fff; }
+.btn-c { background-color: transparent !important; border: 2px solid #ff874b; color: #ff874b; }
+
 .bloc-offers > div { background-color: #fff; }
 .offer-size { color: #212121; }
 .offer-price { color: #16c1f3; }
 .offer-duration { color: #757575; }
 
 .info { background-color: transparent; }
-.story { background-color: #fafafa; color: #757575; }
+.story { background-color: #fafafa; color: #757575; font-family: Roboto; }
+.story .join { font-size: 16px; font-weight: 500; letter-spacing: .6px; }
+.story a { font-family: RobotoMono; }
 
 .logout { color: #212121; }
 

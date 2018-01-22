@@ -230,8 +230,7 @@ a.blue:hover, a.blue:active, a.blue:focus { color: #0b9fcb; }
 .btn-warning { background-color: #c62828 !important; box-shadow: none; }
 .btn-warning:disabled { opacity: .5; }
 .btn-large { width: 100%; }
-.btn-b {}
-.btn-c {}
+.btn-b, .btn-c { font-weight: bold; }
 
 .bloc-links {
 	flex-direction: column;
@@ -322,7 +321,6 @@ a.blue:hover, a.blue:active, a.blue:focus { color: #0b9fcb; }
 	margin: 36px 0;
 }
 .story .keep { font-size: 15px; letter-spacing: .1px; }
-.story .join { font-size: 16px; font-weight: 500; letter-spacing: .6px; }
 
 .inline { display: inline; }
 .block { display: block; }

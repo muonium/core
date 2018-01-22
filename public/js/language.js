@@ -27,15 +27,20 @@ $(document).ready(function() {
 	if($(sidebar).length) {
 		var current = document.location.href.replace(/https?:\/\//i, '').split(ROOT), link;
 		if(current.length > 1) current.shift();
-		current = current.join(ROOT).split('#').shift().split('?').shift();
+		current = current.join(ROOT).split('?').shift();
 		if(current.substr(-1) === '/') current = current.substr(0, current.length - 1);
+		if(current.substr(-1) === '#') current = current.substr(0, current.length - 1);
 
 		$(sidebar).find('li > a').removeClass('selected');
-		$(sidebar).find('li > a').each(function() {
+		$(sidebar).find('li > a').each(function() { // On load
 			link = this.href.replace(this.baseURI, '');
 			if(link === current) {
 				$(this).addClass('selected'); return false;
 			}
+		});
+		$(sidebar).find('li > a').on('click', function() { // On click
+			$(sidebar).find('li > a').removeClass('selected');
+			$(this).addClass('selected');
 		});
 	}
 });

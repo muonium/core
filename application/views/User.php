@@ -93,7 +93,7 @@
 			<p class="mono keep"><strong><?php echo self::$txt->Story->keep; ?></strong></p><hr>
 			<p class="join"><?php echo self::$txt->Story->join; ?></p>
 
-			<p><a href="#" class="mono"><?php echo self::$txt->Story->read; ?></a></p>
+			<p><a href="#"><?php echo self::$txt->Story->read; ?></a></p>
 
 			<p><button class="btn btn-large btn-b"><?php echo self::$txt->Story->premium; ?></button></p>
 			<p><button class="btn btn-large btn-c"><?php echo self::$txt->Story->donate; ?></button></p>

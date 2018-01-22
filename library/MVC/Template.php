@@ -77,13 +77,6 @@ class Template {
 		<script src="'.MVC_ROOT.'/public/js/jquery-3.2.1.min.js"></script>
 		<script src="'.$this->_path.'js/language.js" id="language-js"></script>
 ';
-/* For development purpose */
-if(isset($_GET['dark'])) {
-	$html .= '<link rel="stylesheet" type="text/css" href="'.$this->_path.'css/2018/dark.css">';
-} else {
-	$html .= '<link rel="stylesheet" type="text/css" href="'.$this->_path.'css/2018/light.css">';
-}
-/* */
 		foreach($this->_meta as $meta) {
 			$html .= '
 		<meta name="'.$meta['name'].'" content="'.$meta['content'].'">';
@@ -93,6 +86,14 @@ if(isset($_GET['dark'])) {
             $html .= '
 		<link rel="stylesheet" type="text/css" href="'.$this->_path.'css/'.$file.'.css">';
 		}
+
+		/* For development purpose */
+		if(isset($_GET['dark'])) {
+			$html .= '<link rel="stylesheet" type="text/css" href="'.$this->_path.'css/2018/dark.css">';
+		} else {
+			$html .= '<link rel="stylesheet" type="text/css" href="'.$this->_path.'css/2018/light.css">';
+		}
+		/* */
 
         foreach($this->_js as $file) {
             $html .= '
@@ -153,12 +154,12 @@ if(isset($_GET['dark'])) {
 	                    </a>
 	                </li>
 					<li>
-						<a href="User">
+						<a href="User#trash">
 							<i class="fa fa-trash" aria-hidden="true"></i>
 						</a>
 					</li>
 	                <li>
-	                    <a onclick="Transfers.toggle()">
+	                    <a href="User#transfers">
 							<i class="fa fa-exchange" aria-hidden="true"></i>
 	                    </a>
 	                </li>
@@ -168,7 +169,7 @@ if(isset($_GET['dark'])) {
 						</a>
 	                </li>
 					<li>
-	                    <a href="Profile" class="selected">
+	                    <a href="Profile">
 							<i class="fa fa-cog" aria-hidden="true"></i>
 						</a>
 	                </li>

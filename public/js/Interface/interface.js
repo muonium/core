@@ -166,8 +166,28 @@ var UserLoader = function(folder_id) {
         Folders.open(folder_id);
 	}
 
+	var sidebar = $('.sidebar');
+	if($(sidebar).length) {
+		var current = document.location.href.replace(/https?:\/\//i, '').split(ROOT), link;
+		if(current.length > 1) current.shift();
+		current = current.join(ROOT).split('?').shift();
+		if(current.substr(-1) === '/') current = current.substr(0, current.length - 1);
+		if(current.substr(-1) === '#') current = current.substr(0, current.length - 1);
+
+		$(sidebar).find('li > a').each(function() { // On load
+			link = this.href.replace(this.baseURI, '');
+			if(link === current) {
+				linkEvents(link); return false;
+			}
+		});
+		$(sidebar).find('li > a').on('click', function() { // On click
+			link = this.href.replace(this.baseURI, '');
+			linkEvents(link);
+		});
+	}
+
     console.log("Application loaded.");
-}
+};
 
 //  Set events in files and folders
 var setEvents = function() {
@@ -250,16 +270,24 @@ var setEvents = function() {
             };
         });
     }*/
-}
+};
+
+var linkEvents = function(link) {
+	if(link.indexOf('#transfers') !== -1) {
+		Transfers.toggle();
+	} else if(link.indexOf('#trash') !== -1) {
+		Trash.switch();
+	}
+};
 
 var reset = function() {
     this.value = '';
-}
+};
 
 var isNumeric = function(n) {
     if(typeof(n) === "string") n = n.replace(",", ".");
     return !isNaN(parseFloat(n)) && isFinite(n);
-}
+};
 
 var cleanPath = function(p) {
     // format : dir1/dir2/
@@ -280,11 +308,11 @@ var cleanPath = function(p) {
 		}
     }
     return p;
-}
+};
 
 var showHelp = function() {
     var m = new MessageBox(txt.Help.shortcuts.join('\n')).show();
-}
+};
 
 var copy_url = function() {
 	document.querySelector('section#selection .copy_url').select();
@@ -295,4 +323,4 @@ var logout = function() {
 	sessionStorage.clear();
     window.location.href=ROOT+"Logout";
     return false;
-}
+};
