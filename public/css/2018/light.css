@@ -77,8 +77,8 @@ fieldset .label { color: #757575; }
 
 #selection { background-color: #fff; }
 
-#tree > div { background-color: #fff; color: #212121; }
-#tree > div.selected { background-color: #fbfeff; }
+#tree tr { background-color: #fff; color: #212121; }
+#tree tr.selected { background-color: #fbfeff; }
 
 .progress_bar { background-color: #e7e7e7; }
 .progress_bar .used { background-color: #ff874b; }

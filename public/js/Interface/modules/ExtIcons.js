@@ -42,8 +42,7 @@ var ExtIcons = (function() {
 				$('.file').each(function() {
 					filename = $(this).attr('data-title');
 					icon = filename !== null && filename !== undefined ? getIcon(filename) : 'text';
-					$(this).find('.file_body .icon').remove();
-					$(this).find('.file_body').prepend('<img src="'+IMG+'desktop/extensions/'+icon+'.svg" class="icon">');
+					$(this).children('td:nth-child(2)').html('<img src="'+IMG+'desktop/extensions/'+icon+'.svg" class="icon">');
 				});
 			}
 		}

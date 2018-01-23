@@ -360,7 +360,17 @@ class User extends l\Languages {
         	'.str_replace(['[used]', '[total]'], ['<strong>'.showSize($stored).'</strong>', '<strong>'.showSize($quota).'</strong>'], self::$txt->User->quota_of).' - '.$pct.'%
 			</div>
 		';
-        echo '<div id="tree"> ';
+        echo '
+			<table id="tree">
+				<tr id="tree_head">
+					<th width="44px"></th>
+					<th></th>
+					<th>Name</th>
+					<th>Size</th>
+					<th>Uploaded</th>
+					<th>Options</th>
+				</tr>
+		';
 
         if($subdirs = $this->_modelFolders->getChildren($this->_folderId, $this->trash)) {
             foreach($subdirs as $subdir) {
@@ -368,22 +378,24 @@ class User extends l\Languages {
                 $subdir['name'] = $this->parseFilename($subdir['name']);
 
                 echo '
-				<div class="folder" id="d'.$subdir['id'].'" name="'.htmlentities($subdir['name']).'"
+				<tr class="folder" id="d'.$subdir['id'].'" name="'.htmlentities($subdir['name']).'"
 	                title="'.showSize($subdir['size']).'"
 	                data-folder="'.htmlentities($subdir['parent']).'"
 	                data-path="'.htmlentities($subdir['path']).'"
 	                data-title="'.htmlentities($subdir['name']).'"
+					onclick="Selection.addFolder(event, \'d'.$subdir['id'].'\')"
+					ondblclick="Folders.open('.$subdir['id'].')"
 				>
-					<div class="folder_head">
-						<span><input type="checkbox" id="sel_d'.$subdir['id'].'"><label for="sel_d'.$subdir['id'].'"></label></span>
-						<a href="#" class="btn btn-actions"></a>
-					</div>
-					<div class="folder_body" onclick="Selection.addFolder(event, \'d'.$subdir['id'].'\')" ondblclick="Folders.open('.$subdir['id'].')">
-	                	<img src="'.IMG.'desktop/extensions/folder.svg" class="icon">
+					<td><input type="checkbox" id="sel_d'.$subdir['id'].'"><label for="sel_d'.$subdir['id'].'"></label></td>
+					<td><img src="'.IMG.'desktop/extensions/folder.svg" class="icon"></td>
+					<td>
 						<strong>'.htmlentities($subdir['name']).'</strong>
 						['.$elementnum.' '.($elementnum > 1 ? self::$txt->User->elements : self::$txt->User->element).']
-					</div>
-				</div>
+					</td>
+					<td></td>
+					<td></td>
+					<td><a href="#" class="btn btn-actions"></a></td>
+				</tr>
 				';
             }
         }
@@ -401,30 +413,31 @@ class User extends l\Languages {
                 } else {
                     $filesize = showSize($file['size']);
                 }
+				$lastmod = date(self::$txt->Dates->date.' '.self::$txt->Dates->time, $file['last_modification']);
 
                 echo '
-				<div class="file" id="f'.$file['id'].'" '.($file['size'] < 0 ? 'style="color:red" ' : '').'
-                	title="'.$filesize.'&#10;'.self::$txt->User->lastmod.' : '.date(self::$txt->Dates->date.' '.self::$txt->Dates->time, $file['last_modification']).'"
+				<tr class="file" id="f'.$file['id'].'" '.($file['size'] < 0 ? 'style="color:red" ' : '').'
+                	title="'.$filesize.'&#10;'.self::$txt->User->lastmod.' : '.$lastmod.'"
 	                data-folder="'.htmlentities($file['folder_id']).'"
 	                data-path="'.htmlentities($fpath).'"
 	                data-title="'.htmlentities($file['name']).'"
 					data-shared="'.$is_shared.'"
 					data-url="'.URL_APP.'/dl/?'.setURL($file['id']).'"
+					onclick="Selection.addFile(event, \'f'.$file['id'].'\')"
+					ondblclick="Selection.dl(\'f'.$file['id'].'\')"
 				>
-					<div class="file_head">
-						<span><input type="checkbox" id="sel_f'.$file['id'].'"><label for="sel_f'.$file['id'].'"></label></span>
-						<a href="#" class="btn btn-actions"></a>
-					</div>
-					<div class="file_body" onclick="Selection.addFile(event, \'f'.$file['id'].'\')" ondblclick="Selection.dl(\'f'.$file['id'].'\')">
-						<span><strong>'.htmlentities($file['name']).'</strong></span>
-						<span>'.$filesize.'</span>
-					</div>
-				</div>
+					<td><input type="checkbox" id="sel_f'.$file['id'].'"><label for="sel_f'.$file['id'].'"></label></td>
+					<td></td>
+					<td><strong>'.htmlentities($file['name']).'</strong></td>
+					<td>'.$filesize.'</td>
+					<td>'.$lastmod.'</td>
+					<td><a href="#" class="btn btn-actions"></a></td>
+				</tr>
 				';
             }
         }
 
-        echo '</div>';
+        echo '</table>';
     }
 
     function ChangePathAction() {
