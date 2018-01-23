@@ -74,8 +74,13 @@ fieldset .label { color: #fff; }
 
 #selection { background-color: #3b3a3a; }
 
+#tree th { color: #b4bac6; }
 #tree tr { background-color: #3b3a3a; }
 #tree tr.selected { color: #16c1f3; }
+
+#box { background-color: #212121; color: #fff; }
+#box p { font-family: RobotoMono; letter-spacing: .1px; }
+#box p:hover, #box p:active, #box p:focus { background-color: #202729; }
 
 .progress_bar { background-color: #4a4a4a; }
 .progress_bar .used { background-color: #16c1f3; }

@@ -19,12 +19,12 @@
 	margin: 50px 0;
 	box-shadow: none; border-radius: 0;
 	text-align: left;
+	background-color: transparent;
 }
 
 #tree th {
 	text-align: left;
 	font-family: RobotoMono; font-size: 12px; font-weight: bold;
-	color: #757575;
 	text-transform: uppercase;
 }
 #tree.mosaic th { display: none; }

@@ -50,7 +50,7 @@ var Toolbar = (function() {
                     data += '/> <label for="multisel_toolbar">'+txt.UserMenu.multiSelection+'</label><br>';
                     data += '<input type="checkbox" id="selectall_toolbar" onchange="Selection.allSwitch()"> <label for="selectall_toolbar">'+txt.UserMenu.selectAll+'</label></li>';
                     if(Trash.State == 0) {
-                        data += '<li onclick="Folders.create()"><img src="'+IMG+'desktop/actions/create_folder.svg" class="icon"></li>';
+                        data += '<li onclick="Folders.create()"><i class="fa fa-folder-o" aria-hidden="true"></i></li>';
                         data += '<li onclick="Upload.dialog()"><i class="fa fa-upload" aria-hidden="true"></i></li>';
                         if(Move.Files.length > 0 || Move.Folders.length > 0) {
                             data += '<li onclick="Move.paste(\''+id+'\')"><i class="fa fa-clipboard" aria-hidden="true"></i></li>';

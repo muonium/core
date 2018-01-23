@@ -1,41 +1,29 @@
 #box {
-    background : white;
-    padding : 0px;
+    padding: 0px;
     position: absolute;
-    z-index:9999;
-    border: 1px solid #DDDDDD;
-    -webkit-user-select: none;
-	-moz-user-select: none;
-	-ms-user-select: none;
-	user-select: none;
+    z-index: 9999;
+	border-radius: 3px;
+    -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;
+	box-shadow: 0 8px 16px 0 rgba(82, 97, 115, 0.18);
 }
 
 #box p {
-    padding-left: 10px;
-    padding-right: 10px;
-    padding-top: 8px;
-    padding-bottom: 8px;
+	margin: 0; padding: 10px;
+	font-size: 15px;
 }
 
-#box p, #box p * {
-    cursor: pointer;
-}
-
-#box p:hover {
-    background: #E0F0FA;
-}
+#box p, #box p * { cursor: pointer; }
 
 #box ul {
     list-style-type: none;
     padding: 10px;
 }
 
-#box .fa {
-    color: #2391BA;
-    padding-right: 5px;
-}
+#box .fa { width: 24px; padding-right: 5px; }
 
 #box .icon {
     height: 18px;
     margin-left: -5px;
 }
+
+#box hr { margin: 0; }
