@@ -65,8 +65,8 @@
         "size": "Größe",
         "file": "Datei",
         "folder": "Ordner",
-        "element": "Element",
-        "PlurialElement": "Elemente",
+        "element": "element",
+        "elements": "elemente",
         "replaceFile": "Die Datei [filename] existiert, möchtest Du sie ersetzen?",
         "replaceCompleteFile": "Die Datei [filename] existiert und ist nicht fertiggestellt, was willst Du machen?",
         "quotaExceeded": "Quote überschritten!",
@@ -286,5 +286,10 @@
         "m": "MB",
         "g": "GB",
         "t": "TB"
-    }
+    },
+
+	"Dates": {
+		"date": "d.m.Y",
+		"time": "G:i"
+	}
 }

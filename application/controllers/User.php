@@ -381,7 +381,7 @@ class User extends l\Languages {
 					<div class="folder_body" onclick="Selection.addFolder(event, \'d'.$subdir['id'].'\')" ondblclick="Folders.open('.$subdir['id'].')">
 	                	<img src="'.IMG.'desktop/extensions/folder.svg" class="icon">
 						<strong>'.htmlentities($subdir['name']).'</strong>
-						['.$elementnum.' '.($elementnum > 1 ? self::$txt->User->PlurialElement : self::$txt->User->element).']
+						['.$elementnum.' '.($elementnum > 1 ? self::$txt->User->elements : self::$txt->User->element).']
 					</div>
 				</div>
 				';
@@ -404,7 +404,7 @@ class User extends l\Languages {
 
                 echo '
 				<div class="file" id="f'.$file['id'].'" '.($file['size'] < 0 ? 'style="color:red" ' : '').'
-                	title="'.$filesize.'&#10;'.self::$txt->User->lastmod.' : '.date('d/m/Y G:i', $file['last_modification']).'"
+                	title="'.$filesize.'&#10;'.self::$txt->User->lastmod.' : '.date(self::$txt->Dates->date.' '.self::$txt->Dates->time, $file['last_modification']).'"
 	                data-folder="'.htmlentities($file['folder_id']).'"
 	                data-path="'.htmlentities($fpath).'"
 	                data-title="'.htmlentities($file['name']).'"
@@ -416,7 +416,8 @@ class User extends l\Languages {
 						<a href="#" class="btn btn-actions"></a>
 					</div>
 					<div class="file_body" onclick="Selection.addFile(event, \'f'.$file['id'].'\')" ondblclick="Selection.dl(\'f'.$file['id'].'\')">
-						<strong>'.htmlentities($file['name']).'</strong>
+						<span><strong>'.htmlentities($file['name']).'</strong></span>
+						<span>'.$filesize.'</span>
 					</div>
 				</div>
 				';

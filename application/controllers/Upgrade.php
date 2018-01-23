@@ -67,8 +67,8 @@ class Upgrade extends l\Languages {
 			$history .= '<tr>';
 			$history .= '<td>'.showSize($upgrade['size']).'</td>';
 			$history .= '<td>'.$upgrade['price'].' '.strtoupper($upgrade['currency']).'</td>';
-			$history .= '<td>'.date('Y-m-d G:i', $upgrade['start']).'</td>';
-			$history .= '<td>'.date('Y-m-d G:i', $upgrade['end']).'</td>';
+			$history .= '<td>'.date(self::$txt->Dates->date.' '.self::$txt->Dates->time, $upgrade['start']).'</td>';
+			$history .= '<td>'.date(self::$txt->Dates->date.' '.self::$txt->Dates->time, $upgrade['end']).'</td>';
 			$history .= '<td class="red fit-width">';
 			if($upgrade['removed'] === 1) $history .= self::$txt->Upgrade->expired;
 			$history .= '</td></tr>';

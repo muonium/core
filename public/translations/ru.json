@@ -65,8 +65,8 @@
         "size": "Размер",
         "file": "Файл",
         "folder": "Папка",
-        "element": "Элемент",
-        "PlurialElement": "Элементы",
+        "element": "элемент",
+        "elements": "элементы",
         "replaceFile": "Файл [filename] существует, вы хотите заменить его?",
         "replaceCompleteFile": "Файл [filename] существует и не завершен, что вы хотите сделать?",
         "quotaExceeded": "Квота превышена!",
@@ -286,5 +286,10 @@
 		"m": "МБ",
 		"g": "ГБ",
 		"t": "ТБ"
+	},
+
+	"Dates": {
+		"date": "d.m.Y",
+		"time": "G:i"
 	}
 }

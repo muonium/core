@@ -66,7 +66,7 @@
         "file": "文件",
         "folder": "文件夹",
         "element": "元素",
-        "PlurialElement": "元素",
+        "elements": "元素",
         "replaceFile": "这个文件 [filename] 已经存在，你想替换它吗？",
         "replaceCompleteFile": "这个文件 [filename] 已经存在但是它不完整，你想怎么做？",
         "quotaExceeded": "超出配额!",
@@ -286,5 +286,10 @@
 		"m": "MB",
 		"g": "GB",
 		"t": "TB"
+	},
+
+	"Dates": {
+		"date": "Y-m-d",
+		"time": "G:i"
 	}
 }

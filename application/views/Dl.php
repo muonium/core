@@ -29,7 +29,12 @@
 		<div class="center mtop mono">
 	        <h1 class="dl-filename"><?php echo_h($infos['name']); ?></h1>
 
-			<p class="dl-info"><?php echo_h(str_replace('[login]', $infos['login'], self::$txt->User->uploadedBy)); echo ' '.date('Y-m-d G:i', $infos['last_modification']); ?></p>
+			<p class="dl-info">
+				<?php
+					echo_h(str_replace('[login]', $infos['login'], self::$txt->User->uploadedBy));
+					echo ' '.date(self::$txt->Dates->date.' '.self::$txt->Dates->time, $infos['last_modification']);
+				?>
+			</p>
 			<p class="dl-info"><?php echo self::$txt->User->size; echo ': '.$filesize; ?></p>
 
 			<p class="input-small">

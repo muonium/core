@@ -65,8 +65,8 @@
         "size": "Taille",
         "file": "Fichier",
         "folder": "Dossier",
-        "element": "Élément",
-        "PlurialElement": "Éléments",
+        "element": "élément",
+        "elements": "éléments",
         "replaceFile": "Le fichier [filename] existe, voulez-vous le remplacer ?",
         "replaceCompleteFile": "Le fichier [filename] existe et il n'est pas complet, que voulez-vous faire ?",
         "quotaExceeded": "Quota dépassé !",
@@ -286,5 +286,10 @@
 		"m": "Mo",
 		"g": "Go",
 		"t": "To"
+	},
+
+	"Dates": {
+		"date": "d/m/Y",
+		"time": "G:i"
 	}
 }
