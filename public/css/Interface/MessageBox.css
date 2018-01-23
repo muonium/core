@@ -1,76 +1,49 @@
 .MessageBox {
-    box-sizing: border-box;
-    background-color: #FBFBFB;
-    padding: 20px;
+    padding: 10px;
     position: fixed;
     z-index: 9999;
-    border: 1px solid #C7C7C7;
-    border-radius: 1px;
-    box-shadow: 0 2px 5px #C5C5C5;
-    font-family: Roboto, Helvetica, sans-serif;
+    box-shadow: 0 8px 16px 0 rgba(82, 97, 115, 0.18);
+    font-family: Roboto;
     width: 100%;
     -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;
     bottom: 50px;
     display: none;
+	cursor: move;
 }
+
+.MessageBox .MessageBoxTitle {
+	font-family: RobotoMono; font-size: 15px; font-weight: bold;
+	letter-spacing: .1px;
+	margin: 10px 0;
+}
+
+.MessageBox .MessageBoxTxt { font-family: Roboto; font-size: 14px; }
+.MessageBox .MessageBoxTxt ul { margin-left: 20px; }
 
 .MessageBox .MessageBoxClose {
     position: absolute;
-    font-size: 24px;
-    font-weight: bold;
+    font-size: 24px; font-weight: bold;
     color: #727272;
     top: 0; right: 5px;
     cursor: pointer;
 }
 
-.MessageBox .MessageBoxMsg {
-    color: black;
-    font-size: 14px;
-}
+.MessageBox .MessageBoxBtns { text-align: right; margin-top: 5px; }
+.MessageBox .MessageBoxBtns input, .MessageBox .MessageBoxBtns button { margin-left: 15px; }
 
-.MessageBox .MessageBoxBtns {
-    text-align: right;
-    margin-top: 5px;
-}
-
-.MessageBox .MessageBoxBtns input[type="button"] {
-    margin: 0 5px 0 5px;
-    background-color: white;
-    border: 1px solid #3E7EF8;
-    border-radius: 1px;
-    padding-left: 10px; padding-right: 10px;
-    font-weight: bold;
-    outline: none;
-    height: 36px;
-	color: black;
-}
-
-.MessageBox .MessageBoxBtns input[type="button"]:active {
-    background-color: #E6E6E6;
-    border: 1px solid #3E7EF8;
-    border-radius: 1px;
-}
-
-.MessageBox .MessageBoxBtns input[type="button"]:disabled {
-	color: #28535c;
-	background-color: rgb(235, 235, 228);
-	cursor: not-allowed;
-	border: 1px solid rgba(40, 83, 92, 0.44);
-}
-
+.MessageBox .MessageBoxToggle { margin: 10px 0; }
 .MessageBox .MessageBoxToggle > span {
-    padding-left: 5px; padding-right: 5px;
+    padding: 0 7px;
     position: relative;
-    top: -5px;
+    top: -7px;
+	font-size: 16px;
 }
 
 .MessageBox .MessageBoxToggle .switch {
     position: relative;
     display: inline-block;
-    width: 45px;
-    height: 26px;
+    width: 45px; height: 26px;
 }
-
 .MessageBox .MessageBoxToggle .switch input { display: none; }
 
 .MessageBox .MessageBoxToggle .slider {
@@ -82,7 +55,7 @@
     border-radius: 26px;
 }
 
-.MessageBox .MessageBoxToggle .slider:before {
+.MessageBox .MessageBoxToggle .slider::before {
     position: absolute;
     content: "";
     height: 20px; width: 20px;
@@ -93,31 +66,20 @@
 }
 
 .MessageBox .MessageBoxToggle input:checked + .slider {
-    background-color: #2196F3;
+    background-color: #16c1f3;
 }
 
 .MessageBox .MessageBoxToggle input:focus + .slider {
-    box-shadow: 0 0 1px #2196F3;
+    box-shadow: 0 0 1px #16c1f3;
 }
 
-.MessageBox .MessageBoxToggle input:checked + .slider:before {
+.MessageBox .MessageBoxToggle input:checked + .slider::before {
     -webkit-transform: translateX(20px); -ms-transform: translateX(20px); transform: translateX(20px);
-}
-
-.MessageBox .MessageBoxInput input {
-    width: 90%; height: 36px;
-    border: 1px solid rgba(40, 83, 92, 0.44);
-    border-radius: 3px;
-    outline: none;
-    padding-left: 10px;
-    color: #28535c;
-    max-width: 680px;
 }
 
 @media screen and (max-width: 699px) {
     .MessageBox {
-        left: auto !important;
-        top: auto !important;
+        left: auto !important; top: auto !important;
 		width: 100% !important;
     }
 }
@@ -129,17 +91,6 @@
         width: auto;
         bottom: auto; left: 50%; top: 50%;
         transform: translate(-50%, -50%);
-    }
-
-    .MessageBox .MessageBoxBtns input[type="button"] { height: 24px; }
-
-    .MessageBox .MessageBoxInput input {
-        width: auto; height: 28px;
-        border: 1px solid rgba(40, 83, 92, 0.44);
-        border-radius: 3px;
-        outline: none;
-        padding-left: 10px;
-        color: #28535c;
     }
 
     .MessageBox .MessageBoxClose { font-size: 13px; }

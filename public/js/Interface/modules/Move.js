@@ -71,6 +71,7 @@ var Move = (function() {
 
                     var m = new MessageBox(txt.RightClick.mvItem).addInput('elem_name', {
         				id: "nRename",
+						placeholder: txt.User.name,
         				autocomplete: "off",
                         value: name,
         				onkeypress: function(event) {

@@ -176,7 +176,7 @@ var Selection = (function() {
 			Box.hide();
 			var validate = function() {
 				var passphrase = this.$inputs.passphrase.value;
-				if(typeof(passphrase) !== 'string') return false;// || passphrase.length < 6) return false;
+				if(typeof(passphrase) !== 'string') return false;
 				if(Selection.Files.length > 0) {
 					for(var i = 0; i < Selection.Files.length; i++) {
 		                Files.share(Selection.Files[i], passphrase);
@@ -189,6 +189,7 @@ var Selection = (function() {
 
 			var m = new MessageBox(txt.Register.passphrase).addInput('passphrase', {
 				id: "nShare",
+				placeholder: txt.Register.passphrase,
 				autocomplete: "off",
 				oninput: function(event) {
 					if(this.$inputs.passphrase.value.length >= 6) {
@@ -202,7 +203,7 @@ var Selection = (function() {
 					}
 					return true;
 				}
-			}).addButton("OK", validate).show();
+			}, 'fa fa-lock').addButton(txt.User.generatelink, validate).show();
 			$(m.$elemBtns).find('input,button').prop('disabled', true);
 		},
 

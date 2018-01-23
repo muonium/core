@@ -308,7 +308,7 @@ var cleanPath = function(p) {
 };
 
 var showHelp = function() {
-    var m = new MessageBox(txt.Help.shortcuts.join('\n')).show();
+    var m = new MessageBox('').addTxt(txt.Help.shortcuts.join('\n')).show();
 };
 
 var copy_url = function() {

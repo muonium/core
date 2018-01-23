@@ -82,5 +82,9 @@ fieldset .label { color: #fff; }
 #box p { font-family: RobotoMono; letter-spacing: .1px; }
 #box p:hover, #box p:active, #box p:focus { background-color: #202729; }
 
+.MessageBox { background-color: #212121; }
+.MessageBox .MessageBoxTitle, .MessageBox .MessageBoxTxt { color: #fff; }
+.MessageBox .MessageBoxInput input { background-color: transparent; }
+
 .progress_bar { background-color: #4a4a4a; }
 .progress_bar .used { background-color: #16c1f3; }

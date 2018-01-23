@@ -86,6 +86,7 @@
         "downloading": "下载中",
 		"quota_of": "[used] 对于 [total]",
 		"shared": "文件共享已启用",
+		"generatelink": "Generate Link",
 		"badPass": "密码错误！",
 		"uploadedBy": "由[login]上传"
     },

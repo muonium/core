@@ -15,8 +15,9 @@ var Folders = (function() {
 				});
 			};
 
-			var m = new MessageBox(txt.User.foldername).addInput('folder_name', {
+			var m = new MessageBox(txt.RightClick.nFolder).addInput('folder_name', {
 				id: "nFolder",
+				placeholder: txt.User.foldername,
 				autocomplete: "off",
 				onkeypress: function(event) {
 					if(event.keyCode == 13) {
@@ -25,7 +26,7 @@ var Folders = (function() {
 					}
 					return Folders.verif(event);
 				}
-			}).addButton("OK", validate).show();
+			}, 'fa fa-folder-o').addButton("OK", validate).show();
 		},
 
 		open : function(folder_id) {

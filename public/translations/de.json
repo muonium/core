@@ -86,6 +86,7 @@
         "downloading": "Lädt herunter",
         "quota_of": "[used] von [total]",
 		"shared": "File sharing enabled",
+		"generatelink": "Generate Link",
 		"badPass": "Bad password!",
 		"uploadedBy": "Uploaded by [login] on"
     },

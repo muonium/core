@@ -85,5 +85,8 @@ fieldset .label { color: #757575; }
 #box p { font-family: OpenSans; font-weight: 600; letter-spacing: .1px; }
 #box p:hover, #box p:active, #box p:focus { background-color: #f6fdff; }
 
+.MessageBox { background-color: #fff; }
+.MessageBox .MessageBoxTitle, .MessageBox .MessageBoxTxt { color: #212121; }
+
 .progress_bar { background-color: #e7e7e7; }
 .progress_bar .used { background-color: #ff874b; }

@@ -86,6 +86,7 @@
         "downloading": "Téléchargements",
 		"quota_of": "[used] sur [total]",
 		"shared": "Partage du fichier activé",
+		"generatelink": "Générer le lien",
 		"badPass": "Mauvais mot de passe !",
 		"uploadedBy": "Téléversé par [login] le"
     },
