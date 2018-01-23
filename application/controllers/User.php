@@ -363,7 +363,7 @@ class User extends l\Languages {
         echo '
 			<table id="tree">
 				<tr id="tree_head">
-					<th width="44px"></th>
+					<th width="44px"><input type="checkbox" id="sel_all"><label for="sel_all"></label></th>
 					<th></th>
 					<th>Name</th>
 					<th>Size</th>

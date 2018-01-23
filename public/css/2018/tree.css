@@ -12,7 +12,14 @@
 	justify-content: space-between;
 }
 
-#tree.mosaic #tree_head { display: none; }
+#tree.mosaic #tree_head {
+	width: 100%; height: 24px;
+	flex-basis: auto;
+	display: block;
+	margin: 50px 0;
+	box-shadow: none; border-radius: 0;
+	text-align: left;
+}
 
 #tree th {
 	text-align: left;
@@ -20,6 +27,8 @@
 	color: #757575;
 	text-transform: uppercase;
 }
+#tree.mosaic th { display: none; }
+#tree.mosaic th:first-child, #tree.mosaic th:nth-child(3) { display: inline-block; }
 
 #tree tr {
 	height: 54px;

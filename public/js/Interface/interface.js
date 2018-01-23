@@ -193,21 +193,18 @@ var UserLoader = function(folder_id) {
 var setEvents = function() {
     // Init Arrows actions
     Arrows.init();
-
     // Init Box
     Box.init();
 
     Toolbar.display();
 
-    document.querySelector("#multisel").addEventListener("click", function() { Selection.multipleSwitch('multisel'); });
-
-    document.querySelector("#display_list").addEventListener("click", function() {
+    $('#display_list').on('click', function() {
         localStorage.setItem('display', 'list');
         Files.style = 'list';
         Files.display();
     });
 
-    document.querySelector("#display_mosaic").addEventListener("click", function() {
+    $('#display_mosaic').on('click', function() {
         localStorage.setItem('display', 'mosaic');
         Files.style = 'mosaic';
         Files.display();
@@ -215,7 +212,7 @@ var setEvents = function() {
 
     var display = localStorage.getItem('display');
     if(display == 'list' || display == 'mosaic') {
-        document.querySelector("#display_"+display).click();
+        $('#display_'+display).click();
     }
 
     // Right click inside divs with file's class (these divs are children of 'desktop')

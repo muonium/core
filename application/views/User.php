@@ -66,7 +66,6 @@
             <form class="hidden">
                 <input type="file" id="upFilesInput" name="files[]" multiple="multiple" class="hide" onchange="Upload.upFiles(this.files)" onclick="reset()">
             </form>
-            <!-- End -->
 
             <div id="returnArea"></div>
             <!-- mui contains all contents of interface : storage infos, link to parent folder, #tree (files and folders) ... -->
@@ -74,9 +73,6 @@
                 <?php echo self::$txt->Global->loading; ?>
             </div>
         </section>
-
-		<input type="checkbox" id="multisel">
-		<label for="multisel"><?php echo self::$txt->UserMenu->multiSelection; ?></label>
     </div>
 	<div id="selection">
 		<div class="fixed">

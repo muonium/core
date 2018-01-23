@@ -15,7 +15,7 @@ var Selection = (function() {
 
         select : function(id, putDetails = true) {
             if($('#'+id).length) {
-                $('#'+id).addClass('selected');
+                $('#'+id).addClass('selected').find('#sel_'+id).prop('checked', true);
                 if(showDetails || (window.innerWidth || document.body.clientWidth) < 700) {
                     Selection.openDetails();
                 }
@@ -30,7 +30,7 @@ var Selection = (function() {
 
         unselect : function(id, putDetails = true) {
             if($('#'+id).length) {
-				$('#'+id).removeClass('selected');
+				$('#'+id).removeClass('selected').find('#sel_'+id).prop('checked', false);
             }
             if(putDetails === true)  {
                 Toolbar.display();
@@ -48,6 +48,7 @@ var Selection = (function() {
         },
 
         addFile : function(event, id, putDetails = true) {
+			if(typeof event === 'object') event.preventDefault(); // Prevent event to be fired twice in some cases (due to input checkbox and label)
             Selection.addSel = 1;
             if(document.querySelector("#"+id)) {
                 if(Selection.multiple || (event !== null && (event == 'ctrl' || event.ctrlKey))) {
@@ -69,6 +70,7 @@ var Selection = (function() {
         },
 
         addFolder : function(event, id, putDetails = true) {
+			if(typeof event === 'object') event.preventDefault(); // Prevent event to be fired twice in some cases (due to input checkbox and label)
             Selection.addSel = 1;
             if(document.querySelector("#"+id)) {
                 if(Selection.multiple || (event !== null && (event == 'ctrl' || event.ctrlKey))) {
