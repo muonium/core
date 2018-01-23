@@ -41,7 +41,6 @@ li#multisel_desktop { display: none; }
 #selection .btn_download, #selection .btn_share { display: none; }
 
 @media screen and (min-width: 600px) {
-    /*#selection { position: static; width: auto; }*/
     #selection ul { margin-top: 20px; }
     li#multisel_desktop { display: block; }
     #selection .btn_download, #selection .btn_share {

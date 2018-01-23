@@ -31,25 +31,25 @@ var Transfers = (function() {
 
         minimize : function() {
             if(minimized) {
-                $("#transfers #toggle, #transfers #content").show();
+                $("#transfers .toggle, #transfers .content").show();
             } else {
-                $("#transfers #toggle, #transfers #content").hide();
+                $("#transfers .toggle, #transfers .content").hide();
             }
             minimized = !minimized;
         },
 
         showUp : function() {
-            $("#transfers #toggle ul > li:first-child").addClass('selected');
-            $("#transfers #toggle ul > li:last-child").removeClass('selected');
-            $("#transfers #content > #transfers_upload").show();
-            $("#transfers #content > #transfers_download").hide();
+            $("#transfers .toggle ul > li:first-child").addClass('selected');
+            $("#transfers .toggle ul > li:last-child").removeClass('selected');
+            $("#transfers .content > .transfers_upload").show();
+            $("#transfers .content > .transfers_download").hide();
         },
 
         showDl : function() {
-            $("#transfers #toggle ul > li:first-child").removeClass('selected');
-            $("#transfers #toggle ul > li:last-child").addClass('selected');
-            $("#transfers #content > #transfers_upload").hide();
-            $("#transfers #content > #transfers_download").show();
+            $("#transfers .toggle ul > li:first-child").removeClass('selected');
+            $("#transfers .toggle ul > li:last-child").addClass('selected');
+            $("#transfers .content > .transfers_upload").hide();
+            $("#transfers .content > .transfers_download").show();
         }
     }
 });

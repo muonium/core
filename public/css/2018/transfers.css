@@ -1,61 +1,59 @@
 #transfers {
     display: none;
-    width: 100%;
-    min-height: 20px;
+    width: 100%; min-height: 20px;
     position: fixed;
     bottom: 50px;
     overflow: hidden;
     z-index: 9999;
-    box-shadow: -2px 0px 8px 1px #ccc;
+    box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.1);
+	border-radius: 10px 10px 0 0;
+	background-color: #fff;
 }
 
-#transfers > #top { background-color: #333; color: #fff; }
-#transfers > #toggle { background-color: #d2d2d2; color: #333; }
-#transfers > #toggle li:hover, #transfers > #toggle li:active { background: #e4e4e4; }
-#transfers > #toggle li.selected { background-color: #ddd; border-bottom: 2px solid #3baeda; }
+#transfers > .top {
+	background-color: #16c1f3; color: #fff;
+	width: 100%; height: 42px; line-height: 42px;
+	font-family: OpenSans; font-size: 18px; font-weight: bold;
+	padding-left: 24px;
+	text-transform: uppercase;
+}
+#transfers > .top > span {
+	float: right;
+	height: 100%;
+	padding: 0 15px;
+	display: block;
+	cursor: pointer;
+}
+#transfers > .top > span > i { display: block; cursor: pointer; }
+#transfers > .top .fa-window-minimize { margin-top: 10px; font-size: 14px; }
+#transfers > .top .fa-times { margin-top: 12px; font-size: 16px; }
 
-#transfers > #top, #transfers > #toggle { width: 100%; height: 32px; }
-
-#transfers > #top ul, #transfers > #toggle ul {
-	list-style-type: none;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
+#transfers > .toggle {
+	width: 100%; height: 59px;
+	font-family: OpenSans; font-size: 18px; font-weight: bold;
+	text-transform: uppercase;
+	position: relative; z-index: 1;
+}
+#transfers > .toggle ul, #transfers .toggle li { height: 100%; }
+#transfers > .toggle ul {
+	white-space: nowrap;
+	box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
 }
 
-#transfers > #top > ul > li:first-child, #transfers > #toggle li {
-    -webkit-box-flex: 1;
-        -ms-flex-positive: 1;
-            flex-grow: 1;
+#transfers > .toggle li {
+	display: inline-block;
+	width: 50%;
+	cursor: pointer;
+	text-align: center;
+	padding-top: 26px;
 }
+#transfers > .toggle li.selected { border-bottom: 2px solid #3baeda; }
 
-#transfers > #top > ul > li:first-child { text-align: left; padding-left: 24px; }
-#transfers > #top > ul > li:not(:first-child) { font-size: 12px; width: 36px; }
-#transfers > #top li, #transfers > #top li *, #transfers > #toggle li { cursor: pointer; }
+#transfers > .content { background-color: #fff; }
+#transfers .transfers_upload, #transfers .transfers_download { padding: 5px 10px 20px 10px; }
+#transfers .transfers_upload { display: block; }
+#transfers .transfers_download { display: none; }
 
-#transfers > #top li, #transfers > #toggle li { padding: 5px; text-align: center; }
-#transfers > #content { background-color: #fff; }
-#transfers #transfers_upload, #transfers #transfers_download { padding: 5px 10px 20px 10px; }
-#transfers #transfers_upload { display: block; }
-#transfers #transfers_download { display: none; }
-
-.transfers-circle, .transfers-up-circle, .transfers-dl-circle {
-    vertical-align: middle;
-    margin-left: 5px;
-    display: inline-block;
-    height: 16px; width: 18px;
-    border-radius: 50%;
-    background-color: #e64d63;
-    color: #fff;
-    text-align: center;
-    font-size: 8px;
-    line-height: 16px;
-}
-
-#transfers > #top .fa-window-minimize, #transfers > #top .fa-times { display: block; height: 22px; }
-#transfers > #top .fa-window-minimize { font-size: 10px; padding-top: 2px; }
-#transfers > #top .fa-times { font-size: 12px; padding-top: 4px; }
-
-@media screen and (min-width: 700px) {
-    #transfers { width: 400px; right: 0; bottom: 0; }
+@media screen and (min-width: 600px) {
+    #transfers { width: 525px; right: 0; bottom: 0; }
 }
