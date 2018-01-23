@@ -23,10 +23,10 @@ var Upload = (function() {
 		upFile : function(file_id) {
 			console.log("Uploading file "+file_id+"/"+(f_files.length-1));
 
-			$("#transfers_upload").contents().filter(function() {
+			$('.transfers_upload').contents().filter(function() {
     			return (this.nodeType == 3);
 			}).remove();
-			$('#transfers_upload').append('<div id="div_upload'+ file_id +'">'+
+			$('.transfers_upload').append('<div id="div_upload'+ file_id +'">'+
 				'<i data-id="'+ file_id +'" class="fa fa-minus-circle btn-abort" aria-hidden="true"></i>'+
 				'<span id="span_upload'+ file_id +'"></span>'+
 			'</div>');
@@ -45,7 +45,7 @@ var Upload = (function() {
 
         upFiles : function(files) {
 			f_files = files;
-			$("#transfers_upload").html(' ');
+			$('.transfers_upload').html(' ');
 			Transfers.open();
 			Transfers.showUp();
 			Upload.yesReplaceAll = false;

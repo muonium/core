@@ -28,10 +28,10 @@ var Files = (function() {
 
 					dwl.appendChild(btn);
 					dwl.appendChild(spn);
-					if($('#transfers_download > div').length === 0) {
-						$('#transfers_download').html(' ');
+					if($('.transfers_download > div').length === 0) {
+						$('.transfers_download').html(' ');
 					}
-					document.querySelector("#transfers_download").appendChild(dwl);
+					document.querySelector(".transfers_download").appendChild(dwl);
 					Transfers.open();
 					Transfers.showDl();
 					f_dec[i] = new Decryption(f.getAttribute("data-title"), f.getAttribute("data-folder"), i);

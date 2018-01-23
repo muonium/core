@@ -180,8 +180,8 @@ var Encryption = (function() {
 
 		me.halt = true;
 		$("#div_upload"+(me.i)).remove();
-		if($('#transfers_upload > div').length === 0) {
-			$('#transfers_upload').html(txt.User.nothing);
+		if($('.transfers_upload > div').length === 0) {
+			$('.transfers_upload').html(txt.User.nothing);
 		}
 
 		/* Reload current folder to show aborted file in tree */
@@ -247,8 +247,8 @@ var Encryption = (function() {
 								Transfers.number = Transfers.number <= 0 ? 0 : Transfers.number - 1;
 								Transfers.numberUp = Transfers.numberUp <= 0 ? 0 : Transfers.numberUp - 1;
 								$("#div_upload"+(me.i)).remove();
-								if($('#transfers_upload > div').length === 0) {
-									$('#transfers_upload').html(txt.User.nothing);
+								if($('.transfers_upload > div').length === 0) {
+									$('.transfers_upload').html(txt.User.nothing);
 								}
 								if(debug) {
 									console.log("Split + encryption : "+time.elapsed()+" ms");

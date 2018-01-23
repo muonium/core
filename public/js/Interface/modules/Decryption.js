@@ -67,8 +67,8 @@ var Decryption = (function() {
 		Transfers.number = Transfers.number <= 0 ? 0 : Transfers.number - 1;
 		Transfers.numberDl = Transfers.numberDl <= 0 ? 0 : Transfers.numberDl - 1;
 		$("#div_download"+(this.i)).remove();
-		if($('#transfers_download > div').length === 0) {
-			$('#transfers_download').html(txt.User.nothing);
+		if($('.transfers_download > div').length === 0) {
+			$('.transfers_download').html(txt.User.nothing);
 		}
 	};
 
@@ -178,8 +178,8 @@ var Decryption = (function() {
 
 											if(debug) console.log("decryption + download : "+time.elapsed()+" ms");//
 											$("#div_download"+(me.i)).remove();
-											if($('#transfers_download > div').length === 0) {
-												$('#transfers_download').html(txt.User.nothing);
+											if($('.transfers_download > div').length === 0) {
+												$('.transfers_download').html(txt.User.nothing);
 											}
 											// Try to download the file (move from filesystem to download folder)
 											if(typeof fileEntry.file === 'function') {
