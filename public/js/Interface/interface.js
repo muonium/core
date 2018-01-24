@@ -215,6 +215,11 @@ var setEvents = function() {
         $('#display_'+display).click();
     }
 
+	$('.file .btn-actions, .folder .btn-actions').on('click', function(e) {
+		e.preventDefault();
+		$(this).closest('tr').trigger('contextmenu', [e.clientX, e.clientY]);
+	});
+
     // Right click inside divs with file's class (these divs are children of 'desktop')
     // After the execution of the function below, the function for 'desktop' above will be
     //called automatically (because we are inside desktop) and will set Area to 0 without displaying a new 'box'
@@ -222,10 +227,12 @@ var setEvents = function() {
     var files = document.querySelectorAll(".file");
     for (var i = 0; i < files.length; i++) {
         // For each file
-        files[i].addEventListener("contextmenu", function(event) { // Right click
-            Box.Area = 1;
+        $(files[i]).on("contextmenu", function(event, x, y) { // Right click
+			x = x === undefined ? event.clientX : x;
+			y = y === undefined ? event.clientY : y;
             // Call right_click function with div's id
-            Box.right_click(event.clientX, event.clientY, this.id);
+			Box.Area = 1;
+            Box.right_click(x, y, this.id);
             return false;
         });
     }
@@ -237,10 +244,12 @@ var setEvents = function() {
     var folders = document.querySelectorAll(".folder");
     for (var i = 0; i < folders.length; i++) {
         // For each folder
-        folders[i].addEventListener("contextmenu", function(event) { // Right click
-            Box.Area = 2;
+        $(folders[i]).on("contextmenu", function(event, x, y) { // Right click
+			x = x === undefined ? event.clientX : x;
+			y = y === undefined ? event.clientY : y;
             // Call right_click function with div's id
-            Box.right_click(event.clientX, event.clientY, this.id);
+			Box.Area = 2;
+            Box.right_click(x, y, this.id);
             return false;
         });
     }
