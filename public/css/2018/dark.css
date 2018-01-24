@@ -89,3 +89,10 @@ fieldset .label { color: #fff; }
 .progress_bar { background-color: #4a4a4a; }
 .progress_bar .used { background-color: #16c1f3; }
 #transfers .progress_bar .used { background: #16c1f3; }
+
+#transfers { background-color: #212121; }
+#transfers > .top { background-color: #212121; }
+#transfers > .content { background-color: #3b3a3a; }
+#transfers .transfers_upload > div, #transfers .transfers_download > div { border-bottom: 1px solid #3f3e3e; }
+#transfers .pct { color: #fff; }
+#transfers .btn-abort { color: #ff8a80; }

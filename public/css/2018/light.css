@@ -91,3 +91,10 @@ fieldset .label { color: #757575; }
 .progress_bar { background-color: #e7e7e7; }
 .progress_bar .used { background-color: #ff874b; }
 #transfers .progress_bar .used { background: #16c1f3; }
+
+#transfers { background-color: #fff; }
+#transfers > .top { background-color: #16c1f3; }
+#transfers > .content { background-color: #fff; }
+#transfers .transfers_upload > div, #transfers .transfers_download > div { border-bottom: 2px solid #f9f9f9; }
+#transfers .pct { color: #616161; }
+#transfers .btn-abort { color: #c62828; }
