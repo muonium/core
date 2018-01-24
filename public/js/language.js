@@ -41,7 +41,24 @@ var getCookie = function(cname) {
         }
     }
     return "";
-}
+};
+
+var validateForm = function(form) {
+	$(form).find('.btn-required').prop('disabled', true);
+	var valid = true;
+	$(form).find('[required]').each(function() {
+		if($(this).attr('type') == 'radio' || $(this).attr('type') == 'checkbox') {
+			if($(this).attr('name') !== undefined && $(form).find('input[name="'+$(this).attr('name')+'"]:checked').length === 0) {
+				valid = false; return false;
+			}
+		} else if($(this).val().length === 0) {
+			valid = false; return false;
+		}
+	});
+	if(valid) {
+		$(form).find('.btn-required').prop('disabled', false);
+	}
+};
 
 $(document).ready(function() {
 	var sidebar = $('.sidebar');
@@ -64,6 +81,14 @@ $(document).ready(function() {
 			$(this).addClass('selected');
 		});
 	}
+
+	$('form .btn-required').each(function() {
+		var form = $(this).closest('form');
+		validateForm(form);
+		$(form).find('input[required],textarea[required]').on('input', function() { validateForm(form); });
+		$(form).find('select[required]').on('change', function() { validateForm(form); });
+		$(form).find('input[type="checkbox"][required],input[type="radio"][required]').on('click', function() { validateForm(form); });
+	});
 });
 
 function changeLanguage(lang) {

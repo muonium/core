@@ -44,11 +44,11 @@
 			<fieldset>
 				<legend><?php echo self::$txt->Bug->message; ?>*</legend>
                 <p class="input-large">
-                    <textarea name="message" id="message" cols="50" rows="5"><?php if(!empty($_POST['message'])) { echo_h($_POST['message']); } ?></textarea>
+                    <textarea name="message" id="message" cols="50" rows="5" required><?php if(!empty($_POST['message'])) { echo_h($_POST['message']); } ?></textarea>
                 </p>
 			</fieldset>
 
-			<input type="submit" value="<?php echo self::$txt->Bug->send; ?>" class="btn">
+			<input type="submit" value="<?php echo self::$txt->Bug->send; ?>" class="btn btn-required" disabled>
         </form>
     </div>
 <?php

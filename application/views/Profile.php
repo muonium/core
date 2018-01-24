@@ -47,22 +47,26 @@
             <legend><?php echo self::$txt->Profile->mailusername; ?></legend>
 			<div class="bloc-input">
 				<div>
-					<h3 class="nowrap"><?php echo self::$txt->Profile->changelogin; ?></h3>
-		            <p class="input-large">
-						<input type="text" name="login" id="login" placeholder="<?php echo self::$txt->Profile->newlogin; ?>">
-		                <label class="fa fa-user" for="login" aria-hidden="true"></label>
-		            </p>
-		            <input type="submit" class="btn btn-profile" onclick="changeLogin()" value="<?php echo self::$txt->Global->submit; ?>">
-		            <div id="changeLoginReturn"></div>
+					<form>
+						<h3 class="nowrap"><?php echo self::$txt->Profile->changelogin; ?></h3>
+			            <p class="input-large">
+							<input type="text" name="login" id="login" placeholder="<?php echo self::$txt->Profile->newlogin; ?>" required>
+			                <label class="fa fa-user" for="login" aria-hidden="true"></label>
+			            </p>
+			            <input type="submit" class="btn btn-required btn-profile" onclick="changeLogin()" value="<?php echo self::$txt->Global->submit; ?>" disabled>
+			            <div id="changeLoginReturn"></div>
+					</form>
 				</div>
 				<div>
-					<h3 class="nowrap"><?php echo self::$txt->Profile->changemail; ?></h3>
-		            <p class="input-large">
-		                <input type="text" name="changemail" id="changemail" placeholder="<?php echo self::$txt->Profile->changemail; ?>">
-						<label class="fa fa-envelope" for="changemail" aria-hidden="true"></label>
-		            </p>
-		            <input type="submit" class="btn btn-profile" onclick="changeMail()" value="<?php echo self::$txt->Global->submit; ?>">
-		            <div id="changeMailReturn"></div>
+					<form>
+						<h3 class="nowrap"><?php echo self::$txt->Profile->changemail; ?></h3>
+			            <p class="input-large">
+			                <input type="text" name="changemail" id="changemail" placeholder="<?php echo self::$txt->Profile->changemail; ?>" required>
+							<label class="fa fa-envelope" for="changemail" aria-hidden="true"></label>
+			            </p>
+			            <input type="submit" class="btn btn-required btn-profile" onclick="changeMail()" value="<?php echo self::$txt->Global->submit; ?>" disabled>
+			            <div id="changeMailReturn"></div>
+					</form>
 				</div>
 			</div>
         </fieldset>
@@ -71,38 +75,42 @@
             <legend><?php echo self::$txt->Profile->pwdpp; ?></legend>
 			<div class="bloc-input">
 				<div>
-					<h3><?php echo self::$txt->Profile->changepwd; ?></h3>
-	                <p class="input-large">
-						<input type="password" name="old_pwd" id="old_pwd" placeholder="<?php echo self::$txt->Profile->oldpwd; ?>">
-	                    <label class="fa fa-lock" for="old_pwd" aria-hidden="true"></label>
-	                </p>
-					<p class="input-large">
-						<input type="password" name="new_pwd" id="new_pwd" placeholder="<?php echo self::$txt->Profile->newpwd; ?>">
-	                    <label class="fa fa-lock" for="new_pwd" aria-hidden="true"></label>
-	                </p>
-					<p class="input-large">
-						<input type="password" name="pwd_confirm" id="pwd_confirm" placeholder="<?php echo self::$txt->Register->confirm; ?>">
-	                    <label class="fa fa-lock" for="pwd_confirm" aria-hidden="true"></label>
-	                </p>
-                	<input type="submit" class="btn btn-profile" onclick="changePassword()" value="<?php echo self::$txt->Global->submit; ?>">
-                	<div id="changePasswordReturn"></div>
+					<form>
+						<h3><?php echo self::$txt->Profile->changepwd; ?></h3>
+		                <p class="input-large">
+							<input type="password" name="old_pwd" id="old_pwd" placeholder="<?php echo self::$txt->Profile->oldpwd; ?>" required>
+		                    <label class="fa fa-lock" for="old_pwd" aria-hidden="true"></label>
+		                </p>
+						<p class="input-large">
+							<input type="password" name="new_pwd" id="new_pwd" placeholder="<?php echo self::$txt->Profile->newpwd; ?>" required>
+		                    <label class="fa fa-lock" for="new_pwd" aria-hidden="true"></label>
+		                </p>
+						<p class="input-large">
+							<input type="password" name="pwd_confirm" id="pwd_confirm" placeholder="<?php echo self::$txt->Register->confirm; ?>" required>
+		                    <label class="fa fa-lock" for="pwd_confirm" aria-hidden="true"></label>
+		                </p>
+	                	<input type="submit" class="btn btn-required btn-profile" onclick="changePassword()" value="<?php echo self::$txt->Global->submit; ?>" disabled>
+	                	<div id="changePasswordReturn"></div>
+					</form>
 				</div>
 				<div>
-	                <h3><?php echo self::$txt->Profile->changepp; ?></h3>
-	                <p class="input-large">
-						<input type="password" name="oldpp" id="oldpp" placeholder="<?php echo self::$txt->Profile->oldpp; ?>">
-	                    <label class="fa fa-lock" for="oldpp" aria-hidden="true"></label>
-	                </p>
-					<p class="input-large">
-						<input type="password" name="newpp" id="newpp" placeholder="<?php echo self::$txt->Profile->newpp; ?>">
-	                    <label class="fa fa-lock" for="newpp" aria-hidden="true"></label>
-	                </p>
-					<p class="input-large">
-						<input type="password" name="ppconfirm" id="ppconfirm" placeholder="<?php echo self::$txt->Register->confirm; ?>">
-	                    <label class="fa fa-lock" for="ppconfirm" aria-hidden="true"></label>
-	                </p>
-	                <input type="submit" class="btn btn-profile" onclick="changeCek()" value="<?php echo self::$txt->Global->submit; ?>">
-	                <div id="changePassPhraseReturn"></div>
+					<form>
+		                <h3><?php echo self::$txt->Profile->changepp; ?></h3>
+		                <p class="input-large">
+							<input type="password" name="oldpp" id="oldpp" placeholder="<?php echo self::$txt->Profile->oldpp; ?>" required>
+		                    <label class="fa fa-lock" for="oldpp" aria-hidden="true"></label>
+		                </p>
+						<p class="input-large">
+							<input type="password" name="newpp" id="newpp" placeholder="<?php echo self::$txt->Profile->newpp; ?>" required>
+		                    <label class="fa fa-lock" for="newpp" aria-hidden="true"></label>
+		                </p>
+						<p class="input-large">
+							<input type="password" name="ppconfirm" id="ppconfirm" placeholder="<?php echo self::$txt->Register->confirm; ?>" required>
+		                    <label class="fa fa-lock" for="ppconfirm" aria-hidden="true"></label>
+		                </p>
+		                <input type="submit" class="btn btn-required btn-profile" onclick="changeCek()" value="<?php echo self::$txt->Global->submit; ?>" disabled>
+		                <div id="changePassPhraseReturn"></div>
+					</form>
 				</div>
             </div>
 		</fieldset>
@@ -128,13 +136,15 @@
         </fieldset>
 
 		<fieldset>
-			<h3><?php echo self::$txt->Profile->deleteAccount; ?></h3>
-			<p class="input-large">
-                <input type="checkbox" name="delete" id="delete">
-                <label for="delete"><?php echo self::$txt->Profile->iwant; ?></label>
-            </p>
-			<input type="submit" class="btn btn-warning" onclick="ConfirmDelete()" value="<?php echo self::$txt->Profile->deleteAccount; ?>">
-			<div id="deleteUserReturn"></div>
+			<form>
+				<h3><?php echo self::$txt->Profile->deleteAccount; ?></h3>
+				<p class="input-large">
+	                <input type="checkbox" name="delete" id="delete" required>
+	                <label for="delete"><?php echo self::$txt->Profile->iwant; ?></label>
+	            </p>
+				<input type="submit" class="btn btn-required btn-warning" onclick="ConfirmDelete()" value="<?php echo self::$txt->Profile->deleteAccount; ?>" disabled>
+				<div id="deleteUserReturn"></div>
+			</form>
 		</fieldset>
     </div>
 <?php

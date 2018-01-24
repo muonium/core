@@ -39,7 +39,7 @@
 
 			<div class="bloc-links">
 	            <a href="<?php echo MVC_ROOT; ?>/LostPass" class="mono blue"><?php echo self::$txt->Login->forgot; ?></a>
-				<a href="#" class="btn" onclick="sendConnectionRequest(event)"><?php echo self::$txt->Login->signin; ?></a>
+				<input type="button" class="btn btn-required" onclick="sendConnectionRequest(event)" value="<?php echo self::$txt->Login->signin; ?>" disabled>
 			</div>
 
 			<a href="<?php echo MVC_ROOT; ?>/Register" class="mono center"><?php echo self::$txt->Login->register; ?></a>

@@ -241,7 +241,7 @@ a.blue:hover, a.blue:active, a.blue:focus { color: #0b9fcb; }
 }
 .btn, .btn:visited { background-color: #16c1f3; }
 .btn:hover, .btn:active, .btn:focus { background-color: #0cb1e4; }
-.btn:disabled { background-color: #8be0f9; }
+.btn:disabled { background-color: #8be0f9; cursor: not-allowed !important; }
 .btn-profile { padding: 0 64px; float: right; }
 .btn-warning { background-color: #c62828 !important; box-shadow: none; }
 .btn-warning:disabled { opacity: .5; }
