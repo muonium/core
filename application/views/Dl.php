@@ -6,6 +6,7 @@
 	$_t->addCss([
 		'2018/style'
 	])->addJs([
+		'Interface/modules/ExtIcons',
 		'Interface/modules/Decryption',
 		'Interface/modules/Files',
 		'Interface/modules/Time',

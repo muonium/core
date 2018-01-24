@@ -50,9 +50,32 @@
 #transfers > .toggle li.selected { border-bottom: 2px solid #3baeda; }
 
 #transfers > .content { background-color: #fff; }
-#transfers .transfers_upload, #transfers .transfers_download { padding: 5px 10px 20px 10px; }
+#transfers .transfers_upload, #transfers .transfers_download { padding: 8px 10px; text-align: center; }
+
+#transfers .transfers_upload > div, #transfers .transfers_download > div {
+	text-align: left;
+	height: 73px;
+	border-bottom: 2px solid #f9f9f9;
+	font-family: OpenSans; font-size: 15px; font-weight: bold;
+	padding-top: 13px;
+}
 #transfers .transfers_upload { display: block; }
 #transfers .transfers_download { display: none; }
+
+#transfers .transfers_upload > div > div, #transfers .transfers_download > div > div { margin-right: 70px; }
+
+#transfers .transfers_upload img, #transfers .transfers_download img { vertical-align: middle; margin-right: 19px; }
+
+#transfers .fileinfo {
+	display: inline-block;
+	max-width: calc(100% - 36px);
+	white-space: nowrap;
+	overflow: hidden; text-overflow: ellipsis;
+}
+#transfers .pct { float: right; font-weight: 600; color: #616161; letter-spacing: .1px; }
+#transfers .btn-abort { float: right; color: #c62828; font-size: 20px; padding-top: 10px; }
+#transfers .progress_bar { margin-top: 14px; width: 100%; }
+#transfers .progress_bar, #transfers .progress_bar .used { display: block; }
 
 @media screen and (min-width: 600px) {
     #transfers { width: 525px; right: 0; bottom: 0; }

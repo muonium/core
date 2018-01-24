@@ -118,9 +118,9 @@ var Decryption = (function() {
 
 		var pct = line/this.nb_chk*100;
 		if(pct > 100) pct = 100;
-		if(document.querySelector("#span_download"+(this.i))) {
-			document.querySelector("#span_download"+(this.i)).innerHTML = this.filename+' : '+pct.toFixed(2)+'%';
-		}
+
+		$('#div_download'+(this.i)).find('.pct').html(pct.toFixed(2)+'%');
+		$('#div_download'+(this.i)).find('.progress_bar > .used').css('width', pct.toFixed(2)+'%');
 
 		time_chunk = new Time();
 		var xhr = new XMLHttpRequest();

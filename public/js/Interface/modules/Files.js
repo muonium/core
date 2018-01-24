@@ -11,30 +11,31 @@ var Files = (function() {
 		dl : function(id) {
 			var dwl, btn, spn;
 			Box.hide();
-			var f = document.querySelector("#"+id);
-			if(f) {
-				if(f.getAttribute("data-title").length > 0 && f.getAttribute("data-folder").length > 0) {
-					dwl = document.createElement('div');
-					dwl.id = 'div_download'+i;
+			var f = $('#'+id);
+			if($(f).length) {
+				if($(f).attr('data-title').length > 0 && $(f).attr('data-folder').length > 0) {
+					var fname = $(f).attr('data-title');
+					var ffolder = $(f).attr('data-folder');
+					var ficon = ExtIcons.set(fname);
 
-					btn = document.createElement('i');
-					btn.setAttribute('data-id', i);
-					btn.onclick = Files.abort;
-					btn.className = 'fa fa-minus-circle btn-abort';
-					btn.setAttribute('aria-hidden', true);
+					$('.transfers_download').contents().filter(function() {
+		    			return (this.nodeType == 3);
+					}).remove();
+					$('.transfers_download').append('<div id="div_download'+ i +'">'+
+						'<i data-id="'+ i +'" class="fa fa-times-circle-o btn-abort" aria-hidden="true"></i>'+
+						'<div>'+
+							'<span class="fileinfo">'+ ficon + fname +'</span>'+
+							'<span class="pct">0%</span>' +
+							'<div class="progress_bar"><div class="used" style="width:0%"></div></div>'+
+						'</div>'+
+					'</div>');
 
-					spn = document.createElement('span');
-					spn.id = 'span_download'+i;
+					$('#div_download'+i+' .btn-abort').on('click', Files.abort);
 
-					dwl.appendChild(btn);
-					dwl.appendChild(spn);
-					if($('.transfers_download > div').length === 0) {
-						$('.transfers_download').html(' ');
-					}
-					document.querySelector(".transfers_download").appendChild(dwl);
 					Transfers.open();
 					Transfers.showDl();
-					f_dec[i] = new Decryption(f.getAttribute("data-title"), f.getAttribute("data-folder"), i);
+
+					f_dec[i] = new Decryption(fname, ffolder, i);
 					i++;
 				}
 			}

@@ -41,30 +41,26 @@ $(document).ready(function() {
 
 		if(!err) {
 			$('#msg').html('');
-			dwl = document.createElement('div');
-			dwl.id = 'div_download'+i;
 
-			btn = document.createElement('i');
-			btn.setAttribute('data-id', i);
-			btn.onclick = Files.abort;
-			btn.className = 'fa fa-minus-circle btn-abort';
-			btn.setAttribute('aria-hidden', true);
+			var ficon = ExtIcons.set(fname);
 
-			spn = document.createElement('span');
-			spn.id = 'span_download'+i;
+			$('.transfers_download').contents().filter(function() {
+				return (this.nodeType == 3);
+			}).remove();
+			$('.transfers_download').append('<div id="div_download'+ i +'">'+
+				'<i data-id="'+ i +'" class="fa fa-times-circle-o btn-abort" aria-hidden="true"></i>'+
+				'<div>'+
+					'<span class="fileinfo">'+ ficon + fname +'</span>'+
+					'<span class="pct">0%</span>' +
+					'<div class="progress_bar"><div class="used" style="width:0%"></div></div>'+
+				'</div>'+
+			'</div>');
 
-			dwl.appendChild(btn);
-			dwl.appendChild(spn);
-			if($('#transfers_download > div').length === 0) {
-				$('#transfers_download').html(' ');
-			}
-			document.querySelector("#transfers_download").appendChild(dwl);
-			$('#transfers').fadeIn(400);
+			$('#div_download'+i+' .btn-abort').on('click', Files.abort);
 
-			$("#transfers #toggle ul > li:first-child").removeClass('selected');
-			$("#transfers #toggle ul > li:last-child").addClass('selected');
-			$("#transfers #content > #transfers_upload").hide();
-			$("#transfers #content > #transfers_download").show();
+			Transfers.open();
+			Transfers.showDl();
+
 			f_dec[i] = new Decryption(fname, fid, i, uid, fek); // Call Decryption.js with 2 more parameters : uid and fek
 			i++;
 		}

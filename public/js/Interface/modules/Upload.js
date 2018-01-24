@@ -22,16 +22,22 @@ var Upload = (function() {
 
 		upFile : function(file_id) {
 			console.log("Uploading file "+file_id+"/"+(f_files.length-1));
+			var fname = f_files[file_id].name !== undefined ? f_files[file_id].name : '';
+			var ficon = ExtIcons.set(fname);
 
 			$('.transfers_upload').contents().filter(function() {
     			return (this.nodeType == 3);
 			}).remove();
 			$('.transfers_upload').append('<div id="div_upload'+ file_id +'">'+
-				'<i data-id="'+ file_id +'" class="fa fa-minus-circle btn-abort" aria-hidden="true"></i>'+
-				'<span id="span_upload'+ file_id +'"></span>'+
+				'<i data-id="'+ file_id +'" class="fa fa-times-circle-o btn-abort" aria-hidden="true"></i>'+
+				'<div>'+
+					'<span class="fileinfo">'+ ficon + fname +'</span>'+
+					'<span class="pct">0%</span>' +
+					'<div class="progress_bar"><div class="used" style="width:0%"></div></div>'+
+				'</div>'+
 			'</div>');
 
-			$('.btn-abort').on('click', Upload.abort);
+			$('#div_upload'+file_id+' .btn-abort').on('click', Upload.abort);
 
 			if(file_id == f_files.length-1) {
 				f_enc[file_id] = new Encryption(f_files[file_id], Folders.id, file_id, null);

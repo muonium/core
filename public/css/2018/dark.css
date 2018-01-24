@@ -88,3 +88,4 @@ fieldset .label { color: #fff; }
 
 .progress_bar { background-color: #4a4a4a; }
 .progress_bar .used { background-color: #16c1f3; }
+#transfers .progress_bar .used { background: #16c1f3; }
