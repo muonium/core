@@ -40,7 +40,7 @@ var Folders = (function() {
 				$('#tree').show();
 
 				if($('#mui').find('tr:not(#tree_head)').length === 0 && parseInt($(quota).find('strong').first().html()) === 0) {
-					// Nothing stored
+					// Nothing stored, not only in this folder
 					$('#tree').hide();
 					$('#mui').append('<div class="info mtop"><a onclick="showHelp()">'+txt.User.needhelp+'</a></div>\
 						<div class="bloc-nothing" onclick="Upload.dialog()">'+txt.User.nothing+'<br><img src="'+ROOT+'public/pictures/desktop/ic-no-uploads.png"><br><span>'+txt.User.first+'</span></div>\

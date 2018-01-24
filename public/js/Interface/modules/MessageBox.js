@@ -149,12 +149,12 @@ var MessageBox = (function() {
 
 		$(this.$elem).fadeIn(400);
 
-        if(this.$elemInput.firstChild !== null) {
-            this.$elemInput.firstChild.focus();
+		if($(this.$elemInput).children().length > 0) {
+            var finput = $(this.$elemInput).find('input').first();
+			$(finput).focus();
             // small hack to place cursor at the end of value
-            var content = this.$elemInput.firstChild.value;
-            this.$elemInput.firstChild.value = '';
-            this.$elemInput.firstChild.value = content;
+            var content = $(finput).val();
+            $(finput).val('').val(content);
         }
 		return this;
 	};
