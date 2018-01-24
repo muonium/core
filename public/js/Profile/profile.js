@@ -1,17 +1,20 @@
 /* profile.js */
 
 window.onload = function() {
-
     // Get txt from user's language json (language.js)
     getJSON();
-    document.querySelector("#details").checked = (localStorage.getItem('details') == 'false') ? false : true;
-}
+	var theme = 'light';
+	if(getCookie('theme') === 'dark') {
+		theme = 'dark';
+	}
+    $('#'+theme).prop('checked', true);
+};
 
 var changeLogin = function() {
     var login = document.querySelector("#login").value;
 
     var returnArea = document.querySelector("#changeLoginReturn");
-    returnArea.innerHTML = "<img src='./public/pictures/index/loader.gif' style='height: 3vh;' />";
+    returnArea.innerHTML = "";
 
     var xhr = new XMLHttpRequest();
     xhr.open("POST", "Profile/ChangeLogin", true);
@@ -33,11 +36,11 @@ var changeLogin = function() {
         }
     }
     xhr.send("login="+encodeURIComponent(login));
-}
+};
 
 var changePassword = function() {
     var returnArea = document.querySelector("#changePasswordReturn");
-    returnArea.innerHTML = "<img src='./public/pictures/index/loader.gif' style='height: 3vh;' />";
+    returnArea.innerHTML = "";
 
     var old_pwd = document.querySelector("#old_pwd").value;
     var new_pwd = document.querySelector("#new_pwd").value;
@@ -61,11 +64,11 @@ var changePassword = function() {
         }
         xhr.send("old_pwd="+mui_hash(old_pwd)+"&new_pwd="+mui_hash(new_pwd)+"&pwd_confirm="+mui_hash(pwd_confirm));
     }
-}
+};
 
 var changeCek = function() {
     var returnArea = document.querySelector("#changePassPhraseReturn");
-    returnArea.innerHTML = "<img src='./public/pictures/index/loader.gif' style='height: 3vh;' />";
+    returnArea.innerHTML = "";
 
     var old_pp = document.querySelector("#oldpp").value;
     var new_pp = document.querySelector("#newpp").value;
@@ -113,7 +116,7 @@ var changeCek = function() {
 		}
 		xhr.send("cek="+encodeURIComponent(encryptedCek)); //we send the b64encoded&encrypted CEK
 	}
-}
+};
 
 var changeAuth = function() {
     var returnArea = document.querySelector("#changeAuthReturn");
@@ -129,22 +132,26 @@ var changeAuth = function() {
         }
     }
     xhr.send("doubleAuth="+doubleAuth);
-}
+};
 
-var changeDetails = function() {
-    /* Choose to view or not the file/folder details in desktop version */
-    var returnArea = document.querySelector("#changeDetailsReturn");
-    var details = document.querySelector("#details").checked;
-    localStorage.setItem('details', details);
-    returnArea.innerHTML = txt.Profile.updateOk;
-}
+var switchTheme = function() {
+    var theme = $('input[name="theme"]:checked').attr('id') === 'dark' ? 'dark' : 'light';
+	$('#theme-css').attr('href', function(i,v) {
+		if(theme === 'dark') {
+			v = v.replace('/light.css', '/dark.css');
+		} else {
+			v = v.replace('/dark.css', '/light.css');
+		}
+		return v;
+	});
+    setCookie('theme', theme, 365);
+};
 
-//change user email
 var changeMail = function() {
     var changemail = document.querySelector("#changemail").value;
 
     var returnArea = document.querySelector("#changeMailReturn");
-    returnArea.innerHTML = "<img src='./public/pictures/index/loader.gif' style='height: 3vh;' />";
+    returnArea.innerHTML = "";
 
     var xhr = new XMLHttpRequest();
     xhr.open("POST", "Profile/ChangeMail", true);
@@ -167,9 +174,7 @@ var changeMail = function() {
         }
     }
     xhr.send("changemail="+encodeURIComponent(changemail));
-}
-
-//delete button
+};
 
 var deleteUser = function() {
     var returnArea = document.querySelector("#deleteUserReturn");
@@ -189,11 +194,10 @@ var deleteUser = function() {
         }
     }
     xhr.send("deleteUser=ok");
-}
+};
 
-
-function ConfirmDelete() {
-	if (confirm(txt.Profile.accountDeletionConfirm)) {
+var ConfirmDelete = function() {
+	if(confirm(txt.Profile.accountDeletionConfirm)) {
 		deleteUser();
 	}
-}
+};

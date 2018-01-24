@@ -170,7 +170,7 @@
         "accountDeletionConfirm": "Вы действительно хотите удалить свою учетную запись?",
         "accountDeletionOk": "Учетная запись успешно удалена!",
         "deleteAccount": "Удалить аккаунт",
-        "details": "Показать подробности при выборе файла / папки",
+        "theme": "Theme",
 		"mailusername": "Email & Username",
 		"pwdpp": "Password & Secret Password",
 		"filedetails": "File Details",

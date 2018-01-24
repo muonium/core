@@ -31,7 +31,7 @@ var changePass = function() {
             return false;
         }
 
-        returnArea.innerHTML = "<img src='./public/pictures/index/loader.gif' style='height: 3vh;' />";
+        returnArea.innerHTML = "";
 
         if(new_pwd.length >= 6) {
             if(pwd_confirm != new_pwd) {

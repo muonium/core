@@ -22,6 +22,27 @@ if(document.querySelector("script#language-js")) {
 
 var IMG = ROOT+'public/pictures/';
 
+var setCookie = function(cname, cvalue, exdays) {
+    var d = new Date();
+    d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+    var expires = "expires="+d.toUTCString();
+    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+};
+var getCookie = function(cname) {
+    var name = cname + "=";
+    var ca = document.cookie.split(';');
+    for(var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+        }
+    }
+    return "";
+}
+
 $(document).ready(function() {
 	var sidebar = $('.sidebar');
 	if($(sidebar).length) {
@@ -46,25 +67,12 @@ $(document).ready(function() {
 });
 
 function changeLanguage(lang) {
-    var date = new Date();
-    date.setTime(date.getTime()+(365*24*3600*1000));
-    document.cookie = "lang="+lang+"; expires="+date.toGMTString()+"; path=/";
+	setCookie('lang', lang, 365);
     window.location.reload();
 }
 
 function getLanguage() {
-    var name = 'lang=';
-    var ca = document.cookie.split(';');
-    for(var i = 0; i < ca.length; i++) {
-        var c = ca[i];
-        while (c.charAt(0)==' ') {
-            c = c.substring(1);
-        }
-        if (c.indexOf(name) == 0) {
-            return c.substring(name.length,c.length);
-        }
-    }
-    return "";
+    return getCookie('lang');
 }
 
 function getJSON(DEFAULT_LANGUAGE = false) {
@@ -89,9 +97,8 @@ function getJSON(DEFAULT_LANGUAGE = false) {
                 console.log("Errors found in "+clang+".json, loading "+LANG+".json");
                 if(clang != LANG) {
                     getJSON(true);
-                }
-                else {
-                    window.location.href=ROOT+"Error/404";
+                } else {
+                    window.location.href=ROOT+'Error/404';
                 }
             }
             setJSON(json);

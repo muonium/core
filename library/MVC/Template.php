@@ -87,13 +87,11 @@ class Template {
 		<link rel="stylesheet" type="text/css" href="'.$this->_path.'css/'.$file.'.css">';
 		}
 
-		/* For development purpose */
-		if(isset($_GET['dark'])) {
-			$html .= '<link rel="stylesheet" type="text/css" href="'.$this->_path.'css/2018/dark.css">';
+		if(isset($_COOKIE['theme']) && $_COOKIE['theme'] === 'dark') {
+			$html .= '<link rel="stylesheet" type="text/css" href="'.$this->_path.'css/2018/dark.css" id="theme-css">';
 		} else {
-			$html .= '<link rel="stylesheet" type="text/css" href="'.$this->_path.'css/2018/light.css">';
+			$html .= '<link rel="stylesheet" type="text/css" href="'.$this->_path.'css/2018/light.css" id="theme-css">';
 		}
-		/* */
 
         foreach($this->_js as $file) {
             $html .= '

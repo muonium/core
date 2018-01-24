@@ -109,12 +109,13 @@
 
         <fieldset>
             <legend><?php echo self::$txt->Profile->otheroptions; ?></legend>
-			<h3><?php echo self::$txt->Profile->filedetails; ?></h3>
+			<h3><?php echo self::$txt->Profile->theme; ?></h3>
             <p class="input-large">
-                <input type="checkbox" name="details" id="details" onclick="changeDetails()">
-                <label for="details"><?php echo self::$txt->Profile->details; ?></label>
+                <input type="radio" name="theme" id="light" onclick="switchTheme()">
+				<label for="light">Light</label>
+				<input type="radio" name="theme" id="dark" onclick="switchTheme()">
+				<label for="dark">Dark</label>
             </p>
-            <div id="changeDetailsReturn"></div>
         </fieldset>
 
         <fieldset>

@@ -170,7 +170,7 @@
         "accountDeletionConfirm": "Willst Du Deinen Account wirklich löschen?",
         "accountDeletionOk": "Dein Account wurde erfolgreich gelöscht!",
         "deleteAccount": "Account löschen",
-        "details": "Details anzeigen wenn eine Datei/ein Ordner ausgewählt ist",
+        "theme": "Theme",
 		"mailusername": "Email & Username",
 		"pwdpp": "Password & Secret Password",
 		"filedetails": "File Details",

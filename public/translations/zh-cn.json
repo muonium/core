@@ -170,7 +170,7 @@
         "accountDeletionConfirm": "你想删除你的账户吗？",
         "accountDeletionOk": "你的账户已成功被删除！",
         "deleteAccount": "删除账户",
-        "details": "你想让文件/文件夹被选中时展示详细信息吗？",
+        "theme": "Theme",
 		"mailusername": "Email & Username",
 		"pwdpp": "Password & Secret Password",
 		"filedetails": "File Details",

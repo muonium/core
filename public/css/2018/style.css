@@ -184,6 +184,10 @@ input[type="radio"] + label, input[type="checkbox"] + label {
 	padding-left: 34px;
 	min-height: 18px;
 }
+input[type="radio"] + label + input[type="radio"] + label, input[type="checkbox"] + label + input[type="radio"] + label,
+input[type="radio"] + label + input[type="checkbox"] + label, input[type="checkbox"] + label + input[type="checkbox"] + label {
+	margin-left: 50px;
+}
 
 input[type="radio"] + label::before, input[type="checkbox"] + label::before {
     display: inline-block;
