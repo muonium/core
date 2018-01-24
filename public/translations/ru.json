@@ -88,7 +88,10 @@
 		"shared": "File sharing enabled",
 		"generatelink": "Generate Link",
 		"badPass": "Bad password!",
-		"uploadedBy": "Uploaded by [login] on"
+		"uploadedBy": "Uploaded by [login] on",
+		"needhelp": "Need help getting started with Muonium?",
+		"nothing": "You haven't uploaded anything yet.",
+		"first": "Upload your first file."
     },
 
     "Register": {

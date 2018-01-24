@@ -37,6 +37,15 @@ var Folders = (function() {
 				var quota = $('#mui').find('.quota');
 				$(quota).remove();
 				$('#quota_container').html($(quota).html());
+				$('#tree').show();
+
+				if($('#mui').find('tr:not(#tree_head)').length === 0 && parseInt($(quota).find('strong').first().html()) === 0) {
+					// Nothing stored
+					$('#tree').hide();
+					$('#mui').append('<div class="info mtop"><a onclick="showHelp()">'+txt.User.needhelp+'</a></div>\
+						<div class="bloc-nothing" onclick="Upload.dialog()">'+txt.User.nothing+'<br><img src="'+ROOT+'public/pictures/desktop/ic-no-uploads.png"><br><span>'+txt.User.first+'</span></div>\
+					');
+				}
 
 				$('#mui').show();
 				Folders.id = parseInt(folder_id);
