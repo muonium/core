@@ -442,7 +442,7 @@ section#desktop img.arrow { height: 5vh; width: 5vh; }
 
 	input[type="radio"] + label, input[type="checkbox"] + label { padding-left: 44px; }
 
-	section#desktop { height: calc(100% - 200px); /* Display "selection" under it */ }
+	/*section#desktop { height: calc(100% - 200px); }*/
 }
 
 @media screen and (min-width: 800px) {
