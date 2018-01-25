@@ -75,8 +75,11 @@ fieldset .label { color: #fff; }
 #selection { background-color: #3b3a3a; }
 
 #tree th { color: #b4bac6; }
-#tree tr { background-color: #3b3a3a; }
-#tree tr.selected { color: #16c1f3; }
+#tree tr { background-color: transparent; }
+#tree.mosaic tr { background-color: #3b3a3a; }
+#tree tr.selected { color: #16c1f3; background-color: #535353; }
+#tree.mosaic tr.selected { background-color: #3b3a3a; }
+#tree td:nth-child(4), #tree td:nth-child(5) { font-family: OpenSans; font-weight: 600; color: #fff; letter-spacing: .1px; }
 
 #box { background-color: #212121; color: #fff; }
 #box p { font-family: RobotoMono; letter-spacing: .1px; }

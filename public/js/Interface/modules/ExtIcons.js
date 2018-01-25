@@ -20,7 +20,7 @@ var ExtIcons = (function() {
 		icon = 'text';
 		pos = filename.lastIndexOf('.');
 		if(pos !== -1) {
-			ext = filename.substr(pos+1);
+			ext = filename.substr(pos+1).toLowerCase();
 			$.each(types, function(i,v) {
 				if(v.indexOf(ext) !== -1) {
 					icon = i;

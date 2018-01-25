@@ -1,4 +1,5 @@
 #mui, #tree { width: 100%; }
+#tree { border-collapse: collapse; }
 #tree > div, #tree a { cursor: pointer; }
 
 #tree.mosaic, #tree.mosaic > tbody {
@@ -45,7 +46,6 @@
 }
 
 #tree td { font-size: 15px; font-family: Roboto; }
-#tree td:nth-child(4), #tree td:nth-child(5) { font-family: RobotoMono; font-weight: 500; color: #616161; }
 
 #tree.mosaic td { display: block; padding: 8px 11px; overflow: hidden; text-overflow: ellipsis; }
 #tree.mosaic td:first-child { position: absolute; top: 8px; left: 8px; padding: 0; }
