@@ -102,7 +102,7 @@
         "password": "Password",
         "confirm": "Conferma",
         "passphrase": "Frase di sicurezza",
-        "doubleAuth": "Abilita (Consigliato)",
+        "doubleAuth": "Abilita",
         "alreadyregistered": "Già registrato?",
         "impossible": "Registrazione impossibile al momento",
         "ok": "Registrazione completata!",
