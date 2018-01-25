@@ -43,6 +43,10 @@ var getCookie = function(cname) {
     return "";
 };
 
+var htmlEntities = function(str) {
+    return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+};
+
 var validateForm = function(form) {
 	$(form).find('.btn-required').prop('disabled', true);
 	var valid = true;

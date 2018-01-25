@@ -10,32 +10,19 @@ window.onload = function() {
     $('#'+theme).prop('checked', true);
 };
 
-var changeLogin = function() {
-    var login = document.querySelector("#login").value;
+var changeLogin = function(e) {
+	e.preventDefault();
+    var login = $('#login').val();
+    var returnArea = $('#changeLoginReturn');
+    $(returnArea).html('');
 
-    var returnArea = document.querySelector("#changeLoginReturn");
-    returnArea.innerHTML = "";
-
-    var xhr = new XMLHttpRequest();
-    xhr.open("POST", "Profile/ChangeLogin", true);
-    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-
-    xhr.onreadystatechange = function() {
-        if(xhr.status == 200 && xhr.readyState == 4) {
-            console.log(xhr.responseText);
-            if(xhr.responseText.length > 2) {
-                // success message
-                if(xhr.responseText.substr(0, 3) == "ok@") {
-                    window.location.href=ROOT+"Profile";
-                    return false;
-                } else {
-                    // error
-                    returnArea.innerHTML = xhr.responseText;
-                }
-            }
-        }
-    }
-    xhr.send("login="+encodeURIComponent(login));
+	$.post('Profile/ChangeLogin', {login: encodeURIComponent(login)}, function(data) {
+		if(data.substr(0, 3) == 'ok@') {
+			data = data.split('@')[1];
+			$('#username').html(htmlEntities(login));
+		}
+		$(returnArea).html(data);
+	});
 };
 
 var changePassword = function() {

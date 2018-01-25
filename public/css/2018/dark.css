@@ -1,5 +1,11 @@
 body { background-color: #4a4a4a; color: #fff; }
 
+input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
+	-webkit-box-shadow: 0 0 0 30px #3b3a3a inset;
+	-webkit-text-fill-color: #fff !important;
+	caret-color: #fff;
+}
+
 #display input:checked + label { color: #16c1f3; }
 
 h3 { color: #fff; }

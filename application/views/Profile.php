@@ -31,7 +31,7 @@
 
 	        <p>
 				<span class="label"><?php echo self::$txt->Register->login.':</span>
-				'.htmlentities($_SESSION['login']); ?>
+				<span id="username">'.htmlentities($_SESSION['login']); ?></span>
 			</p>
 			<p>
 				<span class="label"><?php echo self::$txt->Register->email.':</span>
@@ -53,7 +53,7 @@
 							<input type="text" name="login" id="login" placeholder="<?php echo self::$txt->Profile->newlogin; ?>" required>
 			                <label class="fa fa-user" for="login" aria-hidden="true"></label>
 			            </p>
-			            <input type="submit" class="btn btn-required btn-profile" onclick="changeLogin()" value="<?php echo self::$txt->Global->submit; ?>" disabled>
+			            <input type="submit" class="btn btn-required btn-profile" onclick="changeLogin(event)" value="<?php echo self::$txt->Global->submit; ?>" disabled>
 			            <div id="changeLoginReturn"></div>
 					</form>
 				</div>
