@@ -85,7 +85,7 @@ class Profile extends l\Languages
     function ChangePasswordAction() {
         // Called by profile.js
         if(!empty($_POST['old_pwd']) && !empty($_POST['new_pwd']) && !empty($_POST['pwd_confirm'])) {
-            if($_POST['new_pwd'] == $_POST['pwd_confirm']) {
+            if($_POST['new_pwd'] === $_POST['pwd_confirm']) {
                 $this->_modelUser = new m\Users($_SESSION['id']);
 
                 if($user_pwd = $this->_modelUser->getPassword()) {
@@ -145,10 +145,8 @@ class Profile extends l\Languages
 		}
     }
 
-	/* Delete user function */
 	function DeleteUserAction() {
 		// Called by profile.js
-
 		// function of remove the user directory and it's files
 		function removeDirectory($path) {
 			$files = glob($path . '/*');
@@ -178,38 +176,29 @@ class Profile extends l\Languages
 									if($this->_modelUser->deleteUser()) {
 										echo 'ok@'.self::$txt->Profile->accountDeletionOk;
 										removeDirectory(NOVA.'/'.$_SESSION['id']);
-
 										session_destroy();
-									}
-									else {
+									} else {
 										echo self::$txt->Profile->updateErr;
 									}
-			                    }
-			                    else {
+			                    } else {
 			                        echo self::$txt->Profile->updateErr;
 			                    }
-			                }
-			            	else {
+			                } else {
 			                    echo self::$txt->Profile->updateErr;
 			                }
-			            }
-			            else {
+			            } else {
 			            	echo self::$txt->Profile->updateErr;
 			            }
-			        }
-			        else {
+			        } else {
 			            echo self::$txt->Profile->updateErr;
 			        }
-			    }
-			    else {
+			    } else {
 			        echo self::$txt->Profile->updateErr;
 			    }
-			}
-			else {
+			} else {
 			    echo self::$txt->Profile->updateErr;
 			}
-		}
-		else {
+		} else {
 			echo self::$txt->Profile->loginExists;
 		}
 	}

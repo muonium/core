@@ -89,7 +89,7 @@
 							<input type="password" name="pwd_confirm" id="pwd_confirm" placeholder="<?php echo self::$txt->Register->confirm; ?>" required>
 		                    <label class="fa fa-lock" for="pwd_confirm" aria-hidden="true"></label>
 		                </p>
-	                	<input type="submit" class="btn btn-required btn-profile" onclick="changePassword()" value="<?php echo self::$txt->Global->submit; ?>" disabled>
+	                	<input type="submit" class="btn btn-required btn-profile" onclick="changePassword(event)" value="<?php echo self::$txt->Global->submit; ?>" disabled>
 	                	<div id="changePasswordReturn"></div>
 					</form>
 				</div>
@@ -97,18 +97,18 @@
 					<form>
 		                <h3><?php echo self::$txt->Profile->changepp; ?></h3>
 		                <p class="input-large">
-							<input type="password" name="oldpp" id="oldpp" placeholder="<?php echo self::$txt->Profile->oldpp; ?>" required>
-		                    <label class="fa fa-lock" for="oldpp" aria-hidden="true"></label>
+							<input type="password" name="old_pp" id="old_pp" placeholder="<?php echo self::$txt->Profile->oldpp; ?>" required>
+		                    <label class="fa fa-lock" for="old_pp" aria-hidden="true"></label>
 		                </p>
 						<p class="input-large">
-							<input type="password" name="newpp" id="newpp" placeholder="<?php echo self::$txt->Profile->newpp; ?>" required>
-		                    <label class="fa fa-lock" for="newpp" aria-hidden="true"></label>
+							<input type="password" name="new_pp" id="new_pp" placeholder="<?php echo self::$txt->Profile->newpp; ?>" required>
+		                    <label class="fa fa-lock" for="new_pp" aria-hidden="true"></label>
 		                </p>
 						<p class="input-large">
-							<input type="password" name="ppconfirm" id="ppconfirm" placeholder="<?php echo self::$txt->Register->confirm; ?>" required>
-		                    <label class="fa fa-lock" for="ppconfirm" aria-hidden="true"></label>
+							<input type="password" name="pp_confirm" id="pp_confirm" placeholder="<?php echo self::$txt->Register->confirm; ?>" required>
+		                    <label class="fa fa-lock" for="pp_confirm" aria-hidden="true"></label>
 		                </p>
-		                <input type="submit" class="btn btn-required btn-profile" onclick="changeCek()" value="<?php echo self::$txt->Global->submit; ?>" disabled>
+		                <input type="submit" class="btn btn-required btn-profile" onclick="changeCek(event)" value="<?php echo self::$txt->Global->submit; ?>" disabled>
 		                <div id="changePassPhraseReturn"></div>
 					</form>
 				</div>
