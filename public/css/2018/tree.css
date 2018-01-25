@@ -71,7 +71,23 @@
 
 a[id^="parent-"] { cursor: pointer; }
 
+#tree:not(.mosaic) { /* Negative margin in order to have full width selected row background */
+	margin-left: -20px; margin-right: -20px;
+	width: calc(100% + 40px);
+}
+#tree:not(.mosaic) tr > td:first-child, #tree:not(.mosaic) tr > th:first-child { padding-left: 20px; }
+#tree:not(.mosaic) tr > td:last-child, #tree:not(.mosaic) tr > th:last-child { padding-right: 20px; }
+
 @media screen and (min-width: 400px) {
     #tree.mosaic, #tree.mosaic > tbody { -webkit-box-orient: horizontal; -webkit-box-direction: normal; -ms-flex-direction: row; flex-direction: row; }
     #tree.mosaic tr { -ms-flex-preferred-size: 184px; flex-basis: 184px; height: 229px; }
+}
+
+@media screen and (min-width: 600px) {
+	#tree:not(.mosaic) { /* Negative margin in order to have full width selected row background */
+		margin-left: -50px; margin-right: -50px;
+		width: calc(100% + 100px);
+	}
+	#tree:not(.mosaic) tr > td:first-child, #tree:not(.mosaic) tr > th:first-child { padding-left: 50px; }
+	#tree:not(.mosaic) tr > td:last-child, #tree:not(.mosaic) tr > th:last-child { padding-right: 50px; }
 }
