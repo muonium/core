@@ -12,14 +12,29 @@ window.onload = function() {
 
 var changeLogin = function(e) {
 	e.preventDefault();
-    var login = $('#login').val();
+    var login = $('#new_login').val();
     var returnArea = $('#changeLoginReturn');
     $(returnArea).html('');
 
 	$.post('Profile/ChangeLogin', {login: encodeURIComponent(login)}, function(data) {
-		if(data.substr(0, 3) == 'ok@') {
+		if(data.substr(0, 3) === 'ok@') {
 			data = data.split('@')[1];
 			$('#username').html(htmlEntities(login));
+		}
+		$(returnArea).html(data);
+	});
+};
+
+var changeMail = function(e) {
+	e.preventDefault();
+    var mail = $('#new_mail').val();
+    var returnArea = $('#changeMailReturn');
+	$(returnArea).html('');
+
+    $.post('Profile/ChangeMail', {mail: encodeURIComponent(mail)}, function(data) {
+		if(data.substr(0, 3) === 'ok@') {
+			data = data.split('@')[1];
+			$('#email').html(htmlEntities(mail));
 		}
 		$(returnArea).html(data);
 	});
@@ -132,35 +147,6 @@ var switchTheme = function() {
 		return v;
 	});
     setCookie('theme', theme, 365);
-};
-
-var changeMail = function() {
-    var changemail = document.querySelector("#changemail").value;
-
-    var returnArea = document.querySelector("#changeMailReturn");
-    returnArea.innerHTML = "";
-
-    var xhr = new XMLHttpRequest();
-    xhr.open("POST", "Profile/ChangeMail", true);
-	xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-
-    xhr.onreadystatechange = function() {
-    	if(xhr.status == 200 && xhr.readyState == 4) {
-            console.log(xhr.responseText);
-            if(xhr.responseText.length > 2) {
-                // success message
-                if(xhr.responseText.substr(0, 3) == "ok@") {
-					returnArea.innerHTML = xhr.responseText.substr(3);
-                    //window.location.href=ROOT+"Profile";
-                    //return false;
-                } else {
-                    // error
-                    returnArea.innerHTML = xhr.responseText;
-                }
-            }
-        }
-    }
-    xhr.send("changemail="+encodeURIComponent(changemail));
 };
 
 var deleteUser = function() {

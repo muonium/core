@@ -27,39 +27,63 @@ class Profile extends l\Languages
 
     function ChangeLoginAction() {
         // Called by profile.js
-
         if(!empty($_POST['login'])) {
             $login = urldecode($_POST['login']);
 
             if(preg_match("/^[A-Za-z0-9_.-]{2,19}$/", $login)) {
                 $this->_modelUser = new m\Users($_SESSION['id']);
-                $this->_modelUser->login = $_POST['login'];
+                $this->_modelUser->login = $login;
 
                 if(!($this->_modelUser->LoginExists())) {
                     if($this->_modelUser->updateLogin()) {
 						$_SESSION['login'] = $this->_modelUser->login;
                         echo 'ok@'.self::$txt->Profile->updateOk;
-                    }
-                    else {
+                    } else {
                         echo self::$txt->Profile->updateErr;
                     }
-                }
-                else {
+                } else {
                     echo self::$txt->Profile->loginExists;
                 }
-            }
-            else {
+            } else {
                 echo self::$txt->Register->loginFormat;
             }
-        }
-        else {
+        } else {
             echo self::$txt->Register->form;
         }
     }
 
+	function ChangeMailAction() {
+		// Called by profile.js
+		if(!empty($_POST['mail'])) {
+			$mail = urldecode($_POST['mail']);
+
+			if(filter_var($mail, FILTER_VALIDATE_EMAIL)) {
+				$this->_modelUser = new m\Users($_SESSION['id']);
+				$this->_modelUser->email = $mail;
+
+				if(!($this->_modelUser->EmailExists())) {
+					if(!($this->_modelUser->LoginExists())) {
+						if($this->_modelUser->updateMail()) {
+							echo 'ok@'.self::$txt->Profile->updateOk;
+						} else {
+							echo self::$txt->Profile->updateErr;
+						}
+					} else {
+						echo self::$txt->Profile->loginExists;
+					}
+				} else {
+					echo self::$txt->Register->mailExists;
+				}
+			} else { // "mailFormat" response
+				echo self::$txt->Profile->mailFormat;
+			}
+		} else {
+			echo self::$txt->Profile->emptymail;
+		}
+	}
+
     function ChangePasswordAction() {
         // Called by profile.js
-
         if(!empty($_POST['old_pwd']) && !empty($_POST['new_pwd']) && !empty($_POST['pwd_confirm'])) {
             if($_POST['new_pwd'] == $_POST['pwd_confirm']) {
                 $this->_modelUser = new m\Users($_SESSION['id']);
@@ -70,24 +94,19 @@ class Profile extends l\Languages
                         $this->_modelUser->password = password_hash(urldecode($_POST['new_pwd']), PASSWORD_BCRYPT);
                         if($this->_modelUser->updatePassword()) {
                             echo self::$txt->Profile->updateOk;
-                        }
-                        else {
+                        } else {
                             echo self::$txt->Profile->updateErr;
                         }
-                    }
-                    else {
+                    } else {
                         echo self::$txt->Profile->badOldPass;
                     }
-                }
-                else {
+                } else {
                     echo self::$txt->Profile->getpwd;
                 }
-            }
-            else {
+            } else {
                 echo self::$txt->Register->badPassConfirm;
             }
-        }
-        else {
+        } else {
             echo self::$txt->Register->form;
         }
     }
@@ -124,43 +143,6 @@ class Profile extends l\Languages
         } else {
             echo self::$txt->Profile->updateErr;
 		}
-    }
-
-/*     add function to change email of user  */
-
-    function ChangeMailAction() {
-        // Called by profile.js
-
-        if(!empty($_POST['changemail'])) {
-            if(filter_var($_POST['changemail'], FILTER_VALIDATE_EMAIL)) {
-                $this->_modelUser = new m\Users($_SESSION['id']);
-                $this->_modelUser->email = $_POST['changemail'];
-
-                if(!($this->_modelUser->EmailExists())) {
-                    if(!($this->_modelUser->LoginExists())) {
-                        if($this->_modelUser->updateMail()) {
-                            echo self::$txt->Profile->updateOk;
-                        }
-                        else {
-                            echo self::$txt->Profile->updateErr;
-                        }
-                    }
-                    else {
-                        echo self::$txt->Profile->loginExists;
-                    }
-                }
-                else {
-                    echo htmlentities(self::$txt->Register->mailExists);
-                }
-            }
-			else {
-				// "mailFormat" response
-				echo htmlentities(self::$txt->Profile->mailFormat);
-			}
-        }
-        else {
-            echo self::$txt->Profile->emptymail;
-        }
     }
 
 	/* Delete user function */

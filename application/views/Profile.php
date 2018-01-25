@@ -35,7 +35,7 @@
 			</p>
 			<p>
 				<span class="label"><?php echo self::$txt->Register->email.':</span>
-				'.htmlentities($this->_modelUser->getEmail()); ?>
+				<span id="email">'.htmlentities($this->_modelUser->getEmail()); ?></span>
 			</p>
 			<p>
 				<span class="label">ID:</span>
@@ -50,8 +50,8 @@
 					<form>
 						<h3 class="nowrap"><?php echo self::$txt->Profile->changelogin; ?></h3>
 			            <p class="input-large">
-							<input type="text" name="login" id="login" placeholder="<?php echo self::$txt->Profile->newlogin; ?>" required>
-			                <label class="fa fa-user" for="login" aria-hidden="true"></label>
+							<input type="text" name="new_login" id="new_login" placeholder="<?php echo self::$txt->Profile->newlogin; ?>" required>
+			                <label class="fa fa-user" for="new_login" aria-hidden="true"></label>
 			            </p>
 			            <input type="submit" class="btn btn-required btn-profile" onclick="changeLogin(event)" value="<?php echo self::$txt->Global->submit; ?>" disabled>
 			            <div id="changeLoginReturn"></div>
@@ -61,10 +61,10 @@
 					<form>
 						<h3 class="nowrap"><?php echo self::$txt->Profile->changemail; ?></h3>
 			            <p class="input-large">
-			                <input type="text" name="changemail" id="changemail" placeholder="<?php echo self::$txt->Profile->changemail; ?>" required>
-							<label class="fa fa-envelope" for="changemail" aria-hidden="true"></label>
+			                <input type="text" name="new_mail" id="new_mail" placeholder="<?php echo self::$txt->Profile->changemail; ?>" required>
+							<label class="fa fa-envelope" for="new_mail" aria-hidden="true"></label>
 			            </p>
-			            <input type="submit" class="btn btn-required btn-profile" onclick="changeMail()" value="<?php echo self::$txt->Global->submit; ?>" disabled>
+			            <input type="submit" class="btn btn-required btn-profile" onclick="changeMail(event)" value="<?php echo self::$txt->Global->submit; ?>" disabled>
 			            <div id="changeMailReturn"></div>
 					</form>
 				</div>
