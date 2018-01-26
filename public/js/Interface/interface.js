@@ -301,12 +301,13 @@ var linkEvents = function(link, e) {
 			e.preventDefault();
 			window.history.pushState({}, null, 'User');
 		}
-		Transfers.close();
 		Trash.close();
+		Transfers.close();
 	} else if(link.indexOf('#transfers') !== -1) {
 		Transfers.toggle();
 	} else if(link.indexOf('#trash') !== -1) {
 		Trash.open();
+		Transfers.close();
 	}
 };
 

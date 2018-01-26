@@ -23,11 +23,11 @@ var Transfers = (function() {
 
         close : function() {
             $('#transfers').fadeOut('fast');
-			$('.sidebar a[href="User#transfers"]').removeClass('selected');
+			$('.sidebar li > a').removeClass('selected');
 			if(typeof Trash !== 'undefined' && Trash.state === 1) {
-				$('.sidebar a[href="User#trash"]').addClass('selected');
+				$('.sidebar li > a[href="User#trash"]').addClass('selected');
 			} else {
-				$('.sidebar a[href="User"]').addClass('selected');
+				$('.sidebar li > a[href="User"]').addClass('selected');
 			}
         },
 
