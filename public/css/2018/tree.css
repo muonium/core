@@ -2,22 +2,23 @@
 #tree { border-collapse: collapse; }
 #tree > div, #tree a { cursor: pointer; }
 
+#tree.mosaic { width: 100%; }
+#tree.mosaic > tbody { width: calc(100% + 30px); margin-left: -15px; margin-right: -15px; }
 #tree.mosaic, #tree.mosaic > tbody {
-	width: 100%;
 	display: -webkit-box; display: -ms-flexbox; display: flex;
 	-ms-flex-wrap: wrap; flex-wrap: wrap;
 
 	-webkit-box-orient: vertical; -webkit-box-direction: normal;
 	-ms-flex-direction: column; flex-direction: column;
 
-	justify-content: space-between;
+	justify-content: flex-start;
 }
 
 #tree.mosaic #tree_head {
 	width: 100%; height: 24px;
 	flex-basis: auto;
 	display: block;
-	margin: 50px 0;
+	margin: 50px 15px;
 	box-shadow: none; border-radius: 0;
 	text-align: left;
 	background-color: transparent;
@@ -38,7 +39,7 @@
 }
 #tree.mosaic tr {
 	display: block;
-	margin: 0 5px 48px 5px;
+	margin: 0 15px 48px 15px;
 	text-align: center;
 	border-radius: 6px;
 	box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.1);
