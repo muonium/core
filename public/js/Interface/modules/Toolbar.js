@@ -47,7 +47,7 @@ var Toolbar = (function() {
                 default:
                     data += '<li class="select"><input type="checkbox" id="multisel_toolbar" onclick="Selection.multipleSwitch(this.id)"';
                     if(Selection.multiple) data += ' checked';
-                    data += '/> <label for="multisel_toolbar">'+txt.UserMenu.multiSelection+'</label><br>';
+                    data += '> <label for="multisel_toolbar">'+txt.UserMenu.multiSelection+'</label><br>';
                     data += '<input type="checkbox" id="selectall_toolbar" onchange="Selection.allSwitch()"> <label for="selectall_toolbar">'+txt.UserMenu.selectAll+'</label></li>';
                     if(Trash.State == 0) {
                         data += '<li onclick="Folders.create()"><i class="fa fa-folder-o" aria-hidden="true"></i></li>';

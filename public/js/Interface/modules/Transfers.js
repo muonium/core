@@ -23,6 +23,12 @@ var Transfers = (function() {
 
         close : function() {
             $('#transfers').fadeOut('fast');
+			$('.sidebar a[href="User#transfers"]').removeClass('selected');
+			if(Trash.state === 1) {
+				$('.sidebar a[href="User#trash"]').addClass('selected');
+			} else {
+				$('.sidebar a[href="User"]').addClass('selected');
+			}
         },
 
         isOpened : function() {
