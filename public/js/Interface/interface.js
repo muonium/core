@@ -215,6 +215,14 @@ var setEvents = function() {
 
     Toolbar.display();
 
+	$('#sel_all').on('click', function() {
+		if($(this).prop('checked') === false) {
+			Selection.remove();
+		} else {
+			Selection.all();
+		}
+	});
+
     $('#display_list').on('click', function() {
         localStorage.setItem('display', 'list');
         Files.style = 'list';

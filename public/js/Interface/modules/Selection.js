@@ -29,6 +29,7 @@ var Selection = (function() {
         },
 
         unselect : function(id, putDetails = true) {
+			$('#sel_all').prop('checked', false);
             if($('#'+id).length) {
 				$('#'+id).removeClass('selected').find('#sel_'+id).prop('checked', false);
             }

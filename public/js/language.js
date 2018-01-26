@@ -5,6 +5,7 @@ var LANG = 'en'; // User's language
 // Default
 var ROOT = '/core/';
 var VERSION = '';
+var THEME = 'light';
 
 // Override default variables if it's possible
 if(document.querySelector("script#language-js")) {
@@ -65,6 +66,10 @@ var validateForm = function(form) {
 };
 
 $(document).ready(function() {
+	if($('link#theme-css').length) {
+		THEME = $('link#theme-css').attr('href').split('/').pop().replace('.css', '');
+	}
+
 	var sidebar = $('.sidebar');
 	if($(sidebar).length) {
 		var current = document.location.href.replace(/https?:\/\//i, '').split(ROOT), link;

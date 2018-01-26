@@ -330,15 +330,15 @@ a.blue:hover, a.blue:active, a.blue:focus { color: #0b9fcb; }
 	margin-bottom: 45px;
 }
 
-.bloc-nothing {
+.bloc-nothing, .bloc-trash-nothing {
 	text-align: center;
 	margin: 110px auto;
 	font-family: OpenSans;
 	font-size: 18px;
-	cursor: pointer;
 }
-.bloc-nothing img { margin: 30px 0; cursor: pointer; }
-.bloc-nothing span { font-size: 24px; text-decoration: underline; cursor: pointer; }
+.bloc-nothing img, .bloc-trash-nothing img { margin: 30px 0; }
+.bloc-nothing span, .bloc-trash-nothing img { font-size: 24px; text-decoration: underline; }
+.bloc-nothing, .bloc-nothing * { cursor: pointer; }
 
 .dl-info {
 	font-family: RobotoMono; font-size: 15px; font-weight: bold;
