@@ -90,7 +90,8 @@
 		"badPass": "Mauvais mot de passe !",
 		"uploadedBy": "Téléversé par [login] le",
 		"needhelp": "Need help getting started with Muonium?",
-		"nothing": "You haven't uploaded anything yet.",
+		"Upnothing": "You haven't uploaded anything yet.",
+		"Dlnothing": "You haven't downloaded anything yet.",
 		"first": "Téléversez votre premier fichier."
     },
 

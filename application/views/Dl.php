@@ -4,7 +4,9 @@
 	$_t = new l\Template(self::$txt->Global->user);
 
 	$_t->addCss([
-		'2018/style'
+		'Interface/progress_bar',
+		'2018/style',
+		'2018/transfers'
 	])->addJs([
 		'Interface/modules/ExtIcons',
 		'Interface/modules/Decryption',
@@ -58,24 +60,22 @@
     </div>
 
     <div id="transfers" class="hide">
-        <section id="top">
+        <section class="top">
+            <?php echo self::$txt->Toolbar->transfers; ?>
+			<span onclick="Transfers.close()"><i class="fa fa-times" aria-hidden="true"></i></li>
+            <span onclick="Transfers.minimize()"><i class="fa fa-window-minimize" aria-hidden="true"></i></li>
+        </section>
+
+        <section class="toggle">
             <ul>
-                <li><?php echo self::$txt->Toolbar->transfers; ?></li>
-                <li onclick="Transfers.minimize()"><i class="fa fa-window-minimize" aria-hidden="true"></i></li>
-                <li onclick="Transfers.close()"><i class="fa fa-times" aria-hidden="true"></i></li>
+                <li class="selected" onclick="Transfers.showUp()"><?php echo self::$txt->User->uploading; ?></li>
+                <li onclick="Transfers.showDl()"><?php echo self::$txt->User->downloading; ?></li>
             </ul>
         </section>
 
-        <section id="toggle">
-            <ul>
-                <li class="selected" onclick="Transfers.showUp()"><?php echo self::$txt->User->uploading; ?> <span class="transfers-up-circle">0</span></li>
-                <li onclick="Transfers.showDl()"><?php echo self::$txt->User->downloading; ?> <span class="transfers-dl-circle">0</span></li>
-            </ul>
-        </section>
-
-        <section id="content">
-            <div id="transfers_upload"><?php echo self::$txt->User->nothing; ?></div>
-            <div id="transfers_download"><?php echo self::$txt->User->nothing; ?></div>
+        <section class="content">
+            <div class="transfers_upload"><?php echo self::$txt->User->nothing; ?></div>
+            <div class="transfers_download"><?php echo self::$txt->User->nothing; ?></div>
         </section>
     </div>
 	<a href="#" id="dl_decrypted"></a>

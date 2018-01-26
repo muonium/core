@@ -6,8 +6,9 @@ if(txt === undefined) {
 	getJSON();
 }
 Decryption = Decryption();
+ExtIcons = ExtIcons();
+Files = Files();
 Time = Time();
-//Toolbar = Toolbar();
 Transfers = Transfers();
 
 var f_dec = [];
