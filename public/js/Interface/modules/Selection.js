@@ -49,7 +49,7 @@ var Selection = (function() {
         },
 
         addFile : function(event, id, putDetails = true) {
-			if(typeof event === 'object') event.preventDefault(); // Prevent event to be fired twice in some cases (due to input checkbox and label)
+			if(typeof event === 'object' && event !== null) event.preventDefault(); // Prevent event to be fired twice in some cases (due to input checkbox and label)
             Selection.addSel = 1;
             if(document.querySelector("#"+id)) {
                 if(Selection.multiple || (event !== null && (event == 'ctrl' || event.ctrlKey))) {
@@ -71,7 +71,7 @@ var Selection = (function() {
         },
 
         addFolder : function(event, id, putDetails = true) {
-			if(typeof event === 'object') event.preventDefault(); // Prevent event to be fired twice in some cases (due to input checkbox and label)
+			if(typeof event === 'object' && event !== null) event.preventDefault(); // Prevent event to be fired twice in some cases (due to input checkbox and label)
             Selection.addSel = 1;
             if(document.querySelector("#"+id)) {
                 if(Selection.multiple || (event !== null && (event == 'ctrl' || event.ctrlKey))) {
