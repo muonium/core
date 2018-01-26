@@ -180,9 +180,9 @@ var UserLoader = function(folder_id) {
 				linkEvents(link); return false;
 			}
 		});
-		$(sidebar).find('li > a').on('click', function() { // On click
+		$(sidebar).find('li > a').on('click', function(e) { // On click
 			link = this.href.replace(this.baseURI, '');
-			linkEvents(link);
+			linkEvents(link, e);
 		});
 	}
 
@@ -278,11 +278,18 @@ var setEvents = function() {
     }*/
 };
 
-var linkEvents = function(link) {
-	if(link.indexOf('#transfers') !== -1) {
+var linkEvents = function(link, e) {
+	if(link === 'User') {
+		if(e !== undefined) {
+			e.preventDefault();
+			window.history.pushState({}, null, 'User');
+		}
+		Transfers.close();
+		Trash.close();
+	} else if(link.indexOf('#transfers') !== -1) {
 		Transfers.toggle();
 	} else if(link.indexOf('#trash') !== -1) {
-		Trash.switch();
+		Trash.open();
 	}
 };
 

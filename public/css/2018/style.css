@@ -25,7 +25,7 @@ body {
 }
 
 #display { text-align: right; }
-#display input + label { padding-left: 16px !important; font-size: 17px; color: #b4bac6; }
+#display input + label { padding-left: 18px !important; font-size: 17px; color: #b4bac6; }
 #display label > i { cursor: pointer; }
 #display label::before { display: none; }
 

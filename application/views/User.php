@@ -4,18 +4,6 @@
     $_t = new l\Template(self::$txt->Global->user);
 
     $_t->addCss([
-		/*'blue/blue',
-	    'blue/container',
-	    'blue/dragbar',
-	    'blue/header',
-	    'blue/inputs',
-	    'blue/menu',
-	    'blue/section-desktop',
-	    'blue/section-large-content',
-	    'blue/selection',
-	    'blue/toolbar',
-	    'blue/transfers',
-	    'blue/tree',*/
 	    'Interface/box',
 	    'Interface/MessageBox',
 	    'Interface/progress_bar',
@@ -55,10 +43,10 @@
     <div class="container-max">
 		<div id="display">
 			<input type="radio" id="display_list" name="display">
-			<label for="display_list"><i class="fa fa-th-list" aria-hidden="true"></i></label>
+			<label for="display_list" class="nomargin"><i class="fa fa-th-list" aria-hidden="true"></i></label>
 
 			<input type="radio" id="display_mosaic" name="display" checked>
-			<label for="display_mosaic"><i class="fa fa-th-large" aria-hidden="true"></i></label>
+			<label for="display_mosaic" class="nomargin"><i class="fa fa-th-large" aria-hidden="true"></i></label>
 		</div>
 
         <section id="desktop">
