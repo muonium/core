@@ -113,22 +113,27 @@ var Files = (function() {
 		},
 
         details : function(el) {
-            var elem;
-            if(elem = document.querySelector("#"+el)) {
-				var title = elem.getAttribute("title").split("\n");
+            var elem = $('#'+el);
+            if($(elem).length) {
+				var title = $(elem).attr('title').split("\n");
+				var lastmod = title[1].split(': ');
+				var shareLink = '<a class="mono blue" onclick="Selection.share(\''+el.substr(1)+'\')"><i class="fa fa-share" aria-hidden="true"></i> '+txt.RightClick.share+'</a>';
+				var unshareLink = '<a class="mono blue" onclick="Selection.unshare(\''+el.substr(1)+'\')"><i class="fa fa-ban" aria-hidden="true"></i> '+txt.RightClick.unshare+'</a>';
                 Box.box_more = true;
                 Box.reset();
                 Box.Area = 1;
-                Box.set("<div>\
-                <p onclick=\"Box.right_click(event.clientX, event.clientY, '"+el+"')\"><i class='fa fa-chevron-left' aria-hidden='true'></i> &nbsp;&nbsp;<strong>"+txt.User.details+"</strong></p>\
-                <hr><ul><li>"+txt.User.name+" : "+elem.getAttribute("data-title")+"</li>\
-                <li>"+txt.User.path+" : "+elem.getAttribute("data-path")+"/</li>\
-                <li>"+txt.User.type+" : "+txt.User.file+" <span class='ext_icon'></span></li>\
-                <li>"+txt.User.size+" : "+title[0]+"</li>\
-                <li>"+title[1]+"</li></ul></div>");
-
-                var newNode = document.importNode(elem.getElementsByTagName('img')[0], true);
-                document.querySelector(".ext_icon").appendChild(newNode);
+                Box.set('<div class="details">\
+                	<strong>'+txt.User.details+'</strong>\
+                	<ul>\
+						<li><span class="label">'+txt.User.name+':</span> '+$(elem).data("title")+'</li>\
+                		<li><span class="label">'+txt.User.path+':</span> '+$(elem).data("path")+'/</li>\
+                		<li><span class="label">'+txt.User.type+':</span> '+txt.User.file+'</li>\
+                		<li><span class="label">'+txt.User.size+':</span> '+title[0]+'</li>\
+                		<li><span class="label">'+lastmod[0]+'</span> '+lastmod[1]+'</li>\
+					</ul>\
+					<p><a class="mono blue" onclick="Selection.dl(\''+el+'\')"><i class="fa fa-download" aria-hidden="true"></i> '+txt.RightClick.dl+'</a></p>\
+					<p>'+(Files.isShared(el.substr(1)) ? unshareLink : shareLink)+'</p>\
+				</div>');
                 Box.show();
             }
         },

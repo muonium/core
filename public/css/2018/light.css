@@ -79,7 +79,7 @@ textarea { border-color: #f4f4f4; }
 hr { background-color: #f0f0f0; }
 fieldset { color: #212121; }
 legend { color: #757575; }
-fieldset .label { color: #757575; }
+fieldset .label, #box .label { color: #757575; }
 
 #selection { background-color: #fff; }
 

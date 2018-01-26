@@ -417,7 +417,7 @@ class User extends l\Languages {
 
                 echo '
 				<tr class="file" id="f'.$file['id'].'" '.($file['size'] < 0 ? 'style="color:red" ' : '').'
-                	title="'.$filesize.'&#10;'.self::$txt->User->lastmod.' : '.$lastmod.'"
+                	title="'.$filesize.'&#10;'.self::$txt->User->lastmod.': '.$lastmod.'"
 	                data-folder="'.htmlentities($file['folder_id']).'"
 	                data-path="'.htmlentities($fpath).'"
 	                data-title="'.htmlentities($file['name']).'"

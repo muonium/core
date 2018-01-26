@@ -105,22 +105,20 @@ var Folders = (function() {
         },
 
         details : function(el) {
-            var elem;
-            if(elem = document.querySelector("#"+el)) {
+            var elem = $('#'+el);
+            if($(elem).length) {
                 Box.box_more = true;
                 Box.reset();
                 Box.Area = 2;
-
-                Box.set("<div>\
-                <p onclick=\"Box.right_click(event.clientX, event.clientY, '"+el+"')\"><i class='fa fa-chevron-left' aria-hidden='true'></i> &nbsp;&nbsp;<strong>"+txt.User.details+"</strong></p>\
-                <hr><ul><li>"+txt.User.name+" : "+elem.getAttribute("name")+"</li>\
-                <li>"+txt.User.path+" : "+elem.getAttribute("data-path")+"/</li>\
-                <li>"+txt.User.type+" : "+txt.User.folder+" <span class='ext_icon'></span></li>\
-                <li>"+txt.User.size+" : "+elem.innerHTML.substr(elem.innerHTML.lastIndexOf("["))+"</li>\
-                </ul></div>");
-
-                var newNode = document.importNode(elem.getElementsByTagName('img')[0], true);
-                document.querySelector(".ext_icon").appendChild(newNode);
+                Box.set('<div class="details">\
+                	<strong>'+txt.User.details+'</strong>\
+                	<ul>\
+						<li><span class="label">'+txt.User.name+':</span> '+$(elem).attr("name")+'</li>\
+                		<li><span class="label">'+txt.User.path+':</span> '+$(elem).data("path")+'/</li>\
+                		<li><span class="label">'+txt.User.type+':</span> '+txt.User.folder+'</li>\
+                		<li><span class="label">'+txt.User.size+':</span> '+$(elem).attr("title")+'</li>\
+                	</ul>\
+				</div>');
                 Box.show();
             }
         }
