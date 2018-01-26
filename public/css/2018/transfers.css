@@ -59,7 +59,7 @@
 #transfers .transfers_upload { display: block; }
 #transfers .transfers_download { display: none; }
 
-#transfers .transfers_upload > div > div, #transfers .transfers_download > div > div { margin-right: 70px; }
+#transfers .transfers_upload > div > div, #transfers .transfers_download > div > div { margin-right: 50px; }
 
 #transfers .transfers_upload img, #transfers .transfers_download img { vertical-align: middle; margin-right: 19px; }
 
@@ -75,5 +75,5 @@
 #transfers .progress_bar, #transfers .progress_bar .used { display: block; }
 
 @media screen and (min-width: 600px) {
-    #transfers { width: 525px; right: 0; bottom: 0; }
+    #transfers { width: 500px; right: 0; bottom: 0; }
 }
