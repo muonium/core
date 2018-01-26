@@ -54,8 +54,6 @@
 #tree.mosaic td:nth-child(2) { margin-top: 45px; }
 #tree.mosaic td:nth-child(4), #tree.mosaic td:nth-child(5) { display: none; }
 
-#tree.mosaic tr.selected { box-shadow: 0 6px 10px 0 rgba(22, 193, 243, 0.1); }
-
 #tree .icon { width: 18px; vertical-align: text-bottom; }
 #tree.mosaic .icon { display: block; width: 50%; margin: 0 auto 43px auto; }
 

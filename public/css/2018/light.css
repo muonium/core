@@ -86,6 +86,7 @@ fieldset .label { color: #757575; }
 #tree th { color: #757575; }
 #tree tr { background-color: #fff; color: #212121; }
 #tree tr.selected { background-color: #fbfeff; }
+#tree.mosaic tr.selected { box-shadow: 0 6px 10px 0 rgba(12, 177, 255, 0.2); }
 #tree td:nth-child(4), #tree td:nth-child(5) { font-family: RobotoMono; font-weight: 500; color: #616161; }
 
 #box { background-color: #fff; color: #212121; }
