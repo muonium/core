@@ -19,7 +19,9 @@ body {
 
 #main {
 	display: flex;
-	min-height: calc(100% - 70px);
+	padding-top: 70px;
+	padding-bottom: 48px;
+	min-height: 100%;
 }
 
 #display { text-align: right; }
@@ -49,7 +51,8 @@ header {
 	width: 100%;
 	height: 70px;
 	padding: 0 30px;
-	position: relative;
+	position: fixed;
+	top: 0;
 	z-index: 2;
 }
 
@@ -66,6 +69,7 @@ header {
 
 .sidebar {
 	width: 80px; min-width: 80px;
+	margin-bottom: -48px;
 	box-shadow: 1px 2px 4px 0 rgba(0, 0, 0, 0.1);
 	z-index: 1;
 }
@@ -101,13 +105,14 @@ header {
 	padding: 20px;
 }
 .container-small, .container-large {
-	margin: 40px auto;
+	margin: 40px auto auto auto;
 	border-radius: 5px;
   	box-shadow: 0 3px 10px 0 rgba(0, 0, 0, 0.1);
 }
 .container-large {
 	margin-left: 15px; margin-right: 15px;
 }
+.container-max { margin-bottom: -48px; }
 
 form.form-login, form.form-register, form.form-bug, .container-small > form {
 	margin: 30px auto 0px auto;
@@ -411,10 +416,10 @@ section#desktop img.arrow { height: 5vh; width: 5vh; }
 
 	.container-small {
 		width: 600px; max-width: 600px;
-		margin: 7vh auto 48px auto;
+		margin: 7vh auto auto auto;
 	}
 	.container-large {
-		margin: 48px 50px;
+		margin: 48px 50px auto 50px;
 		padding: 25px 50px;
 	}
 	.container-max { padding: 25px 50px; }

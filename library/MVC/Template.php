@@ -7,7 +7,6 @@ class Template {
 	private $_js = [];
 	private $_customHead = null;
 	private $_customHeader = null;
-	private $_sidebar = false;
 
 	/* Avoid loading version from browser cache when a new version is released */
 	private $_path = MVC_ROOT.'/public/version/'.VERSION.'/';
@@ -126,16 +125,17 @@ class Template {
 		if(isset($_SESSION['id'])) {
 			$html .= '<a href="Logout" class="logout" title="'.Languages::$txt->Global->logout.'"><i class="fa fa-sign-out" aria-hidden="true"></i></a>';
 		}
-	    $html .= '</header>
+	    $html .= '
+		</header>
+		<div id="main">
 ';
 		$html .= $this->_customHeader;
 		return $html;
 	}
 
 	public function getFooter() {
-		$html = '';
-		if($this->_sidebar) $html .= '</div>';
-        $html .= '
+        $html = '
+		</div>
 	</body>
 </html>';
 		return $html;
@@ -143,7 +143,6 @@ class Template {
 
 	public function getSidebar() {
 		$html = '
-		<div id="main">
 			<div class="sidebar">
 				<ul>
 	                <li>
