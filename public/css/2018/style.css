@@ -130,6 +130,7 @@ form h1 {
 	text-align: left;
 }
 
+input:not([type="button"]):not([type="submit"]), textarea { -webkit-user-select: text; -moz-user-select: text; -ms-user-select: text; user-select: text; }
 input:not([type="radio"]):not([type="checkbox"]):not([type="button"]):not([type="submit"]), textarea { cursor: text; }
 
 [class^="input-"] { position: relative; }

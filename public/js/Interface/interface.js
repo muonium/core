@@ -45,12 +45,21 @@ var UserLoader = function(folder_id) {
         console.log("Modules already loaded.");
     }
 
+	var isInInput = function(e) {
+		// Check if the event targets an input/textarea
+		var types_not_allowed = ['radio', 'checkbox', 'button', 'submit'];
+		if(e.target.tagName === 'TEXTAREA' || (e.target.tagName === 'INPUT' && types_not_allowed.indexOf(e.target.type) === -1)) {
+			return true;
+		}
+		return false;
+	};
+
     // Set events in the app
 
     window.oncontextmenu = function(event) {
-        // Disable right click
-        return false;
-    }
+        // Disable right click except in input, textarea
+        return isInInput(event);
+    };
 
     window.onclick = function(event) {
         // Left click
@@ -62,15 +71,17 @@ var UserLoader = function(folder_id) {
         } else {
             Selection.addSel = 0;
 		}
-    }
+    };
 
     window.addEventListener("keydown", function(event) {
         if(event.ctrlKey && event.keyCode == 68) { // CTRL + D
             event.preventDefault(); // disable the hotkey in web browser
             logout();
         } else if(event.ctrlKey && event.keyCode == 65) { // CTRL + A
-            event.preventDefault(); // disable the hotkey in web browser
-            Selection.all();
+			if(!isInInput(event)) {
+            	event.preventDefault(); // disable the hotkey in web browser
+            	Selection.all();
+			}
         } else if(event.ctrlKey && event.keyCode == 73) { // CTRL + I
             event.preventDefault(); // disable the hotkey in web browser
             Selection.invert();
@@ -84,14 +95,20 @@ var UserLoader = function(folder_id) {
             event.preventDefault(); // disable the hotkey in web browser
             Arrows.down('ctrl');
         } else if(event.ctrlKey && event.keyCode == 67) { // CTRL + C
-            event.preventDefault(); // disable the hotkey in web browser
-            Move.copy();
+			if(!isInInput(event)) {
+	            event.preventDefault(); // disable the hotkey in web browser
+	            Move.copy();
+			}
         } else if(event.ctrlKey && event.keyCode == 88) { // CTRL + X
-            event.preventDefault(); // disable the hotkey in web browser
-            Move.cut();
+			if(!isInInput(event)) {
+            	event.preventDefault(); // disable the hotkey in web browser
+            	Move.cut();
+			}
         } else if(event.ctrlKey && event.keyCode == 86) { // CTRL + V
-            event.preventDefault(); // disable the hotkey in web browser
-            Move.paste();
+			if(!isInInput(event)) {
+	            event.preventDefault(); // disable the hotkey in web browser
+	            Move.paste();
+			}
         } else if(event.ctrlKey && event.keyCode == 83) { // CTRL + S
             event.preventDefault(); // disable the hotkey in web browser
             if(Selection.Files.length > 0) { // Start download for one file per second
@@ -101,14 +118,14 @@ var UserLoader = function(folder_id) {
             switch(event.keyCode) {
                 case 8:
                     // backspace
-					if(document.activeElement.tagName != 'INPUT' && document.activeElement.tagName != 'TEXTAREA') {
+					if(!isInInput(event)) {
                     	event.preventDefault();
                     	Folders.back();
 					}
                     break;
                 case 46:
                     // delete
-					if(document.activeElement.tagName != 'INPUT' && document.activeElement.tagName != 'TEXTAREA') {
+					if(!isInInput(event)) {
                     	Rm.multiple();
 					}
                     break;
@@ -129,7 +146,7 @@ var UserLoader = function(folder_id) {
                     break;
                 case 13:
                     // enter
-					if(document.activeElement.tagName != 'INPUT' && document.activeElement.tagName != 'TEXTAREA') {
+					if(!isInInput(event)) {
 	                    if(Selection.Files.length == 1 && Selection.Folders.length == 0) {
 	                        Files.dl("f"+Selection.Files[0]);
 	                    } else if(Selection.Files.length == 0 && Selection.Folders.length == 1) {
