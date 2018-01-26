@@ -76,7 +76,7 @@ a[id^="parent-"] { cursor: pointer; }
 	width: calc(100% + 40px);
 }
 #tree:not(.mosaic) tr > td:first-child, #tree:not(.mosaic) tr > th:first-child { padding-left: 20px; }
-#tree:not(.mosaic) tr > td:last-child, #tree:not(.mosaic) tr > th:last-child { padding-right: 20px; }
+#tree:not(.mosaic) tr > td:last-child, #tree:not(.mosaic) tr > th:last-child { padding-right: 20px; width: 65px; }
 
 @media screen and (min-width: 400px) {
     #tree.mosaic, #tree.mosaic > tbody { -webkit-box-orient: horizontal; -webkit-box-direction: normal; -ms-flex-direction: row; flex-direction: row; }
