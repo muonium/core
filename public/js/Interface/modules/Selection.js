@@ -1,9 +1,5 @@
 // Selection module. Loaded in window.onload()
 var Selection = (function() {
-    // Private
-    var showDetails = (localStorage.getItem('details') == 'false') ? false : true;
-
-    // Public
     // addSel : 1 => add a new selection
     // Files : Selected files (id)
     // Folders : Selected folders (id)
@@ -13,29 +9,20 @@ var Selection = (function() {
         Folders : [],
         multiple : false,
 
-        select : function(id, putDetails = true) {
+        select : function(id) {
             if($('#'+id).length) {
                 $('#'+id).addClass('selected').find('#sel_'+id).prop('checked', true);
-                if(showDetails || (window.innerWidth || document.body.clientWidth) < 700) {
-                    Selection.openDetails();
-                }
             }
-            if(putDetails === true)  {
-                if(showDetails || (window.innerWidth || document.body.clientWidth) < 700) {
-                    Selection.putDetails(id);
-                }
-                Toolbar.display(id);
-            }
+            Selection.putDetails(id);
+            //Toolbar.display(id);
         },
 
-        unselect : function(id, putDetails = true) {
+        unselect : function(id) {
 			$('#sel_all').prop('checked', false);
             if($('#'+id).length) {
 				$('#'+id).removeClass('selected').find('#sel_'+id).prop('checked', false);
             }
-            if(putDetails === true)  {
-                Toolbar.display();
-            }
+            //Toolbar.display();
         },
 
         add : function(id, m = null) {
@@ -48,7 +35,7 @@ var Selection = (function() {
             }
         },
 
-        addFile : function(event, id, putDetails = true) {
+        addFile : function(event, id) {
 			if(typeof event === 'object' && event !== null) event.preventDefault(); // Prevent event to be fired twice in some cases (due to input checkbox and label)
             Selection.addSel = 1;
             if(document.querySelector("#"+id)) {
@@ -56,21 +43,21 @@ var Selection = (function() {
                     var pos = Selection.Files.indexOf(id.substr(1));
                     if(pos != -1) {
                         Selection.Files.splice(pos, 1);
-                        Selection.unselect(id, putDetails);
+                        Selection.unselect(id);
                     } else {
                         Selection.Files.push(id.substr(1));
-                        Selection.select(id, putDetails);
+                        Selection.select(id);
                     }
                 }
                 else {
                     Selection.remove();
                     Selection.Files.push(id.substr(1));
-                    Selection.select(id, putDetails);
+                    Selection.select(id);
                 }
             }
         },
 
-        addFolder : function(event, id, putDetails = true) {
+        addFolder : function(event, id) {
 			if(typeof event === 'object' && event !== null) event.preventDefault(); // Prevent event to be fired twice in some cases (due to input checkbox and label)
             Selection.addSel = 1;
             if(document.querySelector("#"+id)) {
@@ -78,16 +65,16 @@ var Selection = (function() {
                     var pos = Selection.Folders.indexOf(id.substr(1));
                     if(pos != -1) {
                         Selection.Folders.splice(pos, 1);
-                        Selection.unselect(id, putDetails);
+                        Selection.unselect(id);
                     } else {
                         Selection.Folders.push(id.substr(1));
-                        Selection.select(id, putDetails);
+                        Selection.select(id);
                     }
                 }
                 else {
                     Selection.remove();
                     Selection.Folders.push(id.substr(1));
-                    Selection.select(id, putDetails);
+                    Selection.select(id);
                 }
             }
         },
@@ -96,12 +83,12 @@ var Selection = (function() {
             Selection.addSel = 1;
             var files = document.querySelectorAll(".file");
             for(var i = 0; i < files.length; i++) {
-                Selection.addFile('ctrl', files[i].id, false);
+                Selection.addFile('ctrl', files[i].id);
 			}
 
             var folders = document.querySelectorAll(".folder");
             for(var i = 0; i < folders.length; i++) {
-                Selection.addFolder('ctrl', folders[i].id, false);
+                Selection.addFolder('ctrl', folders[i].id);
 			}
         },
 
@@ -112,7 +99,7 @@ var Selection = (function() {
                 if(document.querySelector("#"+files[i].id)) {
                     if(Selection.Files.indexOf((files[i].id).substr(1)) == -1) {
                         Selection.Files.push((files[i].id).substr(1));
-                        Selection.select(files[i].id, false);
+                        Selection.select(files[i].id);
                     }
                 }
             }
@@ -122,7 +109,7 @@ var Selection = (function() {
                 if(document.querySelector("#"+folders[i].id)) {
                     if(Selection.Folders.indexOf(folders[i].id.substr(1)) == -1) {
                         Selection.Folders.push(folders[i].id.substr(1));
-                        Selection.select(folders[i].id, false);
+                        Selection.select(folders[i].id);
                     }
                 }
             }
@@ -137,25 +124,6 @@ var Selection = (function() {
 			}
             Selection.Files = [];
             Selection.Folders = [];
-        },
-
-        openDetails : function() {
-            if(!($("section.selection").hasClass("selected"))) {
-                $("section.selection").fadeIn(400, function() {
-                    $(this).addClass("selected");
-                });
-            }
-            if((window.innerWidth || document.body.clientWidth) < 700 && Transfers.isOpened()) {
-                Transfers.close();
-            }
-        },
-
-        closeDetails : function() {
-            if($("section.selection").hasClass('selected')) {
-                $("section.selection").fadeOut('fast', function() {
-                    $(this).removeClass("selected");
-                });
-            }
         },
 
         dl : function(id) {
@@ -227,14 +195,11 @@ var Selection = (function() {
             }
         },
 
-        allSwitch : function() {
-            Selection.all();
-            if(Selection.Files.length > 0) {
-                Toolbar.display('f'+Selection.Files[0]);
-            } else if(Selection.Folders.length > 0) {
-                Toolbar.display('d'+Selection.Folders[0]);
-            }
-        },
+        allSwitch : function() {},
+
+		removeDetails: function() {
+			$('section.selection').html('');
+		},
 
         putDetails: function(id) {
             if(elem = document.querySelector("#"+id)) {

@@ -67,7 +67,7 @@ var UserLoader = function(folder_id) {
         // reset selected folders/files
         if(Selection.addSel == 0) {
             Selection.remove();
-            Selection.closeDetails();
+            Selection.removeDetails();
         } else {
             Selection.addSel = 0;
 		}

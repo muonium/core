@@ -15,8 +15,9 @@ var Move = (function() {
                 if(id.substr(0, 1) == 'd') {
                     Move.Folders.push(id.substr(1));
                 }
-                if(id.substr(0, 1) == 'f')
+                if(id.substr(0, 1) == 'f') {
                     Move.Files.push(id.substr(1));
+				}
             }
         }
         else {
@@ -90,22 +91,21 @@ var Move = (function() {
         renameVerif : function(evt) {
 			var keyCode = evt.which ? evt.which : evt.keyCode;
 			var forbidden = '/\\:*?<>|"';
-			if (forbidden.indexOf(String.fromCharCode(keyCode)) >= 0)
+			if(forbidden.indexOf(String.fromCharCode(keyCode)) >= 0) {
 				return false;
+			}
 			return true;
 		},
 
         cut : function(id) {
             Box.hide();
             Copy = 0;
-
             mv(id);
         },
 
         copy : function(id) {
             Box.hide();
             Copy = 1;
-
             mv(id);
         },
 
@@ -137,10 +137,8 @@ var Move = (function() {
                 xhr.open("POST", "User/Mv", true);
                 xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
-                xhr.onreadystatechange = function()
-                {
-                    if(xhr.status == 200 && xhr.readyState == 4)
-                    {
+                xhr.onreadystatechange = function() {
+                    if(xhr.status == 200 && xhr.readyState == 4) {
                         console.log(xhr.responseText);
                         Folders.open(Folders.id);
                     }
@@ -161,19 +159,17 @@ var Move = (function() {
                     else if(t.substr(0, 1) == 'd') {
                         request = "folders="+id;
                     }
-                    else
+                    else {
                         return false;
+					}
 
                     var xhr = new XMLHttpRequest();
                     xhr.open("POST", "User/MvTrash", true);
                     xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
-                    xhr.onreadystatechange = function()
-                    {
-                        if(xhr.status == 200 && xhr.readyState == 4)
-                        {
-                            //document.querySelector("section#selection").className = '';
-                            Selection.closeDetails();
+                    xhr.onreadystatechange = function() {
+                        if(xhr.status == 200 && xhr.readyState == 4) {
+                            Selection.removeDetails();
                             console.log(xhr.responseText);
                             Folders.open(Folders.id);
                         }
@@ -192,12 +188,9 @@ var Move = (function() {
                 xhr.open("POST", "User/MvTrash", true);
                 xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
-                xhr.onreadystatechange = function()
-                {
-                    if(xhr.status == 200 && xhr.readyState == 4)
-                    {
-                        //document.querySelector("section#selection").className = '';
-                        Selection.closeDetails();
+                xhr.onreadystatechange = function() {
+                    if(xhr.status == 200 && xhr.readyState == 4) {
+                        Selection.removeDetails();
                         console.log(xhr.responseText);
                         Folders.open(Folders.id);
                     }

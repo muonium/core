@@ -348,7 +348,7 @@ class User extends l\Languages {
         // Link to parent folder
 		if($this->_folderId != 0) {
             $parent = $this->_modelFolders->getParent($this->_folderId);
-            echo '<a id="parent-'.$parent.'" onclick="Folders.open('.$parent.')"><img src="'.IMG.'desktop/arrow.svg" class="icon"></a>';
+            echo '<a id="parent-'.$parent.'" onclick="Folders.open('.$parent.')"><i class="fa fa-caret-up" aria-hidden="true"></i></a>';
         }
 
 		$pct = round($stored/$quota*100, 2);
