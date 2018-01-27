@@ -18,10 +18,12 @@ var Selection = (function() {
         },
 
         unselect : function(id) {
-			$('#sel_all').prop('checked', false);
             if($('#'+id).length) {
 				$('#'+id).removeClass('selected').find('#sel_'+id).prop('checked', false);
             }
+			setTimeout(function() {
+				$('#sel_all').prop('checked', false);
+			}, 0);
             //Toolbar.display();
         },
 
@@ -113,6 +115,9 @@ var Selection = (function() {
                     }
                 }
             }
+			setTimeout(function() {
+				$('#sel_all').prop('checked', true);
+			}, 0);
         },
 
         remove : function() {

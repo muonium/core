@@ -215,7 +215,8 @@ var setEvents = function() {
 
     Toolbar.display();
 
-	$('#sel_all').on('click', function() {
+	$('#sel_all').on('click', function(e) {
+		e.preventDefault();
 		if($(this).prop('checked') === false) {
 			Selection.remove();
 		} else {
