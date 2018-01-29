@@ -63,13 +63,15 @@ var UserLoader = function(folder_id) {
 
     window.onclick = function(event) {
         // Left click
-        Box.left_click(event.clientX, event.clientY);
-        // reset selected folders/files
-        if(Selection.addSel == 0) {
-            Selection.remove();
-            Selection.removeDetails();
-        } else {
-            Selection.addSel = 0;
+		if($(event.target).closest('[class^="container-"]').length > 0) {
+	        Box.left_click(event.clientX, event.clientY);
+	        // reset selected folders/files
+	        if(Selection.addSel == 0) {
+	            Selection.remove();
+	            Selection.removeDetails();
+	        } else {
+	            Selection.addSel = 0;
+			}
 		}
     };
 
