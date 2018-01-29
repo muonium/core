@@ -18,6 +18,10 @@
 ?>
     <div class="container-small">
 
+		<?php if(isset($_GET['val'])) {
+			echo '<div class="info green">'.self::$txt->Validate->done.'</div>';
+		} ?>
+
         <form class="form-login" action="" method="post">
 			<h1><?php echo self::$txt->Global->login; ?></h1>
             <p class="red"><?php if(isset($this->_message)) { echo $this->_message; } ?></p>

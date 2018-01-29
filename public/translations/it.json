@@ -146,7 +146,8 @@
         "message": "Errore: la chiave di convalida è errata, effettua il login per inviare una nuova mail di convalida",
         "wait": "Ti preghiamo di attendere un minuto prima di inviare una nuova mail di convalida",
         "sendmess": "Segui il link nella mail per attivare il tuo account",
-        "sendmail": "Invia una nuova mail"
+        "sendmail": "Invia una nuova mail",
+		"done": "Your account is validated. You can now log in and start using Muonium!"
     },
 
     "Profile": {

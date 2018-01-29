@@ -146,7 +146,8 @@
         "message": "错误 : 验证码错误，请登陆再发送一个新的验证邮件",
         "wait": "请在请求新的验证邮件之前等待一分钟",
         "sendmess": "请点击邮件中的链接来激活你的账户",
-        "sendmail": "发送一个新的邮件"
+        "sendmail": "发送一个新的邮件",
+		"done": "Your account is validated. You can now log in and start using Muonium!"
     },
 
     "Profile": {

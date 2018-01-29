@@ -146,7 +146,8 @@
         "message": "Erreur : La clé de validation est incorrecte, connectez-vous pour envoyer un nouveau mail de validation",
         "wait": "Veuillez patienter une minute avant d'envoyer un nouveau mail de validation",
         "sendmess": "Suivez le lien donné dans l'email pour activer votre compte",
-        "sendmail": "Envoyer un nouvel email"
+        "sendmail": "Envoyer un nouvel email",
+		"done": "Votre compte est validé. Vous pouvez vous connecter et démarrer avec Muonium!"
     },
 
     "Profile": {

@@ -38,31 +38,31 @@ class Validate extends l\Languages {
                 // Same keys, validate account
                 $this->_modelUserVal->Delete();
                 $_SESSION['id'] = $this->id_user;
-                if(!empty($_SESSION['validate']))
+                if(isset($_SESSION['validate'])) {
                     unset($_SESSION['validate']);
-				//all is good, his account is validated
-				//now we disconnect him, he have to log in himself
-                header('Location: '.MVC_ROOT.'/Logout');
+				}
+				// Ok, account is validated, log out user
+                header('Location: '.MVC_ROOT.'/Logout/?val=ok');
             }
         }
 
         function SendMailAction() {
         // Send AGAIN registration mail with validation key
             sleep(1);
-            if(!empty($_SESSION['id'])) {
+            if(isset($_SESSION['id'])) {
                 // If logged
 
                 // One mail per minute
                 $w = 0;
-                if(!empty($_SESSION['sendMail'])) {
-                    if($_SESSION['sendMail']+60 < time()) {
+                if(isset($_SESSION['sendMail'])) {
+                    if($_SESSION['sendMail']+60 > time()) {
                         $w = 1;
                         $this->err_msg = self::$txt->Validate->wait;
                         require_once(DIR_VIEW."Validate.php");
                     }
                 }
 
-                if($w == 0) {
+                if($w === 0) {
                     // Allowed to send a new mail
                     $this->_modelUserVal = new m\UserValidation($_SESSION['id']);
                     if(!($this->_modelUserVal->getKey())) exit(header('Location: '.MVC_ROOT.'/Error/Error/404'));

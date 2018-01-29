@@ -146,7 +146,8 @@
         "message": "Error : The validation key is wrong, please log in to send a new validation mail",
         "wait": "Please wait a minute before requesting again a validation mail",
         "sendmess": "Please follow the link in the email to activate your account",
-        "sendmail": "Send a new mail"
+        "sendmail": "Send a new mail",
+		"done": "Your account is validated. You can now log in and start using Muonium!"
     },
 
     "Profile": {

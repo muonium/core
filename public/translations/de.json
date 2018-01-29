@@ -146,7 +146,8 @@
         "message": "Fehler: Der Verifizierungscode ist falsch, bitte logge Dich ein, um eine neue Verifizierungsemail abzusenden",
         "wait": "Bitte warte eine Minute, bevor Du eine neue Verifizierungsemail abschickst",
         "sendmess": "Bitte klicke auf den Link in der Email um Deinen Account zu aktievieren",
-        "sendmail": "Neue Email senden"
+        "sendmail": "Neue Email senden",
+		"done": "Your account is validated. You can now log in and start using Muonium!"
     },
 
     "Profile": {
