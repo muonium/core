@@ -54,6 +54,13 @@ var UserLoader = function(folder_id) {
 		return false;
 	};
 
+	var fix_head = function() {
+		$('#display').css({
+			"position": "fixed",
+			"width": $('.container-max').innerWidth()
+		});
+	};
+
     // Set events in the app
 
     window.oncontextmenu = function(event) {
@@ -74,6 +81,10 @@ var UserLoader = function(folder_id) {
 			}
 		}
     };
+
+	window.onresize = function() {
+		fix_head();
+	};
 
     window.addEventListener("keydown", function(event) {
         if(event.ctrlKey && event.keyCode == 68) { // CTRL + D
@@ -205,6 +216,7 @@ var UserLoader = function(folder_id) {
 		});
 	}
 
+	fix_head();
     console.log("Application loaded.");
 };
 

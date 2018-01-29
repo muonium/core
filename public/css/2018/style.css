@@ -24,7 +24,14 @@ body {
 	min-height: 100%;
 }
 
-#display { text-align: right; }
+#mui { margin-top: 30px; }
+
+#display {
+	text-align: right;
+	margin-top: -20px; margin-left: -20px;
+	padding-top: 20px; padding-bottom: 10px; padding-right: 20px;
+	z-index: 1;
+}
 #display input + label { padding-left: 18px !important; font-size: 17px; color: #b4bac6; }
 #display label > i { cursor: pointer; }
 #display label::before { display: none; }
@@ -220,7 +227,7 @@ select {
 
 textarea { border-style: solid; border-width: 2px; padding: 5px; }
 
-a, a > i.fa, a > span.fa { cursor: pointer; }
+a, a > i.fa, a > span.fa, a > img { cursor: pointer; }
 a { text-decoration: underline; }
 a.blue, a.blue:visited { color: #16c1f3; font-weight: 500; text-decoration: none; }
 a.blue:hover, a.blue:active, a.blue:focus { color: #0b9fcb; }
@@ -402,7 +409,6 @@ fieldset .label { font-family: RobotoMono; font-weight: 500; margin-right: 8px; 
 table.table-large { width: 100%; max-width: 100%; }
 
 section#desktop {
-    /*overflow: auto;*/
     width: 100%; height: 100%;
 }
 
@@ -415,7 +421,7 @@ section#desktop img.arrow { height: 5vh; width: 5vh; }
 
 @media screen and (min-width: 600px) {
 	#main { padding-bottom: 48px; }
-	
+
 	[class^="input-"] input { padding-left: 44px; }
 
 	.container-small {
@@ -427,6 +433,7 @@ section#desktop img.arrow { height: 5vh; width: 5vh; }
 		padding: 25px 50px;
 	}
 	.container-max { padding: 25px 50px; }
+	#display { margin-top: -25px; margin-left: -50px; padding-top: 25px; padding-right: 50px; }
 
 	.sidebar {
 		position: relative;
