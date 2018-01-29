@@ -142,7 +142,7 @@
 	                <input type="checkbox" name="delete" id="delete" required>
 	                <label for="delete"><?php echo self::$txt->Profile->iwant; ?></label>
 	            </p>
-				<input type="submit" class="btn btn-required btn-warning" onclick="ConfirmDelete()" value="<?php echo self::$txt->Profile->deleteAccount; ?>" disabled>
+				<input type="submit" class="btn btn-required btn-warning" onclick="ConfirmDelete(event)" value="<?php echo self::$txt->Profile->deleteAccount; ?>" disabled>
 				<div id="deleteUserReturn"></div>
 			</form>
 		</fieldset>

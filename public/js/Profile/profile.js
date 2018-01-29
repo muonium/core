@@ -133,7 +133,8 @@ var deleteUser = function() {
 	});
 };
 
-var ConfirmDelete = function() {
+var ConfirmDelete = function(e) {
+	e.preventDefault();
 	if(confirm(txt.Profile.accountDeletionConfirm)) {
 		deleteUser();
 	}
