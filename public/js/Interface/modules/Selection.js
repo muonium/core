@@ -207,30 +207,48 @@ var Selection = (function() {
 		},
 
         putDetails: function(id) {
-            if(elem = document.querySelector("#"+id)) {
-    			var title = elem.getAttribute("title").split("\n");
-                var content = "<strong>"+txt.User.details+"</strong>\
-            	<hr><ul><li><strong>"+txt.User.name+"</strong> : "+elem.getAttribute("data-title")+"</li>\
-            	<li><strong>"+txt.User.path+"</strong> : "+ (elem.getAttribute("data-path") == '' ? "/" : elem.getAttribute("data-path")) +"</li>\
-                <li><strong>"+txt.User.type+"</strong> : "+ (title[1] ? txt.User.file : txt.User.folder) +"</li>\
-                <li><strong>"+txt.User.size+"</strong> : "+title[0]+"</li>";
+			var elem = $('#'+id), html = '';
+			var type = id.substr(0, 1) === 'd' ? 'folder' : 'file';
+            if($(elem).length) {
+				html += '<strong>Actions</strong>';
 
-                if(title[1] !== undefined) content += "<li>"+title[1]+"</li>"; // File
-                content += '</ul>';
-                if(title[1] !== undefined) {
-					content += '<span class="btn_download" onclick="Selection.dl(\''+id+'\')"><i class="fa fa-download" aria-hidden="true"></i> '+txt.RightClick.dl+'</span>';
-					if(Files.isShared(id.substr(1))) {
-						content += '<span class="btn_share" onclick="Selection.unshare(\''+id.substr(1)+'\')"><i class="fa fa-ban" aria-hidden="true"></i> '+txt.RightClick.unshare+'</span>';
-						content += '<input type="text" value="'+elem.getAttribute("data-url")+'" class="copy_url">';
-						content += '<input type="button" value="'+txt.RightClick.copy+'" onclick="copy_url()">';
-					} else {
-						content += '<span class="btn_share" onclick="Selection.share(\''+id.substr(1)+'\')"><i class="fa fa-share" aria-hidden="true"></i> '+txt.RightClick.share+'</span>';
+                if(type === 'file') {
+					html += '<a class="blue block" onclick="Selection.dl(\''+id+'\')"><i class="fa fa-download" aria-hidden="true"></i> '+txt.RightClick.dl+'</a>';
+				}
+				if(type === 'folder' && Selection.Files.length === 0 && Selection.Folders.length === 1) {
+					html += '<a class="blue block" onclick="Folders.open(\''+id.substr(1)+'\')"><i class="fa fa-folder-open" aria-hidden="true"></i> '+txt.RightClick.open+'</a>';
+				}
+				if(Trash.state == 0) {
+					html += '<a class="blue block" onclick="Move.cut(\''+id+'\')"><i class="fa fa-scissors" aria-hidden="true"></i> '+txt.RightClick.cut+'</a>';
+					html += '<a class="blue block" onclick="Move.copy(\''+id+'\')"><i class="fa fa-clone" aria-hidden="true"></i> '+txt.RightClick.copy+'</a>';
+					html += '<a class="blue block" onclick="Move.trashMultiple(\''+id+'\')"><i class="fa fa-trash" aria-hidden="true"></i> '+txt.RightClick.trash+'</a>';
+				} else {
+					html += '<a class="blue block" onclick="Move.trashMultiple(\''+id+'\')"><i class="fa fa-undo" aria-hidden="true"></i> '+txt.RightClick.restore+'</a>';
+					html += '<a class="blue block" onclick="Rm.multiple(\''+id+'\')"><i class="fa fa-trash" aria-hidden="true"></i> '+txt.RightClick.rm+'</a>';
+				}
+				if(Trash.state == 0 && (Selection.Files.length === 0 && Selection.Folders.length === 1) || (Selection.Files.length === 1 && Selection.Folders.length === 0)) {
+					html += '<a class="blue block" onclick="Move.rename(\''+id+'\')"><i class="fa fa-pencil" aria-hidden="true"></i> '+txt.RightClick.mvItem+'</a>';
+				}
+				if(type === 'file' && Selection.Files.length === 1 && Selection.Folders.length === 0) {
+					html += '<a class="blue block" onclick="Files.details(\''+id+'\')"><i class="fa fa-info" aria-hidden="true"></i> '+txt.RightClick.vDetails+'</a>';
+				}
+				if(type === 'folder' && Selection.Files.length === 0 && Selection.Folders.length === 1) {
+					html += '<a class="blue block" onclick="Folders.details(\''+id+'\')"><i class="fa fa-info" aria-hidden="true"></i> '+txt.RightClick.vDetails+'</a>';
+				}
+
+				if(type === 'file') {
+					if(Selection.Files.length > 1 || Selection.Folders.length > 1 || Files.isShared(id.substr(1))) {
+						html += '<a class="blue block" onclick="Selection.unshare(\''+id.substr(1)+'\')"><i class="fa fa-ban" aria-hidden="true"></i> '+txt.RightClick.unshare+'</a>';
+						if(Selection.Files.length === 1 && Selection.Folders.length === 0) {
+							html += '<input type="text" value="'+$(elem).data('url')+'" class="copy_url">';
+							html += '<input type="button" class="btn btn-large" value="'+txt.RightClick.copy+'" onclick="copy_url()">';
+						}
+					}
+					if(Selection.Files.length > 1 || Selection.Folders.length > 1 || !Files.isShared(id.substr(1))) {
+						html += '<a class="blue block" onclick="Selection.share(\''+id.substr(1)+'\')"><i class="fa fa-share" aria-hidden="true"></i> '+txt.RightClick.share+'</a>';
 					}
 				}
-				if(Selection.Folders.length + Selection.Files.length > 1) {
-                    content += "<hr><span class='multiselected_details'>"+Selection.Folders.length+" "+txt.User.folderSelected+", "+Selection.Files.length+" "+txt.User.fileSelected+"</span>";
-                }
-                document.querySelector("section.selection").innerHTML = content + "</ul>";
+                $("section.selection").html(html);
             }
         }
     }

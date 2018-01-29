@@ -355,7 +355,7 @@ var showHelp = function() {
 };
 
 var copy_url = function() {
-	document.querySelector('section#selection .copy_url').select();
+	document.querySelector('section.selection .copy_url').select();
 	document.execCommand('copy');
 };
 

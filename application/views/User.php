@@ -64,8 +64,8 @@
     </div>
 	<div id="selection">
 		<div class="fixed">
-			<div class="center">
-				<button class="btn mbottom" onclick="Upload.dialog()"><?php echo self::$txt->RightClick->upFiles; ?></button>
+			<div>
+				<button class="btn btn-large mbottom" onclick="Upload.dialog()"><?php echo self::$txt->RightClick->upFiles; ?></button>
 				<a href="#" class="blue block" onclick="Folders.create(event)"><i class="fa fa-folder-o" aria-hidden="true"></i> <?php echo self::$txt->RightClick->nFolder; ?></a>
 			</div>
 
@@ -90,7 +90,7 @@
 			<p class="center"><a href="<?php echo MVC_ROOT; ?>/Upgrade" class="mono"><?php echo self::$txt->Profile->getmore; ?></a></p>
 
 			<div class="selection_bottom">
-				<a href="#" class="btn btn-actions"></a>
+				<!--<a href="#" class="btn btn-actions"></a>-->
 				<a href="#" class="mono up">Privacy</a>
 			</div>
 		</div>

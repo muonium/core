@@ -25,14 +25,14 @@ select {
 
 form h1 { color: #fff; }
 
-[class^="input-"] input, [class^="input-"] select, [class^="input-"] textarea {
+[class^="input-"] input, [class^="input-"] select, [class^="input-"] textarea, .copy_url {
 	background-color: #3b3a3a;
 	color: #fff;
 }
-[class^="input-"] input, [class^="input-"] select {
+[class^="input-"] input, [class^="input-"] select, .copy_url {
 	border-bottom-color: #4e4d4d;
 }
-[class^="input-"] input:focus, [class^="input-"] input:active { border-bottom-color: #8be0f9; }
+[class^="input-"] input:focus, [class^="input-"] input:active, .copy_url:focus, .copy_url:active { border-bottom-color: #8be0f9; }
 [class^="input-"] input + label.fa {
 	color: #fff;
 }
@@ -79,6 +79,7 @@ fieldset, legend { color: #fff; }
 fieldset .label, #box .label { color: #fff; }
 
 #selection { background-color: #3b3a3a; }
+#selection .selection strong { color: #fff; }
 
 #tree th { color: #b4bac6; }
 #tree tr { background-color: transparent; }
