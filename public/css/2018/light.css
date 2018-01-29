@@ -60,9 +60,9 @@ input[type="radio"]:checked + label:before, input[type="checkbox"]:checked + lab
 
 textarea { border-color: #f4f4f4; }
 
-.btn-b, .btn-c { font-family: Roboto; letter-spacing: .5px; box-shadow: 0 6px 15px 0 rgba(255, 136, 76, 0.2); }
-.btn-b { background-color: #ff874b !important; color: #fff; }
-.btn-c { background-color: transparent !important; border: 2px solid #ff874b; color: #ff874b; }
+.btn-b, .btn-c { font-family: Roboto !important; letter-spacing: .5px; box-shadow: 0 6px 15px 0 rgba(255, 136, 76, 0.2); }
+.btn-b { background-color: #ff874b !important; color: #fff !important; }
+.btn-c { background-color: transparent !important; border: 2px solid #ff874b; color: #ff874b !important; }
 
 .bloc-offers > div { background-color: #fff; }
 .offer-size { color: #212121; }

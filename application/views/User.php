@@ -69,7 +69,7 @@
 				<a href="#" class="blue block" onclick="Folders.create(event)"><i class="fa fa-folder-o" aria-hidden="true"></i> <?php echo self::$txt->RightClick->nFolder; ?></a>
 			</div>
 
-			<section class="selection"><!-- Temporary place where selection infos will be displayed --></section>
+			<section class="selection"><!-- Selection infos will be displayed there --></section>
 
 			<!-- Box -->
 
@@ -79,8 +79,8 @@
 
 				<p><a href="#"><?php echo self::$txt->Story->read; ?></a></p>
 
-				<p><button class="btn btn-large btn-b"><?php echo self::$txt->Story->premium; ?></button></p>
-				<p><button class="btn btn-large btn-c"><?php echo self::$txt->Story->donate; ?></button></p>
+				<p><a href="<?php echo MVC_ROOT; ?>/Upgrade" class="btn btn-large btn-b"><?php echo self::$txt->Story->premium; ?></a></p>
+				<p><a href="https://muonium.io/#!/donate" target="_blank" class="btn btn-large btn-c"><?php echo self::$txt->Story->donate; ?></a></p>
 
 				<p class="help"><a href="#"><?php echo self::$txt->Story->help; ?></a></p>
 			</div>

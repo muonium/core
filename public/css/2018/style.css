@@ -84,7 +84,8 @@ header {
 }
 .sidebar ul {
 	list-style-type: none;
-	width: 100%; height: 100%;
+	width: 100%; max-height: calc(100vh - 70px);
+	overflow-x: hidden; overflow-y: auto;
 	text-align: center;
 }
 .sidebar li {
@@ -418,6 +419,10 @@ section#desktop img.arrow { height: 5vh; width: 5vh; }
 
 .selection_bottom { text-align: center; margin-top: 40px; }
 .selection_bottom a { display: inline-block; margin: 0 10px; font-weight: bold; }
+
+@media screen and (max-height: 600px) {
+	.sidebar ul { margin: 0 0 !important; }
+}
 
 @media screen and (min-width: 600px) {
 	#main { padding-bottom: 48px; }

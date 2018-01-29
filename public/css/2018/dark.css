@@ -61,9 +61,9 @@ input[type="radio"]:checked + label:before, input[type="checkbox"]:checked + lab
 textarea { border-color: #4e4d4d; }
 
 .btn { box-shadow: none; }
-.btn-b, .btn-c { font-family: OpenSans; }
-.btn-b { background-color: #16c1f3 !important; color: #fff; }
-.btn-c { background-color: transparent !important; border: 2px solid #16c1f3; color: #16c1f3; }
+.btn-b, .btn-c { font-family: OpenSans !important; }
+.btn-b { background-color: #16c1f3 !important; color: #fff !important; }
+.btn-c { background-color: transparent !important; border: 2px solid #16c1f3; color: #16c1f3 !important; }
 
 .bloc-offers > div { background-color: #212121; }
 .offer-size, .offer-price, .offer-duration { color: #fff; }

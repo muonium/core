@@ -1,10 +1,10 @@
 #transfers {
     display: none;
     width: 100%; min-height: 20px;
-	max-height: 50vh;
+	max-height: 60vh;
     position: fixed;
     bottom: 50px;
-    overflow: auto;
+    overflow-x: hidden; overflow-y: auto;
     z-index: 9999;
     box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.1);
 	border-radius: 10px 10px 0 0;

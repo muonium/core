@@ -9,7 +9,7 @@
 }
 #selection > div { padding: 19px; }
 
-#selection ul { list-style-type: none; font-size: 12px; }
+#selection .fixed { max-height: calc(100vh - 70px); overflow-x: hidden; overflow-y: auto; }
 
 #selection.selected {
     display: block;
@@ -29,17 +29,9 @@
 #selection a.blue { font-size: 15px; letter-spacing: 1px; font-weight: 500; padding-bottom: 15px; }
 #selection a.blue > .fa { width: 25px; }
 
-.multiselected_details { display: block; font-size: 14px; margin-top: 10px; }
-li#multisel_desktop { display: none; }
-
 #selection .selection strong {
 	display: block;
 	font-family: OpenSans; font-size: 12px; font-weight: bold;
 	text-transform: uppercase;
 	padding-top: 5px; padding-bottom: 15px;
-}
-
-@media screen and (min-width: 600px) {
-    #selection ul { margin-top: 20px; }
-    li#multisel_desktop { display: block; }
 }

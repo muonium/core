@@ -114,7 +114,7 @@ class Template {
 	<body>
 		<header>
 	        <div id="logo">
-	            <a href="'.URL_APP.'" target="_blank">
+	            <a href="'.URL_APP.'">
 	                <img src="public/pictures/logos/muonium_H_01.png" title="'.Languages::$txt->Global->home.'" alt="'.Languages::$txt->Global->home.'">
 	            </a>
 	        </div>
