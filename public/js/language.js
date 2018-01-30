@@ -100,24 +100,24 @@ $(document).ready(function() {
 	});
 });
 
-function changeLanguage(lang) {
+var changeLanguage = function(lang) {
 	setCookie('lang', lang, 365);
     window.location.reload();
-}
+};
 
-function getLanguage() {
+var getLanguage = function() {
     return getCookie('lang');
-}
+};
 
-function getJSON(DEFAULT_LANGUAGE = false) {
+var getJSON = function(default_language) {
     // Get txt from user's language json
     if(typeof(txt) === 'object') return true;
     var clang;
-    if(DEFAULT_LANGUAGE) {
+    if(typeof default_language !== 'undefined' && default_language) {
         clang = LANG;
     } else {
         clang = getLanguage();
-        clan = clang == '' ? LANG : clang;
+        clang = clang == '' ? LANG : clang;
     }
 
     var xmlhttp = new XMLHttpRequest();
@@ -141,8 +141,8 @@ function getJSON(DEFAULT_LANGUAGE = false) {
     };
     xmlhttp.open("GET", url, true);
     xmlhttp.send();
-}
+};
 
-function setJSON(arr) {
+var setJSON = function(arr) {
     txt = arr;
-}
+};

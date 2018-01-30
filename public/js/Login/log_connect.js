@@ -1,27 +1,17 @@
-/**
-** @name        : log_connect.js
-** @authors     : Romain Claveau <romain.claveau@protonmail.ch>, Dylan CLEMENT <dylan@muonium.ee>
-** @description : Method to connect the user to the servers
-**/
+/* log_connect.js */
 
-
-/**
-** @name         : sendConnectionRequest()
-** @description  : to send username + password + base64encoded encrypted CEK to the server and log in the the user if all is good
-**/
+/* sendConnectionRequest()
+	Send username + password + base64encoded encrypted CEK to the server and log in the user if all is good
+*/
 
 window.onload = function() {
-
     // Get txt from user's language json (language.js)
     getJSON();
 	sessionStorage.clear();
 
     window.addEventListener("keydown", function(e) {
-        switch(e.keyCode) {
-            case 13:
-                // enter
-                sendConnectionRequest(e);
-                break;
+        if(e.keyCode === 13) { // enter
+            sendConnectionRequest(e);
         }
     });
 }
