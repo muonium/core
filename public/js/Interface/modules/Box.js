@@ -42,6 +42,9 @@ var Box = (function() {
         left_click : function(cx, cy) {
             if(!init) return false;
             // If the user uses left click inside the 'box'
+			cx += document.body.scrollLeft;
+			cy += document.body.scrollTop;
+			
             if((cx >= x && cx <= (x + box_div.clientWidth)) && (cy >= y && cy <= (y + box_div.clientHeight)) || Box.box_more) {
                 // Action
                 Box.box_more = false;
@@ -123,10 +126,17 @@ var Box = (function() {
 
             Box.show();
 
+			x += document.body.scrollLeft;
+			y += document.body.scrollTop;
+
             if(x < 2) x = 2;
-            if(x + box_div.clientWidth > document.body.clientWidth) x = document.body.clientWidth - box_div.clientWidth - 2;
+            if(x + box_div.clientWidth > document.body.clientWidth + document.body.scrollLeft) {
+				x = document.body.scrollLeft + document.body.clientWidth - box_div.clientWidth - 2;
+			}
             if(y < 5) y = 5;
-            if(y + box_div.clientHeight > document.body.clientHeight) y = document.body.clientHeight - box_div.clientHeight - 5;
+            if(y + box_div.clientHeight > document.body.clientHeight + document.body.scrollTop) {
+				y = document.body.scrollTop + document.body.clientHeight - box_div.clientHeight - 5;
+			}
 
             box_div.style.left = x+'px';
             box_div.style.top = y+'px';
