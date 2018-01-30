@@ -61,8 +61,7 @@ var Arrows = (function() {
 
         scroll : function(el) {
             // Autoscroll
-            var l = window.innerWidth || document.body.clientWidth;
-            document.body.scrollTop = el.offsetTop - 90;
+            document.body.scrollTop = el.offsetTop - 130;
         }
     }
 });
