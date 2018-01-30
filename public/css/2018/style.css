@@ -421,7 +421,10 @@ section#desktop img.arrow { height: 5vh; width: 5vh; }
 .selection_bottom a { display: inline-block; margin: 0 10px; font-weight: bold; }
 
 @media screen and (max-height: 600px) {
-	.sidebar ul { margin: 0 0 !important; }
+	.sidebar ul {
+		margin: calc(50vh - 35px) 0 auto 0 !important;
+		transform: translateY(-50%);
+	}
 }
 
 @media screen and (min-width: 600px) {

@@ -46,15 +46,26 @@ var Selection = (function() {
                     if(pos != -1) {
                         Selection.Files.splice(pos, 1);
                         Selection.unselect(id);
+						if(Selection.Files.length === 0) {
+							Selection.removeDetails();
+							if(Selection.Folders.length > 0) {
+								Selection.putDetails('d'+ Selection.Folders[Selection.Folders.length - 1]);
+							}
+						}
                     } else {
                         Selection.Files.push(id.substr(1));
                         Selection.select(id);
                     }
                 }
                 else {
-                    Selection.remove();
-                    Selection.Files.push(id.substr(1));
-                    Selection.select(id);
+					if(Selection.Files.length === 1 && Selection.Files[0] == id.substr(1)) {
+						Selection.remove();
+						Selection.removeDetails();
+					} else {
+						Selection.remove();
+                    	Selection.Files.push(id.substr(1));
+                    	Selection.select(id);
+					}
                 }
             }
         },
@@ -68,15 +79,26 @@ var Selection = (function() {
                     if(pos != -1) {
                         Selection.Folders.splice(pos, 1);
                         Selection.unselect(id);
+						if(Selection.Folders.length === 0) {
+							Selection.removeDetails();
+							if(Selection.Files.length > 0) {
+								Selection.putDetails('f'+ Selection.Files[Selection.Files.length - 1]);
+							}
+						}
                     } else {
                         Selection.Folders.push(id.substr(1));
                         Selection.select(id);
                     }
                 }
                 else {
-                    Selection.remove();
-                    Selection.Folders.push(id.substr(1));
-                    Selection.select(id);
+					if(Selection.Folders.length === 1 && Selection.Folders[0] == id.substr(1)) {
+                    	Selection.remove();
+						Selection.removeDetails();
+					} else {
+						Selection.remove();
+                    	Selection.Folders.push(id.substr(1));
+                    	Selection.select(id);
+					}
                 }
             }
         },
