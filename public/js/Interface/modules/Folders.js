@@ -110,7 +110,8 @@ var Folders = (function() {
                 Box.box_more = true;
                 Box.reset();
                 Box.Area = 2;
-                Box.set('<div class="details">\
+                Box.set('<div class="close" onclick="Box.close()">x</div>\
+				<div class="details">\
                 	<strong>'+txt.User.details+'</strong>\
                 	<ul>\
 						<li><span class="label">'+txt.User.name+':</span> '+$(elem).attr("name")+'</li>\

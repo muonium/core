@@ -24,6 +24,13 @@ var Box = (function() {
             $(box_div).fadeOut(200);
         },
 
+		close : function() {
+			if(Box.selected != '') Selection.unselect(Box.selected);
+			Box.selected = '';
+			Box.hide();
+			Box.Area = 0;
+		},
+
         show : function() {
             if(!init) return false;
             $(box_div).fadeIn(300);
@@ -44,16 +51,13 @@ var Box = (function() {
             // If the user uses left click inside the 'box'
 			cx += document.body.scrollLeft;
 			cy += document.body.scrollTop;
-			
+
             if((cx >= x && cx <= (x + box_div.clientWidth)) && (cy >= y && cy <= (y + box_div.clientHeight)) || Box.box_more) {
                 // Action
                 Box.box_more = false;
             }
-            else { // Otherwise, hide 'box'
-                if(Box.selected != '') Selection.unselect(Box.selected);
-                Box.selected = '';
-                Box.hide();
-                Box.Area = 0;
+            else { // Otherwise, close box
+                Box.close();
             }
         },
 

@@ -122,7 +122,8 @@ var Files = (function() {
                 Box.box_more = true;
                 Box.reset();
                 Box.Area = 1;
-                Box.set('<div class="details">\
+                Box.set('<div class="close" onclick="Box.close()">x</div>\
+				<div class="details">\
                 	<strong>'+txt.User.details+'</strong>\
                 	<ul>\
 						<li><span class="label">'+txt.User.name+':</span> '+$(elem).data("title")+'</li>\
@@ -141,8 +142,7 @@ var Files = (function() {
 		display : function() {
 			if(Files.style == 'mosaic') {
 				document.querySelector("#tree").className = 'mosaic';
-			}
-			else {
+			} else {
 				document.querySelector("#tree").className = '';
 			}
 		}

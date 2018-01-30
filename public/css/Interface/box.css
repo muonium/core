@@ -32,3 +32,11 @@
 #box .details { padding: 10px; font-family: Roboto; font-weight: 500; }
 #box .details strong { font-family: RobotoMono; font-size: 15px; letter-spacing: .1px; }
 #box .label { font-family: RobotoMono; font-weight: 500; margin-right: 8px; }
+
+#box .close {
+    position: absolute;
+    font-size: 13px; font-weight: bold;
+    color: #727272;
+    top: 0; right: 5px;
+    cursor: pointer;
+}
