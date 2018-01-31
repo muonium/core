@@ -1,15 +1,15 @@
 #selection {
-	position: relative;
-	z-index: 1;
-    overflow: none;
+	position: fixed;
+	top: 70px; left: 0; right: 0; height: 200px;
+	z-index: 2;
+    overflow: hidden;
 	font-family: Roboto;
-    width: 17%; min-width: 240px; max-width: 300px;
 	box-shadow: -1px 2px 4px 0 rgba(0, 0, 0, 0.1);
 }
-#selection > div { padding: 19px; }
+#selection > div { padding: 19px; position: relative; }
 
 #selection .fixed {
-	min-width: 240px; max-width: 300px;
+	min-width: 240px; width: 240px;
 	max-height: calc(100vh - 70px);
 	overflow-x: hidden; overflow-y: auto;
 }
@@ -40,6 +40,23 @@
 }
 
 #selection hr { margin-bottom: 10px; }
+
+.story { display: none; }
+
+@media screen and (min-width: 600px) {
+	#selection { left: 80px; }
+}
+
+@media screen and (min-width: 800px) {
+	#selection {
+		position: relative;
+		top: auto; left: auto; right: auto;
+		min-width: 240px; width: 240px;
+		height: auto;
+	}
+	#selection > div { position: fixed; }
+	.story { display: block; }
+}
 
 @media screen and (max-height: 1000px) and (min-width: 600px) {
 	/* Try to reduce margins */

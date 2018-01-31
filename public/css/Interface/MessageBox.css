@@ -93,5 +93,5 @@
         transform: translate(-50%, -50%);
     }
 
-    .MessageBox .MessageBoxClose { font-size: 13px; }
+    .MessageBox .MessageBoxClose { font-size: 18px; }
 }

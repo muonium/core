@@ -24,11 +24,10 @@ body {
 	min-height: 100%; height: auto;
 }
 
-#mui { margin-top: 30px; }
-
 #display {
+	position: fixed;
+	top: 270px; left: 0; right: 0;
 	text-align: right;
-	margin-top: -20px; margin-left: -20px;
 	padding-top: 20px; padding-bottom: 10px; padding-right: 20px;
 	z-index: 1;
 }
@@ -60,7 +59,7 @@ header {
 	padding: 0 30px;
 	position: fixed;
 	top: 0;
-	z-index: 2;
+	z-index: 3;
 }
 
 #logo { flex: 1; -ms-flex: 1 1 0%; }
@@ -132,6 +131,7 @@ header {
 .container-large {
 	margin-left: 15px; margin-right: 15px;
 }
+.container-max { padding: 15px; }
 
 form.form-login, form.form-register, form.form-bug, .container-small > form {
 	margin: 30px auto 0px auto;
@@ -462,15 +462,15 @@ section#desktop img.arrow { height: 5vh; width: 5vh; }
 		margin: 48px 50px auto 50px;
 		padding: 25px 50px;
 	}
-	.container-max { padding: 25px 50px; }
-	#display { margin-top: -25px; margin-left: -50px; padding-top: 25px; padding-right: 50px; }
+	.container-max { padding: 25px; }
+	#display { left: 80px; }
 
 	.sidebar {
 		position: relative;
 		width: 80px; min-width: 80px;
 		height: auto;
 		box-shadow: 1px 2px 4px 0 rgba(0, 0, 0, 0.1);
-		z-index: 1;
+		z-index: 2;
 	}
 	.sidebar ul {
 		list-style-type: none;
@@ -527,6 +527,7 @@ section#desktop img.arrow { height: 5vh; width: 5vh; }
 }
 
 @media screen and (min-width: 800px) {
+	.container-max { padding: 15px; }
 	.bloc-input > div:not(:last-child) { margin-right: 100px; }
 	[class^="input-"] { margin-left: auto; margin-right: auto; }
 	.input-small { max-width: 350px; }
@@ -538,6 +539,11 @@ section#desktop img.arrow { height: 5vh; width: 5vh; }
 		margin-right: 24px; margin-bottom: 24px;
 	}
 	h3 { font-size: 18px; }
+	#display { top: 70px; right: 240px; }
+}
+
+@media screen and (min-width: 1000px) {
+	.container-max { padding: 25px 50px; }
 }
 
 @media screen and (min-width: 1200px) {

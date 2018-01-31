@@ -35,8 +35,12 @@
 
 #box .close {
     position: absolute;
-    font-size: 13px; font-weight: bold;
+    font-size: 24px; font-weight: bold;
     color: #727272;
     top: 0; right: 5px;
     cursor: pointer;
+}
+
+@media screen and (min-width: 700px) {
+	#box .close { font-size: 18px; }
 }

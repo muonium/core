@@ -1,4 +1,5 @@
 #mui, #tree { width: 100%; }
+#mui { margin-top: 230px; }
 #tree { border-collapse: collapse; }
 #tree > div, #tree a { cursor: pointer; }
 
@@ -36,7 +37,7 @@
 }
 #tree.mosaic tr {
 	display: block;
-	margin: 0 15px 48px 15px;
+	margin: 0 15px 25px 15px;
 	text-align: center;
 	border-radius: 6px;
 	box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.1);
@@ -44,6 +45,10 @@
 }
 
 #tree td { font-size: 15px; font-family: Roboto; }
+#tree td:nth-child(4), #tree td:nth-child(5) { font-size: 12px; }
+
+#tree:not(.mosaic) th:nth-child(4), #tree:not(.mosaic) td:nth-child(4),
+#tree:not(.mosaic) th:nth-child(5), #tree:not(.mosaic) td:nth-child(5) { display: none; }
 
 #tree.mosaic td { display: block; padding: 8px 11px; overflow: hidden; text-overflow: ellipsis; }
 #tree.mosaic td:first-child { position: absolute; top: 8px; left: 8px; padding: 0; }
@@ -55,7 +60,7 @@
 #tree.mosaic .icon { display: block; width: 50%; margin: 0 auto 43px auto; }
 
 #tree .btn-actions {
-	height: 30px; width: 65px;
+	height: 30px; width: 45px;
 	border-radius: 4px;
 	box-shadow: 0 2px 4px 0 rgba(22, 193, 243, 0.1); border: 2px solid #16c1f3;
 	color: #16c1f3;
@@ -69,11 +74,11 @@ a[id^="parent-"] { cursor: pointer; }
 a[id^="parent-"] .fa-caret-up { font-size: 24px; padding-left: 10px; }
 
 #tree:not(.mosaic) { /* Negative margin in order to have full width selected row background */
-	margin-left: -20px; margin-right: -20px;
-	width: calc(100% + 40px);
+	margin-left: -15px; margin-right: -15px;
+	width: calc(100% + 30px);
 }
-#tree:not(.mosaic) tr > td:first-child, #tree:not(.mosaic) tr > th:first-child { padding-left: 20px; }
-#tree:not(.mosaic) tr > td:last-child, #tree:not(.mosaic) tr > th:last-child { padding-right: 20px; width: 65px; }
+#tree:not(.mosaic) tr > td:first-child, #tree:not(.mosaic) tr > th:first-child { padding-left: 15px; }
+#tree:not(.mosaic) tr > td:last-child, #tree:not(.mosaic) tr > th:last-child { padding-right: 15px; width: 45px; }
 
 @media screen and (min-width: 400px) {
     #tree.mosaic, #tree.mosaic > tbody {
@@ -83,13 +88,48 @@ a[id^="parent-"] .fa-caret-up { font-size: 24px; padding-left: 10px; }
 		flex-basis: 184px; -ms-flex-preferred-size: 184px;
 		height: 229px;
 	}
+	#tree:not(.mosaic) th:nth-child(4), #tree:not(.mosaic) td:nth-child(4) { display: table-cell; }
+}
+
+@media screen and (min-width: 500px) {
+	#tree:not(.mosaic) th:nth-child(5), #tree:not(.mosaic) td:nth-child(5) { display: table-cell; }
 }
 
 @media screen and (min-width: 600px) {
+	#tree:not(.mosaic) { /* Negative margin in order to have full width selected row background */
+		margin-left: -25px; margin-right: -25px;
+		width: calc(100% + 50px);
+	}
+	#tree:not(.mosaic) tr > td:first-child, #tree:not(.mosaic) tr > th:first-child { padding-left: 25px; }
+	#tree:not(.mosaic) tr > td:last-child, #tree:not(.mosaic) tr > th:last-child { padding-right: 25px; }
+}
+
+@media screen and (min-width: 800px) {
+	#tree:not(.mosaic) { /* Negative margin in order to have full width selected row background */
+		margin-left: -15px; margin-right: -15px;
+		width: calc(100% + 30px);
+	}
+	#tree:not(.mosaic) tr > td:first-child, #tree:not(.mosaic) tr > th:first-child { padding-left: 15px; }
+	#tree:not(.mosaic) tr > td:last-child, #tree:not(.mosaic) tr > th:last-child { padding-right: 15px; }
+
+	#mui { margin-top: 30px; }
+	#tree input[type="radio"] + label, #tree input[type="checkbox"] + label { padding-left: 34px; }
+}
+
+@media screen and (min-width: 1000px) {
 	#tree:not(.mosaic) { /* Negative margin in order to have full width selected row background */
 		margin-left: -50px; margin-right: -50px;
 		width: calc(100% + 100px);
 	}
 	#tree:not(.mosaic) tr > td:first-child, #tree:not(.mosaic) tr > th:first-child { padding-left: 50px; }
 	#tree:not(.mosaic) tr > td:last-child, #tree:not(.mosaic) tr > th:last-child { padding-right: 50px; }
+
+	#tree td:nth-child(4), #tree td:nth-child(5) { font-size: 15px; }
+	#tree .btn-actions { width: 65px; }
+	#tree:not(.mosaic) tr > td:last-child, #tree:not(.mosaic) tr > th:last-child { width: 65px; }
+	#tree input[type="radio"] + label, #tree input[type="checkbox"] + label { padding-left: 44px; }
+}
+
+@media screen and (min-width: 1200px) {
+	#tree.mosaic tr { margin: 0 15px 48px 15px; }
 }
