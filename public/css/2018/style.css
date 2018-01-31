@@ -376,7 +376,7 @@ a.blue:hover, a.blue:active, a.blue:focus { color: #0b9fcb; }
 	width: 100%; max-width: 100%;
 	padding: 8px 13px;
 	box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
-	margin: 36px 0;
+	margin: 15px 0 25px 0;
 }
 .story .keep { font-size: 15px; letter-spacing: .1px; }
 .story .help { padding-top: 6px; }
@@ -385,7 +385,7 @@ a.blue:hover, a.blue:active, a.blue:focus { color: #0b9fcb; }
 .inline { display: inline; }
 .block { display: block; }
 .mtop { margin-top: 25px; }
-.mbottom { margin-bottom: 25px; }
+.mbottom { margin-bottom: 20px; }
 .hide { display: none; }
 .hidden { display: none !important; }
 .nowrap { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
@@ -434,7 +434,7 @@ section#desktop img.arrow { height: 5vh; width: 5vh; }
 
 #quota_container { margin-bottom: 8px; text-align: center; }
 
-.selection_bottom { text-align: center; margin-top: 40px; }
+.selection_bottom { text-align: center; margin-top: 20px; }
 .selection_bottom a { display: inline-block; margin: 0 10px; font-weight: bold; }
 
 @media screen and (max-height: 600px) and (min-width: 600px) {
