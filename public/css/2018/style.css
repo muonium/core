@@ -20,7 +20,7 @@ body {
 #main {
 	display: flex;
 	padding-top: 70px;
-	padding-bottom: 108px;
+	padding-bottom: 48px;
 	min-height: 100%;
 }
 
@@ -108,6 +108,15 @@ header {
 	color: #16c1f3; border-bottom: 3px solid #16c1f3;
 }
 
+.sidebar + [class^="container-"] {
+	/* Put enough margin to show mobile sidebar */
+	margin-bottom: 60px;
+}
+.sidebar + .container-max {
+	/* 60px - 48px */
+	margin-bottom: 12px;
+}
+
 .container-small, .container-large, .container-max {
 	width: 100%; max-width: 100%;
 	overflow: hidden;
@@ -121,7 +130,6 @@ header {
 .container-large {
 	margin-left: 15px; margin-right: 15px;
 }
-.container-max { margin-bottom: -48px; }
 
 form.form-login, form.form-register, form.form-bug, .container-small > form {
 	margin: 30px auto 0px auto;
@@ -408,6 +416,7 @@ fieldset p { margin-bottom: 25px; }
 fieldset .label { font-family: RobotoMono; font-weight: 500; margin-right: 8px; }
 
 table.table-large { width: 100%; max-width: 100%; }
+th { text-align: left; }
 
 section#desktop {
     width: 100%; height: 100%;
@@ -428,7 +437,12 @@ section#desktop img.arrow { height: 5vh; width: 5vh; }
 }
 
 @media screen and (min-width: 600px) {
-	#main { padding-bottom: 48px; }
+	.sidebar + [class^="container-"] { /* Auto bottom margin for container-* except container-max */
+		margin-bottom: auto;
+	}
+	.sidebar, .sidebar + .container-max, .sidebar + [class^="container-"] + #selection {
+		margin-bottom: -48px; /* Ignore main bottom padding */
+	}
 
 	[class^="input-"] input { padding-left: 44px; }
 
@@ -447,7 +461,6 @@ section#desktop img.arrow { height: 5vh; width: 5vh; }
 		position: relative;
 		width: 80px; min-width: 80px;
 		height: auto;
-		margin-bottom: -48px;
 		box-shadow: 1px 2px 4px 0 rgba(0, 0, 0, 0.1);
 		z-index: 1;
 	}
@@ -487,8 +500,6 @@ section#desktop img.arrow { height: 5vh; width: 5vh; }
 	.bloc-offers > div { flex-basis: 240px; }
 
 	input[type="radio"] + label, input[type="checkbox"] + label { padding-left: 44px; }
-
-	/*section#desktop { height: calc(100% - 200px); }*/
 }
 
 @media screen and (min-width: 800px) {
