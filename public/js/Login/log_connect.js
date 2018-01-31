@@ -30,7 +30,6 @@ var sendConnectionRequest = function(e) {
         returnArea.innerHTML = txt.Register.form;
 	}
     else {
-
         var xhr = new XMLHttpRequest();
         xhr.open("POST", "Login/Connection", true);
         xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");

@@ -5,18 +5,15 @@
 #tree.mosaic { width: 100%; }
 #tree.mosaic > tbody { width: calc(100% + 30px); margin-left: -15px; margin-right: -15px; }
 #tree.mosaic, #tree.mosaic > tbody {
-	display: -webkit-box; display: -ms-flexbox; display: flex;
-	-ms-flex-wrap: wrap; flex-wrap: wrap;
-
-	-webkit-box-orient: vertical; -webkit-box-direction: normal;
-	-ms-flex-direction: column; flex-direction: column;
-
-	justify-content: flex-start;
+	display: flex; display: -ms-flexbox;
+	flex-wrap: wrap; -ms-flex-wrap: wrap;
+	flex-direction: column; -ms-flex-direction: column;
+	justify-content: flex-start; -ms-flex-pack: start;
 }
 
 #tree.mosaic #tree_head {
 	width: 100%; height: 24px;
-	flex-basis: auto;
+	flex-basis: auto; -ms-flex-preferred-size: auto;
 	display: block;
 	margin: 50px 15px;
 	box-shadow: none; border-radius: 0;
@@ -79,8 +76,13 @@ a[id^="parent-"] .fa-caret-up { font-size: 24px; padding-left: 10px; }
 #tree:not(.mosaic) tr > td:last-child, #tree:not(.mosaic) tr > th:last-child { padding-right: 20px; width: 65px; }
 
 @media screen and (min-width: 400px) {
-    #tree.mosaic, #tree.mosaic > tbody { -webkit-box-orient: horizontal; -webkit-box-direction: normal; -ms-flex-direction: row; flex-direction: row; }
-    #tree.mosaic tr { -ms-flex-preferred-size: 184px; flex-basis: 184px; height: 229px; }
+    #tree.mosaic, #tree.mosaic > tbody {
+		flex-direction: row; -ms-flex-direction: row;
+	}
+    #tree.mosaic tr {
+		flex-basis: 184px; -ms-flex-preferred-size: 184px;
+		height: 229px;
+	}
 }
 
 @media screen and (min-width: 600px) {

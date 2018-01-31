@@ -1,13 +1,13 @@
 .quota {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
+    display: flex; display: -ms-flexbox;
+    flex-direction: row; -ms-flex-direction: row;
+    flex-wrap: nowrap; -ms-flex-wrap: nowrap;
     align-items: center;
 }
 
 .progress_bar {
     margin-bottom: 10px;
-    flex-grow: 1;
+    flex-grow: 1; -ms-flex-positive: 1;
     height: 6px;
 	border-radius: 3px;
 }
