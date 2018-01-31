@@ -66,7 +66,7 @@ class Upgrade extends l\Languages {
 		foreach($upgrades as $upgrade) {
 			$history .= '<tr>';
 			$history .= '<td>'.showSize($upgrade['size']).'</td>';
-			$history .= '<td>'.$upgrade['price'].' '.strtoupper($upgrade['currency']).'</td>';
+			$history .= '<td>'.$upgrade['price'].' '.currencySymbol($upgrade['currency']).'</td>';
 			$history .= '<td>'.date(self::$txt->Dates->date.' '.self::$txt->Dates->time, $upgrade['start']).'</td>';
 			$history .= '<td>'.date(self::$txt->Dates->date.' '.self::$txt->Dates->time, $upgrade['end']).'</td>';
 			$history .= '<td class="red fit-width">';

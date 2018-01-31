@@ -22,7 +22,7 @@
 		</div>
 
 		<h2 class="em"><?php echo self::$txt->Upgrade->history; ?></h2>
-		<table class="table-large">
+		<table class="table-large table-responsive">
 			<tr>
 				<th><?php echo self::$txt->User->size; ?></th>
 				<th><?php echo self::$txt->Upgrade->price; ?></th>

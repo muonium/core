@@ -307,13 +307,12 @@ a.blue:hover, a.blue:active, a.blue:focus { color: #0b9fcb; }
 	width: 100%; max-width: 100%;
 }
 .bloc-offers > div {
-	width: 100%; height: 340px;
-	margin-bottom: 24px;
+	width: 100%; height: 300px;
+	margin-bottom: 15px;
 	position: relative;
 	overflow: hidden;
-	margin-right: 24px;
 	box-shadow: 0 8px 8px 0 rgba(0, 0, 0, 0.05);
-	padding: 55px 32px;
+	padding: 40px 5px;
 	border: solid 4px transparent;
 	text-align: center;
 }
@@ -416,6 +415,13 @@ fieldset p { margin-bottom: 25px; }
 fieldset .label { font-family: RobotoMono; font-weight: 500; margin-right: 8px; }
 
 table.table-large { width: 100%; max-width: 100%; }
+
+table.table-responsive th { display: none; width: 1%; }
+table.table-responsive td { display: block; padding: 0 10px; }
+table.table-responsive td:first-child { padding-top: 10px; }
+table.table-responsive td:last-child { padding-bottom: 10px; }
+table.table-responsive tr { display: block; margin: 10px 0; }
+
 th { text-align: left; }
 
 section#desktop {
@@ -503,9 +509,15 @@ section#desktop img.arrow { height: 5vh; width: 5vh; }
 		flex-direction: row; -ms-flex-direction: row;
 		flex-wrap: wrap; -ms-flex-wrap: wrap;
 	}
-	.bloc-offers > div { flex-basis: 240px; }
+	.bloc-offers > div {
+		flex-basis: 225px;
+		margin-right: 15px; margin-bottom: 15px;
+	}
 
 	input[type="radio"] + label, input[type="checkbox"] + label { padding-left: 44px; }
+
+	table.table-responsive th, table.table-responsive td { display: table-cell; padding: 0 !important; }
+	table.table-responsive tr { display: table-row; margin: 0; }
 }
 
 @media screen and (min-width: 800px) {
@@ -513,6 +525,12 @@ section#desktop img.arrow { height: 5vh; width: 5vh; }
 	[class^="input-"] { margin-left: auto; margin-right: auto; }
 	.input-small { max-width: 350px; }
 	.input-large { max-width: 600px; }
+	.bloc-offers > div {
+		flex-basis: 240px;
+		padding: 55px 32px;
+		height: 340px;
+		margin-right: 24px; margin-bottom: 24px;
+	}
 }
 
 @media screen and (min-width: 1200px) {

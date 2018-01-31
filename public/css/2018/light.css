@@ -82,6 +82,8 @@ fieldset { color: #212121; }
 legend { color: #757575; }
 fieldset .label, #box .label { color: #757575; }
 
+table.table-responsive td { background-color: #f9f9f9; }
+
 #selection { background-color: #fff; }
 #selection .selection strong { color: #757575; }
 
@@ -108,3 +110,7 @@ fieldset .label, #box .label { color: #757575; }
 #transfers .transfers_upload > div, #transfers .transfers_download > div { border-bottom: 2px solid #f9f9f9; }
 #transfers .pct { color: #616161; }
 #transfers .btn-abort { color: #c62828; }
+
+@media screen and (min-width: 600px) {
+	table.table-responsive td { background-color: transparent; }
+}

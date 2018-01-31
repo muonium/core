@@ -79,6 +79,8 @@ hr { background-color: #2c2c2c; }
 fieldset, legend { color: #fff; }
 fieldset .label, #box .label { color: #fff; }
 
+table.table-responsive td { background-color: #4a4a4a; }
+
 #selection { background-color: #3b3a3a; }
 #selection .selection strong { color: #fff; }
 
@@ -107,3 +109,7 @@ fieldset .label, #box .label { color: #fff; }
 #transfers .transfers_upload > div, #transfers .transfers_download > div { border-bottom: 1px solid #3f3e3e; }
 #transfers .pct { color: #fff; }
 #transfers .btn-abort { color: #ff8a80; }
+
+@media screen and (min-width: 600px) {
+	table.table-responsive td { background-color: transparent; }
+}
