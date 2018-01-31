@@ -48,7 +48,7 @@
 			<div class="bloc-input">
 				<div>
 					<form>
-						<h3 class="nowrap"><?php echo self::$txt->Profile->changelogin; ?></h3>
+						<h3><?php echo self::$txt->Profile->changelogin; ?></h3>
 			            <p class="input-large">
 							<input type="text" name="new_login" id="new_login" placeholder="<?php echo self::$txt->Profile->newlogin; ?>" required>
 			                <label class="fa fa-user" for="new_login" aria-hidden="true"></label>
@@ -59,7 +59,7 @@
 				</div>
 				<div>
 					<form>
-						<h3 class="nowrap"><?php echo self::$txt->Profile->changemail; ?></h3>
+						<h3><?php echo self::$txt->Profile->changemail; ?></h3>
 			            <p class="input-large">
 			                <input type="text" name="new_mail" id="new_mail" placeholder="<?php echo self::$txt->Profile->changemail; ?>" required>
 							<label class="fa fa-envelope" for="new_mail" aria-hidden="true"></label>

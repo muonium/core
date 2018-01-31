@@ -47,7 +47,7 @@ body {
 .icon { width: 18px; }
 
 h3 {
-	font-size: 18px; font-family: RobotoMono;
+	font-size: 16px; font-family: RobotoMono;
 	letter-spacing: .4px;
 	text-align: left;
 }
@@ -537,6 +537,7 @@ section#desktop img.arrow { height: 5vh; width: 5vh; }
 		height: 340px;
 		margin-right: 24px; margin-bottom: 24px;
 	}
+	h3 { font-size: 18px; }
 }
 
 @media screen and (min-width: 1200px) {
