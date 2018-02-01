@@ -17,7 +17,10 @@
         "submit": "提交",
         "bug": "Bug反馈",
         "loading": "加载中...",
-		"selected": "Currently selected"
+		"selected": "Currently selected",
+		"general": "总面板",
+        "shared": "共享的文件",
+        "transfers": "传输"
     },
 
     "UserMenu": {
@@ -31,14 +34,6 @@
         "multiSelection": "多项选择",
         "selectAll": "选择全部",
 		"moreStorage": "购买更多的储存空间"
-    },
-
-    "Toolbar": {
-        "recents": "最近的文件",
-        "favorites": "喜爱的文件",
-        "general": "总面板",
-        "shared": "共享的文件",
-        "transfers": "传输"
     },
 
     "Error": {

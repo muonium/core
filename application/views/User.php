@@ -25,7 +25,6 @@
 		'Interface/modules/Rm',
 		'Interface/modules/Selection',
 		'Interface/modules/Time',
-	    'Interface/modules/Toolbar',
 	    'Interface/modules/Transfers',
 		'Interface/modules/Trash',
 		'Interface/modules/Upload',
@@ -99,7 +98,7 @@
 
     <div id="transfers" class="hide">
         <section class="top">
-            <?php echo self::$txt->Toolbar->transfers; ?>
+            <?php echo self::$txt->Global->transfers; ?>
 			<span onclick="Transfers.close()"><i class="fa fa-times" aria-hidden="true"></i></span>
             <span onclick="Transfers.minimize()"><i class="fa fa-window-minimize" aria-hidden="true"></i></span>
         </section>
@@ -118,7 +117,6 @@
     </div>
 
     <div id="box" class="hide"></div>
-    <div id="toolbar" class="hidden"></div> <!-- Box equivalent for mobile devices -->
 	<a href="#" id="dl_decrypted"></a>
 	<script>
 		$(document).ready(UserLoader);

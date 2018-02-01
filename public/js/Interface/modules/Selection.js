@@ -16,7 +16,6 @@ var Selection = (function() {
                 $('#'+id).addClass('selected').find('#sel_'+id).prop('checked', true);
             }
             Selection.putDetails(id);
-            //Toolbar.display(id);
         },
 
         unselect : function(id) {
@@ -26,7 +25,6 @@ var Selection = (function() {
 			setTimeout(function() {
 				$('#sel_all').prop('checked', false);
 			}, 0);
-            //Toolbar.display();
         },
 
         add : function(id, m = null) {

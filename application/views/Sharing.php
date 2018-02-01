@@ -26,7 +26,6 @@
 		'Interface/modules/Selection',
 		'Interface/modules/Time',
 		'Interface/modules/Transfers',
-		'Interface/modules/Toolbar',
 		'Interface/modules/Trash',
 		'Interface/modules/Upload',
 		'check',

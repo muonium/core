@@ -36,7 +36,6 @@ var UserLoader = function(folder_id) {
         Favorites = Favorites();
     	ExtIcons = ExtIcons();
         MessageBox = MessageBox();
-        Toolbar = Toolbar();
         Transfers = Transfers();
         Request.modulesLoaded = true;
     }
@@ -214,8 +213,6 @@ var setEvents = function() {
     Arrows.init();
     // Init Box
     Box.init();
-
-    Toolbar.display();
 
 	$('#sel_all').on('click', function(e) {
 		e.preventDefault();

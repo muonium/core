@@ -17,7 +17,10 @@
         "submit": "Absenden",
         "bug": "Melde einen Fehler",
         "loading": "Lädt...",
-		"selected": "Currently selected"
+		"selected": "Currently selected",
+		"general": "Allgemein",
+        "shared": "Geteilt",
+        "transfers": "Transferiere"
     },
 
     "UserMenu": {
@@ -31,14 +34,6 @@
         "multiSelection": "Mehrfachauswahl",
         "selectAll": "Alle auswählen",
         "moreStorage": "Kaufe mehr Speicher"
-    },
-
-    "Toolbar": {
-        "recents": "Letzte",
-        "favorites": "Favoriten",
-        "general": "Allgemein",
-        "shared": "Geteilt",
-        "transfers": "Transferiere"
     },
 
     "Error": {

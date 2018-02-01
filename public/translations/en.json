@@ -17,7 +17,10 @@
         "submit": "Submit",
         "bug": "Bug report",
         "loading": "Loading...",
-		"selected": "Currently selected"
+		"selected": "Currently selected",
+        "general": "General",
+        "shared": "Shared",
+        "transfers": "Transfers"
     },
 
     "UserMenu": {
@@ -31,14 +34,6 @@
         "multiSelection": "Multi-selection",
         "selectAll": "Select all",
 		"moreStorage": "Buy more storage"
-    },
-
-    "Toolbar": {
-        "recents": "Recents",
-        "favorites": "Favorites",
-        "general": "General",
-        "shared": "Shared",
-        "transfers": "Transfers"
     },
 
     "Error": {

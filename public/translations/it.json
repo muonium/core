@@ -17,7 +17,10 @@
         "submit": "Invia",
         "bug": "Bug report",
         "loading": "Caricamento...",
-		"selected": "Currently selected"
+		"selected": "Currently selected",
+		"general": "Generale",
+        "shared": "Condivisi",
+        "transfers": "Trasferimenti"
     },
 
     "UserMenu": {
@@ -31,14 +34,6 @@
         "multiSelection": "Multi-selection",
         "selectAll": "Select all",
 		"moreStorage": "Buy more storage"
-    },
-
-    "Toolbar": {
-        "recents": "Recenti",
-        "favorites": "Preferiti",
-        "general": "Generale",
-        "shared": "Condivisi",
-        "transfers": "Trasferimenti"
     },
 
     "Error": {

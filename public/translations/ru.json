@@ -17,7 +17,10 @@
         "submit": "Принять",
         "bug": "Отчет об ошибке",
         "loading": "Загрузка...",
-		"selected": "Currently selected"
+		"selected": "Currently selected",
+		"general": "Общее",
+        "shared": "Общий доступ",
+        "transfers": "Передачи"
     },
 
     "UserMenu": {
@@ -31,14 +34,6 @@
         "multiSelection": "Выбор нескольких",
         "selectAll": "Выбрать все",
 		"moreStorage": "Купить дополнительное место"
-    },
-
-    "Toolbar": {
-        "recents": "Принятые",
-        "favorites": "Избранное",
-        "general": "Общее",
-        "shared": "Общий доступ",
-        "transfers": "Передачи"
     },
 
     "Error": {
