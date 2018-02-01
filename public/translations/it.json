@@ -93,7 +93,8 @@
 		"Upnothing": "You haven't uploaded anything yet.",
 		"Dlnothing": "You haven't downloaded anything yet.",
 		"Trashnothing": "You haven't deleted any files recently.",
-		"first": "Upload your first file."
+		"first": "Upload your first file.",
+		"copied": "Link has been copied to clipboard"
     },
 
     "Register": {

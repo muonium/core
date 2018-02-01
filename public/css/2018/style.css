@@ -432,7 +432,11 @@ section#desktop {
 
 section#desktop img.arrow { height: 5vh; width: 5vh; }
 
-#quota_container { margin-bottom: 8px; text-align: center; }
+#quota_container {
+	margin-bottom: 8px; text-align: center;
+	position: absolute; left: 19px; right: 19px; bottom: 30px;
+}
+#quota_container + p { position: absolute; left: 19px; right: 19px; bottom: 0; }
 
 .selection_bottom { text-align: center; margin-top: 20px; display: none; }
 .selection_bottom a { display: inline-block; margin: 0 10px; font-weight: bold; }
@@ -544,6 +548,7 @@ section#desktop img.arrow { height: 5vh; width: 5vh; }
 	h3 { font-size: 18px; }
 	#display { top: 70px; right: 240px; padding-top: 20px; }
 	.selection_bottom { display: block; }
+	#quota_container, #quota_container + p { position: static; }
 }
 
 @media screen and (min-width: 1000px) {

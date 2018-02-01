@@ -10,9 +10,10 @@
 
 #selection .fixed {
 	min-width: 100%; width: 100%;
-	max-height: 200px;
+	height: 200px; max-height: 200px;
 	overflow-x: hidden; overflow-y: hidden;
 	text-align: center;
+	display: flex;
 }
 
 #selection.selected {
@@ -21,7 +22,12 @@
     box-shadow: -2px 0px 8px 1px #ccc;
 }
 
-#selection .selection { display: inline-block; text-align: left; }
+#selection .selection {
+	display: inline-block;
+	text-align: left;
+	margin: auto;
+	padding-bottom: 70px;
+}
 
 #selection .selection input:not([type="checkbox"]):not([type="radio"]):not([type="button"]) {
 	margin-bottom: 10px;
@@ -53,7 +59,9 @@
 
 .story { display: none; }
 
-#selection #up_btn { display: none !important; }
+#selection #up_btn, #selection .copy_url, #selection #copy_btn { display: none !important; }
+
+#selection .copy_url.cc { display: block !important; position: absolute; top: -999px; opacity: 0; z-index: 0; }
 
 @media screen and (min-width: 450px) {
 	#selection a.blue { margin: 0 15px; width: 40px; }
@@ -73,19 +81,20 @@
 	}
 	#selection .fixed {
 		min-width: 240px; width: 240px;
-		max-height: calc(100vh - 70px);
+		height: auto; max-height: calc(100vh - 70px);
 		overflow-x: hidden; overflow-y: auto;
 		text-align: left;
+		display: block;
 	}
 	#selection > div { position: fixed; }
-	#selection .selection { display: block; }
+	#selection .selection { display: block; padding-bottom: 0; }
 	.story { display: block; }
 	#selection .selection strong { display: block; }
 	#selection a.blue { float: none; width: auto; text-align: left; }
 	#selection a.blue, #selection a.blue > .fa { font-size: 15px; margin: 0; }
 	#selection a.blue > .fa { width: 25px; }
-	#selection #up_icon { display: none !important; }
-	#selection #up_btn { display: block !important; }
+	#selection #up_icon, #selection #copy_icon { display: none !important; }
+	#selection #up_btn, #selection .copy_url, #selection #copy_btn { display: block !important; }
 }
 
 @media screen and (max-height: 1000px) and (min-width: 600px) {

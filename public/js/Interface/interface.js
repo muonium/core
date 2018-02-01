@@ -357,8 +357,17 @@ var showHelp = function() {
 };
 
 var copy_url = function() {
+	var is_visible = true;
+	if($('section.selection .copy_url:hidden').length > 0) {
+		is_visible = false;
+		$('section.selection .copy_url').addClass('cc');
+	}
 	document.querySelector('section.selection .copy_url').select();
 	document.execCommand('copy');
+	if(!is_visible) {
+		$('section.selection .copy_url').removeClass('cc');
+		alert(txt.User.copied);
+	}
 };
 
 var logout = function() {

@@ -265,7 +265,8 @@ var Selection = (function() {
 						html += '<a class="blue block" onclick="Selection.unshare(\''+id.substr(1)+'\')"><i class="fa fa-ban" aria-hidden="true"></i> '+txt.RightClick.unshare+'</a>';
 						if(Selection.Files.length === 1 && Selection.Folders.length === 0) {
 							html += '<input type="text" value="'+$(elem).data('url')+'" class="copy_url">';
-							html += '<input type="button" class="btn btn-large" value="'+txt.RightClick.copy+'" onclick="copy_url()">';
+							html += '<input id="copy_btn" type="button" class="btn btn-large" value="'+txt.RightClick.copy+'" onclick="copy_url()">';
+							html += '<a id="copy_icon" class="blue block" onclick="copy_url()"><i class="fa fa-link"></i></a>';
 						}
 					}
 					if(Selection.Files.length > 1 || Selection.Folders.length > 1 || !Files.isShared(id.substr(1))) {

@@ -93,7 +93,8 @@
 		"Upnothing": "You haven't uploaded anything yet.",
 		"Dlnothing": "You haven't downloaded anything yet.",
 		"Trashnothing": "You haven't deleted any files recently.",
-		"first": "Téléversez votre premier fichier."
+		"first": "Téléversez votre premier fichier.",
+		"copied": "Le lien a été copié dans le presse-papier"
     },
 
     "Register": {
