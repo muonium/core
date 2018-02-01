@@ -3,7 +3,7 @@
     width: 100%; min-height: 20px;
 	max-height: 60vh;
     position: fixed;
-    bottom: 50px;
+    bottom: 55px;
     overflow-x: hidden; overflow-y: auto;
     z-index: 9999;
     box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.1);
