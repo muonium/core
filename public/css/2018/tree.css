@@ -48,8 +48,8 @@
 #tree td { font-size: 15px; font-family: Roboto; }
 #tree td:nth-child(4), #tree td:nth-child(5) { font-size: 12px; }
 
-#tree:not(.mosaic) th:nth-child(4), #tree:not(.mosaic) td:nth-child(4),
-#tree:not(.mosaic) th:nth-child(5), #tree:not(.mosaic) td:nth-child(5) { display: none; }
+#tree:not(.mosaic) th:nth-child(5), #tree:not(.mosaic) td:nth-child(5),
+#tree:not(.mosaic) th:nth-child(6), #tree:not(.mosaic) td:nth-child(6) { display: none; }
 
 #tree.mosaic td { display: block; padding: 8px 11px; overflow: hidden; text-overflow: ellipsis; }
 #tree.mosaic td:first-child { position: absolute; top: 8px; left: 8px; padding: 0; }
@@ -99,9 +99,6 @@ a[id^="parent-"] .fa-caret-up { font-size: 24px; padding-left: 10px; }
 		padding-bottom: 0;
 	}
 	#tree.mosaic .icon { margin: 0 auto 43px auto; }
-}
-
-@media screen and (min-width: 500px) {
 	#tree:not(.mosaic) th:nth-child(5), #tree:not(.mosaic) td:nth-child(5) { display: table-cell; }
 }
 
@@ -112,6 +109,7 @@ a[id^="parent-"] .fa-caret-up { font-size: 24px; padding-left: 10px; }
 	}
 	#tree:not(.mosaic) tr > td:first-child, #tree:not(.mosaic) tr > th:first-child { padding-left: 25px; }
 	#tree:not(.mosaic) tr > td:last-child, #tree:not(.mosaic) tr > th:last-child { padding-right: 25px; }
+	#tree:not(.mosaic) th:nth-child(6), #tree:not(.mosaic) td:nth-child(6) { display: table-cell; }
 
 	#mui { margin-top: 210px; }
 }
