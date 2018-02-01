@@ -1,5 +1,5 @@
 #mui, #tree { width: 100%; }
-#mui { margin-top: 230px; }
+#mui { margin-top: 220px; }
 #tree { border-collapse: collapse; }
 #tree > div, #tree a { cursor: pointer; }
 
@@ -31,7 +31,6 @@
 #tree.mosaic th:first-child, #tree.mosaic th:nth-child(3) { display: inline-block; }
 
 #tree tr {
-	height: 54px;
 	overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
 	position: relative;
 }
@@ -44,6 +43,7 @@
 	height: auto;
 	padding-bottom: 15px;
 }
+#tree:not(.mosaic) tr { height: 44px; }
 
 #tree td { font-size: 15px; font-family: Roboto; }
 #tree td:nth-child(4), #tree td:nth-child(5) { font-size: 12px; }
@@ -112,6 +112,8 @@ a[id^="parent-"] .fa-caret-up { font-size: 24px; padding-left: 10px; }
 	}
 	#tree:not(.mosaic) tr > td:first-child, #tree:not(.mosaic) tr > th:first-child { padding-left: 25px; }
 	#tree:not(.mosaic) tr > td:last-child, #tree:not(.mosaic) tr > th:last-child { padding-right: 25px; }
+
+	#mui { margin-top: 210px; }
 }
 
 @media screen and (min-width: 800px) {
@@ -123,6 +125,7 @@ a[id^="parent-"] .fa-caret-up { font-size: 24px; padding-left: 10px; }
 	#tree:not(.mosaic) tr > td:last-child, #tree:not(.mosaic) tr > th:last-child { padding-right: 15px; }
 
 	#mui { margin-top: 30px; }
+	#tree:not(.mosaic) tr { height: 54px; }
 	#tree.mosaic #tree_head { margin: 50px 15px; }
 	#tree input[type="radio"] + label, #tree input[type="checkbox"] + label { padding-left: 34px; }
 }

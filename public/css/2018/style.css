@@ -28,7 +28,7 @@ body {
 	position: fixed;
 	top: 270px; left: 0; right: 0;
 	text-align: right;
-	padding-top: 20px; padding-bottom: 10px; padding-right: 20px;
+	padding-top: 10px; padding-bottom: 10px; padding-right: 20px;
 	z-index: 1;
 }
 #display input + label { padding-left: 18px !important; font-size: 17px; color: #b4bac6; }
@@ -539,7 +539,7 @@ section#desktop img.arrow { height: 5vh; width: 5vh; }
 		margin-right: 24px; margin-bottom: 24px;
 	}
 	h3 { font-size: 18px; }
-	#display { top: 70px; right: 240px; }
+	#display { top: 70px; right: 240px; padding-top: 20px; }
 }
 
 @media screen and (min-width: 1000px) {
