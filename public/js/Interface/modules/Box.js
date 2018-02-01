@@ -129,17 +129,18 @@ var Box = (function() {
             }
 
             Box.show();
-
-			x += document.body.scrollLeft;
-			y += document.body.scrollTop;
+			var sx = window.pageXOffset || document.documentElement.scrollLeft || document.body.scrollLeft || 0
+			var sy = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+			x += sx;
+			y += sy;
 
             if(x < 2) x = 2;
-            if(x + box_div.clientWidth > document.body.clientWidth + document.body.scrollLeft) {
-				x = document.body.scrollLeft + document.body.clientWidth - box_div.clientWidth - 2;
+            if(x + box_div.clientWidth > document.body.clientWidth + sx) {
+				x = sx + document.body.clientWidth - box_div.clientWidth - 2;
 			}
             if(y < 5) y = 5;
-            if(y + box_div.clientHeight > document.body.clientHeight + document.body.scrollTop) {
-				y = document.body.scrollTop + document.body.clientHeight - box_div.clientHeight - 5;
+            if(y + box_div.clientHeight > document.body.clientHeight + sy) {
+				y = sy + document.body.clientHeight - box_div.clientHeight - 5;
 			}
 
             box_div.style.left = x+'px';

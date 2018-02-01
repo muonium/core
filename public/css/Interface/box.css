@@ -50,5 +50,6 @@
 }
 
 @media screen and (min-width: 600px) {
+	#box { min-width: 150px; }
 	#box .close { font-size: 18px; }
 }

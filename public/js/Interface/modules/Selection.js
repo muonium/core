@@ -46,9 +46,11 @@ var Selection = (function() {
         },
 
         addFile : function(event, id) {
-			if(typeof event === 'object' && event !== null) event.preventDefault(); // Prevent event to be fired twice in some cases (due to input checkbox and label)
-			if(event.target.tagName === 'LABEL' || (event.target.tagName === 'TD' && $(event.target).is(':first-child'))) {
-				event = 'ctrl'; // Click on label/checkbox: behave like 'ctrl' key is pressed
+			if(typeof event === 'object' && event !== null) {
+				event.preventDefault(); // Prevent event to be fired twice in some cases (due to input checkbox and label)
+				if(event.target.tagName === 'LABEL' || (event.target.tagName === 'TD' && $(event.target).is(':first-child'))) {
+					event = 'ctrl'; // Click on label/checkbox: behave like 'ctrl' key is pressed
+				}
 			}
             Selection.addSel = 1;
             if(document.querySelector("#"+id)) {
@@ -82,9 +84,11 @@ var Selection = (function() {
         },
 
         addFolder : function(event, id) {
-			if(typeof event === 'object' && event !== null) event.preventDefault(); // Prevent event to be fired twice in some cases (due to input checkbox and label)
-			if(event.target.tagName === 'LABEL' || (event.target.tagName === 'TD' && $(event.target).is(':first-child'))) {
-				event = 'ctrl'; // Click on label/checkbox: behave like 'ctrl' key is pressed
+			if(typeof event === 'object' && event !== null) {
+				event.preventDefault(); // Prevent event to be fired twice in some cases (due to input checkbox and label)
+				if(event.target.tagName === 'LABEL' || (event.target.tagName === 'TD' && $(event.target).is(':first-child'))) {
+					event = 'ctrl'; // Click on label/checkbox: behave like 'ctrl' key is pressed
+				}
 			}
             Selection.addSel = 1;
             if(document.querySelector("#"+id)) {

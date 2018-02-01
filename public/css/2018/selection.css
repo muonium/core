@@ -102,7 +102,6 @@
 	#selection { font-size: 13px; }
 	.story .keep, .story .join, .story .help { font-size: 13px !important; }
 	.story .help { padding-top: 0; }
-	#selection a.blue { font-size: 14px; }
 	#selection hr { margin-top: 5px; margin-bottom: 5px; }
 	#selection p { margin-bottom: 8px; }
 	#selection .btn { height: 30px; }
@@ -112,6 +111,10 @@
 	.mbottom { margin-bottom: 15px; }
 	.selection_bottom { margin-top: 10px; }
 	#quota_container { margin-top: 0; }
+}
+
+@media screen and (max-height: 1000px) and (min-width: 800px) {
+	#selection a.blue { font-size: 14px; }
 }
 
 @media screen and (max-height: 767px) and (min-width: 600px) {

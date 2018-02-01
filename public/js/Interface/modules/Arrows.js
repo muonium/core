@@ -61,7 +61,10 @@ var Arrows = (function() {
 
         scroll : function(el) {
             // Autoscroll
-            document.body.scrollTop = el.offsetTop - 130;
+			var sy = el.offsetTop - document.querySelector('#tree_head').offsetTop - 130; // Diff with tree head because FF doesn't use relative offset
+			window.pageYOffset = sy;
+			document.documentElement.scrollTop = sy;
+			document.body.scrollTop = sy;
         }
     }
 });
