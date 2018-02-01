@@ -19,14 +19,14 @@ body {
 
 #main {
 	display: flex; display: -ms-flexbox;
-	padding-top: 70px;
+	padding-top: 45px;
 	padding-bottom: 48px;
 	min-height: 100%; height: auto;
 }
 
 #display {
 	position: fixed;
-	top: 270px; left: 0; right: 0;
+	top: 245px; left: 0; right: 0;
 	text-align: right;
 	padding-top: 10px; padding-bottom: 10px; padding-right: 20px;
 	z-index: 1;
@@ -55,7 +55,7 @@ header {
 	display: flex; display: -ms-flexbox;
 	align-items: center;
 	width: 100%;
-	height: 70px;
+	height: 45px;
 	padding: 0 30px;
 	position: fixed;
 	top: 0;
@@ -77,13 +77,13 @@ header {
 	width: 100%;
 	position: fixed;
 	bottom: 0;
-	height: 60px;
+	height: 55px;
 	box-shadow: 0 -2px 4px 0 rgba(0, 0, 0, 0.1);
 	z-index: 2;
 }
 .sidebar ul {
 	list-style-type: none;
-	width: 100%; max-height: 60px;
+	width: 100%; max-height: 55px;
 	overflow-x: hidden; overflow-y: hidden;
 	text-align: center;
 	white-space: nowrap;
@@ -95,7 +95,7 @@ header {
 }
 .sidebar li > a {
 	display: flex; display: -ms-flexbox;
-	height: 58px;
+	height: 53px;
 	flex: 1; -ms-flex: 1 1 0%;
 	align-items: center;
 	justify-content: center;
@@ -111,11 +111,11 @@ header {
 
 .sidebar + [class^="container-"] {
 	/* Put enough margin to show mobile sidebar */
-	margin-bottom: 60px;
+	margin-bottom: 55px;
 }
 .sidebar + .container-max {
-	/* 60px - 48px */
-	margin-bottom: 12px;
+	/* 55px - 48px */
+	margin-bottom: 7px;
 }
 
 .container-small, .container-large, .container-max {
@@ -434,7 +434,7 @@ section#desktop img.arrow { height: 5vh; width: 5vh; }
 
 #quota_container { margin-bottom: 8px; text-align: center; }
 
-.selection_bottom { text-align: center; margin-top: 20px; }
+.selection_bottom { text-align: center; margin-top: 20px; display: none; }
 .selection_bottom a { display: inline-block; margin: 0 10px; font-weight: bold; }
 
 @media screen and (max-height: 600px) and (min-width: 600px) {
@@ -445,6 +445,9 @@ section#desktop img.arrow { height: 5vh; width: 5vh; }
 }
 
 @media screen and (min-width: 600px) {
+	header { height: 70px; }
+	#main { padding-top: 70px; }
+
 	.sidebar + [class^="container-"] { /* Auto bottom margin for container-* except container-max */
 		margin-bottom: auto;
 	}
@@ -463,7 +466,7 @@ section#desktop img.arrow { height: 5vh; width: 5vh; }
 		padding: 25px 50px;
 	}
 	.container-max { padding: 25px; }
-	#display { left: 80px; }
+	#display { top: 270px; left: 80px; }
 
 	.sidebar {
 		position: relative;
@@ -540,6 +543,7 @@ section#desktop img.arrow { height: 5vh; width: 5vh; }
 	}
 	h3 { font-size: 18px; }
 	#display { top: 70px; right: 240px; padding-top: 20px; }
+	.selection_bottom { display: block; }
 }
 
 @media screen and (min-width: 1000px) {

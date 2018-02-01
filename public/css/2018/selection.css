@@ -1,6 +1,6 @@
 #selection {
 	position: fixed;
-	top: 70px; left: 0; right: 0; height: 200px;
+	top: 45px; left: 0; right: 0; height: 200px;
 	z-index: 2;
     overflow: hidden;
 	font-family: Roboto;
@@ -9,9 +9,10 @@
 #selection > div { padding: 19px; position: relative; }
 
 #selection .fixed {
-	min-width: 240px; width: 240px;
-	max-height: calc(100vh - 70px);
-	overflow-x: hidden; overflow-y: auto;
+	min-width: 100%; width: 100%;
+	max-height: 200px;
+	overflow-x: hidden; overflow-y: hidden;
+	text-align: center;
 }
 
 #selection.selected {
@@ -19,6 +20,8 @@
     -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;
     box-shadow: -2px 0px 8px 1px #ccc;
 }
+
+#selection .selection { display: inline-block; text-align: left; }
 
 #selection .selection input:not([type="checkbox"]):not([type="radio"]):not([type="button"]) {
 	margin-bottom: 10px;
@@ -29,11 +32,18 @@
 	font-family: RobotoMono; font-size: 11px;
 }
 
-#selection a.blue { font-size: 15px; letter-spacing: 1px; font-weight: 500; padding-bottom: 12px; }
-#selection a.blue > .fa { width: 25px; }
+#selection a.blue {
+	font-size: 0; letter-spacing: 1px; font-weight: 500;
+	padding-bottom: 12px;
+	float: left;
+	margin: 0 10px;
+	width: 30px;
+	text-align: center;
+}
+#selection a.blue > .fa { font-size: 30px; }
 
 #selection .selection strong {
-	display: block;
+	display: none;
 	font-family: OpenSans; font-size: 12px; font-weight: bold;
 	text-transform: uppercase;
 	padding-top: 5px; padding-bottom: 15px;
@@ -43,8 +53,15 @@
 
 .story { display: none; }
 
+#selection #up_btn { display: none !important; }
+
+@media screen and (min-width: 450px) {
+	#selection a.blue { margin: 0 15px; width: 40px; }
+	#selection a.blue > .fa { font-size: 36px; }
+}
+
 @media screen and (min-width: 600px) {
-	#selection { left: 80px; }
+	#selection { top: 70px; left: 80px; }
 }
 
 @media screen and (min-width: 800px) {
@@ -54,8 +71,21 @@
 		min-width: 240px; width: 240px;
 		height: auto;
 	}
+	#selection .fixed {
+		min-width: 240px; width: 240px;
+		max-height: calc(100vh - 70px);
+		overflow-x: hidden; overflow-y: auto;
+		text-align: left;
+	}
 	#selection > div { position: fixed; }
+	#selection .selection { display: block; }
 	.story { display: block; }
+	#selection .selection strong { display: block; }
+	#selection a.blue { float: none; width: auto; text-align: left; }
+	#selection a.blue, #selection a.blue > .fa { font-size: 15px; margin: 0; }
+	#selection a.blue > .fa { width: 25px; }
+	#selection #up_icon { display: none !important; }
+	#selection #up_btn { display: block !important; }
 }
 
 @media screen and (max-height: 1000px) and (min-width: 600px) {

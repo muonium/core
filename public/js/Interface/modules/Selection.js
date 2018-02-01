@@ -1,5 +1,7 @@
 // Selection module. Loaded in window.onload()
 var Selection = (function() {
+	// Save initial state to keep "upload new file(s)" and "new folder"
+	var html_default = $('section.selection').html();
     // addSel : 1 => add a new selection
     // Files : Selected files (id)
     // Folders : Selected folders (id)
@@ -225,7 +227,7 @@ var Selection = (function() {
         allSwitch : function() {},
 
 		removeDetails: function() {
-			$('section.selection').html('');
+			$('section.selection').html(html_default);
 		},
 
         putDetails: function(id) {
@@ -270,7 +272,7 @@ var Selection = (function() {
 						html += '<a class="blue block" onclick="Selection.share(\''+id.substr(1)+'\')"><i class="fa fa-share" aria-hidden="true"></i> '+txt.RightClick.share+'</a>';
 					}
 				}
-                $("section.selection").html(html);
+                $("section.selection").html(html_default + html);
             }
         }
     }

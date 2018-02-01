@@ -64,12 +64,13 @@
     </div>
 	<div id="selection">
 		<div class="fixed">
-			<div>
-				<button class="btn btn-large mbottom" onclick="Upload.dialog()"><?php echo self::$txt->RightClick->upFiles; ?></button>
-				<a href="#" class="blue block" onclick="Folders.create(event)"><i class="fa fa-folder-o" aria-hidden="true"></i> <?php echo self::$txt->RightClick->nFolder; ?></a>
-			</div>
+			<section class="selection">
+				<button id="up_btn" class="btn btn-large mbottom" onclick="Upload.dialog()"><?php echo self::$txt->RightClick->upFiles; ?></button>
+				<a href="#" id="up_icon" class="blue block" onclick="Upload.dialog()"><i class="fa fa-upload" aria-hidden="true"></i></a>
+				<a href="#" id="create_btn" class="blue block" onclick="Folders.create(event)"><i class="fa fa-folder-o" aria-hidden="true"></i> <?php echo self::$txt->RightClick->nFolder; ?></a>
 
-			<section class="selection"><!-- Selection infos will be displayed there --></section>
+				<!-- Selection infos will be displayed there -->
+			</section>
 
 			<!-- Box -->
 
