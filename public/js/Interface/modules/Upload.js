@@ -6,7 +6,8 @@ var Upload = (function() {
 
     // Public
     return {
-        dialog : function() {
+        dialog : function(e) {
+			if(typeof e === 'object' && e !== null) e.preventDefault();
             $('#upFilesInput').trigger('click');
         },
 

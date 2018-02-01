@@ -11,6 +11,14 @@ var Selection = (function() {
         Folders : [],
         multiple : false,
 
+		getDefault : function() {
+			var html = html_default;
+			if(Move.Files.length > 0 || Move.Folders.length > 0) {
+				html += '<a class="blue block" onclick="Move.paste()" title="'+txt.RightClick.paste+'"><i class="fa fa-clipboard" aria-hidden="true"></i> '+txt.RightClick.paste+'</a>';
+			}
+			return html;
+		},
+
         select : function(id) {
             if($('#'+id).length) {
                 $('#'+id).addClass('selected').find('#sel_'+id).prop('checked', true);
@@ -39,6 +47,9 @@ var Selection = (function() {
 
         addFile : function(event, id) {
 			if(typeof event === 'object' && event !== null) event.preventDefault(); // Prevent event to be fired twice in some cases (due to input checkbox and label)
+			if(event.target.tagName === 'LABEL' || (event.target.tagName === 'TD' && $(event.target).is(':first-child'))) {
+				event = 'ctrl'; // Click on label/checkbox: behave like 'ctrl' key is pressed
+			}
             Selection.addSel = 1;
             if(document.querySelector("#"+id)) {
                 if(Selection.multiple || (event !== null && (event == 'ctrl' || event.ctrlKey))) {
@@ -72,6 +83,9 @@ var Selection = (function() {
 
         addFolder : function(event, id) {
 			if(typeof event === 'object' && event !== null) event.preventDefault(); // Prevent event to be fired twice in some cases (due to input checkbox and label)
+			if(event.target.tagName === 'LABEL' || (event.target.tagName === 'TD' && $(event.target).is(':first-child'))) {
+				event = 'ctrl'; // Click on label/checkbox: behave like 'ctrl' key is pressed
+			}
             Selection.addSel = 1;
             if(document.querySelector("#"+id)) {
                 if(Selection.multiple || (event !== null && (event == 'ctrl' || event.ctrlKey))) {
@@ -225,7 +239,7 @@ var Selection = (function() {
         allSwitch : function() {},
 
 		removeDetails: function() {
-			$('section.selection').html(html_default);
+			$('section.selection').html(Selection.getDefault());
 		},
 
         putDetails: function(id) {
@@ -235,32 +249,32 @@ var Selection = (function() {
 				html += '<strong>Actions</strong>';
 
                 if(type === 'file') {
-					html += '<a class="blue block" onclick="Selection.dl(\''+id+'\')"><i class="fa fa-download" aria-hidden="true"></i> '+txt.RightClick.dl+'</a>';
+					html += '<a class="blue block" onclick="Selection.dl(\''+id+'\')" title="'+txt.RightClick.dl+'"><i class="fa fa-download" aria-hidden="true"></i> '+txt.RightClick.dl+'</a>';
 				}
 				if(type === 'folder' && Selection.Files.length === 0 && Selection.Folders.length === 1) {
-					html += '<a class="blue block" onclick="Folders.open(\''+id.substr(1)+'\')"><i class="fa fa-folder-open" aria-hidden="true"></i> '+txt.RightClick.open+'</a>';
+					html += '<a class="blue block" onclick="Folders.open(\''+id.substr(1)+'\')" title="'+txt.RightClick.open+'"><i class="fa fa-folder-open" aria-hidden="true"></i> '+txt.RightClick.open+'</a>';
 				}
 				if(Trash.state == 0) {
-					html += '<a class="blue block" onclick="Move.cut(\''+id+'\')"><i class="fa fa-scissors" aria-hidden="true"></i> '+txt.RightClick.cut+'</a>';
-					html += '<a class="blue block" onclick="Move.copy(\''+id+'\')"><i class="fa fa-clone" aria-hidden="true"></i> '+txt.RightClick.copy+'</a>';
-					html += '<a class="blue block" onclick="Move.trashMultiple(\''+id+'\')"><i class="fa fa-trash" aria-hidden="true"></i> '+txt.RightClick.trash+'</a>';
+					html += '<a class="blue block" onclick="Move.cut(\''+id+'\')" title="'+txt.RightClick.cut+'"><i class="fa fa-scissors" aria-hidden="true"></i> '+txt.RightClick.cut+'</a>';
+					html += '<a class="blue block" onclick="Move.copy(\''+id+'\')" title="'+txt.RightClick.copy+'"><i class="fa fa-clone" aria-hidden="true"></i> '+txt.RightClick.copy+'</a>';
+					html += '<a class="blue block" onclick="Move.trashMultiple(\''+id+'\')" title="'+txt.RightClick.trash+'"><i class="fa fa-trash" aria-hidden="true"></i> '+txt.RightClick.trash+'</a>';
 				} else {
-					html += '<a class="blue block" onclick="Move.trashMultiple(\''+id+'\')"><i class="fa fa-undo" aria-hidden="true"></i> '+txt.RightClick.restore+'</a>';
-					html += '<a class="blue block" onclick="Rm.multiple(\''+id+'\')"><i class="fa fa-trash" aria-hidden="true"></i> '+txt.RightClick.rm+'</a>';
+					html += '<a class="blue block" onclick="Move.trashMultiple(\''+id+'\')" title="'+txt.RightClick.restore+'"><i class="fa fa-undo" aria-hidden="true"></i> '+txt.RightClick.restore+'</a>';
+					html += '<a class="blue block" onclick="Rm.multiple(\''+id+'\')" title="'+txt.RightClick.rm+'"><i class="fa fa-trash" aria-hidden="true"></i> '+txt.RightClick.rm+'</a>';
 				}
 				if(Trash.state == 0 && (Selection.Files.length === 0 && Selection.Folders.length === 1) || (Selection.Files.length === 1 && Selection.Folders.length === 0)) {
-					html += '<a class="blue block" onclick="Move.rename(\''+id+'\')"><i class="fa fa-pencil" aria-hidden="true"></i> '+txt.RightClick.mvItem+'</a>';
+					html += '<a class="blue block" onclick="Move.rename(\''+id+'\')" title="'+txt.RightClick.mvItem+'"><i class="fa fa-pencil" aria-hidden="true"></i> '+txt.RightClick.mvItem+'</a>';
 				}
 				if(type === 'file' && Selection.Files.length === 1 && Selection.Folders.length === 0) {
-					html += '<a class="blue block" onclick="Files.details(\''+id+'\')"><i class="fa fa-info" aria-hidden="true"></i> '+txt.RightClick.vDetails+'</a>';
+					html += '<a class="blue block" onclick="Files.details(\''+id+'\')" title="'+txt.RightClick.vDetails+'"><i class="fa fa-info" aria-hidden="true"></i> '+txt.RightClick.vDetails+'</a>';
 				}
 				if(type === 'folder' && Selection.Files.length === 0 && Selection.Folders.length === 1) {
-					html += '<a class="blue block" onclick="Folders.details(\''+id+'\')"><i class="fa fa-info" aria-hidden="true"></i> '+txt.RightClick.vDetails+'</a>';
+					html += '<a class="blue block" onclick="Folders.details(\''+id+'\')" title="'+txt.RightClick.vDetails+'"><i class="fa fa-info" aria-hidden="true"></i> '+txt.RightClick.vDetails+'</a>';
 				}
 
 				if(type === 'file') {
 					if(Selection.Files.length > 1 || Selection.Folders.length > 1 || Files.isShared(id.substr(1))) {
-						html += '<a class="blue block" onclick="Selection.unshare(\''+id.substr(1)+'\')"><i class="fa fa-ban" aria-hidden="true"></i> '+txt.RightClick.unshare+'</a>';
+						html += '<a class="blue block" onclick="Selection.unshare(\''+id.substr(1)+'\')" title="'+txt.RightClick.unshare+'"><i class="fa fa-ban" aria-hidden="true"></i> '+txt.RightClick.unshare+'</a>';
 						if(Selection.Files.length === 1 && Selection.Folders.length === 0) {
 							html += '<input type="text" value="'+$(elem).data('url')+'" class="copy_url">';
 							html += '<input id="copy_btn" type="button" class="btn btn-large" value="'+txt.RightClick.copy+'" onclick="copy_url()">';
@@ -268,10 +282,10 @@ var Selection = (function() {
 						}
 					}
 					if(Selection.Files.length > 1 || Selection.Folders.length > 1 || !Files.isShared(id.substr(1))) {
-						html += '<a class="blue block" onclick="Selection.share(\''+id.substr(1)+'\')"><i class="fa fa-share" aria-hidden="true"></i> '+txt.RightClick.share+'</a>';
+						html += '<a class="blue block" onclick="Selection.share(\''+id.substr(1)+'\')" title="'+txt.RightClick.share+'"><i class="fa fa-share" aria-hidden="true"></i> '+txt.RightClick.share+'</a>';
 					}
 				}
-                $("section.selection").html(html_default + html);
+                $("section.selection").html(Selection.getDefault() + html);
             }
         }
     }
