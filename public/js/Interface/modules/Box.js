@@ -33,7 +33,11 @@ var Box = (function() {
 
         show : function() {
             if(!init) return false;
-            $(box_div).fadeIn(300);
+			if($(box_div).css('visibility') === 'hidden') {
+				$(box_div).css({visibility: 'visible'}).fadeOut(0).fadeIn(400);
+			} else {
+            	$(box_div).fadeIn(400);
+			}
         },
 
         reset : function() {
@@ -135,8 +139,11 @@ var Box = (function() {
 			x += sx;
 			y += sy;
 
-			// We need to make Box 'visible' (with opacity 0) in order to calculate overflow
-			$(box_div).fadeOut(0).show();
+			// We need to make Box 'visible' in order to calculate overflow
+			if(!($(box_div).is(':visible'))) {
+				$(box_div).css({visibility: 'hidden'});
+			}
+			$(box_div).show();
 
             if(x < 2) x = 2;
             if(x + box_div.clientWidth > document.body.clientWidth + sx) {

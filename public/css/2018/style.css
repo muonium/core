@@ -223,6 +223,8 @@ input[type="radio"] + label::before, input[type="checkbox"] + label::before {
 	font-size: 14px;
     border-width: 2px; border-style: solid; border-color: #b4bac6;
 	border-radius: 2px;
+	transition: 0.15s linear;
+	transition-property: background-color, border-color;
 }
 
 input[type="radio"] + label::before { border-radius: 50%; }
@@ -230,6 +232,8 @@ input[type="radio"] + label::before { border-radius: 50%; }
 input[type="radio"]:checked + label::before, input[type="checkbox"]:checked + label::before {
 	background-color: #16c1f3; border-color: #16c1f3;
 	content: "\f00c";
+	transition: 0.3s linear;
+	transition-property: background-color, border-color;
 }
 
 select {
