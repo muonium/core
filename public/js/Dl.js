@@ -70,6 +70,7 @@ $(document).ready(function() {
 	$('body').on('keydown', function(event) {
 		if(event.keyCode === 13) {
 			$('#dl').click();
+			event.preventDefault();
 		}
 	});
 });

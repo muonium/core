@@ -62,8 +62,8 @@
     <div id="transfers" class="hide">
         <section class="top">
             <?php echo self::$txt->Global->transfers; ?>
-			<span onclick="Transfers.close()"><i class="fa fa-times" aria-hidden="true"></i></li>
-            <span onclick="Transfers.minimize()"><i class="fa fa-window-minimize" aria-hidden="true"></i></li>
+			<span onclick="Transfers.close()"><i class="fa fa-times" aria-hidden="true"></i></span>
+            <span onclick="Transfers.minimize()"><i class="fa fa-window-minimize" aria-hidden="true"></i></span>
         </section>
 
         <section class="toggle">
