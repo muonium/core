@@ -1,7 +1,7 @@
 #box {
 	position: absolute;
     padding: 0px;
-    z-index: 9999;
+    z-index: 3;
 	border-radius: 3px;
     -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;
 	box-shadow: 0 8px 16px 0 rgba(82, 97, 115, 0.18);

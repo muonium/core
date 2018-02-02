@@ -1,7 +1,7 @@
 #selection {
 	position: fixed;
 	top: 45px; left: 0; right: 0; height: 200px;
-	z-index: 2;
+	z-index: 4;
     overflow: hidden;
 	font-family: Roboto;
 	box-shadow: -1px 2px 4px 0 rgba(0, 0, 0, 0.1);
@@ -78,6 +78,7 @@
 		top: auto; left: auto; right: auto;
 		min-width: 240px; width: 240px;
 		height: auto;
+		z-index: 2;
 	}
 	#selection .fixed {
 		min-width: 240px; width: 240px;

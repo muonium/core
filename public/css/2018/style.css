@@ -59,7 +59,7 @@ header {
 	padding: 0 30px;
 	position: fixed;
 	top: 0;
-	z-index: 3;
+	z-index: 6;
 }
 
 #logo { flex: 1; -ms-flex: 1 1 0%; }

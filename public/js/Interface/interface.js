@@ -61,8 +61,8 @@ var UserLoader = function(folder_id) {
     };
 
     window.onclick = function(event) {
-        // Left click
-		if($(event.target).closest('[class^="container-"]').length > 0) {
+        // Left click (check if which = 1 because some browsers can trigger this event on right click)
+		if(event.which === 1 && $(event.target).closest('[class^="container-"]').length > 0) {
 	        Box.left_click(event.clientX, event.clientY);
 	        // reset selected folders/files
 	        if(Selection.addSel == 0) {

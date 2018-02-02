@@ -12,12 +12,13 @@ var MessageBox = (function() {
     document.onmousemove = function(e) {
         if($drag !== null) {
             $drag.style.transform = 'none';
+			var header_height = $('header').height();
             var left = e.pageX - $diffLeft;
             var top = e.pageY - $diffTop;
 
             if(left < 0) left = 0;
             if(left + $drag.clientWidth > document.body.clientWidth) left = document.body.clientWidth - $drag.clientWidth - 2;
-            if(top < 0) top = 0;
+            if(top < header_height) top = header_height;
             if(top + $drag.clientHeight > document.body.clientHeight) top = document.body.clientHeight - $drag.clientHeight - 5;
 
             $drag.style.left = left + "px";

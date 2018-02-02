@@ -1,7 +1,7 @@
 .MessageBox {
     padding: 10px;
     position: fixed;
-    z-index: 9999;
+    z-index: 5;
     box-shadow: 0 8px 16px 0 rgba(82, 97, 115, 0.18);
     font-family: Roboto;
     width: 100%;
@@ -86,7 +86,6 @@
 
 @media screen and (min-width: 600px) {
     .MessageBox {
-        position: absolute;
         min-width: 20%;
         width: auto;
         bottom: auto; left: 50%; top: 50%;

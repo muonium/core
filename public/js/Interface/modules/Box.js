@@ -49,8 +49,10 @@ var Box = (function() {
         left_click : function(cx, cy) {
             if(!init) return false;
             // If the user uses left click inside the 'box'
-			cx += document.body.scrollLeft;
-			cy += document.body.scrollTop;
+			var sx = window.pageXOffset || document.documentElement.scrollLeft || document.body.scrollLeft || 0
+			var sy = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+			cx += sx;
+			cy += sy;
 
             if((cx >= x && cx <= (x + box_div.clientWidth)) && (cy >= y && cy <= (y + box_div.clientHeight)) || Box.box_more) {
                 // Action
@@ -128,7 +130,6 @@ var Box = (function() {
                     box_div.innerHTML += '<hr><p onclick="Folders.details(\''+id+'\')"><i class="fa fa-info" aria-hidden="true"></i> '+txt.RightClick.vDetails+'</p>';
             }
 
-            Box.show();
 			var sx = window.pageXOffset || document.documentElement.scrollLeft || document.body.scrollLeft || 0
 			var sy = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
 			x += sx;
@@ -145,6 +146,7 @@ var Box = (function() {
 
             box_div.style.left = x+'px';
             box_div.style.top = y+'px';
+			Box.show();
         }
     }
 });
