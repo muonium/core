@@ -59,12 +59,7 @@ var Move = (function() {
                                     elem.setAttribute("data-title", elem_name);
                                 }
 
-                                if(elem.className == 'folder') {
-                                    elem.querySelector("strong").innerHTML = elem_name;
-                                }
-                                else if(elem.lastChild.nodeType === 3) {
-                                    elem.lastChild.data = ' '+elem_name;
-                                }
+                                $(elem).find('td:nth-child(3) > strong').html(elem_name);
         				    }
         				}
         				xhr.send("folder_id="+Folders.id+"&old="+encodeURIComponent(name)+"&new="+encodeURIComponent(elem_name));
