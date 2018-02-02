@@ -135,6 +135,9 @@ var Box = (function() {
 			x += sx;
 			y += sy;
 
+			// We need to make Box 'visible' (with opacity 0) in order to calculate overflow
+			$(box_div).fadeOut(0).show();
+
             if(x < 2) x = 2;
             if(x + box_div.clientWidth > document.body.clientWidth + sx) {
 				x = sx + document.body.clientWidth - box_div.clientWidth - 2;
