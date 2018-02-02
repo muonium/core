@@ -64,8 +64,8 @@
             </div>
 
             <div id="return">
-                <p class="error"></p>
-            </div>
+				<p class="error"></p>
+			</div>
         </form>
 	</div>
 <?php

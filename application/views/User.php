@@ -77,12 +77,12 @@
 				<p class="mono keep"><strong><?php echo self::$txt->Story->keep; ?></strong></p><hr>
 				<p class="join"><?php echo self::$txt->Story->join; ?></p>
 
-				<p><a href="#"><?php echo self::$txt->Story->read; ?></a></p>
+				<!--<p><a href="#"><?php echo self::$txt->Story->read; ?></a></p>-->
 
 				<p><a href="<?php echo MVC_ROOT; ?>/Upgrade" class="btn btn-large btn-b"><?php echo self::$txt->Story->premium; ?></a></p>
 				<p><a href="https://muonium.io/#!/donate" target="_blank" class="btn btn-large btn-c"><?php echo self::$txt->Story->donate; ?></a></p>
 
-				<p class="help"><a href="#"><?php echo self::$txt->Story->help; ?></a></p>
+				<!--<p class="help"><a href="#"><?php echo self::$txt->Story->help; ?></a></p>-->
 			</div>
 
 			<div id="quota_container"></div>
@@ -91,7 +91,7 @@
 
 			<div class="selection_bottom">
 				<!--<a href="#" class="btn btn-actions"></a>-->
-				<a href="#" class="mono up">Privacy</a>
+				<!--<a href="#" class="mono up">Privacy</a>-->
 			</div>
 		</div>
 	</div>

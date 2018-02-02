@@ -4,24 +4,19 @@
 */
 
 window.onload = function() {
-
     // Get txt from user's language json (language.js)
     getJSON();
 
     window.addEventListener("keydown", function(e) {
-        switch(e.keyCode) {
-            case 13:
-                // enter
-                sendRegisterRequest(e);
-                break;
+        if(e.keyCode === 13) { // enter
+            sendRegisterRequest(e);
         }
     });
-}
-
+};
 
 //Thanks to Nimphious
 //Code found on stackoverflow (sometimes it's good to be lazy)
-var randomString = function (length, chars) {
+var randomString = function(length, chars) {
     var mask = '';
     if (chars.indexOf('a') > -1) mask += 'abcdefghijklmn!@#$%^&*()_+-={}[]";\'<>?,opqrstuvwxyz';
     if (chars.indexOf('A') > -1) mask += 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -30,14 +25,15 @@ var randomString = function (length, chars) {
     var result = '';
     for (var i = length; i > 0; --i) result += mask[Math.floor(Math.random() * mask.length)];
     return result;
-}
+};
+
 /**
 ** @name         :  cek
 ** @description: generate & encrypt cek
 ** y = passphrase
 **/
 var cek = {};
-cek.encrypt = function(key, y){
+cek.encrypt = function(key, y) {
 	//crypto parameters
 	var a = sjcl.random.randomWords(4); //authentication data - 128 bits
 	var i = sjcl.random.randomWords(4); //initialization vector - 128 bits
@@ -46,11 +42,11 @@ cek.encrypt = function(key, y){
 	var key = sjcl.encrypt(y, key, {mode:'gcm', iv:i, salt:s, iter:7000, ks:256, adata:a, ts:128});
 	var key = base64.encode(key); //don't store a Json in mongoDB...
 	return key;
-}
-cek.gen = function(y){
+};
+cek.gen = function(y) {
 	var t = randomString(32, '#A!');
 	return cek.encrypt(t, y); //encrypt it
-}
+};
 
 /*
 * @name         : sendRegisterRequest()
@@ -66,9 +62,9 @@ var sendRegisterRequest = function(e) {
     var field_passphrase_confirm = document.querySelector("#field_passphrase_confirm").value;
     var doubleAuth = document.querySelector("#doubleAuth").checked;
 
-    var returnArea = document.querySelector("#return p");
+    var returnArea = document.querySelector("#return");
 
-    returnArea.innerHTML = '';
+    returnArea.innerHTML = '<img src="'+ROOT+'/public/pictures/index/loader.svg" class="loader">';
 
     if(field_mail.length < 6 || field_login.length < 2) {
         returnArea.innerHTML = txt.Register.form;
@@ -100,4 +96,4 @@ var sendRegisterRequest = function(e) {
 		var cek_xhr = cek.gen(field_passphrase); //encryption of the CEK under the KEK (alias "passphrase") and b64encoding
         xhr.send("mail="+field_mail+"&login="+field_login+"&pass="+mui_hash(field_password)+"&pass_confirm="+mui_hash(field_password_confirm)+"&doubleAuth="+doubleAuth+"&cek="+encodeURIComponent(cek_xhr));
     }
-}
+};

@@ -24,7 +24,7 @@ var sendConnectionRequest = function(e) {
 
     var returnArea = document.querySelector("#return");
 
-    returnArea.innerHTML = '';
+    returnArea.innerHTML = '<img src="'+ROOT+'/public/pictures/index/loader.svg" class="loader">';
 
     if(field_password.length < 6 || field_passphrase.length < 1 || field_username.length < 3) {
         returnArea.innerHTML = txt.Register.form;
