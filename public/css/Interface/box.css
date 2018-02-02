@@ -46,10 +46,15 @@
 		position: fixed;
 		top: 45px !important; left: 0 !important; right: 0 !important; bottom: auto !important;
 		min-height: 200px;
+		z-index: 5;
 	}
 }
 
 @media screen and (min-width: 600px) {
-	#box { min-width: 150px; }
+	#box {
+		min-width: 150px;
+		top: 50%; left: 50%;
+		transform: translate(-50%, -50%);
+	}
 	#box .close { font-size: 18px; }
 }

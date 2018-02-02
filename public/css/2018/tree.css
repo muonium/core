@@ -1,5 +1,5 @@
 #mui, #tree { width: 100%; }
-#mui { margin-top: 220px; }
+#mui { margin-top: 220px; padding-top: 2px; }
 #tree { border-collapse: collapse; }
 #tree > div, #tree a { cursor: pointer; }
 
@@ -73,6 +73,7 @@
 #tree.mosaic .btn-actions {
 	height: 18px; width: 39px;
 	border-radius: 2px;
+	display: none !important;
 }
 
 a[id^="parent-"] { cursor: pointer; }
@@ -126,6 +127,7 @@ a[id^="parent-"] .fa-caret-up { font-size: 24px; padding-left: 10px; }
 	#tree:not(.mosaic) tr { height: 54px; }
 	#tree.mosaic #tree_head { margin: 50px 15px; }
 	#tree input[type="radio"] + label, #tree input[type="checkbox"] + label { padding-left: 34px; }
+	#tree.mosaic .btn-actions { display: inline-flex !important; display: -ms-inline-flexbox !important; }
 }
 
 @media screen and (min-width: 1000px) {

@@ -149,6 +149,7 @@ var Box = (function() {
 
             box_div.style.left = x+'px';
             box_div.style.top = y+'px';
+			box_div.style.transform = 'none';
 			Box.show();
         }
     }
