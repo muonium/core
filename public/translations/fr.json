@@ -84,10 +84,10 @@
 		"generatelink": "Générer le lien",
 		"badPass": "Mauvais mot de passe !",
 		"uploadedBy": "Téléversé par [login] le",
-		"needhelp": "Need help getting started with Muonium?",
-		"Upnothing": "You haven't uploaded anything yet.",
-		"Dlnothing": "You haven't downloaded anything yet.",
-		"Trashnothing": "You haven't deleted any files recently.",
+		"needhelp": "Besoin d'aide pour commencer ?",
+		"Upnothing": "Vous n'avez encore rien téléversé",
+		"Dlnothing": "Vous n'avez encore rien téléchargé",
+		"Trashnothing": "Vous n'avez supprimé aucun fichier récemment.",
 		"first": "Téléversez votre premier fichier.",
 		"copied": "Le lien a été copié dans le presse-papier"
     },
@@ -175,7 +175,7 @@
 		"filedetails": "Détails d'un fichier",
 		"iwant": "Je le veux vraiment",
 		"otheroptions": "Autres options",
-		"upgrade": "Ready to upgrade Muonium?",
+		"upgrade": "Prêt à mettre votre compte à niveau ?",
 		"getmore": "Obtenir plus de stockage"
     },
 
@@ -210,8 +210,8 @@
     },
 
 	"Story": {
-		"keep": "Keep Muonium <u>Free</u> and <u>Open</u>.",
-		"join": "Join our journey of keeping Muonium free, secure, and open source for everyone.",
+		"keep": "Gardons Muonium <u>Libre</u> and <u>Open Source</u>.",
+		"join": "Rejoignez notre aventure, gardons Muonium libre, sécurisé, et open source pour tout le monde",
 		"read": "Read Our Story",
 		"premium": "Go Premium",
 		"donate": "Faire un don",
@@ -231,8 +231,8 @@
     },
 
     "Upgrade": {
-		"upgrade": "Upgrade",
-		"upgradeMui": "Upgrade Muonium",
+		"upgrade": "Mettre à niveau",
+		"upgradeMui": "Mettre Muonium à niveau",
         "offers": "Offres",
         "history": "Historique de paiement",
         "expired": "Expiré",
