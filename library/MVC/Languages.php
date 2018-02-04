@@ -15,7 +15,8 @@ class Languages {
 		'de' => 'Deutsch',
         'fr' => 'Français',
         'it' => 'Italiano',
-        'ru' => 'Русский'
+        'ru' => 'Русский',
+		'zh-cn' => "简体中文"
     ];
 
     // Constructor loads user language json
