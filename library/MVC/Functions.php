@@ -20,3 +20,16 @@ function showSize($size, $precision = 2) {
 	$suffixes = array_values((array)\library\MVC\Languages::$txt->Units);
 	return round(pow(1000, $base - floor($base)), $precision) .' '. $suffixes[floor($base)];
 }
+
+function currencySymbol($currency) {
+	$currencies = [
+		'EUR' => '€',
+		'USD' => '$',
+		'GBP' => '£',
+		'JPY' => '¥',
+		'CNY' => '¥',
+		'RUB' => '₽',
+		'BTC' => '฿'
+	];
+	return array_key_exists(strtoupper($currency), $currencies) ? $currencies[strtoupper($currency)] : $currency;
+}

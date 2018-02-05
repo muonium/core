@@ -11,23 +11,41 @@ class Languages {
 
     // Available languages
     public static $languages = [
-        ['en', 'English'],
-		['de', 'Deutsch'],
-        ['fr', 'Français'],
-        ['it', 'Italiano'],
-        ['ru', 'Русский'],
-	['es', 'Español']
+        'en' => 'English',
+		'es' => 'Español',
+		'de' => 'Deutsch',
+        'fr' => 'Français',
+        'it' => 'Italiano',
+        'ru' => 'Русский',
+		'zh-cn' => "简体中文"
     ];
+
+    // Constructor loads user language json
+    function __construct($tab = '') {
+        if(is_array($tab)) {
+            if(array_key_exists('mustBeLogged', $tab)) {
+                if($tab['mustBeLogged'] === true && !isset($_SESSION['id'])) {
+                    exit(header('Location: '.MVC_ROOT.'/Login'));
+                }
+            }
+            if(array_key_exists('mustBeValidated', $tab)) {
+                if($tab['mustBeValidated'] === true && isset($_SESSION['validate'])) {
+                    exit(header('Location: '.MVC_ROOT.'/Validate'));
+                }
+            }
+        }
+        // Get user language
+		$lang = !empty($_COOKIE['lang']) ? htmlentities($_COOKIE['lang']) : DEFAULT_LANGUAGE;
+        self::loadLanguage($lang);
+    }
 
 	public static function loadLanguage($lang) {
 		if(file_exists(DIR_LANGUAGE.$lang.".json")) {
 			$_json = file_get_contents(DIR_LANGUAGE.$lang.".json");
 			self::$userLanguage = $lang;
-		}
-		elseif($lang === DEFAULT_LANGUAGE) {
+		} elseif($lang === DEFAULT_LANGUAGE) {
 			exit('Unable to load DEFAULT_LANGUAGE JSON !');
-		}
-		else {
+		} else {
 			self::loadLanguage(DEFAULT_LANGUAGE);
 		}
 
@@ -41,33 +59,15 @@ class Languages {
 		return true;
 	}
 
-    // Constructor loads user language json
-    function __construct($tab = '') {
-        if(is_array($tab)) {
-            if(array_key_exists('mustBeLogged', $tab)) {
-                if($tab['mustBeLogged'] == true && empty($_SESSION['id'])) {
-                    exit(header('Location: '.MVC_ROOT.'/Login'));
-                }
-            }
-            if(array_key_exists('mustBeValidated', $tab)) {
-                if($tab['mustBeValidated'] == true && !empty($_SESSION['validate'])) {
-                    exit(header('Location: '.MVC_ROOT.'/Validate'));
-                }
-            }
+    // Returns a language selector (select)
+    public static function getLanguageSelector() {
+        $html = '
+			<select onchange="changeLanguage(this.value)">';
+        foreach(self::$languages as $iso => $lang) {
+            $html .= '
+				<option value="'.$iso.'"'.($iso == self::$userLanguage ? ' selected': '').'>'.$lang.'</option>';
         }
-        // Get user language
-		$lang = !empty($_COOKIE['lang']) ? htmlentities($_COOKIE['lang']) : DEFAULT_LANGUAGE;
-        self::loadLanguage($lang);
-    }
-
-    // Generate a language selector (select)
-    protected function getLanguageSelector() {
-        echo '<select onchange="changeLanguage(this.value)">';
-        for($i = 0; $i < count(self::$languages); $i++) {
-            echo '<option value="'.self::$languages[$i][0].'"';
-            if(self::$languages[$i][0] == self::$userLanguage) echo ' selected';
-            echo '>'.self::$languages[$i][1].'</option>';
-        }
-        echo '</select>';
+        $html .= '</select>';
+		return $html;
     }
 }

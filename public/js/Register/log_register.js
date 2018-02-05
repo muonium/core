@@ -4,24 +4,19 @@
 */
 
 window.onload = function() {
-
     // Get txt from user's language json (language.js)
     getJSON();
 
-    window.addEventListener("keydown", function(event) {
-        switch(event.keyCode) {
-            case 13:
-                // enter
-                sendRegisterRequest();
-                break;
+    window.addEventListener("keydown", function(e) {
+        if(e.keyCode === 13) { // enter
+            sendRegisterRequest(e);
         }
     });
-}
-
+};
 
 //Thanks to Nimphious
 //Code found on stackoverflow (sometimes it's good to be lazy)
-var randomString = function (length, chars) {
+var randomString = function(length, chars) {
     var mask = '';
     if (chars.indexOf('a') > -1) mask += 'abcdefghijklmn!@#$%^&*()_+-={}[]";\'<>?,opqrstuvwxyz';
     if (chars.indexOf('A') > -1) mask += 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -30,14 +25,15 @@ var randomString = function (length, chars) {
     var result = '';
     for (var i = length; i > 0; --i) result += mask[Math.floor(Math.random() * mask.length)];
     return result;
-}
+};
+
 /**
 ** @name         :  cek
 ** @description: generate & encrypt cek
 ** y = passphrase
 **/
 var cek = {};
-cek.encrypt = function(key, y){
+cek.encrypt = function(key, y) {
 	//crypto parameters
 	var a = sjcl.random.randomWords(4); //authentication data - 128 bits
 	var i = sjcl.random.randomWords(4); //initialization vector - 128 bits
@@ -46,20 +42,18 @@ cek.encrypt = function(key, y){
 	var key = sjcl.encrypt(y, key, {mode:'gcm', iv:i, salt:s, iter:7000, ks:256, adata:a, ts:128});
 	var key = base64.encode(key); //don't store a Json in mongoDB...
 	return key;
-}
-cek.gen = function(y){
+};
+cek.gen = function(y) {
 	var t = randomString(32, '#A!');
 	return cek.encrypt(t, y); //encrypt it
-}
+};
 
 /*
 * @name         : sendRegisterRequest()
 * @description  : send the user's informations
 */
-var sendRegisterRequest = function()
-{
-    console.log("Start register");
-
+var sendRegisterRequest = function(e) {
+	e.preventDefault();
     var field_mail = document.querySelector("#field_mail").value;
     var field_login = document.querySelector("#field_login").value;
     var field_password = document.querySelector("#field_pass").value;
@@ -68,36 +62,30 @@ var sendRegisterRequest = function()
     var field_passphrase_confirm = document.querySelector("#field_passphrase_confirm").value;
     var doubleAuth = document.querySelector("#doubleAuth").checked;
 
-    var returnArea = document.querySelector("#return p");
+    var returnArea = document.querySelector("#return");
 
-    returnArea.innerHTML = "<img src='./public/pictures/index/loader.gif' style='height: 3vh;' />";
+    returnArea.innerHTML = '<img src="'+ROOT+'/public/pictures/index/loader.svg" class="loader">';
 
-    if(field_mail.length < 6 || field_login.length < 2){
+    if(field_mail.length < 6 || field_login.length < 2) {
         returnArea.innerHTML = txt.Register.form;
-    }else if(field_password.length < 6 || field_password_confirm.length < 6 || field_passphrase.length < 6 || field_passphrase_confirm.length < 6){
+    } else if(field_password.length < 6 || field_password_confirm.length < 6 || field_passphrase.length < 6 || field_passphrase_confirm.length < 6) {
         returnArea.innerHTML = txt.Register.passLength;
-	}else if (field_password == field_passphrase) {
+	} else if(field_password === field_passphrase) {
 		returnArea.innerHTML = txt.Register.passEqualPassphrase;
-	}else {
-
+	} else {
         var xhr = new XMLHttpRequest();
         xhr.open("POST", "Register/AddUser", true);
         xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
-        xhr.onreadystatechange = function()
-        {
-            if(xhr.status == 200 && xhr.readyState == 4)
-            {
-                console.log(xhr.responseText);
-                if(xhr.responseText.length > 2)
-                {
+        xhr.onreadystatechange = function() {
+            if(xhr.status == 200 && xhr.readyState == 4) {
+                if(xhr.responseText.length > 2) {
                     // success message
-                    if(xhr.responseText.substr(0, 3) == "ok@") {
+                    if(xhr.responseText.substr(0, 3) === 'ok@') {
                         returnArea.innerHTML = xhr.responseText.substr(3);
                         window.location.href=ROOT+"Home";
                         return false;
-                    }
-                    else {
+                    } else {
                         // error
                         returnArea.innerHTML = xhr.responseText;
                     }
@@ -108,4 +96,4 @@ var sendRegisterRequest = function()
 		var cek_xhr = cek.gen(field_passphrase); //encryption of the CEK under the KEK (alias "passphrase") and b64encoding
         xhr.send("mail="+field_mail+"&login="+field_login+"&pass="+mui_hash(field_password)+"&pass_confirm="+mui_hash(field_password_confirm)+"&doubleAuth="+doubleAuth+"&cek="+encodeURIComponent(cek_xhr));
     }
-}
+};

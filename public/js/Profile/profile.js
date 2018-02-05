@@ -1,96 +1,86 @@
 /* profile.js */
 
 window.onload = function() {
-
     // Get txt from user's language json (language.js)
     getJSON();
-    document.querySelector("#details").checked = (localStorage.getItem('details') == 'false') ? false : true;
-}
+	var theme = 'light';
+	if(getCookie('theme') === 'dark') {
+		theme = 'dark';
+	}
+    $('#'+theme).prop('checked', true);
+};
 
-var changeLogin = function() {
-    var login = document.querySelector("#login").value;
+var changeLogin = function(e) {
+	e.preventDefault();
+    var login = $('#new_login').val();
+    var returnArea = $('#changeLoginReturn');
+    $(returnArea).html('');
 
-    var returnArea = document.querySelector("#changeLoginReturn");
-    returnArea.innerHTML = "<img src='./public/pictures/index/loader.gif' style='height: 3vh;' />";
+	$.post('Profile/ChangeLogin', {login: encodeURIComponent(login)}, function(data) {
+		if(data.substr(0, 3) === 'ok@') {
+			data = data.split('@')[1];
+			$('#username').html(htmlEntities(login));
+		}
+		$(returnArea).html(data);
+	});
+};
 
-    var xhr = new XMLHttpRequest();
-    xhr.open("POST", "Profile/ChangeLogin", true);
-    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+var changeMail = function(e) {
+	e.preventDefault();
+    var mail = $('#new_mail').val();
+    var returnArea = $('#changeMailReturn');
+	$(returnArea).html('');
 
-    xhr.onreadystatechange = function()
-    {
-        if(xhr.status == 200 && xhr.readyState == 4)
-        {
-            console.log(xhr.responseText);
-            if(xhr.responseText.length > 2)
-            {
-                // success message
-                if(xhr.responseText.substr(0, 3) == "ok@") {
-                    window.location.href=ROOT+"Profile";
-                    return false;
-                }
-                else {
-                    // error
-                    returnArea.innerHTML = xhr.responseText;
-                }
-            }
-        }
+    $.post('Profile/ChangeMail', {mail: encodeURIComponent(mail)}, function(data) {
+		if(data.substr(0, 3) === 'ok@') {
+			data = data.split('@')[1];
+			$('#email').html(htmlEntities(mail));
+		}
+		$(returnArea).html(data);
+	});
+};
+
+var changePassword = function(e) {
+	e.preventDefault();
+    var returnArea = $('#changePasswordReturn');
+    var old_pwd = $('#old_pwd').val();
+    var new_pwd = $('#new_pwd').val();
+    var pwd_confirm = $('#pwd_confirm').val();
+	$(returnArea).html('');
+
+    if(new_pwd.length < 6 || pwd_confirm !== new_pwd) {
+        $(returnArea).html(txt.Register.form);
+    } else {
+		// Use decodeURIComponent with mui_hash in jQuery because it already encodes it.
+		$.post('Profile/ChangePassword', {
+			old_pwd: decodeURIComponent(mui_hash(old_pwd)),
+			new_pwd: decodeURIComponent(mui_hash(new_pwd)),
+			pwd_confirm: decodeURIComponent(mui_hash(pwd_confirm))
+		}, function(data) {
+			$(returnArea).html(data);
+		});
     }
-    xhr.send("login="+encodeURIComponent(login));
-}
+};
 
-var changePassword = function() {
-    var returnArea = document.querySelector("#changePasswordReturn");
-    returnArea.innerHTML = "<img src='./public/pictures/index/loader.gif' style='height: 3vh;' />";
+var changeCek = function(e) {
+	e.preventDefault();
+    var returnArea = $('#changePassPhraseReturn');
+    var old_pp = $('#old_pp').val();
+    var new_pp = $('#new_pp').val();
+    var pp_confirm = $('#pp_confirm').val();
+	var current_pp = sessionStorage.getItem('kek');
+	$(returnArea).html('');
 
-    var old_pwd = document.querySelector("#old_pwd").value;
-    var new_pwd = document.querySelector("#new_pwd").value;
-    var pwd_confirm = document.querySelector("#pwd_confirm").value;
-
-    if(new_pwd.length < 6 || pwd_confirm !== new_pwd)
-        returnArea.innerHTML = txt.Register.form;
-    else {
-
-        var xhr = new XMLHttpRequest();
-        xhr.open("POST", "Profile/ChangePassword", true);
-        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-
-        xhr.onreadystatechange = function()
-        {
-            if(xhr.status == 200 && xhr.readyState == 4)
-            {
-                console.log(xhr.responseText);
-                if(xhr.responseText.length > 2)
-                {
-                    returnArea.innerHTML = xhr.responseText;
-                }
-            }
-        }
-        xhr.send("old_pwd="+mui_hash(old_pwd)+"&new_pwd="+mui_hash(new_pwd)+"&pwd_confirm="+mui_hash(pwd_confirm));
-    }
-}
-
-var changeCek = function() {
-    var returnArea = document.querySelector("#changePassPhraseReturn");
-    returnArea.innerHTML = "<img src='./public/pictures/index/loader.gif' style='height: 3vh;' />";
-
-    var old_pp = document.querySelector("#oldpp").value;
-    var new_pp = document.querySelector("#newpp").value;
-    var pp_confirm = document.querySelector("#ppconfirm").value;
-	var current_pp = sessionStorage.getItem("kek");
-
-	var cek = sessionStorage.getItem("cek"); ///we get the CEK from sessionStorage
-	if (cek == null || current_pp == null) {
+	var cek = sessionStorage.getItem('cek'); ///we get the CEK from sessionStorage
+	if(cek == null || current_pp == null) {
 		window.location.href = ROOT+"Logout";
 	}
 
-	if (old_pp != current_pp) {
-		returnArea.innerHTML = txt.Profile.badOldPassphrase;
-	}
-	else if (new_pp.length < 6) {
-		returnArea.innerHTML = txt.Register.form;
-	}
-	else {
+	if(old_pp != current_pp) {
+		$(returnArea).html(txt.Profile.badOldPassphrase);
+	} else if(new_pp.length < 6) {
+		$(returnArea).html(txt.Register.form);
+	} else {
 		//crypto parameters, don't touch
 		var aDATA = sjcl.random.randomWords(4); //authentication data - 128 bits
 		var initVector = sjcl.random.randomWords(4); //initialization vector - 128 bits
@@ -98,121 +88,54 @@ var changeCek = function() {
 
 		//we encrypt the CEK under the new passphrase (alias "KEK" -Key Encryption Key)
 		var encryptedCek = sjcl.encrypt(new_pp, cek, {mode:'gcm', iter:7000, iv:initVector, ks:256, adata:aDATA, ts:128, salt:salt});
-		var encryptedCek = base64.encode(encryptedCek); //we b64encode it to store it in the DB
+			encryptedCek = base64.encode(encryptedCek); //we b64encode it to store it in the DB
 
-		var xhr = new XMLHttpRequest();
-		xhr.open("POST", "Profile/ChangeCek", true);
-		xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-
-		xhr.onreadystatechange = function()
-		{
-			if(xhr.status == 200 && xhr.readyState == 4)
-			{
-			    console.log(xhr.responseText);
-			    if(xhr.responseText.length > 2)
-			    {
-			        // success message
-			        if(xhr.responseText.substr(0, 3) == "ok@") {
-						sessionStorage.setItem("kek", new_pp);
-						returnArea.innerHTML = xhr.responseText.substr(3);
-			        }
-			        else {
-			            // error
-			            returnArea.innerHTML = xhr.responseText;
-			        }
-			    }
+		$.post('Profile/ChangeCek', {cek: encryptedCek}, function(data) {
+			if(data.substr(0, 3) === 'ok@') {
+				sessionStorage.setItem("kek", new_pp);
+				data = data.split('@')[1];
 			}
-		}
-		xhr.send("cek="+encodeURIComponent(encryptedCek)); //we send the b64encoded&encrypted CEK
+			$(returnArea).html(data);
+		});
 	}
-}
+};
+
+var switchTheme = function() {
+    var theme = $('input[name="theme"]:checked').attr('id') === 'dark' ? 'dark' : 'light';
+	$('#theme-css').attr('href', function(i,v) {
+		if(theme === 'dark') {
+			v = v.replace('/light.css', '/dark.css');
+		} else {
+			v = v.replace('/dark.css', '/light.css');
+		}
+		return v;
+	});
+    setCookie('theme', theme, 365);
+};
 
 var changeAuth = function() {
-    var returnArea = document.querySelector("#changeAuthReturn");
-    var doubleAuth = document.querySelector("#doubleAuth").checked;
-    var xhr = new XMLHttpRequest();
-    xhr.open("POST", "Profile/changeAuth", true);
-    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    var returnArea = $('#changeAuthReturn');
+    var doubleAuth = $('#doubleAuth').prop('checked');
 
-    xhr.onreadystatechange = function()
-    {
-        if(xhr.status == 200 && xhr.readyState == 4) {
-            console.log(xhr.responseText);
-            returnArea.innerHTML = xhr.responseText;
-        }
-    }
-    xhr.send("doubleAuth="+doubleAuth);
-}
-
-var changeDetails = function() {
-    /* Choose to view or not the file/folder details in desktop version */
-    var returnArea = document.querySelector("#changeDetailsReturn");
-    var details = document.querySelector("#details").checked;
-    localStorage.setItem('details', details);
-    returnArea.innerHTML = txt.Profile.updateOk;
-}
-
-//change user email
-var changeMail = function() {
-    var changemail = document.querySelector("#changemail").value;
-
-    var returnArea = document.querySelector("#changeMailReturn");
-    returnArea.innerHTML = "<img src='./public/pictures/index/loader.gif' style='height: 3vh;' />";
-
-    var xhr = new XMLHttpRequest();
-    xhr.open("POST", "Profile/ChangeMail", true);
-  xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-
-    xhr.onreadystatechange = function()
-    {
-      if(xhr.status == 200 && xhr.readyState == 4)
-        {
-            console.log(xhr.responseText);
-            if(xhr.responseText.length > 2)
-            {
-                // success message
-                if(xhr.responseText.substr(0, 3) == "ok@") {
-					returnArea.innerHTML = xhr.responseText.substr(3);
-                    //window.location.href=ROOT+"Profile";
-                    //return false;
-                }
-                else {
-                    // error
-                    returnArea.innerHTML = xhr.responseText;
-                }
-            }
-        }
-    }
-    xhr.send("changemail="+encodeURIComponent(changemail));
-}
-
-//delete button
+    $.post('Profile/changeAuth', {doubleAuth: doubleAuth}, function(data) {
+		$(returnArea).html(data);
+	});
+};
 
 var deleteUser = function() {
-    var returnArea = document.querySelector("#deleteUserReturn");
-    var xhr = new XMLHttpRequest();
-    xhr.open("POST", "Profile/DeleteUser", true);
-  xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    var returnArea = $('#deleteUserReturn');
+    $.post('Profile/DeleteUser', {deleteUser: 'ok'}, function(data) {
+		if(data.substr(0, 3) === 'ok@') {
+			window.location.href=ROOT+"Logout";
+		} else {
+			$(returnArea).html(data);
+		}
+	});
+};
 
-    xhr.onreadystatechange = function()
-    {
-      if(xhr.status == 200 && xhr.readyState == 4) {
-			if(xhr.responseText.substr(0, 3) == "ok@") {
-				window.location.href=ROOT+"Logout";
-				return false;
-			}
-			else {
-				// error
-            	returnArea.innerHTML = xhr.responseText;
-			}
-        }
-    }
-    xhr.send("deleteUser=ok");
-}
-
-
-function ConfirmDelete() {
-	if (confirm(txt.Profile.accountDeletionConfirm)) {
+var ConfirmDelete = function(e) {
+	e.preventDefault();
+	if(confirm(txt.Profile.accountDeletionConfirm)) {
 		deleteUser();
 	}
-}
+};

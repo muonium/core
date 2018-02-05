@@ -23,7 +23,6 @@ var Encryption = (function() {
 	function Encryption(f, f_id, i, callback) {
 		var me = this;
 		var fname = f.name.replace(/<\/?[^>]+(>|$)/g, "");
-		document.querySelector("#span_upload"+i).innerHTML = fname+' : 0%';
 
 		this.callback = callback;
 		this.folder_id = f_id;
@@ -45,14 +44,14 @@ var Encryption = (function() {
 		this.enc = new sjcl.cipher.aes(this.key);
 
 		var replaceYesAction = function() {
-			var file_id = document.querySelector('span.file[data-title="'+fname+'"]').id;
+			var file_id = document.querySelector('tr.file[data-title="'+fname+'"]').id;
 			if(file_id) {
 				Rm.rm(file_id, function(){Upload.read(me.i)}, false);
 			} else { alert('Error'); }
 		}
 
 		var completeYesAction = function(chkNb) {
-			var file_id = document.querySelector('span.file[data-title="'+fname+'"]').id;
+			var file_id = document.querySelector('tr.file[data-title="'+fname+'"]').id;
 			if(file_id) {
 				Upload.read(me.i, chkNb);
 			} else { alert('Error'); }
@@ -154,8 +153,7 @@ var Encryption = (function() {
 				}
 				else if(filestatus[0] == 'quota') {
 					alert(txt.User.quotaExceeded);
-				}
-				else {
+				} else {
 					alert('Error');
 				}
 			}
@@ -168,8 +166,7 @@ var Encryption = (function() {
 		if(window.File && window.FileReader && window.FileList && window.Blob) {
 			reader = new FileReader();
 			return true;
-		}
-		else {
+		} else {
 			alert(txt.User.fileAPI);
 			return false;
 		}
@@ -182,8 +179,8 @@ var Encryption = (function() {
 
 		me.halt = true;
 		$("#div_upload"+(me.i)).remove();
-		if($('#transfers_upload > div').length === 0) {
-			$('#transfers_upload').html(txt.User.nothing);
+		if($('.transfers_upload > div').length === 0) {
+			$('.transfers_upload').html(txt.User.nothing);
 		}
 
 		/* Reload current folder to show aborted file in tree */
@@ -249,8 +246,8 @@ var Encryption = (function() {
 								Transfers.number = Transfers.number <= 0 ? 0 : Transfers.number - 1;
 								Transfers.numberUp = Transfers.numberUp <= 0 ? 0 : Transfers.numberUp - 1;
 								$("#div_upload"+(me.i)).remove();
-								if($('#transfers_upload > div').length === 0) {
-									$('#transfers_upload').html(txt.User.nothing);
+								if($('.transfers_upload > div').length === 0) {
+									$('.transfers_upload').html(txt.User.nothing);
 								}
 								if(debug) {
 									console.log("Split + encryption : "+time.elapsed()+" ms");
@@ -280,7 +277,10 @@ var Encryption = (function() {
 					me.l += Math.round(chunkSize*(1+est/100));
 					var pct = me.l/me.est_size*100;
 					if(pct > 100) pct = 100;
-					document.querySelector("#span_upload"+(me.i)).innerHTML = me.file.name+' : '+pct.toFixed(2)+'%';
+
+					$('#div_upload'+(me.i)).find('.pct').html(pct.toFixed(2)+'%');
+					$('#div_upload'+(me.i)).find('.progress_bar > .used').css('width', pct.toFixed(2)+'%');
+
 					console.log('Did not write part '+me.j);
 				}
 			},
@@ -369,7 +369,9 @@ var Encryption = (function() {
 						me.l += s.length;
 						var pct = me.l/me.est_size*100;
 						if(pct > 100) pct = 100;
-						document.querySelector("#span_upload"+(me.i)).innerHTML = me.file.name+' : '+pct.toFixed(2)+'%';
+
+						$('#div_upload'+(me.i)).find('.pct').html(pct.toFixed(2)+'%');
+						$('#div_upload'+(me.i)).find('.progress_bar > .used').css('width', pct.toFixed(2)+'%');
 
 						if(xhr.responseText == 'error') {
 							// Quota exceeded or unable to write

@@ -18,20 +18,16 @@ var Rm = (function() {
 				    if(del.substr(0, 1) == 'f') {
 				        // file
 				        if(showConfirm === false || confirm(txt.User.questionf)) {
-							//document.querySelector("section#selection").className = '';
-							Selection.closeDetails();
+							Selection.removeDetails();
 				            xhr.open("POST", "User/RmFiles", true);
 				            xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
-				            xhr.onreadystatechange = function()
-				            {
-				                if(xhr.status == 200 && xhr.readyState == 4)
-				                {
+				            xhr.onreadystatechange = function() {
+				                if(xhr.status == 200 && xhr.readyState == 4) {
 				                    console.log(xhr.responseText);
 									if(callback !== false) {
 										callback();
-									}
-									else {
+									} else {
 				                    	Folders.open(Folders.id);
 									}
 				                }
@@ -42,20 +38,16 @@ var Rm = (function() {
 				    else if(del.substr(0, 1) == 'd') {
 				        // folder
 				        if(showConfirm === false || confirm(txt.User.questiond)) {
-							//document.querySelector("section#selection").className = '';
-							Selection.closeDetails();
+							Selection.removeDetails();
 				            xhr.open("POST", "User/RmFolders", true);
 				            xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
-				            xhr.onreadystatechange = function()
-				            {
-				                if(xhr.status == 200 && xhr.readyState == 4)
-				                {
+				            xhr.onreadystatechange = function() {
+				                if(xhr.status == 200 && xhr.readyState == 4) {
 				                    console.log(xhr.responseText);
 									if(callback !== false) {
 										callback();
-									}
-									else {
+									} else {
 				                    	Folders.open(Folders.id);
 									}
 				                }
@@ -77,11 +69,9 @@ var Rm = (function() {
 
 			if(Selection.Files.length > 0 || Selection.Folders.length > 0) {
 				if(confirm(txt.User.questionrm)) {
-					//document.querySelector("section#selection").className = '';
-					Selection.closeDetails();
+					Selection.removeDetails();
 				    var wait = 2;
 				    if(Selection.Folders.length > 0) {
-
                         // Get folder id where folder is located for each folder
                         for(var i = 0; i < Selection.Folders.length; i++) {
                             folder_id = Folders.getDataFolder("d"+Selection.Folders[i]);
@@ -99,12 +89,9 @@ var Rm = (function() {
 				        xhr.open("POST", "User/RmFolders", true);
 				        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
-				        xhr.onreadystatechange = function()
-				        {
-				            if(xhr.status == 200 && xhr.readyState == 4)
-				            {
+				        xhr.onreadystatechange = function() {
+				            if(xhr.status == 200 && xhr.readyState == 4) {
 				                if(xhr.responseText != '') {
-				                    //
 				                    wait--;
 				                    console.log(xhr.responseText);
 				                    console.log("deleted selected folders !");
@@ -112,13 +99,11 @@ var Rm = (function() {
 				            }
 				        }
 				        xhr.send("ids="+encodeURIComponent(foldersFolderId.join("|"))+"&folders="+encodeURIComponent(Selection.Folders.join("|")));
-				    }
-				    else {
+				    } else {
 				        wait--;
 					}
 
 				    if(Selection.Files.length > 0) {
-
                         // Get folder id where file is located for each file
                         for(var i = 0; i < Selection.Files.length; i++) {
                             folder_id = Folders.getDataFolder("f"+Selection.Files[i]);
@@ -132,10 +117,8 @@ var Rm = (function() {
 				        xhr2.open("POST", "User/RmFiles", true);
 				        xhr2.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
-				        xhr2.onreadystatechange = function()
-				        {
-				            if(xhr2.status == 200 && xhr2.readyState == 4)
-				            {
+				        xhr2.onreadystatechange = function() {
+				            if(xhr2.status == 200 && xhr2.readyState == 4) {
 				                if(xhr2.responseText != '') {
 				                    wait--;
 				                    console.log("deleted selected files !");
@@ -143,8 +126,7 @@ var Rm = (function() {
 				            }
 				        }
 				        xhr2.send("ids="+encodeURIComponent(filesFolderId.join("|"))+"&files="+encodeURIComponent(Selection.Files.join("|")));
-				    }
-				    else {
+				    } else {
 				        wait--;
 					}
 

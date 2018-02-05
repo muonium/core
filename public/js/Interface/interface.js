@@ -36,7 +36,6 @@ var UserLoader = function(folder_id) {
         Favorites = Favorites();
     	ExtIcons = ExtIcons();
         MessageBox = MessageBox();
-        Toolbar = Toolbar();
         Transfers = Transfers();
         Request.modulesLoaded = true;
     }
@@ -45,89 +44,98 @@ var UserLoader = function(folder_id) {
         console.log("Modules already loaded.");
     }
 
+	var isInInput = function(e) {
+		// Check if the event targets an input/textarea
+		var types_not_allowed = ['radio', 'checkbox', 'button', 'submit'];
+		if(e.target.tagName === 'TEXTAREA' || (e.target.tagName === 'INPUT' && types_not_allowed.indexOf(e.target.type) === -1)) {
+			return true;
+		}
+		return false;
+	};
+
     // Set events in the app
 
     window.oncontextmenu = function(event) {
-        // Disable right click
-        return false;
-    }
+        // Disable right click except in input, textarea
+        return isInInput(event);
+    };
 
     window.onclick = function(event) {
-        // Left click
-        Box.left_click(event.clientX, event.clientY);
-        // reset selected folders/files
-        if(Selection.addSel == 0) {
-            Selection.remove();
-            Selection.closeDetails();
-        }
-        else {
-            Selection.addSel = 0;
+        // Left click (check if which = 1 because some browsers can trigger this event on right click)
+		if(event.which === 1 && $(event.target).closest('[class^="container-"]').length > 0) {
+	        Box.left_click(event.clientX, event.clientY);
+	        // reset selected folders/files
+	        if(Selection.addSel == 0) {
+	            Selection.remove();
+	            Selection.removeDetails();
+	        } else {
+	            Selection.addSel = 0;
+			}
 		}
-    }
+    };
 
     window.addEventListener("keydown", function(event) {
         if(event.ctrlKey && event.keyCode == 68) { // CTRL + D
             event.preventDefault(); // disable the hotkey in web browser
             logout();
-        }
-        else if(event.ctrlKey && event.keyCode == 65) { // CTRL + A
-            event.preventDefault(); // disable the hotkey in web browser
-            Selection.all();
-        }
-        else if(event.ctrlKey && event.keyCode == 73) { // CTRL + I
+        } else if(event.ctrlKey && event.keyCode == 65) { // CTRL + A
+			if(!isInInput(event)) {
+            	event.preventDefault(); // disable the hotkey in web browser
+            	Selection.all();
+			}
+        } else if(event.ctrlKey && event.keyCode == 73) { // CTRL + I
             event.preventDefault(); // disable the hotkey in web browser
             Selection.invert();
-        }
-        else if(event.ctrlKey && event.keyCode == 82) { // CTRL + R
+        } else if(event.ctrlKey && event.keyCode == 82) { // CTRL + R
             event.preventDefault(); // disable the hotkey in web browser
             Move.trashMultiple();
-        }
-        else if(event.ctrlKey && event.keyCode == 38) { // CTRL + Arrow Up
+        } else if(event.ctrlKey && event.keyCode == 38) { // CTRL + Arrow Up
             event.preventDefault(); // disable the hotkey in web browser
             Arrows.up('ctrl');
-        }
-        else if(event.ctrlKey && event.keyCode == 40) { // CTRL + Arrow down
+        } else if(event.ctrlKey && event.keyCode == 40) { // CTRL + Arrow down
             event.preventDefault(); // disable the hotkey in web browser
             Arrows.down('ctrl');
-        }
-        else if(event.ctrlKey && event.keyCode == 67) { // CTRL + C
+        } else if(event.ctrlKey && event.keyCode == 67) { // CTRL + C
+			if(!isInInput(event)) {
+	            event.preventDefault(); // disable the hotkey in web browser
+	            Move.copy();
+			}
+        } else if(event.ctrlKey && event.keyCode == 88) { // CTRL + X
+			if(!isInInput(event)) {
+            	event.preventDefault(); // disable the hotkey in web browser
+            	Move.cut();
+			}
+        } else if(event.ctrlKey && event.keyCode == 86) { // CTRL + V
+			if(!isInInput(event)) {
+	            event.preventDefault(); // disable the hotkey in web browser
+	            Move.paste();
+			}
+        } else if(event.ctrlKey && event.keyCode == 83) { // CTRL + S
             event.preventDefault(); // disable the hotkey in web browser
-            Move.copy();
-        }
-        else if(event.ctrlKey && event.keyCode == 88) { // CTRL + X
-            event.preventDefault(); // disable the hotkey in web browser
-            Move.cut();
-        }
-        else if(event.ctrlKey && event.keyCode == 86) { // CTRL + V
-            event.preventDefault(); // disable the hotkey in web browser
-            Move.paste();
-        }
-        else if(event.ctrlKey && event.keyCode == 83) { // CTRL + S
-            event.preventDefault(); // disable the hotkey in web browser
-            if(Selection.Files.length > 0) {
-                // Start download for one file per second
+            if(Selection.Files.length > 0) { // Start download for one file per second
                 Selection.dl();
             }
-        }
-        else {
+        } else {
             switch(event.keyCode) {
                 case 8:
                     // backspace
-					if(document.activeElement.tagName != 'INPUT' && document.activeElement.tagName != 'TEXTAREA') {
+					if(!isInInput(event)) {
                     	event.preventDefault();
                     	Folders.back();
 					}
                     break;
                 case 46:
                     // delete
-					if(document.activeElement.tagName != 'INPUT' && document.activeElement.tagName != 'TEXTAREA') {
+					if(!isInInput(event)) {
                     	Rm.multiple();
 					}
                     break;
                 case 27:
                     // esc
                     Box.hide();
-                    //if($('#MessageBox').length && $('#MessageBox').css('display') == 'block') { $('#MessageBox').remove(); }
+					$('.MessageBox').fadeOut(200, function() {
+				        $(this).remove();
+				    });
                     break;
                 case 38:
                     // up arrow
@@ -141,7 +149,7 @@ var UserLoader = function(folder_id) {
                     break;
                 case 13:
                     // enter
-					if(document.activeElement.tagName != 'INPUT' && document.activeElement.tagName != 'TEXTAREA') {
+					if(!isInInput(event)) {
 	                    if(Selection.Files.length == 1 && Selection.Folders.length == 0) {
 	                        Files.dl("f"+Selection.Files[0]);
 	                    } else if(Selection.Files.length == 0 && Selection.Folders.length == 1) {
@@ -178,28 +186,52 @@ var UserLoader = function(folder_id) {
         Folders.open(folder_id);
 	}
 
+	var sidebar = $('.sidebar');
+	if($(sidebar).length) {
+		var current = document.location.href.replace(/https?:\/\//i, '').split(ROOT), link;
+		if(current.length > 1) current.shift();
+		current = current.join(ROOT).split('?').shift();
+		if(current.substr(-1) === '/') current = current.substr(0, current.length - 1);
+		if(current.substr(-1) === '#') current = current.substr(0, current.length - 1);
+
+		$(sidebar).find('li > a').each(function() { // On load
+			link = this.href.replace(this.baseURI, '');
+			if(link === current) {
+				linkEvents(link); return false;
+			}
+		});
+		$(sidebar).find('li > a').on('click', function(e) { // On click
+			link = this.href.replace(this.baseURI, '');
+			linkEvents(link, e);
+		});
+	}
+
     console.log("Application loaded.");
-}
+};
 
 //  Set events in files and folders
 var setEvents = function() {
     // Init Arrows actions
     Arrows.init();
-
     // Init Box
     Box.init();
 
-    Toolbar.display();
+	$('#sel_all').on('click', function(e) {
+		e.preventDefault();
+		if($(this).prop('checked') === false) {
+			Selection.remove();
+		} else {
+			Selection.all();
+		}
+	});
 
-    document.querySelector("#multisel").addEventListener("click", function() { Selection.multipleSwitch('multisel'); });
-
-    document.querySelector("#display_list").addEventListener("click", function() {
+    $('#display_list').on('click', function() {
         localStorage.setItem('display', 'list');
         Files.style = 'list';
         Files.display();
     });
 
-    document.querySelector("#display_mosaic").addEventListener("click", function() {
+    $('#display_mosaic').on('click', function() {
         localStorage.setItem('display', 'mosaic');
         Files.style = 'mosaic';
         Files.display();
@@ -207,8 +239,13 @@ var setEvents = function() {
 
     var display = localStorage.getItem('display');
     if(display == 'list' || display == 'mosaic') {
-        document.querySelector("#display_"+display).click();
+        $('#display_'+display).click();
     }
+
+	$('.file .btn-actions, .folder .btn-actions').on('click', function(e) {
+		e.preventDefault();
+		$(this).closest('tr').trigger('contextmenu', [e.clientX, e.clientY]);
+	});
 
     // Right click inside divs with file's class (these divs are children of 'desktop')
     // After the execution of the function below, the function for 'desktop' above will be
@@ -217,11 +254,12 @@ var setEvents = function() {
     var files = document.querySelectorAll(".file");
     for (var i = 0; i < files.length; i++) {
         // For each file
-        files[i].addEventListener("contextmenu", function(event) {
-            // Right click
-            Box.Area = 1;
+        $(files[i]).on("contextmenu", function(event, x, y) { // Right click
+			x = x === undefined ? event.clientX : x;
+			y = y === undefined ? event.clientY : y;
             // Call right_click function with div's id
-            Box.right_click(event.clientX, event.clientY, this.id);
+			Box.Area = 1;
+            Box.right_click(x, y, this.id);
             return false;
         });
     }
@@ -233,17 +271,18 @@ var setEvents = function() {
     var folders = document.querySelectorAll(".folder");
     for (var i = 0; i < folders.length; i++) {
         // For each folder
-        folders[i].addEventListener("contextmenu", function(event) {
-            // Right click
-            Box.Area = 2;
+        $(folders[i]).on("contextmenu", function(event, x, y) { // Right click
+			x = x === undefined ? event.clientX : x;
+			y = y === undefined ? event.clientY : y;
             // Call right_click function with div's id
-            Box.right_click(event.clientX, event.clientY, this.id);
+			Box.Area = 2;
+            Box.right_click(x, y, this.id);
             return false;
         });
     }
 
     // Dragbars
-    var dragbars = document.querySelectorAll(".dragbar");
+    /*var dragbars = document.querySelectorAll(".dragbar");
     document.querySelector("div#container").onmouseup = function(event) {
         document.querySelector("div#container").onmousemove = null;
     };
@@ -263,39 +302,33 @@ var setEvents = function() {
                 me.parentNode.style['min-width'] = pos + 'px';
             };
         });
-    }
+    }*/
+};
 
-    var transfers_circles = document.querySelectorAll(".transfers-circle");
-    Transfers.watch('number', function(prop, oldval, newval) { // watch and trigger property changes thanks to Object.prototype.watch() and object-watch.js polyfill
-        for(var i = 0; i < transfers_circles.length; i++) {
-            transfers_circles[i].innerHTML = newval;
-        }
-        return newval;
-    });
-    var transfers_up_circles = document.querySelectorAll(".transfers-up-circle");
-    Transfers.watch('numberUp', function(prop, oldval, newval) { // watch and trigger property changes thanks to Object.prototype.watch() and object-watch.js polyfill
-        for(var i = 0; i < transfers_up_circles.length; i++) {
-            transfers_up_circles[i].innerHTML = newval;
-        }
-        return newval;
-    });
-    var transfers_dl_circles = document.querySelectorAll(".transfers-dl-circle");
-    Transfers.watch('numberDl', function(prop, oldval, newval) { // watch and trigger property changes thanks to Object.prototype.watch() and object-watch.js polyfill
-        for(var i = 0; i < transfers_dl_circles.length; i++) {
-            transfers_dl_circles[i].innerHTML = newval;
-        }
-        return newval;
-    });
-}
+var linkEvents = function(link, e) {
+	if(link === 'User') {
+		if(e !== undefined) {
+			e.preventDefault();
+			window.history.pushState({}, null, 'User');
+		}
+		Trash.close();
+		Transfers.close();
+	} else if(link.indexOf('#transfers') !== -1) {
+		Transfers.toggle();
+	} else if(link.indexOf('#trash') !== -1) {
+		Trash.open();
+		Transfers.close();
+	}
+};
 
 var reset = function() {
     this.value = '';
-}
+};
 
 var isNumeric = function(n) {
     if(typeof(n) === "string") n = n.replace(",", ".");
     return !isNaN(parseFloat(n)) && isFinite(n);
-}
+};
 
 var cleanPath = function(p) {
     // format : dir1/dir2/
@@ -316,19 +349,28 @@ var cleanPath = function(p) {
 		}
     }
     return p;
-}
+};
 
 var showHelp = function() {
-    var m = new MessageBox(txt.Help.shortcuts.join('\n')).show();
-}
+    var m = new MessageBox('').addTxt('Muonium version '+VERSION+'<br>'+txt.Help.shortcuts.join('\n')).show();
+};
 
 var copy_url = function() {
-	document.querySelector('section#selection .copy_url').select();
+	var is_visible = true;
+	if($('section.selection .copy_url:hidden').length > 0) {
+		is_visible = false;
+		$('section.selection .copy_url').addClass('cc');
+	}
+	document.querySelector('section.selection .copy_url').select();
 	document.execCommand('copy');
+	if(!is_visible) {
+		$('section.selection .copy_url').removeClass('cc');
+		alert(txt.User.copied);
+	}
 };
 
 var logout = function() {
 	sessionStorage.clear();
     window.location.href=ROOT+"Logout";
     return false;
-}
+};

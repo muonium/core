@@ -1,80 +1,43 @@
 <?php
-	/*
-	* @name            : LostPassForm.php
-	* @description     : Lost pass form view (password or passphrase)
-	* @authors         : Dylan Clement <dylan@muonium.ee>
-	*/
+	/* Lost pass form */
     use \library\MVC as l;
 	$_t = new l\Template(self::$txt->Login->forgot);
-	$_t->addCss("blue/blue");
-    $_t->addCss("blue/container");
-    $_t->addCss("blue/header");
-    $_t->addCss("blue/inputs");
-    $_t->addCss("blue/menu");
-    $_t->addCss("blue/section-large-content");
 
-    $_t->addJs("base64");
-    $_t->addJs("sha512");
-    $_t->addJs("mui_hash");
-    $_t->addJs("LostPass/lostpass");
-    $_t->getHeader();
+	$_t->addCss([
+		'2018/style'
+	])->addJs([
+		'base64',
+	    'sha512',
+	    'mui_hash',
+	    'LostPass/lostpass'
+	]);
+
+	echo $_t->getHead();
+	echo $_t->getHeader();
 ?>
-<body class="grey">
-	<header>
-		<div id="logo">
-            <a href="https://muonium.io" target="_blank">
-                <img src="public/pictures/logos/muonium_H_06.png" title="<?php echo self::$txt->Global->home; ?>" alt="<?php echo self::$txt->Global->home; ?>">
-            </a>
-        </div>
-        <ul>
-            <li><a href="User"><?php echo self::$txt->Global->back; ?></a></li>
-        </ul>
-        <section id="language">
-            <div>
-                <?php $this->getLanguageSelector(); ?>
-            </div>
-        </section>
-    </header>
+	<div class="container-small">
+        <form>
+            <h1><?php echo self::$txt->Login->forgot; ?></h1>
 
-	<div id="container">
-        <section id="large-content">
-            <h1><?php echo_h(self::$txt->Login->forgot); ?></h1>
+			<p><?php echo_h($this->err_msg); ?></p>
 
-			<div>
-                <?php echo_h($this->err_msg); ?><br>
-                <div id="returnArea"></div>
-                <fieldset>
-                    <legend><?php echo_h(self::$txt->Profile->changepwd); ?></legend>
+            <strong><?php echo self::$txt->Profile->changepwd; ?></strong>
 
-                    <p><label for="pwd"><?php echo_h(self::$txt->Profile->newpwd); ?></label>
-                    <input type="password" name="pwd" id="pwd" autofocus></p>
+            <p class="input-large">
+                <input type="password" name="pwd" id="pwd" placeholder="<?php echo self::$txt->Profile->newpwd; ?>" required autofocus>
+				<label class="fa fa-lock" for="pwd" aria-hidden="true"></label>
+			</p>
 
-                    <p><label for="pwd_confirm"><?php echo_h(self::$txt->Register->confirm); ?></label>
-                    <input type="password" name="pwd_confirm" id="pwd_confirm"></p>
-                </fieldset>
+            <p class="input-large">
+                <input type="password" name="pwd_confirm" id="pwd_confirm" placeholder="<?php echo self::$txt->Register->confirm; ?>" required>
+				<label class="fa fa-lock" for="pwd_confirm" aria-hidden="true"></label>
+            </p>
 
-                <?php
-				/*
-				<fieldset>
-                    <legend><?php echo_h(self::$txt->Profile->changepp); ?></legend>
-                    <p>
-                        <?php echo str_replace("[count]", $this->ppCounter, self::$txt->Profile->warningpp); ?>
-                         <?php if($this->ppCounter >= 2) { echo '<br><strong>'.self::$txt->LostPass->reset.'</strong>'; } ?>
-                    </p>
-                    <p><label for="pp"><?php echo_h(self::$txt->Profile->newpp); ?></label>
-                    <input type="password" name="pp" id="pp"></p>
+            <br><input type="button" onclick="changePass()" class="btn btn-required" value="<?php echo self::$txt->Global->submit; ?>" disabled>
 
-                    <p><label for="pp_confirm"><?php echo_h(self::$txt->Register->confirm); ?></label>
-                    <input type="password" name="pp_confirm" id="pp_confirm"></p>
-                </fieldset>
-				*/
-				?>
-
-                <input type="button" onclick="changePass()" value="<?php echo_h(self::$txt->Global->submit); ?>">
-            </div>
-        </section>
+			<div id="returnArea"></div>
+        </form>
 	</div>
-</body>
 <?php
-   $_t->getFooter();
+   echo $_t->getFooter();
 ?>

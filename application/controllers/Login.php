@@ -29,18 +29,7 @@ class Login extends l\Languages {
                     if($code == $_POST['code']) {
                         // Code is correct
                         $_SESSION['id'] = $_SESSION['tmp_id'];
-						$storage = new m\Storage($_SESSION['id']);
-
-						// getSizeStored() and getUserQuota() are used to initialize session vars about size stored and quota
-						$size_stored = $storage->getSizeStored();
-						$user_quota = $storage->getUserQuota();
-
-						if($size_stored === false || $user_quota === false) {
-							exit(header('Location: '.MVC_ROOT.'/Logout'));
-						}
-
-						$_SESSION['size_stored'] = $size_stored;
-						$_SESSION['user_quota'] = $user_quota;
+						$_SESSION['login'] = $user->getLogin();
                         unset($_SESSION['tmp_id']);
                         exit(header('Location: '.MVC_ROOT.'/User'));
                     }

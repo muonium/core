@@ -3,7 +3,7 @@ var Arrows = (function() {
     // Private
     var lastSelected = '';
     var tree = null;
-    var span = null;
+    var row = null;
     var max = 0;
     var i = 0;
     var init = false;
@@ -11,11 +11,11 @@ var Arrows = (function() {
     // Public
     return {
         init : function() {
-            tree = document.querySelector("#tree");
-            if(tree === null) return false;
-            span = tree.querySelectorAll("span");
-            if(span === null || span.length === 0) return false;
-            max = span.length-1;
+            tree = $('#tree');
+            if($(tree).length === 0) return false;
+            row = $(tree).find('tr:not(#tree_head)');
+            if($(row).length === 0) return false;
+            max = $(row).length-1;
             i = 0;
             lastSelected = '';
             init = true;
@@ -25,49 +25,46 @@ var Arrows = (function() {
             if(!init) return false;
             if(Selection.Files.length === 0 && Selection.Folders.length === 0 && lastSelected === '') {
                 i = max; // last element
-			}
-            else if(i <= 0) {
+			} else if(i <= 0) {
                 i = max;
-			}
-            else {
+			} else {
                 i--;
 			}
-            lastSelected = span[i].id;
+            lastSelected = $(row)[i].id;
 
             if(ctrl === null) { // remove previous selected element(s)
                 Selection.remove();
 			}
             Selection.add(lastSelected, ctrl);
 
-            Arrows.scroll(span[i]);
+            Arrows.scroll($(row)[i]);
         },
 
         down : function(ctrl = null) {
             if(!init) return false;
             if(Selection.Files.length === 0 && Selection.Folders.length === 0 && lastSelected === '') {
                 i = 0; // first element
-			}
-            else if(i >= max) {
+			} else if(i >= max) {
                 i = 0;
-			}
-            else {
+			} else {
                 i++;
 			}
-            lastSelected = span[i].id;
+            lastSelected = $(row)[i].id;
 
             if(ctrl === undefined) { // remove previous selected element(s)
                 Selection.remove();
 			}
             Selection.add(lastSelected, ctrl);
 
-            Arrows.scroll(span[i]);
+            Arrows.scroll($(row)[i]);
         },
 
         scroll : function(el) {
             // Autoscroll
-            var l = window.innerWidth || document.body.clientWidth;
-            var context = l < 700 ? document.body : document.querySelector("#desktop");
-            context.scrollTop = el.offsetTop - 50;
+			var sy = el.offsetTop - document.querySelector('#tree_head').offsetTop - 130; // Diff with tree head because FF doesn't use relative offset
+			window.pageYOffset = sy;
+			document.documentElement.scrollTop = sy;
+			document.body.scrollTop = sy;
         }
     }
 });

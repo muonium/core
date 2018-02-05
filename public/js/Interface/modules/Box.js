@@ -24,9 +24,20 @@ var Box = (function() {
             $(box_div).fadeOut(200);
         },
 
+		close : function() {
+			if(Box.selected != '') Selection.unselect(Box.selected);
+			Box.selected = '';
+			Box.hide();
+			Box.Area = 0;
+		},
+
         show : function() {
             if(!init) return false;
-            $(box_div).fadeIn(300);
+			if($(box_div).css('visibility') === 'hidden') {
+				$(box_div).css({visibility: 'visible'}).fadeOut(0).fadeIn(400);
+			} else {
+            	$(box_div).fadeIn(400);
+			}
         },
 
         reset : function() {
@@ -42,15 +53,17 @@ var Box = (function() {
         left_click : function(cx, cy) {
             if(!init) return false;
             // If the user uses left click inside the 'box'
+			var sx = window.pageXOffset || document.documentElement.scrollLeft || document.body.scrollLeft || 0
+			var sy = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+			cx += sx;
+			cy += sy;
+
             if((cx >= x && cx <= (x + box_div.clientWidth)) && (cy >= y && cy <= (y + box_div.clientHeight)) || Box.box_more) {
                 // Action
                 Box.box_more = false;
             }
-            else { // Otherwise, hide 'box'
-                if(Box.selected != '') Selection.unselect(Box.selected);
-                Box.selected = '';
-                Box.hide();
-                Box.Area = 0;
+            else { // Otherwise, close box
+                Box.close();
             }
         },
 
@@ -71,12 +84,11 @@ var Box = (function() {
                 //over nothing
                 case 0:
                     if(Trash.state == 0) {
-                        box_div.innerHTML = '<p onclick="Folders.create()"><img src="'+IMG+'desktop/actions/create_folder.svg" class="icon"> '+txt.RightClick.nFolder+'</p>';
+                        box_div.innerHTML = '<p onclick="Folders.create()"><i class="fa fa-folder-o" aria-hidden="true"></i> '+txt.RightClick.nFolder+'</p>';
                         box_div.innerHTML += '<p onclick="Upload.dialog()"><i class="fa fa-upload" aria-hidden="true"></i> '+txt.RightClick.upFiles+'</p>';
                         if(Move.Files.length > 0 || Move.Folders.length > 0) {
                             box_div.innerHTML += '<hr><p onclick="Move.paste(\''+id+'\')"><i class="fa fa-clipboard" aria-hidden="true"></i> '+txt.RightClick.paste+'</p>';
 						}
-                        box_div.innerHTML += '<hr><p onclick="logout()"><i class="fa fa-sign-out" aria-hidden="true"></i> '+txt.RightClick.logOut+'</p>';
                     }
                     break;
                 //mouse over a file
@@ -122,15 +134,30 @@ var Box = (function() {
                     box_div.innerHTML += '<hr><p onclick="Folders.details(\''+id+'\')"><i class="fa fa-info" aria-hidden="true"></i> '+txt.RightClick.vDetails+'</p>';
             }
 
-            Box.show();
+			var sx = window.pageXOffset || document.documentElement.scrollLeft || document.body.scrollLeft || 0
+			var sy = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+			x += sx;
+			y += sy;
+
+			// We need to make Box 'visible' in order to calculate overflow
+			if(!($(box_div).is(':visible'))) {
+				$(box_div).css({visibility: 'hidden'});
+			}
+			$(box_div).show();
 
             if(x < 2) x = 2;
-            if(x + box_div.clientWidth > document.body.clientWidth) x = document.body.clientWidth - box_div.clientWidth - 2;
+            if(x + box_div.clientWidth > document.body.clientWidth + sx) {
+				x = sx + document.body.clientWidth - box_div.clientWidth - 2;
+			}
             if(y < 5) y = 5;
-            if(y + box_div.clientHeight > document.body.clientHeight) y = document.body.clientHeight - box_div.clientHeight - 5;
+            if(y + box_div.clientHeight > document.body.clientHeight + sy) {
+				y = sy + document.body.clientHeight - box_div.clientHeight - 5;
+			}
 
             box_div.style.left = x+'px';
             box_div.style.top = y+'px';
+			box_div.style.transform = 'none';
+			Box.show();
         }
     }
 });

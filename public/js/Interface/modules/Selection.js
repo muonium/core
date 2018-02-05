@@ -1,9 +1,7 @@
 // Selection module. Loaded in window.onload()
 var Selection = (function() {
-    // Private
-    var showDetails = (localStorage.getItem('details') == 'false') ? false : true;
-
-    // Public
+	// Save initial state to keep "upload new file(s)" and "new folder"
+	var html_default = $('section.selection').html();
     // addSel : 1 => add a new selection
     // Files : Selected files (id)
     // Folders : Selected folders (id)
@@ -13,81 +11,112 @@ var Selection = (function() {
         Folders : [],
         multiple : false,
 
-        select : function(id, putDetails = true) {
-            if(document.querySelector("#"+id)) {
-                document.querySelector("#"+id).style.backgroundColor='#E0F0FA';
-                if(showDetails || (window.innerWidth || document.body.clientWidth) < 700) {
-                    Selection.openDetails();
-                }
+		getDefault : function() {
+			var html = html_default;
+			if(Move.Files.length > 0 || Move.Folders.length > 0) {
+				html += '<a class="blue block" onclick="Move.paste()" title="'+txt.RightClick.paste+'"><i class="fa fa-clipboard" aria-hidden="true"></i> '+txt.RightClick.paste+'</a>';
+			}
+			return html;
+		},
+
+        select : function(id) {
+            if($('#'+id).length) {
+                $('#'+id).addClass('selected').find('#sel_'+id).prop('checked', true);
             }
-            if(putDetails === true)  {
-                if(showDetails || (window.innerWidth || document.body.clientWidth) < 700) {
-                    Selection.putDetails(id);
-                }
-                Toolbar.display(id);
-            }
+            Selection.putDetails(id);
         },
 
-        unselect : function(id, putDetails = true) {
-            if(document.querySelector("#"+id)) {
-                document.querySelector("#"+id).style.backgroundColor='white';
+        unselect : function(id) {
+            if($('#'+id).length) {
+				$('#'+id).removeClass('selected').find('#sel_'+id).prop('checked', false);
             }
-            if(putDetails === true)  {
-                Toolbar.display();
-            }
+			setTimeout(function() {
+				$('#sel_all').prop('checked', false);
+			}, 0);
         },
 
         add : function(id, m = null) {
             if(id.length > 1) {
                 if(id.substr(0, 1) == 'd') {
                     Selection.addFolder(m, id);
-				}
-                else if(id.substr(0, 1) == 'f') {
+				} else if(id.substr(0, 1) == 'f') {
                     Selection.addFile(m, id);
 				}
             }
         },
 
-        addFile : function(event, id, putDetails = true) {
+        addFile : function(event, id) {
+			if(typeof event === 'object' && event !== null) {
+				event.preventDefault(); // Prevent event to be fired twice in some cases (due to input checkbox and label)
+				if(event.target.tagName === 'LABEL' || (event.target.tagName === 'TD' && $(event.target).is(':first-child'))) {
+					event = 'ctrl'; // Click on label/checkbox: behave like 'ctrl' key is pressed
+				}
+			}
             Selection.addSel = 1;
             if(document.querySelector("#"+id)) {
                 if(Selection.multiple || (event !== null && (event == 'ctrl' || event.ctrlKey))) {
                     var pos = Selection.Files.indexOf(id.substr(1));
                     if(pos != -1) {
                         Selection.Files.splice(pos, 1);
-                        Selection.unselect(id, putDetails);
-                    }
-                    else {
+                        Selection.unselect(id);
+						if(Selection.Files.length === 0) {
+							Selection.removeDetails();
+							if(Selection.Folders.length > 0) {
+								Selection.putDetails('d'+ Selection.Folders[Selection.Folders.length - 1]);
+							}
+						}
+                    } else {
                         Selection.Files.push(id.substr(1));
-                        Selection.select(id, putDetails);
+                        Selection.select(id);
                     }
                 }
                 else {
-                    Selection.remove();
-                    Selection.Files.push(id.substr(1));
-                    Selection.select(id, putDetails);
+					if(Selection.Files.length === 1 && Selection.Files[0] == id.substr(1)) {
+						Selection.remove();
+						Selection.removeDetails();
+					} else {
+						Selection.remove();
+                    	Selection.Files.push(id.substr(1));
+                    	Selection.select(id);
+					}
                 }
             }
         },
 
-        addFolder : function(event, id, putDetails = true) {
+        addFolder : function(event, id) {
+			if(typeof event === 'object' && event !== null) {
+				event.preventDefault(); // Prevent event to be fired twice in some cases (due to input checkbox and label)
+				if(event.target.tagName === 'LABEL' || (event.target.tagName === 'TD' && $(event.target).is(':first-child'))) {
+					event = 'ctrl'; // Click on label/checkbox: behave like 'ctrl' key is pressed
+				}
+			}
             Selection.addSel = 1;
             if(document.querySelector("#"+id)) {
                 if(Selection.multiple || (event !== null && (event == 'ctrl' || event.ctrlKey))) {
                     var pos = Selection.Folders.indexOf(id.substr(1));
                     if(pos != -1) {
                         Selection.Folders.splice(pos, 1);
-                        Selection.unselect(id, putDetails);
-                    }
-                    else {
+                        Selection.unselect(id);
+						if(Selection.Folders.length === 0) {
+							Selection.removeDetails();
+							if(Selection.Files.length > 0) {
+								Selection.putDetails('f'+ Selection.Files[Selection.Files.length - 1]);
+							}
+						}
+                    } else {
                         Selection.Folders.push(id.substr(1));
-                        Selection.select(id, putDetails);
+                        Selection.select(id);
                     }
                 }
                 else {
-                    Selection.remove();
-                    Selection.Folders.push(id.substr(1));
-                    Selection.select(id, putDetails);
+					if(Selection.Folders.length === 1 && Selection.Folders[0] == id.substr(1)) {
+                    	Selection.remove();
+						Selection.removeDetails();
+					} else {
+						Selection.remove();
+                    	Selection.Folders.push(id.substr(1));
+                    	Selection.select(id);
+					}
                 }
             }
         },
@@ -96,12 +125,12 @@ var Selection = (function() {
             Selection.addSel = 1;
             var files = document.querySelectorAll(".file");
             for(var i = 0; i < files.length; i++) {
-                Selection.addFile('ctrl', files[i].id, false);
+                Selection.addFile('ctrl', files[i].id);
 			}
 
             var folders = document.querySelectorAll(".folder");
             for(var i = 0; i < folders.length; i++) {
-                Selection.addFolder('ctrl', folders[i].id, false);
+                Selection.addFolder('ctrl', folders[i].id);
 			}
         },
 
@@ -112,7 +141,7 @@ var Selection = (function() {
                 if(document.querySelector("#"+files[i].id)) {
                     if(Selection.Files.indexOf((files[i].id).substr(1)) == -1) {
                         Selection.Files.push((files[i].id).substr(1));
-                        Selection.select(files[i].id, false);
+                        Selection.select(files[i].id);
                     }
                 }
             }
@@ -122,10 +151,13 @@ var Selection = (function() {
                 if(document.querySelector("#"+folders[i].id)) {
                     if(Selection.Folders.indexOf(folders[i].id.substr(1)) == -1) {
                         Selection.Folders.push(folders[i].id.substr(1));
-                        Selection.select(folders[i].id, false);
+                        Selection.select(folders[i].id);
                     }
                 }
             }
+			setTimeout(function() {
+				$('#sel_all').prop('checked', true);
+			}, 0);
         },
 
         remove : function() {
@@ -137,25 +169,6 @@ var Selection = (function() {
 			}
             Selection.Files = [];
             Selection.Folders = [];
-        },
-
-        openDetails : function() {
-            if(!($("section#selection").hasClass("selected"))) {
-                $("section#selection").fadeIn(400, function() {
-                    $(this).addClass("selected");
-                });
-            }
-            if((window.innerWidth || document.body.clientWidth) < 700 && Transfers.isOpened()) {
-                Transfers.close();
-            }
-        },
-
-        closeDetails : function() {
-            if($("section#selection").hasClass('selected')) {
-                $("section#selection").fadeOut('fast', function() {
-                    $(this).removeClass("selected");
-                });
-            }
         },
 
         dl : function(id) {
@@ -177,7 +190,7 @@ var Selection = (function() {
 			Box.hide();
 			var validate = function() {
 				var passphrase = this.$inputs.passphrase.value;
-				if(typeof(passphrase) !== 'string') return false;// || passphrase.length < 6) return false;
+				if(typeof(passphrase) !== 'string') return false;
 				if(Selection.Files.length > 0) {
 					for(var i = 0; i < Selection.Files.length; i++) {
 		                Files.share(Selection.Files[i], passphrase);
@@ -190,6 +203,7 @@ var Selection = (function() {
 
 			var m = new MessageBox(txt.Register.passphrase).addInput('passphrase', {
 				id: "nShare",
+				placeholder: txt.Register.passphrase,
 				autocomplete: "off",
 				oninput: function(event) {
 					if(this.$inputs.passphrase.value.length >= 6) {
@@ -203,7 +217,7 @@ var Selection = (function() {
 					}
 					return true;
 				}
-			}).addButton("OK", validate).show();
+			}, 'fa fa-lock').addButton(txt.User.generatelink, validate).show();
 			$(m.$elemBtns).find('input,button').prop('disabled', true);
 		},
 
@@ -226,41 +240,62 @@ var Selection = (function() {
             }
         },
 
-        allSwitch : function() {
-            Selection.all();
-            if(Selection.Files.length > 0) {
-                Toolbar.display('f'+Selection.Files[0]);
-            }
-            else if(Selection.Folders.length > 0) {
-                Toolbar.display('d'+Selection.Folders[0]);
-            }
-        },
+        allSwitch : function() {},
+
+		removeDetails: function() {
+			$('#selection').removeClass('selected');
+			$('#mui').removeClass('selected');
+			$('#display').removeClass('selected');
+			$('section.selection').html(Selection.getDefault());
+		},
 
         putDetails: function(id) {
-            if(elem = document.querySelector("#"+id)) {
-    			var title = elem.getAttribute("title").split("\n");
-                var content = "<strong>"+txt.User.details+"</strong>\
-            	<hr><ul><li><strong>"+txt.User.name+"</strong> : "+elem.getAttribute("data-title")+"</li>\
-            	<li><strong>"+txt.User.path+"</strong> : "+ (elem.getAttribute("data-path") == '' ? "/" : elem.getAttribute("data-path")) +"</li>\
-                <li><strong>"+txt.User.type+"</strong> : "+ (title[1] ? txt.User.file : txt.User.folder) +"</li>\
-                <li><strong>"+txt.User.size+"</strong> : "+title[0]+"</li>";
+			var elem = $('#'+id), html = '';
+			var type = id.substr(0, 1) === 'd' ? 'folder' : 'file';
+			$('#selection').addClass('selected');
+			$('#mui').addClass('selected');
+			$('#display').addClass('selected');
+            if($(elem).length) {
+				html += '<strong>Actions</strong>';
 
-                if(title[1] !== undefined) content += "<li>"+title[1]+"</li>"; // File
-                content += '</ul>';
-                if(title[1] !== undefined) {
-					content += '<span class="btn_download" onclick="Selection.dl(\''+id+'\')"><i class="fa fa-download" aria-hidden="true"></i> '+txt.RightClick.dl+'</span>';
-					if(Files.isShared(id.substr(1))) {
-						content += '<span class="btn_share" onclick="Selection.unshare(\''+id.substr(1)+'\')"><i class="fa fa-ban" aria-hidden="true"></i> '+txt.RightClick.unshare+'</span>';
-						content += '<input type="text" value="'+elem.getAttribute("data-url")+'" class="copy_url">';
-						content += '<input type="button" value="'+txt.RightClick.copy+'" onclick="copy_url()">';
-					} else {
-						content += '<span class="btn_share" onclick="Selection.share(\''+id.substr(1)+'\')"><i class="fa fa-share" aria-hidden="true"></i> '+txt.RightClick.share+'</span>';
+                if(type === 'file') {
+					html += '<a class="blue block" onclick="Selection.dl(\''+id+'\')" title="'+txt.RightClick.dl+'"><i class="fa fa-download" aria-hidden="true"></i> '+txt.RightClick.dl+'</a>';
+				}
+				if(type === 'folder' && Selection.Files.length === 0 && Selection.Folders.length === 1) {
+					html += '<a class="blue block" onclick="Folders.open(\''+id.substr(1)+'\')" title="'+txt.RightClick.open+'"><i class="fa fa-folder-open" aria-hidden="true"></i> '+txt.RightClick.open+'</a>';
+				}
+				if(Trash.state == 0) {
+					html += '<a class="blue block" onclick="Move.cut(\''+id+'\')" title="'+txt.RightClick.cut+'"><i class="fa fa-scissors" aria-hidden="true"></i> '+txt.RightClick.cut+'</a>';
+					html += '<a class="blue block" onclick="Move.copy(\''+id+'\')" title="'+txt.RightClick.copy+'"><i class="fa fa-clone" aria-hidden="true"></i> '+txt.RightClick.copy+'</a>';
+					html += '<a class="blue block" onclick="Move.trashMultiple(\''+id+'\')" title="'+txt.RightClick.trash+'"><i class="fa fa-trash" aria-hidden="true"></i> '+txt.RightClick.trash+'</a>';
+				} else {
+					html += '<a class="blue block" onclick="Move.trashMultiple(\''+id+'\')" title="'+txt.RightClick.restore+'"><i class="fa fa-undo" aria-hidden="true"></i> '+txt.RightClick.restore+'</a>';
+					html += '<a class="blue block" onclick="Rm.multiple(\''+id+'\')" title="'+txt.RightClick.rm+'"><i class="fa fa-trash" aria-hidden="true"></i> '+txt.RightClick.rm+'</a>';
+				}
+				if(Trash.state == 0 && (Selection.Files.length === 0 && Selection.Folders.length === 1) || (Selection.Files.length === 1 && Selection.Folders.length === 0)) {
+					html += '<a class="blue block" onclick="Move.rename(\''+id+'\')" title="'+txt.RightClick.mvItem+'"><i class="fa fa-pencil" aria-hidden="true"></i> '+txt.RightClick.mvItem+'</a>';
+				}
+				if(type === 'file' && Selection.Files.length === 1 && Selection.Folders.length === 0) {
+					html += '<a class="blue block" onclick="Files.details(\''+id+'\')" title="'+txt.RightClick.vDetails+'"><i class="fa fa-info" aria-hidden="true"></i> '+txt.RightClick.vDetails+'</a>';
+				}
+				if(type === 'folder' && Selection.Files.length === 0 && Selection.Folders.length === 1) {
+					html += '<a class="blue block" onclick="Folders.details(\''+id+'\')" title="'+txt.RightClick.vDetails+'"><i class="fa fa-info" aria-hidden="true"></i> '+txt.RightClick.vDetails+'</a>';
+				}
+
+				if(type === 'file') {
+					if(Selection.Files.length > 1 || Selection.Folders.length > 1 || Files.isShared(id.substr(1))) {
+						html += '<a class="blue block" onclick="Selection.unshare(\''+id.substr(1)+'\')" title="'+txt.RightClick.unshare+'"><i class="fa fa-ban" aria-hidden="true"></i> '+txt.RightClick.unshare+'</a>';
+						if(Selection.Files.length === 1 && Selection.Folders.length === 0) {
+							html += '<input type="text" value="'+$(elem).attr('data-url')+'" class="copy_url">';
+							html += '<input id="copy_btn" type="button" class="btn btn-large" value="'+txt.RightClick.copy+'" onclick="copy_url()">';
+							html += '<a id="copy_icon" class="blue block" onclick="copy_url()"><i class="fa fa-link"></i></a>';
+						}
+					}
+					if(Selection.Files.length > 1 || Selection.Folders.length > 1 || !Files.isShared(id.substr(1))) {
+						html += '<a class="blue block" onclick="Selection.share(\''+id.substr(1)+'\')" title="'+txt.RightClick.share+'"><i class="fa fa-share" aria-hidden="true"></i> '+txt.RightClick.share+'</a>';
 					}
 				}
-				if(Selection.Folders.length + Selection.Files.length > 1) {
-                    content += "<hr><span class='multiselected_details'>"+Selection.Folders.length+" "+txt.User.folderSelected+", "+Selection.Files.length+" "+txt.User.fileSelected+"</span>";
-                }
-                document.querySelector("section#selection").innerHTML = content + "</ul>";
+                $("section.selection").html(Selection.getDefault() + html);
             }
         }
     }

@@ -1,77 +1,56 @@
 <?php
-    /*
-	* @name            : Bug.php
-	* @description     : Notify a bug view
-	* @authors         : Dylan Clement <dylan@muonium.ee>
-	*/
+    /* Notify a bug page */
     use \library\MVC as l;
     $_t = new l\Template(self::$txt->Global->bug);
-    $_t->addCss("blue/blue");
-    $_t->addCss("blue/container");
-    $_t->addCss("blue/header");
-    $_t->addCss("blue/inputs");
-    $_t->addCss("blue/menu");
-    $_t->addCss("blue/section-large-content");
 
-    $_t->addJs("Bug");
-    $_t->addJs("check");
-    $_t->getHeader();
+    $_t->addCss([
+		'2018/style'
+	])->addJs(['Bug', 'check']);
+
+	echo $_t->getHead();
+	echo $_t->getHeader();
+	echo $_t->getSidebar();
 ?>
-<body class="grey">
-    <header>
-        <div id="logo">
-            <a href="https://muonium.io" target="_blank">
-                <img src="public/pictures/logos/muonium_H_06.png">
-            </a>
-        </div>
-        <ul>
-            <li><a href="User"><?php echo self::$txt->Global->back; ?></a></li>
-        </ul>
-        <section id="language">
-            <div>
-                <?php $this->getLanguageSelector(); ?>
-            </div>
-        </section>
-    </header>
-
-    <div id="container">
-        <section id="large-content">
-            <h1><?php echo_h(self::$txt->Global->bug); ?></h1>
+    <div class="container-large">
+		<form method="post" action="<?php echo MVC_ROOT; ?>/Bug/Form" class="form-bug">
+            <h1><?php echo self::$txt->Global->bug; ?></h1>
 
             <p><strong><?php if(!empty($this->_message)) { echo_h($this->_message); } ?></strong></p>
 
-            <form method="post" action="<?php echo MVC_ROOT; ?>/Bug/Form" class="block">
-                <p>
-                    <label for="os"><?php echo_h(self::$txt->Bug->os); ?>* :</label>
+            <fieldset>
+                <legend><?php echo self::$txt->Bug->os; ?>*</legend>
+				<p class="input-large">
                     <select name="os" id="os" required>
                         <option value="">-------</option>
                         <?php $this->printValues('os'); ?>
                     </select>
-                </p>
+				</p>
+            </fieldset>
 
-                <p>
-                    <label for="browser"><?php echo_h(self::$txt->Bug->browser); ?>* :</label>
+			<fieldset>
+				<legend><?php echo self::$txt->Bug->browser; ?>*</legend>
+                <p class="input-large">
                     <select name="browser" id="browser" required>
                         <option value="">-------</option>
                         <?php $this->printValues('browser'); ?>
                     </select>
                 </p>
+			</fieldset>
 
-                <p>
-                    <label for="browserVersion"><?php echo_h(self::$txt->Bug->browserVersion); ?> :</label>
-                    <input type="text" name="browserVersion" id="browserVersion" value="<?php if(!empty($_POST['browserVersion'])) { echo_h($_POST['browserVersion']); } ?>">
+            <p class="input-large">
+                <input type="text" name="browserVersion" id="browserVersion" value="<?php if(!empty($_POST['browserVersion'])) { echo_h($_POST['browserVersion']); } ?>" placeholder="<?php echo self::$txt->Bug->browserVersion; ?>">
+            </p>
+
+			<fieldset>
+				<legend><?php echo self::$txt->Bug->message; ?>*</legend>
+                <p class="input-large">
+                    <textarea name="message" id="message" cols="50" rows="5" required><?php if(!empty($_POST['message'])) { echo_h($_POST['message']); } ?></textarea>
                 </p>
+			</fieldset>
 
-                <p>
-                    <label for="message"><?php echo_h(self::$txt->Bug->message); ?>* :</label>
-                    <textarea name="message" id="message" cols="50" rows="5"><?php if(!empty($_POST['message'])) { echo_h($_POST['message']); } ?></textarea>
-                </p>
-
-				<input type="submit" value="OK">
-            </form>
-        </section>
+			<input type="submit" value="<?php echo self::$txt->Bug->send; ?>" class="btn btn-required" disabled>
+        </form>
     </div>
-</body>
 <?php
-    $_t->getFooter();
+    echo $_t->getFooter();
 ?>

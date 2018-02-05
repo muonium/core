@@ -15,8 +15,9 @@ var Move = (function() {
                 if(id.substr(0, 1) == 'd') {
                     Move.Folders.push(id.substr(1));
                 }
-                if(id.substr(0, 1) == 'f')
+                if(id.substr(0, 1) == 'f') {
                     Move.Files.push(id.substr(1));
+				}
             }
         }
         else {
@@ -58,12 +59,7 @@ var Move = (function() {
                                     elem.setAttribute("data-title", elem_name);
                                 }
 
-                                if(elem.className == 'folder') {
-                                    elem.querySelector("strong").innerHTML = elem_name;
-                                }
-                                else if(elem.lastChild.nodeType === 3) {
-                                    elem.lastChild.data = ' '+elem_name;
-                                }
+                                $(elem).find('td:nth-child(3) > strong').html(elem_name);
         				    }
         				}
         				xhr.send("folder_id="+Folders.id+"&old="+encodeURIComponent(name)+"&new="+encodeURIComponent(elem_name));
@@ -71,6 +67,7 @@ var Move = (function() {
 
                     var m = new MessageBox(txt.RightClick.mvItem).addInput('elem_name', {
         				id: "nRename",
+						placeholder: txt.User.name,
         				autocomplete: "off",
                         value: name,
         				onkeypress: function(event) {
@@ -89,22 +86,21 @@ var Move = (function() {
         renameVerif : function(evt) {
 			var keyCode = evt.which ? evt.which : evt.keyCode;
 			var forbidden = '/\\:*?<>|"';
-			if (forbidden.indexOf(String.fromCharCode(keyCode)) >= 0)
+			if(forbidden.indexOf(String.fromCharCode(keyCode)) >= 0) {
 				return false;
+			}
 			return true;
 		},
 
         cut : function(id) {
             Box.hide();
             Copy = 0;
-
             mv(id);
         },
 
         copy : function(id) {
             Box.hide();
             Copy = 1;
-
             mv(id);
         },
 
@@ -115,6 +111,12 @@ var Move = (function() {
 
             var p_folders = [];
             var p_files = [];
+
+			var destFolder_id = Folders.id;
+			if(Selection.Files.length === 0 && Selection.Folders.length === 1) {
+				// Paste in selected folder instead current folder
+				destFolder_id = Selection.Folders[0];
+			}
 
             if(Move.Files.length > 0 || Move.Folders.length > 0) {
                 for(var i = 0; i < Move.Files.length; i++) {
@@ -136,15 +138,13 @@ var Move = (function() {
                 xhr.open("POST", "User/Mv", true);
                 xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
-                xhr.onreadystatechange = function()
-                {
-                    if(xhr.status == 200 && xhr.readyState == 4)
-                    {
+                xhr.onreadystatechange = function() {
+                    if(xhr.status == 200 && xhr.readyState == 4) {
                         console.log(xhr.responseText);
                         Folders.open(Folders.id);
                     }
                 }
-                xhr.send("copy="+Copy+"&folder_id="+Folders.id+"&old_folder_id="+mvFolder_id+"&files="+p_files+"&folders="+p_folders);
+                xhr.send("copy="+Copy+"&folder_id="+destFolder_id+"&old_folder_id="+mvFolder_id+"&files="+p_files+"&folders="+p_folders);
             }
         },
 
@@ -160,19 +160,17 @@ var Move = (function() {
                     else if(t.substr(0, 1) == 'd') {
                         request = "folders="+id;
                     }
-                    else
+                    else {
                         return false;
+					}
 
                     var xhr = new XMLHttpRequest();
                     xhr.open("POST", "User/MvTrash", true);
                     xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
-                    xhr.onreadystatechange = function()
-                    {
-                        if(xhr.status == 200 && xhr.readyState == 4)
-                        {
-                            //document.querySelector("section#selection").className = '';
-                            Selection.closeDetails();
+                    xhr.onreadystatechange = function() {
+                        if(xhr.status == 200 && xhr.readyState == 4) {
+                            Selection.removeDetails();
                             console.log(xhr.responseText);
                             Folders.open(Folders.id);
                         }
@@ -191,12 +189,9 @@ var Move = (function() {
                 xhr.open("POST", "User/MvTrash", true);
                 xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
-                xhr.onreadystatechange = function()
-                {
-                    if(xhr.status == 200 && xhr.readyState == 4)
-                    {
-                        //document.querySelector("section#selection").className = '';
-                        Selection.closeDetails();
+                xhr.onreadystatechange = function() {
+                    if(xhr.status == 200 && xhr.readyState == 4) {
+                        Selection.removeDetails();
                         console.log(xhr.responseText);
                         Folders.open(Folders.id);
                     }

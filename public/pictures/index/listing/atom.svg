@@ -1,8 +1,0 @@
-<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 48 48" enable-background="new 0 0 48 48" xml:space="preserve">
-	<circle fill="#FFC107" cx="24" cy="24" r="3"></circle>
-	<g>
-		<path fill="none" stroke="#2196F3" stroke-width="2" stroke-linejoin="round" stroke-miterlimit="10" d="M24,6c-3.945,0-6.921,7.739-6.921,18c0,10.262,2.976,18,6.921,18s6.921-7.738,6.921-18C30.921,13.739,27.945,6,24,6z"></path>
-		<path fill="none" stroke="#2196F3" stroke-width="2" stroke-linejoin="round" stroke-miterlimit="10" d="M8.416,14.999c-1.974,3.419,3.238,9.866,12.123,14.995C29.422,35.126,37.61,36.418,39.583,33c1.973-3.419-3.239-9.865-12.122-14.996C18.576,12.873,10.388,11.581,8.416,14.999z"></path>
-		<path fill="none" stroke="#2196F3" stroke-width="2" stroke-linejoin="round" stroke-miterlimit="10" d="M8.417,32.998c1.973,3.42,10.159,2.128,19.044-3.005C36.345,24.865,41.557,18.418,39.584,15c-1.972-3.417-10.16-2.127-19.044,3.002C11.655,23.135,6.443,29.581,8.417,32.998z"></path>
-	</g>
-</svg>

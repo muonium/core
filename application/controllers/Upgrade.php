@@ -24,9 +24,16 @@ class Upgrade extends l\Languages {
 		$ipn_url = conf\confPayments::ipn_url;
 
 		$storage_plans = $this->_modelStoragePlans->getPlans();
+		$i = 0;
 		foreach($storage_plans as $plan) {
 			$product_name = showSize($plan['size']).' - '.$plan['price'].' '.strtoupper($plan['currency']).' - '.$this->duration($plan['duration']);
-			$offers .= '<li>'.$product_name;
+			$offers .= '<div>';
+
+			if($i === 0) $offers .= '<div class="most-popular">Most Popular</div>';
+			$offers .= '<div class="offer-size">'.showSize($plan['size']).'</div>';
+			$offers .= '<div class="offer-price"><span class="currency">'.currencySymbol($plan['currency']).'</span>'.number_format($plan['price'], 2).'</div>';
+			$offers .= '<div class="offer-duration">'.$this->duration($plan['duration']).'</div>';
+
 			if($plan['product_id'] !== null) {
 
 				$fields = [
@@ -47,10 +54,11 @@ class Upgrade extends l\Languages {
 				foreach($fields as $name => $value) {
 					$offers .= '<input type="hidden" name="'.$name.'" value="'.$value.'">';
 				}
-				$offers .= '<button type="submit">'.self::$txt->Upgrade->buy.'</button>';
+				$offers .= '<button type="submit" class="btn">'.self::$txt->Upgrade->upgrade.'</button>';
 				$offers .= '</form>';
 			}
-			$offers .= '</li>';
+			$offers .= '</div>';
+			$i++;
 		}
 
 		$history = '';
@@ -58,9 +66,9 @@ class Upgrade extends l\Languages {
 		foreach($upgrades as $upgrade) {
 			$history .= '<tr>';
 			$history .= '<td>'.showSize($upgrade['size']).'</td>';
-			$history .= '<td>'.$upgrade['price'].' '.strtoupper($upgrade['currency']).'</td>';
-			$history .= '<td>'.date('Y-m-d G:i', $upgrade['start']).'</td>';
-			$history .= '<td>'.date('Y-m-d G:i', $upgrade['end']).'</td>';
+			$history .= '<td>'.$upgrade['price'].' '.currencySymbol($upgrade['currency']).'</td>';
+			$history .= '<td>'.date(self::$txt->Dates->date.' '.self::$txt->Dates->time, $upgrade['start']).'</td>';
+			$history .= '<td>'.date(self::$txt->Dates->date.' '.self::$txt->Dates->time, $upgrade['end']).'</td>';
 			$history .= '<td class="red fit-width">';
 			if($upgrade['removed'] === 1) $history .= self::$txt->Upgrade->expired;
 			$history .= '</td></tr>';

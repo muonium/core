@@ -2,27 +2,22 @@
 var Folders = (function() {
 	return {
 		id : 0,
-		create : function() {
+		create : function(e) {
+			if(e !== undefined) e.preventDefault();
 			Box.hide();
 
 			var validate = function() {
 				var folder_name = this.$inputs.folder_name.value;
-				var xhr = new XMLHttpRequest();
-				xhr.open("POST", "User/AddFolder", true);
-				xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-
-				xhr.onreadystatechange = function() {
-				    if(xhr.status == 200 && xhr.readyState == 4) {
-				        if(isNumeric(xhr.response)) {
-							Folders.open(Folders.id);
-				        }
-				    }
-				}
-				xhr.send("folder_id="+Folders.id+"&folder="+encodeURIComponent(this.$inputs.folder_name.value));
+				$.post('User/AddFolder', {folder_id: Folders.id, folder: encodeURIComponent(this.$inputs.folder_name.value)}, function(data) {
+					if(isNumeric(data)) {
+						Folders.open(Folders.id);
+					}
+				});
 			};
 
-			var m = new MessageBox(txt.User.foldername).addInput('folder_name', {
+			var m = new MessageBox(txt.RightClick.nFolder).addInput('folder_name', {
 				id: "nFolder",
+				placeholder: txt.User.foldername,
 				autocomplete: "off",
 				onkeypress: function(event) {
 					if(event.keyCode == 13) {
@@ -31,46 +26,55 @@ var Folders = (function() {
 					}
 					return Folders.verif(event);
 				}
-			}).addButton("OK", validate).show();
+			}, 'fa fa-folder-o').addButton("OK", validate).show();
 		},
 
 		open : function(folder_id) {
-			if(!isNumeric(folder_id))
-				return false;
+			if(!isNumeric(folder_id)) return false;
+			$.post('User/ChangePath', {folder_id: folder_id, trash: Trash.state}, function(data) {
+				Folders.id = parseInt(folder_id);
+				$('#mui').hide().html(data);
+				// Later, use specific API method to get quota and stored
+				var quota = $('#mui').find('.quota');
+				$(quota).remove();
+				$('#quota_container').html($(quota).html());
+				$('#tree').show();
 
-			var xhr = new XMLHttpRequest();
-			xhr.open("POST", "User/ChangePath", true);
-			xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-
-			xhr.onreadystatechange = function() {
-				if(xhr.status == 200 && xhr.readyState == 4) {
-				    if(xhr.responseText != '') {
-				        // Hide box
-				        Box.hide();
-
-				        document.querySelector("#mui").innerHTML = xhr.responseText;
-				        Folders.id = folder_id;
-				        // reset selected files/folders
-				        Selection.Files = [];
-				        Selection.Folders = [];
-				        // Set events for all files and folders loaded
-				        setEvents();
-
-				        // Put icons
-						ExtIcons.set();
-
-						Files.display(Files.style);
-				    }
+				if($('#mui').find('tr:not(#tree_head)').length === 0 && Folders.id === 0) {
+					// Nothing stored at root folder
+					$('#tree').hide();
+					if(Trash.state === 0) {
+						$('#mui').append('<div class="info mtop"><a onclick="showHelp()">'+txt.User.needhelp+'</a></div>\
+							<div class="bloc-nothing" onclick="Upload.dialog()">'+txt.User.nothing+'<br><img src="'+ROOT+'public/pictures/desktop/ic-no-uploads.png"><br><span>'+txt.User.first+'</span></div>\
+						');
+					} else {
+						$('#mui').append('<div class="info mtop"><a onclick="showHelp()">'+txt.User.needhelp+'</a></div>\
+							<div class="bloc-trash-nothing">'+txt.User.Trashnothing+'<br><img src="'+ROOT+'public/pictures/desktop/ic-no-trash-'+THEME+'.png"></div>\
+						');
+					}
 				}
-			}
-			xhr.send("folder_id="+folder_id+"&trash="+Trash.state);
+
+				$('#mui').show();
+				Box.hide();
+
+				// reset selected files/folders
+				Selection.Files = [];
+				Selection.Folders = [];
+				// Set events for all files and folders loaded
+				setEvents();
+				// Put icons
+				ExtIcons.set();
+
+				Files.display(Files.style);
+			});
 		},
 
         back : function() {
             // Open parent folder
             var parent = document.querySelector("a[id^=parent-]");
-            if(parent)
+            if(parent) {
                 Folders.open(parent.id.substr(parent.id.lastIndexOf("-")+1));
+			}
         },
 
 		verif : function(evt) {
@@ -80,40 +84,42 @@ var Folders = (function() {
 				return false;
 			}
 			var interdit = '/\\:*?<>|"';
-			if (interdit.indexOf(String.fromCharCode(keyCode)) >= 0)
+			if(interdit.indexOf(String.fromCharCode(keyCode)) >= 0) {
 				return false;
+			}
 			return true;
 		},
 
 		getName : function(folder_id) {
-			if(document.getElementById(folder_id))
+			if(document.getElementById(folder_id)) {
 				return document.getElementById(folder_id).getAttribute("name");
+			}
 			return false;
 		},
 
         getDataFolder : function(elem_id) {
-            if(document.getElementById(elem_id))
+            if(document.getElementById(elem_id)) {
                 return document.getElementById(elem_id).getAttribute("data-folder");
+			}
             return false;
         },
 
         details : function(el) {
-            var elem;
-            if(elem = document.querySelector("#"+el)) {
+            var elem = $('#'+el);
+            if($(elem).length) {
                 Box.box_more = true;
                 Box.reset();
                 Box.Area = 2;
-
-                Box.set("<div>\
-                <p onclick=\"Box.right_click(event.clientX, event.clientY, '"+el+"')\"><i class='fa fa-chevron-left' aria-hidden='true'></i> &nbsp;&nbsp;<strong>"+txt.User.details+"</strong></p>\
-                <hr><ul><li>"+txt.User.name+" : "+elem.getAttribute("name")+"</li>\
-                <li>"+txt.User.path+" : "+elem.getAttribute("data-path")+"/</li>\
-                <li>"+txt.User.type+" : "+txt.User.folder+" <span class='ext_icon'></span></li>\
-                <li>"+txt.User.size+" : "+elem.innerHTML.substr(elem.innerHTML.lastIndexOf("["))+"</li>\
-                </ul></div>");
-
-                var newNode = document.importNode(elem.getElementsByTagName('img')[0], true);
-                document.querySelector(".ext_icon").appendChild(newNode);
+                Box.set('<div class="close" onclick="Box.close()">x</div>\
+				<div class="details">\
+                	<strong>'+txt.User.details+'</strong>\
+                	<ul>\
+						<li><span class="label">'+txt.User.name+':</span> '+$(elem).attr("name")+'</li>\
+                		<li><span class="label">'+txt.User.path+':</span> '+$(elem).attr("data-path")+'/</li>\
+                		<li><span class="label">'+txt.User.type+':</span> '+txt.User.folder+'</li>\
+                		<li><span class="label">'+txt.User.size+':</span> '+$(elem).attr("title")+'</li>\
+                	</ul>\
+				</div>');
                 Box.show();
             }
         }

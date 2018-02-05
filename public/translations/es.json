@@ -5,6 +5,7 @@
         "back": "Regresar a Muonium",
         "favorites": "Favoritos",
         "login": "Iniciar sesión",
+		"logout": "Cerrar sesión",
         "recents": "Mui :: Recientes",
         "sharing": "Mui :: Compartiendo",
         "transfer": "Mui :: Transferir",
@@ -15,7 +16,11 @@
         "mail_sent": "Se le ha enviado un correo electrónico, por favor compruebe su bandeja de entrada y la bandeja de \"spam\". Si no ha recibido nada después de 5 minutos, por favor inténtelo de nuevo :",
         "submit": "Enviar",
         "bug": "Reportar error",
-        "loading": "Cargando..."
+        "loading": "Cargando...",
+		"selected": "Currently selected",
+		"general": "General",
+        "shared": "Compartido",
+        "transfers": "Transferencias"
     },
 
     "UserMenu": {
@@ -23,21 +28,12 @@
         "help": "Ayuda",
         "settings": "Ajustes",
         "profile": "Perfil",
-        "logout": "Cerrar sesión",
         "upload": "Subir",
         "smallIcons": "Iconos pequeños",
         "largeIcons": "Iconos grandes",
         "multiSelection": "Multiselección",
         "selectAll": "Seleccionar todo",
 		"moreStorage": "Comprar más almacenamiento"
-    },
-
-    "Toolbar": {
-        "recents": "Recientes",
-        "favorites": "Favoritos",
-        "general": "General",
-        "shared": "Compartido",
-        "transfers": "Transferencias"
     },
 
     "Error": {
@@ -65,7 +61,7 @@
         "file": "Archivo",
         "folder": "Carpeta",
         "element": "Elemento",
-        "PlurialElement": "Elementos",
+        "elements": "Elementos",
         "replaceFile": "El archivo [filename] existe. ¿Quiere reemplazarlo?",
         "replaceCompleteFile": "El archivo [filename] existe, pero no está completado. ¿Quiere hacerlo?",
         "quotaExceeded": "¡Cuota excedida!",
@@ -83,13 +79,22 @@
         "nothing": "Nada...",
         "uploading": "Subiendo",
         "downloading": "Descargando",
-		"quota_of": "[used] del [total] usado",
+		"quota_of": "[used] del [total]",
 		"shared": "Compartición de archivos habilitado",
+		"generatelink": "Generate Link",
 		"badPass": "¡Contraseña erronea!",
-		"uploadedBy": "Subido por [login] en"
+		"uploadedBy": "Subido por [login] en",
+		"needhelp": "Need help getting started with Muonium?",
+		"Upnothing": "You haven't uploaded anything yet.",
+		"Dlnothing": "You haven't downloaded anything yet.",
+		"Trashnothing": "You haven't deleted any files recently.",
+		"first": "Upload your first file.",
+		"copied": "Link has been copied to clipboard"
     },
 
     "Register": {
+		"donthaveaccount": "Don't have a Muonium account?",
+		"create": "Create one now.",
         "email": "Dirección de correo electrónico",
         "login": "Nombre de usuario",
         "password": "Contraseña",
@@ -117,6 +122,7 @@
     },
 
     "Login": {
+		"signin": "Sign In",
         "forgot": "¿Olvidó su contraseña?",
         "register": "Registrarse",
         "bruteforceErr0": "Correo electrónico o contraseña inválida",
@@ -128,14 +134,16 @@
         "invalidCode": "El código introducido es inválido",
         "username": "Correo electrónico o inicio de sesión",
         "badPassphrase": "Error: contraseña secreta incorrecta",
-        "doubleAuth": "Se le ha enviado un correo electrónico con el código de autentificación. Copie el código en el campo superior.<br> Si no ha recibido nada en los próximos 5 minutos y no tiene nada en la carpeta de \"Spam\", por favor siga este <a href='[url_app]/Logout'>enlace</a> para realizar un nuevo intento de conexión."
-    },
+        "doubleAuth": "Se le ha enviado un correo electrónico con el código de autentificación. Copie el código en el campo superior.<br> Si no ha recibido nada en los próximos 5 minutos y no tiene nada en la carpeta de \"Spam\", por favor siga este <a href='[url_app]/Logout'>enlace</a> para realizar un nuevo intento de conexión.",
+		"success": "Successfully logged in"
+	},
 
     "Validate": {
         "message": "Error : La llave de validación es errónea, por favor inicie sesión para enviar una nueva validación por correo electrónico",
         "wait": "Por favor espere un minuto antes de realizar una nueva petición de un correo de validación",
         "sendmess": "Por favor siga el enlace en el correo electrónico para activar su cuenta",
-        "sendmail": "Enviar un nuevo correo"
+        "sendmail": "Enviar un nuevo correo",
+		"done": "Your account is validated. You can now log in and start using Muonium!"
     },
 
     "Profile": {
@@ -161,7 +169,14 @@
         "accountDeletionConfirm": "¿Realmente quiere eliminar su cuenta?",
         "accountDeletionOk": "Your account was successfully deleted!",
         "deleteAccount": "Borrar cuenta",
-        "details": "¿Quiere mostrar los detalles cuando un archivo o cuenta es seleccionada?"
+		"theme": "Theme",
+		"mailusername": "Email & Username",
+		"pwdpp": "Password & Secret Password",
+		"filedetails": "File Details",
+		"iwant": "I really want to",
+		"otheroptions": "Other options",
+		"upgrade": "Ready to upgrade Muonium?",
+		"getmore": "Get more storage"
     },
 
     "LostPass": {
@@ -187,12 +202,21 @@
         "mvItem": "Renombrar",
         "vDetails": "Ver detalles",
         "open": "Abrir",
-        "nFolder": "Nueva carpeta...",
-        "upFiles": "Subir archivos...",
+        "nFolder": "Nueva carpeta",
+        "upFiles": "Subir archivos",
         "logOut": "Cerrar sesión",
         "trash": "Mover a la papelera",
         "restore": "Restaurar"
     },
+
+	"Story": {
+		"keep": "Keep Muonium <u>Free</u> and <u>Open</u>.",
+		"join": "Join our journey of keeping Muonium free, secure, and open source for everyone.",
+		"read": "Read Our Story",
+		"premium": "Go Premium",
+		"donate": "Give a donation",
+		"help": "How does my support help?"
+	},
 
     "Bug": {
         "os": "Sistema operativo",
@@ -202,10 +226,13 @@
         "message": "Mensaje",
         "messageLength": "El mensaje debe tener al menos 50 caracteres",
         "form": "Error en el formulario",
-        "sent": "Su mensaje ha sido enviado con éxito. Le responderemos mediante correo electrónico tan pronto como nos sea posible"
+        "sent": "Su mensaje ha sido enviado con éxito. Le responderemos mediante correo electrónico tan pronto como nos sea posible",
+		"send": "Send report"
     },
 
     "Upgrade": {
+		"upgrade": "Upgrade",
+		"upgradeMui": "Upgrade Muonium",
         "offers": "Ofertas",
         "history": "Historia",
         "expired": "Caducado",
@@ -262,5 +289,10 @@
 		"m": "MB",
 		"g": "GB",
 		"t": "TB"
+	},
+
+	"Dates": {
+		"date": "d/m/Y",
+		"time": "G:i"
 	}
 }

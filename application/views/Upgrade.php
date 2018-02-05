@@ -1,63 +1,38 @@
 <?php
-	/*
-	* @name            : Upgrade.php
-	* @description     : Upgrade view
-	* @authors         : Dylan Clement <dylan@muonium.ee>
-	*/
+	/* Upgrade view */
     use \library\MVC as l;
 	$_t = new l\Template(self::$txt->UserMenu->moreStorage);
-	$_t->addCss("blue/blue");
-    $_t->addCss("blue/container");
-    $_t->addCss("blue/header");
-    $_t->addCss("blue/inputs");
-    $_t->addCss("blue/menu");
-    $_t->addCss("blue/section-large-content");
-   	$_t->getHeader();
+
+	$_t->addCss([
+		'2018/style'
+	]);
+
+	echo $_t->getHead();
+	echo $_t->getHeader();
+	echo $_t->getSidebar();
 ?>
-<body class="grey">
-	<header>
-		<div id="logo">
-            <a href="https://muonium.io" target="_blank">
-                <img src="public/pictures/logos/muonium_H_06.png" title="<?php echo self::$txt->Global->home; ?>" alt="<?php echo self::$txt->Global->home; ?>">
-            </a>
-        </div>
-        <ul>
-            <li><a href="User"><?php echo self::$txt->Global->back; ?></a></li>
-        </ul>
-        <section id="language">
-            <div>
-                <?php $this->getLanguageSelector(); ?>
-            </div>
-        </section>
-    </header>
+	<div class="container-large">
+		<h1><?php echo self::$txt->Upgrade->upgradeMui; ?></h1>
 
-	<div id="container">
-        <section id="large-content">
-			<?php echo $msg; ?>
-			<h1><?php echo_h(self::$txt->Upgrade->offers); ?></h1>
-			<div class="bloc">
-				<div class="green"><?php echo self::$txt->Upgrade->mue; ?></div>
-				<ul>
-					<?php echo $offers; ?>
-				</ul>
-			</div>
+		<?php if(isset($msg)) { echo $msg; } ?>
+		<p class="em"><?php echo self::$txt->Upgrade->mue; ?></p>
 
-			<h2><?php echo_h(self::$txt->Upgrade->history); ?></h2>
-			<div class="bloc">
-				<table>
-					<tr>
-						<th><?php echo_h(self::$txt->User->size); ?></th>
-						<th><?php echo_h(self::$txt->Upgrade->price); ?></th>
-						<th><?php echo_h(self::$txt->Upgrade->start_date); ?></th>
-						<th><?php echo_h(self::$txt->Upgrade->end_date); ?></th>
-						<th></th>
-					</tr>
-					<?php echo $history; ?>
-				</table>
-			</div>
-        </section>
+		<div class="bloc-offers">
+			<?php echo $offers; ?>
+		</div>
+
+		<h2 class="em"><?php echo self::$txt->Upgrade->history; ?></h2>
+		<table class="table-large table-responsive">
+			<tr>
+				<th><?php echo self::$txt->User->size; ?></th>
+				<th><?php echo self::$txt->Upgrade->price; ?></th>
+				<th><?php echo self::$txt->Upgrade->start_date; ?></th>
+				<th><?php echo self::$txt->Upgrade->end_date; ?></th>
+				<th></th>
+			</tr>
+			<?php echo $history; ?>
+		</table>
 	</div>
-</body>
 <?php
-   $_t->getFooter();
+   echo $_t->getFooter();
 ?>

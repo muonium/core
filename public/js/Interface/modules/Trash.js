@@ -5,11 +5,16 @@ var Trash = (function() {
 		state : 0,
 		switch : function() {
 			Trash.state = Math.abs(Trash.state-1);
-			if(Trash.state == 0) {
-				$("#button_trash").html(txt.User.trash_0);
-			} else {
-				$("#button_trash").html(txt.User.trash_1);
-			}
+			Folders.open(0);
+		},
+
+		open : function() {
+			Trash.state = 1;
+			Folders.open(0);
+		},
+
+		close : function() {
+			Trash.state = 0;
 			Folders.open(0);
 		}
 	}

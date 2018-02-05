@@ -67,8 +67,8 @@ var Decryption = (function() {
 		Transfers.number = Transfers.number <= 0 ? 0 : Transfers.number - 1;
 		Transfers.numberDl = Transfers.numberDl <= 0 ? 0 : Transfers.numberDl - 1;
 		$("#div_download"+(this.i)).remove();
-		if($('#transfers_download > div').length === 0) {
-			$('#transfers_download').html(txt.User.nothing);
+		if($('.transfers_download > div').length === 0) {
+			$('.transfers_download').html(txt.User.nothing);
 		}
 	};
 
@@ -118,9 +118,9 @@ var Decryption = (function() {
 
 		var pct = line/this.nb_chk*100;
 		if(pct > 100) pct = 100;
-		if(document.querySelector("#span_download"+(this.i))) {
-			document.querySelector("#span_download"+(this.i)).innerHTML = this.filename+' : '+pct.toFixed(2)+'%';
-		}
+
+		$('#div_download'+(this.i)).find('.pct').html(pct.toFixed(2)+'%');
+		$('#div_download'+(this.i)).find('.progress_bar > .used').css('width', pct.toFixed(2)+'%');
 
 		time_chunk = new Time();
 		var xhr = new XMLHttpRequest();
@@ -178,8 +178,8 @@ var Decryption = (function() {
 
 											if(debug) console.log("decryption + download : "+time.elapsed()+" ms");//
 											$("#div_download"+(me.i)).remove();
-											if($('#transfers_download > div').length === 0) {
-												$('#transfers_download').html(txt.User.nothing);
+											if($('.transfers_download > div').length === 0) {
+												$('.transfers_download').html(txt.User.nothing);
 											}
 											// Try to download the file (move from filesystem to download folder)
 											if(typeof fileEntry.file === 'function') {

@@ -11,30 +11,33 @@ var Files = (function() {
 		dl : function(id) {
 			var dwl, btn, spn;
 			Box.hide();
-			var f = document.querySelector("#"+id);
-			if(f) {
-				if(f.getAttribute("data-title").length > 0 && f.getAttribute("data-folder").length > 0) {
-					dwl = document.createElement('div');
-					dwl.id = 'div_download'+i;
+			var f = $('#'+id);
+			if($(f).length) {
+				if($(f).attr('data-title').length > 0 && $(f).attr('data-folder').length > 0) {
+					$('.sidebar li > a').removeClass('selected');
+					$('.sidebar li > a[href="User#transfers"]').addClass('selected');
+					var fname = $(f).attr('data-title');
+					var ffolder = $(f).attr('data-folder');
+					var ficon = ExtIcons.set(fname);
 
-					btn = document.createElement('i');
-					btn.setAttribute('data-id', i);
-					btn.onclick = Files.abort;
-					btn.className = 'fa fa-minus-circle btn-abort';
-					btn.setAttribute('aria-hidden', true);
+					$('.transfers_download').contents().filter(function() {
+		    			return (this.nodeType == 3);
+					}).remove();
+					$('.transfers_download').append('<div id="div_download'+ i +'">'+
+						'<i data-id="'+ i +'" class="fa fa-times-circle-o btn-abort" aria-hidden="true"></i>'+
+						'<div>'+
+							'<span class="fileinfo">'+ ficon + fname +'</span>'+
+							'<span class="pct">0%</span>' +
+							'<div class="progress_bar"><div class="used" style="width:0%"></div></div>'+
+						'</div>'+
+					'</div>');
 
-					spn = document.createElement('span');
-					spn.id = 'span_download'+i;
+					$('#div_download'+i+' .btn-abort').on('click', Files.abort);
 
-					dwl.appendChild(btn);
-					dwl.appendChild(spn);
-					if($('#transfers_download > div').length === 0) {
-						$('#transfers_download').html(' ');
-					}
-					document.querySelector("#transfers_download").appendChild(dwl);
 					Transfers.open();
 					Transfers.showDl();
-					f_dec[i] = new Decryption(f.getAttribute("data-title"), f.getAttribute("data-folder"), i);
+
+					f_dec[i] = new Decryption(fname, ffolder, i);
 					i++;
 				}
 			}
@@ -68,7 +71,7 @@ var Files = (function() {
 					// Package
 					var packet = sjcl.codec.base64.fromBits(enc_fek)+":"+sjcl.codec.base64.fromBits(salt)+":"+sjcl.codec.base64.fromBits(aDATA)+":"+sjcl.codec.base64.fromBits(iv);
 					$.post('User/shareFile', {id: id, dk: packet}, function(resp) {
-						$('#f'+id).data('shared', '1');
+						$('#f'+id).attr('data-shared', '1');
 						if(resp.trim() !== 'error') {
 							var m = new MessageBox(txt.User.shared).setSize('35%','auto').addInput('url', {
 								autocomplete: "off",
@@ -87,7 +90,7 @@ var Files = (function() {
 		unshare : function(id) {
 			Box.hide();
 			$.post('User/unshareFile', {id: id}, function(resp) {
-				$('#f'+id).data('shared', '0');
+				$('#f'+id).attr('data-shared', '0');
 			});
 		},
 
@@ -98,36 +101,42 @@ var Files = (function() {
         },
 
 		getNameById : function(id) {
-			if($('#f'+id).length > 0 && $('#f'+id).data('title') !== undefined && $('#f'+id).data('title') !== null) {
-				return $('#f'+id).data('title');
+			if($('#f'+id).length > 0 && $('#f'+id).attr('data-title') !== undefined && $('#f'+id).attr('data-title') !== null) {
+				return $('#f'+id).attr('data-title');
 			}
 			return false;
 		},
 
 		isShared : function(id) {
-			if($('#f'+id).length > 0 && $('#f'+id).data('shared') == '1') {
+			if($('#f'+id).length > 0 && $('#f'+id).attr('data-shared') == '1') {
 				return true;
 			}
 			return false;
 		},
 
         details : function(el) {
-            var elem;
-            if(elem = document.querySelector("#"+el)) {
-				var title = elem.getAttribute("title").split("\n");
+            var elem = $('#'+el);
+            if($(elem).length) {
+				var title = $(elem).attr('title').split("\n");
+				var lastmod = title[1].split(': ');
+				var shareLink = '<a class="mono blue" onclick="Selection.share(\''+el.substr(1)+'\')"><i class="fa fa-share" aria-hidden="true"></i> '+txt.RightClick.share+'</a>';
+				var unshareLink = '<a class="mono blue" onclick="Selection.unshare(\''+el.substr(1)+'\')"><i class="fa fa-ban" aria-hidden="true"></i> '+txt.RightClick.unshare+'</a>';
                 Box.box_more = true;
                 Box.reset();
                 Box.Area = 1;
-                Box.set("<div>\
-                <p onclick=\"Box.right_click(event.clientX, event.clientY, '"+el+"')\"><i class='fa fa-chevron-left' aria-hidden='true'></i> &nbsp;&nbsp;<strong>"+txt.User.details+"</strong></p>\
-                <hr><ul><li>"+txt.User.name+" : "+elem.getAttribute("data-title")+"</li>\
-                <li>"+txt.User.path+" : "+elem.getAttribute("data-path")+"/</li>\
-                <li>"+txt.User.type+" : "+txt.User.file+" <span class='ext_icon'></span></li>\
-                <li>"+txt.User.size+" : "+title[0]+"</li>\
-                <li>"+title[1]+"</li></ul></div>");
-
-                var newNode = document.importNode(elem.getElementsByTagName('img')[0], true);
-                document.querySelector(".ext_icon").appendChild(newNode);
+                Box.set('<div class="close" onclick="Box.close()">x</div>\
+				<div class="details">\
+                	<strong>'+txt.User.details+'</strong>\
+                	<ul>\
+						<li><span class="label">'+txt.User.name+':</span> '+$(elem).attr("data-title")+'</li>\
+                		<li><span class="label">'+txt.User.path+':</span> '+$(elem).attr("data-path")+'/</li>\
+                		<li><span class="label">'+txt.User.type+':</span> '+txt.User.file+'</li>\
+                		<li><span class="label">'+txt.User.size+':</span> '+title[0]+'</li>\
+                		<li><span class="label">'+lastmod[0]+'</span> '+lastmod[1]+'</li>\
+					</ul>\
+					<p><a class="mono blue" onclick="Selection.dl(\''+el+'\')"><i class="fa fa-download" aria-hidden="true"></i> '+txt.RightClick.dl+'</a></p>\
+					<p>'+(Files.isShared(el.substr(1)) ? unshareLink : shareLink)+'</p>\
+				</div>');
                 Box.show();
             }
         },
@@ -135,8 +144,7 @@ var Files = (function() {
 		display : function() {
 			if(Files.style == 'mosaic') {
 				document.querySelector("#tree").className = 'mosaic';
-			}
-			else {
+			} else {
 				document.querySelector("#tree").className = '';
 			}
 		}

@@ -5,6 +5,7 @@
         "back": "Назад на Muonium",
         "favorites": "Закладки",
         "login": "Вход",
+		"logout": "Выйти",
         "recents": "Mui :: Принятые",
         "sharing": "Mui :: Общие",
         "transfer": "Mui :: Передача",
@@ -15,7 +16,11 @@
         "mail_sent": "Вам было отправлено сообщение электронной почты, пожалуйста, проверьте свои входящие письма и спам. Если после 5 минут письмо не пришло - повторите запрос. :",
         "submit": "Принять",
         "bug": "Отчет об ошибке",
-        "loading": "Загрузка..."
+        "loading": "Загрузка...",
+		"selected": "Currently selected",
+		"general": "Общее",
+        "shared": "Общий доступ",
+        "transfers": "Передачи"
     },
 
     "UserMenu": {
@@ -23,21 +28,12 @@
         "help": "Помощь",
         "settings": "Настройки",
         "profile": "Аккаунт",
-        "logout": "Выйти",
         "upload": "Загрузить",
         "smallIcons": "Маленькие иконки",
         "largeIcons": "Большие иконки",
         "multiSelection": "Выбор нескольких",
         "selectAll": "Выбрать все",
 		"moreStorage": "Купить дополнительное место"
-    },
-
-    "Toolbar": {
-        "recents": "Принятые",
-        "favorites": "Избранное",
-        "general": "Общее",
-        "shared": "Общий доступ",
-        "transfers": "Передачи"
     },
 
     "Error": {
@@ -53,9 +49,9 @@
         "lastmod": "Последнее изменение",
         "loaded": "Загружено в",
         "foldername": "Имя папки",
-        "questiond": "Вы хотите удалить эту папку ?",
-        "questionf": "Вы хотите удалить этот файл ?",
-        "questionrm": "Вы хотите удалить эти файлы/папки ?",
+        "questiond": "Вы хотите удалить эту папку?",
+        "questionf": "Вы хотите удалить этот файл?",
+        "questionrm": "Вы хотите удалить эти файлы/папки?",
         "trash_0": "Корзина",
         "trash_1": "Выйти из корзины",
         "path": "Путь",
@@ -64,11 +60,11 @@
         "size": "Размер",
         "file": "Файл",
         "folder": "Папка",
-        "element": "Элемент",
-        "PlurialElement": "Элементы",
-        "replaceFile": "Файл [filename] существует, вы хотите заменить его ?",
+        "element": "элемент",
+        "elements": "элементы",
+        "replaceFile": "Файл [filename] существует, вы хотите заменить его?",
         "replaceCompleteFile": "Файл [filename] существует и не завершен, что вы хотите сделать?",
-        "quotaExceeded": "Квота превышена !",
+        "quotaExceeded": "Квота превышена!",
         "fileAPI": "Файловые API не полностью поддерживаются вашим браузером. Требуется возврат.",
         "yes": "Да",
         "no": "Нет",
@@ -83,22 +79,31 @@
         "nothing": "Пусто...",
         "uploading": "Выгрузка",
         "downloading": "Загрузка",
-		"quota_of": "[used] из [total] использовано",
+		"quota_of": "[used] из [total]",
 		"shared": "File sharing enabled",
-		"badPass": "Bad password !",
-		"uploadedBy": "Uploaded by [login] on"
+		"generatelink": "Generate Link",
+		"badPass": "Bad password!",
+		"uploadedBy": "Uploaded by [login] on",
+		"needhelp": "Need help getting started with Muonium?",
+		"Upnothing": "You haven't uploaded anything yet.",
+		"Dlnothing": "You haven't downloaded anything yet.",
+		"Trashnothing": "You haven't deleted any files recently.",
+		"first": "Upload your first file.",
+		"copied": "Link has been copied to clipboard"
     },
 
     "Register": {
+		"donthaveaccount": "Don't have a Muonium account?",
+		"create": "Create one now.",
         "email": "Адрес электронной почты",
         "login": "Логин",
         "password": "Пароль",
         "confirm": "Подтвердить пароль",
         "passphrase": "Секретный пароль",
-        "doubleAuth": "Вы хотите активировать двухфакторную аутентификацию ?",
-        "alreadyregistered": "Уже зарегистрированы ?",
+        "doubleAuth": "Включить",
+        "alreadyregistered": "Уже зарегистрированы?",
         "impossible": "Регистрация сейчас невозможна",
-        "ok": "Регистрация выполнена !",
+        "ok": "Регистрация выполнена!",
         "mailExists": "Ваша почта уже сохранена в нашей базе данных. Невозможно создать учетную запись снова.",
         "loginExists": "Ваш логин уже сохранен в нашей базе данных. Невозможно создать учетную запись еще раз.",
         "badPassConfirm": "Пароли не совпадают",
@@ -117,6 +122,7 @@
     },
 
     "Login": {
+		"signin": "Вход",
         "forgot": "Забыли пароль?",
         "register": "Зарегистрироваться",
         "bruteforceErr0": "Неправильный адрес электронной почты или пароль",
@@ -128,14 +134,16 @@
         "invalidCode": "Введенный код недействителен",
         "username": "адрес электронной почты или логин",
         "badPassphrase": "Ошибка: неправильный секретный пароль",
-        "doubleAuth": "Вам было отправлено сообщение с кодом проверки подлинности. Скопируйте этот код в приведенное ниже поле.<br>Если вы не получили ничего за прошедшие 5 минут, и убедились, что письмо не попало в папку нежелательной почты, пройдите по этой <a href='[url_app]/Logout'>ссылке</a> чтобы выполнить новую попытку входа."
+        "doubleAuth": "Вам было отправлено сообщение с кодом проверки подлинности. Скопируйте этот код в приведенное ниже поле.<br>Если вы не получили ничего за прошедшие 5 минут, и убедились, что письмо не попало в папку нежелательной почты, пройдите по этой <a href='[url_app]/Logout'>ссылке</a> чтобы выполнить новую попытку входа.",
+		"success": "Successfully logged in"
     },
 
     "Validate": {
         "message": "Ошибка: ключ неправильный, пожалуйста, войдите, чтобы отправить новое письмо с подтверждением",
         "wait": "Подождите минуту, прежде чем отправить письмо с подтверждением",
         "sendmess": "Перейдите по ссылке, указанной по электронной почте, чтобы активировать свою учетную запись.",
-        "sendmail": "Отправить новое письмо"
+        "sendmail": "Отправить новое письмо",
+		"done": "Your account is validated. You can now log in and start using Muonium!"
     },
 
     "Profile": {
@@ -158,10 +166,17 @@
         "changemail" : "Изменить Email",
         "mailFormat": "Неправильный формат почты.",
         "emptymail": "Пожалуйста, заполните это поле",
-        "accountDeletionConfirm": "Вы действительно хотите удалить свою учетную запись ?",
+        "accountDeletionConfirm": "Вы действительно хотите удалить свою учетную запись?",
         "accountDeletionOk": "Учетная запись успешно удалена!",
         "deleteAccount": "Удалить аккаунт",
-        "details": "Вы хотите показать подробности при выборе файла / папки ?"
+        "theme": "Theme",
+		"mailusername": "Email & Username",
+		"pwdpp": "Password & Secret Password",
+		"filedetails": "File Details",
+		"iwant": "I really want to",
+		"otheroptions": "Other options",
+		"upgrade": "Ready to upgrade Muonium?",
+		"getmore": "Get more storage"
     },
 
     "LostPass": {
@@ -171,7 +186,7 @@
         "user": "Ваш адрес электронной почты или имя пользователя",
         "subject": "Muonium - Забыли пароль",
         "message": "Привет,<br>Чтобы обновить пароль или секретный пароль, перейдите по ссылке : <a href='[url_app]/LostPass/Key/[id_user]/[key]'>[url_app]/LostPass/Key/[id_user]/[key]</a><br>С наилучшими пожеланиями,<br>Команда Muonium.<br><br>Это письмо было сгенерировано автоматически, пожалуйста, не отвечайте.",
-        "reset": "Внимание! Если вы измените секретный пароль, ваша учетная запись будет сброшена, и вы потеряете все свои данные !"
+        "reset": "Внимание! Если вы измените секретный пароль, ваша учетная запись будет сброшена, и вы потеряете все свои данные!"
     },
 
     "RightClick": {
@@ -187,12 +202,21 @@
         "mvItem": "Переименовать",
         "vDetails": "Посмотреть детали",
         "open": "Открыть",
-        "nFolder": "Новая папка...",
-        "upFiles": "Выгрузить файлы...",
+        "nFolder": "Новая папка",
+        "upFiles": "Выгрузить файлы",
         "logOut": "Выход",
         "trash": "Корзина",
         "restore": "Восстановить"
     },
+
+	"Story": {
+		"keep": "Keep Muonium <u>Free</u> and <u>Open</u>.",
+		"join": "Join our journey of keeping Muonium free, secure, and open source for everyone.",
+		"read": "Read Our Story",
+		"premium": "Go Premium",
+		"donate": "Give a donation",
+		"help": "How does my support help?"
+	},
 
     "Bug": {
         "os": "Операционная система",
@@ -202,10 +226,13 @@
         "message": "Сообщение",
         "messageLength": "Сообщение должно содержать не менее 50 символов",
         "form": "Ошибка в форме",
-        "sent": "Ваше сообщение было успешно отправлено. Мы ответим как можно скорее по электронной почте"
+        "sent": "Ваше сообщение было успешно отправлено. Мы ответим как можно скорее по электронной почте",
+		"send": "Send report"
     },
 
     "Upgrade": {
+		"upgrade": "Upgrade",
+		"upgradeMui": "Upgrade Muonium",
         "offers": "Предложения",
         "history": "История",
         "expired": "Истекшие",
@@ -220,7 +247,7 @@
         "lifetime": "продолжительность",
         "buy": "купить",
 		"success_msg": "Your purchase has been made. It may take several minutes to refresh your disk space.",
-		"mue": "30% off with MUE"
+		"mue": "Get 30% off when you pay with <u>Monetary Unit (MUE)</u>."
     },
 
     "cek": {
@@ -262,5 +289,10 @@
 		"m": "МБ",
 		"g": "ГБ",
 		"t": "ТБ"
+	},
+
+	"Dates": {
+		"date": "d.m.Y",
+		"time": "G:i"
 	}
 }

@@ -1,0 +1,116 @@
+body { background-color: #fff; color: #212121; }
+
+input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
+	-webkit-box-shadow: 0 0 0 30px white inset;
+	-webkit-text-fill-color: #555 !important;
+	caret-color: #555;
+}
+
+#display { background-color: #fff; }
+#display input:checked + label { color: #ff874b; }
+
+h3 { color: #212121; }
+
+header { background-color: #fff; box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1); }
+
+select {
+	color: #212121;
+	background-image: url(data:image/gif;base64,R0lGODlhDgAMAKoAAOzs7EdHRyEhIaOjo05OTv///wAAAAAAACH5BAEAAAUALAAAAAAOAAwAAAMlWLrc/vANAMEoQwTaQBDTtzGeRpVjgXKqCKyd6D6lGQEEwUZPAgA7);
+}
+
+.sidebar { background-color: #fff; }
+
+.container-small, .container-large {
+	background-color: #fff;
+}
+
+form h1 { color: #212121; }
+
+[class^="input-"] input, [class^="input-"] select, [class^="input-"] textarea, .copy_url {
+	background-color: #fff;
+	color: #212121;
+}
+[class^="input-"] input, [class^="input-"] select, .copy_url {
+	border-bottom-color: #f4f4f4;
+}
+[class^="input-"] input:focus, [class^="input-"] input:active, .copy_url:focus, .copy_url:active { border-bottom-color: #8be0f9; }
+[class^="input-"] input + label.fa {
+	color: #757575;
+}
+
+[class^="input-"] input[type="checkbox"] + label:not(.fa), [class^="input-"] input[type="radio"] + label:not(.fa) {
+	color: #777;
+	border-bottom-color: #f4f4f4;
+}
+/* Yes, we need separate rules for each browser. Otherwise the whole group would be ignored by all browsers. */
+[class^="input-"] input::-webkit-input-placeholder { color: #777; }
+[class^="input-"] input:-moz-placeholder { color: #777; }
+[class^="input-"] input::-moz-placeholder { color: #777; }
+[class^="input-"] input:-ms-input-placeholder { color: #777; }
+
+a { color: #757575; }
+
+input[type="radio"] + label:before, input[type="checkbox"] + label:before {
+	background-color: #fff;
+}
+
+input[type="radio"]:checked + label:before, input[type="checkbox"]:checked + label:before {
+	color: #fff;
+}
+
+textarea { border-color: #f4f4f4; }
+
+.btn-b, .btn-c { font-family: Roboto !important; letter-spacing: .5px; box-shadow: 0 6px 15px 0 rgba(255, 136, 76, 0.2); }
+.btn-b { background-color: #ff874b !important; color: #fff !important; }
+.btn-c { background-color: transparent !important; border: 2px solid #ff874b; color: #ff874b !important; }
+
+.bloc-offers > div { background-color: #fff; }
+.offer-size { color: #212121; }
+.offer-price { color: #16c1f3; }
+.offer-duration { color: #757575; }
+
+.info { background-color: transparent; }
+.story { background-color: #fafafa; color: #757575; font-family: Roboto; }
+.story .join { font-size: 16px; font-weight: 500; letter-spacing: .6px; }
+.story .help { font-size: 12px; }
+.story a { font-family: RobotoMono; }
+
+.logout { color: #212121; }
+
+hr { background-color: #f0f0f0; }
+fieldset { color: #212121; }
+legend { color: #757575; }
+fieldset .label, #box .label { color: #757575; }
+
+table.table-responsive td { background-color: #f9f9f9; }
+
+#selection { background-color: #fff; }
+#selection .selection strong { color: #757575; }
+
+#tree th { color: #757575; }
+#tree tr { background-color: #fff; color: #212121; }
+#tree tr.selected { background-color: #fbfeff; }
+#tree.mosaic tr.selected { box-shadow: 0 6px 10px 0 rgba(12, 177, 255, 0.2); }
+#tree td:nth-child(4), #tree td:nth-child(5) { font-family: RobotoMono; font-weight: 500; color: #616161; }
+
+#box { background-color: #fff; color: #212121; }
+#box p { font-family: OpenSans; font-weight: 600; letter-spacing: .1px; }
+#box p:hover, #box p:active, #box p:focus { background-color: #f6fdff; }
+
+.MessageBox { background-color: #fff; }
+.MessageBox .MessageBoxTitle, .MessageBox .MessageBoxTxt { color: #212121; }
+
+.progress_bar { background-color: #e7e7e7; }
+.progress_bar .used { background-color: #ff874b; }
+#transfers .progress_bar .used { background: #16c1f3; }
+
+#transfers { background-color: #fff; box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.1); }
+#transfers > .top { background-color: #16c1f3; }
+#transfers > .content { background-color: #fff; }
+#transfers .transfers_upload > div, #transfers .transfers_download > div { border-bottom: 2px solid #f9f9f9; }
+#transfers .pct { color: #616161; }
+#transfers .btn-abort { color: #c62828; }
+
+@media screen and (min-width: 600px) {
+	table.table-responsive td { background-color: transparent; }
+}

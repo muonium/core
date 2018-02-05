@@ -12,12 +12,13 @@ var MessageBox = (function() {
     document.onmousemove = function(e) {
         if($drag !== null) {
             $drag.style.transform = 'none';
+			var header_height = $('header').height();
             var left = e.pageX - $diffLeft;
             var top = e.pageY - $diffTop;
 
             if(left < 0) left = 0;
             if(left + $drag.clientWidth > document.body.clientWidth) left = document.body.clientWidth - $drag.clientWidth - 2;
-            if(top < 0) top = 0;
+            if(top < header_height) top = header_height;
             if(top + $drag.clientHeight > document.body.clientHeight) top = document.body.clientHeight - $drag.clientHeight - 5;
 
             $drag.style.left = left + "px";
@@ -26,9 +27,9 @@ var MessageBox = (function() {
     };
 
 	// Constructor
-	function MessageBox(msg) {
+	function MessageBox(title) {
         var me = this;
-        this.$msg = msg;
+        this.$title = title;
         this.$inputs = [];
         this.coordsSet = false;
 
@@ -43,7 +44,8 @@ var MessageBox = (function() {
         });
 
         this.$elemClose = $('<div class="MessageBoxClose">x</div>')[0];
-        this.$elemMsg = $('<div class="MessageBoxMsg">'+ this.$msg +'</div>')[0];
+        this.$elemTitle = $('<div class="MessageBoxTitle">'+ this.$title +'</div>')[0];
+		this.$elemTxt = $('<div class="MessageBoxTxt"></div>')[0];
         this.$elemToggle = $('<div class="MessageBoxToggle"></div>')[0];
         this.$elemInput = $('<div class="MessageBoxInput"></div>')[0];
         this.$elemBtns = $('<div class="MessageBoxBtns"></div>')[0];
@@ -51,7 +53,8 @@ var MessageBox = (function() {
 		$(this.$elemClose).on("click", this.close.bind(me));
 
         $(this.$elem).append(this.$elemClose);
-        $(this.$elem).append(this.$elemMsg);
+        $(this.$elem).append(this.$elemTitle);
+		$(this.$elem).append(this.$elemTxt);
         $(this.$elem).append(this.$elemToggle);
         $(this.$elem).append(this.$elemInput);
         $(this.$elem).append(this.$elemBtns);
@@ -61,7 +64,7 @@ var MessageBox = (function() {
 	// Public
     MessageBox.prototype.addButton = function(value, callback) {
         var me = this;
-        var button = $('<input type="button" value="'+ value +'">')[0];
+        var button = $('<input type="button" class="btn" value="'+ value +'">')[0];
         $(button).on('click', function() {
             me.close.bind(me)();
             if(typeof(callback) === 'function') {
@@ -93,9 +96,13 @@ var MessageBox = (function() {
         return this;
 	};
 
-    MessageBox.prototype.addInput = function(name, params = null) {
+    MessageBox.prototype.addInput = function(name, params = null, icon = null) {
         var me = this;
-        var input = $('<input type="text">')[0];
+        var input_ctn = $('<p class="input-large"><input type="text"'+(icon === null ? ' class="noicon"' : '')+'></p>')[0];
+		if(icon !== null) {
+			$(input_ctn).append('<label class="'+icon+'" aria-hidden="true"></label>');
+		}
+		var input = $(input_ctn).children('input')[0];
 
         if(params !== null && typeof(params) === 'object') {
             for(var i in params) {
@@ -105,9 +112,14 @@ var MessageBox = (function() {
                 input[i] = params[i];
             }
         }
-        $(this.$elemInput).append(input);
+        $(this.$elemInput).append(input_ctn);
         this.$inputs[name] = input;
         return this;
+	};
+
+	MessageBox.prototype.addTxt = function(txt) {
+		$(this.$elemTxt).html(txt);
+		return this;
 	};
 
     MessageBox.prototype.setCoords = function(x, y) {
@@ -138,12 +150,12 @@ var MessageBox = (function() {
 
 		$(this.$elem).fadeIn(400);
 
-        if(this.$elemInput.firstChild !== null) {
-            this.$elemInput.firstChild.focus();
+		if($(this.$elemInput).children().length > 0) {
+            var finput = $(this.$elemInput).find('input').first();
+			$(finput).focus();
             // small hack to place cursor at the end of value
-            var content = this.$elemInput.firstChild.value;
-            this.$elemInput.firstChild.value = '';
-            this.$elemInput.firstChild.value = content;
+            var content = $(finput).val();
+            $(finput).val('').val(content);
         }
 		return this;
 	};
