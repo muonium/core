@@ -115,7 +115,7 @@ var Folders = (function() {
                 	<strong>'+txt.User.details+'</strong>\
                 	<ul>\
 						<li><span class="label">'+txt.User.name+':</span> '+$(elem).attr("name")+'</li>\
-                		<li><span class="label">'+txt.User.path+':</span> '+$(elem).data("path")+'/</li>\
+                		<li><span class="label">'+txt.User.path+':</span> '+$(elem).attr("data-path")+'/</li>\
                 		<li><span class="label">'+txt.User.type+':</span> '+txt.User.folder+'</li>\
                 		<li><span class="label">'+txt.User.size+':</span> '+$(elem).attr("title")+'</li>\
                 	</ul>\

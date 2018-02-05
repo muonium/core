@@ -64,7 +64,7 @@
 
 #transfers .fileinfo {
 	display: inline-block;
-	max-width: calc(100% - 36px);
+	max-width: calc(100% - 56px);
 	white-space: nowrap;
 	overflow: hidden; text-overflow: ellipsis;
 }

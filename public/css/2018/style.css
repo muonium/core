@@ -28,11 +28,12 @@ body {
 
 #display {
 	position: fixed;
-	top: 245px; left: 0; right: 0;
+	top: 185px; left: 0; right: 0;
 	text-align: right;
 	padding-top: 10px; padding-bottom: 10px; padding-right: 20px;
 	z-index: 1;
 }
+#display.selected { top: 245px; }
 #display input + label { padding-left: 18px !important; font-size: 17px; color: #b4bac6; }
 #display label > i { cursor: pointer; }
 #display label::before { display: none; }
@@ -338,8 +339,9 @@ a.blue:hover, a.blue:active, a.blue:focus { color: #0b9fcb; }
   	background-color: #16c1f3;
 	top: 15px; left: -40px;
 }
+.offer-size { height: 29px; }
+.dl-filename { word-wrap: break-word; }
 .offer-size, .dl-filename {
-	height: 29px;
 	font-family: RobotoMono; font-size: 22px; font-weight: bold;
 	letter-spacing: 2.8px;
 	margin-bottom: 24px;
@@ -362,8 +364,8 @@ a.blue:hover, a.blue:active, a.blue:focus { color: #0b9fcb; }
 	font-family: OpenSans;
 	font-size: 18px;
 }
-.bloc-nothing img, .bloc-trash-nothing img { margin: 30px 0; }
-.bloc-nothing span, .bloc-trash-nothing img { font-size: 24px; text-decoration: underline; }
+.bloc-nothing img, .bloc-trash-nothing img { margin: 30px 0; max-width: 100%; }
+.bloc-nothing span, .bloc-trash-nothing img { font-size: 20px; text-decoration: underline; }
 .bloc-nothing, .bloc-nothing * { cursor: pointer; }
 
 .dl-info {
@@ -478,7 +480,7 @@ section#desktop img.arrow { height: 5vh; width: 5vh; }
 		padding: 25px 50px;
 	}
 	.container-max { padding: 25px; }
-	#display { top: 270px; left: 80px; }
+	#display, #display.selected { top: 270px; left: 80px; }
 
 	.sidebar {
 		position: relative;
@@ -539,6 +541,8 @@ section#desktop img.arrow { height: 5vh; width: 5vh; }
 
 	table.table-responsive th, table.table-responsive td { display: table-cell; padding: 0 !important; }
 	table.table-responsive tr { display: table-row; margin: 0; }
+
+	.bloc-nothing span, .bloc-trash-nothing img { font-size: 24px; }
 }
 
 @media screen and (min-width: 800px) {
@@ -554,7 +558,7 @@ section#desktop img.arrow { height: 5vh; width: 5vh; }
 		margin-right: 24px; margin-bottom: 24px;
 	}
 	h3 { font-size: 18px; }
-	#display { top: 70px; right: 240px; padding-top: 20px; }
+	#display, #display.selected { top: 70px; right: 240px; padding-top: 20px; }
 	.selection_bottom { display: block; }
 	#quota_container, #quota_container + p { position: static; }
 }

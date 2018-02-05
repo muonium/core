@@ -243,12 +243,18 @@ var Selection = (function() {
         allSwitch : function() {},
 
 		removeDetails: function() {
+			$('#selection').removeClass('selected');
+			$('#mui').removeClass('selected');
+			$('#display').removeClass('selected');
 			$('section.selection').html(Selection.getDefault());
 		},
 
         putDetails: function(id) {
 			var elem = $('#'+id), html = '';
 			var type = id.substr(0, 1) === 'd' ? 'folder' : 'file';
+			$('#selection').addClass('selected');
+			$('#mui').addClass('selected');
+			$('#display').addClass('selected');
             if($(elem).length) {
 				html += '<strong>Actions</strong>';
 
@@ -280,7 +286,7 @@ var Selection = (function() {
 					if(Selection.Files.length > 1 || Selection.Folders.length > 1 || Files.isShared(id.substr(1))) {
 						html += '<a class="blue block" onclick="Selection.unshare(\''+id.substr(1)+'\')" title="'+txt.RightClick.unshare+'"><i class="fa fa-ban" aria-hidden="true"></i> '+txt.RightClick.unshare+'</a>';
 						if(Selection.Files.length === 1 && Selection.Folders.length === 0) {
-							html += '<input type="text" value="'+$(elem).data('url')+'" class="copy_url">';
+							html += '<input type="text" value="'+$(elem).attr('data-url')+'" class="copy_url">';
 							html += '<input id="copy_btn" type="button" class="btn btn-large" value="'+txt.RightClick.copy+'" onclick="copy_url()">';
 							html += '<a id="copy_icon" class="blue block" onclick="copy_url()"><i class="fa fa-link"></i></a>';
 						}

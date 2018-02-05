@@ -4,7 +4,7 @@
     z-index: 5;
     box-shadow: 0 8px 16px 0 rgba(82, 97, 115, 0.18);
     font-family: Roboto;
-    width: 100%;
+    width: 100%; max-width: 100%;
     -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;
     bottom: 55px;
     display: none;

@@ -112,6 +112,12 @@ var Move = (function() {
             var p_folders = [];
             var p_files = [];
 
+			var destFolder_id = Folders.id;
+			if(Selection.Files.length === 0 && Selection.Folders.length === 1) {
+				// Paste in selected folder instead current folder
+				destFolder_id = Selection.Folders[0];
+			}
+
             if(Move.Files.length > 0 || Move.Folders.length > 0) {
                 for(var i = 0; i < Move.Files.length; i++) {
                     if(Move.Files[i].length > 0 && isNumeric(Move.Files[i])) {
@@ -138,7 +144,7 @@ var Move = (function() {
                         Folders.open(Folders.id);
                     }
                 }
-                xhr.send("copy="+Copy+"&folder_id="+Folders.id+"&old_folder_id="+mvFolder_id+"&files="+p_files+"&folders="+p_folders);
+                xhr.send("copy="+Copy+"&folder_id="+destFolder_id+"&old_folder_id="+mvFolder_id+"&files="+p_files+"&folders="+p_folders);
             }
         },
 

@@ -14,6 +14,8 @@ var Files = (function() {
 			var f = $('#'+id);
 			if($(f).length) {
 				if($(f).attr('data-title').length > 0 && $(f).attr('data-folder').length > 0) {
+					$('.sidebar li > a').removeClass('selected');
+					$('.sidebar li > a[href="User#transfers"]').addClass('selected');
 					var fname = $(f).attr('data-title');
 					var ffolder = $(f).attr('data-folder');
 					var ficon = ExtIcons.set(fname);
@@ -69,7 +71,7 @@ var Files = (function() {
 					// Package
 					var packet = sjcl.codec.base64.fromBits(enc_fek)+":"+sjcl.codec.base64.fromBits(salt)+":"+sjcl.codec.base64.fromBits(aDATA)+":"+sjcl.codec.base64.fromBits(iv);
 					$.post('User/shareFile', {id: id, dk: packet}, function(resp) {
-						$('#f'+id).data('shared', '1');
+						$('#f'+id).attr('data-shared', '1');
 						if(resp.trim() !== 'error') {
 							var m = new MessageBox(txt.User.shared).setSize('35%','auto').addInput('url', {
 								autocomplete: "off",
@@ -88,7 +90,7 @@ var Files = (function() {
 		unshare : function(id) {
 			Box.hide();
 			$.post('User/unshareFile', {id: id}, function(resp) {
-				$('#f'+id).data('shared', '0');
+				$('#f'+id).attr('data-shared', '0');
 			});
 		},
 
@@ -99,14 +101,14 @@ var Files = (function() {
         },
 
 		getNameById : function(id) {
-			if($('#f'+id).length > 0 && $('#f'+id).data('title') !== undefined && $('#f'+id).data('title') !== null) {
-				return $('#f'+id).data('title');
+			if($('#f'+id).length > 0 && $('#f'+id).attr('data-title') !== undefined && $('#f'+id).attr('data-title') !== null) {
+				return $('#f'+id).attr('data-title');
 			}
 			return false;
 		},
 
 		isShared : function(id) {
-			if($('#f'+id).length > 0 && $('#f'+id).data('shared') == '1') {
+			if($('#f'+id).length > 0 && $('#f'+id).attr('data-shared') == '1') {
 				return true;
 			}
 			return false;
@@ -126,8 +128,8 @@ var Files = (function() {
 				<div class="details">\
                 	<strong>'+txt.User.details+'</strong>\
                 	<ul>\
-						<li><span class="label">'+txt.User.name+':</span> '+$(elem).data("title")+'</li>\
-                		<li><span class="label">'+txt.User.path+':</span> '+$(elem).data("path")+'/</li>\
+						<li><span class="label">'+txt.User.name+':</span> '+$(elem).attr("data-title")+'</li>\
+                		<li><span class="label">'+txt.User.path+':</span> '+$(elem).attr("data-path")+'/</li>\
                 		<li><span class="label">'+txt.User.type+':</span> '+txt.User.file+'</li>\
                 		<li><span class="label">'+txt.User.size+':</span> '+title[0]+'</li>\
                 		<li><span class="label">'+lastmod[0]+'</span> '+lastmod[1]+'</li>\

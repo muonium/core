@@ -53,6 +53,8 @@ var Upload = (function() {
         upFiles : function(files) {
 			f_files = files;
 			$('.transfers_upload').html(' ');
+			$('.sidebar li > a').removeClass('selected');
+			$('.sidebar li > a[href="User#transfers"]').addClass('selected');
 			Transfers.open();
 			Transfers.showUp();
 			Upload.yesReplaceAll = false;

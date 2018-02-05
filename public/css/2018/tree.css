@@ -1,5 +1,6 @@
 #mui, #tree { width: 100%; }
-#mui { margin-top: 220px; padding-top: 2px; }
+#mui { margin-top: 160px; padding-top: 2px; }
+#mui.selected { margin-top: 220px; }
 #tree { border-collapse: collapse; table-layout: fixed; }
 #tree > div, #tree a { cursor: pointer; }
 
@@ -120,7 +121,7 @@ a[id^="parent-"] .fa-caret-up { font-size: 24px; padding-left: 10px; }
 	#tree:not(.mosaic) tr > td:last-child, #tree:not(.mosaic) tr > th:last-child { padding-right: 25px; width: 70px; }
 	#tree:not(.mosaic) th:nth-child(6), #tree:not(.mosaic) td:nth-child(6) { display: table-cell; }
 
-	#mui { margin-top: 210px; }
+	#mui, #mui.selected { margin-top: 210px; }
 }
 
 @media screen and (min-width: 800px) {
@@ -131,7 +132,7 @@ a[id^="parent-"] .fa-caret-up { font-size: 24px; padding-left: 10px; }
 	#tree:not(.mosaic) tr > td:first-child, #tree:not(.mosaic) tr > th:first-child { padding-left: 15px; width: 45px; }
 	#tree:not(.mosaic) tr > td:last-child, #tree:not(.mosaic) tr > th:last-child { padding-right: 15px; width: 60px; }
 
-	#mui { margin-top: 30px; }
+	#mui, #mui.selected { margin-top: 30px; }
 	#tree:not(.mosaic) tr { height: 54px; }
 	#tree.mosaic #tree_head { margin: 50px 15px; }
 	#tree input[type="radio"] + label, #tree input[type="checkbox"] + label { padding-left: 34px; }
