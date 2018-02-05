@@ -340,8 +340,14 @@ a.blue:hover, a.blue:active, a.blue:focus { color: #0b9fcb; }
 	padding: 40px 5px;
 	border: solid 4px transparent;
 	text-align: center;
+	transition: 0.2s linear;
+	transition-property: border-color;
 }
-.bloc-offers > div:hover, .bloc-offers > div:active, .bloc-offers > div:focus { border: solid 4px #16c1f3; }
+.bloc-offers > div:hover, .bloc-offers > div:active, .bloc-offers > div:focus {
+	border: 4px solid #16c1f3;
+	transition: 0.4s linear;
+	transition-property: border-color;
+}
 .bloc-offers > div > .most-popular {
 	position: absolute;
 	width: 160px; height: 48px; line-height: 48px;
