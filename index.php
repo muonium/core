@@ -8,7 +8,7 @@ require_once("./config/autoload.php");
 // Defines
 
 // Mui Version
-define('VERSION', '2018.02.05.1');
+define('VERSION', '2018.02.05.2');
 
 define('DS', DIRECTORY_SEPARATOR);
 define('ROOT', __DIR__);
