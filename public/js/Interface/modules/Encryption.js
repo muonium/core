@@ -2,7 +2,7 @@
 // When page is loaded : Encryption.checkAPI();
 var Encryption = (function() {
 	// Private
-	var chunkSize = 1024 * 1024; // Size of one chunk in B
+	var chunkSize = 512 * 1024; // Size of one chunk in B
 	var cek = sessionStorage.getItem("cek");
 	if (cek == null) { //check if the cek is there
 		sessionStorage.clear();

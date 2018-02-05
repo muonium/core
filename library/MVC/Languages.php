@@ -12,6 +12,7 @@ class Languages {
     // Available languages
     public static $languages = [
         'en' => 'English',
+		'es' => 'Español',
 		'de' => 'Deutsch',
         'fr' => 'Français',
         'it' => 'Italiano',

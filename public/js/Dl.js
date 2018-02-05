@@ -23,7 +23,7 @@ $(document).ready(function() {
 			uid = $(this).data('uid');
 		var err = false;
 		var fek;
-		var mdp = $('#password').val();
+		var p = $('#password').val();
 		var packet = $(this).data('dk');
 		var c = packet.split(':');
 		var enc_fek = sjcl.codec.base64.toBits(c[0]);
@@ -31,7 +31,7 @@ $(document).ready(function() {
 		var aDATA= sjcl.codec.base64.toBits(c[2]);
 		var iv = sjcl.codec.base64.toBits(c[3]);
 
-		var dk = sjcl.misc.pbkdf2(mdp, salt, 7000, 256);
+		var dk = sjcl.misc.pbkdf2(p, salt, 7000, 256);
 		var enc = new sjcl.cipher.aes(dk);
 		try {
 			fek = sjcl.mode.gcm.decrypt(enc, enc_fek, iv, aDATA, 128);
