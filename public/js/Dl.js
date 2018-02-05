@@ -57,12 +57,14 @@ $(document).ready(function() {
 				'</div>'+
 			'</div>');
 
-			$('#div_download'+i+' .btn-abort').on('click', Files.abort);
-
 			Transfers.open();
 			Transfers.showDl();
 
 			f_dec[i] = new Decryption(fname, fid, i, uid, fek); // Call Decryption.js with 2 more parameters : uid and fek
+			$('#div_download'+i+' .btn-abort').on('click', function() {
+				var j = $(this).attr('data-id');
+				f_dec[j].abort();
+			});
 			i++;
 		}
 	});

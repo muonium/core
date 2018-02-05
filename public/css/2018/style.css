@@ -164,6 +164,14 @@ input:not([type="radio"]):not([type="checkbox"]):not([type="button"]):not([type=
 	text-align: left;
 	outline: none;
 }
+[class^="input-"] input, .copy_url {
+	transition: 0.2s linear;
+	transition-property: border-color;
+}
+[class^="input-"] input:focus, [class^="input-"] input:active, .copy_url:focus, .copy_url:active {
+	transition: 0.4s linear;
+	transition-property: border-color;
+}
 [class^="input-"] input, [class^="input-"] label { margin-top: 24px; }
 [class^="input-"] input, [class^="input-"] select {
 	height: 48px;
@@ -267,10 +275,16 @@ a.blue:hover, a.blue:active, a.blue:focus { color: #0b9fcb; }
 	border: none; outline: none;
 	cursor: pointer;
 	vertical-align: middle;
+	transition: 0.3s linear;
+	transition-property: background-color;
 }
 .btn, .btn:visited { background-color: #16c1f3; }
 .btn:hover, .btn:active, .btn:focus { background-color: #0cb1e4; }
-.btn:disabled { background-color: #8be0f9; cursor: not-allowed !important; }
+.btn:disabled {
+	background-color: #8be0f9; cursor: not-allowed !important;
+	transition: 0.3s linear;
+	transition-property: background-color;
+}
 .btn-profile { padding: 0 64px; float: right; }
 .btn-warning { background-color: #c62828 !important; box-shadow: none; }
 .btn-warning:disabled { opacity: .5; }

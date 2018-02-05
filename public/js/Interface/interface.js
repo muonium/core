@@ -166,6 +166,14 @@ var UserLoader = function(folder_id) {
         }
     });
 
+	document.querySelector("body").addEventListener("dragover", function(e) {
+		e.preventDefault();
+	});
+	document.querySelector("body").addEventListener("drop", function(e) {
+		e.preventDefault();
+		Upload.upFiles(e.dataTransfer.files);
+	});
+
     // Right click inside desktop section
     document.querySelector("#desktop").addEventListener("contextmenu", function(event) {
         if(Box.Area == 0) { // If we are inside desktop but not inside its children
