@@ -1,6 +1,6 @@
 #mui, #tree { width: 100%; }
 #mui { margin-top: 220px; padding-top: 2px; }
-#tree { border-collapse: collapse; }
+#tree { border-collapse: collapse; table-layout: fixed; }
 #tree > div, #tree a { cursor: pointer; }
 
 #tree.mosaic { width: 100%; }
@@ -45,13 +45,21 @@
 }
 #tree:not(.mosaic) tr { height: 44px; }
 
-#tree td { font-size: 15px; font-family: Roboto; }
+#tree td {
+	font-size: 15px; font-family: Roboto;
+	overflow: hidden; text-overflow: ellipsis;
+}
 #tree td:nth-child(4), #tree td:nth-child(5) { font-size: 12px; }
+
+#tree:not(.mosaic) th:nth-child(2), #tree:not(.mosaic) td:nth-child(2) { width: 24px; }
+#tree:not(.mosaic) th:nth-child(3), #tree:not(.mosaic) td:nth-child(3) { padding-right: 10px; }
+#tree:not(.mosaic) th:nth-child(4), #tree:not(.mosaic) td:nth-child(4) { width: 74px; }
+#tree:not(.mosaic) th:nth-child(5), #tree:not(.mosaic) td:nth-child(5) { width: 114px; }
 
 #tree:not(.mosaic) th:nth-child(5), #tree:not(.mosaic) td:nth-child(5),
 #tree:not(.mosaic) th:nth-child(6), #tree:not(.mosaic) td:nth-child(6) { display: none; }
 
-#tree.mosaic td { display: block; padding: 8px 11px; overflow: hidden; text-overflow: ellipsis; }
+#tree.mosaic td { display: block; padding: 8px 11px; }
 #tree.mosaic td:first-child { position: absolute; top: 8px; left: 8px; padding: 0; }
 #tree.mosaic td:last-child { position: absolute; top: 8px; right: 8px; padding: 0; }
 #tree.mosaic td:nth-child(2) { margin-top: 45px; }
@@ -83,8 +91,8 @@ a[id^="parent-"] .fa-caret-up { font-size: 24px; padding-left: 10px; }
 	margin-left: -15px; margin-right: -15px;
 	width: calc(100% + 30px);
 }
-#tree:not(.mosaic) tr > td:first-child, #tree:not(.mosaic) tr > th:first-child { padding-left: 15px; }
-#tree:not(.mosaic) tr > td:last-child, #tree:not(.mosaic) tr > th:last-child { padding-right: 15px; width: 45px; }
+#tree:not(.mosaic) tr > td:first-child, #tree:not(.mosaic) tr > th:first-child { padding-left: 15px; width: 40px; }
+#tree:not(.mosaic) tr > td:last-child, #tree:not(.mosaic) tr > th:last-child { padding-right: 15px; width: 60px; }
 
 @media screen and (min-width: 400px) {
 	#tree:not(.mosaic) th:nth-child(4), #tree:not(.mosaic) td:nth-child(4) { display: table-cell; }
@@ -108,8 +116,8 @@ a[id^="parent-"] .fa-caret-up { font-size: 24px; padding-left: 10px; }
 		margin-left: -25px; margin-right: -25px;
 		width: calc(100% + 50px);
 	}
-	#tree:not(.mosaic) tr > td:first-child, #tree:not(.mosaic) tr > th:first-child { padding-left: 25px; }
-	#tree:not(.mosaic) tr > td:last-child, #tree:not(.mosaic) tr > th:last-child { padding-right: 25px; }
+	#tree:not(.mosaic) tr > td:first-child, #tree:not(.mosaic) tr > th:first-child { padding-left: 25px; width: 55px; }
+	#tree:not(.mosaic) tr > td:last-child, #tree:not(.mosaic) tr > th:last-child { padding-right: 25px; width: 70px; }
 	#tree:not(.mosaic) th:nth-child(6), #tree:not(.mosaic) td:nth-child(6) { display: table-cell; }
 
 	#mui { margin-top: 210px; }
@@ -120,8 +128,8 @@ a[id^="parent-"] .fa-caret-up { font-size: 24px; padding-left: 10px; }
 		margin-left: -15px; margin-right: -15px;
 		width: calc(100% + 30px);
 	}
-	#tree:not(.mosaic) tr > td:first-child, #tree:not(.mosaic) tr > th:first-child { padding-left: 15px; }
-	#tree:not(.mosaic) tr > td:last-child, #tree:not(.mosaic) tr > th:last-child { padding-right: 15px; }
+	#tree:not(.mosaic) tr > td:first-child, #tree:not(.mosaic) tr > th:first-child { padding-left: 15px; width: 45px; }
+	#tree:not(.mosaic) tr > td:last-child, #tree:not(.mosaic) tr > th:last-child { padding-right: 15px; width: 60px; }
 
 	#mui { margin-top: 30px; }
 	#tree:not(.mosaic) tr { height: 54px; }
@@ -135,15 +143,20 @@ a[id^="parent-"] .fa-caret-up { font-size: 24px; padding-left: 10px; }
 		margin-left: -50px; margin-right: -50px;
 		width: calc(100% + 100px);
 	}
-	#tree:not(.mosaic) tr > td:first-child, #tree:not(.mosaic) tr > th:first-child { padding-left: 50px; }
-	#tree:not(.mosaic) tr > td:last-child, #tree:not(.mosaic) tr > th:last-child { padding-right: 50px; }
+	#tree:not(.mosaic) tr > td:first-child, #tree:not(.mosaic) tr > th:first-child { padding-left: 50px; width: 90px; }
+	#tree:not(.mosaic) tr > td:last-child, #tree:not(.mosaic) tr > th:last-child { padding-right: 50px; width: 115px; }
+
+	#tree:not(.mosaic) th:nth-child(4), #tree:not(.mosaic) td:nth-child(4) { width: 84px; }
+	#tree:not(.mosaic) th:nth-child(5), #tree:not(.mosaic) td:nth-child(5) { width: 144px; }
 
 	#tree td:nth-child(4), #tree td:nth-child(5) { font-size: 15px; }
 	#tree .btn-actions { width: 65px; }
-	#tree:not(.mosaic) tr > td:last-child, #tree:not(.mosaic) tr > th:last-child { width: 65px; }
 	#tree input[type="radio"] + label, #tree input[type="checkbox"] + label { padding-left: 44px; }
 }
 
 @media screen and (min-width: 1200px) {
 	#tree.mosaic tr { margin: 0 15px 48px 15px; }
+
+	#tree:not(.mosaic) th:nth-child(4), #tree:not(.mosaic) td:nth-child(4) { width: 104px; }
+	#tree:not(.mosaic) th:nth-child(5), #tree:not(.mosaic) td:nth-child(5) { width: 164px; }
 }
