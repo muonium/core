@@ -399,6 +399,7 @@ class User extends l\Languages {
 				';
             }
         }
+		echo '<tr class="break"></tr>';
         if($files = $this->_modelFiles->getFiles($this->_folderId, $this->trash)) {
             foreach($files as $file) {
 				$is_shared = ($file['dk'] === null || strlen($file['dk']) === 0) ? 0 : 1;
