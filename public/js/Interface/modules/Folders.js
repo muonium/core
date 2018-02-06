@@ -40,7 +40,7 @@ var Folders = (function() {
 				$('#quota_container').html($(quota).html());
 				$('#tree').show();
 
-				if($('#mui').find('tr:not(#tree_head)').length === 0 && Folders.id === 0) {
+				if($('#mui').find('tr:not(#tree_head):not(.break)').length === 0 && Folders.id === 0) {
 					// Nothing stored at root folder
 					$('#tree').hide();
 					if(Trash.state === 0) {
