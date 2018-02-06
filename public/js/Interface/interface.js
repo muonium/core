@@ -171,6 +171,7 @@ var UserLoader = function(folder_id) {
 	});
 	document.querySelector("body").addEventListener("drop", function(e) {
 		e.preventDefault();
+		if(e.dataTransfer.files.length === 0) return false;
 		Upload.upFiles(e.dataTransfer.files);
 	});
 
