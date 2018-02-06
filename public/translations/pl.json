@@ -227,7 +227,7 @@
         "messageLength": "Wiadomość musi zawierać przynajmniej 50 znaków",
         "form": "Błąd formularza",
         "sent": "Twoja wiadomość została wysłana poprawnie. Odpowiemy najszybciej jak to będzie możliwe",
-        "send": "Wyślij raport",
+        "send": "Wyślij raport"
     },
 
     "Upgrade": {
@@ -291,8 +291,8 @@
 		"t": "TB"
 	},
 
-  "Dates": {
-		"date": "R-m-d",
-		"time": "H:m"
+	"Dates": {
+		"date": "d.m.Y",
+		"time": "G:i"
 	}
 }
