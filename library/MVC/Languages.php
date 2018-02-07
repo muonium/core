@@ -12,12 +12,13 @@ class Languages {
     // Available languages
     public static $languages = [
         'en' => 'English',
-		'es' => 'Español',
 		'de' => 'Deutsch',
+		'es' => 'Español',
         'fr' => 'Français',
         'it' => 'Italiano',
+		'pl' => 'Polskie',
         'ru' => 'Русский',
-		'zh-cn' => "简体中文"
+		'zh-cn' => '简体中文'
     ];
 
     // Constructor loads user language json
