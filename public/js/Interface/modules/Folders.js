@@ -32,6 +32,7 @@ var Folders = (function() {
 		open : function(folder_id) {
 			if(!isNumeric(folder_id)) return false;
 			$.post('User/ChangePath', {folder_id: folder_id, trash: Trash.state}, function(data) {
+				var animate = Folders.id == folder_id ? false : true;
 				Folders.id = parseInt(folder_id);
 				$('#mui').hide().html(data);
 				// Later, use specific API method to get quota and stored
@@ -54,7 +55,11 @@ var Folders = (function() {
 					}
 				}
 
-				$('#mui').show();
+				if(animate) {
+					$('#mui').fadeIn(400);
+				} else {
+					$('#mui').show();
+				}
 				Box.hide();
 
 				// reset selected files/folders

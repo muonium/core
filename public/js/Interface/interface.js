@@ -378,6 +378,11 @@ var copy_url = function() {
 	}
 };
 
+var box_copy_url = function() {
+	document.querySelector('#box .copy_url').select();
+	document.execCommand('copy');
+};
+
 var logout = function() {
 	sessionStorage.clear();
     window.location.href=ROOT+"Logout";

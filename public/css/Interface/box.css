@@ -43,6 +43,16 @@
     cursor: pointer;
 }
 
+#box .details input.copy_url {
+	margin-top: 10px;
+    width: 100%; height: 32px;
+	padding-left: 10px;
+    border-width: 0 0 2px 0; border-style: solid;
+	background-color: transparent;
+    outline: none;
+	font-family: RobotoMono; font-size: 11px;
+}
+
 @media screen and (max-width: 599px) {
 	#box {
 		position: fixed;
