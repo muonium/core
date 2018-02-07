@@ -21,20 +21,19 @@
         "general": "Ogólne",
         "shared": "Udostępnione",
         "transfers": "Transfery"
-      },
+    },
 
-      "UserMenu": {
-          "bug": "Błąd",
-          "help": "Pomoc",
-          "settings": "Ustawienia",
-          "profile": "Profil",
-          "upload": "Załaduj",
-          "smallIcons": "Małe ikony",
-          "largeIcons": "Duże ikony",
-          "multiSelection": "Wielokrotny wybór",
-          "selectAll": "Zaznacz wszystko",
-          "moreStorage": "Kup więcej miejsca"
-      },
+    "UserMenu": {
+        "bug": "Błąd",
+        "help": "Pomoc",
+        "settings": "Ustawienia",
+        "profile": "Profil",
+        "upload": "Załaduj",
+        "smallIcons": "Małe ikony",
+        "largeIcons": "Duże ikony",
+        "multiSelection": "Wielokrotny wybór",
+        "selectAll": "Zaznacz wszystko",
+    },
 
     "Error": {
         "e404": "Błąd : Strony nie odnaleziono",
@@ -61,7 +60,7 @@
         "file": "Plik",
         "folder": "Folder",
         "element": "element",
-        "PlurialElement": "elementy",
+        "elements": "elementy",
         "replaceFile": "Plik [nazwa pliku] istnieje, czy chcesz go zastąpić?",
         "replaceCompleteFile": "Plik [nazwa pliku] istnieje ale nie jest zakończony, co chcesz zrobić?",
         "quotaExceeded": "Przekroczono limit !",
