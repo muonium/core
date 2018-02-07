@@ -19,6 +19,33 @@ var Selection = (function() {
 			return html;
 		},
 
+		changeDetails : function(content) {
+			// Change html content of section selection using animation
+			var reset = function() {
+				$("section.selection").css({height: 'auto', maxHeight: 'none', overflow: 'visible'});
+			};
+
+			if(window.innerWidth < 800) {
+				$("section.selection").html(content);
+			} else {
+				$("section.selection").stop(true);
+				reset();
+				var height = Math.round($("section.selection").height());
+				$("section.selection").css({maxHeight: height+'px', overflow: 'hidden'});
+				$("section.selection").html(content);
+
+				var new_height = Math.round($("section.selection")[0].scrollHeight);
+				if(height === new_height) {
+					reset();
+				} else {
+					$("section.selection").css('height', height+'px');
+					$("section.selection").stop(true).animate({
+						height: new_height+'px', maxHeight: new_height+'px'
+					}, 400, reset);
+				}
+			}
+		},
+
         select : function(id) {
             if($('#'+id).length) {
                 $('#'+id).addClass('selected').find('#sel_'+id).prop('checked', true);
@@ -48,6 +75,10 @@ var Selection = (function() {
         addFile : function(event, id) {
 			if(typeof event === 'object' && event !== null) {
 				event.preventDefault(); // Prevent event to be fired twice in some cases (due to input checkbox and label)
+				if($(event.target).hasClass('btn-actions')) {
+					Selection.addSel = 1;
+					return false;
+				}
 				if(event.target.tagName === 'LABEL' || (event.target.tagName === 'TD' && $(event.target).is(':first-child'))) {
 					event = 'ctrl'; // Click on label/checkbox: behave like 'ctrl' key is pressed
 				}
@@ -86,6 +117,10 @@ var Selection = (function() {
         addFolder : function(event, id) {
 			if(typeof event === 'object' && event !== null) {
 				event.preventDefault(); // Prevent event to be fired twice in some cases (due to input checkbox and label)
+				if($(event.target).hasClass('btn-actions')) {
+					Selection.addSel = 1;
+					return false;
+				}
 				if(event.target.tagName === 'LABEL' || (event.target.tagName === 'TD' && $(event.target).is(':first-child'))) {
 					event = 'ctrl'; // Click on label/checkbox: behave like 'ctrl' key is pressed
 				}
@@ -246,7 +281,7 @@ var Selection = (function() {
 			$('#selection').removeClass('selected');
 			$('#mui').removeClass('selected');
 			$('#display').removeClass('selected');
-			$('section.selection').html(Selection.getDefault());
+			Selection.changeDetails(Selection.getDefault());
 		},
 
         putDetails: function(id) {
@@ -256,9 +291,10 @@ var Selection = (function() {
 			$('#mui').addClass('selected');
 			$('#display').addClass('selected');
             if($(elem).length) {
-				html += '<strong>Actions</strong>';
+				//html += '<strong>Actions</strong>';
 
                 if(type === 'file') {
+					html += '<strong>Actions</strong>';
 					html += '<a class="blue block" onclick="Selection.dl(\''+id+'\')" title="'+txt.RightClick.dl+'"><i class="fa fa-download" aria-hidden="true"></i> '+txt.RightClick.dl+'</a>';
 				}
 				if(type === 'folder' && Selection.Files.length === 0 && Selection.Folders.length === 1) {
@@ -284,7 +320,7 @@ var Selection = (function() {
 
 				if(type === 'file') {
 					if(Selection.Files.length > 1 || Selection.Folders.length > 1 || Files.isShared(id.substr(1))) {
-						html += '<a class="blue block" onclick="Selection.unshare(\''+id.substr(1)+'\')" title="'+txt.RightClick.unshare+'"><i class="fa fa-ban" aria-hidden="true"></i> '+txt.RightClick.unshare+'</a>';
+						html += '<a class="blue block share-link" onclick="Selection.unshare(\''+id.substr(1)+'\')" title="'+txt.RightClick.unshare+'"><i class="fa fa-ban" aria-hidden="true"></i> '+txt.RightClick.unshare+'</a>';
 						if(Selection.Files.length === 1 && Selection.Folders.length === 0) {
 							html += '<input type="text" value="'+$(elem).attr('data-url')+'" class="copy_url">';
 							html += '<input id="copy_btn" type="button" class="btn btn-large" value="'+txt.RightClick.copy+'" onclick="copy_url()">';
@@ -292,10 +328,10 @@ var Selection = (function() {
 						}
 					}
 					if(Selection.Files.length > 1 || Selection.Folders.length > 1 || !Files.isShared(id.substr(1))) {
-						html += '<a class="blue block" onclick="Selection.share(\''+id.substr(1)+'\')" title="'+txt.RightClick.share+'"><i class="fa fa-share" aria-hidden="true"></i> '+txt.RightClick.share+'</a>';
+						html += '<a class="blue block share-link" onclick="Selection.share(\''+id.substr(1)+'\')" title="'+txt.RightClick.share+'"><i class="fa fa-share" aria-hidden="true"></i> '+txt.RightClick.share+'</a>';
 					}
 				}
-                $("section.selection").html(Selection.getDefault() + html);
+				Selection.changeDetails(Selection.getDefault() + html);
             }
         }
     }

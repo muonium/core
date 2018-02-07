@@ -13,7 +13,7 @@ var Arrows = (function() {
         init : function() {
             tree = $('#tree');
             if($(tree).length === 0) return false;
-            row = $(tree).find('tr:not(#tree_head)');
+            row = $(tree).find('tr:not(#tree_head):not(.break)');
             if($(row).length === 0) return false;
             max = $(row).length-1;
             i = 0;
@@ -62,7 +62,8 @@ var Arrows = (function() {
         scroll : function(el) {
             // Autoscroll
 			var sy = el.offsetTop - document.querySelector('#tree_head').offsetTop - 130; // Diff with tree head because FF doesn't use relative offset
-			window.pageYOffset = sy;
+			var max_sy = document.body.scrollHeight - document.body.clientHeight;
+			sy = sy > max_sy ? max_sy : sy;
 			document.documentElement.scrollTop = sy;
 			document.body.scrollTop = sy;
         }

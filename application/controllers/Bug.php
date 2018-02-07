@@ -14,7 +14,7 @@ class Bug extends l\Languages {
 
     private $values = [
         "os" => [
-            "Linux" => "Linux/Unix/BSD",
+            "Linux" => "GnuLinux/Unix/BSD",
             "Mac" => "Mac",
             "Win" => "Windows",
             "Android" => "Android",

@@ -99,7 +99,9 @@
 	#selection a.blue, #selection a.blue > .fa { font-size: 15px; margin: 0; }
 	#selection a.blue > .fa { width: 25px; }
 	#selection #up_icon, #selection #copy_icon { display: none !important; }
-	#selection #up_btn, #selection .copy_url, #selection #copy_btn { display: block !important; }
+	#selection #up_btn, #selection .copy_url, #selection #copy_btn, #selection #create_btn { display: block !important; }
+
+	#selection .selection > a:not(.share-link) { display: none; }
 }
 
 @media screen and (max-height: 1000px) and (min-width: 800px) {

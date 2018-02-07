@@ -120,7 +120,9 @@ var Files = (function() {
 				var title = $(elem).attr('title').split("\n");
 				var lastmod = title[1].split(': ');
 				var shareLink = '<a class="mono blue" onclick="Selection.share(\''+el.substr(1)+'\')"><i class="fa fa-share" aria-hidden="true"></i> '+txt.RightClick.share+'</a>';
-				var unshareLink = '<a class="mono blue" onclick="Selection.unshare(\''+el.substr(1)+'\')"><i class="fa fa-ban" aria-hidden="true"></i> '+txt.RightClick.unshare+'</a>';
+				var unshareLink = '<a class="mono blue" onclick="Selection.unshare(\''+el.substr(1)+'\')"><i class="fa fa-ban" aria-hidden="true"></i> '+txt.RightClick.unshare+'</a></p>\
+					<p><a class="blue block" onclick="box_copy_url()"><i class="fa fa-link"></i> '+txt.RightClick.copy+'</a>\
+					<input type="text" value="'+$(elem).attr('data-url')+'" class="copy_url">';
                 Box.box_more = true;
                 Box.reset();
                 Box.Area = 1;
