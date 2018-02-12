@@ -50,7 +50,7 @@ class Upgrade extends l\Languages {
 					'want_shipping' => '0'
 				];
 
-				$offers .= '<form action="'.$endpoint.'" method="post">';
+				$offers .= '<form action="'.$endpoint.'" method="post" target="_blank">';
 				foreach($fields as $name => $value) {
 					$offers .= '<input type="hidden" name="'.$name.'" value="'.$value.'">';
 				}

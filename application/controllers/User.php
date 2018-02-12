@@ -385,6 +385,7 @@ class User extends l\Languages {
 	                data-title="'.htmlentities($subdir['name']).'"
 					onclick="Selection.addFolder(event, \'d'.$subdir['id'].'\')"
 					ondblclick="Folders.open('.$subdir['id'].')"
+					draggable="true"
 				>
 					<td><input type="checkbox" id="sel_d'.$subdir['id'].'"><label for="sel_d'.$subdir['id'].'"></label></td>
 					<td><img src="'.IMG.'desktop/extensions/folder.svg" class="icon"></td>
@@ -426,6 +427,7 @@ class User extends l\Languages {
 					data-url="'.URL_APP.'/dl/?'.setURL($file['id']).'"
 					onclick="Selection.addFile(event, \'f'.$file['id'].'\')"
 					ondblclick="Selection.dl(\'f'.$file['id'].'\')"
+					draggable="true"
 				>
 					<td><input type="checkbox" id="sel_f'.$file['id'].'"><label for="sel_f'.$file['id'].'"></label></td>
 					<td></td>
@@ -684,6 +686,7 @@ class User extends l\Languages {
                 if(is_dir(NOVA.'/'.$_SESSION['id'].'/'.$path.$old) && !is_dir(NOVA.'/'.$_SESSION['id'].'/'.$path.$new)) {
                     if(strlen($new) > 64) { // max folder length 64 chars
                         $new = substr($new, 0, 64);
+						if(is_dir(NOVA.'/'.$_SESSION['id'].'/'.$path.$new)) return false;
 					}
                     // Rename folder in db
                     $this->_modelFolders->rename($path, $old, $new);
@@ -691,6 +694,7 @@ class User extends l\Languages {
                 elseif(file_exists(NOVA.'/'.$_SESSION['id'].'/'.$path.$old) && !file_exists(NOVA.'/'.$_SESSION['id'].'/'.$path.$new)) {
                     if(strlen($new) > 128) { // max file length 128 chars
                         $new = substr($new, 0, 128);
+						if(file_exists(NOVA.'/'.$_SESSION['id'].'/'.$path.$new)) return false;
 					}
 
                     // Rename file in db
@@ -717,11 +721,20 @@ class User extends l\Languages {
         if($type == 'folder') {
             while(is_dir($path.$name)) {
                 if($i < 2) {
+					if(strlen($name) > 60) {
+						$name = substr($name, 0, 60);
+					}
                     $name .= " ($i)";
                 } else {
-                    $pos = strrpos($name, "(");
-                    if($pos === false) return false;
-                    $name = substr($name, 0, $pos)."($i)";
+					$first_pos = strrpos($name, "(");
+                    $last_pos = strrpos($name, ")");
+                    if($first_pos === false || $last_pos === false || $first_pos >= $last_pos) return false;
+					if(!is_numeric(substr($name, $first_pos+1, $last_pos-$first_pos-1))) return false;
+                    $name = substr($name, 0, $first_pos)."($i)";
+					$length = strlen($name);
+					if($length > 64) { // max folder length 64 chars
+						$name = substr($name, 0, ($first_pos-$length+64))."($i)";
+					}
                 }
                 $i++;
             }
@@ -729,12 +742,18 @@ class User extends l\Languages {
         elseif($type == 'file') {
             while(file_exists($path.$name)) {
                 if($i < 2) {
-                    $name = $this->addSuffixe($name, " ($i)");
+                    $name = $this->addSuffixe($name, " ($i)", 128);
                 } else {
                     $first_pos = strrpos($name, "(");
                     $last_pos = strrpos($name, ")");
                     if($first_pos === false || $last_pos === false || $first_pos >= $last_pos) return false;
+					if(!is_numeric(substr($name, $first_pos+1, $last_pos-$first_pos-1))) return false;
+					$old_name = $name;
                     $name = substr($name, 0, $first_pos)."($i)".substr($name, $last_pos+1);
+					$length = strlen($name);
+					if($length > 128) { // max file length 128 chars
+                        $name = substr($old_name, 0, ($first_pos-$length+128))."($i)".substr($old_name, $last_pos+1);
+					}
                 }
                 $i++;
             }
@@ -794,14 +813,15 @@ class User extends l\Languages {
         }
     }
 
-    function addSuffixe($file, $suffixe) {
+    function addSuffixe($file, $suffixe, $max = 128) {
         $double_extensions = ['tar.gz', 'tar.bz', 'tar.xz', 'tar.bz2'];
 
         $pos = strpos($file, '.');
-        if($pos === false) return $file.$suffixe;
+		$max -= strlen($suffixe);
+        if($pos === false) return substr($file, 0, $max).$suffixe;
 
         $pathinfo = pathinfo($file);
-        if(empty($pathinfo['extension'])) return $file.$suffixe;
+        if(empty($pathinfo['extension'])) return substr($file, 0, $max).$suffixe;
 
         $file_length = strlen($file);
         for($i = 0; $i < count($double_extensions); $i++) {
@@ -809,12 +829,14 @@ class User extends l\Languages {
             if($file_length > $length) {
                 $end = substr($file, -1*$length);
                 if('.'.$double_extensions[$i] == $end) {
+					$max -= strlen($end);
                     $start = substr($file, 0, $file_length-$length);
-                    return $start.$suffixe.$end;
+                    return substr($start, 0, $max).$suffixe.$end;
                 }
             }
         }
-        return $pathinfo['filename'].$suffixe.'.'.$pathinfo['extension'];
+		$max -= strlen('.'.$pathinfo['extension']);
+        return substr($pathinfo['filename'], 0, $max).$suffixe.'.'.$pathinfo['extension'];
     }
 
     function MvAction() {

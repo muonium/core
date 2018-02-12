@@ -136,6 +136,8 @@ var UserLoader = function(folder_id) {
 					$('.MessageBox').fadeOut(200, function() {
 				        $(this).remove();
 				    });
+					Selection.remove();
+					Selection.removeDetails();
                     break;
                 case 38:
                     // up arrow
@@ -171,8 +173,21 @@ var UserLoader = function(folder_id) {
 	});
 	document.querySelector("body").addEventListener("drop", function(e) {
 		e.preventDefault();
-		if(e.dataTransfer.files.length === 0) return false;
-		Upload.upFiles(e.dataTransfer.files);
+		if(e.dataTransfer.files.length === 0) {
+			if(e.dataTransfer.getData('text') !== '') { // Move file/folder with drag/drop
+				var target_id = e.target.nodeName === 'TR' ? e.target.id : $(e.target).closest('tr').attr('id');
+				if(target_id !== undefined && target_id.length > 1 && target_id.substr(0,1) === 'd') {
+					Move.cut(e.dataTransfer.getData('text'));
+					Move.paste(target_id.substr(1));
+					Move.Files = [];
+			        Move.Folders = [];
+				}
+			} else {
+				return false;
+			}
+		} else { // Move file(s) from client to Mui
+			Upload.upFiles(e.dataTransfer.files);
+		}
 	});
 
     // Right click inside desktop section
@@ -271,6 +286,9 @@ var setEvents = function() {
             Box.right_click(x, y, this.id);
             return false;
         });
+		$(files[i]).on("dragstart", function(e) {
+			e.originalEvent.dataTransfer.setData("text", e.target.id);
+		});
     }
 
     // Right click inside divs with folder's class (these divs are children of 'desktop')
@@ -288,6 +306,9 @@ var setEvents = function() {
             Box.right_click(x, y, this.id);
             return false;
         });
+		$(folders[i]).on("dragstart", function(e) {
+			e.originalEvent.dataTransfer.setData("text", e.target.id);
+		});
     }
 
     // Dragbars

@@ -87,7 +87,7 @@ var Box = (function() {
                         box_div.innerHTML = '<p onclick="Folders.create()"><i class="fa fa-folder-o" aria-hidden="true"></i> '+txt.RightClick.nFolder+'</p>';
                         box_div.innerHTML += '<p onclick="Upload.dialog()"><i class="fa fa-upload" aria-hidden="true"></i> '+txt.RightClick.upFiles+'</p>';
                         if(Move.Files.length > 0 || Move.Folders.length > 0) {
-                            box_div.innerHTML += '<hr><p onclick="Move.paste(\''+id+'\')"><i class="fa fa-clipboard" aria-hidden="true"></i> '+txt.RightClick.paste+'</p>';
+                            box_div.innerHTML += '<hr><p onclick="Move.paste()"><i class="fa fa-clipboard" aria-hidden="true"></i> '+txt.RightClick.paste+'</p>';
 						}
                     }
                     break;
@@ -110,6 +110,9 @@ var Box = (function() {
                         box_div.innerHTML += '<p onclick="Move.trashMultiple(\''+id+'\')"><i class="fa fa-undo" aria-hidden="true"></i> '+txt.RightClick.restore+'</p>';
                         box_div.innerHTML += '<p onclick="Rm.multiple(\''+id+'\')"><i class="fa fa-trash" aria-hidden="true"></i> '+txt.RightClick.rm+'</p>';
                     }
+					if(Move.Files.length > 0 || Move.Folders.length > 0) {
+						box_div.innerHTML += '<hr><p onclick="Move.paste()"><i class="fa fa-clipboard" aria-hidden="true"></i> '+txt.RightClick.paste+'</p>';
+					}
                     if(Trash.state == 0) {
                         box_div.innerHTML += '<hr><p onclick="Move.rename(\''+id+'\')"><i class="fa fa-pencil" aria-hidden="true"></i> '+txt.RightClick.mvItem+'</p>';
                     }
@@ -128,6 +131,9 @@ var Box = (function() {
                         box_div.innerHTML += '<p onclick="Move.trashMultiple(\''+id+'\')"><i class="fa fa-undo" aria-hidden="true"></i> '+txt.RightClick.restore+'</p>';
                         box_div.innerHTML += '<p onclick="Rm.multiple(\''+id+'\')"><i class="fa fa-trash" aria-hidden="true"></i> '+txt.RightClick.rm+'</p>';
                     }
+					if(Move.Files.length > 0 || Move.Folders.length > 0) {
+						box_div.innerHTML += '<hr><p onclick="Move.paste(\''+id+'\')"><i class="fa fa-clipboard" aria-hidden="true"></i> '+txt.RightClick.paste+'</p>';
+					}
                     if(Trash.state == 0) {
                         box_div.innerHTML += '<hr><p onclick="Move.rename(\''+id+'\')"><i class="fa fa-pencil" aria-hidden="true"></i> '+txt.RightClick.mvItem+'</p>';
                     }

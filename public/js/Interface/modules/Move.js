@@ -104,7 +104,8 @@ var Move = (function() {
             mv(id);
         },
 
-        paste : function() {
+        paste : function(dest) {
+			// Paste selection to current folder or dest if not empty or selected folder
             Box.hide();
             var id = 0;
             var folderName;
@@ -116,6 +117,9 @@ var Move = (function() {
 			if(Selection.Files.length === 0 && Selection.Folders.length === 1) {
 				// Paste in selected folder instead current folder
 				destFolder_id = Selection.Folders[0];
+			}
+			if(dest !== undefined) {
+				destFolder_id = dest;
 			}
 
             if(Move.Files.length > 0 || Move.Folders.length > 0) {
