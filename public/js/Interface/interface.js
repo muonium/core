@@ -175,12 +175,22 @@ var UserLoader = function(folder_id) {
 		e.preventDefault();
 		if(e.dataTransfer.files.length === 0) {
 			if(e.dataTransfer.getData('text') !== '') { // Move file/folder with drag/drop
-				var target_id = e.target.nodeName === 'TR' ? e.target.id : $(e.target).closest('tr').attr('id');
+				var target = e.target;
+				var target_id = target.nodeName === 'TR' ? target.id : $(target).closest('tr').attr('id');
 				if(target_id !== undefined && target_id.length > 1 && target_id.substr(0,1) === 'd') {
 					Move.cut(e.dataTransfer.getData('text'));
 					Move.paste(target_id.substr(1));
 					Move.Files = [];
 			        Move.Folders = [];
+				} else {
+					if(target.nodeName === 'I') target = target.parentNode;
+					if(target.nodeName === 'A' && target.id  !== undefined && target.id.indexOf('parent-') !== -1) {
+						target_id = parseInt(target.id.replace('parent-', ''));
+						Move.cut(e.dataTransfer.getData('text'));
+						Move.paste(target_id);
+						Move.Files = [];
+				        Move.Folders = [];
+					}
 				}
 			} else {
 				return false;
@@ -287,7 +297,7 @@ var setEvents = function() {
             return false;
         });
 		$(files[i]).on("dragstart", function(e) {
-			e.originalEvent.dataTransfer.setData("text", e.target.id);
+			e.originalEvent.dataTransfer.setData("text", this.id);
 		});
     }
 
@@ -307,7 +317,7 @@ var setEvents = function() {
             return false;
         });
 		$(folders[i]).on("dragstart", function(e) {
-			e.originalEvent.dataTransfer.setData("text", e.target.id);
+			e.originalEvent.dataTransfer.setData("text", this.id);
 		});
     }
 
