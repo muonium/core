@@ -5,7 +5,7 @@
         "back": "Zurück zu Muonium",
         "favorites": "Favoriten",
         "login": "Login",
-		"logout": "Logout",
+        "logout": "Logout",
         "recents": "Mui :: Letzte",
         "sharing": "Mui :: Teilen",
         "transfer": "Mui :: Übertragen",
@@ -17,8 +17,8 @@
         "submit": "Absenden",
         "bug": "Melde einen Fehler",
         "loading": "Lädt...",
-		"selected": "Currently selected",
-		"general": "Allgemein",
+        "selected": "Gerade ausgewählt",
+        "general": "Allgemein",
         "shared": "Geteilt",
         "transfers": "Transferiere"
     },
@@ -80,21 +80,21 @@
         "uploading": "Lädt hoch",
         "downloading": "Lädt herunter",
         "quota_of": "[used] von [total]",
-		"shared": "Datenaustausch aktiviert",
-		"generatelink": "Generate Link",
-		"badPass": "Falsches Passwort!",
-		"uploadedBy": "Hochgeladen durch [login] auf",
-		"needhelp": "Need help getting started with Muonium?",
-		"Upnothing": "You haven't uploaded anything yet.",
-		"Dlnothing": "You haven't downloaded anything yet.",
-		"Trashnothing": "You haven't deleted any files recently.",
-		"first": "Upload your first file.",
-		"copied": "Link has been copied to clipboard"
+        "shared": "Datenaustausch aktiviert",
+        "generatelink": "Link generieren",
+        "badPass": "Falsches Passwort!",
+        "uploadedBy": "Hochgeladen durch [login] auf",
+        "needhelp": "Brauchst Du Hilfe, um mit Muonium durchzustarten?",
+        "Upnothing": "Du hast noch nichts hochgeladen.",
+        "Dlnothing": "You haven't downloaded anything yet.",
+        "Trashnothing": "Du hast kürzlich keine Dateien gelöscht.",
+        "first": "Lade Deine erste Datei hoch.",
+        "copied": "Link wurde in der Zwischenablage gespeichert"
     },
 
     "Register": {
-		"donthaveaccount": "Don't have a Muonium account?",
-		"create": "Create one now.",
+        "donthaveaccount": "Noch kein Muonium-Account?",
+        "create": "Erstelle jetzt einen.",
         "email": "Email-Adresse",
         "login": "Benutzername",
         "password": "Passwort",
@@ -122,7 +122,7 @@
     },
 
     "Login": {
-		"signin": "Login",
+        "signin": "Login",
         "forgot": "Passwort vergessen?",
         "register": "Registrieren",
         "bruteforceErr0": "Ungültige Email-Adresse oder ungültiges Passwort",
@@ -135,15 +135,15 @@
         "username": "Email oder Login",
         "badPassphrase": "Fehler: falsches geheimes Passwort",
         "doubleAuth": "Eine Email mit einem Authentifizierungscode wurde an Dich gesendet. Kopiere diesen Code in das obige Feld. <br>Falls Du nach 5 Minuten nichts erhalten hast und die Email nicht im Spamordner ist, klicke bitte auf diesen <a href='[url_app]/Logout'>Link</a>, um einen neuen Verbindungsversuch durchzuführen.",
-		"success": "Successfully logged in"
-	},
+        "success": "Erfolgreich eingeloggt"
+    },
 
     "Validate": {
         "message": "Fehler: Der Verifizierungscode ist falsch, bitte logge Dich ein, um eine neue Verifizierungsemail abzusenden",
         "wait": "Bitte warte eine Minute, bevor Du eine neue Verifizierungsemail abschickst",
         "sendmess": "Bitte klicke auf den Link in der Email um Deinen Account zu aktivieren",
         "sendmail": "Neue Email senden",
-		"done": "Your account is validated. You can now log in and start using Muonium!"
+        "done": "Dein Account ist bestätigt. Du kannst Dich jetzt einloggen und mit Muoinium durchstarten!"
     },
 
     "Profile": {
@@ -170,13 +170,13 @@
         "accountDeletionOk": "Dein Account wurde erfolgreich gelöscht!",
         "deleteAccount": "Account löschen",
         "theme": "Theme",
-		"mailusername": "Email & Username",
-		"pwdpp": "Password & Secret Password",
-		"filedetails": "File Details",
-		"iwant": "I really want to",
-		"otheroptions": "Other options",
-		"upgrade": "Ready to upgrade Muonium?",
-		"getmore": "Get more storage"
+        "mailusername": "Email & Benutzername",
+        "pwdpp": "Passwort & Geheimes Passwort",
+        "filedetails": "Dateidetails",
+        "iwant": "Ich möchte wirklich",
+        "otheroptions": "Weitere Optionen",
+        "upgrade": "Bereit, Muonium upzugraden?",
+        "getmore": "Hol Dir mehr Speicher"
     },
 
     "LostPass": {
@@ -209,14 +209,14 @@
         "restore": "Wiederherstellen"
     },
 
-	"Story": {
-		"keep": "Keep Muonium <u>Free</u> and <u>Open</u>.",
-		"join": "Join our journey of keeping Muonium free, secure, and open source for everyone.",
-		"read": "Read Our Story",
-		"premium": "Go Premium",
-		"donate": "Give a donation",
-		"help": "How does my support help?"
-	},
+    "Story": {
+        "keep": "Halte Muonium <u>frei</u> und <u>offen</u>.",
+        "join": "Schließe Dich unserer Reise, Muonium für jeden frei, sicher, und Open Source zu halten, an.",
+        "read": "Lies unsere Geschichte",
+        "premium": "Werde Premium",
+        "donate": "Spende uns",
+        "help": "Wie hilft meine Unterstützung?"
+    },
 
     "Bug": {
         "os": "Betriebssystem",
@@ -227,12 +227,12 @@
         "messageLength": "Die Mitteilung muss mindestens 50 Zeichen enthalten",
         "form": "Fehler im Formular",
         "sent": "Deine Mitteilung wurde erfolgreich abgesendet. Wir werden so schnell wie möglich per Email darauf antworten",
-		"send": "Send report"
+        "send": "Mitteilung senden"
     },
 
     "Upgrade": {
-		"upgrade": "Upgrade",
-		"upgradeMui": "Upgrade Muonium",
+        "upgrade": "Upgrade",
+        "upgradeMui": "Upgrade Muonium",
         "offers": "Angebote",
         "history": "Geschichte",
         "expired": "Abgelaufen",
@@ -291,8 +291,8 @@
         "t": "TB"
     },
 
-	"Dates": {
-		"date": "d.m.Y",
-		"time": "G:i"
-	}
+    "Dates": {
+        "date": "d.m.Y",
+        "time": "G:i"
+    }
 }
