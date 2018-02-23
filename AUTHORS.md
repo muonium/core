@@ -10,3 +10,4 @@ Individual contributors
 - [Romain Claveau](https://github.com/Ne0blast)
 - Quentin Thomas
 - Arnaud Defay
+- test
