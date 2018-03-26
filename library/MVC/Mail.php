@@ -6,12 +6,18 @@ require_once(ROOT.'/library/PHPMailer/class.phpmailer.php');
 require_once(ROOT.'/library/PHPMailer/class.smtp.php');
 
 class Mail {
+    private $debug = false;
+
     protected $_to;
     protected $_subject;
     protected $_message;
 
     function __set($attr, $val) {
         $this->$attr = $val;
+    }
+
+    function setDebug($debug) {
+        $this->debug = $debug;
     }
 
     function send() {
@@ -26,20 +32,27 @@ class Mail {
         $message_html = $this->_message;
 
         $mail = new \PHPMailer();
-        //$mail->SMTPDebug = 3; // Debug
+        if($this->debug) {
+          $mail->Debugoutput = 'html';
+          $mail->SMTPDebug = 3; // Debug
+        }
         $mail->isSMTP();
         $mail->Host = conf\confMail::smtp_host;
-        $mail->SMTPAuth = true;
-        $mail->Username = conf\confMail::user;
-        $mail->Password = conf\confMail::password;
-        $mail->SMTPSecure = conf\confMail::smtp_secure;
+        $mail->SMTPAuth = conf\confMail::smtp_auth;
+        if(conf\confMail::smtp_auth) {
+            $mail->Username = conf\confMail::user;
+            $mail->Password = conf\confMail::password;
+        }
+        if(defined('conf\confMail::smtp_secure') && conf\confMail::smtp_secure !== null && conf\confMail::smtp_secure !== false) {
+          $mail->SMTPSecure = conf\confMail::smtp_secure;
+        }
         $mail->Port = conf\confMail::port;
 
         $mail->setFrom(conf\confMail::user, conf\confMail::username);
         $mail->AddReplyTo(conf\confMail::user, conf\confMail::username);
         $mail->addAddress($this->_to);
         $mail->isHTML(true);
-		$mail->CharSet = "utf-8";
+		    $mail->CharSet = 'utf-8';
         $mail->Subject = $this->_subject;
         $mail->Body    = $message_html;
         $mail->AltBody = $message_txt;
